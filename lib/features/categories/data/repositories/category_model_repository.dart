@@ -1,0 +1,45 @@
+
+import 'package:dartz/dartz.dart';
+import 'package:awad_nahas/core/error/exception.dart';
+import 'package:awad_nahas/core/error/failure.dart';
+import 'package:awad_nahas/core/network/network.dart';
+import 'package:awad_nahas/features/categories/data/data_sources/category_remote_data_source.dart';
+import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
+import 'package:awad_nahas/features/categories/domain/entities/slider_entity.dart';
+import 'package:awad_nahas/features/categories/domain/repositories/category_repository.dart';
+
+class CategoryModelRepository implements CategoryRepository {
+  final CategoryRemoteDataSourceImpl categoryRemoteDataSource;
+  final NetworkInfo networkInfo;
+  CategoryModelRepository(
+      {required this.categoryRemoteDataSource, required this.networkInfo});
+  @override
+  Future<Either<Failure, List<CategoriesEntity>>> getAllCategories() async {
+    if (await networkInfo.isConnected()) {
+      try {
+        return Right(await categoryRemoteDataSource.getAllCategory());
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+
+  @override
+  Future<Either<Failure, SliderEntity>> getAllSliders({required String sliderTitle}) async{
+    if (await networkInfo.isConnected()) {
+      try {
+        return Right(await categoryRemoteDataSource.getAllSliders(sliderTitle: sliderTitle));
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+
+
+}

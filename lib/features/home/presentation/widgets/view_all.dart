@@ -1,0 +1,26 @@
+import 'package:awad_nahas/core/styles/app_style.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:awad_nahas/features/shared_widgets/view_all.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class ViewAllRow extends StatelessWidget {
+  final String title;
+  final VoidCallback fn;
+  const ViewAllRow({Key? key,required this.title,required this.fn}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        CustomText(
+          text: title,
+          fontSize: AppStyle.average.sp,
+          fontWeight: FontWeight.w700,
+        ),
+        ViewAllWidget(fn: fn),
+      ],
+    );
+  }
+}

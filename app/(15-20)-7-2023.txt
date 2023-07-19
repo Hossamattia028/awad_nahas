@@ -1,0 +1,18 @@
+
+
+
+
+15- Saturday :  Auth + initial Home                     											
+
+16-Sunday : Complete all Home Screen       								
+
+17-monday : Implement dark mode with above and translation and Drawer menu (القائمه الجانبية)
+
+           — any steps coming will implement with translation and dark mode 
+18-Tuesday : main search module (filter and view products)     
+
+
+19-Wednesday : product details 
+                  		             	
+
+20-Thursday :  our-brands & brand products - about brand							  	 							

@@ -1,0 +1,28 @@
+import 'package:awad_nahas/core/strings/app_images.dart';
+import 'package:awad_nahas/core/styles/app_style.dart';
+import 'package:awad_nahas/core/styles/my_fonts.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_translate/flutter_translate.dart';
+
+class AssignedImageWidget extends StatelessWidget {
+  final bool isSmall;
+  const AssignedImageWidget({Key? key,this.isSmall = false}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(AppImages.assigned,height: isSmall?18.h:42.h,),
+        CustomText(
+          text: translate("order.assigned"),
+          color: Colors.black,
+          fontSize: isSmall? AppStyle.verySmall.sp : AppStyle.average.sp,
+          fontFamily: primaryFontBold,
+        ),
+      ],
+    );
+  }
+}
