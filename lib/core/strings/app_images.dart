@@ -5,6 +5,8 @@ class AppImages{
   static const  String images = "assets/images";
   static const  String icons = "assets/icons";
 
+  static const String drawer = "$icons/Group 2479.png";
+
   static const String logoGif = "$icons/awad_nahas Logo Gift.gif";
   static const String logo = "$icons/logo.png";
   static const String logoWhite = "$icons/logo-white.png";
@@ -29,7 +31,7 @@ class AppImages{
 
 
   //search
-  static const String filterIcon = "$icons/Group 2479.png";
+
   static const String filter = "$icons/filter.png";
   static const String sort = "$icons/sort.png";
   static const String searImg = "$images/sear_img.png";

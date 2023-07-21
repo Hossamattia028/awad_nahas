@@ -1,0 +1,48 @@
+import 'package:awad_nahas/core/styles/app_style.dart';
+import 'package:awad_nahas/core/styles/my_colors.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_translate/flutter_translate.dart';
+
+
+class AccountNotAuth extends StatelessWidget {
+  const AccountNotAuth({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SizedBox(height: 100,),
+        CustomText(
+          text: "${translate("profile.welcome")} Mohammed",
+          color: DMUtil.getDC(),
+          fontWeight: FontWeight.w700,
+          fontSize: AppStyle.average.sp,
+        ),
+
+        const SizedBox(height: 10,),
+
+        Column(
+          children: [
+            InkWell(
+              onTap: ()=> Util.pushPage(const LoginScreen(), context),
+              child: CustomText(
+                text: translate("login.app_bar"),
+                color: DMUtil.getPC(),
+                fontWeight: FontWeight.w700,
+                fontSize: AppStyle.small.sp,
+              ),
+            ),
+
+          ],
+        ),
+
+      ],
+    );
+  }
+}

@@ -31,6 +31,7 @@ class CustomTextFromField extends StatelessWidget {
   TextInputType? textInputType;
   Color? borderColor;
   double? borderWidth;
+  double? height;
 
   CustomTextFromField({
     required this.hintText,
@@ -55,6 +56,7 @@ class CustomTextFromField extends StatelessWidget {
     this.enabled,
     this.borderWidth,
     this.borderColor,
+    this.height,
     Key? key,
   }) : super(key: key);
 
@@ -62,7 +64,7 @@ class CustomTextFromField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      height: 41.h,
+      height: height?.h ?? 41.h,
       alignment: Alignment.center,
       child: TextFormField(
         autofocus: false,

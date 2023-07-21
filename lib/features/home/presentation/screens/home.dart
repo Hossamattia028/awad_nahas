@@ -34,37 +34,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: DMUtil.getBC(),
-      body: RefreshIndicator(
-        onRefresh:_onRefresh,
-        color: kPrimary,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.sp,),
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: AppStyle.paddingFromTop.h,),
-              const LogoWidget(width: 120,height: 70,fit: BoxFit.contain,),
-              const SizedBox(height: 10,),
-              const SearchWidget(),
-              const SizedBox(height: 10,),
-              const FilterRow(),
+    return RefreshIndicator(
+      onRefresh:_onRefresh,
+      color: kPrimary,
+      child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.sp,),
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: AppStyle.paddingFromTop.h,),
+            const LogoWidget(width: 120,height: 70,fit: BoxFit.contain,),
+            const SizedBox(height: 10,),
+            const SearchWidget(),
+            const SizedBox(height: 10,),
+            const FilterRow(),
 
 
-              const SelectLocations(),
+            const SelectLocations(),
 
-              BlocBuilder<ProductsBloc,ProductsState>(
-                builder: (ctx,state){
-                  var bloc = ProductsBloc.get(ctx);
-                  return  bloc.enableSearch? const SearchScreen() : const HomeContentWidget();
-                },
-              ),
-              const SizedBox(height: 10,),
-            ],
-          ),
+            BlocBuilder<ProductsBloc,ProductsState>(
+              builder: (ctx,state){
+                var bloc = ProductsBloc.get(ctx);
+                return  bloc.enableSearch? const SearchScreen() : const HomeContentWidget();
+              },
+            ),
+            const SizedBox(height: 10,),
+          ],
         ),
       ),
     );

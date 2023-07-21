@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/account/presentation/screens/edit_profile_screen.dart';
 import 'package:awad_nahas/features/account/presentation/widgets/account_after_auth.dart';
@@ -119,7 +120,7 @@ class ItemLineDrawer extends StatelessWidget {
             children: [
               CustomText(
                 text: title,
-                color: kPrimary,
+                color:DMUtil.getDC(),
                 fontSize: AppStyle.small.sp+2,
                 fontFamily: primaryFontSemiBold,
               ),

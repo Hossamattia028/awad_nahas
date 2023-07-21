@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 2), () async{
       await NotificationsUtils.initialPushNotification();
       // if(Util.checkUser()){
-        Util.pushPageAndRemoveRoutes(const HomeScreen(), context);
+        Util.pushPageAndRemoveRoutes(const RootScreen(), context);
       // }else{
       //   Util.pushPageAndRemoveRoutes(const LoginScreen(), context);
       // }

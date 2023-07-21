@@ -25,8 +25,8 @@ class SearchWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         InkWell(
-          onTap: (){},
-          child: Image.asset(AppImages.filterIcon,height: 34.h,width: 30.w,),
+          onTap: ()=> Scaffold.of(context).openEndDrawer(),
+          child: Image.asset(AppImages.drawer,height: 34.h,width: 30.w,),
         ),
         const SizedBox(width: 5,),
         Expanded(

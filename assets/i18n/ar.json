@@ -3,7 +3,6 @@
       "home": "الرئيسية",
       "nearby_markets": "الأسواق القريبة",
       "all_market": "جميع الأسواق",
-      "marketlistofproducts_appbar": "جميع الوجبات",
       "myorder": "الطلبات",
       "shop": "التسوق",
       "cart": "السلة",
@@ -51,7 +50,7 @@
       "internet": "من فضلك افحص  الإتصال بالإنترنت",
       "user_exist": "!انت مسجل بالفعل معنا",
       "user_not_exist": " المستخدم غير مسجل من قبل",
-      "welcome" : "أهلا بك فى تطبيق Delivery app",
+      "welcome" : "أهلا بك فى تطبيق Awad Nahas",
       "order_send": "تم تكليف الطلب بنجاح",
       "update_user_data": "تم تحديث البيانات بنجاح",
       "gbs": " قم بتفعيل ال GBS ",
@@ -93,9 +92,9 @@
       "completed_order": "تم انهاء الطلب بنجاح"
     },
     "search": {
-      "market": " الأسواق ",
-      "product": " الوجبات ",
-      "search": " ابحث هنا .. "
+      "market": "الأسواق",
+      "product": "منتجات البجث",
+      "search": "ابحث هنا .. "
     },
     "rules":{
       "check": " قم بالموافقه على التراخيص والبنود  ",
@@ -303,7 +302,6 @@
       "enj_home": "تلذذ",
       "cook": "اطبخ",
       "arrive": "وصّل",
-      "msg_enj": "تبي تستمتع بأطيب الوجبات الساخنة",
       "fam_kitchen": "حاب تكون معروف ومطبخك ينشهر",
       "deliver_enj": "كن معنا واستمتع بتوصيل وجباتنا"
     },
@@ -326,7 +324,7 @@
       "deliver_to": "توصيل الي:",
       "all_menu": "كل القائمة",
       "add_new_product": "اضافة وجبات/طبخات جديدة",
-      "all_products": "جميع الوجبات",
+      "all_products": "جميع المنتجات",
       "offers": "العروض",
       "offer": "خصم",
       "sar": "ريال",
@@ -344,7 +342,6 @@
       "food_delivery": "مطبخ",
       "delivery_time": "متوسط مدة التوصيل",
       "average_food_done": "متوسط مده تحضير الطلب",
-      "delivery_fast_food": "توصيل الوجبات الساخنة والسريعة",
       "search": "بحث عن طعامك المفضل",
       "featured_restaurant": "مطابخ مميزة",
       "near_by_restaurant": "مطابخ قريبة",
@@ -353,7 +350,6 @@
       "meter": "متر",
       "kilometer": "كيلو متر",
       "use_your_location": "استخدم موقعك الحالي",
-      "order_your_favourite_food": "اطلب الوجبات المفضلة اليك ",
       "location_sure_to_use": "تآكيد استخدام موقعك الحالي؟",
       "your_location": "موقعك الحالي",
       "kitchen_k": "مطبخ"

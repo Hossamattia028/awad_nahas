@@ -9,7 +9,7 @@ const kPrimary = Color(0xffF41C3B);
 const kHomeSearchBack = Color(0xffF2F4FC);
 const kWhite = Colors.white;
 const kBlack= Colors.black;
-const kBlack2 = Colors.black45;
+const kBlack2 = Color(0xff333333);
 const kConfirmed = Color(0xffAC737B);
 const kChart = Color(0xffBCACF3);
 

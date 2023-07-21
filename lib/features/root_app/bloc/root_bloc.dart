@@ -62,8 +62,8 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     // try{
     emit(RootLoadingState());
     if(event.word.toString().trim()==""){
-      categorySearchList.clear();
-      productSearchList.clear();
+      // categorySearchList.clear();
+      // productSearchList.clear();
       emit(RootSuccessState());
       return;
     }

@@ -59,75 +59,62 @@ class CustomTextFromFieldAuth extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(10)),
         color: Colors.white,
       ),
-      child: Row(
-        children: [
-          prefixIcon!,
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            height: 27.h,
-            color: kText2,
-            width: 1.3,
-          ),
-          Expanded(
-            child: TextFormField(
-              autofocus: false,
-              controller: textEditingController,
-              maxLines: maxLines??1,
-              validator: (value) => validator(value),
-              obscureText: obscureText,
-              enabled: enabled??true,
-              cursorColor: cursorColor ?? Colors.white,
-              keyboardType: textInputType ?? TextInputType.text,
-              onChanged: (val) =>onChanged==null?debugPrint(""):onChanged!(val),
-              onFieldSubmitted: (val) =>onFieldSubmitted==null?debugPrint(""):onFieldSubmitted!(val),
-              style: const TextStyle(
-                color: Colors.black,
-              ),
-              decoration: InputDecoration(
-                filled: filled,
-                contentPadding: smallPadding==true?
-                const EdgeInsets.symmetric(vertical: 1,horizontal: 2):null,
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                focusedBorder:  OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.transparent),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(radius),
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.transparent),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(radius),
-                  ),
-                ),
-                errorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red, width: 2.0),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                focusedErrorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red, width: 2.0),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                suffixIcon: suffixIcon,
-                hintText: hintText,
-                hintStyle: TextStyle(
-                  fontSize: AppStyle.small.sp,
-                  color: Colors.black,
-                  fontFamily: primaryFontReg
-                ),
-                errorStyle: const TextStyle(
-                  color: Colors.red,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+      child: TextFormField(
+        autofocus: false,
+        controller: textEditingController,
+        maxLines: maxLines??1,
+        validator: (value) => validator(value),
+        obscureText: obscureText,
+        enabled: enabled??true,
+        cursorColor: cursorColor ?? Colors.white,
+        keyboardType: textInputType ?? TextInputType.text,
+        onChanged: (val) =>onChanged==null?debugPrint(""):onChanged!(val),
+        onFieldSubmitted: (val) =>onFieldSubmitted==null?debugPrint(""):onFieldSubmitted!(val),
+        style: const TextStyle(
+          color: Colors.black,
+        ),
+        decoration: InputDecoration(
+          filled: filled,
+          contentPadding: smallPadding==true?
+          const EdgeInsets.symmetric(vertical: 1,horizontal: 2):null,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          focusedBorder:  OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(
+              Radius.circular(radius),
             ),
           ),
-        ],
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(
+              Radius.circular(radius),
+            ),
+          ),
+          errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red, width: 2.0),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          focusedErrorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red, width: 2.0),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          suffixIcon: suffixIcon,
+          hintText: hintText,
+          hintStyle: TextStyle(
+              fontSize: AppStyle.small.sp,
+              color: Colors.black,
+              fontFamily: primaryFontReg
+          ),
+          errorStyle: const TextStyle(
+            color: Colors.red,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
     );
   }

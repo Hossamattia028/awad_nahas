@@ -10,7 +10,6 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_state.da
 import 'package:awad_nahas/features/products/presentation/screens/product_details_screen.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/rate_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 
@@ -59,12 +58,12 @@ class RelatedProductsList extends StatelessWidget {
                                 children: [
                                   const SizedBox(height: 5,),
                                   SizedBox(
-                                    width: 60.w,
+                                    width: 120.w,
                                     child: CustomText(
                                       text: item.title,
                                       color: kText1,
                                       fontWeight: FontWeight.w500,
-                                      fontSize: AppStyle.verySmall.sp,
+                                      fontSize: AppStyle.small.sp,
                                       isEllipsis: true,
                                     ),
                                   ),
@@ -73,7 +72,7 @@ class RelatedProductsList extends StatelessWidget {
                                     child: CustomText(
                                       text: item.desc,
                                       color: kText1,
-                                      fontWeight: FontWeight.w700,
+                                      // fontWeight: FontWeight.w700,
                                       fontSize: AppStyle.verySmall.sp,
                                       isEllipsis: true,
                                     ),
@@ -82,7 +81,7 @@ class RelatedProductsList extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       ProductPriceWidget(productModel: item,),
-                                      const RateWidget(countRate: 300,),
+                                      // const RateWidget(countRate: 300,),
                                     ],
                                   ),
                                   const SizedBox(height: 5),

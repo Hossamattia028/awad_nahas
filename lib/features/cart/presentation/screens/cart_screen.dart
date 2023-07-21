@@ -1,3 +1,4 @@
+import 'package:awad_nahas/features/account/presentation/widgets/account_before_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -18,16 +19,17 @@ class CartScreen extends StatelessWidget {
       backgroundColor: kHomeSearchBack,
       body: RefreshIndicator(
         onRefresh: () =>  _buildRefresh(context),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          physics: const BouncingScrollPhysics(),
+        child: const SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          physics: BouncingScrollPhysics(),
           child: Column(
-            children: const [
+            children: [
 
               CartListWidget(),
               CouponWidget(),
               OrderDetails(),
               CartBottomButton(),
+              AccountNotAuth(),
             ],
           ),
         ),
