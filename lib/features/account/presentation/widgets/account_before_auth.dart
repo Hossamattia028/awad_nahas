@@ -1,5 +1,4 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
@@ -19,7 +18,7 @@ class AccountNotAuth extends StatelessWidget {
       children: [
         const SizedBox(height: 100,),
         CustomText(
-          text: "${translate("profile.welcome")} Mohammed",
+          text: translate("profile.welcome"),
           color: DMUtil.getDC(),
           fontWeight: FontWeight.w700,
           fontSize: AppStyle.average.sp,

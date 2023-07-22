@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
         title: '',
         whiteLogo: true,
         backGroundColor: kPrimary,
-        icon: DrawerIcon(ctx: context,),
+        leadingIcon: DrawerIcon(ctx: context,),
       ),
       body: RefreshIndicator(
         onRefresh: () => _buildRefresh(context),

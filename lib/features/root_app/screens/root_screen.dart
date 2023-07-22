@@ -22,7 +22,7 @@ class RootScreen extends StatelessWidget {
         int index = bloc.currentScreenIndex;
         return Scaffold(
           bottomNavigationBar: const BottomNavBar(),
-          endDrawer: const DrawerWidget(),
+          drawer: const DrawerWidget(),
           backgroundColor: kWhite,
           body: Stack(
             alignment: Alignment.bottomCenter,

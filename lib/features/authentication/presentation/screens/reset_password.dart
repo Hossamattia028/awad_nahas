@@ -1,12 +1,13 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
+import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_text_from_field_auth.dart';
-import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,20 @@ class ResetPassword extends StatelessWidget {
         backgroundColor: kWhite,
         appBar: GlobalAppBar(
           justLogo: false,
-          leadingIcon: GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),kText2,Alignment.centerRight),
+          leadingIcon:  Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),kText2,Alignment.center),
+              const SizedBox(width: 5,),
+              CustomText(
+                text: translate("signup.reset_password"),
+                fontSize: AppStyle.large.sp,
+                fontFamily: primaryFontSemiBold,
+                color: Colors.black,
+                alignCenter: true,
+              ),
+            ],
+          ),
           title: '',
         ),
         body: BlocListener<AccountBloc,AccountState>(
@@ -57,11 +71,6 @@ class ResetPassword extends StatelessWidget {
             child:  Column(
               children: [
                 SizedBox(height: AppStyle.paddingFromTop.h,),
-
-                const LogoWidget(width: 180,fit: BoxFit.contain,height: 90,),
-
-                const SizedBox(height: 40,),
-
                 AlignChildRow(
                   isStart: true,
                   child: CustomText(
@@ -76,14 +85,19 @@ class ResetPassword extends StatelessWidget {
                   builder: (ctx,state){
                     var bloc = AuthBloc.get(ctx);
                     bool showPassword = bloc.showPassword;
-                    return CustomTextFromFieldAuth(
+                    return CustomTextFromField(
+                        hasBorder: true,
+                        borderWidth: 1,
+                        borderColor: DMUtil.getD2C(),
+                        labelText: '',
+                        height: 50,
+                        radius: 10,
                         hintText: translate("login.your_password"),
-                        radius: 1,
                         hintColor: kSecondPrimary,
                         textEditingController: passTextEditingController,
                         cursorColor: kPrimary,
                         validator: () {},
-                        prefixIcon: Image.asset(AppImages.lock,width: 22.w,),
+                        prefixIcon: null,
                         obscureText: !showPassword,
                         suffixIcon: IconButton(
                           onPressed: () => ctx.read<AuthBloc>().add(const ChangePasswordEvent()),
@@ -105,14 +119,19 @@ class ResetPassword extends StatelessWidget {
                   builder: (ctx,state){
                     var bloc = AuthBloc.get(ctx);
                     bool showPassword = bloc.showPassword;
-                    return CustomTextFromFieldAuth(
+                    return CustomTextFromField(
                         hintText: translate("login.re_type_password"),
-                        radius: 1,
+                        hasBorder: true,
+                        borderWidth: 1,
+                        borderColor: DMUtil.getD2C(),
+                        labelText: '',
+                        height: 50,
+                        radius: 10,
                         hintColor: kSecondPrimary,
                         textEditingController: passEnsureTextEditingController,
                         cursorColor: kPrimary,
                         validator: () {},
-                        prefixIcon: Image.asset(AppImages.lock,width: 22.w,),
+                        prefixIcon: null,
                         obscureText: !showPassword,
                         suffixIcon: IconButton(
                           onPressed: () => ctx.read<AuthBloc>().add(const ChangePasswordEvent()),
@@ -134,26 +153,27 @@ class ResetPassword extends StatelessWidget {
                   builder: (ctx,state){
                     var bloc = AccountBloc.get(ctx);
                     return CustomButton(
-                        height: 34.h,
-                        width: 100.w,
+                        height: 40.h,
+                        width: double.infinity,
                         circular: 15,
                         widget: state is ChangeUserPasswordState && state.response.isLoad==true?
                         const CircularProgressIndicator(color: Colors.white,):
                         CustomText(
                           text: translate("button.confirm"),
-                          color: kWhite,
+                          color: DMUtil.getWC(),
                           fontSize: AppStyle.average.sp,
                           fontFamily: primaryFontBold,
                           alignCenter: true,
                         ),
-                        color: kPrimary,
+                        color: DMUtil.getRED(),
                         onPressed: (){
-                          if(!checkIfTheSame())return SnackBarBuilder.showFeedBackMessage(context, translate("signup.confirm_password_error"), Colors.red);
+                          // if(!checkIfTheSame())return SnackBarBuilder.showFeedBackMessage(context, translate("signup.confirm_password_error"), Colors.red);
                           if(validateForm()){
-                            bloc.add(ChangeUserPasswordEvent(data: {
-                              "phone": phone,
-                              "password": passTextEditingController.text.trim(),
-                            }));
+                            Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+                            // bloc.add(ChangeUserPasswordEvent(data: {
+                            //   "phone": phone,
+                            //   "password": passTextEditingController.text.trim(),
+                            // }));
                           }else{
                             SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
                           }
@@ -161,9 +181,7 @@ class ResetPassword extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30,),
               ],
             ),
           ),

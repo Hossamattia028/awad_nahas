@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/categories.dart';
@@ -25,29 +26,26 @@ class _CategoryScreenState extends State<CategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10.w),
-        child: Column(
-          children: [
-            const SearchWidget(),
-            const SizedBox(height: 10,),
-            BlocBuilder<CategoriesBloc,CategoriesState>(
-              builder: (ctx,state){
-                var bloc = CategoriesBloc.get(ctx);
-                if(bloc.categorySlider==null)return const SizedBox.shrink();
-                return const SliderWidget(height: 100,);
-              },
-            ),
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      padding: EdgeInsets.symmetric(vertical: AppStyle.paddingFromTop.h,horizontal: 10.w),
+      child: Column(
+        children: [
+          const SearchWidget(),
+          const SizedBox(height: 10,),
+          BlocBuilder<CategoriesBloc,CategoriesState>(
+            builder: (ctx,state){
+              var bloc = CategoriesBloc.get(ctx);
+              if(bloc.categorySlider==null)return const SizedBox.shrink();
+              return const SliderWidget(height: 100,);
+            },
+          ),
 
-            const HomeCategories(viewAll: true,),
+          const HomeCategories(viewAll: true,),
 
 
 
-          ],
-        ),
+        ],
       ),
     );
   }

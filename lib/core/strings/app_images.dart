@@ -15,8 +15,10 @@ class AppImages{
   static const String loadingGif = "$images/loading.gif";
 
   //auth icons
-  static const String phone = "$icons/phone_black.png";
   static const String lock = "$icons/lock_black.png";
+  static const String phone = "$icons/phone.png";
+  static const String facebook = "$icons/facebook.png";
+  static const String google = "$icons/google.png";
 
   //home icons
   static const String delivery = "$icons/truck.png";

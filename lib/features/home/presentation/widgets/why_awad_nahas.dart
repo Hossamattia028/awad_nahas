@@ -25,7 +25,7 @@ class WhyAwaNahWidget extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.symmetric(vertical: 4.h),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
+            crossAxisCount: 3,
             crossAxisSpacing: 10.h,
             mainAxisSpacing: 2.h,
             childAspectRatio: 1.1,

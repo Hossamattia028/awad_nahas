@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/reset_password.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -66,18 +67,36 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
       key: scaffoldKey,
       appBar: GlobalAppBar(
         justLogo: false,
-        leadingIcon: GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),kText2,Alignment.centerRight),
+        leadingIcon: SizedBox(
+          width: 300.w,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),kText2,Alignment.centerRight),
+              Expanded(
+                flex: 2,
+                child: CustomText(
+                  text: 'OTP',
+                  fontSize: AppStyle.large.sp,
+                  fontFamily: primaryFontSemiBold,
+                  color: Colors.black,
+                  alignCenter: true,
+                ),
+              ),
+            ],
+          ),
+        ),
         title: '',
       ),
       body: GestureDetector(
         onTap: () {},
         child:  SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.sp,),
+          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
           child: Column(
             children: [
+
               SizedBox(height: AppStyle.paddingFromTop.h,),
-              LogoWidget(width: 200.w,fit: BoxFit.contain,height: 90.h,),
-              const SizedBox(height: 30,),
+
               CustomText(
                 text: translate("signup.write_code"),
                 fontSize: AppStyle.small.sp,
@@ -85,7 +104,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 color: Colors.black,
               ),
               CustomText(
-                text: "${translate("signup.have_sent_code")} \n ${widget.phone}",
+                text: "${translate("signup.code_sent")} \n ${widget.phone}",
                 fontSize: AppStyle.small.sp,
                 color: kText1,
                 alignCenter: true,
@@ -116,15 +135,16 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                             }
                           },
                           pinTheme: PinTheme(
+                            borderWidth: 0,
                             shape: PinCodeFieldShape.box,
-                            borderRadius: const BorderRadius.all(Radius.circular(10)),
-                            fieldHeight: 40,
+                            borderRadius: const BorderRadius.all(Radius.circular(5)),
+                            fieldHeight: 46,
                             fieldWidth: 40,
                             activeColor:kSecondPrimary,
-                            activeFillColor: Colors.white,
-                            inactiveColor:Colors.white,
-                            inactiveFillColor: kWhite,
-                            selectedFillColor:kSecondPrimary,
+                            activeFillColor: kBackGround,
+                            inactiveColor: Colors.white,
+                            inactiveFillColor: kBackGround,
+                            selectedFillColor:kBackGround,
                             disabledColor: Colors.white,
                           ),
                           // cursorColor: Colors.black,
@@ -175,15 +195,15 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
                         return;
                       }
-                      if(await Util.verifyFirebaseCode(otp)) {
+                      // if(await Util.verifyFirebaseCode(otp)) {
                         Util.pushPage(ResetPassword(phone: widget.phone,), context);
-                      }else{
-                        SnackBarBuilder.showFeedBackMessage(context, translate("toast.verification_code"), Colors.red);
-                      }
+                      // }else{
+                      //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.verification_code"), Colors.red);
+                      // }
                     },
-                    minWidth: 100.w,
-                    height: 34.h,
-                    color: kPrimary,
+                    minWidth: double.infinity,
+                    height: 40.h,
+                    color: DMUtil.getRED(),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),

@@ -1,6 +1,8 @@
+import 'package:awad_nahas/core/strings/enum/social_enum.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/register.dart';
+import 'package:awad_nahas/features/authentication/presentation/widgets/auth_with_social.dart';
 import 'package:awad_nahas/features/authentication/presentation/widgets/remember_me.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
@@ -33,11 +35,6 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: kWhite,
-        appBar: const GlobalAppBar(
-          justLogo: false,
-          // leadingIcon: GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),kText2,Alignment.centerRight),
-          title: '',
-        ),
         body: BlocListener<AuthBloc,AuthState>(
           listenWhen: (context,state)=> state is LogInSuccessfullyState || state is LogInFailedState ,
           listener: (ctx,state){
@@ -56,13 +53,11 @@ class LoginScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
             child:  Column(
               children: [
-                AlignChildRow(child: GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),DMUtil.getDC(),Alignment.centerRight),),
+                SizedBox(height: AppStyle.paddingFromTop.h,),
+                AlignChildRow(child: GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),DMUtil.getDC(),Alignment.center),),
                 const LogoWidget(width: 180,fit: BoxFit.contain,height: 90,),
 
-
-                const SizedBox(
-                  height: 40,
-                ),
+                const SizedBox(height: 10,),
                 AlignChildRow(
                   isStart: true,
                   child: CustomText(
@@ -104,7 +99,7 @@ class LoginScreen extends StatelessWidget {
                         labelText: '',
                         height: 50,
                         hintText: translate("signup.password"),
-                        radius: 1,
+                        radius: 10,
                         hintColor: kSecondPrimary,
                         onChanged: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm())),
                         onFieldSubmitted: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm())),
@@ -140,9 +135,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 20,),
                 BlocBuilder<AuthBloc,AuthState>(
                   builder: (ctx,state){
                     if(state is LogInLoadingState)return const CircularProgressIndicator(backgroundColor: kPrimary,);
@@ -170,7 +163,10 @@ class LoginScreen extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(height: 15,),
+                const AuthWithSocial(socialEnum: SocialEnum.PHONE),
+                const AuthWithSocial(socialEnum: SocialEnum.GOOGLE),
+                const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK),
                 Text.rich(
                   TextSpan(
                     text:
@@ -189,8 +185,8 @@ class LoginScreen extends StatelessWidget {
                           ..onTap = () => Util.pushPage(const RegisterScreen(), context),
                       )
                     ],
-                    style: const TextStyle(
-                      color: Colors.black38,
+                    style: TextStyle(
+                      color: DMUtil.getD2C(),
                       fontFamily: primaryFontReg,
                     ),
                   ),
