@@ -12,47 +12,48 @@ class SmallBannerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        Image.asset(AppImages.bannerS,height: 120.h,width: double.infinity,fit: BoxFit.fill,),
-        Positioned(
-            bottom: 10,
-            left: Util.getLang()=="en_US"?20:0,
-            right: Util.getLang()!="en_US"?20:0,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CustomText(
-                  text: "Title",
-                  color: DMUtil.getWC(),
-                  fontSize: AppStyle.large.sp,
-                ),
-                CustomText(
-                  text: "From Price",
-                  color: DMUtil.getWC(),
-                  fontSize: AppStyle.large.sp,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CustomText(
-                      text: translate("store.shop_now"),
-                      color: DMUtil.getWC(),
-                      fontSize: AppStyle.large.sp,
-                      alignCenter: true,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 7,left: 5,right: 5),
-                      child: Icon(Icons.arrow_forward,color: Colors.white,size: 20,),
-                    ),
-                  ],
-                ),
-              ],
-            )
-        ),
-      ],
+    return Container(
+        height: 145.h,
+        width: 170.w,
+        padding: const EdgeInsets.only(top: 40,left: 20,right: 20),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: const DecorationImage(
+                image: AssetImage(AppImages.bannerS,),
+                fit: BoxFit.fill
+        )
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          CustomText(
+            text: "Title",
+            color: DMUtil.getWC(),
+            fontSize: AppStyle.large.sp,
+          ),
+          CustomText(
+            text: "From Price",
+            color: DMUtil.getWC(),
+            fontSize: AppStyle.large.sp,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CustomText(
+                text: translate("store.shop_now"),
+                color: DMUtil.getWC(),
+                fontSize: AppStyle.large.sp,
+                alignCenter: true,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 7,left: 5,right: 5),
+                child: Icon(Icons.arrow_forward,color: Colors.white,size: 20,),
+              ),
+            ],
+          ),
+        ],
+      )
     );
   }
 }

@@ -26,7 +26,7 @@ class HomeCategoriesList extends StatelessWidget {
             itemCount: viewAll? bloc.categoriesList.length : bloc.categoriesList.length>10?8:bloc.categoriesList.length,
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(vertical: 8.h),
+            padding: EdgeInsets.symmetric(vertical: 5.h),
             itemBuilder: (BuildContext context, int index) {
               var item = bloc.categoriesList[index];
               return InkWell(
@@ -36,7 +36,7 @@ class HomeCategoriesList extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       backgroundColor: DMUtil.getBCC(),
-                      radius: 25.w,
+                      radius: 27.w,
                       child: ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,width: 30,height:  46,),
                     ),
                     SizedBox(

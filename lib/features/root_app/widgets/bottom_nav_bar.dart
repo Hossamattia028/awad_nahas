@@ -1,5 +1,5 @@
+import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -24,9 +24,9 @@ class BottomNavBar extends StatelessWidget {
           showUnselectedLabels: true,
           items: [
             BottomNavigationBarItem(icon: const Icon(Icons.home_filled),label: translate("app_bar.home"),),
-            BottomNavigationBarItem(icon: const Icon(Icons.dashboard_outlined),label: translate("app_bar.categories"),),
-            BottomNavigationBarItem(icon: const Icon(Icons.shopping_cart_outlined),label: translate("app_bar.cart"),),
-            BottomNavigationBarItem(icon: const Icon(CupertinoIcons.person),label: translate("app_bar.profile"),),
+            BottomNavigationBarItem(icon: Image.asset(currentIndex==1?AppImages.categorySelected:AppImages.category),label: translate("app_bar.categories"),),
+            BottomNavigationBarItem(icon: Image.asset(currentIndex==2?AppImages.cartSelected:AppImages.cart),label: translate("app_bar.cart"),),
+            BottomNavigationBarItem(icon: Image.asset(currentIndex==3?AppImages.accountSelected:AppImages.account),label: translate("app_bar.profile"),),
           ],
         );
       },

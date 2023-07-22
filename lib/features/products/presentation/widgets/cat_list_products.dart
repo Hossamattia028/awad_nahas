@@ -29,6 +29,7 @@ class CatProductsList extends StatelessWidget {
         list = bloc.filterByCategoryID(cat.id);
         if (list.isEmpty) return const SizedBox.shrink();
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,7 +45,7 @@ class CatProductsList extends StatelessWidget {
             ),
             const SizedBox(height: 5,),
             SizedBox(
-              height: 277.h,
+              height: 290.h,
               width: 470.w,
               child: ListView.separated(
                 itemCount: list.length > 2 ? 2 : list.length,
@@ -55,36 +56,25 @@ class CatProductsList extends StatelessWidget {
                   var item = list[index];
                   return InkWell(
                     onTap: () => Util.pushPage(ProductDetailPage(item: item,), context),
-                    child: Container(
-                      width: 160.w,
-                      padding: const EdgeInsets.symmetric(horizontal: 3,),
-                      decoration:  BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(15)),
-                        color: DMUtil.getBC(),
-                        boxShadow: [
-                          BoxShadow(
-                            color:  Colors.grey.withOpacity(0.06),
-                            blurRadius: 1,
-                            offset: const Offset(2, 3), // Shadow position
-                          ),
-                          BoxShadow(
-                            color:  Colors.grey.withOpacity(0.06),
-                            blurRadius: 1,
-                            offset: const Offset(-2, 3), // Shadow position
-                          ),
-
-                        ],
+                    child: Card(
+                      // margin: EdgeInsets.zero,
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      alignment: Alignment.center,
                       child: Column(
                         children: [
                           const SizedBox(height: 12,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                               const DiscountWidget(value: "-15%"),
-                              WishListIconWidget(item: item),
-                            ],
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            width: 150.w,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const DiscountWidget(value: "-15%"),
+                                WishListIconWidget(item: item),
+                              ],
+                            ),
                           ),
                           ImageWidget(
                             imgUrl: item.imgPath,
@@ -103,13 +93,13 @@ class CatProductsList extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    width: 190.w,
-                                    height: 45.h,
+                                    width: 150.w,
+                                    height: 50.h,
                                     child: CustomText(
-                                      text: "${item.title} test test  test test test",
+                                      text: item.title,
                                       color: DMUtil.getDC(),
                                       fontWeight: FontWeight.w500,
-                                      fontSize: AppStyle.average.sp,
+                                      fontSize: AppStyle.large.sp-5,
                                       isEllipsis: true,
                                       maxLine: 2,
                                     ),
@@ -137,7 +127,7 @@ class CatProductsList extends StatelessWidget {
                     ),
                   );
                 },
-                separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 20,),
+                separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 15,),
               ),
             ),
             const SizedBox(height: 5,),

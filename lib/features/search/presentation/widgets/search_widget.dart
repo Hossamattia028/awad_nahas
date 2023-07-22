@@ -1,6 +1,8 @@
 
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/home/presentation/widgets/filter_row.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,40 +34,55 @@ class SearchWidget extends StatelessWidget {
         Expanded(
           child: Container(
               height: 39.h,
+              width: 300.w,
               decoration: const BoxDecoration(
-                  color: kHomeSearchBack,
                   borderRadius: BorderRadius.all(Radius.circular(10))
               ),
               child: BlocBuilder<RootBloc,RootState>(
                 builder: (ctx,state){
                   var bloc = RootBloc.get(ctx);
-                  return CustomTextFromField(
-                    onChanged: (val){
-                      if(val.toString().trim()==""){
-                        return bloc.add(SearchEvent(word: val.toString().trim().toLowerCase(),
-                            categoryList: CategoriesBloc.get(context).categoriesList,productList: ProductsBloc.get(context).productsList));
-                      }
-                    },
-                    onFieldSubmitted:(val){
-                      bloc.add(SearchEvent(word: val.toString().trim().toLowerCase(),categoryList: CategoriesBloc.get(context).categoriesList,productList:ProductsBloc.get(context).productsList));
-                      bloc.add(const ChangeIndex(index: 0, title: ""));
-                      if(isPop)return Navigator.of(context).pop();
-                    },
-                    hintText: translate("app_bar.search"),
-                    labelText: "",
-                    hintColor: kSecondPrimary,
-                    radius: 10,
-                    textEditingController: searchTextEditingController,
-                    cursorColor: kPrimary,
-                    validator: () {},
-                    prefixIcon: Icon(
-                      CupertinoIcons.search,
-                      color: DMUtil.getDC(),
-                    ),
-                    smallPadding: true,
-                    obscureText: false,
-                    hasBorder: true,
-                    isLabelError: false,
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 39.h,
+                        width: 225.w,
+                        child: CustomTextFromField(
+                          onChanged: (val){
+                            if(val.toString().trim()==""){
+                              return bloc.add(SearchEvent(word: val.toString().trim().toLowerCase(),
+                                  categoryList: CategoriesBloc.get(context).categoriesList,productList: ProductsBloc.get(context).productsList));
+                            }
+                          },
+                          onFieldSubmitted:(val){
+                            bloc.add(SearchEvent(word: val.toString().trim().toLowerCase(),categoryList: CategoriesBloc.get(context).categoriesList,productList:ProductsBloc.get(context).productsList));
+                            bloc.add(const ChangeIndex(index: 0, title: ""));
+                            if(isPop)return Navigator.of(context).pop();
+                          },
+                          hintText: translate("app_bar.search"),
+                          labelText: "",
+                          hintColor: kSecondPrimary,
+                          radius: 10,
+                          textEditingController: searchTextEditingController,
+                          cursorColor: kPrimary,
+                          validator: () {},
+                          prefixIcon: InkWell(
+                            onTap: ()=> ProductsBloc.get(context).add(const EnableSearchEvent()),
+                            child: Icon(
+                              CupertinoIcons.search,
+                              color: DMUtil.getDC(),
+                            ),
+                          ),
+                          smallPadding: true,
+                          obscureText: false,
+                          hasBorder: true,
+                          isLabelError: false,
+                        ),
+                      ),
+                      const SizedBox(width: 5,),
+                      const FilterRow(),
+                    ],
                   );
                 },
               )

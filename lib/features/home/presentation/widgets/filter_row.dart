@@ -13,24 +13,8 @@ class FilterRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        InkWell(
-          onTap: (){
-            showModalBottomSheet(
-              context: context,
-              backgroundColor: Colors.white,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
-              ),
-              builder: (ctx){
-                return const SearchFilterBottomSheetWidget();
-              },
-            );
-          },
-          child: Image.asset(AppImages.filter,width: 31.w,height: 20.h,),
-        ),
-        const SizedBox(width: 10,),
         InkWell(
           onTap: (){
             showModalBottomSheet(
@@ -46,12 +30,24 @@ class FilterRow extends StatelessWidget {
           },
           child: Image.asset(AppImages.sort,width: 31.w,height: 25.h,),
         ),
-
-        const SizedBox(width: 10,),
+        const SizedBox(width: 2,),
         InkWell(
-          onTap: ()=> ProductsBloc.get(context).add(const EnableSearchEvent()),
-          child: const Icon(Icons.search),
+          onTap: (){
+            showModalBottomSheet(
+              context: context,
+              backgroundColor: Colors.white,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
+              ),
+              builder: (ctx){
+                return const SearchFilterBottomSheetWidget();
+              },
+            );
+          },
+          child: Image.asset(AppImages.filter,width: 31.w,height: 20.h,),
         ),
+
+
 
       ],
     );

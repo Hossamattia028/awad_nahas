@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/home/presentation/widgets/filter_row.dart';
 import 'package:awad_nahas/features/locations/presentation/widgets/select_location_drop_down.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/search/presentation/screens/search_screen.dart';
@@ -48,9 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const LogoWidget(width: 120,height: 70,fit: BoxFit.contain,),
             const SizedBox(height: 10,),
             const SearchWidget(),
-            const SizedBox(height: 10,),
-            const FilterRow(),
-
 
             const SelectLocations(),
 

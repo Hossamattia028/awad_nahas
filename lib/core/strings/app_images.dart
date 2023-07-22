@@ -25,6 +25,12 @@ class AppImages{
   static const String location = "$icons/location pin.png";
   static const String bannerV = "$images/v-banner.png";
   static const String bannerS = "$images/banner.png";
+  static const String category = "$icons/Category.png";
+  static const String categorySelected = "$icons/Category_selected.png";
+  static const String account = "$icons/Account.png";
+  static const String accountSelected = "$icons/account_circle.png";
+  static const String cart = "$icons/Cart.png";
+  static const String cartSelected = "$icons/Cart_selected.png";
   // static const String bannerS = "$images/banner.png";
 
   //order icons

@@ -9,7 +9,7 @@ import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 
 class SliderWidget extends StatelessWidget {
   final double height;
-  const SliderWidget({Key? key,this.height = 150}) : super(key: key);
+  const SliderWidget({Key? key,this.height = 170}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class SliderWidget extends StatelessWidget {
                     autoPlay: list.length<=1?false:true,
                     enableInfiniteScroll: list.length<=1?false:true,
                     viewportFraction: 1,
-                    enlargeCenterPage: false,
+                    enlargeCenterPage: true,
                     onPageChanged: (index,reason)=> bloc.add(ChangeSliderIndexEvent(val: index)),
                   ),
                   itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {

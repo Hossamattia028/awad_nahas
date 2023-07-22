@@ -25,7 +25,7 @@ class SettingLineOption extends StatelessWidget {
             CustomText(
               text: title,
               color: kPrimaryBlack,
-              fontSize: AppStyle.small.sp+2,
+              fontSize: AppStyle.average.sp,
               fontFamily: primaryFontBold,
             ),
             Icon(Icons.arrow_forward_ios,color: Colors.black45,size: 15.w),

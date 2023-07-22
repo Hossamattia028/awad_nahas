@@ -1,0 +1,18 @@
+
+
+
+
+22- Saturday : review the design for previous screens  our-brands 	                    											
+
+23-Sunday : brand products - about brand product details & create custom dialogs on hole the app   								
+
+24-monday : category section with search 
+
+     
+25-Tuesday : wishlist & view my account & integrate app with google map
+
+
+26-Wednesday : address section (add address and select and address details and view google map screen and select An address) 
+                  		             	
+
+27-Thursday: profile account with edit with change password inside account 					  	 							

@@ -38,7 +38,6 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Container(
           padding: EdgeInsets.only(left: 10.w, right: 10.w, top: AppStyle.paddingFromTop.h),
           decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(18)),
             color: backGroundColor,
           ),
           child: Row(

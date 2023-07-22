@@ -29,7 +29,7 @@ class WhyAwaNahWidget extends StatelessWidget {
             crossAxisSpacing: 10.h,
             mainAxisSpacing: 2.h,
             childAspectRatio: 1.1,
-            mainAxisExtent: 90.h,
+            mainAxisExtent: 100.h,
           ),
           itemBuilder: (BuildContext context, int index) {
             var item = list[index];
@@ -38,7 +38,7 @@ class WhyAwaNahWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     CircleAvatar(
-                      radius: 20.w,
+                      radius: 24.w,
                       backgroundColor: DMUtil.getWC(),
                       backgroundImage: AssetImage(
                         item.img,
