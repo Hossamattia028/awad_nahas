@@ -3,6 +3,7 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
+import 'package:awad_nahas/features/categories/presentation/screens/about_brand.dart';
 import 'package:awad_nahas/features/categories/presentation/widgets/products_brand.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class BrandDetailsScreen extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 130.h,
+                  height: 90.h,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("${AppImages.images}/MIELE-Logo-01.png"),
@@ -62,17 +63,14 @@ class BrandDetailsScreen extends StatelessWidget {
                           ],
                         ),
 
-                        Expanded(
+                        const Expanded(
                           child: TabBarView(
                             children: <Widget>[
-                              const ProductsBrand(),
-                              Container(
-                                color: Colors.yellow,
-                              ),
+                              ProductsBrand(),
+                              AboutBrand(),
                             ],
                           ),
                         ),
-
 
                       ],
                     ),
