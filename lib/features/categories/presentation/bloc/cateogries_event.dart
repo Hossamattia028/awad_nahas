@@ -18,6 +18,11 @@ class ChangeCurrentBrand extends CategoriesEvent{
   const ChangeCurrentBrand({required this.brandModel});
 }
 
+class ChangeBrandIndexEvent extends CategoriesEvent{
+  final int index;
+  const ChangeBrandIndexEvent({required this.index});
+}
+
 class FetchAllCategoriesEvent extends CategoriesEvent{
   const FetchAllCategoriesEvent();
 }

@@ -61,6 +61,9 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
     on<ChangeCurrentBrand>((event, emit) {
       setCurrentBrand(event, emit);
     });
+    on<ChangeBrandIndexEvent>((event, emit) {
+      changeCurrentBrandIndex(event, emit);
+    });
   }
   static CategoriesBloc get(BuildContext context) => BlocProvider.of(context);
 
@@ -129,6 +132,13 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   /// brands section
   setCurrentBrand(ChangeCurrentBrand event,emit){
     currentBrand = event.brandModel;
+    emit(ChangeCurrentBrandSuccessState());
+  }
+
+  int currentBrandIndex = 0;
+  changeCurrentBrandIndex(ChangeBrandIndexEvent event,emit){
+    emit(CategoriesInitialState());
+    currentBrandIndex = event.index;
     emit(ChangeCurrentBrandSuccessState());
   }
 }
