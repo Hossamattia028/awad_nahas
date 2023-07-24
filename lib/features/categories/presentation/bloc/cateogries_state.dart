@@ -12,6 +12,8 @@ class CategoriesInitialState extends CategoriesState {}
 
 class CategoriesIndexChangedSuccessState extends CategoriesState{}
 
+class ChangeCurrentBrandSuccessState extends CategoriesState{}
+
 class FetchCategoriesLoadingState extends CategoriesState{
   const FetchCategoriesLoadingState();
 }

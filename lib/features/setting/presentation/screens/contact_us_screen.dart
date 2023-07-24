@@ -36,8 +36,7 @@ class _ContactScreenState extends State<ContactScreen> {
       appBar: GlobalAppBar(
         title: translate("activity_setting.contact_us"),
         leadingIcon: GlobalWidgets.backArrowButton(()=> Navigator.of(context).pop(),Colors.white,Alignment.center),
-        icon: null,
-        onlyTitle: true,),
+        icon: null,),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
         child:  Column(

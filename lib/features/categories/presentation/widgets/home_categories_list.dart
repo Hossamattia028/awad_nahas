@@ -7,9 +7,7 @@ import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/products/presentation/screens/products_list.dart';
-
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeCategoriesList extends StatelessWidget {

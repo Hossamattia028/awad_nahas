@@ -6,7 +6,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
-import 'package:awad_nahas/features/search/presentation/widgets/product_card.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_card.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 
@@ -33,7 +33,7 @@ class SearchProductList extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 var item = bloc.productSearchList[index];
-                return SearchProductCard(item: item);
+                return ProductCard(item: item);
               },
               separatorBuilder: (context, index) => const SizedBox(height: 10),
             ),

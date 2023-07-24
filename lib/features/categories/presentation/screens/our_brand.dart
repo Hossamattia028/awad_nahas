@@ -1,7 +1,9 @@
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
+import 'package:awad_nahas/features/categories/presentation/screens/brand_details.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,10 +16,8 @@ class OurBrandsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(
-        title: translate("app_bar.brands"),
-        leadingIcon: GlobalWidgets.backArrowButton(()=> Navigator.of(context).pop(), DMUtil.getDC(), Alignment.center),
-      ),
+      backgroundColor: DMUtil.getWC(),
+      appBar: GlobalAppBar(title: translate("app_bar.brands"),leadingIcon: GlobalWidgets.backArrowButton(() => Navigator.of(context).pop(), DMUtil.getD2C(), Alignment.center),),
       body: BlocBuilder<CategoriesBloc,CategoriesState>(
         builder: (ctx,state){
           var bloc = CategoriesBloc.get(ctx);
@@ -36,8 +36,12 @@ class OurBrandsScreen extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               var item = list[index];
               return InkWell(
-                // onTap: ()=> Util.pushPage(ProductDetailPage(item: item,), context),
+                onTap: (){
+                  bloc.add(ChangeCurrentBrand(brandModel: item));
+                  Util.pushPage(const BrandDetailsScreen(), context);
+                },
                   child: Card(
+                    elevation: 3,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),

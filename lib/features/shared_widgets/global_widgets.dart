@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +13,7 @@ import 'package:awad_nahas/features/order/presentation/screens/order_screen.dart
 import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
 
 class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
-  final bool onlyTitle;
+  final String? title;
   final Widget? icon;
   final Widget? leadingIcon;
   final bool justLogo;
@@ -21,10 +21,9 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backGroundColor;
   const GlobalAppBar({
     Key? key,
-    required this.title,
+    this.title,
     this.icon,
     this.leadingIcon,
-    this.onlyTitle = false,
     this.justLogo = false,
     this.whiteLogo = false,
     this.backGroundColor = Colors.transparent
@@ -56,13 +55,16 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ]else ... [
                 leadingIcon ?? const SizedBox.shrink(),
-                Expanded(
-                  child: CustomText(
-                    text: title,
-                    color: Colors.black,
-                    fontSize: AppStyle.large.sp,
-                    fontWeight: FontWeight.w600,
-                    alignCenter: true,
+                if(title!=null)Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: Util.getLang()=="ar"?40.w:0,right: Util.getLang()!="ar"?40.w:0),
+                    child: CustomText(
+                      text: title.toString(),
+                      color: DMUtil.getDC(),
+                      fontSize: AppStyle.large.sp,
+                      fontWeight: FontWeight.w600,
+                      alignCenter: true,
+                    ),
                   ),
                 ),
               ],

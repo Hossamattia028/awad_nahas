@@ -13,33 +13,26 @@ import 'package:awad_nahas/features/products/presentation/widgets/product_price.
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 
-class SearchProductCard extends StatelessWidget {
+class ProductCard extends StatelessWidget {
   final ProductsEntity item;
-  const SearchProductCard({Key? key,required this.item}) : super(key: key);
+  const ProductCard({Key? key,required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: ()=> Util.pushPage(ProductDetailPage(item: item,), context),
-      child: Container(
-        padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: Colors.white,
+      child: Card(
+        elevation: 3,
+        color: DMUtil.getWC(),
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 2,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset(AppImages.searImg,width: 100.w,),
+            const SizedBox(height: 10,),
+            Image.asset(AppImages.searImg,width: 100.w,height: 100.h,),
             // ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.fill,),
             const SizedBox(width: 5,),
             Column(

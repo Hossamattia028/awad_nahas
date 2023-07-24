@@ -1,3 +1,4 @@
+import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:flutter/material.dart';
 
 
@@ -8,8 +9,13 @@ abstract class CategoriesEvent{
 
 
 class ChangeCategoriesEvent extends CategoriesEvent{
-  final dynamic categoriesModel;
+  final CategoriesEntity categoriesModel;
   const ChangeCategoriesEvent({required this.categoriesModel});
+}
+
+class ChangeCurrentBrand extends CategoriesEvent{
+  final CategoriesEntity brandModel;
+  const ChangeCurrentBrand({required this.brandModel});
 }
 
 class FetchAllCategoriesEvent extends CategoriesEvent{

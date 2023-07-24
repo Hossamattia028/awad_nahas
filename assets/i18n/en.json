@@ -248,6 +248,10 @@
 		"qty": "qty",
 		"empty": "There are currently no products in this section"
 	},
+	"brand": {
+		"brand_products": "Brand Products",
+		"about_brand": "About Brand"
+	},
     "home": {
 		"view_all": "View All",
 		"home": "Home Page",

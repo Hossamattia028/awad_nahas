@@ -5,7 +5,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
-import 'package:awad_nahas/features/search/presentation/widgets/product_card.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_card.dart';
 import 'package:awad_nahas/features/shared_widgets/empty_data_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 
@@ -40,7 +40,7 @@ class ProductListScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               var item = list[index];
-              return SearchProductCard(item: item);
+              return ProductCard(item: item);
             },
             separatorBuilder: (context, index) => const Divider(),
           );

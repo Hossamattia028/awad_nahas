@@ -5,10 +5,10 @@ import 'package:awad_nahas/features/products/presentation/screens/products_list.
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 
@@ -51,8 +51,8 @@ class SearchCategoryList extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         backgroundColor: DMUtil.getBCC(),
-                        radius: 25.w,
-                        child: ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,width: 30,height:  46,),
+                        radius: 24.w,
+                        child: SvgPicture.asset(item.imgPath, colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),width: 26.w,),
                       ),
                       SizedBox(
                         height: 38.h,

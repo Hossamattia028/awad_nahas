@@ -18,11 +18,12 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
     CategoriesEntity(title: "Coffee Machine", id: 3, imgPath: "${AppImages.icons}/coffee-machine.svg"),
   ];
 
- List<CategoriesEntity> brandList = const [
-    CategoriesEntity(title: "", id: 0, imgPath: "${AppImages.images}/brand.png"),
-    CategoriesEntity(title: "", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
-    CategoriesEntity(title: "", id: 1, imgPath: "${AppImages.images}/brand.png"),
-    CategoriesEntity(title: "", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
+  CategoriesEntity? currentBrand;
+  List<CategoriesEntity> brandList = const [
+    CategoriesEntity(title: "Miele", id: 0, imgPath: "${AppImages.images}/brand.png"),
+    CategoriesEntity(title: "Smeg", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
+    CategoriesEntity(title: "Miele", id: 1, imgPath: "${AppImages.images}/brand.png"),
+    CategoriesEntity(title: "Smeg", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
   ];
 
   GetAllCategoryUseCase getAllCategoryUseCase;
@@ -55,6 +56,10 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
 
     on<FetchAnotherSliderAdsEvent>((event, emit)async{
 
+    });
+
+    on<ChangeCurrentBrand>((event, emit) {
+      setCurrentBrand(event, emit);
     });
   }
   static CategoriesBloc get(BuildContext context) => BlocProvider.of(context);
@@ -118,5 +123,12 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
     // int index = categoriesList.indexWhere((element) => catID==element.id);
     // if(index!=-1 && categoriesList[index].productList!=null && categoriesList[index].productList!.isNotEmpty)return categoriesList[index].productList!;
     return [];
+  }
+
+
+  /// brands section
+  setCurrentBrand(ChangeCurrentBrand event,emit){
+    currentBrand = event.brandModel;
+    emit(ChangeCurrentBrandSuccessState());
   }
 }

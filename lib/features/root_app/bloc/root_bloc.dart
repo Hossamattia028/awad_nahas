@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,9 @@ class RootBloc extends Bloc<RootEvent, RootState> {
           CategoriesEntity(title: "Cooker Hobs", id: 0, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
         ], commentCount: 20),
   ];
-  List<CategoriesEntity> categorySearchList = const [
-    CategoriesEntity(title: "Cooker Hobs", id: 0, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-    CategoriesEntity(title: "Ovens", id: 1, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
+  List<CategoriesEntity> categorySearchList =  const[
+    CategoriesEntity(title: "Cooker Hobs", id: 0, imgPath: "${AppImages.icons}/cooker.svg"),
+    CategoriesEntity(title: "Ovens", id: 1, imgPath: "${AppImages.icons}/extractor-hood.svg"),
   ];
   int currentScreenIndex = 0;
   String currentScreenTitle = translate("home.home");
