@@ -10,6 +10,7 @@ import 'package:awad_nahas/features/products/presentation/screens/products_list.
 
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeCategoriesList extends StatelessWidget {
   final bool viewAll;
@@ -21,7 +22,7 @@ class HomeCategoriesList extends StatelessWidget {
       builder: (ctx,state){
         var bloc = CategoriesBloc.get(ctx);
         return SizedBox(
-          height: 110.h,
+          height: 102.h,
           child: ListView.separated(
             itemCount: viewAll? bloc.categoriesList.length : bloc.categoriesList.length>10?8:bloc.categoriesList.length,
             scrollDirection: Axis.horizontal,
@@ -36,8 +37,8 @@ class HomeCategoriesList extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       backgroundColor: DMUtil.getBCC(),
-                      radius: 27.w,
-                      child: ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,width: 30,height:  46,),
+                      radius: 24.w,
+                      child: SvgPicture.asset(item.imgPath, colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),width: 26.w,),
                     ),
                     SizedBox(
                       height: 38.h,

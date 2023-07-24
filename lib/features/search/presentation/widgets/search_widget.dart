@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
@@ -28,13 +29,13 @@ class SearchWidget extends StatelessWidget {
       children: [
         InkWell(
           onTap: ()=> Scaffold.of(context).openDrawer(),
-          child: Image.asset(AppImages.drawer,height: 34.h,width: 32.w,fit: BoxFit.fill,),
+          child: SvgPicture.asset(AppImages.drawer,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn),width: 20.w,),
         ),
+
         const SizedBox(width: 5,),
         Expanded(
           child: Container(
               height: 39.h,
-              width: 300.w,
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10))
               ),
@@ -47,7 +48,7 @@ class SearchWidget extends StatelessWidget {
                     children: [
                       SizedBox(
                         height: 39.h,
-                        width: 225.w,
+                        width: 240.w,
                         child: CustomTextFromField(
                           onChanged: (val){
                             if(val.toString().trim()==""){
@@ -80,7 +81,7 @@ class SearchWidget extends StatelessWidget {
                           isLabelError: false,
                         ),
                       ),
-                      const SizedBox(width: 5,),
+                      const SizedBox(width: 15,),
                       const FilterRow(),
                     ],
                   );

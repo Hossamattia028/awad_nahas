@@ -5,7 +5,7 @@ class AppImages{
   static const  String images = "assets/images";
   static const  String icons = "assets/icons";
 
-  static const String drawer = "$icons/Group 2479.png";
+  static const String drawer = "$icons/menu.svg";
 
   static const String logoGif = "$icons/awad_nahas Logo Gift.gif";
   static const String logo = "$icons/logo.png";
@@ -26,11 +26,11 @@ class AppImages{
   static const String bannerV = "$images/v-banner.png";
   static const String bannerS = "$images/banner.png";
   static const String category = "$icons/Category.png";
-  static const String categorySelected = "$icons/Category_selected.png";
+  static const String categorySelected = "$icons/Category.svg";
   static const String account = "$icons/Account.png";
-  static const String accountSelected = "$icons/account_circle.png";
+  static const String accountSelected = "$icons/account_circle.svg";
   static const String cart = "$icons/Cart.png";
-  static const String cartSelected = "$icons/Cart_selected.png";
+  static const String cartSelected = "$icons/Cart.svg";
   // static const String bannerS = "$images/banner.png";
 
   //order icons
@@ -40,8 +40,8 @@ class AppImages{
 
   //search
 
-  static const String filter = "$icons/filter.png";
-  static const String sort = "$icons/sort.png";
+  static const String filter = "$icons/Filter.svg";
+  static const String sort = "$icons/Vector.svg";
   static const String searImg = "$images/sear_img.png";
 
 

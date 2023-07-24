@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/features/categories/data/models/photo_model.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/categories/domain/entities/slider_entity.dart';
@@ -11,10 +12,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   List<CategoriesEntity> categoriesList = const [
-    CategoriesEntity(title: "Cooker Hobs", id: 0, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-    CategoriesEntity(title: "Ovens", id: 1, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-    CategoriesEntity(title: "Refrigerations", id: 2, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-    CategoriesEntity(title: "Cooker Hobs", id: 3, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
+    CategoriesEntity(title: "Cooker Hobs", id: 0, imgPath: "${AppImages.icons}/cooker.svg"),
+    CategoriesEntity(title: "Extractor Hood", id: 1, imgPath: "${AppImages.icons}/extractor-hood.svg"),
+    CategoriesEntity(title: "Mixer Blender", id: 2, imgPath: "${AppImages.icons}/mixer-blender.svg"),
+    CategoriesEntity(title: "Coffee Machine", id: 3, imgPath: "${AppImages.icons}/coffee-machine.svg"),
+  ];
+
+ List<CategoriesEntity> brandList = const [
+    CategoriesEntity(title: "", id: 0, imgPath: "${AppImages.images}/brand.png"),
+    CategoriesEntity(title: "", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
+    CategoriesEntity(title: "", id: 1, imgPath: "${AppImages.images}/brand.png"),
+    CategoriesEntity(title: "", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
   ];
 
   GetAllCategoryUseCase getAllCategoryUseCase;

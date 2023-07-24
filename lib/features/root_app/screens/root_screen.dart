@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/screens/cart_screen.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/categories_screen.dart';
+import 'package:awad_nahas/features/categories/presentation/screens/our_brand.dart';
 import 'package:awad_nahas/features/home/presentation/screens/home.dart';
 import 'package:awad_nahas/features/root_app/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class RootScreen extends StatelessWidget {
               if (index == 0) ...[
                 const HomeScreen(),
               ] else if (index == 1) ...[
-                const CategoriesScreen()
+                const OurBrandsScreen()
               ] else if (index == 2) ...[
                 const CartScreen()
               ] else ...[

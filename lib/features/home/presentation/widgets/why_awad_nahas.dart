@@ -4,6 +4,7 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class WhyAwaNahWidget extends StatelessWidget {
@@ -37,13 +38,7 @@ class WhyAwaNahWidget extends StatelessWidget {
               // onTap: ()=> Util.pushPage(ProductDetailPage(item: item,), context),
                 child: Column(
                   children: [
-                    CircleAvatar(
-                      radius: 24.w,
-                      backgroundColor: DMUtil.getWC(),
-                      backgroundImage: AssetImage(
-                        item.img,
-                      ),
-                    ),
+                    SvgPicture.asset(item.img,width: 50.w,),
                     SizedBox(
                       height: 40.h,
                       width: 60.w,
@@ -69,10 +64,10 @@ class Dt{
   const Dt({required this.title,required this.img});
 }
 List<Dt> list = const [
-  Dt(title: "Deliver & Install",img: "assets/icons/Group 2219.png"),
-  Dt(title: "Official Distributor",img: "assets/icons/Group 2218.png"),
-  Dt(title: "Built-in Specialist",img: "assets/icons/Group 2218.png"),
-  Dt(title: "Product Demo",img: "assets/icons/Group 2220.png"),
-  Dt(title: "Long Product lifspan",img: "assets/icons/Group 2216.png"),
-  Dt(title: "Price Promise",img: "assets/icons/Group 2215.png"),
+  Dt(title: "Deliver & Install",img: "assets/icons/Group 2219.svg"),
+  Dt(title: "Official Distributor",img: "assets/icons/Group 2218.svg"),
+  Dt(title: "Built-in Specialist",img: "assets/icons/Group 2218.svg"),
+  Dt(title: "Product Demo",img: "assets/icons/Group 2220.svg"),
+  Dt(title: "Long Product lifspan",img: "assets/icons/Group 2216.svg"),
+  Dt(title: "Price Promise",img: "assets/icons/Group 2215.svg"),
 ] ;
