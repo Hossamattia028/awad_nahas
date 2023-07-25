@@ -32,7 +32,7 @@ class RootScreen extends StatelessWidget {
               if (index == 0) ...[
                 const HomeScreen(),
               ] else if (index == 1) ...[
-                const OurBrandsScreen()
+                const CategoriesScreen()
               ] else if (index == 2) ...[
                 const CartScreen()
               ] else ...[

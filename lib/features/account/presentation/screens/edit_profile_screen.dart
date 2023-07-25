@@ -63,12 +63,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
       },
       child: Scaffold(
         backgroundColor: kWhite,
-        appBar: GlobalAppBar(
+        appBar: const GlobalAppBar(
           justLogo: true,
           title: '',
           whiteLogo: true,
           backGroundColor: kPrimary,
-          leadingIcon: GlobalWidgets.backArrowButton(()=> Navigator.of(context).pop(),kText1,Alignment.center,),
+          leadingIcon: BackArrowButton(),
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

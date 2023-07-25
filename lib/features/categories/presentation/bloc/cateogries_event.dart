@@ -13,6 +13,11 @@ class ChangeCategoriesEvent extends CategoriesEvent{
   const ChangeCategoriesEvent({required this.categoriesModel});
 }
 
+class ChangeSubCategoriesEvent extends CategoriesEvent{
+  final CategoriesEntity categoriesModel;
+  const ChangeSubCategoriesEvent({required this.categoriesModel});
+}
+
 class ChangeCurrentBrand extends CategoriesEvent{
   final CategoriesEntity brandModel;
   const ChangeCurrentBrand({required this.brandModel});

@@ -15,6 +15,7 @@ const kChart = Color(0xffBCACF3);
 
 
 const kBackGround = Color(0xffEEEEEE);
+const kBackOpacity = Color(0xff9E9E9E);
 
 
 

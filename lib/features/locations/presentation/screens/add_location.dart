@@ -68,7 +68,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
         appBar: GlobalAppBar(
           title: widget.locationEntity!=null?widget.locationEntity!.address:translate("map.add_location"),
           justLogo: true,
-          leadingIcon: GlobalWidgets.backArrowButton(()=> Navigator.of(context).pop(),kText1,Alignment.center,),
+          leadingIcon: BackArrowButton(),
         ),
         body: BlocListener<LocationsBloc,LocationsState>(
           listenWhen: (ctx, state){

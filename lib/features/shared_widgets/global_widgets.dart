@@ -81,25 +81,30 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
       Size.fromHeight(AppStyle.appBarHeight.h);
 }
 
-class GlobalWidgets {
 
+class BackArrowButton extends StatelessWidget {
+  final VoidCallback? fn;
+  final Color? color;
+  final Alignment? alignment;
+  const BackArrowButton({Key? key,this.fn,this.alignment,this.color}) : super(key: key);
 
-  static Widget backArrowButton(
-      VoidCallback fn, Color color, Alignment alignment) {
+  @override
+  Widget build(BuildContext context) {
     return Ink(
       child: IconButton(
-        onPressed: fn,
-        alignment: alignment,
+        onPressed: fn??()=> Navigator.of(context).pop(),
+        alignment: alignment??(Util.getLang()=="ar"?Alignment.centerRight:Alignment.centerLeft),
         padding: const EdgeInsets.only(right: 5, left: 5),
         icon: Icon(
           Icons.arrow_back,
-          color: color,
+          color: color??DMUtil.getDC(),
           size: 23.w,
         ),
       ),
     );
   }
 }
+
 
 class OrderIcon extends StatelessWidget {
   const OrderIcon({Key? key}) : super(key: key);

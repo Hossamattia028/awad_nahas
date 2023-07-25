@@ -16,7 +16,7 @@ class MyLocationsScreen extends StatelessWidget {
       appBar: GlobalAppBar(
         title: translate("profile.locations"),
         justLogo: true,
-        leadingIcon: GlobalWidgets.backArrowButton(()=> Navigator.of(context).pop(),kText1,Alignment.center,),
+        leadingIcon: BackArrowButton(),
       ),
       body: const LocationsList()
     );

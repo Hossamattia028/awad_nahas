@@ -33,7 +33,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),kText2,Alignment.centerRight),
+                const BackArrowButton(),
                 const SizedBox(width: 10,),
                 CustomText(
                   text: translate("login.forget_pass_"),

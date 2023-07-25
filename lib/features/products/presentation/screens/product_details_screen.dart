@@ -54,10 +54,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(
-        title: "pop",// for pop the search textField after search
-        justLogo: true,
-        leadingIcon: GlobalWidgets.backArrowButton(()=> Navigator.pop(context), kSecondPrimary, Alignment.center),
+      appBar: const GlobalAppBar(
+        title: "",
+        leadingIcon: BackArrowButton(),
       ),
       bottomNavigationBar: AddToCartButtonBottomNav(item: widget.item,),
       body: SingleChildScrollView(

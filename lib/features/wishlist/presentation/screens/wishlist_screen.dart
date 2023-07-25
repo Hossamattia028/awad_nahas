@@ -1,4 +1,3 @@
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class WishListScreen extends StatelessWidget {
       appBar: GlobalAppBar(
           title: translate("profile.wishlist"),
           justLogo: true,
-          leadingIcon: GlobalWidgets.backArrowButton(()=> Navigator.of(context).pop(),kText1,Alignment.center,),
+          leadingIcon:  const BackArrowButton(),
       ),
       body: const  WishListWidget(),
     );

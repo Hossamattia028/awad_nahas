@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
             child:  Column(
               children: [
                 SizedBox(height: AppStyle.paddingFromTop.h,),
-                AlignChildRow(child: GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),DMUtil.getDC(),Alignment.center),),
+                const AlignChildRow(child: BackArrowButton(),),
                 const LogoWidget(width: 180,fit: BoxFit.contain,height: 90,),
 
                 const SizedBox(height: 10,),

@@ -24,7 +24,7 @@ class BrandDetailsScreen extends StatelessWidget{
         if(brand==null)return const SizedBox.shrink();
         return Scaffold(
           backgroundColor: DMUtil.getWC(),
-          appBar: GlobalAppBar(title: brand.title,leadingIcon: GlobalWidgets.backArrowButton(() => Navigator.of(context).pop(), DMUtil.getD2C(), Alignment.center),),
+          appBar: GlobalAppBar(title: brand.title,leadingIcon: const BackArrowButton()),
           body: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
             child: Column(

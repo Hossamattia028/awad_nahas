@@ -1,8 +1,6 @@
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
-import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
@@ -39,7 +37,7 @@ class ResetPassword extends StatelessWidget {
           leadingIcon:  Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),kText2,Alignment.center),
+              const BackArrowButton(),
               const SizedBox(width: 5,),
               CustomText(
                 text: translate("signup.reset_password"),

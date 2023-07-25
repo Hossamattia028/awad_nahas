@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 
@@ -15,7 +14,7 @@ class AboutUsScreen extends StatelessWidget {
         appBar: GlobalAppBar(
           title: title,
           justLogo: true,
-          leadingIcon: GlobalWidgets.backArrowButton(() => Navigator.of(context).pop(), kText1, Alignment.center,),
+          leadingIcon:  const BackArrowButton(),
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

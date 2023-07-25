@@ -19,7 +19,6 @@ import 'package:awad_nahas/features/authentication/presentation/bloc/auth_bloc.d
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_state.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
-import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -72,7 +71,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),kText2,Alignment.centerRight),
+              const BackArrowButton(),
               Expanded(
                 flex: 2,
                 child: CustomText(

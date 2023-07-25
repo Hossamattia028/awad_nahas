@@ -24,7 +24,7 @@ class BottomNavBar extends StatelessWidget {
           unselectedItemColor: DMUtil.getD2C(),
           showUnselectedLabels: true,
           items: [
-            BottomNavigationBarItem(icon: const Icon(Icons.home_filled),label: translate("app_bar.home"),),
+            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.homeSelected, colorFilter: ColorFilter.mode(currentIndex==0?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),),label: translate("app_bar.home"),),
             BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.categorySelected, colorFilter: ColorFilter.mode(currentIndex==1?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),),label: translate("app_bar.categories"),),
             BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.cartSelected, colorFilter: ColorFilter.mode(currentIndex==2?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),) ,label: translate("app_bar.cart"),),
             BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.accountSelected, colorFilter: ColorFilter.mode(currentIndex==3?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),) ,label: translate("app_bar.profile"),),

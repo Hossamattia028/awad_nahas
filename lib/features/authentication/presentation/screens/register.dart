@@ -56,7 +56,7 @@ class RegisterScreen extends StatelessWidget {
               SizedBox(height: AppStyle.paddingFromTop.h,),
               Row(
                 children: [
-                  GlobalWidgets.backArrowButton(()=>Navigator.of(context).pop(),DMUtil.getDC(),Alignment.center),
+                  const BackArrowButton(),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: CustomText(

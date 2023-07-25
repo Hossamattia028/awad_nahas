@@ -20,7 +20,7 @@ class AllCategoriesList extends StatelessWidget {
       appBar: GlobalAppBar(
         title: "",
         justLogo: true,
-        leadingIcon: GlobalWidgets.backArrowButton(()=> Navigator.of(context).pop(),kText1,Alignment.center,),
+        leadingIcon: BackArrowButton(),
       ),
       body: BlocBuilder<CategoriesBloc,CategoriesState>(
         builder: (ctx,state){

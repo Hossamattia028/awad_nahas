@@ -11,9 +11,9 @@ class SettingScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: GlobalAppBar(
           title: translate("activity_setting.app_bar"),
-          leadingIcon: GlobalWidgets.backArrowButton(()=> Navigator.of(context).pop(),Colors.white,Alignment.center),
+          leadingIcon:  const BackArrowButton(),
           icon: null,),
-      body: SingleChildScrollView(
+      body:  const SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: const [

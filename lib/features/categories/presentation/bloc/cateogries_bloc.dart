@@ -11,11 +11,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
+  CategoriesEntity? currentCategory;
   List<CategoriesEntity> categoriesList = const [
     CategoriesEntity(title: "Cooker Hobs", id: 0, imgPath: "${AppImages.icons}/cooker.svg"),
     CategoriesEntity(title: "Extractor Hood", id: 1, imgPath: "${AppImages.icons}/extractor-hood.svg"),
     CategoriesEntity(title: "Mixer Blender", id: 2, imgPath: "${AppImages.icons}/mixer-blender.svg"),
     CategoriesEntity(title: "Coffee Machine", id: 3, imgPath: "${AppImages.icons}/coffee-machine.svg"),
+    CategoriesEntity(title: "Extractor Hood", id: 1, imgPath: "${AppImages.icons}/extractor-hood.svg"),
+  ];
+
+  CategoriesEntity? currentSubCategory;
+  List<CategoriesEntity> subCategoriesList = const [
+    CategoriesEntity(title: "All", id: 0, imgPath: "${AppImages.icons}/cooker.svg"),
+    CategoriesEntity(title: "Toaster", id: 1, imgPath: "${AppImages.icons}/extractor-hood.svg"),
+    CategoriesEntity(title: "Electric Kettle", id: 2, imgPath: "${AppImages.icons}/mixer-blender.svg"),
+    CategoriesEntity(title: "Aesthetic Blender", id: 3, imgPath: "${AppImages.icons}/coffee-machine.svg"),
+    CategoriesEntity(title: "Extractor Hood", id: 1, imgPath: "${AppImages.icons}/extractor-hood.svg"),
   ];
 
   CategoriesEntity? currentBrand;
@@ -23,6 +34,9 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
     CategoriesEntity(title: "Miele", id: 0, imgPath: "${AppImages.images}/brand.png"),
     CategoriesEntity(title: "Smeg", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
     CategoriesEntity(title: "Miele", id: 1, imgPath: "${AppImages.images}/brand.png"),
+    CategoriesEntity(title: "Smeg", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
+    CategoriesEntity(title: "Miele", id: 0, imgPath: "${AppImages.images}/brand.png"),
+    CategoriesEntity(title: "Smeg", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
     CategoriesEntity(title: "Smeg", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
   ];
 
@@ -33,8 +47,11 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
     required this.getAllSlidersUseCase,
   }) : super(CategoriesInitialState()) {
     on<ChangeCategoriesEvent>((event, emit) {
-      // currentCategoryModel = event.categoriesModel;
-      emit(CategoriesIndexChangedSuccessState());
+      changeCurrentCategory(event,emit);
+    });
+
+    on<ChangeSubCategoriesEvent>((event, emit) {
+      changeCurrentSubCategory(event,emit);
     });
 
     on<FetchAllCategoriesEvent>((event, emit) async{
@@ -97,6 +114,13 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
 
 
 
+  /// categories section
+  changeCurrentCategory(ChangeCategoriesEvent event,emit){
+    emit(CategoriesInitialState());
+    currentCategory = event.categoriesModel;
+    currentSubCategory = subCategoriesList.first;
+    emit(CategoriesIndexChangedSuccessState());
+  }
 
   getAllCategories(emit)async{
     emit(const FetchCategoriesLoadingState());
@@ -127,6 +151,15 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
     // if(index!=-1 && categoriesList[index].productList!=null && categoriesList[index].productList!.isNotEmpty)return categoriesList[index].productList!;
     return [];
   }
+
+
+  /// categories section
+  changeCurrentSubCategory(ChangeSubCategoriesEvent event,emit){
+    emit(CategoriesInitialState());
+    currentSubCategory = event.categoriesModel;
+    emit(CategoriesIndexChangedSuccessState());
+  }
+
 
 
   /// brands section

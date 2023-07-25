@@ -17,7 +17,7 @@ class OurBrandsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: DMUtil.getWC(),
-      appBar: GlobalAppBar(title: translate("app_bar.brands"),leadingIcon: GlobalWidgets.backArrowButton(() => Navigator.of(context).pop(), DMUtil.getD2C(), Alignment.center),),
+      appBar: GlobalAppBar(title: translate("app_bar.brands"),leadingIcon: const BackArrowButton()),
       body: BlocBuilder<CategoriesBloc,CategoriesState>(
         builder: (ctx,state){
           var bloc = CategoriesBloc.get(ctx);

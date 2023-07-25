@@ -20,7 +20,7 @@ class OrderDetailsScreen extends StatelessWidget {
         title: '',
         whiteLogo: true,
         backGroundColor: kPrimary,
-        leadingIcon: GlobalWidgets.backArrowButton(()=> Navigator.of(context).pop(),kText1,Alignment.center,),
+        leadingIcon: BackArrowButton(),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 30.w),

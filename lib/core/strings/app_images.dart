@@ -26,6 +26,7 @@ class AppImages{
   static const String bannerV = "$images/v-banner.png";
   static const String bannerS = "$images/banner.png";
   static const String category = "$icons/Category.png";
+  static const String homeSelected = "$icons/home.svg";
   static const String categorySelected = "$icons/Category.svg";
   static const String account = "$icons/Account.png";
   static const String accountSelected = "$icons/account_circle.svg";

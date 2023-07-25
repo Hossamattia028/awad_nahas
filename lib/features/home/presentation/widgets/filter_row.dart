@@ -32,7 +32,7 @@ class FilterRow extends StatelessWidget {
           },
           child: SvgPicture.asset(AppImages.sort,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn),width: 20.w,),
         ),
-        const SizedBox(width: 5,),
+        SizedBox(width: 6.w,),
         InkWell(
           onTap: (){
             showModalBottomSheet(
