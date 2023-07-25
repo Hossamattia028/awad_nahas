@@ -1,18 +1,17 @@
+import 'package:awad_nahas/core/strings/app_images.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/home/presentation/widgets/main_slider.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/brand_products.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_data_taps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_comments.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_desc.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/related_products.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/select_product_quantity_widget.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/rate_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 
@@ -54,6 +53,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DMUtil.getWC(),
       appBar: const GlobalAppBar(
         title: "",
         leadingIcon: BackArrowButton(),
@@ -65,35 +65,41 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImagesSlider(images: [widget.item.imgPath,],),
+            const SliderWidget(),
+
             const SizedBox(height: 10,),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SelectProductQuantityWidget(item: widget.item,),
-                const RateWidget(countRate: 300),
-              ],
-            ),
-
-            const Divider(thickness: 1,),
-
-            CustomText(
-                text: catListString,
-                color: kBackBlueColor,
-                fontSize: AppStyle.small.sp,
-            ),
 
             CustomText(
                 text: widget.item.title,
-                color: kText1,
-                fontWeight: FontWeight.w700,
-                fontSize: AppStyle.small.sp,
+                color: DMUtil.getDC(),
+                fontSize: AppStyle.large.sp-3,
+            ),
+            Image.asset("${AppImages.images}/brand.png"),
+            const Divider(thickness: 1,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ProductPriceWidget(productModel: widget.item,isBig: true,),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: (){},
+                      child: Icon(Icons.favorite_border,color: DMUtil.getD2C(),),
+                    ),
+                    const SizedBox(width: 10,),
+                    InkWell(
+                      onTap: (){},
+                      child: Icon(Icons.ios_share_outlined,color: DMUtil.getD2C(),),
+                    ),
+                  ],
+                )
+              ],
             ),
             const Divider(thickness: 1,),
-            ProductPriceWidget(productModel: widget.item,isBig: true,),
-            ProductDescription(desc: widget.item.desc,),
-            const ProductCommentsWidget(),
+
+            ProductDetailsDataRow(item: widget.item),
+
+            const BrandProductsWidget(),
 
             const RelatedProductsWidget(),
 

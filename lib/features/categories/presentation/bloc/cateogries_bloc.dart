@@ -8,7 +8,7 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_stat
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
+const String testImg = "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/main-banner.png?alt=media&token=37aa3289-a748-4413-83f4-0b79a006006c";
 
 class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   CategoriesEntity? currentCategory;
@@ -85,11 +85,11 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   static CategoriesBloc get(BuildContext context) => BlocProvider.of(context);
 
   List<PhotoModel> mainSlider = [
-    const PhotoModel(status: true, id: 0, imgUrl: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/main-banner.png?alt=media&token=37aa3289-a748-4413-83f4-0b79a006006c"),
-    const PhotoModel(status: true, id: 0, imgUrl: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/main-banner.png?alt=media&token=37aa3289-a748-4413-83f4-0b79a006006c"),
-    const PhotoModel(status: true, id: 0, imgUrl: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/main-banner.png?alt=media&token=37aa3289-a748-4413-83f4-0b79a006006c"),
-    const PhotoModel(status: true, id: 0, imgUrl: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/main-banner.png?alt=media&token=37aa3289-a748-4413-83f4-0b79a006006c"),
-    const PhotoModel(status: true, id: 0, imgUrl: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/main-banner.png?alt=media&token=37aa3289-a748-4413-83f4-0b79a006006c"),
+    const PhotoModel(status: true, id: 0, imgUrl: testImg),
+    const PhotoModel(status: true, id: 0, imgUrl: testImg),
+    const PhotoModel(status: true, id: 0, imgUrl: testImg),
+    const PhotoModel(status: true, id: 0, imgUrl: testImg),
+    const PhotoModel(status: true, id: 0, imgUrl: testImg),
   ];
 
   SliderEntity? categorySlider;

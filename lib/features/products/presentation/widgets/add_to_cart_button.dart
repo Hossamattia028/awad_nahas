@@ -1,12 +1,12 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
+import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/qt_widget.dart';
+import 'package:awad_nahas/features/shared_widgets/align_child_by_row.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
-import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
-import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
-import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_state.dart';
-import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -85,41 +85,74 @@ class AddToCartButtonBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          BlocBuilder<CartBloc,CartState>(
-            builder: (ctx,state){
-              var bloc = CartBloc.get(ctx);
-              int index = bloc.cartList.indexWhere((element) => element.id==item.id);
-              bool insideCartList = false;
-              if(index!=-1)insideCartList=true;
-              return CustomButton(
-                color: insideCartList?Colors.white:kBackBlueColor,
-                height: 34.h,
-                circular: 6,
-                sideColor: kBackBlueColor,
-                sideWidth: 1,
-                width: 250.w,
-                widget: CustomText(
-                  text: insideCartList?translate("cart.remove_from_cart").toUpperCase():translate("cart.add_to_cart").toUpperCase(),
-                  color: insideCartList?Colors.red:Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: AppStyle.average.sp-1,
-                ),
-                onPressed: (){
-                  if(item.stockStatus!=true){
-                    SnackBarBuilder.showFeedBackMessage(context, translate("toast.out_of_stock"), Colors.red);
-                  }else{
-                    bloc.add(AddToCartEvent(product: item,));
-                  }
-                },
-              );
-            },
-          ),
-          WishListIconWidget(item: item),
+      child: Container(
+        color: Colors.transparent,
+        height: 129.h,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const AlignChildRow(child: ProductQuantityWidget()),
+            const SizedBox(height: 5,),
+            BlocBuilder<CartBloc,CartState>(
+              builder: (ctx,state){
+                var bloc = CartBloc.get(ctx);
+                int index = bloc.cartList.indexWhere((element) => element.id==item.id);
+                bool insideCartList = false;
+                if(index!=-1)insideCartList=true;
+                return CustomButton(
+                  color: insideCartList?Colors.white:DMUtil.getRED(),
+                  height: 34.h,
+                  circular: 15,
+                  sideColor: DMUtil.getRED(),
+                  sideWidth: 1,
+                  width: 250.w,
+                  widget: CustomText(
+                    text: insideCartList?translate("cart.remove_from_cart"):translate("cart.add_to_cart"),
+                    color: insideCartList?Colors.red:Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: AppStyle.average.sp-1,
+                  ),
+                  onPressed: (){
+                    if(item.stockStatus!=true){
+                      SnackBarBuilder.showFeedBackMessage(context, translate("toast.out_of_stock"), Colors.red);
+                    }else{
+                      bloc.add(AddToCartEvent(product: item,));
+                    }
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: 5,),
+            BlocBuilder<OrderBloc,OrderState>(
+              builder: (ctx,state){
+                var bloc = OrderBloc.get(ctx);
+                return CustomButton(
+                  color: Colors.white,
+                  height: 34.h,
+                  circular: 15,
+                  sideColor: DMUtil.getRED(),
+                  sideWidth: 1,
+                  width: 250.w,
+                  widget: CustomText(
+                    text: translate("home.buy"),
+                    color: DMUtil.getRED(),
+                    fontWeight: FontWeight.w500,
+                    fontSize: AppStyle.average.sp-1,
+                  ),
+                  onPressed: (){
+                    if(item.stockStatus!=true){
+                      SnackBarBuilder.showFeedBackMessage(context, translate("toast.out_of_stock"), Colors.red);
+                    }else{
 
-        ],
+                    }
+                  },
+                );
+              },
+            ),
+
+
+          ],
+        ),
       )
     );
   }

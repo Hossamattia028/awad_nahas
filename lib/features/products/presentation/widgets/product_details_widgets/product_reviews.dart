@@ -9,13 +9,12 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dar
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/comment_list.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/section_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
-class ProductCommentsWidget extends StatelessWidget {
-  const ProductCommentsWidget({Key? key}) : super(key: key);
+class ProductReviewsWidget extends StatelessWidget {
+  const ProductReviewsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +27,6 @@ class ProductCommentsWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 15,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                      width: 120.w,
-                      child: SectionWidget(title: translate("products.comments"),isExpanded: bloc.showComments,)
-                  ),
-                  const Expanded(child: Divider(thickness: 1,)),
-                ],
-              ),
               const SizedBox(height: 10,),
              if(bloc.showComments==true)...[
                const CommentList(),

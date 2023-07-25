@@ -5,8 +5,8 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/related_products_list.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
-class RelatedProductsWidget extends StatelessWidget {
-  const RelatedProductsWidget({Key? key}) : super(key: key);
+class BrandProductsWidget extends StatelessWidget {
+  const BrandProductsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class RelatedProductsWidget extends StatelessWidget {
       children: [
         const SizedBox(height: 10,),
         CustomText(
-          text: translate("products.related_products"),
+          text: "${translate("products.more_from")} miele",
           fontSize: AppStyle.average.sp,
         ),
 

@@ -240,9 +240,12 @@
 		"why_wait": "what are you waiting for ? Start enjoying shopping nowً"
 	},
 	"products": {
+		"more_from": "More from",
 		"product": "product",
 		"desc": "Product Description",
 		"comments": "Comments",
+		"reviews": "Reviews",
+		"shipping_delivery":"Shipping & Delivery",
 		"add_comment": "Add Comment",
 		"related_products": "Related products",
 		"qty": "qty",
@@ -256,7 +259,7 @@
 		"view_all": "View All",
 		"home": "Home Page",
 		"save": "Save",
-		"buy": "Buy",
+		"buy": "Buy now",
 		"more": "More",
 		"shop_cat": "Shop Your Favorite Categories",
         "add_new_content": "Add Your Content",
