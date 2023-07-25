@@ -84,10 +84,10 @@ class AddToCartButtonBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(7.0),
       child: Container(
         color: Colors.transparent,
-        height: 129.h,
+        height: 130.h,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -122,7 +122,7 @@ class AddToCartButtonBottomNav extends StatelessWidget {
                 );
               },
             ),
-            const SizedBox(height: 5,),
+            const SizedBox(height: 4,),
             BlocBuilder<OrderBloc,OrderState>(
               builder: (ctx,state){
                 var bloc = OrderBloc.get(ctx);

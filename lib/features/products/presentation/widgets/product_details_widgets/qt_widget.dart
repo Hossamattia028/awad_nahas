@@ -11,20 +11,21 @@ class ProductQuantityWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomText(
             text: translate("products.qty"),
             fontSize: AppStyle.small.sp,
         ),
         Container(
-          width: 70.w,
+          width: 80.w,
           padding: const EdgeInsets.all(3),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(12)),
             border: Border.all(width: 1,color: DMUtil.getRED())
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               InkWell(
                 child: Container(

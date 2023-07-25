@@ -16,7 +16,7 @@ class ProductDetailsDataRow extends StatelessWidget {
         child: Builder(
           builder: (ctxB){
             return SizedBox(
-              height: 520.h,
+              height: 470.h,
               child: Column(
                 children: <Widget>[
                   TabBar(
