@@ -1,5 +1,4 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +18,9 @@ class ProductQuantityWidget extends StatelessWidget {
         ),
         Container(
           width: 70.w,
-          padding: EdgeInsets.all(3),
+          padding: const EdgeInsets.all(3),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
             border: Border.all(width: 1,color: DMUtil.getRED())
           ),
           child: Row(
@@ -31,24 +30,24 @@ class ProductQuantityWidget extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     color: DMUtil.getBCC(),
-                    borderRadius: BorderRadius.all(Radius.circular(12))
+                    borderRadius: const BorderRadius.all(Radius.circular(12))
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.add
                   ),
                 ),
               ),
               CustomText(
-                  text: "text",
-                  fontSize: fontSize,
+                  text: "1",
+                  fontSize: AppStyle.small.sp,
               ),
               InkWell(
                 child: Container(
                   decoration: BoxDecoration(
                       color: DMUtil.getBCC(),
-                      borderRadius: BorderRadius.all(Radius.circular(12))
+                      borderRadius: const BorderRadius.all(Radius.circular(12))
                   ),
-                  child: Icon(
+                  child: const Icon(
                       Icons.remove
                   ),
                 ),
