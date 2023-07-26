@@ -1,7 +1,6 @@
 
 // ignore_for_file: must_be_immutable
 
-import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
@@ -114,16 +113,14 @@ class CustomTextFromField extends StatelessWidget {
           suffixIcon: suffixIcon,
           hintText: hintText,
           hintStyle: TextStyle(
-            fontSize: AppStyle.average.sp,
+            fontSize: AppStyle.small.sp,
             color: hintColor??kHint,
-            fontFamily: primaryFontSemiBold,
           ),
           label: Text(
             labelText,
             style: TextStyle(
               color: isLabelError ? Colors.red : kHint,
               fontSize: AppStyle.small.sp,
-              fontFamily: primaryFontSemiBold,
             ),
           ),
           errorStyle: const TextStyle(

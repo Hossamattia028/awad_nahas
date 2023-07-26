@@ -8,7 +8,6 @@ import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.d
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.dart';
 import 'package:awad_nahas/features/locations/presentation/widgets/location_card.dart';
-import 'package:awad_nahas/features/locations/presentation/widgets/locations_empty.dart';
 
 class LocationsList extends StatelessWidget {
   const LocationsList({Key? key}) : super(key: key);
@@ -22,7 +21,7 @@ class LocationsList extends StatelessWidget {
         builder: (ctx,state){
           var bloc = LocationsBloc.get(ctx);
           if(state is LocationsLoadingState)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
-          if(bloc.userLocationsList.isEmpty)return const LocationsEmpty();
+          // if(bloc.userLocationsList.isEmpty)return const LocationsEmpty();
           return ListView.separated(
             itemCount: bloc.userLocationsList.length,
             padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.sp,vertical: 5.h),

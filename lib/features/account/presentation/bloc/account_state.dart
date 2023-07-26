@@ -40,4 +40,9 @@ class FetchNotificationsFailedState extends AccountState{
 }
 
 
+class UpdateNotificationsModeState extends AccountState{
+  const UpdateNotificationsModeState();
+}
+
+
 

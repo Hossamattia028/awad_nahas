@@ -1,11 +1,14 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
+import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
+import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:awad_nahas/features/setting/presentation/screens/about_us_screen.dart';
 import 'package:awad_nahas/features/setting/presentation/widgets/small_widgets.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
@@ -17,35 +20,59 @@ class SettingSectionWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 10,),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child: CustomText(
-            text: translate("activity_setting.contact_us"),
-            color: kSecondPrimary,
-            fontSize: AppStyle.average.sp,
-            fontWeight: FontWeight.w700,
+        // const SizedBox(height: 5,),
+        // CustomText(
+        //   text: translate("activity_setting.contact_us"),
+        //   color: DMUtil.getDC(),
+        //   fontSize: AppStyle.average.sp,
+        // ),
+        // SettingLineOption(title: translate("activity_setting.contact_us"),onTap: ()=> Util.pushPage(AboutUsScreen(title: translate("activity_setting.replacement")),context)),
+        //
+        // Container(
+        //   color: Colors.white,
+        //   child: Column(
+        //     children: [
+        //       SettingLineOption(title: translate("activity_setting.about_us"),onTap: ()=> Util.pushPage(AboutUsScreen(title: translate("activity_setting.about_us")), context),),
+        //       SettingLineOption(title: translate("activity_setting.privacy"),onTap: ()=> Util.pushPage(AboutUsScreen(title: translate("activity_setting.privacy")), context),),
+        //     ],
+        //   ),
+        // ),
+        const SizedBox(height: 5,),
+        CustomText(
+          text: translate("activity_setting.app_bar"),
+          color: DMUtil.getDC(),
+          fontSize: AppStyle.average.sp,
+        ),
+        SettingLineOption(
+          title: translate("button.change_language"),
+          onTap: ()=> Util.changeLang(ctx: context),
+        ),
+        SettingLineOption(
+          title: translate("profile.notification"),
+          widget: BlocBuilder<AccountBloc,AccountState>(
+            builder: (ctx,state){
+              var bloc = AccountBloc.get(ctx);
+              var isEnabled = bloc.isEnabledNotification;
+              return SizedBox(
+                height: 25.h,
+                child: Switch(
+                    value: isEnabled,
+                    activeColor: DMUtil.getRED(),
+                    onChanged: (val)=> bloc.add(const ChangeNotificationModeEvent()),
+                ),
+              );
+            },
           ),
         ),
-        const SizedBox(height: 10,),
-        SettingLineOption(iconPath: AppImages.logo,title: translate("activity_setting.contact_us"),onTap: ()=> Util.pushPage(AboutUsScreen(title: translate("activity_setting.replacement")),context)),
 
-        const SizedBox(height: 10,),
-        Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              SettingLineOption(iconPath: AppImages.logo,title: translate("activity_setting.about_us"),onTap: ()=> Util.pushPage(AboutUsScreen(title: translate("activity_setting.about_us")), context),),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: const Divider(thickness: 1,),
-              ),
-              SettingLineOption(iconPath: AppImages.logo,title: translate("activity_setting.privacy"),onTap: ()=> Util.pushPage(AboutUsScreen(title: translate("activity_setting.privacy")), context),),
-            ],
-          ),
+
+        const SizedBox(height: 5,),
+        CustomText(
+          text: translate("activity_setting.help_center"),
+          color: DMUtil.getDC(),
+          fontSize: AppStyle.average.sp,
         ),
-        const SizedBox(height: 10,),
-        SettingLineOption(iconPath: AppImages.logo,title: translate("button.change_language"),onTap: ()=> Util.changeLang(ctx: context)),
+        SettingLineOption(title: translate("activity_setting.help_center"),onTap: (){}),
 
       ],
     );

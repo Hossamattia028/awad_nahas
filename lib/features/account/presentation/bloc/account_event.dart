@@ -25,9 +25,11 @@ class FetchAllNotificationsEvent extends AccountEvent{
 }
 
 
-
-
 class ChangeUserPasswordEvent extends AccountEvent{
   final Map<String,dynamic> data;
   const ChangeUserPasswordEvent({required this.data});
+}
+
+class ChangeNotificationModeEvent extends AccountEvent{
+  const ChangeNotificationModeEvent();
 }

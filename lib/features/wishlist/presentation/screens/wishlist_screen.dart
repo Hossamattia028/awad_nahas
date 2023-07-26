@@ -14,7 +14,6 @@ class WishListScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: GlobalAppBar(
           title: translate("profile.wishlist"),
-          justLogo: true,
           leadingIcon:  const BackArrowButton(),
       ),
       body: const  WishListWidget(),

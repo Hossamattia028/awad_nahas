@@ -41,7 +41,10 @@
       "yes": "نعم",
       "upload": "تحميل",
       "view": "عرض",
-      "clear": "مسح"
+      "clear": "مسح",
+      "submit": "تنفيذ",
+      "edit": "تعديل",
+      "remove": "حذف"
     },
     "toast": {
       "sure_to_submit": "تأكيد تنفيذ العملية ؟",
@@ -199,6 +202,7 @@
       "content": "الرسالة",
       "ques": "استفسار",
       "feedback": "نقد/ارسال تعليق",
+      "help_center": "مركز الدعم",
       "rating": "التقييم",
       "suggestion": "اقتراحات",
       "Request_quotation": "طلب اقتباس",
@@ -225,6 +229,8 @@
       "select_area": "تحديد المنطقة",
       "city": "المدينة",
       "address": "العنوان",
+      "addresses": "عناويني",
+      "landline_number": "الخط الارضي",
       "age": "العمر",
       "my_account": "حسابي",
       "edit": "تعديل الحساب",
@@ -417,7 +423,7 @@
       "my_fav": "مفضلتي",
       "no_wait": "ماذا تنتظر ؟ إبدء الإستمتاع بالتسوق حالاً"
     },
-    "products": {
+    "qsazx": {
       "more_from": "المزيد من",
       "product": "مننج",
       "desc": "وصف المنتج",
@@ -551,7 +557,30 @@
       "total_issues": "جميع الشكاوي"
     },
 
-
+    "map": {
+      "add_location": "إضافة عنوان جديد",
+      "work": "العمل",
+      "home": "المنزل",
+      "other": "اخر",
+      "town": "المدينة",
+      "flat_number": "رقم الشقة",
+      "street_number": "رقم الشارع",
+      "street_name": "اسم الشارع",
+      "block_number": "رقم المنطقة",
+      "area": "المنطقة",
+      "building_name": "اسم المبني",
+      "post_code": "الرقم / الرمز البريدي",
+      "set_location": "اضف موقعك الآن",
+      "save_location": "حفظ العنوان",
+      "location_details": "معلومات الموقع",
+      "personal": "معلومات الشخصية",
+      "full_name": "الإسم بالكامل",
+      "mobile": "رقم الموبايل",
+      "location_name": "تسمية العنوان",
+      "select_on_map": "تحديد العنوان علي الخريطة",
+      "sure_to_delete": "هل تريد حذف هذا العنوان",
+      "location_deleted": "تم حذف العنوان بنجاح"
+    },
     "language": {
       "name": {
         "en": "English",

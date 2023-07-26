@@ -55,6 +55,10 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
     on<ChangeUserPasswordEvent>((event, emit) async{
       await changeUserPassword(event, emit);
     });
+
+    on<ChangeNotificationModeEvent>((event, emit) {
+       changeNotificationMode(event, emit);
+    });
   }
 
   changeUserPassword(ChangeUserPasswordEvent event,emit)async{
@@ -131,26 +135,6 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
   }
 
 
-
-  List<NotificationsEntity> notificationList = [];
-  getAllNotifications(event,emit)async{
-    if(!Util.checkUser())return;
-    try{
-      emit(const FetchNotificationsLoadingState());
-      var res = await getAllNotificationsUseCase();
-      res.fold((l) {
-        emit(const FetchNotificationsFailedState());
-      },(data) {
-        notificationList = data.reversed.toList();
-        emit(const FetchNotificationsSuccessfullyState());
-      });
-    }catch(e){
-      debugPrint("getAllNotifications: $e");
-      emit(const FetchNotificationsFailedState());
-    }
-  }
-
-
   /// get all users
   List<UserService> allUsers = [];
   getAllUsersData(event, emit)async{
@@ -174,6 +158,31 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
 
 
 
+  /// notifications
 
+  List<NotificationsEntity> notificationList = [];
+  getAllNotifications(event,emit)async{
+    if(!Util.checkUser())return;
+    try{
+      emit(const FetchNotificationsLoadingState());
+      var res = await getAllNotificationsUseCase();
+      res.fold((l) {
+        emit(const FetchNotificationsFailedState());
+      },(data) {
+        notificationList = data.reversed.toList();
+        emit(const FetchNotificationsSuccessfullyState());
+      });
+    }catch(e){
+      debugPrint("getAllNotifications: $e");
+      emit(const FetchNotificationsFailedState());
+    }
+  }
+
+  bool isEnabledNotification = false;
+  changeNotificationMode(event,emit){
+    emit(AccountInitialState());
+    isEnabledNotification = !isEnabledNotification;
+    emit(const UpdateNotificationsModeState());
+  }
 
 }

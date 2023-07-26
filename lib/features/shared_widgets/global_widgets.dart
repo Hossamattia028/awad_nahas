@@ -62,7 +62,6 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
                       text: title.toString(),
                       color: DMUtil.getDC(),
                       fontSize: AppStyle.large.sp,
-                      fontWeight: FontWeight.w600,
                       alignCenter: true,
                     ),
                   ),

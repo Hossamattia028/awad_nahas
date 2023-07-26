@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -53,19 +55,27 @@ class MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: kPrimary,
-          iconTheme: const  IconThemeData(color: Colors.white),
+          backgroundColor: DMUtil.getWC(),
+          elevation: 0,
+          iconTheme: IconThemeData(color: DMUtil.getDC()),
           centerTitle: true,
           title: CustomText(
             text: widget.title,
-            fontSize: AppStyle.small.sp,
-            color: Colors.white,
+            fontSize: AppStyle.average.sp,
+            color: DMUtil.getDC()
+          ),
+        ),
+        floatingActionButton: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 80.h),
+          child: CircleAvatar(
+            backgroundColor: DMUtil.getRED(),
+            child: const Icon(CupertinoIcons.arrow_up_right),
           ),
         ),
         body: Stack(
           children: [
              GoogleMap(
-                    initialCameraPosition: CameraPosition(target: lastLocation ?? const LatLng(25.2062701, 55.3498132), zoom: 10),
+                    initialCameraPosition: CameraPosition(target: lastLocation ?? const LatLng(21.4504394, 38.8815082), zoom: 10),
                     onMapCreated: onMapCreated,
                     onCameraMove: _onCameraMoved,
                     onTap: _handleTap,
@@ -84,9 +94,9 @@ class MapScreenState extends State<MapScreen> {
                   padding: const EdgeInsets.all(30.0),
                   child: CustomButton(
                       height: 45.h,
-                      width: 270.w,
-                      color: kPrimary,
-                      circular: 5,
+                      width: 250.w,
+                      color: DMUtil.getRED(),
+                      circular: 15,
                       onPressed: () async{
                        if (lastLocation == null) return SnackBarBuilder.showFeedBackMessage(context, translate("toast.select_location"), Colors.red);
                        final data  = await Util.getAndSaveLocationDetails(lastLocation!);
@@ -111,8 +121,8 @@ class MapScreenState extends State<MapScreen> {
                             ],
                           ),
                           CustomText(
-                            text: translate("button.ok"),
-                            fontSize: AppStyle.small.sp,
+                            text: translate("button.confirm"),
+                            fontSize: AppStyle.average.sp,
                             color: Colors.white,
                           ),
                         ],

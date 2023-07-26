@@ -42,7 +42,10 @@
 		"yes": "Yes",
 		"upload": "Upload",
 		"view": "View",
-		"clear": "Clear"
+		"clear": "Clear",
+		"submit": "Submit",
+		"edit": "Edit",
+		"remove": "Remove"
 	},
 	"toast": {
 		"sure_to_submit": "Are you sure to submit ?",
@@ -186,7 +189,7 @@
 		"allow_display_over": "Allow Delivery app Driver to display over Other apps",
 		"order_when_online": "Allow Delivery app Driver to display over Other apps in Order to receive orders When you're online",
 		"go_setting": "Go to Settings",
-		"app_bar": " Setting ",
+		"app_bar": "App Setting ",
 		"call_us": " Call Us ",
 		"sign_out": " Sign out ",
 		"sure_signout": "Are you sure to sign out !",
@@ -199,6 +202,7 @@
 		"content": "Message..",
 		"ques": "Enquiry",
 		"feedback": "Feedback",
+		"help_center": "Help Center",
 		"rating": "Rating",
 		"suggestion": "Suggestion",
 		"Request_quotation": "Request Quotation",
@@ -394,6 +398,8 @@
 		"city": "City",
 		"street": "Street",
 		"address": "Address",
+		"addresses": "My Addresses",
+		"landline_number": "Landline Number",
 		"age": "age",
 		"my_account": "My Account",
 		"edit": "Edit profile",
@@ -549,7 +555,30 @@
 		"total_orders": "Total Orders",
 		"total_issues": "Total issues"
 	},
-
+	"map": {
+		"add_location": "Add new address",
+		"work": "Work",
+		"home": "Home",
+		"other": "Other",
+		"town": "Town/City",
+		"flat_number": "Flat Number",
+		"street_number": "Street Number",
+		"street_name": "Street Name",
+		"block_number": "Block Number",
+		"area": "Area",
+		"building_name": "Building name",
+		"post_code": "Postcode / ZIP",
+		"set_location": "Set Your Location",
+		"save_location": "Save address",
+		"location_details": "Address Details",
+		"personal": "Personal Information",
+		"full_name": "Full Name",
+		"mobile": "Mobile",
+		"location_name": "Address Title",
+		"select_on_map": "Select your location on map",
+		"sure_to_delete": "Are you sure to delete this Location!",
+		"location_deleted": "Successfully Deleted the Location"
+	},
 	"language": {
 		"name": {
 			"en": "English",

@@ -1,34 +1,37 @@
-import 'package:awad_nahas/core/styles/my_fonts.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 
 class SettingLineOption extends StatelessWidget {
   final String title;
-  final String iconPath;
-  final VoidCallback onTap;
-  const SettingLineOption({Key? key,required this.title,required this.iconPath,required this.onTap}) : super(key: key);
+  final VoidCallback? onTap;
+  final Widget? widget;
+  const SettingLineOption({Key? key,required this.title,this.onTap,this.widget}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap??(){},
       child: Container(
-        color: Colors.white,
+        margin: const EdgeInsets.symmetric(vertical: 4),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          border: Border.all(width: 0.6,color: DMUtil.getBCC())
+        ),
         padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 7.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomText(
               text: title,
-              color: kPrimaryBlack,
+              color: DMUtil.getDC(),
               fontSize: AppStyle.average.sp,
-              fontFamily: primaryFontBold,
             ),
-            Icon(Icons.arrow_forward_ios,color: Colors.black45,size: 15.w),
+
+            widget ?? Icon(Icons.arrow_forward_ios,color: DMUtil.getDC(),size: 15.w),
           ],
         ),
       ),
