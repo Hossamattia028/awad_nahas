@@ -22,12 +22,13 @@ class SelectLocations extends StatelessWidget {
         if(list.isEmpty)return const SizedBox.shrink();
         return DropdownButton(
           isExpanded: true,
+          dropdownColor: DMUtil.getWC(),
           alignment: Alignment.center,
           underline: const SizedBox.shrink(),
-          style: TextStyle(color: Colors.black, fontSize: 12.sp,),
+          style: TextStyle(color: DMUtil.getDC(), fontSize: 12.sp,),
           hint: Row(
             children: [
-              Image.asset(AppImages.location,height: 20.h,),
+              Icon(Icons.location_on_outlined,color: DMUtil.getDC(),),
               const SizedBox(width: 10,),
               CustomText(
                 text: "${translate("store.deliver_to")} Mohammed",
@@ -37,12 +38,12 @@ class SelectLocations extends StatelessWidget {
             ],
           ),
           onChanged:(val) => bloc.add(UpdateCurrentLocationEvent(locationEntity: val!)),
-          icon: const Icon(Icons.keyboard_arrow_down_outlined),
-          items:  list.map((e) => DropdownMenuItem(
+          icon: Icon(Icons.keyboard_arrow_down_outlined,color: DMUtil.getDC(),),
+          items: list.map((e) => DropdownMenuItem(
             value: e,
             child: Row(
               children: [
-                Image.asset(AppImages.location,height: 20.h,),
+                Icon(Icons.location_on_outlined,color: DMUtil.getDC(),),
                 const SizedBox(width: 10,),
                 CustomText(
                   text: "${translate("store.deliver_to")} ",

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 const kPrimaryBlack = Color(0xff00273f);
-const kSecondPrimary = Color(0xff9FA7C7);
+const kSecondPrimary = kBackOpacity;
 const kRed = Color(0xffE30613);
 
 const kPrimary = Color(0xffF41C3B);

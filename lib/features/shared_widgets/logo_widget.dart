@@ -1,6 +1,8 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/strings/app_images.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LogoWidget extends StatelessWidget {
   final double width;
@@ -12,7 +14,9 @@ class LogoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      child: Image.asset(isWhite? AppImages.logoWhite:AppImages.logo,height: height.h,width: width.w,fit: fit,),
+      child: DMUtil.currentThemeIsDark() ?
+      SvgPicture.asset(AppImages.whiteLogoSvg,width: width.w,fit: fit,) :
+      Image.asset(isWhite? AppImages.logoWhite:AppImages.logo,height: height.h,width: width.w,fit: fit,),
     );
   }
 }

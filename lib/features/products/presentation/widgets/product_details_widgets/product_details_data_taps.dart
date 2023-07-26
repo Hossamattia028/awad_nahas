@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_desc.dart';
@@ -24,7 +25,7 @@ class ProductDetailsDataRow extends StatelessWidget {
                     unselectedLabelColor: DMUtil.getDC(),
                     indicatorColor: DMUtil.getPC(),
                     labelColor: DMUtil.getPC(),
-                    labelStyle: TextStyle(color: DMUtil.getPC()),
+                    labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.verySmall.sp-1),
                     tabs: <Widget>[
                       Tab(text: translate("products.desc"),),
                       Tab(text: translate("products.reviews"),),

@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_event.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_state.dart';
@@ -27,7 +28,7 @@ class RememberMeWidget extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(4))
                 ),
                 value: bloc.rememberMe,
-                checkColor: kWhite,
+                checkColor: DMUtil.getWC(),
                 activeColor: kPrimary,
                 side: const BorderSide(color: kText2),
                 onChanged: (val)=> bloc.add(const RememberMeEvent()),

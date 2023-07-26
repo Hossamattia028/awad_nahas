@@ -281,7 +281,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                       circular: 10,
                       widget: isLoading?const CircularProgressIndicator(color: Colors.white,):
                       CustomText(
-                        color: DMUtil.getWC(),
+                        color: Colors.white,
                         fontSize: AppStyle.average.sp,
                         text: translate("map.save_location"),
                       ),

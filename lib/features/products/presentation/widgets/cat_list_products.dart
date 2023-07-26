@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
@@ -36,9 +37,8 @@ class CatProductsList extends StatelessWidget {
               children: [
                 CustomText(
                   text: cat.title,
-                  color: Colors.black,
+                  color: DMUtil.getDC(),
                   fontSize: AppStyle.large.sp,
-                  // fontWeight: FontWeight.w700,
                 ),
                 ViewAllWidget(fn: ()=> Util.pushPage(ProductListScreen(catID: cat.id.toString()), context),),
               ],
@@ -51,16 +51,27 @@ class CatProductsList extends StatelessWidget {
                 itemCount: list.length > 2 ? 2 : list.length,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(vertical: 4.h,),
+                padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 2),
                 itemBuilder: (BuildContext context, int index) {
                   var item = list[index];
                   return InkWell(
                     onTap: () => Util.pushPage(ProductDetailPage(item: item,), context),
-                    child: Card(
-                      // margin: EdgeInsets.zero,
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: DMUtil.getWC(),
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 1.0, // soften the shadow
+                            spreadRadius: 0.7, //extend the shadow
+                            offset: Offset(
+                              0.01, // Move to right 10  horizontally
+                              0.01, // Move to bottom 10 Vertically
+                            ),
+                          )
+                        ],
                       ),
                       child: Column(
                         children: [
@@ -85,9 +96,9 @@ class CatProductsList extends StatelessWidget {
                           Expanded(
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 3),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
-                                color: Colors.white,
+                              decoration:  BoxDecoration(
+                                borderRadius: const BorderRadius.all(Radius.circular(15)),
+                                color: DMUtil.getWC(),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

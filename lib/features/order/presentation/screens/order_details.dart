@@ -1,6 +1,6 @@
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
-import 'package:awad_nahas/features/order/data/models/order_model.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/order/domain/entities/order.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +14,8 @@ class OrderDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kWhite,
-      appBar: GlobalAppBar(
+      backgroundColor: DMUtil.getWC(),
+      appBar: const GlobalAppBar(
         justLogo: true,
         title: '',
         whiteLogo: true,

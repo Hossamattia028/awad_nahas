@@ -63,7 +63,7 @@ class SearchWidget extends StatelessWidget {
                           },
                           hintText: translate("app_bar.search"),
                           labelText: "",
-                          hintColor: kSecondPrimary,
+                          hintColor: kBackOpacity,
                           radius: 10,
                           textEditingController: searchTextEditingController,
                           cursorColor: kPrimary,

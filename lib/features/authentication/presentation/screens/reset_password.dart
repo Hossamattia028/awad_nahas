@@ -31,7 +31,7 @@ class ResetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kWhite,
+        backgroundColor: DMUtil.getWC(),
         appBar: GlobalAppBar(
           justLogo: false,
           leadingIcon:  Row(
@@ -43,7 +43,7 @@ class ResetPassword extends StatelessWidget {
                 text: translate("signup.reset_password"),
                 fontSize: AppStyle.large.sp,
                 fontFamily: primaryFontSemiBold,
-                color: Colors.black,
+                color: DMUtil.getDC(),
                 alignCenter: true,
               ),
             ],
@@ -73,7 +73,7 @@ class ResetPassword extends StatelessWidget {
                   isStart: true,
                   child: CustomText(
                       text: translate("login.enter_new_password"),
-                      color: Colors.black,
+                      color: DMUtil.getDC(),
                       fontSize: AppStyle.average.sp,
                       fontFamily: primaryFontSemiBold,
                   ),
@@ -91,7 +91,7 @@ class ResetPassword extends StatelessWidget {
                         height: 50,
                         radius: 10,
                         hintText: translate("login.your_password"),
-                        hintColor: kSecondPrimary,
+                        hintColor: kBackOpacity,
                         textEditingController: passTextEditingController,
                         cursorColor: kPrimary,
                         validator: () {},
@@ -125,7 +125,7 @@ class ResetPassword extends StatelessWidget {
                         labelText: '',
                         height: 50,
                         radius: 10,
-                        hintColor: kSecondPrimary,
+                        hintColor: kBackOpacity,
                         textEditingController: passEnsureTextEditingController,
                         cursorColor: kPrimary,
                         validator: () {},
@@ -155,12 +155,11 @@ class ResetPassword extends StatelessWidget {
                         width: double.infinity,
                         circular: 15,
                         widget: state is ChangeUserPasswordState && state.response.isLoad==true?
-                        const CircularProgressIndicator(color: Colors.white,):
+                        CircularProgressIndicator(color: DMUtil.getWC(),):
                         CustomText(
                           text: translate("button.confirm"),
-                          color: DMUtil.getWC(),
+                          color: DMUtil.getDC(),
                           fontSize: AppStyle.average.sp,
-                          fontFamily: primaryFontBold,
                           alignCenter: true,
                         ),
                         color: DMUtil.getRED(),

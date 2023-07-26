@@ -9,6 +9,8 @@ class AppImages{
 
   static const String logoGif = "$icons/awad_nahas Logo Gift.gif";
   static const String logo = "$icons/logo.png";
+  static const String whiteLogoSvg = "$icons/whiteLogo.svg";
+  static const String whiteLogo = "$icons/whiteLogo.png";
   static const String logoWhite = "$icons/logo-white.png";
   static const String logoWithoutBackGround = "$icons/logo.png";
   static const String splashImage = "$images/splash.png";

@@ -16,9 +16,9 @@ class RelatedProductsWidget extends StatelessWidget {
         const SizedBox(height: 10,),
         CustomText(
           text: translate("products.related_products"),
-          fontSize: AppStyle.average.sp,
+          fontSize: AppStyle.average.sp+2,
         ),
-
+        const SizedBox(height: 5,),
         const RelatedProductsList(),
         const SizedBox(height: 20,),
       ],

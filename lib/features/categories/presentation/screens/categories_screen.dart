@@ -17,7 +17,7 @@ class CategoriesScreen extends StatelessWidget {
       child: Column(
         children: [
 
-          GlobalAppBar(title: translate("app_bar.categories"),  leadingIcon: DrawerIcon(ctx: context,color: DMUtil.getDC(),),),
+          GlobalAppBar(title: translate("app_bar.categories"),),
 
           Padding(padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),child: const SearchWidget()),
 

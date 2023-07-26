@@ -20,7 +20,7 @@ class LocationCardWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: DMUtil.getWC(),
         border: Border.all(width: 1,color: DMUtil.getRED()),
         borderRadius: BorderRadius.circular(4),
           boxShadow: [

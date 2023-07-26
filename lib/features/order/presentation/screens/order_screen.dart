@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
 import 'package:awad_nahas/features/order/presentation/widgets/top_status_button.dart';
@@ -35,7 +36,7 @@ class _OrderScreenState extends State<OrderScreen>  with TickerProviderStateMixi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kWhite,
+      backgroundColor: DMUtil.getWC(),
       body: Stack(
         alignment: Alignment.topCenter,
         children: [

@@ -10,8 +10,8 @@ class ApiUrl {
   };
 
   // static const String BASE_URL = 'http://10.0.2.2:8000/api/';
-  static const String BASE_URL = 'https://dboy.awadnahas.com/awadnahas/api/';
-  static const String STORAGE_URL = 'https://dboy.awadnahas.com/awadnahas/public/';
+  static const String BASE_URL = '';
+  static const String STORAGE_URL = '';
 
   //auth
   static const String REGISTER_URL = '${BASE_URL}auth/signup';

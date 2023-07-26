@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_card.dart';
@@ -16,7 +15,7 @@ class ProductListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(
+      appBar: const GlobalAppBar(
         title: "",
         justLogo: true,
         leadingIcon: BackArrowButton(),

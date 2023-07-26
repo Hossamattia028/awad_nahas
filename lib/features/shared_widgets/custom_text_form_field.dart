@@ -120,7 +120,7 @@ class CustomTextFromField extends StatelessWidget {
           label: Text(
             labelText,
             style: TextStyle(
-              color: isLabelError ? Colors.red : kHint,
+              color: isLabelError ? Colors.red : DMUtil.getD2C(),
               fontSize: AppStyle.small.sp,
             ),
           ),

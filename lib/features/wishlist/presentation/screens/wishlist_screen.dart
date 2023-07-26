@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class WishListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: DMUtil.getWC(),
       appBar: GlobalAppBar(
           title: translate("profile.wishlist"),
           leadingIcon:  const BackArrowButton(),

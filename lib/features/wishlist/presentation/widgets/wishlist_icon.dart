@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/styles/my_colors.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
@@ -23,7 +24,7 @@ class WishListIconWidget extends StatelessWidget {
         if(item.id==0)isFav = true;
         return InkWell(
           onTap: ()=> bloc.add(AddToWishlistEvent(product: item)),
-          child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:Colors.black26,size: 23.w,),
+          child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:DMUtil.getD2C(),size: 23.w,),
         );
       },
     );

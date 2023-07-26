@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kWhite,
+        backgroundColor: DMUtil.getWC(),
         body: BlocListener<AuthBloc,AuthState>(
           listenWhen: (context,state)=> state is LogInSuccessfullyState || state is LogInFailedState ,
           listener: (ctx,state){

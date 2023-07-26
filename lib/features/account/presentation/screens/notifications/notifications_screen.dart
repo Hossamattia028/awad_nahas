@@ -2,6 +2,7 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
 import 'package:awad_nahas/features/account/presentation/widgets/notifications_widgets/notifications_list.dart';
@@ -18,7 +19,7 @@ class NotificationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kWhite,
+        backgroundColor: DMUtil.getWC(),
         appBar: GlobalAppBar(
           justLogo: true,
           title: '',

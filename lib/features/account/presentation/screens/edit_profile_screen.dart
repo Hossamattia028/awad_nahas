@@ -65,7 +65,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         return state is UpdateProfileState;
       },
       child: Scaffold(
-        backgroundColor: kWhite,
+        backgroundColor: DMUtil.getWC(),
         appBar: GlobalAppBar(
           title: translate("profile.profile"),
           whiteLogo: true,

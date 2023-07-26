@@ -1,4 +1,5 @@
 
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/features/locations/presentation/widgets/add_new_location_button.dart';
@@ -11,6 +12,7 @@ class MyLocationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DMUtil.getWC(),
       bottomNavigationBar: const AddNewLocationButton(),
       appBar: GlobalAppBar(
         title: translate("profile.addresses"),

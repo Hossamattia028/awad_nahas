@@ -62,7 +62,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kWhite,
+      backgroundColor: DMUtil.getWC(),
       key: scaffoldKey,
       appBar: GlobalAppBar(
         justLogo: false,

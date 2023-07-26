@@ -16,9 +16,9 @@ class BrandProductsWidget extends StatelessWidget {
         const SizedBox(height: 10,),
         CustomText(
           text: "${translate("products.more_from")} miele",
-          fontSize: AppStyle.average.sp,
+          fontSize: AppStyle.average.sp+2,
         ),
-
+        const SizedBox(height: 5,),
         const RelatedProductsList(),
         const SizedBox(height: 20,),
       ],

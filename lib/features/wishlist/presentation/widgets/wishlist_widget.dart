@@ -26,7 +26,7 @@ class WishListWidget extends StatelessWidget {
             var item = list[index];
             return ProductCard(item: item,enableCartBtn: true,);
           },
-          separatorBuilder: (context, index) => const SizedBox(height: 10),
+          separatorBuilder: (context, index) => const SizedBox(height: 15),
         );
       },
     );

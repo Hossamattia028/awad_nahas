@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/locations/presentation/widgets/select_location_drop_down.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/search/presentation/screens/search_screen.dart';
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh:_onRefresh,
-      color: kPrimary,
+      color: DMUtil.getRED(),
       child: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.sp,),
         physics: const BouncingScrollPhysics(),

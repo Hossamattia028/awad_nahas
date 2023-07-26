@@ -29,12 +29,12 @@ class SmallBannerWidget extends StatelessWidget {
         children: [
           CustomText(
             text: "Title",
-            color: DMUtil.getWC(),
+            color: Colors.white,
             fontSize: AppStyle.large.sp,
           ),
           CustomText(
             text: "From Price",
-            color: DMUtil.getWC(),
+            color: Colors.white,
             fontSize: AppStyle.large.sp,
           ),
           Row(
@@ -42,7 +42,7 @@ class SmallBannerWidget extends StatelessWidget {
             children: [
               CustomText(
                 text: translate("store.shop_now"),
-                color: DMUtil.getWC(),
+                color: Colors.white,
                 fontSize: AppStyle.large.sp,
                 alignCenter: true,
               ),

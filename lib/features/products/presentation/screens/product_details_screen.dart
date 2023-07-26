@@ -54,9 +54,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: DMUtil.getWC(),
-      appBar: const GlobalAppBar(
-        title: "",
-        leadingIcon: BackArrowButton(),
+      appBar: GlobalAppBar(
+        backGroundColor: DMUtil.getRED(),
+        title: widget.item.title,
+        leadingIcon: const BackArrowButton(),
       ),
       bottomNavigationBar: AddToCartButtonBottomNav(item: widget.item,),
       body: SingleChildScrollView(
@@ -65,6 +66,20 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: (){},
+                  child: Icon(Icons.favorite_border,color: DMUtil.getD2C(),),
+                ),
+                const SizedBox(width: 10,),
+                InkWell(
+                  onTap: (){},
+                  child: Icon(Icons.ios_share_outlined,color: DMUtil.getRED(),),
+                ),
+              ],
+            ),
             const SliderWidget(),
 
             const SizedBox(height: 10,),
@@ -74,29 +89,21 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
                 color: DMUtil.getDC(),
                 fontSize: AppStyle.large.sp-3,
             ),
-            Image.asset("${AppImages.images}/brand.png"),
+
+
             const Divider(thickness: 1,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ProductPriceWidget(productModel: widget.item,isBig: true,),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: (){},
-                      child: Icon(Icons.favorite_border,color: DMUtil.getD2C(),),
-                    ),
-                    const SizedBox(width: 10,),
-                    InkWell(
-                      onTap: (){},
-                      child: Icon(Icons.ios_share_outlined,color: DMUtil.getD2C(),),
-                    ),
-                  ],
-                )
+                Image.asset("${AppImages.images}/brand.png"),
               ],
             ),
-            const Divider(thickness: 1,),
-
+            CustomText(
+              text: "Specification\n*Smeg Portofino 90cm combination freestanding cooker.\n*Energy efficiency: A+.\n*Oven capacity: 126 liter.\n*Automatic programs: 20.\n*Number of cooking functions: 9.6 Gas hob.\n*Cleaning functions: vapor clean.\n*Colour: Yellow.", color: DMUtil.getDC(),
+              fontSize: AppStyle.average.sp,
+              maxLine: 10,
+            ),
             ProductDetailsDataRow(item: widget.item),
 
             const BrandProductsWidget(),
