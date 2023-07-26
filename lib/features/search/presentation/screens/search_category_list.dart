@@ -40,7 +40,7 @@ class SearchCategoryList extends StatelessWidget {
                 crossAxisSpacing: 10.h,
                 mainAxisSpacing: 10.h,
                 childAspectRatio: 1.2,
-                mainAxisExtent: 94.h,
+                mainAxisExtent: 92.h,
               ),
               itemBuilder: (BuildContext context, int index) {
                 var item = list[index];
@@ -68,7 +68,7 @@ class SearchCategoryList extends StatelessWidget {
                 );
               },
             ),
-            const Divider(),
+
           ],
         );
       },

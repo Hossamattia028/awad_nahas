@@ -62,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                   isStart: true,
                   child: CustomText(
                       text: translate("login.app_bar"),
-                      color: Colors.black,
+                      color: DMUtil.getDC(),
                       fontSize: AppStyle.average.sp,
                       fontFamily: primaryFontSemiBold,
                   ),
@@ -114,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                             showPassword==true
                                 ? CupertinoIcons.eye
                                 : CupertinoIcons.eye_slash,
-                            color: kText2,
+                            color: DMUtil.getDC(),
                           ),
                         ),
                         isLabelError: false);
@@ -128,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                       onTap: ()=> Util.pushPage(const ForgetPasswordScreen(), context),
                       child: CustomText(
                           text: translate("login.forget_pass"),
-                          color: Colors.black,
+                          color: DMUtil.getDC(),
                           fontFamily: primaryFontSemiBold,
                           fontSize: AppStyle.small.sp,
                       ),
@@ -144,7 +144,7 @@ class LoginScreen extends StatelessWidget {
                         width: double.infinity,
                         widget: CustomText(
                           text: translate("login.app_bar"),
-                          color: DMUtil.getWC(),
+                          color: Colors.white,
                           fontSize: AppStyle.average.sp,
                           fontFamily: primaryFontBold,
                           alignCenter: true,

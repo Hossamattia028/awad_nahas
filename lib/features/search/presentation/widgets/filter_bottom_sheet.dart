@@ -14,6 +14,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 540.h,
+      color: DMUtil.getWC(),
       padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 20),
       child:  SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -55,7 +56,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                   circular: 20,
                   widget:  CustomText(
                     text: "${translate("button.view")} 12 items",
-                    color: DMUtil.getWC(),
+                    color: Colors.white,
                     fontSize: AppStyle.average.sp,
                   ),
                   color: DMUtil.getRED(),
@@ -111,7 +112,7 @@ class CheckBoxWidget extends StatelessWidget {
           ),
 
           if(plus)...[
-            const Icon(Icons.add,size: 24,),
+            Icon(Icons.add,size: 24,color: DMUtil.getDC(),),
           ]else...[
             Container(
               width: 24.w,

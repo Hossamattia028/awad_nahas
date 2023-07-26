@@ -34,7 +34,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: DMUtil.getWC(),
         body: BlocListener<AuthBloc,AuthState>(
           listener: (ctx,state){
             var bloc = AuthBloc.get(ctx);
@@ -54,19 +54,19 @@ class RegisterScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: AppStyle.paddingFromTop.h,),
-              Row(
-                children: [
-                  const BackArrowButton(),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                    child: CustomText(
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w),
+                child: Row(
+                  children: [
+                    const BackArrowButton(),
+                    CustomText(
                       text: translate("signup.signup"),
-                      color: kText1,
+                      color: DMUtil.getDC(),
                       fontWeight: FontWeight.w700,
                       fontSize: AppStyle.average.sp,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -181,7 +181,7 @@ class RegisterScreen extends StatelessWidget {
                                 showPassword==true
                                     ? CupertinoIcons.eye
                                     : CupertinoIcons.eye_slash,
-                                color: kText2,
+                                color: DMUtil.getDC(),
                               ),
                             ),
                             isLabelError: false);
@@ -220,7 +220,7 @@ class RegisterScreen extends StatelessWidget {
                           child:
                           CustomText(
                             text: translate("signup.signup"),
-                            color:  DMUtil.getWC(),
+                            color: Colors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: AppStyle.average.sp,
                           ),

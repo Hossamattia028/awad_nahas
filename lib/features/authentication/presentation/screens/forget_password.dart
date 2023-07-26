@@ -26,91 +26,88 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: DMUtil.getWC(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: AppStyle.paddingFromTop.h,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const BackArrowButton(),
-                const SizedBox(width: 10,),
-                CustomText(
-                  text: translate("login.forget_pass_"),
-                  color: DMUtil.getDC(),
-                  fontFamily: primaryFontSemiBold,
-                  fontSize: AppStyle.large.sp,
-                ),
-              ],
-            ),
-            SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(vertical: AppStyle.paddingFromTop.h,horizontal: AppStyle.paddingFromH.w),
-              child:  Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: AppStyle.paddingFromTop.h,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  const BackArrowButton(),
+                  const SizedBox(width: 10,),
                   CustomText(
-                    text: translate("login.email"),
+                    text: translate("login.forget_pass_"),
                     color: DMUtil.getDC(),
                     fontFamily: primaryFontSemiBold,
-                    fontSize: AppStyle.average.sp,
+                    fontSize: AppStyle.large.sp,
                   ),
-                  CustomTextFromField(
-                      hasBorder: true,
-                      borderWidth: 1,
-                      borderColor: DMUtil.getD2C(),
-                      labelText: '',
-                      height: 50,
-                      radius: 10,
-                      hintText: translate("signup.email"),
-                      textEditingController: emailTextEditingController,
-                      validator: () {},
-                      hintColor: kSecondPrimary,
-                      textInputType: TextInputType.emailAddress,
-                      prefixIcon: null,
-                      cursorColor: kPrimary,
-                      suffixIcon:  null,
-                      obscureText: false,
-                      isLabelError: false),
-
-                  const SizedBox(height: 20,),
-                  BlocBuilder<AuthBloc,AuthState>(
-                    builder: (ctx,state){
-                      // FetchStates state = AuthBloc.get(context).states;
-                      // if(state==FetchStates.LOADING)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
-                      return MaterialButton(
-                        onPressed: ()async{
-                          String phone = emailTextEditingController.text.trim();
-                          if(phone.isNotEmpty){
-                            var res = await Util.sendFirebaseVerifyCode(phone);
-                            // if(){
-                            Util.pushPage(PinCodeVerificationScreen(phone: emailTextEditingController.text.trim(),), context);
-                            // }
-                          }else{
-                            SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
-                          }
-                        },
-                        minWidth: double.infinity,
-                        height: 40.h,
-                        color: DMUtil.getRED(),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: CustomText(
-                          text: translate("button.next"),
-                          color:  DMUtil.getWC(),
-                          fontFamily: primaryFontBold,
-                          fontSize: AppStyle.average.sp,
-                        ),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 30,),
                 ],
               ),
-            ),
-          ],
+              const SizedBox(height: 20,),
+              CustomText(
+                text: translate("login.email"),
+                color: DMUtil.getDC(),
+                fontFamily: primaryFontSemiBold,
+                fontSize: AppStyle.average.sp,
+              ),
+              CustomTextFromField(
+                  hasBorder: true,
+                  borderWidth: 1,
+                  borderColor: DMUtil.getD2C(),
+                  labelText: '',
+                  height: 50,
+                  radius: 10,
+                  hintText: translate("signup.email"),
+                  textEditingController: emailTextEditingController,
+                  validator: () {},
+                  hintColor: kSecondPrimary,
+                  textInputType: TextInputType.emailAddress,
+                  prefixIcon: null,
+                  cursorColor: kPrimary,
+                  suffixIcon:  null,
+                  obscureText: false,
+                  isLabelError: false),
+
+              const SizedBox(height: 20,),
+              BlocBuilder<AuthBloc,AuthState>(
+                builder: (ctx,state){
+                  // FetchStates state = AuthBloc.get(context).states;
+                  // if(state==FetchStates.LOADING)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
+                  return MaterialButton(
+                    onPressed: ()async{
+                      String phone = emailTextEditingController.text.trim();
+                      if(phone.isNotEmpty){
+                        var res = await Util.sendFirebaseVerifyCode(phone);
+                        // if(){
+                        Util.pushPage(PinCodeVerificationScreen(phone: emailTextEditingController.text.trim(),), context);
+                        // }
+                      }else{
+                        SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
+                      }
+                    },
+                    minWidth: double.infinity,
+                    height: 40.h,
+                    color: DMUtil.getRED(),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: CustomText(
+                      text: translate("button.next"),
+                      color:  Colors.white,
+                      fontFamily: primaryFontBold,
+                      fontSize: AppStyle.average.sp,
+                    ),
+                  );
+                },
+              ),
+
+              const SizedBox(height: 30,),
+
+            ],
+          ),
         )
     );
   }

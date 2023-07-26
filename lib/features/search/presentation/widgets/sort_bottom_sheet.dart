@@ -12,6 +12,7 @@ class SortBottomSheetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 290.h,
+      color: DMUtil.getWC(),
       padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 20),
       child:  SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -81,7 +82,7 @@ class CheckBoxWidget extends StatelessWidget {
           CircleAvatar(
             backgroundColor: DMUtil.getRED(),
             radius: 10.w,
-            child: Icon(Icons.check,color: DMUtil.getWC(),size: 14.w,),
+            child: Icon(Icons.check,color: Colors.white,size: 14.w,),
           ),
 
 

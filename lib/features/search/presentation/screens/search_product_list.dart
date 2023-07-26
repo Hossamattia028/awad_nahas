@@ -35,7 +35,7 @@ class SearchProductList extends StatelessWidget {
                 var item = bloc.productSearchList[index];
                 return ProductCard(item: item);
               },
-              separatorBuilder: (context, index) => const SizedBox(height: 10),
+              separatorBuilder: (context, index) => const SizedBox(height: 15),
             ),
           ],
         );
