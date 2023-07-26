@@ -10,6 +10,7 @@ class Constants {
   static const String address = "address";
   static const String userType = "userType";
   static const String userLang = "userLang";
+  static const String userTheme = "theme"; // dark or light
   static const String userLatitude = "latitude";
   static const String userLongitude = "longitude";
   static const String userLocationDetails = "longitude";

@@ -1,8 +1,13 @@
+import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
+import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
+import 'package:awad_nahas/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -65,6 +70,20 @@ class SettingSectionWidget extends StatelessWidget {
           ),
         ),
 
+        SettingLineOption(
+          title: translate("activity_setting.dark_mode"),
+          widget: SizedBox(
+            height: 25.h,
+            child: Switch(
+              value: DMUtil.currentThemeIsDark(),
+              activeColor: DMUtil.getRED(),
+              onChanged: (val){
+                SharedPref().setPreferencesString(Constants.userTheme, DMUtil.currentThemeIsDark()?"light":"dark");
+                RootBloc.get(context).add(const ChangeIndex(index: 3, title: ""));
+                Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+              }),
+          ),
+        ),
 
         const SizedBox(height: 5,),
         CustomText(

@@ -21,11 +21,21 @@ class CategoryCard extends StatelessWidget {
         CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: item));
         Util.pushPage(const CategoryProductsScreen(), context);
       },
-      child: Card(
-        elevation: 3,
-        color: DMUtil.getWC(),
-        shape: RoundedRectangleBorder(
+      child: Container(
+        decoration: BoxDecoration(
+          color: DMUtil.getWC(),
           borderRadius: BorderRadius.circular(10),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 1.0, // soften the shadow
+              spreadRadius: 0.7, //extend the shadow
+              offset: Offset(
+                0.01, // Move to right 10  horizontally
+                0.05, // Move to bottom 10 Vertically
+              ),
+            )
+          ],
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

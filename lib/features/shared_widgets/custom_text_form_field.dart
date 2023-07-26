@@ -1,6 +1,7 @@
 
 // ignore_for_file: must_be_immutable
 
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
@@ -62,7 +63,7 @@ class CustomTextFromField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: DMUtil.getWC(),
       height: height?.h ?? 41.h,
       alignment: Alignment.center,
       child: TextFormField(
@@ -113,7 +114,7 @@ class CustomTextFromField extends StatelessWidget {
           suffixIcon: suffixIcon,
           hintText: hintText,
           hintStyle: TextStyle(
-            fontSize: AppStyle.small.sp,
+            fontSize: AppStyle.small.sp-2,
             color: hintColor??kHint,
           ),
           label: Text(

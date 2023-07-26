@@ -2,6 +2,8 @@
 
 import 'dart:async';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/search/presentation/widgets/search_widget.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +13,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
@@ -39,7 +40,7 @@ class MapScreenState extends State<MapScreen> {
   final Completer<GoogleMapController> _controller = Completer();
   late GoogleMapController mapController;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
-
+  TextEditingController searchTextEditingController = TextEditingController();
 
   LatLng? lastLocation;
   String latitude = '', longitude = '';
@@ -64,6 +65,7 @@ class MapScreenState extends State<MapScreen> {
             fontSize: AppStyle.average.sp,
             color: DMUtil.getDC()
           ),
+
         ),
         floatingActionButton: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 80.h),
@@ -74,6 +76,7 @@ class MapScreenState extends State<MapScreen> {
         ),
         body: Stack(
           children: [
+
              GoogleMap(
                     initialCameraPosition: CameraPosition(target: lastLocation ?? const LatLng(21.4504394, 38.8815082), zoom: 10),
                     onMapCreated: onMapCreated,
@@ -87,7 +90,39 @@ class MapScreenState extends State<MapScreen> {
                     zoomGesturesEnabled: true,
                     markers: Set<Marker>.of(markers.values),
                   ),
+            Container(
+              height: 50.h,
+              width: double.infinity,
+              color: DMUtil.getWC(),
+              padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w),
+              child: CustomTextFromField(
+                height: 10.h,
+                onChanged: (val){
 
+                },
+                onFieldSubmitted:(val){
+                },
+                hintText: translate("app_bar.search"),
+                labelText: "",
+                borderColor: DMUtil.getD2C(),
+                hintColor: DMUtil.getD2C(),
+                radius: 10,
+                textEditingController: searchTextEditingController,
+                cursorColor:  DMUtil.getRED(),
+                validator: () {},
+                prefixIcon: InkWell(
+                  // onTap: ()=> ProductsBloc.get(context).add(const EnableSearchEvent()),
+                  child: Icon(
+                    CupertinoIcons.search,
+                    color: DMUtil.getD2C(),
+                  ),
+                ),
+                smallPadding: true,
+                obscureText: false,
+                hasBorder: true,
+                isLabelError: false,
+              ),
+            ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(

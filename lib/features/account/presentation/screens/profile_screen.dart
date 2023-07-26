@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kWhite,
+      backgroundColor: DMUtil.getWC(),
       appBar: GlobalAppBar(
         title: translate("profile.my_account"),
         leadingIcon: DrawerIcon(ctx: context,color: DMUtil.getDC(),),
@@ -33,8 +33,8 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children:  [
-                const MyAccountSetting(),
 
+              const MyAccountSetting(),
 
               const SettingSectionWidget(),
 

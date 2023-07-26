@@ -16,6 +16,7 @@ class SharedPref {
   instantiatePreferences() async {
     sharedPreferences = await SharedPreferences.getInstance();
     if(!sharedPreferences.containsKey(Constants.userLang))sharedPreferences.setString(Constants.userLang, "en_US");
+    if(!sharedPreferences.containsKey(Constants.userTheme))sharedPreferences.setString(Constants.userTheme, "light");
   }
 
   ///Below method is to return the SharedPreference instance.

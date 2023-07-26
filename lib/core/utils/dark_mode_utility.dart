@@ -1,8 +1,13 @@
+import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
+import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 
 class DMUtil{
 
+  static bool currentThemeIsDark(){
+    return SharedPref().getPreferenceString(Constants.userTheme).toString().trim()=="dark";
+  }
   /// get primary color
   static Color getPC(){
     return kPrimary;
@@ -10,12 +15,12 @@ class DMUtil{
 
   /// get background color
   static Color getBC(){
-    return kWhite;
+    return currentThemeIsDark()?kDark:kWhite;
   }
 
   /// get background color
   static Color getWC(){
-    return kWhite;
+    return currentThemeIsDark()?kDark:kWhite;
   }
 
   /// get background color
@@ -30,12 +35,12 @@ class DMUtil{
 
   /// get Dark Color
   static Color getDC(){
-    return kBlack;
+    return currentThemeIsDark()?kWhite:kBlack;
   }
 
   /// get Dark Color
   static Color getD2C(){
-    return kBlack2;
+    return currentThemeIsDark()?kBackGround:kBlack2;
   }
 
 

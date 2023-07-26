@@ -45,7 +45,8 @@
 		"clear": "Clear",
 		"submit": "Submit",
 		"edit": "Edit",
-		"remove": "Remove"
+		"remove": "Remove",
+		"change": "change"
 	},
 	"toast": {
 		"sure_to_submit": "Are you sure to submit ?",
@@ -190,6 +191,7 @@
 		"order_when_online": "Allow Delivery app Driver to display over Other apps in Order to receive orders When you're online",
 		"go_setting": "Go to Settings",
 		"app_bar": "App Setting ",
+		"dark_mode": "Dark Mode",
 		"call_us": " Call Us ",
 		"sign_out": " Sign out ",
 		"sure_signout": "Are you sure to sign out !",

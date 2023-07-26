@@ -20,7 +20,7 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.white,
+      backgroundColor: DMUtil.getWC(),
       width: 200.w,
       shape: RoundedRectangleBorder(
         borderRadius: Util.getLang()=="ar"? const BorderRadius.only(bottomRight: Radius.circular(25)) : const BorderRadius.only(bottomLeft: Radius.circular(25))

@@ -95,8 +95,8 @@ class BackArrowButton extends StatelessWidget {
         alignment: alignment??(Util.getLang()=="ar"?Alignment.centerRight:Alignment.centerLeft),
         padding: const EdgeInsets.only(right: 5, left: 5),
         icon: Icon(
-          Icons.arrow_back,
-          color: color??DMUtil.getDC(),
+          Icons.arrow_back_ios,
+          color: color??DMUtil.getD2C(),
           size: 23.w,
         ),
       ),

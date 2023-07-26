@@ -4,6 +4,7 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
 import 'package:awad_nahas/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -33,7 +34,8 @@ void main() async{
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key,}) : super(key: key);
+  final bool? isTheme;
+  const MyApp({Key? key,this.isTheme}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +73,7 @@ class MyApp extends StatelessWidget {
               return widget!;
             },
             title: 'Awad Nahas',
-            home: const SplashScreen(),
+            home: isTheme==true?  const RootScreen(): const SplashScreen(),
           ),
         ),
       )

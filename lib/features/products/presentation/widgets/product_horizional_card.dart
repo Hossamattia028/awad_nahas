@@ -44,10 +44,10 @@ class ProductHorizontalCard extends StatelessWidget {
                 BoxShadow(
                   color: Colors.grey,
                   blurRadius: 1.0, // soften the shadow
-                  spreadRadius: 0.2, //extend the shadow
+                  spreadRadius: 0.7, //extend the shadow
                   offset: Offset(
-                    1.0, // Move to right 10  horizontally
-                    1.0, // Move to bottom 10 Vertically
+                    0.01, // Move to right 10  horizontally
+                    0.01, // Move to bottom 10 Vertically
                   ),
                 )
               ],

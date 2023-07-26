@@ -1,8 +1,7 @@
-import 'package:awad_nahas/core/styles/my_colors.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/screens/cart_screen.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/categories_screen.dart';
-import 'package:awad_nahas/features/categories/presentation/screens/our_brand.dart';
 import 'package:awad_nahas/features/home/presentation/screens/home.dart';
 import 'package:awad_nahas/features/root_app/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 import 'package:awad_nahas/features/root_app/widgets/bottom_nav_bar.dart';
 
 class RootScreen extends StatelessWidget {
-  const RootScreen({Key? key}) : super(key: key);
+  const RootScreen({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class RootScreen extends StatelessWidget {
         return Scaffold(
           bottomNavigationBar: const BottomNavBar(),
           drawer: const DrawerWidget(),
-          backgroundColor: kWhite,
+          backgroundColor: DMUtil.getWC(),
           body: Stack(
             alignment: Alignment.bottomCenter,
             children: [
