@@ -1,5 +1,5 @@
 
 
-const primaryFontReg = "Somar-Regular";
-const primaryFontBold = "Somar-Bold";
-const primaryFontSemiBold = "Somar-SemiBold";
+const primaryFontReg = "Poppins-Regular";
+const primaryFontBold = "Poppins-Bold";
+const primaryFontSemiBold = "Poppins-SemiBold";

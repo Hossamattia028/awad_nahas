@@ -40,7 +40,6 @@ class HomeContentWidget extends StatelessWidget {
         ),
 
         const SingleBannerWidget(),
-
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);

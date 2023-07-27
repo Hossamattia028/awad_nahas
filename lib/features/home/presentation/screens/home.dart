@@ -45,8 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
             const LogoWidget(width: 120,height: 70,fit: BoxFit.contain,),
             const SizedBox(height: 10,),
             const SearchWidget(),
-
-            const SelectLocations(),
+            const SizedBox(height: 6,),
+            // const SelectLocations(),
 
             BlocBuilder<ProductsBloc,ProductsState>(
               builder: (ctx,state){

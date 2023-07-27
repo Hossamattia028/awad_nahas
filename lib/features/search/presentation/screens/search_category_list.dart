@@ -1,6 +1,9 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
+import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
 import 'package:awad_nahas/features/products/presentation/screens/products_list.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
@@ -34,7 +37,7 @@ class SearchCategoryList extends StatelessWidget {
               itemCount: list.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(vertical: 10.h),
+              padding: EdgeInsets.symmetric(vertical: 6.h),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
                 crossAxisSpacing: 10.h,
@@ -45,7 +48,10 @@ class SearchCategoryList extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 var item = list[index];
                 return InkWell(
-                  onTap: ()=> Util.pushPage(ProductListScreen(catID: item.id.toString()), context),
+                  onTap: (){
+                    CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: item));
+                    Util.pushPage(const CategoryProductsScreen(), context);
+                  },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

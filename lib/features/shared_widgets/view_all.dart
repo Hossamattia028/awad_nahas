@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class ViewAllWidget extends StatelessWidget {
@@ -20,7 +19,7 @@ class ViewAllWidget extends StatelessWidget {
         // ),
         child: CustomText(
           text: translate("home.view_all"),
-          fontSize: AppStyle.small.sp+2,
+          fontSize: AppStyle.small.sp+3,
         ),
       ),
     );

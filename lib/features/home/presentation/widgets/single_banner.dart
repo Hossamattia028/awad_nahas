@@ -17,6 +17,7 @@ class SingleBannerWidget extends StatelessWidget {
       height: 220.h,
       width: double.infinity,
       padding: EdgeInsets.only(top: 80.h,left: 20,right: 20),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           image: const DecorationImage(

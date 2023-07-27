@@ -6,7 +6,6 @@ import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/products/presentation/screens/product_details_screen.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
@@ -30,16 +29,16 @@ class ProductHorizontalCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: index==1?kBackOpacity:DMUtil.getWC(),
+              color: DMUtil.getWC(),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
-              gradient: index==1? const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    kBackOpacity,
-                    kBackOpacity
-                  ]
-              ):null,
+              // gradient: index==1? const LinearGradient(
+              //     begin: Alignment.topCenter,
+              //     end: Alignment.bottomCenter,
+              //     colors: [
+              //       kBackOpacity,
+              //       kBackOpacity
+              //     ]
+              // ):null,
               boxShadow: const [
                 BoxShadow(
                   color: Colors.grey,
@@ -52,53 +51,50 @@ class ProductHorizontalCard extends StatelessWidget {
                 )
               ],
             ),
-            child: Opacity(
-              opacity: index==1?0.5:1,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if(item.id==0)...[
-                    SizedBox(
-                      width: widTh.w,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const DiscountWidget(value: "-15%"),
-                          WishListIconWidget(item: item),
-                        ],
-                      ),
-                    ),
-                  ]else...[
-                    SizedBox(
-                      width: widTh.w,
-                      child: AlignChildRow(
-                        isStart: false,
-                        child: WishListIconWidget(item: item),
-                      ),
-                    ),
-                  ],
-                  ImageWidget(imgUrl: item.imgPath, fit: BoxFit.contain, height: 135,width: isSmall?120:double.infinity,),
-                  const SizedBox(height: 3,),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if(item.id==0)...[
                   SizedBox(
                     width: widTh.w,
-                    child: CustomText(
-                      text: item.title.toString(),
-                      color: DMUtil.getDC(),
-                      fontSize: AppStyle.average.sp,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const DiscountWidget(value: "-15%"),
+                        WishListIconWidget(item: item),
+                      ],
                     ),
                   ),
-                  ProductPriceWidget(productModel: item,),
-                  CustomText(
-                    text: "( VAT Included )",
-                    color: DMUtil.getD2C(),
-                    fontSize: AppStyle.small.sp,
+                ]else...[
+                  SizedBox(
+                    width: widTh.w,
+                    child: AlignChildRow(
+                      isStart: false,
+                      child: WishListIconWidget(item: item),
+                    ),
                   ),
                 ],
-              ),
+                ImageWidget(imgUrl: item.imgPath, fit: BoxFit.contain, height: 135,width: isSmall?120:double.infinity,),
+                const SizedBox(height: 3,),
+                SizedBox(
+                  width: widTh.w,
+                  child: CustomText(
+                    text: item.title.toString(),
+                    color: DMUtil.getDC(),
+                    fontSize: AppStyle.average.sp,
+                  ),
+                ),
+                ProductPriceWidget(productModel: item,),
+                CustomText(
+                  text: "( VAT Included )",
+                  color: DMUtil.getD2C(),
+                  fontSize: AppStyle.small.sp,
+                ),
+              ],
             ),
           ),
-          if(index==1)
-            CustomText(text: "SOLD OUT", fontSize: AppStyle.large.sp,color: DMUtil.getWC(),),
+          // if(index==1)
+          //   CustomText(text: "SOLD OUT", fontSize: AppStyle.large.sp,color: DMUtil.getWC(),),
 
         ],
       ),

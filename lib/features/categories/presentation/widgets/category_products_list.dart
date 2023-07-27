@@ -26,7 +26,7 @@ class CategoryProductsListWidget extends StatelessWidget {
               crossAxisSpacing: 10.h,
               mainAxisSpacing: 10.h,
               childAspectRatio: 1.4,
-              mainAxisExtent: 270.h,
+              mainAxisExtent: 255.h,
             ),
             itemBuilder: (BuildContext context, int index) {
               var item = list[index];

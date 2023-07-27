@@ -108,15 +108,15 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Somar-Regular
+    - family: Poppins-Bold
       fonts:
-        - asset: assets/fonts/Somar-Regular.otf
-    - family: Somar-Bold
+        - asset: assets/fonts/Poppins-Bold.ttf
+    - family: Poppins-Regular
       fonts:
-        - asset: assets/fonts/Somar-Bold.otf
-    - family: Somar-SemiBold
+        - asset: assets/fonts/Poppins-Regular.ttf
+    - family: Poppins-SemiBold
       fonts:
-        - asset: assets/fonts/Somar-SemiBold.otf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
