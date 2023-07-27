@@ -57,7 +57,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
       appBar: GlobalAppBar(
         backGroundColor: DMUtil.getRED(),
         title: widget.item.title,
-        leadingIcon: const BackArrowButton(),
+        textColor: Colors.white,
+        leadingIcon: const BackArrowButton(color: Colors.white,),
       ),
       bottomNavigationBar: AddToCartButtonBottomNav(item: widget.item,),
       body: SingleChildScrollView(

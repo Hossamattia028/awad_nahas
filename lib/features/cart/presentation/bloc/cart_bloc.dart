@@ -38,13 +38,19 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     on<UpdateCartProductEvent>((event, emit) {
       updateProductQuantity(event,emit);
     });
+
+    on<UpdateCountEvent>((event, emit) {
+      if(event.value == 0)return;
+      emit(CartLoadingState());
+      cartCount = event.value;
+      emit(CartSuccessfullyState());
+    });
   }
   static CartBloc get(BuildContext context) => BlocProvider.of(context);
 
+  int cartCount = 1;
 
   List<ProductsEntity> cartList = [];
-
-
   getAllCart(emit)async{
     // if(!Util.checkUser())return;
     emit(CartLoadingState());

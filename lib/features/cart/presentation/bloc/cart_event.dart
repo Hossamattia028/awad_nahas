@@ -47,3 +47,8 @@ class ImplementCouponDiscountEvent extends CartEvent{
   final String couponTxt;
   const ImplementCouponDiscountEvent({required this.couponTxt});
 }
+
+class UpdateCountEvent extends CartEvent{
+  final int value;
+  const UpdateCountEvent({required this.value});
+}

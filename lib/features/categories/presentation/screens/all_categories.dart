@@ -17,7 +17,7 @@ class AllCategoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(
+      appBar: const GlobalAppBar(
         title: "",
         justLogo: true,
         leadingIcon: BackArrowButton(),

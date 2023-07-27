@@ -24,7 +24,6 @@ class CartScreen extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-
               CartListWidget(),
               CouponWidget(),
               OrderDetails(),

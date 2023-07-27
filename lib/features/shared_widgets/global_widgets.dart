@@ -18,6 +18,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leadingIcon;
   final bool justLogo;
   final bool whiteLogo;
+  final Color? textColor;
   final Color backGroundColor;
   const GlobalAppBar({
     Key? key,
@@ -26,7 +27,8 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingIcon,
     this.justLogo = false,
     this.whiteLogo = false,
-    this.backGroundColor = Colors.transparent
+    this.backGroundColor = Colors.transparent,
+    this.textColor
   })
       : super(key: key);
 
@@ -60,7 +62,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
                     padding: EdgeInsets.only(left: Util.getLang()=="ar"?40.w:0,right: Util.getLang()!="ar"?40.w:0),
                     child: CustomText(
                       text: title.toString(),
-                      color: DMUtil.getDC(),
+                      color: textColor ?? DMUtil.getDC(),
                       fontSize: AppStyle.large.sp,
                       alignCenter: true,
                     ),

@@ -19,7 +19,7 @@ class DiscountWidget extends StatelessWidget {
       ),
       child: CustomText(
         text: '-15%',
-        color: DMUtil.getWC(),
+        color: Colors.white,
         fontSize: AppStyle.small.sp+2,
       ),
     );

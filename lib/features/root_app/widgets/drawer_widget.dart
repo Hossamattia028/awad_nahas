@@ -1,5 +1,4 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
@@ -22,9 +21,6 @@ class DrawerWidget extends StatelessWidget {
     return Drawer(
       backgroundColor: DMUtil.getWC(),
       width: 200.w,
-      shape: RoundedRectangleBorder(
-        borderRadius: Util.getLang()=="ar"? const BorderRadius.only(bottomRight: Radius.circular(25)) : const BorderRadius.only(bottomLeft: Radius.circular(25))
-      ),
       child: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: AppStyle.paddingFromTop.h+20),
         child: Column(
@@ -116,22 +112,23 @@ class ItemLineDrawer extends StatelessWidget {
         children: [
           const SizedBox(height: 2,),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              CustomText(
-                text: title,
-                color:DMUtil.getDC(),
-                fontSize: AppStyle.small.sp+2,
-                fontFamily: primaryFontSemiBold,
+              const SizedBox(width: 12,),
+              Expanded(
+                child: CustomText(
+                  text: title,
+                  color:DMUtil.getDC(),
+                  fontSize: AppStyle.small.sp+2,
+                  fontFamily: primaryFontSemiBold,
+                ),
               ),
-              if(icon!=null)...[
-                const SizedBox(width: 5,),
-                icon!
-              ],
+              Icon(Icons.arrow_forward_ios,color: DMUtil.getD2C(),),
+              const SizedBox(width: 10,),
             ],
           ),
-          const SizedBox(height: 3,),
-          const Divider(thickness: 1,color: Colors.black45,),
+          const SizedBox(height: 25,),
+
         ],
       ),
     );

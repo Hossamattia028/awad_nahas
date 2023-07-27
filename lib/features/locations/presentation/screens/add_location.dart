@@ -128,7 +128,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                                 padding: const EdgeInsets.symmetric(horizontal: 50),
                                 child: CustomButton(
                                   height: 22.h,
-                                  width: 50.w,
+                                  width: 70.w,
                                   sideWidth: 0.6,
                                   sideColor: DMUtil.getRED(),
                                   circular: 10,

@@ -32,7 +32,7 @@ class OrderDetailsScreen extends StatelessWidget {
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10))
           ),
           padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
-          child: Column(
+          child: const Column(
             children:  [
 
 

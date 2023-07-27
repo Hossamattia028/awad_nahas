@@ -12,7 +12,10 @@ class SortBottomSheetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 290.h,
-      color: DMUtil.getWC(),
+      decoration: BoxDecoration(
+          color: DMUtil.getWC(),
+          borderRadius: const BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
+      ),
       padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 20),
       child:  SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -66,7 +69,7 @@ class CheckBoxWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h),
       margin: EdgeInsets.symmetric(vertical: 4.h),
       decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(6)),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
           border: Border.all(width: 0.5,color: DMUtil.getD2C())
       ),
       child: Row(

@@ -14,7 +14,10 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 540.h,
-      color: DMUtil.getWC(),
+      decoration: BoxDecoration(
+          color: DMUtil.getWC(),
+          borderRadius: const BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
+      ),
       padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 20),
       child:  SingleChildScrollView(
         physics: const BouncingScrollPhysics(),

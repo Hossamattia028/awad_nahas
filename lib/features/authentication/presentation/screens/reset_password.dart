@@ -103,7 +103,7 @@ class ResetPassword extends StatelessWidget {
                             showPassword==true
                                 ? CupertinoIcons.eye
                                 : CupertinoIcons.eye_slash,
-                            color: kText2,
+                            color: DMUtil.getDC(),
                           ),
                         ),
                         isLabelError: false
@@ -137,7 +137,7 @@ class ResetPassword extends StatelessWidget {
                             showPassword==true
                                 ? CupertinoIcons.eye
                                 : CupertinoIcons.eye_slash,
-                            color: kText2,
+                            color: DMUtil.getDC(),
                           ),
                         ),
                         isLabelError: false);
