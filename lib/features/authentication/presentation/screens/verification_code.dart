@@ -78,7 +78,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                   text: 'OTP',
                   fontSize: AppStyle.large.sp,
                   fontFamily: primaryFontSemiBold,
-                  color: Colors.black,
+                  color: DMUtil.getD2C(),
                   alignCenter: true,
                 ),
               ),
@@ -100,12 +100,12 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 text: translate("signup.write_code"),
                 fontSize: AppStyle.small.sp,
                 fontFamily: primaryFontSemiBold,
-                color: Colors.black,
+                color: DMUtil.getD2C(),
               ),
               CustomText(
                 text: "${translate("signup.code_sent")} \n ${widget.phone}",
                 fontSize: AppStyle.small.sp,
-                color: kText1,
+                color: DMUtil.getD2C(),
                 alignCenter: true,
                 fontFamily: primaryFontSemiBold,
               ),
@@ -222,7 +222,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     text: translate("signup.not_get_code"),
                     style: TextStyle(
                         fontFamily: primaryFontSemiBold,
-                        color: Colors.black54, fontSize: AppStyle.small.sp),
+                        color: DMUtil.getD2C(), fontSize: AppStyle.small.sp),
                     children: [
                       TextSpan(
                           text: " ${translate("signup.resend")}",

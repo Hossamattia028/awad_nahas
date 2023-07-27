@@ -28,7 +28,7 @@ class SearchCategoryList extends StatelessWidget {
             CustomText(
               text: translate("app_bar.categories"),
               color: DMUtil.getDC(),
-              fontSize: AppStyle.average.sp,
+              fontSize: AppStyle.average.sp+2,
             ),
             GridView.builder(
               itemCount: list.length,

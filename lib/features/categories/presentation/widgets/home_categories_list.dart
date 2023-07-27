@@ -1,4 +1,6 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
+import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,23 +22,26 @@ class HomeCategoriesList extends StatelessWidget {
       builder: (ctx,state){
         var bloc = CategoriesBloc.get(ctx);
         return SizedBox(
-          height: 102.h,
+          height: 104.h,
           child: ListView.separated(
             itemCount: viewAll? bloc.categoriesList.length : bloc.categoriesList.length>10?8:bloc.categoriesList.length,
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(vertical: 5.h),
+            padding: EdgeInsets.symmetric(vertical: 3.h),
             itemBuilder: (BuildContext context, int index) {
               var item = bloc.categoriesList[index];
               return InkWell(
-                onTap: ()=> Util.pushPage(ProductListScreen(catID: item.id.toString()), context),
+                onTap: (){
+                  CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: item));
+                  Util.pushPage(const CategoryProductsScreen(), context);
+                },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CircleAvatar(
                       backgroundColor: DMUtil.getBCC(),
-                      radius: 24.w,
-                      child: SvgPicture.asset(item.imgPath, colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),width: 26.w,),
+                      radius: 26.w,
+                      child: SvgPicture.asset(item.imgPath, colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),width: 27.w,),
                     ),
                     SizedBox(
                       height: 38.h,

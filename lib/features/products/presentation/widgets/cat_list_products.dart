@@ -1,5 +1,8 @@
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
+import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +43,10 @@ class CatProductsList extends StatelessWidget {
                   color: DMUtil.getDC(),
                   fontSize: AppStyle.large.sp,
                 ),
-                ViewAllWidget(fn: ()=> Util.pushPage(ProductListScreen(catID: cat.id.toString()), context),),
+                ViewAllWidget(fn: (){
+                  CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: cat));
+                  Util.pushPage(const CategoryProductsScreen(), context);
+                },),
               ],
             ),
             const SizedBox(height: 5,),
@@ -104,7 +110,7 @@ class CatProductsList extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    width: 150.w,
+                                    width: 160.w,
                                     height: 50.h,
                                     child: CustomText(
                                       text: item.title,

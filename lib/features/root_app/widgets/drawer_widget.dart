@@ -20,7 +20,7 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: DMUtil.getWC(),
-      width: 200.w,
+      width: 230.w,
       child: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: AppStyle.paddingFromTop.h+20),
         child: Column(
@@ -34,8 +34,6 @@ class DrawerWidget extends StatelessWidget {
                 RootBloc.get(context).add(const ChangeIndex(index: 2, title: ""));
               },
             ),
-
-
 
             ItemLineDrawer(
               title: translate("profile.notification"),
@@ -81,10 +79,10 @@ class DrawerWidget extends StatelessWidget {
             ),
 
 
-            if(Util.checkUser())
+            // if(Util.checkUser())
             ItemLineDrawer(
               title: translate("activity_setting.sign_out"),
-              icon: const Icon(Icons.logout,size: 22,),
+              icon: Icon(Icons.logout,size: 22,color: DMUtil.getD2C(),),
               fn: (){
                 Scaffold.of(context).closeEndDrawer();
                 CustomDialogs.signOut(context);
@@ -123,7 +121,7 @@ class ItemLineDrawer extends StatelessWidget {
                   fontFamily: primaryFontSemiBold,
                 ),
               ),
-              Icon(Icons.arrow_forward_ios,color: DMUtil.getD2C(),),
+              icon ?? Icon(Icons.arrow_forward_ios,color: DMUtil.getD2C(),),
               const SizedBox(width: 10,),
             ],
           ),

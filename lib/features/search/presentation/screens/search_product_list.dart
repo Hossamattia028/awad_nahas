@@ -25,7 +25,7 @@ class SearchProductList extends StatelessWidget {
             CustomText(
               text: translate("search.product"),
               color: DMUtil.getDC(),
-              fontSize: AppStyle.average.sp,
+              fontSize: AppStyle.average.sp+2,
             ),
             ListView.separated(
               itemCount: bloc.productSearchList.length,

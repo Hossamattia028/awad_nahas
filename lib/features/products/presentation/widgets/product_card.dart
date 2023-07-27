@@ -46,7 +46,7 @@ class ProductCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(height: 10,),
-            Image.asset(AppImages.searImg,width: 100.w,height: 100.h,),
+            Image.asset(AppImages.searImg,width: 100.w,height: 110.h,),
             // ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.fill,),
             const SizedBox(width: 5,),
             Column(
@@ -83,7 +83,7 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 // const RateWidget(countRate: 300),
-                ProductPriceWidget(productModel: item),
+                ProductPriceWidget(productModel: item,isBig:true),
                 SizedBox(
                   width: 210.w,
                   child: Row(

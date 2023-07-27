@@ -35,7 +35,7 @@ class CategoryProductsScreen extends StatelessWidget {
                         const FilterRow(),
                         InkWell(
                           onTap: (){},
-                          child: const Icon(Icons.search),
+                          child: Icon(Icons.search,color: DMUtil.getD2C(),),
                         ),
                       ],
                     )
