@@ -17,23 +17,20 @@ class CheckOutButton extends StatelessWidget {
     return BlocBuilder<OrderBloc,OrderState>(
       builder: (ctx,state){
         var orderBloc = OrderBloc.get(ctx);
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: CustomButton(
-            height: 45.h,
-            width: double.infinity,
-            circular: 20,
-            widget: state is OrderLoadingState ?
-            const CircularProgressIndicator(color: Colors.white,):
-            CustomText(
-              text: translate("cart.place_order"),
-              color: Colors.white,
-              fontSize: AppStyle.small.sp,
-              alignCenter: true,
-            ),
-            color: DMUtil.getRED(),
-            onPressed: () {},
+        return CustomButton(
+          height: 45.h,
+          width: double.infinity,
+          circular: 20,
+          widget: state is OrderLoadingState ?
+          const CircularProgressIndicator(color: Colors.white,):
+          CustomText(
+            text: translate("cart.place_order"),
+            color: Colors.white,
+            fontSize: AppStyle.small.sp,
+            alignCenter: true,
           ),
+          color: DMUtil.getRED(),
+          onPressed: () {},
         );
       },
     );

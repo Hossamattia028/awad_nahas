@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
@@ -24,7 +23,9 @@ class SelectProductQuantityWidget extends StatelessWidget {
             InkWell(
               onTap: ()=> CartBloc.get(context).add(UpdateCartProductEvent(product: item, isAdd: true,context: context)),
               child: Card(
+                color: DMUtil.getWC(),
                 shape: const RoundedRectangleBorder(
+                    side: BorderSide(width: 1,color: Colors.white),
                     borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
                 child: Padding(
@@ -37,7 +38,9 @@ class SelectProductQuantityWidget extends StatelessWidget {
             InkWell(
               onTap: ()=> CartBloc.get(context).add(UpdateCartProductEvent(product: item, isAdd: false,context: context)),
               child: Card(
+                color: DMUtil.getWC(),
                 shape: const RoundedRectangleBorder(
+                    side: BorderSide(width: 1,color: Colors.white),
                     borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
                 child: Padding(

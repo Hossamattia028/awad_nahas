@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_card_with_few_data.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/qt_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/align_child_by_row.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
@@ -154,6 +155,83 @@ class AddToCartButtonBottomNav extends StatelessWidget {
           ],
         ),
       )
+    );
+  }
+}
+
+
+
+class AddToCartButtonWidget extends StatelessWidget {
+  final ProductsEntity item;
+  const AddToCartButtonWidget({Key? key,required this.item}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    return BlocListener<CartBloc,CartState>(
+        listener: (ctx,state){
+          // if(state is AddToCartSuccessfullyState){
+          //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.cart_success"), Colors.green);
+          // }else if (state is RemoveCartSuccessfullyState){
+          //    SnackBarBuilder.showFeedBackMessage(context, translate("toast.cart_remove_success"), Colors.red);
+          // }
+        },
+        child: BlocBuilder<CartBloc,CartState>(
+          builder: (ctx,state){
+            var bloc = CartBloc.get(ctx);
+            int index = bloc.cartList.indexWhere((element) => element.id==item.id);
+            bool insideCartList = false;
+            // if(index!=-1)insideCartList=true;
+            return Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Container(
+                  color: Colors.transparent,
+                  height: 60.h,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+
+                      Expanded(child: ProductCardFewData(item: item,showPrice: false,isElevation: false,)),
+                      CustomButton(
+                          height: 45.h,
+                          width: 118.w,
+                          widget: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                insideCartList?Icons.remove_shopping_cart:Icons.shopping_cart_outlined,
+                                color: insideCartList? Colors.red: Colors.white,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    CustomText(
+                                      text: insideCartList?translate("cart.remove_from_cart").toUpperCase():translate("cart.add_to_cart").toUpperCase(),
+                                      color: Colors.white,
+                                      fontSize: AppStyle.small.sp + 1,
+                                    ),
+                                    CustomText(
+                                      text: "${item.discount} ${translate("store.sar")}",
+                                      color: Colors.white,
+                                      fontSize: AppStyle.small.sp,
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          color: DMUtil.getRED(),
+                          onPressed: (){},
+                      ),
+
+                    ],
+                  ),
+                )
+            );
+
+          },
+        )
     );
   }
 }

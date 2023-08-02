@@ -17,14 +17,16 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class ProductCardFewData extends StatelessWidget {
   final ProductsEntity item;
-  const ProductCardFewData({Key? key,required this.item,}) : super(key: key);
+  final bool showPrice;
+  final bool isElevation;
+  const ProductCardFewData({Key? key,required this.item,this.showPrice = true,this.isElevation=true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: ()=> Util.pushPage(ProductDetailPage(item: item,), context),
       child: Card(
-        elevation: 2,
+        elevation: isElevation?2:0,
         color: DMUtil.getWC(),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -42,7 +44,7 @@ class ProductCardFewData extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 SizedBox(
-                  width: 150.w,
+                  width: 140.w,
                   child: CustomText(
                     text: item.title.toString(),
                     color: DMUtil.getDC(),
@@ -50,7 +52,7 @@ class ProductCardFewData extends StatelessWidget {
                     maxLine: 3,
                   ),
                 ),
-                ProductPriceWidget(productModel: item,isBig:true),
+                if(showPrice)ProductPriceWidget(productModel: item,isBig:true),
               ],
             ),
 

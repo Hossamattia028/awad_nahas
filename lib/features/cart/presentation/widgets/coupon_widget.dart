@@ -39,12 +39,12 @@ class CouponWidget extends StatelessWidget {
           var bloc = CartBloc.get(ctx);
           if(bloc.cartList.isEmpty)return const SizedBox.shrink();
           return Container(
-            height: 80.h,
+            height: 83.h,
             width: 400.w,
             alignment: Alignment.center,
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: DMUtil.getWC(),
                 // border: Border.all(width: 1,color: kPrimary),
                 borderRadius: BorderRadius.circular(4)
             ),

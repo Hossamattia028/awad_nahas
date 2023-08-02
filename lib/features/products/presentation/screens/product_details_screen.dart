@@ -60,7 +60,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
         textColor: Colors.white,
         leadingIcon: const BackArrowButton(color: Colors.white,),
       ),
-      bottomNavigationBar: AddToCartButtonBottomNav(item: widget.item,),
+      bottomNavigationBar: AddToCartButtonWidget(item: widget.item,),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 12),

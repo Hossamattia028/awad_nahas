@@ -30,7 +30,7 @@ class CatProductsList extends StatelessWidget {
       builder: (ctx, state) {
         var bloc = ProductsBloc.get(ctx);
         var list = bloc.productsList;
-        list = bloc.filterByCategoryID(cat.id);
+        // list = bloc.filterByCategoryID(cat.id);
         if (list.isEmpty) return const SizedBox.shrink();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,12 +52,11 @@ class CatProductsList extends StatelessWidget {
             const SizedBox(height: 5,),
             SizedBox(
               height: 290.h,
-              width: 470.w,
               child: ListView.separated(
-                itemCount: list.length > 2 ? 2 : list.length,
+                itemCount: list.length,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 2),
+                padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 1),
                 itemBuilder: (BuildContext context, int index) {
                   var item = list[index];
                   return InkWell(
@@ -84,7 +83,7 @@ class CatProductsList extends StatelessWidget {
                           const SizedBox(height: 12,),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
-                            width: 150.w,
+                            width: 130.w,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -110,7 +109,7 @@ class CatProductsList extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    width: 160.w,
+                                    width: 130.w,
                                     height: 50.h,
                                     child: CustomText(
                                       text: item.title,

@@ -4,10 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class OrderDetails extends StatelessWidget {
@@ -28,9 +26,9 @@ class OrderDetails extends StatelessWidget {
             const SizedBox(height: 5,),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(4))
+              decoration: BoxDecoration(
+                color: DMUtil.getWC(),
+                borderRadius: const BorderRadius.all(Radius.circular(4))
               ),
               child: Column(
                 children: [

@@ -50,7 +50,6 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   static CartBloc get(BuildContext context) => BlocProvider.of(context);
 
   int cartCount = 1;
-
   List<ProductsEntity> cartList = [
     const ProductsEntity(title: "Smeg 50’s Style Retro Aesthetic", catTitle: "Small Appliances", desc: "Small Appliances", id: 0,
         imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/smeg.png?alt=media&token=9c98c424-0525-49dc-beeb-6900acfedf35",
@@ -65,27 +64,27 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   ];
   getAllCart(emit)async{
     // if(!Util.checkUser())return;
-    emit(CartLoadingState());
-    try{
-      var res = await getAllCartListUseCase();
-      res.fold((l) {
-        emit(CartErrorState(errors: translate("toast.oops")));
-      },(data) {
-        cartList.clear();
-        for(var i in data.sessionValue){
-          cartList.add(ProductsEntity(title: "", catTitle: "",
-              desc: "", id: i.productID,
-              imgPath: "", price: 0, discount: 0,discountRate: 0, stockStatus: true,
-              quantity: i.quantity,categoryList: const [],commentCount: 0));
-        }
-        if(cartList.isNotEmpty)totalPrice=data.total;
-        if(data.sessionID!=null)cartID=int.parse((data.sessionKey??0).toString());
-        emit(CartSuccessfullyState());
-      });
-    }catch(e){
-      debugPrint("getAllCartBloc: $e");
-      emit(CartErrorState(errors: translate("toast.oops")));
-    }
+    // emit(CartLoadingState());
+    // try{
+    //   var res = await getAllCartListUseCase();
+    //   res.fold((l) {
+    //     emit(CartErrorState(errors: translate("toast.oops")));
+    //   },(data) {
+    //     cartList.clear();
+    //     for(var i in data.sessionValue){
+    //       cartList.add(ProductsEntity(title: "", catTitle: "",
+    //           desc: "", id: i.productID,
+    //           imgPath: "", price: 0, discount: 0,discountRate: 0, stockStatus: true,
+    //           quantity: i.quantity,categoryList: const [],commentCount: 0));
+    //     }
+    //     if(cartList.isNotEmpty)totalPrice=data.total;
+    //     if(data.sessionID!=null)cartID=int.parse((data.sessionKey??0).toString());
+    //     emit(CartSuccessfullyState());
+    //   });
+    // }catch(e){
+    //   debugPrint("getAllCartBloc: $e");
+    //   emit(CartErrorState(errors: translate("toast.oops")));
+    // }
   }
 
 
@@ -113,38 +112,38 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   }
 
   addToCartList(AddToCartEvent event,emit)async{
-    emit(CartLoadingState());
-    var data = {
-      'session_value':event.product!=null?returnNewCartList(event.product!,emit):getCart()
-    };
-    try{
-      var res = await addCartItemUseCase(data: data);
-      res.fold((l) {
-        emit(CartErrorState(errors: translate("toast.oops")));
-      },(data) {
-        emit(AddToCartSuccessfullyState());
-      });
-    }catch(e){
-      emit(CartErrorState(errors: translate("toast.oops")));
-    }
+    // emit(CartLoadingState());
+    // var data = {
+    //   'session_value':event.product!=null?returnNewCartList(event.product!,emit):getCart()
+    // };
+    // try{
+    //   var res = await addCartItemUseCase(data: data);
+    //   res.fold((l) {
+    //     emit(CartErrorState(errors: translate("toast.oops")));
+    //   },(data) {
+    //     emit(AddToCartSuccessfullyState());
+    //   });
+    // }catch(e){
+    //   emit(CartErrorState(errors: translate("toast.oops")));
+    // }
   }
 
   removeToCartList(RemoveToCartEvent event,emit)async{
-    emit(CartLoadingState());
-    try{
-      var res = await removeCartItemUseCase(productID: event.product.id);
-      res.fold((l) {
-        emit(CartErrorState(errors: l.toString()));
-      },(data) {
-        emit(RemoveCartSuccessfullyState());
-      });
-    }catch(e){
-      emit(CartErrorState(errors: translate("toast.oops").toString()));
-    }
+    // emit(CartLoadingState());
+    // try{
+    //   var res = await removeCartItemUseCase(productID: event.product.id);
+    //   res.fold((l) {
+    //     emit(CartErrorState(errors: l.toString()));
+    //   },(data) {
+    //     emit(RemoveCartSuccessfullyState());
+    //   });
+    // }catch(e){
+    //   emit(CartErrorState(errors: translate("toast.oops").toString()));
+    // }
   }
 
   updateProductQuantity(UpdateCartProductEvent event,emit){
-    emit(CartLoadingState());
+    // emit(CartLoadingState());
     int index = cartList.indexWhere((element) => event.product.id.toString() == element.id.toString());
     if(index!=-1) {
       int newQty = event.isAdd?cartList[index].quantity+1:(cartList[index].quantity==1?cartList[index].quantity:cartList[index].quantity-1);
@@ -164,33 +163,33 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   }
 
   int cartID = 0;
-  double totalPrice = 0;
-  double subTotal = 0;
+  double totalPrice = 200;
+  double subTotal = 120;
   int shippingCost = 0;
   int minimumAmount = 0;
   double? couponValue;
   CouponModel? couponModel;
 
   getDiscountCoupon(ImplementCouponDiscountEvent event,emit)async {
-    emit(CartLoadingState());
-    try{
-      var res = await applyCouponUseCase(dataSet: {'code':event.couponTxt.trim()});
-      res.fold((l) {
-        emit(CartErrorState(errors: translate("toast.oops")));
-      },(data) {
-        couponModel= data;
-        if(couponModel!=null && couponModel!.total!=null && couponModel!.total != 0){
-          couponValue = totalPrice - couponModel!.total!;
-          totalPrice = couponModel!.total!;
-          emit(CouponSuccessfullyState());
-        }else{
-          emit(CartErrorState(errors: translate("cart.couponـwrong")));
-        }
-      });
-    }catch(e){
-      debugPrint("getDiscountCouponBloc: $e");
-      emit(CartErrorState(errors: translate("toast.oops")));
-    }
+    // emit(CartLoadingState());
+    // try{
+    //   var res = await applyCouponUseCase(dataSet: {'code':event.couponTxt.trim()});
+    //   res.fold((l) {
+    //     emit(CartErrorState(errors: translate("toast.oops")));
+    //   },(data) {
+    //     couponModel= data;
+    //     if(couponModel!=null && couponModel!.total!=null && couponModel!.total != 0){
+    //       couponValue = totalPrice - couponModel!.total!;
+    //       totalPrice = couponModel!.total!;
+    //       emit(CouponSuccessfullyState());
+    //     }else{
+    //       emit(CartErrorState(errors: translate("cart.couponـwrong")));
+    //     }
+    //   });
+    // }catch(e){
+    //   debugPrint("getDiscountCouponBloc: $e");
+    //   emit(CartErrorState(errors: translate("toast.oops")));
+    // }
   }
 
 }

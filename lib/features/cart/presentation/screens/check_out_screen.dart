@@ -22,7 +22,13 @@ class CheckOutScreen extends StatelessWidget {
         title: translate("cart.checkOut_title"),
         leadingIcon: const BackArrowButton(),
       ),
+      bottomNavigationBar: Container(
+        color: DMUtil.getWC(),
+        padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
+        child: const CheckOutButton(),
+      ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 5),
         child: const Column(
           children: [
@@ -31,7 +37,7 @@ class CheckOutScreen extends StatelessWidget {
             DeliveryTypeWidget(),
             PaymentSummaryWidget(),
             OrderNoteWidget(),
-            CheckOutButton(),
+
           ],
         ),
       ),

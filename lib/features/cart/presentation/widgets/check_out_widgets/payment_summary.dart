@@ -18,6 +18,10 @@ class PaymentSummaryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
+      color: DMUtil.getWC(),
+      shape: const RoundedRectangleBorder(
+          side: BorderSide(width: 1,color: Colors.white)
+      ),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(8.0),

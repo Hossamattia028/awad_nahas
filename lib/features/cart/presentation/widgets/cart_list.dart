@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
@@ -33,18 +34,28 @@ class CartListWidget extends StatelessWidget {
             return Container(
               height: 120.h,
               padding: const EdgeInsets.all(10),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(5)),
+              decoration:  BoxDecoration(
+                color: DMUtil.getWC(),
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Card(elevation: 3,child: ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,width: 60.w,)),
+                  Card(
+                      color: DMUtil.getWC(),
+                      elevation: 4,
+                      shape: const RoundedRectangleBorder(
+                          side: BorderSide(width: 1,color: Colors.white)
+                      ),
+                      child: ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,width: 60.w,)),
                   Expanded(
                     child: Card(
                       elevation: 3,
+                      color: DMUtil.getWC(),
+                      shape: const RoundedRectangleBorder(
+                          side: BorderSide(width: 1,color: Colors.white)
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -55,7 +66,7 @@ class CartListWidget extends StatelessWidget {
                                 width: 200.w,
                                 child: CustomText(
                                   text: item.title,
-                                  color: kText1,
+                                  color: DMUtil.getD2C(),
                                   fontWeight: FontWeight.w700,
                                   fontSize: AppStyle.average.sp-2,
                                   maxLine: 5,

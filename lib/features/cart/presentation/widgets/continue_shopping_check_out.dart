@@ -28,7 +28,7 @@ class CartBottomButton extends StatelessWidget {
         return Container(
             margin: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: DMUtil.getWC(),
                 borderRadius: BorderRadius.circular(10)
             ),
             child: BlocListener<OrderBloc,OrderState>(
@@ -50,7 +50,7 @@ class CartBottomButton extends StatelessWidget {
                       CustomText(
                         text: translate("cart.checkOut"),
                         color: Colors.white,
-                        fontSize: AppStyle.small.sp,
+                        fontSize: AppStyle.average.sp,
                         alignCenter: true,
                       ),
                       color: DMUtil.getRED(),
