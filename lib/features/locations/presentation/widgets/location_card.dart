@@ -37,7 +37,7 @@ class LocationCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const CircleDotsWidget(),
+          const CircleDotsWidget(isEnabled: true,),
           const SizedBox(width: 5,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -495,8 +495,8 @@
         "all_orders": "All Orders",
 		"pending_orders": "Pending Order List",
 		"approved_orders": "Approved Order List",
-		"on_going_orders":"Ongoing Order List",
-		"completed_orders": "Completed Order List",
+		"on_going_orders":"Ongoing",
+		"completed_orders": "Completed",
 		"canceled_orders": "Canceled Order List",
 		"approved": "Order has been approved from kitchen",
 		"pending": "Pending",
@@ -519,7 +519,7 @@
 		"offers": "Offers",
 		"send_request": "Send Request",
 		"reports": "Reports",
-		"date": "date",
+		"date": "Order on",
 		"time": "time",
 		"order_prepared_action": "Start prepare order",
 		"order_finished": "Order has been finished",
@@ -538,7 +538,7 @@
 		"today_orders": "Today's Order",
 		"today_earning": "Today's Earning",
 		"completed": "completed",
-		"track_location": "track your order",
+		"track_location": "Track order",
 		"may_track_location": "Order can be tracked",
 		"payed_by_admin": "paid up",
 		"still": "The remaining amount of",
@@ -553,7 +553,8 @@
 		"minute": "minutes",
 		"file": "Order delivery file",
 		"upload_photo": "upload photo",
-		"take_photo": "take a photo"
+		"take_photo": "take a photo",
+		"order_process": "We are working on processing your request"
     },
     "support": {
         "title": "Support"

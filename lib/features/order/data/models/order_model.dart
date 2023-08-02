@@ -75,8 +75,8 @@ class OrderModel extends Orders {
   static getStatus(String val){
     if(val=="wc-processing" || val == "PENDING"){
       return translate("order.pending");
-    }else if(val=="wc-on-hold" || val == "ASSIGNED"){
-      return translate("order.assigned");
+    }else if(val=="wc-on-hold"){
+      return translate("order.on_going_orders");
     }else if(val=="wc-completed" || val == "COMPLETED" || val == "DELIVERED"){
       return translate("order.order_has_done");
     }
@@ -86,10 +86,10 @@ class OrderModel extends Orders {
   static getStatusViewCheck(String val){
     if(val=="wc-processing" || val == "PENDING" ){
       return ORDER_STATUS.PENDING;
-    }else if(val=="wc-on-hold" || val == "ASSIGNED"){
-      return ORDER_STATUS.ASSIGNED;
+    }else if(val=="wc-on-hold"){
+      return ORDER_STATUS.ONGOING;
     }else if(val=="wc-completed" || val == "COMPLETED" || val == "DELIVERED"){
-      return ORDER_STATUS.DELIVERED;
+      return ORDER_STATUS.COMPLETED;
     }
     return ORDER_STATUS.PENDING;
   }

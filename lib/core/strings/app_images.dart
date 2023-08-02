@@ -40,6 +40,10 @@ class AppImages{
   static const String assigned = "$icons/assigned.png";
   static const String delivered = "$icons/verified_black.png";
   static const String paymentRow = "$images/payment_row.png";
+  static const String orderStep1 = "$icons/order_step_one.svg";
+  static const String orderStep2 = "$icons/order_step_two.svg";
+  static const String orderStep3 = "$icons/order_step_three.svg";
+
 
 
   //search

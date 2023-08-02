@@ -45,12 +45,6 @@ class ChangeCurrentOrdersEvent extends OrderEvent{
   const ChangeCurrentOrdersEvent({required this.type,required this.index,this.updateState=false});
 }
 
-class SetAssignOrderDataEvent extends OrderEvent{
-  final String? cityID;
-  final UserService? driver;
-  const SetAssignOrderDataEvent({this.cityID,this.driver});
-}
-
 class UpdateOrderEvent extends OrderEvent{
   final Map<String,dynamic> data;
   final File? file;

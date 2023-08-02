@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/locations/presentation/screens/my_locations.dart';
+import 'package:awad_nahas/features/order/presentation/screens/order_screen.dart';
 import 'package:awad_nahas/features/wishlist/presentation/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +25,7 @@ class MyAccountSetting extends StatelessWidget {
           fontSize: AppStyle.average.sp,
         ),
 
-        SettingLineOption(title: translate("profile.orders"),onTap: (){},),
+        SettingLineOption(title: translate("profile.orders"),onTap: ()=> Util.pushPage(const OrderScreen(), context),),
         SettingLineOption(title: translate("profile.wishlist"),onTap: ()=> Util.pushPage(const WishListScreen(), context),),
         SettingLineOption(title: translate("profile.addresses"),onTap: ()=> Util.pushPage(const MyLocationsScreen(), context),),
         SettingLineOption(title: translate("profile.profile"),onTap: ()=> Util.pushPage(const EditProfilePage(), context),),

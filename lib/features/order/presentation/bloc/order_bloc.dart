@@ -26,12 +26,18 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     "Elkhobar",
   ];
 
-  UserService? currentSelectedDriver;
-  /// this driver list can be assign to new order
-  List<UserService> driverList = [];
-
-  List<Orders> orderList = [];
-  List<Orders> orderFilteredList = [];
+  List<Orders> orderList = [
+    Orders(items: [
+      OrderItem(title: "Smeg Dolce & Gabbana 2 Slice Toaster 50’s Retro Style", price: 200, qty: "2"),
+      OrderItem(title: "Smeg 90cm Freestanding Gas Hob 6 Burners & Full Electric Oven, Yellow", price: 200, qty: "2"),
+    ])
+  ];
+  List<Orders> orderFilteredList = [
+    Orders(items: [
+      OrderItem(title: "Smeg Dolce & Gabbana 2 Slice Toaster 50’s Retro Style", price: 200, qty: "2"),
+      OrderItem(title: "Smeg 90cm Freestanding Gas Hob 6 Burners & Full Electric Oven, Yellow", price: 200, qty: "2"),
+    ])
+  ];
   // List<Orders> driverOrdersList = [];
   int totalPrice = 0;
 
@@ -71,10 +77,6 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       changeOrdersType(event,emit);
     });
 
-    on<SetAssignOrderDataEvent>((event, emit) {
-      setAssignOrderData(event,emit);
-    });
-
     on<SetCurrentOrderEvent>((event, emit) {
       setCurrentOrder(event,emit);
     });
@@ -101,13 +103,6 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
   }
 
 
-  setAssignOrderData(SetAssignOrderDataEvent event,emit){
-    emit(OrderLoadingState());
-    if(event.driver!=null)currentSelectedDriver = event.driver;
-    if(event.cityID!=null)currentCityID = event.cityID!;
-    emit(OrderSuccessfullyState());
-  }
-
   ORDER_STATUS currentOrdersType = ORDER_STATUS.PENDING;
   int currentTapOrdersIndex = 0;
   changeOrdersType(ChangeCurrentOrdersEvent event, emit){
@@ -129,7 +124,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       res.fold((l) {
         emit(OrderErrorState(errors: l.toString()));
       },(data) {
-        orderList = data.reversed.toList();
+        // orderList = data.reversed.toList();
         emit(OrderSuccessfullyState());
       });
     // }catch(e){
@@ -147,7 +142,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     emit(OrderSuccessfullyState());
   }
   addNewOrder(AddOrderEvent event,emit)async{
-    if(currentOrder==null||currentSelectedDriver==null)return;
+    if(currentOrder==null)return;
     emit(OrderLoadingState());
     try{
       var res = await addOrderUseCase(data: collectOrderData());
@@ -212,7 +207,6 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     var data = {
       'wordpress_order_code' : currentOrder!.code,
       'manager_id' : Util.getUserID(),
-      'driver_id' : currentSelectedDriver!.userId,
       'city' : currentCityID,
       'delivery_status' : 'PENDING',
       'grand_total' : currentOrder!.totalPrice,

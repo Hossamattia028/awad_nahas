@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CircleDotsWidget extends StatelessWidget {
   final bool isEnabled;
-  const CircleDotsWidget({Key? key,this.isEnabled = false}) : super(key: key);
+  final bool isOpacity;
+  const CircleDotsWidget({Key? key,this.isEnabled = false,this.isOpacity = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +14,12 @@ class CircleDotsWidget extends StatelessWidget {
         width: 18.w,
         padding: const EdgeInsets.all(1.5),
         decoration: BoxDecoration(
-          border: Border.all(width: 1,color: DMUtil.getD2C()),
+          border: Border.all(width: 1,color: isOpacity? DMUtil.getRED().withOpacity(0.5):DMUtil.getD2C()),
           borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         child: CircleAvatar(
           radius: 18.w,
-          backgroundColor: isEnabled?DMUtil.getRED():DMUtil.getWC(),
+          backgroundColor: isOpacity && !isEnabled? DMUtil.getRED().withOpacity(0.5) : (isEnabled?DMUtil.getRED():DMUtil.getWC()),
         )
     );
   }

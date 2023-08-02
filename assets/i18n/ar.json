@@ -557,7 +557,8 @@
       "minute": "دقائق",
       "file": "مرفق توصيل الطلب",
       "upload_photo": "تحميل صوره",
-      "take_photo": "التقط صورة"
+      "take_photo": "التقط صورة",
+      "order_process": "نحن نعمل على معالجة طلبك"
     },
 
     "admin": {

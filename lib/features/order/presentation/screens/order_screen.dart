@@ -4,11 +4,11 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
 import 'package:awad_nahas/features/order/presentation/widgets/top_status_button.dart';
+import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/order/presentation/widgets/small_order_widgets.dart';
 
 
@@ -25,7 +25,7 @@ class _OrderScreenState extends State<OrderScreen>  with TickerProviderStateMixi
 
   @override
   void initState() {
-    tabController = TabController(vsync: this, length: 3);
+    tabController = TabController(vsync: this, length: 2);
     super.initState();
   }
   @override
@@ -37,15 +37,19 @@ class _OrderScreenState extends State<OrderScreen>  with TickerProviderStateMixi
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: DMUtil.getWC(),
+      appBar: GlobalAppBar(
+        title: translate("order.title"),
+        leadingIcon: const BackArrowButton(),
+      ),
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
           Container(
             margin: EdgeInsets.symmetric(vertical: 15.w, horizontal: 20.w),
             height: 40.h,
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.horizontal(left: Radius.circular(20),right: Radius.circular(20))
+            decoration:  BoxDecoration(
+                color: DMUtil.getWC(),
+                borderRadius: const BorderRadius.horizontal(left: Radius.circular(20),right: Radius.circular(20))
             ),
             child: BlocBuilder<OrderBloc,OrderState>(
               builder: (ctx,state) {
@@ -57,11 +61,10 @@ class _OrderScreenState extends State<OrderScreen>  with TickerProviderStateMixi
                   indicatorPadding: EdgeInsets.zero,
                   labelPadding: EdgeInsets.zero,
                   padding: EdgeInsets.zero,
-                  labelColor: Colors.black,
+                  labelColor: DMUtil.getDC(),
                   tabs: [
-                    SmallTapItem(title: translate("order.pending"),enable: currentTapOrdersIndex==0,),
-                    SmallTapItem(title: translate("order.assigned_orders"),enable: currentTapOrdersIndex==1,),
-                    SmallTapItem(title: translate("order.delivered_o"),enable: currentTapOrdersIndex==2,),
+                    SmallTapItem(title: translate("order.on_going_orders"),enable: currentTapOrdersIndex==0,),
+                    SmallTapItem(title: translate("order.completed_orders"),enable: currentTapOrdersIndex==1,),
                   ],
                   labelStyle: const TextStyle(fontFamily: primaryFontSemiBold),
                 );
@@ -77,7 +80,6 @@ class _OrderScreenState extends State<OrderScreen>  with TickerProviderStateMixi
                   children:  const [
                     OrderList(index: 0,),
                     OrderList(index: 1,),
-                    OrderList(index: 2,),
                   ],
                 );
               },
