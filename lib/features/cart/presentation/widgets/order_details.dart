@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,24 +22,8 @@ class OrderDetails extends StatelessWidget {
         if(list.isEmpty)return const SizedBox.shrink();
         return Column(
           children: [
-            const SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomText(
-                  text: translate("cart.order_details"),
-                  color: kText1,
-                  fontSize: AppStyle.small.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-                CustomText(
-                  text: "${list.length}${translate("cart.product")}",
-                  color: kText1,
-                  fontSize: AppStyle.small.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ],
-            ),
+            // const SizedBox(height: 10,),
+
 
             const SizedBox(height: 5,),
             Container(
@@ -49,23 +34,23 @@ class OrderDetails extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  ListView.builder(
-                    shrinkWrap:true,
-                    itemCount: list.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (ctx,index){
-                      var productList = ProductsBloc.get(context).productsList;
-                      if(productList.isEmpty)return const SizedBox.shrink();
-                      int ind = productList.indexWhere((element) => list[index].id==element.id);
-                      if(ind==-1)return const SizedBox.shrink();
-                      var item = ProductsBloc.get(context).productsList[ind];
-                      return OrderRow(title: item.title,value: "${item.price}${translate("home.currency")}",);
-                    },
-                  ),
-                  OrderRow(title: translate("cart.total_after_discount") ,value: "${bloc.subTotal}${translate("home.currency")}",),
-                  OrderRow(title: translate("cart.shipping_cost") ,value: "${bloc.shippingCost}${translate("home.currency")}",),
+                  // ListView.builder(
+                  //   shrinkWrap:true,
+                  //   itemCount: list.length,
+                  //   physics: const NeverScrollableScrollPhysics(),
+                  //   itemBuilder: (ctx,index){
+                  //     var productList = ProductsBloc.get(context).productsList;
+                  //     if(productList.isEmpty)return const SizedBox.shrink();
+                  //     int ind = productList.indexWhere((element) => list[index].id==element.id);
+                  //     if(ind==-1)return const SizedBox.shrink();
+                  //     var item = ProductsBloc.get(context).productsList[ind];
+                  //     return OrderRow(title: item.title,value: "${item.price}${translate("store.sar")}",);
+                  //   },
+                  // ),
+                  // OrderRow(title: translate("cart.total_after_discount") ,value: "${bloc.subTotal}${translate("store.sar")}",),
+                  OrderRow(title: translate("cart.shipping_cost") ,value: "${bloc.shippingCost}${translate("store.sar")}",),
                   const Divider(),
-                  OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("home.currency")}",),
+                  OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("store.sar")}",),
                 ],
               ),
             ),
@@ -80,7 +65,8 @@ class OrderDetails extends StatelessWidget {
 class OrderRow extends StatelessWidget {
   final String title;
   final String value;
-  const OrderRow({Key? key,required this.title,required this.value}) : super(key: key);
+  final bool isBig;
+  const OrderRow({Key? key,required this.title,required this.value,this.isBig=false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,15 +75,13 @@ class OrderRow extends StatelessWidget {
       children: [
         CustomText(
           text: title,
-          color: kText1,
-          fontSize: AppStyle.small.sp,
-          fontWeight: FontWeight.w700,
+          color: DMUtil.getDC(),
+          fontSize: isBig?AppStyle.average.sp+2:AppStyle.average.sp-2,
         ),
         CustomText(
           text: value,
-          color: kText1,
-          fontSize: AppStyle.small.sp,
-          fontWeight: FontWeight.w500,
+          color: DMUtil.getDC(),
+          fontSize: isBig?AppStyle.average.sp+2:AppStyle.average.sp-2,
         ),
       ],
     );

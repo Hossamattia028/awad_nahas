@@ -8,11 +8,11 @@ class AppStyle {
   static const double z25 = 8.9;
   static const double z24 = 8.6;
   static const double z22 = 7.9;
-  static const double verySmall = 13;
-  static const double small = 16;
-  static const double average = 19;
-  static const double large = 25;
-  static const double veryLarge = 26;
+  static const double verySmall = 9;
+  static const double small = 11;
+  static const double average = 13;
+  static const double large = 17.9;
+  static const double veryLarge = 22;
 
   static double appBarHeight = Platform.isIOS?55:50;
 

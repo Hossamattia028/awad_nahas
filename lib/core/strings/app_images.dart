@@ -39,6 +39,7 @@ class AppImages{
   //order icons
   static const String assigned = "$icons/assigned.png";
   static const String delivered = "$icons/verified_black.png";
+  static const String paymentRow = "$images/payment_row.png";
 
 
   //search

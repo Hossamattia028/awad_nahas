@@ -59,7 +59,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
                 leadingIcon ?? const SizedBox.shrink(),
                 if(title!=null)Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(left: Util.getLang()=="ar"?40.w:0,right: Util.getLang()!="ar"?40.w:0),
+                    padding: leadingIcon!=null ? EdgeInsets.only(left: Util.getLang()=="ar"?40.w:0,right: Util.getLang()!="ar"?40.w:0):EdgeInsets.zero,
                     child: CustomText(
                       text: title.toString(),
                       color: textColor ?? DMUtil.getDC(),

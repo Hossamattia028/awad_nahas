@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
-import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/select_product_quantity_widget.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/rate_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -12,7 +10,6 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/empty_cart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 
 class CartListWidget extends StatelessWidget {
@@ -44,46 +41,48 @@ class CartListWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,width: 60.w,),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 180.w,
-                            child: CustomText(
-                              text: item.title,
-                              color: kText1,
-                              fontWeight: FontWeight.w700,
-                              fontSize: AppStyle.small.sp - 1,
-                              isEllipsis: true,
+                  Card(elevation: 3,child: ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,width: 60.w,)),
+                  Expanded(
+                    child: Card(
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                width: 200.w,
+                                child: CustomText(
+                                  text: item.title,
+                                  color: kText1,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: AppStyle.average.sp-2,
+                                  maxLine: 5,
+                                  isEllipsis: true,
+                                ),
+                              ),
                             ),
-                          ),
-                          const RateWidget(countRate: 300),
-                          ProductPriceWidget(productModel: item),
-                        ],
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SelectProductQuantityWidget(item: list[index],),
+                                ProductPriceWidget(productModel: item),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ],
+                    ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // InkWell(
-                      //   onTap: ()=> bloc.add(AddToCartEvent(product: item)),
-                      //   child: Image.asset(AppImages.removeIcon,height: 20.h,fit: BoxFit.fill,),
-                      // ),
-                      SelectProductQuantityWidget(item: list[index],),
-                    ],
-                  )
+
 
                 ],
               ),
             );
           },
-          separatorBuilder: (ctx,index)=> const SizedBox(height: 10,),
+          separatorBuilder: (ctx,index)=> const SizedBox(height: 1,),
           itemCount: list.length,
         );
       },

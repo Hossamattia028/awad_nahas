@@ -8,7 +8,6 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
-import 'package:awad_nahas/features/products/presentation/screens/products_list.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -43,6 +42,7 @@ class HomeCategoriesList extends StatelessWidget {
                       radius: 26.w,
                       child: SvgPicture.asset(item.imgPath, colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),width: 27.w,),
                     ),
+                    const SizedBox(height: 2,),
                     SizedBox(
                       height: 38.h,
                       width: item.title.length>10&&(!item.title.toString().contains(" "))?65.w:50.w,

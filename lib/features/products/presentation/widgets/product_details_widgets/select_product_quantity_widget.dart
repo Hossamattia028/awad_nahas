@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,29 +23,27 @@ class SelectProductQuantityWidget extends StatelessWidget {
           children: [
             InkWell(
               onTap: ()=> CartBloc.get(context).add(UpdateCartProductEvent(product: item, isAdd: true,context: context)),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 7),
-                height: 20.h,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1,color: kText1),
-                    borderRadius: const BorderRadius.only(topRight: Radius.circular(15),bottomRight: Radius.circular(15))
+              child: Card(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
-                child: Icon(Icons.add,color: Colors.black,size: 13.w,),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Icon(Icons.add,color:  DMUtil.getDC(),size: 16.w,),
+                ),
               ),
             ),
             SizedBox(width: 26.w,),
             InkWell(
               onTap: ()=> CartBloc.get(context).add(UpdateCartProductEvent(product: item, isAdd: false,context: context)),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 7),
-                height: 20.h,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1,color: kText1),
-                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(15),bottomLeft: Radius.circular(15))
+              child: Card(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
-                child: Icon(Icons.remove,color: Colors.black,size: 13.w,),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Icon(Icons.remove,color:  DMUtil.getDC(),size: 16.w,),
+                ),
               ),
             ),
           ],
@@ -55,21 +54,11 @@ class SelectProductQuantityWidget extends StatelessWidget {
             int index = list.indexWhere((element) => item.id==element.id);
             String qty = "1";
             if(index!=-1)qty=list[index].quantity.toString();
-            return Container(
-              height: 30.h,
-              width: 29.w,
-              margin: EdgeInsets.symmetric(horizontal: 26.w,),
-              alignment: Alignment.topCenter,
-              decoration: const BoxDecoration(
-                borderRadius:  BorderRadius.all(Radius.circular(3)),
-                color: kSecondPrimary,
-              ),
-              child: CustomText(
-                text: qty,
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: AppStyle.average.sp,
-              ),
+            return CustomText(
+              text: qty,
+              color: DMUtil.getDC(),
+              fontWeight: FontWeight.w700,
+              fontSize: AppStyle.average.sp,
             );
           },
         ),

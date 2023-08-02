@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/locations/presentation/widgets/circle_dots.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -36,19 +37,7 @@ class LocationCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-              height: 18.w,
-              width: 18.w,
-              padding: const EdgeInsets.all(1.5),
-              decoration: BoxDecoration(
-                border: Border.all(width: 1,color: DMUtil.getD2C()),
-                borderRadius: const BorderRadius.all(Radius.circular(25)),
-              ),
-              child: CircleAvatar(
-                radius: 18.w,
-                backgroundColor: DMUtil.getRED(),
-              )
-          ),
+          const CircleDotsWidget(),
           const SizedBox(width: 5,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +56,6 @@ class LocationCardWidget extends StatelessWidget {
                       maxLine: 3,
                     ),
                     Row(
-
                       children: [
                         InkWell(
                           onTap: () => Util.pushPage(AddNewLocationScreen(locationEntity: locationEntity,), context),

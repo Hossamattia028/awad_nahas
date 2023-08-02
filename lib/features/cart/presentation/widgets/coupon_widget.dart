@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,7 +39,7 @@ class CouponWidget extends StatelessWidget {
           var bloc = CartBloc.get(ctx);
           if(bloc.cartList.isEmpty)return const SizedBox.shrink();
           return Container(
-            height: 50.h,
+            height: 80.h,
             width: 400.w,
             alignment: Alignment.center,
             padding: const EdgeInsets.all(5),
@@ -47,46 +48,59 @@ class CouponWidget extends StatelessWidget {
                 // border: Border.all(width: 1,color: kPrimary),
                 borderRadius: BorderRadius.circular(4)
             ),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: CustomTextFromField(
-                    smallPadding: true,
-                    hintText: translate("cart.coupon"),
-                    labelText: "",
-                    textEditingController: couponTextEditingController,
-                    validator: (){},
-                    obscureText: false,
-                    isLabelError: false,
-                    cursorColor: kPrimary,
-                    radius: 4,
-                  ),
+                CustomText(
+                    text: translate("cart.do_you_have_coupon"),
+                    fontSize: AppStyle.average.sp,
                 ),
-                state is CartLoadingState?
-                SizedBox(height: 25.h,width: 25.w,child: const CircularProgressIndicator(backgroundColor: kPrimary,)):
-                CustomButton(
-                  height: 27.h,
-                  width: 90.w,
-                  circular: 6,
-                  widget: CustomText(
-                    color: Colors.white,
-                    fontSize: AppStyle.verySmall.sp-1,
-                    fontWeight: FontWeight.w500,
-                    text: translate("cart.active_coupon"),
-                  ),
-                  color: kPrimary,
-                  onPressed: () {
-                    if(couponTextEditingController.text.trim().isNotEmpty){
-                      bloc.add(ImplementCouponDiscountEvent(couponTxt: couponTextEditingController.text.trim()));
-                      Timer(const Duration(seconds: 4), () {
-                        couponTextEditingController.text = "";
-                      });
-                    }else{
-                      SnackBarBuilder.showFeedBackMessage(context, translate("cart.couponـwrong"),Colors.red);
-                    }
-                  },
-                ),
+                const SizedBox(height: 5,),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextFromField(
+                        smallPadding: false,
+                        hintText: translate("cart.coupon"),
+                        labelText: "",
+                        hasBorder: true,
+                        borderColor: DMUtil.getBC(),
+                        textEditingController: couponTextEditingController,
+                        validator: (){},
+                        obscureText: false,
+                        isLabelError: false,
+                        cursorColor: kPrimary,
+                        radius: 10,
+                      ),
+                    ),
+                    const SizedBox(width: 5,),
+                    state is CartLoadingState?
+                    SizedBox(height: 25.h,width: 25.w,child: const CircularProgressIndicator(backgroundColor: kPrimary,)):
+                    CustomButton(
+                      height: 40.h,
+                      width: 87.w,
+                      circular: 20,
+                      widget: CustomText(
+                        color: Colors.white,
+                        fontSize: AppStyle.small.sp,
+                        fontWeight: FontWeight.w500,
+                        text: translate("cart.active_coupon"),
+                      ),
+                      color: DMUtil.getRED(),
+                      onPressed: () {
+                        if(couponTextEditingController.text.trim().isNotEmpty){
+                          bloc.add(ImplementCouponDiscountEvent(couponTxt: couponTextEditingController.text.trim()));
+                          Timer(const Duration(seconds: 4), () {
+                            couponTextEditingController.text = "";
+                          });
+                        }else{
+                          SnackBarBuilder.showFeedBackMessage(context, translate("cart.couponـwrong"),Colors.red);
+                        }
+                      },
+                    ),
 
+                  ],
+                ),
               ],
             ),
           );
