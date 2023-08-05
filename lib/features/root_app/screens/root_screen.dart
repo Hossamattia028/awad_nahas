@@ -17,7 +17,6 @@ class RootScreen extends StatelessWidget {
   const RootScreen({Key? key,}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<RootBloc, RootState>(
       builder: (ctx, state) {
         var bloc = RootBloc.get(ctx);

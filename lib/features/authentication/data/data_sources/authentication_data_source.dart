@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
@@ -36,22 +37,25 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
         "Content-Type": "application/json",
       },
     );
+    var decodedData = json.decode(response.body);
     debugPrint("loginUser: ${response.body}");
     if(response.body.contains("Unauthorized")){
       return AuthResponse(user: null,msg: translate("toast.sign_wrong"));
-    }else{
+    }else if(decodedData['status']){
       final Map<String, dynamic> bodyData = json.decode(response.body);
       UserServiceModel user = UserServiceModel.fromJson(bodyData['user']);
       await saveLocalData(bodyData);
       SetNotification.showNotification(title: "", msg: translate("toast.welcome"));
       return AuthResponse(user: user,msg: translate("toast.signup"));
+    }else{
+      return AuthResponse(user: null,msg: translate("toast.oops"));
     }
   }
 
   saveLocalData(Map<String, dynamic> bodyData)async{
     try{
       // await SharedPref().setPreferencesString(Constants.token, bodyData['access_token']);
-      await SharedPref().setPreferencesString(Constants.userId, bodyData['user']['id'].toString());
+      await SharedPref().setPreferencesString(Constants.userId, bodyData['user']['ID'].toString());
       ApiUrl.headerAuth = {
         'Content-Type': 'application/json',
         // 'Authorization': 'Bearer ${bodyData['access_token']}',

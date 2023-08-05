@@ -98,7 +98,7 @@ class Util{
     return SharedPref().getPreferenceString(Constants.token).toString().trim().replaceAll("null", "");
   }
   static String getUserID(){
-    return SharedPref().getPreferenceString(Constants.userId).toString().trim().replaceAll("null", "0");
+    return SharedPref().getPreferenceString(Constants.userId);
   }
   static String getCity(){
     return SharedPref().getPreferenceString(Constants.city).toString().trim().replaceAll("null", "");

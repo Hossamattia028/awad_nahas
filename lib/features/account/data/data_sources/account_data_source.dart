@@ -27,6 +27,8 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   Future<UserServiceModel> getUserData() async{
     var response = await client.get(Uri.parse(ApiUrl.USER_PROFILE_DATA),
         headers: ApiUrl.headerAuth);
+    print(Util.getUserID());
+    debugPrint("getUserData: ${ApiUrl.headerAuth}");
     debugPrint("getUserData: ${response.body}");
     var decodedData = json.decode(response.body);
     if (decodedData['status'] == true) {
@@ -37,16 +39,6 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
     }
   }
 
-  saveLocalData(Map<String, dynamic> bodyData)async{
-    // await SharedPref().setPreferencesString(Constants.token, bodyData['token']);
-    await SharedPref().setPreferencesString(Constants.userId, bodyData['user']['ID']);
-    ApiUrl.headerAuth = {
-      'Content-Type': 'application/json',
-      // 'Authorization': 'Bearer ${bodyData['access_token']}',
-      'ID': '${bodyData['user']['ID']}',
-    };
-    // UserServiceModel user = UserServiceModel.fromJson(bodyData['user']);
-  }
 
   @override
   Future<UserServiceModel> updateUserProfile({required Map<String, dynamic> userData}) async {
