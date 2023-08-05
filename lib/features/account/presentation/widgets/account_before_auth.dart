@@ -13,35 +13,33 @@ class AccountNotAuth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const SizedBox(height: 100,),
-        CustomText(
-          text: translate("profile.welcome"),
-          color: DMUtil.getDC(),
-          fontWeight: FontWeight.w700,
-          fontSize: AppStyle.average.sp,
-        ),
+    return Align(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 100,),
+          CustomText(
+            text: translate("profile.welcome"),
+            color: DMUtil.getDC(),
+            fontWeight: FontWeight.w700,
+            fontSize: AppStyle.average.sp,
+          ),
 
-        const SizedBox(height: 10,),
+          const SizedBox(height: 10,),
 
-        Column(
-          children: [
-            InkWell(
-              onTap: ()=> Util.pushPage(const LoginScreen(), context),
-              child: CustomText(
-                text: translate("login.app_bar"),
-                color: DMUtil.getPC(),
-                fontWeight: FontWeight.w700,
-                fontSize: AppStyle.small.sp,
-              ),
+          InkWell(
+            onTap: ()=> Util.pushPage(const LoginScreen(), context),
+            child: CustomText(
+              text: translate("login.app_bar"),
+              color: DMUtil.getPC(),
+              fontWeight: FontWeight.w700,
+              fontSize: AppStyle.small.sp,
             ),
+          ),
 
-          ],
-        ),
-
-      ],
+        ],
+      ),
     );
   }
 }

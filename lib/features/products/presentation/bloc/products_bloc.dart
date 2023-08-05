@@ -97,9 +97,6 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       await getAllOfferProducts(event,emit);
     });
 
-    on<EnableSearchEvent>((event, emit)async{
-      modifySearchAvailability(event,emit);
-    });
   }
   static ProductsBloc get(BuildContext context) => BlocProvider.of(context);
 
@@ -257,13 +254,5 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     return list;
   }
 
-
-
-  bool enableSearch = false;
-  modifySearchAvailability(EnableSearchEvent event,emit){
-    emit(const ProductsLoadingState());
-    enableSearch = !enableSearch;
-    emit(const ProductsSuccessfullyState());
-  }
 
 }

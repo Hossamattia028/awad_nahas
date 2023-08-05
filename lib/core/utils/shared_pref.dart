@@ -81,6 +81,6 @@ class SharedPref {
   ///Below method is to clear the SharedPreference.
   clearPreferences() async {
     await sharedPreferences.clear();
-    if(!sharedPreferences.containsKey(Constants.userLang))sharedPreferences.setString(Constants.userLang, "en_US");
+    if(!sharedPreferences.containsKey(Constants.userLang))sharedPreferences.setString(Constants.userLang, "ar");
   }
 }

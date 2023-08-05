@@ -1,15 +1,9 @@
-import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
-import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
+import 'package:awad_nahas/features/categories/presentation/widgets/circle_category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeCategoriesList extends StatelessWidget {
   final bool viewAll;
@@ -29,32 +23,7 @@ class HomeCategoriesList extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 3.h),
             itemBuilder: (BuildContext context, int index) {
               var item = bloc.categoriesList[index];
-              return InkWell(
-                onTap: (){
-                  CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: item));
-                  Util.pushPage(const CategoryProductsScreen(), context);
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: DMUtil.getBCC(),
-                      radius: 26.w,
-                      child: SvgPicture.asset(item.imgPath, colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),width: 27.w,),
-                    ),
-                    const SizedBox(height: 2,),
-                    SizedBox(
-                      height: 38.h,
-                      width: item.title.length>10&&(!item.title.toString().contains(" "))?65.w:50.w,
-                      child: CustomText(
-                        text: item.title,
-                        fontSize: AppStyle.small.sp,
-                        alignCenter: true,
-                      ),
-                    )
-                  ],
-                ),
-              );
+              return CircleCategoryCard(item: item);
             }, separatorBuilder: (BuildContext context, int index)=> const SizedBox(width: 20,),
           ),
         );

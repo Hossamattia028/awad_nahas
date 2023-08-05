@@ -1,9 +1,8 @@
-import 'package:awad_nahas/core/styles/my_fonts.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
@@ -18,12 +17,11 @@ class SignOutWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Row(
             children: [
-              const Icon(Icons.logout),
+              Icon(Icons.logout,color: DMUtil.getD2C(),),
               CustomText(
                 text: translate("activity_setting.sign_out"),
-                color: kSecondPrimary,
+                color: DMUtil.getD2C(),
                 fontSize: AppStyle.average.sp,
-                fontFamily: primaryFontBold,
               ),
             ],
           )

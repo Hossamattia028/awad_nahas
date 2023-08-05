@@ -16,12 +16,12 @@ class UserServiceModel extends UserService {
   static UserServiceModel fromJson(Map<String, dynamic> fromJson) {
     return UserServiceModel(
       userId: fromJson['id'],
-      userName: fromJson['name'] ??  '',
-      email: fromJson['email'],
+      userName: fromJson['user_nicename'] ??  '',
+      email: fromJson['user_email'],
       // image: getImage(fromJson['avatar']),
-      phoneNumber:fromJson['phone'] ?? '9660000',
+      phoneNumber:fromJson['phone'] ?? '',
       // countryCode: fromJson['country_code'] ?? '',
-      cityID: fromJson['city'] ?? '',
+      // cityID: fromJson['city'] ?? '',
     );
   }
 

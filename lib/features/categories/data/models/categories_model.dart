@@ -16,9 +16,9 @@ class CategoriesModel  extends CategoriesEntity{
 
   static CategoriesModel fromJson(Map<String, dynamic> json) {
     return CategoriesModel(
-      id: json['term_id'],
+      id: json['id'],
       title: json['name'],
-      imgPath: json['photo'],
+      imgPath: json['icon'],
     );
   }
 

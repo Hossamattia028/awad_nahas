@@ -12,7 +12,7 @@ class LoginUserServiceUseCase {
   });
 
   Future<Either<Failure, AuthResponse>> call(
-      {required String phone, required String password}) async {
-    return await authServiceRepository.loginUser(phone, password);
+      {required Map<String,dynamic> data}) async {
+    return await authServiceRepository.loginUser(data);
   }
 }

@@ -66,8 +66,3 @@ class AddProductCommentEvent extends ProductsEvent{
   final String txt;
   const AddProductCommentEvent({required this.txt,});
 }
-
-
-class EnableSearchEvent extends ProductsEvent{
-  const EnableSearchEvent();
-}

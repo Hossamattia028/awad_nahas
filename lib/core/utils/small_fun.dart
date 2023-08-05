@@ -20,8 +20,8 @@ class Util{
   // implemented this function after register and login
   static getAllUserAppData({required BuildContext context,bool isSplash=false}){
     AccountBloc.get(context).add(const FetchProfileDataEvent());
-    AccountBloc.get(context).add(const FetchAllNotificationsEvent());
-    OrderBloc.get(context).add(const FetchAllOrderEvent());
+    // AccountBloc.get(context).add(const FetchAllNotificationsEvent());
+    // OrderBloc.get(context).add(const FetchAllOrderEvent());
   }
 
   static sendFirebaseVerifyCode(String phone)async{
@@ -84,7 +84,7 @@ class Util{
 
 
   static bool checkUser(){
-    return SharedPref.preferences.containPreference(Constants.token);
+    return SharedPref.preferences.containPreference(Constants.userId);
   }
 
   static void changeLang({required BuildContext ctx}){

@@ -7,8 +7,10 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:awad_nahas/features/shared_widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoryCard extends StatelessWidget {
   final CategoriesEntity item;
@@ -44,16 +46,17 @@ class CategoryCard extends StatelessWidget {
            Container(
              height: 120.h,
              width: 150.w,
-             decoration: const BoxDecoration(
-               borderRadius: BorderRadius.all(Radius.circular(10)),
+             decoration:  BoxDecoration(
+               borderRadius: const BorderRadius.all(Radius.circular(10)),
                image: DecorationImage(
                  fit: BoxFit.fill,
-                 image: AssetImage("${AppImages.images}/009-small-appliances-300x300.png")
+                 image: NetworkImage(item.imgPath)
                )
              ),
            ),
-            // SvgPicture.asset(item.imgPath, colorFilter: ColorFilter.mode(DMUtil.getRED(), BlendMode.srcIn),width: 100.w,height: 70.h,),
-            // ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.fill,),
+
+
+
 
             Expanded(
               child: CustomText(

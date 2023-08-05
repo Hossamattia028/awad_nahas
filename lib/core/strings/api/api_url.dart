@@ -6,19 +6,19 @@ class ApiUrl {
   static Map<String,String> headerAuth =  {
     'Content-Type': 'application/json',
     if(Util.checkUser())'ID': Util.getUserID(),
-    if(Util.checkUser())'Authorization': 'Bearer ${Util.getToken()}',
+    // if(Util.checkUser())'Authorization': 'Bearer ${Util.getToken()}',
   };
 
   // static const String BASE_URL = 'http://10.0.2.2:8000/api/';
-  static const String BASE_URL = '';
-  static const String STORAGE_URL = '';
+  static const String BASE_URL = 'https://demo.awadnahas.com/awadnahas/api/';
+  static const String STORAGE_URL = 'https://demo.awadnahas.com/awadnahas/public/';
 
   //auth
   static const String REGISTER_URL = '${BASE_URL}auth/signup';
   static const String LOGIN_URL = '${BASE_URL}auth/login';
 
   //user data
-  static const String USER_PROFILE_DATA = '${BASE_URL}profile/data';
+  static const String USER_PROFILE_DATA = '${BASE_URL}profile/get-data';
   static const String UPDATE_USER_PROFILE = '${BASE_URL}profile/update';
   static const String UPDATE_USER_PASSWORD_PROFILE = '${BASE_URL}password/reset';
   static const String USER_NOTIFICATIONS = '${BASE_URL}user/notifications';
@@ -37,7 +37,7 @@ class ApiUrl {
   static const String OFFERS_URL = '${BASE_URL}products/featured';
   static const String SLIDERS_URL = '${BASE_URL}banner';
   static const String CITIES_URL = '${BASE_URL}cities/';
-  static const String CATEGORIES_URL = '${BASE_URL}categories';
+  static const String CATEGORIES_URL = '${BASE_URL}categories/all';
 
 
   //cart

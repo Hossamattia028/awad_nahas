@@ -12,13 +12,7 @@ const String testImg = "https://firebasestorage.googleapis.com/v0/b/tabib-14438.
 
 class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   CategoriesEntity? currentCategory;
-  List<CategoriesEntity> categoriesList = const [
-    CategoriesEntity(title: "Cooker Hobs", id: 0, imgPath: "${AppImages.icons}/cooker.svg"),
-    CategoriesEntity(title: "Extractor Hood", id: 1, imgPath: "${AppImages.icons}/extractor-hood.svg"),
-    CategoriesEntity(title: "Mixer Blender", id: 2, imgPath: "${AppImages.icons}/mixer-blender.svg"),
-    CategoriesEntity(title: "Coffee Machine", id: 3, imgPath: "${AppImages.icons}/coffee-machine.svg"),
-    CategoriesEntity(title: "Extractor Hood", id: 1, imgPath: "${AppImages.icons}/extractor-hood.svg"),
-  ];
+  List<CategoriesEntity> categoriesList = [];
 
   CategoriesEntity? currentSubCategory;
   List<CategoriesEntity> subCategoriesList = const [
@@ -123,7 +117,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   }
 
   getAllCategories(emit)async{
-    emit(const FetchCategoriesLoadingState());
+    // emit(const FetchCategoriesLoadingState());
     try{
       var res = await getAllCategoryUseCase();
       res.fold((l) {
@@ -133,7 +127,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
       });
       emit(const FetchCategoriesSuccessfullyState());
     }catch(e){
-      debugPrint("getAllSlidersBlocError: $e");
+      debugPrint("getAllCategoriesBlocError: $e");
       emit(const FetchCategoriesFailedState());
     }
   }

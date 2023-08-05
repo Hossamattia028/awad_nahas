@@ -28,20 +28,22 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
     var response = await client.get(Uri.parse(ApiUrl.USER_PROFILE_DATA),
         headers: ApiUrl.headerAuth);
     debugPrint("getUserData: ${response.body}");
-    if (response.statusCode == 200) {
+    var decodedData = json.decode(response.body);
+    if (decodedData['status'] == true) {
       var body = json.decode(response.body);
-      return UserServiceModel.fromJson(body[0]);
+      return UserServiceModel.fromJson(body['user']);
     } else {
       throw ServerException();
     }
   }
 
   saveLocalData(Map<String, dynamic> bodyData)async{
-    await SharedPref().setPreferencesString(Constants.token, bodyData['token']);
-    await SharedPref().setPreferencesString(Constants.userId, bodyData['user_id']);
+    // await SharedPref().setPreferencesString(Constants.token, bodyData['token']);
+    await SharedPref().setPreferencesString(Constants.userId, bodyData['user']['ID']);
     ApiUrl.headerAuth = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${bodyData['token']}',
+      // 'Authorization': 'Bearer ${bodyData['access_token']}',
+      'ID': '${bodyData['user']['ID']}',
     };
     // UserServiceModel user = UserServiceModel.fromJson(bodyData['user']);
   }
@@ -49,8 +51,10 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   @override
   Future<UserServiceModel> updateUserProfile({required Map<String, dynamic> userData}) async {
     var body = {
-      if(userData['name']!=null)'name': userData['name']??'',
-      if(userData['email']!=null)'email': userData['email'],
+      if(userData['name']!=null)'user_login': userData['name']??'',
+      if(userData['name']!=null)'user_nicename': userData['name']??'',
+      if(userData['name']!=null)'display_name': userData['name']??'',
+      if(userData['email']!=null)'user_email': userData['email'],
       if(userData['phone']!=null)'phone': userData['phone'],
     };
     // if(userData['image']!=null)await updateImg(imgPath: userData['image']);

@@ -29,7 +29,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
-  static final TextEditingController phoneTextEditingController = TextEditingController();
+  static final TextEditingController emailTextEditingController = TextEditingController();
+  // static final TextEditingController phoneTextEditingController = TextEditingController();
   static final TextEditingController passTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -72,10 +73,10 @@ class LoginScreen extends StatelessWidget {
                     height: 50,
                     hintText: translate("signup.email"),
                     radius: 10,
-                    textEditingController: phoneTextEditingController,
+                    textEditingController: emailTextEditingController,
                     validator: () {},
                     hintColor: kSecondPrimary,
-                    textInputType: TextInputType.phone,
+                    textInputType: TextInputType.emailAddress,
                     prefixIcon: null,
                     cursorColor: kPrimary,
                     suffixIcon:  null,
@@ -153,7 +154,8 @@ class LoginScreen extends StatelessWidget {
                         onPressed: (){
                           if(validateForm()){
                               AuthBloc.get(context).add(LogInEvent(user: {
-                                'phone':phoneTextEditingController.text.toString().trim(),
+                                // 'phone':phoneTextEditingController.text.toString().trim(),
+                                'email':emailTextEditingController.text.toString().trim(),
                                 'password':passTextEditingController.text.toString().trim(),
                               }));
                           }else{
@@ -201,7 +203,7 @@ class LoginScreen extends StatelessWidget {
 
 
   validateForm(){
-    if(phoneTextEditingController.text.isNotEmpty&&
+    if(emailTextEditingController.text.isNotEmpty&&
         passTextEditingController.text.isNotEmpty)return true;
     return false;
   }

@@ -6,6 +6,8 @@ import 'dart:async';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/home/presentation/screens/home.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
@@ -28,7 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void didChangeDependencies() {
     // AccountBloc.get(context).add(const FetchAllUsersDataEvent());
-    // Util.getAllUserAppData(context: context,isSplash: true);
+    CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
+    Util.getAllUserAppData(context: context,isSplash: true);
     Timer(const Duration(seconds: 2), () async{
       await NotificationsUtils.initialPushNotification();
       // if(Util.checkUser()){

@@ -1,4 +1,6 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/account/presentation/widgets/account_before_auth.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -21,17 +23,22 @@ class CartScreen extends StatelessWidget {
       appBar: GlobalAppBar(title: translate("app_bar.cart"),),
       body: RefreshIndicator(
         onRefresh: () =>  _buildRefresh(context),
-        child: const SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          physics: BouncingScrollPhysics(),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              CartListWidget(),
-              CouponWidget(),
-              SizedBox(height: 80,),
-              OrderDetails(),
-              CartBottomButton(),
-              // AccountNotAuth(),
+              if(Util.checkUser())... const[
+                CartListWidget(),
+                CouponWidget(),
+                SizedBox(height: 80,),
+                OrderDetails(),
+                CartBottomButton(),
+              ]else...const[
+                AccountNotAuth(),
+              ],
+
+
             ],
           ),
         ),

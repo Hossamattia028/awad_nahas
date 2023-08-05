@@ -11,6 +11,7 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: 10),
       physics: NeverScrollableScrollPhysics(),
       child: Column(
         children:  [

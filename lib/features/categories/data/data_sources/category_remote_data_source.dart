@@ -16,15 +16,15 @@ class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
   CategoryRemoteDataSource({required this.client});
   @override
   Future<List<CategoriesModel>> getAllCategory() async {
-    var response = await client.get(Uri.parse("${ApiUrl.CATEGORIES_URL}?offset=0&limit=100&sort[column]=name&sort[order]=asc"));
+    var response = await client.get(Uri.parse(ApiUrl.CATEGORIES_URL));
     debugPrint("getAllCategory ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       List<CategoriesModel> categories =
-          body['data']['data'].map<CategoriesModel>((categoryModel) {
+          body['data'].map<CategoriesModel>((categoryModel) {
         return CategoriesModel.fromJson(categoryModel);
       }).toList();
-      return categories;
+      return categories.where((element) => (!element.imgPath.toString().contains("{s:")) && element.imgPath.toString().trim()!="").toList();
     } else {
       throw ServerException();
     }

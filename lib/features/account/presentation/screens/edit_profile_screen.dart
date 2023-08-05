@@ -40,6 +40,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     var user = accountBloc.currentUser;
     if(user!=null){
       firstNameTextEditingController.text = user.userName.toString().replaceAll("null", "");
+      lastNameTextEditingController.text = user.userName.toString().replaceAll("null", "");
       emailTextEditingController.text = user.email.toString().replaceAll("null", "");
       phoneTextEditingController.text = user.phoneNumber.toString().replaceAll("null", "");
     }
@@ -242,15 +243,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                         color: DMUtil.getRED(),
                         onPressed: () async {
-                          if(emailTextEditingController.text.trim().isNotEmpty&&firstNameTextEditingController.text.trim().isNotEmpty&&phoneTextEditingController.text.trim().isNotEmpty){
+                          // if(emailTextEditingController.text.trim().isNotEmpty&&firstNameTextEditingController.text.trim().isNotEmpty&&){
                             bloc.add(UpdateProfileEvent(user: {
                               "phone":phoneTextEditingController.text.trim(),
                               "email":emailTextEditingController.text.trim(),
                               "name":firstNameTextEditingController.text.trim(),
                             }));
-                          }else{
-                            return SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
-                          }
+                          // }else{
+                          //   return SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
+                          // }
                         }),
                   );
                 },

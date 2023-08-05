@@ -1,4 +1,3 @@
-import 'package:awad_nahas/features/authentication/data/models/user_service_model.dart';
 import 'package:awad_nahas/features/authentication/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,6 +74,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
       var res = await registerUserServiceUseCase(userData: event.user);
       res.fold((l) {
         resMsg = l.toString();
+        emit(RegisterFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
       },(data) {
         resMsg = data.msg.toString();
         emit(RegisterSuccessfullyState(response: AuthResponse(msg: resMsg,isSuccess: true)));
@@ -88,8 +88,8 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
 
   logIn(LogInEvent event,emit)async{
     emit(const LogInLoadingState());
-    // try{
-      var res = await loginUserServiceUseCase(phone: event.user['phone'],password:  event.user['password']);
+    try{
+      var res = await loginUserServiceUseCase(data: event.user);
       res.fold((l) {
         resMsg = l.toString();
       },(data) {
@@ -100,11 +100,10 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
           emit(LogInSuccessfullyState(response: AuthResponse(msg: resMsg,isSuccess: true)));
         }
       });
-    // }catch(e){
-    //   debugPrint("logInError: $e");
-    //   emit(LogInFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
-    // }
-
+    }catch(e){
+      debugPrint("logInError: $e");
+      emit(LogInFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
+    }
   }
 
   logOut(event,emit) async {

@@ -11,11 +11,13 @@ import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 import 'package:awad_nahas/features/root_app/widgets/bottom_nav_bar.dart';
 
+
+
 class RootScreen extends StatelessWidget {
   const RootScreen({Key? key,}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+
     return BlocBuilder<RootBloc, RootState>(
       builder: (ctx, state) {
         var bloc = RootBloc.get(ctx);

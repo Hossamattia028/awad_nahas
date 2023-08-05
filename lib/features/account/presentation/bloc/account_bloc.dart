@@ -131,7 +131,7 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
     await SharedPref().setPreferencesString(Constants.email, res.user!.email.toString());
     await SharedPref().setPreferencesString(Constants.mobile, res.user!.phoneNumber.toString());
     await SharedPref().setPreferencesString(Constants.name, res.user!.userName.toString());
-    await SharedPref().setPreferencesString(Constants.city, res.user!.cityID.toString());
+    // await SharedPref().setPreferencesString(Constants.city, res.user!.cityID.toString());
   }
 
 
@@ -144,6 +144,7 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
       var res = await getAllUsersUseCase();
       res.fold((l) {
         resMsg = l.toString();
+        emit(FetchProfileDataState(response: AuthResponse(isFailed: true)));
       },(data) async{
         if(data.isNotEmpty){
           allUsers = data;

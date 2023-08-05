@@ -14,12 +14,11 @@ class AuthServiceModelRepository implements AuthServiceRepository {
 
 
   @override
-  Future<Either<Failure, AuthResponse>> loginUser(
-      String phone, String password) async {
+  Future<Either<Failure, AuthResponse>> loginUser(Map<String, dynamic> userData) async {
     if (await networkInfo.isConnected()) {
       try {
         return Right(await userServiceRemoteDataSource.loginUser(
-            phone: phone, password: password));
+            userData));
       } on ServerException {
         return Left(ServerFailure());
       }

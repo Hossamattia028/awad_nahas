@@ -38,236 +38,238 @@ class RegisterScreen extends StatelessWidget {
         body: BlocListener<AuthBloc,AuthState>(
           listener: (ctx,state){
             var bloc = AuthBloc.get(ctx);
-            if(state is RegisterSuccessfullyState){
+            if(state is RegisterSuccessfullyState && state.response.isSuccess==true){
               // if(state.response.state==FetchStates.SUCCESSFULLY){
                 passwordTextEditingController.text = "";
                 Util.getAllUserAppData(context: context);
                 SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.green);
                 Util.pushPage(const RootScreen(), context);
               // }else{
-                SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.red);
+
               // }
+            }else{
+              SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.red);
             }
           },
           listenWhen: (ctx,state) => state is RegisterSuccessfullyState  || state is RegisterFailedState,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: AppStyle.paddingFromTop.h,),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w),
-                child: Row(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: AppStyle.paddingFromTop.h,),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w),
+                  child: Row(
+                    children: [
+                      const BackArrowButton(),
+                      CustomText(
+                        text: translate("signup.signup"),
+                        color: DMUtil.getDC(),
+                        fontWeight: FontWeight.w700,
+                        fontSize: AppStyle.average.sp,
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 30,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const BackArrowButton(),
-                    CustomText(
-                      text: translate("signup.signup"),
-                      color: DMUtil.getDC(),
-                      fontWeight: FontWeight.w700,
-                      fontSize: AppStyle.average.sp,
+                    SizedBox(
+                      height: 50.h,
+                      width: 160.w,
+                      child: CustomTextFromField(
+                          hintText: translate("signup.first_name"),
+                          labelText: "",
+                          radius: 10,
+                          hasBorder: true,
+                          borderWidth: 1,
+                          borderColor: DMUtil.getD2C(),
+                          hintColor: kSecondPrimary,
+                          textEditingController: firstNameTextEditingController,
+                          validator: () {},
+                          prefixIcon: null,
+                          cursorColor: kPrimary,
+                          suffixIcon: const SizedBox(),
+                          obscureText: false,
+                          isLabelError: false),
+                    ),
+                    SizedBox(
+                      height: 50.h,
+                      width: 160.w,
+                      child: CustomTextFromField(
+                          hintText: translate("signup.last_name"),
+                          labelText: "",
+                          radius: 10,
+                          hasBorder: true,
+                          borderWidth: 1,
+                          borderColor: DMUtil.getD2C(),
+                          hintColor: kSecondPrimary,
+                          textEditingController: secondNameTextEditingController,
+                          validator: () {},
+                          prefixIcon: null,
+                          cursorColor: kPrimary,
+                          suffixIcon: const SizedBox(),
+                          obscureText: false,
+                          isLabelError: false),
                     ),
                   ],
                 ),
-              ),
-              SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 30,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          height: 50.h,
-                          width: 160.w,
-                          child: CustomTextFromField(
-                              hintText: translate("signup.first_name"),
-                              labelText: "",
-                              radius: 10,
-                              hasBorder: true,
-                              borderWidth: 1,
-                              borderColor: DMUtil.getD2C(),
-                              hintColor: kSecondPrimary,
-                              textEditingController: firstNameTextEditingController,
-                              validator: () {},
-                              prefixIcon: null,
-                              cursorColor: kPrimary,
-                              suffixIcon: const SizedBox(),
-                              obscureText: false,
-                              isLabelError: false),
-                        ),
-                        SizedBox(
-                          height: 50.h,
-                          width: 160.w,
-                          child: CustomTextFromField(
-                              hintText: translate("signup.last_name"),
-                              labelText: "",
-                              radius: 10,
-                              hasBorder: true,
-                              borderWidth: 1,
-                              borderColor: DMUtil.getD2C(),
-                              hintColor: kSecondPrimary,
-                              textEditingController: secondNameTextEditingController,
-                              validator: () {},
-                              prefixIcon: null,
-                              cursorColor: kPrimary,
-                              suffixIcon: const SizedBox(),
-                              obscureText: false,
-                              isLabelError: false),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15,),
-                    CustomTextFromField(
-                      height: 50,
-                      hintText: translate("signup.email"),
-                      radius: 10,
-                      textEditingController: emailTextEditingController,
-                      validator: () {},
-                      hintColor: kSecondPrimary,
-                      textInputType: TextInputType.phone,
-                      prefixIcon: null,
-                      cursorColor: kPrimary,
-                      suffixIcon:  null,
-                      obscureText: false,
-                      isLabelError: false,
-                      hasBorder: true,
-                      borderWidth: 1,
-                      borderColor: DMUtil.getD2C(),
-                      labelText: '',),
-                    const SizedBox(height: 15,),
-                    CustomTextFromField(
-                      height: 50,
-                      hintText: translate("signup.phone"),
-                      radius: 10,
-                      textEditingController: phoneTextEditingController,
-                      validator: () {},
-                      hintColor: kSecondPrimary,
-                      textInputType: TextInputType.phone,
-                      prefixIcon: null,
-                      cursorColor: kPrimary,
-                      suffixIcon:  null,
-                      obscureText: false,
-                      isLabelError: false,
-                      hasBorder: true,
-                      borderWidth: 1,
-                      borderColor: DMUtil.getD2C(),
-                      labelText: '',),
-                    const SizedBox(height: 20,),
-                    BlocBuilder<AuthBloc,AuthState>(
-                      builder: (ctx,state){
-                        var bloc = AuthBloc.get(ctx);
-                        bool showPassword = bloc.showPassword;
-                        return CustomTextFromField(
-                            hasBorder: true,
-                            borderWidth: 1,
-                            borderColor: DMUtil.getD2C(),
-                            labelText: '',
-                            height: 50,
-                            hintText: translate("signup.password"),
-                            radius: 10,
-                            hintColor: kSecondPrimary,
-                            onChanged: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm())),
-                            onFieldSubmitted: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm())),
-                            textEditingController: passwordTextEditingController,
-                            cursorColor: kPrimary,
-                            validator: () {},
-                            prefixIcon: null,
-                            obscureText: !showPassword,
-                            suffixIcon: IconButton(
-                              onPressed: () => ctx.read<AuthBloc>().add(const ChangePasswordEvent()),
-                              icon: Icon(
-                                showPassword==true
-                                    ? CupertinoIcons.eye
-                                    : CupertinoIcons.eye_slash,
-                                color: DMUtil.getDC(),
-                              ),
-                            ),
-                            isLabelError: false);
-                      },
-                    ),
-                    const SizedBox(
-                      height: 35,
-                    ),
-
-                    BlocBuilder<AuthBloc,AuthState>(
-                      builder: (ctx,state){
-                        return MaterialButton(
-                          onPressed: (){
-                            if(validateForm()){
-                              if(emailTextEditingController.text.contains("@")){
-                                AuthBloc.get(context).add(RegisterEvent(user: {
-                                  'email':emailTextEditingController.text.toString().trim(),
-                                  'name':firstNameTextEditingController.text.toString().trim(),
-                                  'user_login':emailTextEditingController.text.toString().trim(),
-                                  'phone':phoneTextEditingController.text.toString().trim(),
-                                  'password':passwordTextEditingController.text.toString().trim(),
-                                }));
-                              }else{
-                                SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), Colors.red);
-                              }
-                            }else{
-                              SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
-                            }
-                          },
-                          minWidth: double.infinity,
-                          height: 40.h,
-                          color: DMUtil.getRED(),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                const SizedBox(height: 15,),
+                CustomTextFromField(
+                  height: 50,
+                  hintText: translate("signup.email"),
+                  radius: 10,
+                  textEditingController: emailTextEditingController,
+                  validator: () {},
+                  hintColor: kSecondPrimary,
+                  textInputType: TextInputType.emailAddress,
+                  prefixIcon: null,
+                  cursorColor: kPrimary,
+                  suffixIcon:  null,
+                  obscureText: false,
+                  isLabelError: false,
+                  hasBorder: true,
+                  borderWidth: 1,
+                  borderColor: DMUtil.getD2C(),
+                  labelText: '',),
+                const SizedBox(height: 15,),
+                CustomTextFromField(
+                  height: 50,
+                  hintText: translate("signup.phone"),
+                  radius: 10,
+                  textEditingController: phoneTextEditingController,
+                  validator: () {},
+                  hintColor: kSecondPrimary,
+                  textInputType: TextInputType.phone,
+                  prefixIcon: null,
+                  cursorColor: kPrimary,
+                  suffixIcon:  null,
+                  obscureText: false,
+                  isLabelError: false,
+                  hasBorder: true,
+                  borderWidth: 1,
+                  borderColor: DMUtil.getD2C(),
+                  labelText: '',),
+                const SizedBox(height: 20,),
+                BlocBuilder<AuthBloc,AuthState>(
+                  builder: (ctx,state){
+                    var bloc = AuthBloc.get(ctx);
+                    bool showPassword = bloc.showPassword;
+                    return CustomTextFromField(
+                        hasBorder: true,
+                        borderWidth: 1,
+                        borderColor: DMUtil.getD2C(),
+                        labelText: '',
+                        height: 50,
+                        hintText: translate("signup.password"),
+                        radius: 10,
+                        hintColor: kSecondPrimary,
+                        onChanged: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm())),
+                        onFieldSubmitted: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm())),
+                        textEditingController: passwordTextEditingController,
+                        cursorColor: kPrimary,
+                        validator: () {},
+                        prefixIcon: null,
+                        obscureText: !showPassword,
+                        suffixIcon: IconButton(
+                          onPressed: () => ctx.read<AuthBloc>().add(const ChangePasswordEvent()),
+                          icon: Icon(
+                            showPassword==true
+                                ? CupertinoIcons.eye
+                                : CupertinoIcons.eye_slash,
+                            color: DMUtil.getDC(),
                           ),
-                          child:
-                          CustomText(
-                            text: translate("signup.signup"),
-                            color: Colors.white,
+                        ),
+                        isLabelError: false);
+                  },
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+
+                BlocBuilder<AuthBloc,AuthState>(
+                  builder: (ctx,state){
+                    return MaterialButton(
+                      onPressed: (){
+                        if(validateForm()){
+                          if(emailTextEditingController.text.contains("@")){
+                            AuthBloc.get(context).add(RegisterEvent(user: {
+                              'email':emailTextEditingController.text.toString().trim(),
+                              'name':"${firstNameTextEditingController.text.toString().trim()} ${secondNameTextEditingController.text.toString().trim()}",
+                              'user_login':emailTextEditingController.text.toString().trim(),
+                              'phone':phoneTextEditingController.text.toString().trim(),
+                              'password':passwordTextEditingController.text.toString().trim(),
+                            }));
+                          }else{
+                            SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), Colors.red);
+                          }
+                        }else{
+                          SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
+                        }
+                      },
+                      minWidth: double.infinity,
+                      height: 40.h,
+                      color: DMUtil.getRED(),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: state is RegisterLoadingState?
+                      const CircularProgressIndicator(color: Colors.white,):
+                      CustomText(
+                        text: translate("signup.signup"),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: AppStyle.average.sp,
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 15,),
+                const AuthWithSocial(socialEnum: SocialEnum.PHONE),
+                const AuthWithSocial(socialEnum: SocialEnum.GOOGLE),
+                const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK),
+                const SizedBox(height: 25,),
+                Center(
+                  child: Text.rich(
+                    TextSpan(
+                      text: "${translate("signup.already_have_account")}  ",
+                      children: [
+                        TextSpan(
+                          text: translate("login.app_bar"),
+                          style: TextStyle(
+                            color: DMUtil.getPC(),
                             fontWeight: FontWeight.w500,
                             fontSize: AppStyle.average.sp,
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 15,),
-                    const AuthWithSocial(socialEnum: SocialEnum.PHONE),
-                    const AuthWithSocial(socialEnum: SocialEnum.GOOGLE),
-                    const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK),
-                    const SizedBox(height: 25,),
-                    Center(
-                      child: Text.rich(
-                        TextSpan(
-                          text: "${translate("signup.already_have_account")}  ",
-                          children: [
-                            TextSpan(
-                              text: translate("login.app_bar"),
-                              style: TextStyle(
-                                color: DMUtil.getPC(),
-                                fontWeight: FontWeight.w500,
-                                fontSize: AppStyle.average.sp,
-                                fontFamily: primaryFontReg,
-                                decoration: TextDecoration.underline,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => Util.pushPage(const LoginScreen(), context),
-                            )
-                          ],
-                          style: TextStyle(
-                            color: DMUtil.getD2C(),
                             fontFamily: primaryFontReg,
+                            decoration: TextDecoration.underline,
                           ),
-                        ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => Util.pushPage(const LoginScreen(), context),
+                        )
+                      ],
+                      style: TextStyle(
+                        color: DMUtil.getD2C(),
+                        fontFamily: primaryFontReg,
                       ),
                     ),
-                    const SizedBox(height: 30,),
-                  ],),
-              ),
-            ],
+                  ),
+                ),
+                const SizedBox(height: 30,),
+              ],
+            ),
           )
         )
     );
   }
 
   validateForm(){
-    if(firstNameTextEditingController.text.isNotEmpty&&
+    if(
+     firstNameTextEditingController.text.isNotEmpty&&
+     secondNameTextEditingController.text.isNotEmpty&&
         emailTextEditingController.text.isNotEmpty&&
         phoneTextEditingController.text.isNotEmpty&&
         passwordTextEditingController.text.isNotEmpty)return true;

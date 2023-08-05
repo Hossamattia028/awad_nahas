@@ -27,3 +27,6 @@ class SearchEvent extends RootEvent {
   const SearchEvent({required this.word,required this.categoryList,required this.productList});
 }
 
+class EnableSearchEvent extends RootEvent{
+  const EnableSearchEvent();
+}

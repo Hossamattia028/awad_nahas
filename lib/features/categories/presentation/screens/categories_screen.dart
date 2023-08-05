@@ -1,10 +1,12 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/widgets/vertical_categories_list.dart';
-import 'package:awad_nahas/features/root_app/widgets/drawer_icon.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
+import 'package:awad_nahas/features/search/presentation/screens/search_screen.dart';
 import 'package:awad_nahas/features/search/presentation/widgets/search_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
@@ -21,7 +23,14 @@ class CategoriesScreen extends StatelessWidget {
 
           Padding(padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),child: const SearchWidget()),
 
-          const VerticalCategoriesList(),
+
+          BlocBuilder<RootBloc,RootState>(
+            builder: (ctx,state){
+              var bloc = RootBloc.get(ctx);
+              return  bloc.enableSearch? const SearchScreen() : const VerticalCategoriesList();
+            },
+          ),
+
 
 
 

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +13,7 @@ import 'package:awad_nahas/features/authentication/data/models/user_service_mode
 
 abstract class AuthServiceRemoteDataSourceImpl {
   Future<AuthResponse> registerUser(Map<String, dynamic> userData);
-  Future<AuthResponse> loginUser({required String phone, required String password});
+  Future<AuthResponse> loginUser(Map<String, dynamic> userData);
 }
 
 class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
@@ -22,13 +21,13 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
   AuthServiceRemoteDataSource({required this.client});
 
 
-
   @override
-  Future<AuthResponse> loginUser({required String phone, required String password}) async {
+  Future<AuthResponse> loginUser(Map<String, dynamic> userData) async {
     var data = {
-      'phone': phone,
-      'password': password,
-      'device_token': await Util.getCurrentUserPushToken()
+      if(userData['phone']!=null)'phone': userData['phone'],
+      if(userData['email']!=null)'email': userData['email'],
+      'password': userData['password'],
+      // 'device_token': await Util.getCurrentUserPushToken()
     };
     var response = await client.post(
       Uri.parse(ApiUrl.LOGIN_URL),
@@ -51,14 +50,12 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
 
   saveLocalData(Map<String, dynamic> bodyData)async{
     try{
-      await SharedPref().setPreferencesString(Constants.token, bodyData['access_token']);
+      // await SharedPref().setPreferencesString(Constants.token, bodyData['access_token']);
       await SharedPref().setPreferencesString(Constants.userId, bodyData['user']['id'].toString());
-      await SharedPref().setPreferencesString(Constants.userType, bodyData['user']['user_type'].toString());
-  
       ApiUrl.headerAuth = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${bodyData['access_token']}',
-        'ID': 'Bearer ${bodyData['user']['id']}',
+        // 'Authorization': 'Bearer ${bodyData['access_token']}',
+        'ID': '${bodyData['user']['ID']}',
       };
     }catch(e){
       debugPrint("$e");
@@ -72,24 +69,18 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
       var headers = ApiUrl.headerAuth;
       // String? token =  await Util.getCurrentUserPushToken();
       request.fields['name'] = userData['name'];
-      request.fields['email'] = userData['email'] ?? "";
-      request.fields['phone'] = userData['phone'];
+      if(userData['email'] != null)request.fields['email'] = userData['email'];
+      if(userData['phone'] != null)request.fields['phone'] = userData['phone'];
       request.fields['password'] = userData['password'];
-      request.fields['user_type'] = userData['user_type'];
-      request.fields['city'] = userData['city'];
-      // request.fields['status'] = "offline";
-      // request.fields['latitude'] = Util.getLatitude().toString();
-      // request.fields['longitude'] = Util.getLongitude().toString();
-      request.fields['device_token'] = "";
       request.headers.addAll(headers);
       var streamedResponse = await request.send();
       var res = await http.Response.fromStream(streamedResponse);
       debugPrint("registerUser: ${res.body}");
       var decodedData = jsonDecode(res.body);
-      if(decodedData['message'].toString().contains("done")){
+      if(decodedData['status']){
         await saveLocalData(decodedData);
         SetNotification.showNotification(title: "", msg: translate("toast.welcome"));
-        return AuthResponse(user: UserServiceModel.fromJson(decodedData['data']['user']),msg: translate("toast.signup"));
+        return AuthResponse(user: UserServiceModel.fromJson(decodedData['user']),msg: translate("toast.signup"));
       }else if(decodedData.toString().contains("already")){
         return  AuthResponse(user: null,msg: translate("toast.user_exist"));
       }

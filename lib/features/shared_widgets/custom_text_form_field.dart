@@ -5,7 +5,6 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 
 
 class CustomTextFromField extends StatelessWidget {
@@ -78,13 +77,13 @@ class CustomTextFromField extends StatelessWidget {
         onChanged: (val) =>onChanged==null?debugPrint(""):onChanged!(val),
         onFieldSubmitted: (val) =>onFieldSubmitted==null?debugPrint(""):onFieldSubmitted!(val),
         style: TextStyle(
-          color: kHint,
+          color: DMUtil.getD2C(),
           fontSize: AppStyle.small.sp,
         ),
         decoration: InputDecoration(
           filled: filled,
           contentPadding: smallPadding==true?
-          const EdgeInsets.symmetric(vertical: 1,horizontal: 2):null,
+          const EdgeInsets.symmetric(vertical: 1,horizontal: 4):null,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           focusedBorder:  OutlineInputBorder(
             borderSide: hasBorder==true?  BorderSide(color: borderColor ?? Colors.black, width: borderWidth ?? 1.0): const BorderSide(color: Colors.white),
@@ -115,7 +114,7 @@ class CustomTextFromField extends StatelessWidget {
           hintText: hintText,
           hintStyle: TextStyle(
             fontSize: AppStyle.small.sp-2,
-            color: hintColor??kHint,
+            color: hintColor??Colors.grey,
           ),
           label: Text(
             labelText,
