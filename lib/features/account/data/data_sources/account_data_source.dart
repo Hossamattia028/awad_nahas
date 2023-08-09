@@ -27,9 +27,7 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   Future<UserServiceModel> getUserData() async{
     var response = await client.get(Uri.parse(ApiUrl.USER_PROFILE_DATA),
         headers: ApiUrl.headerAuth);
-    print(Util.getUserID());
-    debugPrint("getUserData: ${ApiUrl.headerAuth}");
-    debugPrint("getUserData: ${response.body}");
+    // debugPrint("getUserData: ${response.body}");
     var decodedData = json.decode(response.body);
     if (decodedData['status'] == true) {
       var body = json.decode(response.body);

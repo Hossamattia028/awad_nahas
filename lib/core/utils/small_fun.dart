@@ -29,7 +29,7 @@ class Util{
   static getAllUserAppData({required BuildContext context,bool isSplash=false}){
     AccountBloc.get(context).add(const FetchProfileDataEvent());
     WishlistBloc.get(context).add(const FetchAllWishlistEvent());
-    // CartBloc.get(context).add(const FetchAllCartEvent());
+    CartBloc.get(context).add(const FetchAllCartEvent());
     ProductsBloc.get(context).add(const FetchAllProductsEvent());
     CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
     // AccountBloc.get(context).add(const FetchAllNotificationsEvent());

@@ -9,17 +9,16 @@ class CartModel extends CartEntity {
       required super.total,
       });
 
-
-  // static List<CartModel> cartListFromJson(String str) =>
-  //     List<CartModel>.from(
-  //         json.decode(str).map((x) => CartModel.fromJson(x)));
-
   static CartModel fromJson(Map<String, dynamic> jsonObject) {
+    List<dynamic> list =
+    jsonObject['products'].entries.map((entry) {
+      return CartModelProducts(productID: entry.value['product_id'],quantity: entry.value['quantity']);
+    }).toList();
     return CartModel(
-      id: jsonObject['session_id']??"",
-      sessionID: jsonObject['session_id']??"",
-      sessionValue: CartModelProducts.cartListFromJson(jsonEncode(jsonObject['products'])) ,
-      total: jsonObject['cart_totals']['total'],
+      id: int.parse(jsonObject['session_id']??"0"),
+      sessionID: int.parse(jsonObject['session_id']??"0"),
+      sessionValue: list.cast<CartModelProducts>(),
+      total: double.parse(jsonObject['cart_totals']['total'].toString()),
     );
   }
 
