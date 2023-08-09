@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/features/products/data/models/product_small_model.dart';
@@ -10,7 +11,7 @@ import 'package:awad_nahas/features/products/domain/entities/products_entity.dar
 abstract class FavouriteRemoteDataSourceImpl{
   Future<List<ProductsEntity>> fetchAllFavourites();
   Future<bool> addFavouriteItem({required Map<String,dynamic> data});
-  Future<bool> removeFavouriteItem({required int favID});
+  Future<bool> removeFavouriteItem({required Map<String,dynamic> data});
 }
 
 
@@ -20,12 +21,9 @@ class FavouriteRemoteDataSource extends FavouriteRemoteDataSourceImpl{
 
   @override
   Future<bool> addFavouriteItem({required Map<String,dynamic> data}) async{
-    var bodyData = {
-      "product_ids": data['fav_list']
-    };
-    var response = await client.post(Uri.parse(ApiUrl.ADD_TO_FAV),body: jsonEncode(bodyData),headers: ApiUrl.headerAuth);
+    var response = await client.post(Uri.parse("${ApiUrl.ADD_TO_FAV}${Util.getUserID()}/${data['product_id']}"),headers: ApiUrl.headerAuth);
     debugPrint("addFavouriteItem ${response.body}");
-    if (response.body.contains("done")) {
+    if (response.body.contains("true")) {
       final body = json.decode(response.body);
       return body.toString().contains("done") ? true : false;
     } else {
@@ -35,22 +33,23 @@ class FavouriteRemoteDataSource extends FavouriteRemoteDataSourceImpl{
 
   @override
   Future<List<ProductModel>> fetchAllFavourites() async{
-    var response = await client.get(Uri.parse("${ApiUrl.GET_ALL_FAV}?offset=0&limit=100&sort[column]=name&sort[order]=asc"),headers: ApiUrl.headerAuth);
+    var response = await client.get(Uri.parse("${ApiUrl.GET_ALL_FAV}${Util.getUserID()}"),headers: ApiUrl.headerAuth);
+    print("${ApiUrl.GET_ALL_FAV}${Util.getUserID()}");
     debugPrint("fetchAllFavourites ${response.body}");
-    if (response.body.contains("done")) {
+    if (response.body.contains("true")) {
       final body = json.decode(response.body);
-      if(body['data']['data'].toString()=="[]")return [];
-      return ProductModel.listModelFromJson(jsonEncode(body['data']['data'][0]['products']));
+      if(body['data'].toString()=="[]")return [];
+      return ProductModel.listModelFromJson(jsonEncode(body['data']));
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<bool> removeFavouriteItem({required int favID}) async{
-    var response = await client.delete(Uri.parse("${ApiUrl.REMOVE_FAV}$favID"),headers: ApiUrl.headerAuth);
-    debugPrint("removeFavouriteItem ${response.body}");
-    if (response.body.contains("done")) {
+  Future<bool> removeFavouriteItem({required Map<String,dynamic> data}) async{
+    var response = await client.post(Uri.parse("${ApiUrl.ADD_TO_FAV}${Util.getUserID()}/${data['product_id']}"),headers: ApiUrl.headerAuth);
+    debugPrint("addFavouriteItem ${response.body}");
+    if (response.body.contains("true")) {
       final body = json.decode(response.body);
       return body.toString().contains("done") ? true : false;
     } else {

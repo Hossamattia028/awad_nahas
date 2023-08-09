@@ -54,25 +54,25 @@ class WishlistBloc extends Bloc<WishlistEvent,WishlistState>{
     //   emit(WishlistErrorState(errors: e.toString()));
     // }
   }
-
-  List<Map<String,dynamic>> returnNewWishList(ProductsEntity item,emit){
-    List<Map<String,dynamic>> list = [];
-    int index = wishlistList.indexWhere((element) => element.id==item.id);
-    if(index!=-1) {
-      wishlistList.removeAt(index);
-    }else{
-      wishlistList.add(item);
-    }
-    for(var i in wishlistList){
-      list.add({'product_ID':i.id,'on_sale':"1"});
-    }
-    return list;
-  }
+  //
+  // List<Map<String,dynamic>> returnNewWishList(ProductsEntity item,emit){
+  //   List<Map<String,dynamic>> list = [];
+  //   int index = wishlistList.indexWhere((element) => element.id==item.id);
+  //   if(index!=-1) {
+  //     wishlistList.removeAt(index);
+  //   }else{
+  //     wishlistList.add(item);
+  //   }
+  //   for(var i in wishlistList){
+  //     list.add({'product_ID':i.id,'on_sale':"1"});
+  //   }
+  //   return list;
+  // }
 
   addNewWishlist(AddToWishlistEvent event,emit)async{
     emit(WishlistLoadingState());
     try{
-      var res = await addFavouriteItemUseCase(data: {'fav_list':returnNewWishList(event.product,emit)});
+      var res = await addFavouriteItemUseCase(data: {'product_id':event.product.id});
       res.fold((l) {
         emit(WishlistErrorState(errors: l.toString()));
       },(data) {
@@ -88,7 +88,7 @@ class WishlistBloc extends Bloc<WishlistEvent,WishlistState>{
   removeWishlist(RemoveToWishlistEvent event,emit)async{
     emit(WishlistLoadingState());
     // try{
-      var res = await removeFavouriteItemUseCase(favID: event.product.id);
+      var res = await removeFavouriteItemUseCase(data: {'product_id':event.product.id});
       res.fold((l) {
         emit(WishlistErrorState(errors: l.toString()));
       },(data) {

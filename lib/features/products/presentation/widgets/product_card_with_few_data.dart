@@ -3,6 +3,7 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/align_child_by_row.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
+import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,8 +37,7 @@ class ProductCardFewData extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(height: 10,),
-            Image.asset(AppImages.searImg,width: 70.w,height: 80.h,),
-            // ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.fill,),
+            ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.contain,),
             const SizedBox(width: 5,),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -45,11 +45,13 @@ class ProductCardFewData extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 140.w,
-                  child: CustomText(
-                    text: item.title.toString(),
-                    color: DMUtil.getDC(),
-                    fontSize: AppStyle.average.sp,
-                    maxLine: 3,
+                  child: SingleChildScrollView(
+                    child: CustomText(
+                      text: item.title.toString(),
+                      color: DMUtil.getDC(),
+                      fontSize: AppStyle.average.sp-1,
+                      maxLine: 4,
+                    ),
                   ),
                 ),
                 if(showPrice)ProductPriceWidget(productModel: item,isBig:true),

@@ -232,4 +232,13 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   }
 
 
+  List<ProductsEntity> filterByCurrentLang(List<ProductsEntity> list){
+    if(Util.getLang()=="ar"){
+      return list.where((element) => element.isArabic==true).toList();
+    }else{
+      return list.where((element) => element.isArabic==false).toList();
+    }
+  }
+
+
 }

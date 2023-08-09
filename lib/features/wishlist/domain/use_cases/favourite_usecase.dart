@@ -25,7 +25,7 @@ class RemoveFavouriteItemUseCase{
   final FavouriteRepository favouriteRepository;
   const RemoveFavouriteItemUseCase({required this.favouriteRepository});
 
-  Future<Either<Failure,bool>> call({required int favID,}) async{
-    return await favouriteRepository.removeFavouriteItem(favID: favID,);
+  Future<Either<Failure,bool>> call({required Map<String,dynamic> data}) async{
+    return await favouriteRepository.removeFavouriteItem(data: data,);
   }
 }

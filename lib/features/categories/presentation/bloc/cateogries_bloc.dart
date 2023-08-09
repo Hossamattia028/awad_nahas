@@ -106,7 +106,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   changeCurrentCategory(ChangeCategoriesEvent event,emit){
     emit(CategoriesInitialState());
     currentCategory = event.categoriesModel;
-    currentSubCategory = subCategoriesList.first;
+    // currentSubCategory = subCategoriesList.first;
     emit(CategoriesIndexChangedSuccessState());
   }
 

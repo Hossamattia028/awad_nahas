@@ -46,7 +46,7 @@ class ApiUrl {
   static const String UPDATE_CART = '${BASE_URL}cart/';
 
   //fav
-  static const String ADD_TO_FAV= '${BASE_URL}wishlist';
+  static const String ADD_TO_FAV= '${BASE_URL}wishlist/';
   static const String GET_ALL_FAV = '${BASE_URL}wishlist/';
   static const String UPDATE_FAV = '${BASE_URL}wishlist/';
   static const String REMOVE_FAV = '${BASE_URL}wishlist/';

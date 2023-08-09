@@ -5,5 +5,5 @@ import 'package:awad_nahas/features/products/domain/entities/products_entity.dar
 abstract class FavouriteRepository{
   Future<Either<Failure,List<ProductsEntity>>> getAllFavouriteList();
   Future<Either<Failure,bool>> addFavouriteItem({required Map<String,dynamic> data});
-  Future<Either<Failure,bool>> removeFavouriteItem({required int favID});
+  Future<Either<Failure,bool>> removeFavouriteItem({required Map<String,dynamic> data});
 }

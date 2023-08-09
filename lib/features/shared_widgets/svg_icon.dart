@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,8 +12,10 @@ class SvgIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       backgroundColor: DMUtil.getBCC(),
-      radius: 25.w,
-      child: SvgPicture.network(iconUrl,width: 24.w,colorFilter: ColorFilter.mode(DMUtil.getRED(), BlendMode.srcIn),),
+      radius: 26.w,
+      child:iconUrl.contains("file:///")||iconUrl.isEmpty?
+      Image.asset(AppImages.logo):
+      SvgPicture.network(iconUrl,width: 26.w,colorFilter: ColorFilter.mode(DMUtil.getRED(), BlendMode.srcIn),),
     );
   }
 }

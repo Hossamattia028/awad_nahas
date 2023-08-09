@@ -20,6 +20,7 @@ class ProductModel extends ProductsEntity{
 
   static ProductModel fromJson(Map<String, dynamic> jsonObject) {
 
+    print(jsonObject['options'].toString());
     return ProductModel(
       id: jsonObject['id'],
       title: jsonObject['title'],
@@ -40,6 +41,9 @@ class ProductModel extends ProductsEntity{
   static String getValFromOptions(String metaKey,List<dynamic> list){
     int index = list.indexWhere((element) => element['meta_key']==metaKey);
     if(index==-1){
+      if(metaKey=="_regular_price"){
+        return getValFromOptions("_price", list);
+      }
       return "";
     }
     var value = list[index]['meta_value'].toString();

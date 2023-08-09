@@ -20,8 +20,7 @@ class WishListIconWidget extends StatelessWidget {
         var bloc = WishlistBloc.get(ctx);
         int index = bloc.wishlistList.indexWhere((element) => element.id==item.id);
         bool isFav = false;
-        // if(index!=-1)isFav = true;
-        if(item.id==0)isFav = true;
+        if(index!=-1)isFav = true;
         return InkWell(
           onTap: ()=> bloc.add(AddToWishlistEvent(product: item)),
           child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:DMUtil.getD2C(),size: 23.w,),

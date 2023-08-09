@@ -27,10 +27,10 @@ class FavouriteModelRepository extends FavouriteRepository{
   }
 
   @override
-  Future<Either<Failure, bool>> removeFavouriteItem({required int favID}) async{
+  Future<Either<Failure, bool>> removeFavouriteItem({required Map<String,dynamic> data}) async{
     if (await networkInfo.isConnected()) {
       try {
-        return Right(await favouriteRemoteDataSourceImpl.removeFavouriteItem(favID: favID));
+        return Right(await favouriteRemoteDataSourceImpl.removeFavouriteItem(data: data));
       } on ServerException {
         return Left(ServerFailure());
       }

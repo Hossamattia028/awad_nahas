@@ -37,8 +37,6 @@ class CartScreen extends StatelessWidget {
               ]else...const[
                 AccountNotAuth(),
               ],
-
-
             ],
           ),
         ),

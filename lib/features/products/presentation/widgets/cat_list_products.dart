@@ -31,6 +31,7 @@ class CatProductsList extends StatelessWidget {
         var bloc = ProductsBloc.get(ctx);
         var list = bloc.productsList;
         // list = bloc.filterByCategoryID(cat.id);
+        list = bloc.filterByCurrentLang(list);
         if (list.isEmpty) return const SizedBox.shrink();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
