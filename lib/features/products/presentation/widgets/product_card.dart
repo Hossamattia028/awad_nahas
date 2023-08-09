@@ -1,8 +1,7 @@
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
-import 'package:awad_nahas/features/shared_widgets/align_child_by_row.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
+import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +24,7 @@ class ProductCard extends StatelessWidget {
     return InkWell(
       onTap: ()=> Util.pushPage(ProductDetailPage(item: item,), context),
       child: Container(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           color: DMUtil.getWC(),
           borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -43,19 +42,17 @@ class ProductCard extends StatelessWidget {
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const SizedBox(height: 10,),
-            Image.asset(AppImages.searImg,width: 100.w,height: 110.h,),
-            // ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.fill,),
-            const SizedBox(width: 5,),
+
+            ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.contain,),
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                if(item.id==0)...[
                   SizedBox(
-                    width: 210.w,
+                    width: 230.w,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -64,15 +61,7 @@ class ProductCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                ]else...[
-                  SizedBox(
-                    width: 210.w,
-                    child: AlignChildRow(
-                      isStart: false,
-                      child: WishListIconWidget(item: item),
-                    ),
-                  ),
-                ],
+
 
                 SizedBox(
                   width: 207.w,

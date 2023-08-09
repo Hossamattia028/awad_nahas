@@ -17,6 +17,6 @@ class AppStyle {
   static double appBarHeight = Platform.isIOS?55:50;
 
   static double paddingFromTop = Platform.isIOS?31:26;
-  static const double paddingFromH = 15;
+  static const double paddingFromH = 11;
   static double paddingFromV = Platform.isIOS?42:24;
 }

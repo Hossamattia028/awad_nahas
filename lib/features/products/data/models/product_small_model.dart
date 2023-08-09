@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:awad_nahas/features/categories/data/models/categories_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 
 
@@ -42,11 +40,14 @@ class ProductModel extends ProductsEntity{
     int index = list.indexWhere((element) => element['meta_key']==metaKey);
     if(index==-1){
       if(metaKey=="_regular_price"){
+        int ind = list.indexWhere((element) => element['meta_key']==metaKey);
+        if(ind!=-1) return"";
         return getValFromOptions("_price", list);
       }
       return "";
     }
     var value = list[index]['meta_value'].toString();
+    print("sdf $value");
     return value;
   }
 
