@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
@@ -22,7 +23,9 @@ class CartListWidget extends StatelessWidget {
       builder: (ctx,state){
         var bloc = CartBloc.get(ctx);
         var list = bloc.cartList;
+        bloc.add(FetchAllCartEvent());
         if(list.isEmpty)return const EmptyCartWidget();
+
         return ListView.separated(
           padding: const EdgeInsets.only(bottom: 10,top: 5),
           shrinkWrap: true,

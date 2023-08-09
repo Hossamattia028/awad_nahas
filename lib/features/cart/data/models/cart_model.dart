@@ -16,10 +16,10 @@ class CartModel extends CartEntity {
 
   static CartModel fromJson(Map<String, dynamic> jsonObject) {
     return CartModel(
-      id: jsonObject['session_id'],
-      sessionID: jsonObject['session_id'],
-      sessionValue: CartModelProducts.cartListFromJson(jsonEncode(jsonObject['data']['products'])) ,
-      total: jsonObject['data']['total'],
+      id: jsonObject['session_id']??"",
+      sessionID: jsonObject['session_id']??"",
+      sessionValue: CartModelProducts.cartListFromJson(jsonEncode(jsonObject['products'])) ,
+      total: jsonObject['cart_totals']['total'],
     );
   }
 

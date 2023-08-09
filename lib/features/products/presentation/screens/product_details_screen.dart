@@ -4,6 +4,7 @@ import 'package:awad_nahas/features/home/presentation/widgets/main_slider.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/brand_products.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_data_taps.dart';
+import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
@@ -14,6 +15,7 @@ import 'package:awad_nahas/features/products/presentation/widgets/product_detail
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
+import 'package:share_plus/share_plus.dart';
 
 
 
@@ -70,13 +72,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InkWell(
-                  onTap: (){},
-                  child: Icon(Icons.favorite_border,color: DMUtil.getD2C(),),
-                ),
+                WishListIconWidget(item: widget.item),
                 const SizedBox(width: 10,),
                 InkWell(
-                  onTap: (){},
+                  onTap: ()=> Share.share('check the website http://demo.awadnahas.com/', subject: widget.item.title.toString()),
                   child: Icon(Icons.ios_share_outlined,color: DMUtil.getRED(),),
                 ),
               ],

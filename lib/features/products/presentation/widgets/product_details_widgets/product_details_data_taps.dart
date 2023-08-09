@@ -21,11 +21,11 @@ class ProductDetailsDataRow extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   TabBar(
-                    indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
+                    indicatorPadding: const EdgeInsets.symmetric(horizontal: 6),
                     unselectedLabelColor: DMUtil.getDC(),
                     indicatorColor: DMUtil.getPC(),
                     labelColor: DMUtil.getPC(),
-                    labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.verySmall.sp-1),
+                    labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp),
                     tabs: <Widget>[
                       Tab(text: translate("products.desc"),),
                       Tab(text: translate("products.reviews"),),

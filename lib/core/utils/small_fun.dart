@@ -1,7 +1,11 @@
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
+import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
+import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +28,8 @@ class Util{
   // implemented this function after register and login
   static getAllUserAppData({required BuildContext context,bool isSplash=false}){
     AccountBloc.get(context).add(const FetchProfileDataEvent());
-    // AccountBloc.get(context).add(const FetchAllUsersDataEvent());
+    WishlistBloc.get(context).add(const FetchAllWishlistEvent());
+    // CartBloc.get(context).add(const FetchAllCartEvent());
     ProductsBloc.get(context).add(const FetchAllProductsEvent());
     CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
     // AccountBloc.get(context).add(const FetchAllNotificationsEvent());

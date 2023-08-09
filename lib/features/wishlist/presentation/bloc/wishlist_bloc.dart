@@ -1,4 +1,4 @@
-import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
@@ -9,8 +9,6 @@ import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_state.da
 
 class WishlistBloc extends Bloc<WishlistEvent,WishlistState>{
   List<ProductsEntity> wishlistList = [];
-
-
   int currentCategoryIndex = 0;
   GetAllFavouritesUseCase getAllFavouritesUseCase;
   AddFavouriteItemUseCase addFavouriteItemUseCase;
@@ -41,8 +39,9 @@ class WishlistBloc extends Bloc<WishlistEvent,WishlistState>{
 
 
   getAllWishlist(emit)async{
+    if(!Util.checkUser())return;
     emit(WishlistLoadingState());
-    // try{
+    try{
       var res = await getAllFavouritesUseCase();
       res.fold((l) {
         emit(WishlistErrorState(errors: l.toString()));
@@ -50,26 +49,14 @@ class WishlistBloc extends Bloc<WishlistEvent,WishlistState>{
         wishlistList = data.reversed.toList();
         emit(WishlistSuccessfullyState());
       });
-    // }catch(e){
-    //   emit(WishlistErrorState(errors: e.toString()));
-    // }
+    }catch(e){
+      emit(WishlistErrorState(errors: e.toString()));
+    }
   }
-  //
-  // List<Map<String,dynamic>> returnNewWishList(ProductsEntity item,emit){
-  //   List<Map<String,dynamic>> list = [];
-  //   int index = wishlistList.indexWhere((element) => element.id==item.id);
-  //   if(index!=-1) {
-  //     wishlistList.removeAt(index);
-  //   }else{
-  //     wishlistList.add(item);
-  //   }
-  //   for(var i in wishlistList){
-  //     list.add({'product_ID':i.id,'on_sale':"1"});
-  //   }
-  //   return list;
-  // }
+
 
   addNewWishlist(AddToWishlistEvent event,emit)async{
+    if(!Util.checkUser())return;
     emit(WishlistLoadingState());
     try{
       var res = await addFavouriteItemUseCase(data: {'product_id':event.product.id});

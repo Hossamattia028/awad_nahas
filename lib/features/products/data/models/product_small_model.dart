@@ -17,8 +17,6 @@ class ProductModel extends ProductsEntity{
 
 
   static ProductModel fromJson(Map<String, dynamic> jsonObject) {
-
-    print(jsonObject['options'].toString());
     return ProductModel(
       id: jsonObject['id'],
       title: jsonObject['title'],
@@ -47,7 +45,6 @@ class ProductModel extends ProductsEntity{
       return "";
     }
     var value = list[index]['meta_value'].toString();
-    print("sdf $value");
     return value;
   }
 

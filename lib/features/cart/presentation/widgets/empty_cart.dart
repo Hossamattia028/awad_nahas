@@ -14,10 +14,11 @@ class EmptyCartWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const SizedBox(height: 20,),
         Align(
-          child: Image.asset(AppImages.logo,height: 120.h,),
+          child: Image.asset(AppImages.logo,height: 100.h,),
         ),
-        const SizedBox(height: 5,),
+        const SizedBox(height: 10,),
         CustomText(
           text: translate("cart.empty"),
           color: kText1,

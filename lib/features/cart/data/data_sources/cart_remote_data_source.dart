@@ -4,8 +4,6 @@ import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:awad_nahas/core/strings/constant.dart';
-import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/data/models/cart_model.dart';
 import 'package:awad_nahas/features/order/data/models/coupon_model.dart';
@@ -25,7 +23,7 @@ class CartRemoteDataSource extends CartRemoteDataSourceImpl{
   @override
   Future<bool> addCartItem({required Map<String,dynamic> data}) async{
     var bodyData = {
-      // "session_key": Util.getCartKey(),
+      "session_key": "",
       "session_value": data['session_value'],
     };
     var response = await client.post(Uri.parse(ApiUrl.ADD_TO_CART),body: jsonEncode(bodyData),headers: ApiUrl.headerAuth);
