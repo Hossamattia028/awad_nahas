@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
@@ -28,6 +29,8 @@ class WishListIconWidget extends StatelessWidget {
           onTap: (){
             if(Util.checkUser()){
               bloc.add(AddToWishlistEvent(product: item));
+              int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.id!=item.id && element.imgPath==item.imgPath);
+              bloc.add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
             }else{
               SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), Colors.red);
             }

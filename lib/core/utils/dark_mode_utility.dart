@@ -23,6 +23,11 @@ class DMUtil{
     return currentThemeIsDark()?kDark:kWhite;
   }
 
+  static Color getWCCat(){
+    return currentThemeIsDark()?kRed:kWhite;
+  }
+
+
   /// get background color
   static Color getRED(){
     return kRed;
