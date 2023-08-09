@@ -1,5 +1,4 @@
 import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';

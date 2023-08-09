@@ -10,6 +10,7 @@ class ProductModel extends ProductsEntity{
     required super.stockStatus,required super.quantity,
     required super.categoryList,
     required super.commentCount,
+    required super.isArabic,
   });
 
   static List<ProductModel> listModelFromJson(String str) =>
@@ -18,20 +19,31 @@ class ProductModel extends ProductsEntity{
 
 
   static ProductModel fromJson(Map<String, dynamic> jsonObject) {
+
     return ProductModel(
-      id: jsonObject['ID'],
-      title: jsonObject['post_title'],
-      catTitle: jsonObject['post_title'],
-      discount: double.parse(jsonObject['details'][0]['max_price'].toString()),
-      discountRate: calcDiscountRate(double.parse(jsonObject['details'][0]['max_price'].toString()),double.parse(jsonObject['details'][0]['min_price'].toString())),
-      price: double.parse(jsonObject['details'][0]['min_price'].toString()),
-      desc: jsonObject['post_title'],
-      stockStatus: jsonObject['details'][0]['stock_status']=="instock",
-      imgPath: jsonObject['photo'].toString()!="[]"?jsonObject['photo'][0]['photo'][0]['guid']:"",
-      commentCount: jsonObject['comment_count'],
+      id: jsonObject['id'],
+      title: jsonObject['title'],
+      catTitle: jsonObject['post_title']??"",
+      discount: double.parse(getValFromOptions("_regular_price",jsonObject['options'])==""?"0.0":getValFromOptions("_regular_price",jsonObject['options'])),
+      discountRate: double.parse(getValFromOptions("_regular_price",jsonObject['options'])==""?"0.0":getValFromOptions("_regular_price",jsonObject['options'])),
+      price: double.parse(getValFromOptions("_regular_price",jsonObject['options'])==""?"0.0":getValFromOptions("_regular_price",jsonObject['options'])),
+      desc: jsonObject['title'] ?? "",
+      stockStatus: getValFromOptions("_stock_status",jsonObject['options'])=="instock",
+      imgPath: jsonObject['image']??"",
+      commentCount: 1,
       quantity: 1,
-      categoryList: jsonObject['category'] != null && jsonObject['category'].toString()!="[]"? CategoriesModel.listModelFromJson(jsonEncode(jsonObject['category'])):[],
+      isArabic:jsonObject['is_arabic'],
+      categoryList: const [],
     );
+  }
+
+  static String getValFromOptions(String metaKey,List<dynamic> list){
+    int index = list.indexWhere((element) => element['meta_key']==metaKey);
+    if(index==-1){
+      return "";
+    }
+    var value = list[index]['meta_value'].toString();
+    return value;
   }
 
   static double calcDiscountRate(double price,double newPrice){

@@ -1,7 +1,6 @@
-import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/locations/presentation/widgets/select_location_drop_down.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 import 'package:awad_nahas/features/search/presentation/screens/search_screen.dart';
@@ -13,10 +12,9 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/home_content.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
-import 'package:http/http.dart' as http;
+
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -65,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _onRefresh()async{
-    // ProductsBloc.get(context).add(const FetchAllProductsEvent());
+    ProductsBloc.get(context).add(const FetchAllProductsEvent());
     // ProductsBloc.get(context).add(const FetchAllLatestProductsEvent());
     // ProductsBloc.get(context).add(const FetchAllBestSellerProductsEvent());
     // CategoriesBloc.get(context).add(const FetchMainSlidersEvent());

@@ -78,64 +78,77 @@ class _EditProfilePageState extends State<EditProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text: translate("profile.name"),
-                        color: DMUtil.getDC(),
-                        fontSize: AppStyle.average.sp,
-                      ),
-                      const SizedBox(width: 5,),
-                      SizedBox(
-                        width: 160.w,
-                        child: CustomTextFromField(
-                          hintText: translate("signup.first_name"),
-                          labelText: "",
-                          hasBorder: true,
-                          smallPadding: true,
-                          cursorColor: kPrimary,
-                          radius: 10,
-                          textEditingController: firstNameTextEditingController,
-                          validator: (){},
-                          obscureText: false,
-                          isLabelError: false,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text: translate("profile.name"),
-                        color: DMUtil.getDC(),
-                        fontSize: AppStyle.average.sp,
-                      ),
-                      const SizedBox(width: 5,),
-                      SizedBox(
-                        width: 160.w,
-                        child: CustomTextFromField(
-                          hintText: translate("signup.last_name"),
-                          labelText: "",
-                          hasBorder: true,
-                          smallPadding: true,
-                          cursorColor: kPrimary,
-                          radius: 10,
-                          textEditingController: lastNameTextEditingController,
-                          validator: (){},
-                          obscureText: false,
-                          isLabelError: false,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              CustomText(
+                text: translate("profile.name"),
+                color: DMUtil.getDC(),
+                fontSize: AppStyle.average.sp,
               ),
+              const SizedBox(width: 5,),
+              CustomTextFromField(
+                hintText: translate("signup.first_name"),
+                labelText: "",
+                hasBorder: true,
+                smallPadding: true,
+                cursorColor: kPrimary,
+                radius: 10,
+                textEditingController: firstNameTextEditingController,
+                validator: (){},
+                obscureText: false,
+                isLabelError: false,
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Column(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //
+              //         // SizedBox(
+              //         //   width: 160.w,
+              //         //   child: CustomTextFromField(
+              //         //     hintText: translate("signup.first_name"),
+              //         //     labelText: "",
+              //         //     hasBorder: true,
+              //         //     smallPadding: true,
+              //         //     cursorColor: kPrimary,
+              //         //     radius: 10,
+              //         //     textEditingController: firstNameTextEditingController,
+              //         //     validator: (){},
+              //         //     obscureText: false,
+              //         //     isLabelError: false,
+              //         //   ),
+              //         // ),
+              //       ],
+              //     ),
+              //
+              //     // Column(
+              //     //   crossAxisAlignment: CrossAxisAlignment.start,
+              //     //   children: [
+              //     //     CustomText(
+              //     //       text: translate("profile.name"),
+              //     //       color: DMUtil.getDC(),
+              //     //       fontSize: AppStyle.average.sp,
+              //     //     ),
+              //     //     const SizedBox(width: 5,),
+              //     //     SizedBox(
+              //     //       width: 160.w,
+              //     //       child: CustomTextFromField(
+              //     //         hintText: translate("signup.last_name"),
+              //     //         labelText: "",
+              //     //         hasBorder: true,
+              //     //         smallPadding: true,
+              //     //         cursorColor: kPrimary,
+              //     //         radius: 10,
+              //     //         textEditingController: lastNameTextEditingController,
+              //     //         validator: (){},
+              //     //         obscureText: false,
+              //     //         isLabelError: false,
+              //     //       ),
+              //     //     ),
+              //     //   ],
+              //     // ),
+              //   ],
+              // ),
 
               const SizedBox(height: 12,),
               CustomText(

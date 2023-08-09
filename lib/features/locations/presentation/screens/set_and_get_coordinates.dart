@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/search/presentation/widgets/search_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

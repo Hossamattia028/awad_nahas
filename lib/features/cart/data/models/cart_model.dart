@@ -5,7 +5,6 @@ class CartModel extends CartEntity {
   const CartModel(
       {required super.id,
       required super.sessionID,
-      required super.sessionKey,
       required super.sessionValue,
       required super.total,
       });
@@ -19,9 +18,8 @@ class CartModel extends CartEntity {
     return CartModel(
       id: jsonObject['session_id'],
       sessionID: jsonObject['session_id'],
-      sessionKey: jsonObject['session_key'] ,
-      sessionValue: CartModelProducts.cartListFromJson(jsonEncode(jsonObject['session_value']['cart'])) ,
-      total: jsonObject['session_value']['cart_totals'].toString()!="[]"?double.parse(jsonObject['session_value']['cart_totals']['total'].toString()):0.0,
+      sessionValue: CartModelProducts.cartListFromJson(jsonEncode(jsonObject['data']['products'])) ,
+      total: jsonObject['data']['total'],
     );
   }
 

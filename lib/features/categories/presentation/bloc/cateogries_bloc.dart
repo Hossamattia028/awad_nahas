@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/data/models/photo_model.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/categories/domain/entities/slider_entity.dart';
@@ -12,27 +13,16 @@ const String testImg = "https://firebasestorage.googleapis.com/v0/b/tabib-14438.
 
 class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   CategoriesEntity? currentCategory;
+
+  /// store the categories list to can convert title when switch the language
+  List<CategoriesEntity> storedCategoriesList = [];
   List<CategoriesEntity> categoriesList = [];
 
   CategoriesEntity? currentSubCategory;
-  List<CategoriesEntity> subCategoriesList = const [
-    CategoriesEntity(title: "All", id: 0, imgPath: "${AppImages.icons}/cooker.svg"),
-    CategoriesEntity(title: "Toaster", id: 1, imgPath: "${AppImages.icons}/extractor-hood.svg"),
-    CategoriesEntity(title: "Electric Kettle", id: 2, imgPath: "${AppImages.icons}/mixer-blender.svg"),
-    CategoriesEntity(title: "Aesthetic Blender", id: 3, imgPath: "${AppImages.icons}/coffee-machine.svg"),
-    CategoriesEntity(title: "Extractor Hood", id: 1, imgPath: "${AppImages.icons}/extractor-hood.svg"),
-  ];
+  List<CategoriesEntity> subCategoriesList = const [];
 
   CategoriesEntity? currentBrand;
-  List<CategoriesEntity> brandList = const [
-    CategoriesEntity(title: "Miele", id: 0, imgPath: "${AppImages.images}/brand.png"),
-    CategoriesEntity(title: "Smeg", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
-    CategoriesEntity(title: "Miele", id: 1, imgPath: "${AppImages.images}/brand.png"),
-    CategoriesEntity(title: "Smeg", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
-    CategoriesEntity(title: "Miele", id: 0, imgPath: "${AppImages.images}/brand.png"),
-    CategoriesEntity(title: "Smeg", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
-    CategoriesEntity(title: "Smeg", id: 1, imgPath: "${AppImages.images}/smeg-01-1.png"),
-  ];
+  List<CategoriesEntity> brandList = const [];
 
   GetAllCategoryUseCase getAllCategoryUseCase;
   GetAllSlidersUseCase getAllSlidersUseCase;
@@ -46,6 +36,10 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
 
     on<ChangeSubCategoriesEvent>((event, emit) {
       changeCurrentSubCategory(event,emit);
+    });
+
+    on<UpdateCategoriesLangEvent>((event, emit) {
+
     });
 
     on<FetchAllCategoriesEvent>((event, emit) async{
@@ -123,7 +117,8 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
       res.fold((l) {
         emit(const FetchCategoriesFailedState());
       },(data) {
-        categoriesList = data;
+        storedCategoriesList = data;
+        _activateTransList();
       });
       emit(const FetchCategoriesSuccessfullyState());
     }catch(e){
@@ -153,6 +148,22 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
     currentSubCategory = event.categoriesModel;
     emit(CategoriesIndexChangedSuccessState());
   }
+
+  updateCategories(UpdateCategoriesLangEvent event,emit){
+    emit(CategoriesInitialState());
+    _activateTransList();
+    emit(CategoriesIndexChangedSuccessState());
+  }
+
+  _activateTransList(){
+    if(Util.getLang()=="ar"){
+      categoriesList = storedCategoriesList.where((element) => element.isArabic==true).toList();
+    }else{
+      categoriesList = storedCategoriesList.where((element) => element.isArabic==false).toList();
+    }
+  }
+
+
 
 
 

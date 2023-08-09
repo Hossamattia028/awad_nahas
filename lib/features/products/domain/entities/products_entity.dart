@@ -13,6 +13,7 @@ class ProductsEntity extends Equatable{
   final bool stockStatus;
   final int quantity;
   final int commentCount;
+  final bool? isArabic;
   final List<CategoriesEntity> categoryList;
 
 
@@ -22,6 +23,7 @@ class ProductsEntity extends Equatable{
     required this.discountRate,
     required this.stockStatus,required this.quantity,
     required this.categoryList,
+    this.isArabic,
     required this.commentCount
   });
 

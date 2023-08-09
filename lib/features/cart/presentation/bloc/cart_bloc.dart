@@ -1,4 +1,4 @@
-import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -50,37 +50,27 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   static CartBloc get(BuildContext context) => BlocProvider.of(context);
 
   int cartCount = 1;
-  List<ProductsEntity> cartList = [
-    const ProductsEntity(title: "Smeg 50’s Style Retro Aesthetic", catTitle: "Small Appliances", desc: "Small Appliances", id: 0,
-        imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/smeg.png?alt=media&token=9c98c424-0525-49dc-beeb-6900acfedf35",
-        price: 200, discount: 20, discountRate: 20, stockStatus: true, quantity: 2, categoryList: [
-          CategoriesEntity(title: "Cooker Hobs", id: 0, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-        ], commentCount: 20),
-    const ProductsEntity(title: "Smeg 50’s Style Retro Aesthetic", catTitle: "Small Appliances", desc: "Small Appliances", id:1,
-        imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/smeg.png?alt=media&token=9c98c424-0525-49dc-beeb-6900acfedf35",
-        price: 200, discount: 20, discountRate: 20, stockStatus: true, quantity: 2, categoryList: [
-          CategoriesEntity(title: "Cooker Hobs", id: 0, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-        ], commentCount: 20),
-  ];
+  List<ProductsEntity> cartList = [];
+
   getAllCart(emit)async{
-    // if(!Util.checkUser())return;
-    // emit(CartLoadingState());
+    if(!Util.checkUser())return;
+    emit(CartLoadingState());
     // try{
-    //   var res = await getAllCartListUseCase();
-    //   res.fold((l) {
-    //     emit(CartErrorState(errors: translate("toast.oops")));
-    //   },(data) {
-    //     cartList.clear();
-    //     for(var i in data.sessionValue){
-    //       cartList.add(ProductsEntity(title: "", catTitle: "",
-    //           desc: "", id: i.productID,
-    //           imgPath: "", price: 0, discount: 0,discountRate: 0, stockStatus: true,
-    //           quantity: i.quantity,categoryList: const [],commentCount: 0));
-    //     }
-    //     if(cartList.isNotEmpty)totalPrice=data.total;
-    //     if(data.sessionID!=null)cartID=int.parse((data.sessionKey??0).toString());
-    //     emit(CartSuccessfullyState());
-    //   });
+      var res = await getAllCartListUseCase();
+      res.fold((l) {
+        emit(CartErrorState(errors: translate("toast.oops")));
+      },(data) {
+        cartList.clear();
+        for(var i in data.sessionValue){
+          cartList.add(ProductsEntity(title: "", catTitle: "",
+              desc: "", id: i.productID,
+              imgPath: "", price: 0, discount: 0,discountRate: 0, stockStatus: true,
+              quantity: i.quantity,categoryList: const [],commentCount: 0,));
+        }
+        if(cartList.isNotEmpty)totalPrice=data.total;
+        if(data.sessionID!=null)cartID=int.parse((data.sessionID??0).toString());
+        emit(CartSuccessfullyState());
+      });
     // }catch(e){
     //   debugPrint("getAllCartBloc: $e");
     //   emit(CartErrorState(errors: translate("toast.oops")));
@@ -112,34 +102,34 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   }
 
   addToCartList(AddToCartEvent event,emit)async{
-    // emit(CartLoadingState());
-    // var data = {
-    //   'session_value':event.product!=null?returnNewCartList(event.product!,emit):getCart()
-    // };
-    // try{
-    //   var res = await addCartItemUseCase(data: data);
-    //   res.fold((l) {
-    //     emit(CartErrorState(errors: translate("toast.oops")));
-    //   },(data) {
-    //     emit(AddToCartSuccessfullyState());
-    //   });
-    // }catch(e){
-    //   emit(CartErrorState(errors: translate("toast.oops")));
-    // }
+    emit(CartLoadingState());
+    var data = {
+      'session_value':event.product!=null?returnNewCartList(event.product!,emit):getCart()
+    };
+    try{
+      var res = await addCartItemUseCase(data: data);
+      res.fold((l) {
+        emit(CartErrorState(errors: translate("toast.oops")));
+      },(data) {
+        emit(AddToCartSuccessfullyState());
+      });
+    }catch(e){
+      emit(CartErrorState(errors: translate("toast.oops")));
+    }
   }
 
   removeToCartList(RemoveToCartEvent event,emit)async{
-    // emit(CartLoadingState());
-    // try{
-    //   var res = await removeCartItemUseCase(productID: event.product.id);
-    //   res.fold((l) {
-    //     emit(CartErrorState(errors: l.toString()));
-    //   },(data) {
-    //     emit(RemoveCartSuccessfullyState());
-    //   });
-    // }catch(e){
-    //   emit(CartErrorState(errors: translate("toast.oops").toString()));
-    // }
+    emit(CartLoadingState());
+    try{
+      var res = await removeCartItemUseCase(productID: event.product.id);
+      res.fold((l) {
+        emit(CartErrorState(errors: l.toString()));
+      },(data) {
+        emit(RemoveCartSuccessfullyState());
+      });
+    }catch(e){
+      emit(CartErrorState(errors: translate("toast.oops").toString()));
+    }
   }
 
   updateProductQuantity(UpdateCartProductEvent event,emit){

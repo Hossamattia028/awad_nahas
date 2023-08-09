@@ -12,31 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
-  List<ProductsEntity> productsList = [
-    const ProductsEntity(title: "Smeg 50’s Style Retro Aesthetic", catTitle: "Small Appliances", desc: "Small Appliances", id: 0,
-        imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/smeg.png?alt=media&token=9c98c424-0525-49dc-beeb-6900acfedf35",
-        price: 200, discount: 20, discountRate: 20, stockStatus: true, quantity: 2, categoryList: [
-          CategoriesEntity(title: "Cooker Hobs", id: 0, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-        ], commentCount: 20),
-    const ProductsEntity(title: "Smeg 50’s Style Retro Aesthetic", catTitle: "Small Appliances", desc: "Small Appliances", id:1,
-        imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/smeg.png?alt=media&token=9c98c424-0525-49dc-beeb-6900acfedf35",
-        price: 200, discount: 20, discountRate: 20, stockStatus: true, quantity: 2, categoryList: [
-          CategoriesEntity(title: "Cooker Hobs", id: 0, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-        ], commentCount: 20),
-
-    const ProductsEntity(title: "Smeg 50’s Style Retro Aesthetic", catTitle: "Small Appliances", desc: "Small Appliances", id:1,
-        imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/smeg.png?alt=media&token=9c98c424-0525-49dc-beeb-6900acfedf35",
-        price: 200, discount: 20, discountRate: 20, stockStatus: true, quantity: 2, categoryList: [
-          CategoriesEntity(title: "Cooker Hobs", id: 2, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-          CategoriesEntity(title: "Cooker Hobs", id: 3, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-        ], commentCount: 20),
-    const ProductsEntity(title: "Smeg 50’s Style Retro Aesthetic", catTitle: "Small Appliances", desc: "Small Appliances", id:2,
-        imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/smeg.png?alt=media&token=9c98c424-0525-49dc-beeb-6900acfedf35",
-        price: 200, discount: 20, discountRate: 20, stockStatus: true, quantity: 2, categoryList: [
-          CategoriesEntity(title: "Cooker Hobs", id: 2, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-          CategoriesEntity(title: "Cooker Hobs", id: 3, imgPath: "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/Group%202178.png?alt=media&token=ca40a23d-3788-49dc-b2d6-e1dc164d9ee4"),
-        ], commentCount: 20),
-  ];
+  List<ProductsEntity> storedProductsList = [];
+  List<ProductsEntity> productsList = [];
   ProductsEntity? currentProduct;
 
   List<ProductsEntity> bigOfferProducts = [];

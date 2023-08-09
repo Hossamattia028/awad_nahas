@@ -29,16 +29,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void didChangeDependencies() {
-    // AccountBloc.get(context).add(const FetchAllUsersDataEvent());
-    CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
     Util.getAllUserAppData(context: context,isSplash: true);
     Timer(const Duration(seconds: 2), () async{
       await NotificationsUtils.initialPushNotification();
-      // if(Util.checkUser()){
-        Util.pushPageAndRemoveRoutes(const RootScreen(), context);
-      // }else{
-      //   Util.pushPageAndRemoveRoutes(const LoginScreen(), context);
-      // }
+      Util.pushPageAndRemoveRoutes(const RootScreen(), context);
     });
     super.didChangeDependencies();
   }

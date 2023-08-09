@@ -22,12 +22,12 @@ class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
   // sort[post_date] for latest products
   @override
   Future<List<ProductModel>> getAllProducts({required String cat}) async {
-    var response = await client.get(Uri.parse("${ApiUrl.PRODUCTS_URL}?offset=0&limit=10&sort[column]=$cat&sort[order]=asc"));
+    var response = await client.get(Uri.parse(ApiUrl.PRODUCTS_URL));
     debugPrint("getAllProducts$cat ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       List<ProductModel> products =
-          body['data']['data'].map<ProductModel>((model) {
+          body['data'].map<ProductModel>((model) {
         return ProductModel.fromJson(model);
       }).toList();
       return products;

@@ -19,6 +19,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 
 
@@ -138,7 +139,10 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                                     fontSize: AppStyle.small.sp,
                                   ),
                                   color: DMUtil.getWC(),
-                                  onPressed: ()=> Util.pushPage(MapScreen(isSet: true, title: translate("map.set_location")), context),
+                                  onPressed: ()async{
+                                    await Permission.location.request();
+                                    Util.pushPage(MapScreen(isSet: true, title: translate("map.set_location")), context);
+                                  },
                                 ),
                               ),
                             ],

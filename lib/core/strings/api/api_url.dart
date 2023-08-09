@@ -32,7 +32,7 @@ class ApiUrl {
   static const String REMOVE_ADDRESS = '${BASE_URL}user/address/'; //user/address/{{addressID}}
 
 
-  static const String PRODUCTS_URL = '${BASE_URL}product/';
+  static const String PRODUCTS_URL = '${BASE_URL}products';
   static const String COMMENTS_URL = '${BASE_URL}comments';
   static const String OFFERS_URL = '${BASE_URL}products/featured';
   static const String SLIDERS_URL = '${BASE_URL}banner';
@@ -42,7 +42,7 @@ class ApiUrl {
 
   //cart
   static const String ADD_TO_CART = '${BASE_URL}cart';
-  static const String GET_ALL_CART = '${BASE_URL}cart/';
+  static const String GET_ALL_CART = '${BASE_URL}cart/all/';
   static const String UPDATE_CART = '${BASE_URL}cart/';
 
   //fav

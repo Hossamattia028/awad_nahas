@@ -8,6 +8,12 @@ abstract class CategoriesEvent{
 }
 
 
+class UpdateCategoriesLangEvent extends CategoriesEvent{
+  final bool isSubCat;
+  const UpdateCategoriesLangEvent({this.isSubCat = false});
+}
+
+
 class ChangeCategoriesEvent extends CategoriesEvent{
   final CategoriesEntity categoriesModel;
   const ChangeCategoriesEvent({required this.categoriesModel});

@@ -1,4 +1,5 @@
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
+import 'package:awad_nahas/features/shared_widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
@@ -24,11 +25,7 @@ class CircleCategoryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CircleAvatar(
-            backgroundColor: DMUtil.getBCC(),
-            radius: 26.w,
-            child: Image.network(item.imgPath,width: 30.w,),
-          ),
+          SvgIconWidget(iconUrl: item.iconPath),
 
           const SizedBox(height: 2,),
           SizedBox(

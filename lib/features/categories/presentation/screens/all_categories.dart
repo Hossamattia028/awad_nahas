@@ -1,4 +1,5 @@
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
+import 'package:awad_nahas/features/shared_widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,7 +53,7 @@ class AllCategoriesList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(height: 5,),
-                      ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,width: 45.w,height:  44.h,),
+                      SvgIconWidget(iconUrl: item.iconPath),
                       const SizedBox(height: 5,),
                       SizedBox(
                         width: 60.w,

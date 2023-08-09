@@ -113,7 +113,7 @@ class CustomTextFromField extends StatelessWidget {
           suffixIcon: suffixIcon,
           hintText: hintText,
           hintStyle: TextStyle(
-            fontSize: AppStyle.small.sp-2,
+            fontSize: AppStyle.small.sp,
             color: hintColor??Colors.grey,
           ),
           label: Text(
