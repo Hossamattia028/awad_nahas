@@ -1,4 +1,3 @@
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/data/models/photo_model.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
@@ -19,7 +18,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   List<CategoriesEntity> categoriesList = [];
 
   CategoriesEntity? currentSubCategory;
-  List<CategoriesEntity> subCategoriesList = const [];
+  List<CategoriesEntity> subCategoriesList =  [];
 
   CategoriesEntity? currentBrand;
   List<CategoriesEntity> brandList = const [];
@@ -118,7 +117,10 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
         emit(const FetchCategoriesFailedState());
       },(data) {
         storedCategoriesList = data;
-        _activateTransList();
+        categoriesList = data.where((element) => element.parentID=="0").toList();
+        subCategoriesList = data.where((element) => element.parentID!="0").toList();
+        // categoriesList = activateTransList(storedCategoriesList);
+        // subCategoriesList = activateTransList(subCategoriesList);
       });
       emit(const FetchCategoriesSuccessfullyState());
     }catch(e){
@@ -151,15 +153,15 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
 
   updateCategories(UpdateCategoriesLangEvent event,emit){
     emit(CategoriesInitialState());
-    _activateTransList();
+    // activateTransList();
     emit(CategoriesIndexChangedSuccessState());
   }
 
-  _activateTransList(){
+  activateTransList(List<CategoriesEntity> list){
     if(Util.getLang()=="ar"){
-      categoriesList = storedCategoriesList.where((element) => element.isArabic==true).toList();
+      return list.where((element) => element.isArabic==true).toList();
     }else{
-      categoriesList = storedCategoriesList.where((element) => element.isArabic==false).toList();
+      return list.where((element) => element.isArabic==false).toList();
     }
   }
 

@@ -20,10 +20,7 @@ class OrderDetails extends StatelessWidget {
         if(list.isEmpty)return const SizedBox.shrink();
         return Column(
           children: [
-            // const SizedBox(height: 10,),
-
-
-            const SizedBox(height: 5,),
+            SizedBox(height: 15.h,),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
               decoration: BoxDecoration(
@@ -52,7 +49,6 @@ class OrderDetails extends StatelessWidget {
                 ],
               ),
             ),
-
           ],
         );
       },

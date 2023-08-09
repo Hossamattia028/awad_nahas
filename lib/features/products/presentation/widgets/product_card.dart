@@ -1,4 +1,6 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
@@ -105,7 +107,7 @@ class ProductCard extends StatelessWidget {
                               fontSize: AppStyle.average.sp,
                             ),
                             color: DMUtil.getRED(),
-                            onPressed: (){},
+                            onPressed: ()=> CartBloc.get(context).add(AddToCartEvent(product: item,)),
                         ),
                       ),
                     ],

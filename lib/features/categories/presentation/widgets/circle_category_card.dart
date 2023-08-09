@@ -29,12 +29,13 @@ class CircleCategoryCard extends StatelessWidget {
 
           const SizedBox(height: 2,),
           SizedBox(
-            height: 38.h,
-            width: item.title.length>10&&(!item.title.toString().contains(" "))?65.w:50.w,
+            height: 43.h,
+            width: 60.w,
             child: CustomText(
               text: item.title,
               fontSize: AppStyle.small.sp,
               alignCenter: true,
+              maxLine: item.title.toString().contains(" ") ? 2 : 1,
             ),
           )
         ],

@@ -14,15 +14,17 @@ class VerticalCategoriesList extends StatelessWidget {
     return BlocBuilder<CategoriesBloc,CategoriesState>(
         builder:(ctx,state){
           var bloc = CategoriesBloc.get(ctx);
+          var list = bloc.categoriesList;
+          list = bloc.activateTransList(list);
           return Expanded(
             child: ListView.separated(
-              itemCount: bloc.categoriesList.length,
+              itemCount: list.length,
               shrinkWrap: true,
               padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
               scrollDirection: Axis.vertical,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
-                var item = bloc.categoriesList[index];
+                var item = list[index];
                 return CategoryCard(item: item);
               },
               separatorBuilder: (context, index) => const SizedBox(height: 20),

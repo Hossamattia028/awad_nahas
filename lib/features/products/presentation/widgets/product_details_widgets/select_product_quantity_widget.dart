@@ -35,20 +35,30 @@ class SelectProductQuantityWidget extends StatelessWidget {
               ),
             ),
             SizedBox(width: 26.w,),
-            InkWell(
-              onTap: ()=> CartBloc.get(context).add(UpdateCartProductEvent(product: item, isAdd: false,context: context)),
-              child: Card(
-                color: DMUtil.getWC(),
-                shape: const RoundedRectangleBorder(
-                    side: BorderSide(width: 1,color: Colors.white),
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Icon(Icons.remove,color:  DMUtil.getDC(),size: 16.w,),
-                ),
-              ),
+            BlocBuilder<CartBloc,CartState>(
+              builder: (ctx,state){
+                var bloc = CartBloc.get(ctx);
+                var list = bloc.cartList;
+                int index = list.indexWhere((element) => item.id==element.id);
+                String qty = "1";
+                if(index!=-1)qty=list[index].quantity.toString();
+                return  InkWell(
+                  onTap: ()=> bloc.add(UpdateCartProductEvent(product: item, isAdd: false,context: context,remove: qty=="1")),
+                  child: Card(
+                    color: DMUtil.getWC(),
+                    shape: const RoundedRectangleBorder(
+                        side: BorderSide(width: 1,color: Colors.white),
+                        borderRadius: BorderRadius.all(Radius.circular(20))
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Icon(Icons.remove,color:  DMUtil.getDC(),size: 16.w,),
+                    ),
+                  ),
+                );
+              },
             ),
+
           ],
         ),
         BlocBuilder<CartBloc,CartState>(

@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/generat_cart_post_func.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -67,6 +68,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
               imgPath: "", price: 0, discount: 0,discountRate: 0, stockStatus: true,
               quantity: i.quantity,categoryList: const [],commentCount: 0,));
         }
+        cartList = cartList;
         if(cartList.isNotEmpty)totalPrice=data.total;
         if(data.sessionID!=null)cartID=int.parse((data.sessionID??0).toString());
         emit(CartSuccessfullyState());
@@ -76,38 +78,28 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     //   emit(CartErrorState(errors: translate("toast.oops")));
     // }
   }
-
-
-  List<Map<String,dynamic>> returnNewCartList(ProductsEntity item,emit){
+  updateCartList(ProductsEntity item){
     int index = cartList.indexWhere((element) => element.id==item.id);
-    if(index!=-1) {
-      cartList.removeAt(index);
-      emit(RemoveCartSuccessfullyState());
-    }else{
+    if(index==-1){
       cartList.add(item);
-      emit(AddToCartSuccessfullyState());
+    }else{
+      cartList.removeAt(index);
     }
-    return getCart();
   }
 
-  List<Map<String,dynamic>> getCart(){
-    List<Map<String,dynamic>> list = [];
+  calcTotal(){
+    totalPrice = 0;
     for(var i in cartList){
-      list.add({'product_id':i.id,'quantity':i.quantity.toString()});
+      totalPrice += i.price * i.quantity;
     }
-    if(list.isEmpty){
-      list.add({'product_id':0,'quantity':"0"});
-    }
-    return list;
+    return totalPrice;
   }
 
   addToCartList(AddToCartEvent event,emit)async{
     emit(CartLoadingState());
-    var data = {
-      'session_value':event.product!=null?returnNewCartList(event.product!,emit):getCart()
-    };
     try{
-      var res = await addCartItemUseCase(data: data);
+      if(event.product!=null)updateCartList(event.product!);
+      var res = await addCartItemUseCase(data:GenerateCartJson.generate(productList: cartList,total: calcTotal().toString()));
       res.fold((l) {
         emit(CartErrorState(errors: translate("toast.oops")));
       },(data) {
@@ -136,20 +128,25 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     // emit(CartLoadingState());
     int index = cartList.indexWhere((element) => event.product.id.toString() == element.id.toString());
     if(index!=-1) {
-      int newQty = event.isAdd?cartList[index].quantity+1:(cartList[index].quantity==1?cartList[index].quantity:cartList[index].quantity-1);
-      cartList[index] = ProductsEntity(title: "", catTitle: "",
-          desc: "", id: cartList[index].id,discountRate: 0,
-          imgPath: "", price: 0, discount: 0, stockStatus: true,
-          quantity: newQty,categoryList: const [],commentCount: 0);
+      if(event.remove){
+        cartList.removeAt(index);
+      }else{
+        int newQty = event.isAdd?cartList[index].quantity+1:(cartList[index].quantity==1?cartList[index].quantity:cartList[index].quantity-1);
+        cartList[index] = ProductsEntity(title: "", catTitle: "",
+            desc: "", id: cartList[index].id,discountRate: 0,
+            imgPath: "", price: event.product.price, discount: 0, stockStatus: true,
+            quantity: newQty,categoryList: const [],commentCount: 0);
+      }
     }else{
       cartList.add(ProductsEntity(title: "", catTitle: "",
           desc: "", id: event.product.id,discountRate: 0,
-          imgPath: "", price: 0, discount: 0, stockStatus: true,
+          imgPath: "", price: event.product.price, discount: 0, stockStatus: true,
           quantity: 1,categoryList: const [],commentCount: 0));
     }
+    calcTotal();
     cartList = cartList;
     emit(CartSuccessfullyState());
-    CartBloc.get(event.context).add(const AddToCartEvent(addAllCurrentList: true));
+    CartBloc.get(event.context).add(const AddToCartEvent());
   }
 
   int cartID = 0;

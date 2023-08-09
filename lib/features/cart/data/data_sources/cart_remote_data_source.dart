@@ -22,15 +22,11 @@ class CartRemoteDataSource extends CartRemoteDataSourceImpl{
 
   @override
   Future<bool> addCartItem({required Map<String,dynamic> data}) async{
-    var bodyData = {
-      "session_key": "",
-      "session_value": data['session_value'],
-    };
-    var response = await client.post(Uri.parse(ApiUrl.ADD_TO_CART),body: jsonEncode(bodyData),headers: ApiUrl.headerAuth);
+    var response = await client.post(Uri.parse("${ApiUrl.ADD_TO_CART}${Util.getUserID()}"),body: jsonEncode(data),headers: ApiUrl.headerAuth);
     debugPrint("addOrUpdateCartItem ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
-      if(body['message'].toString().contains("done")){
+      if(body['status']){
         // SharedPref().setPreferencesString(Constants.myCartID, body['data']['session_id'].toString());
         return true;
       }
@@ -41,8 +37,8 @@ class CartRemoteDataSource extends CartRemoteDataSourceImpl{
   }
 
   @override
-  Future<CartModel> fetchAllCartList() async{//${Util.getUserID()}
-    var response = await client.get(Uri.parse("${ApiUrl.GET_ALL_CART}2329"),headers: ApiUrl.headerAuth);
+  Future<CartModel> fetchAllCartList() async{
+    var response = await client.get(Uri.parse("${ApiUrl.GET_ALL_CART}${Util.getUserID()}"),headers: ApiUrl.headerAuth);
     debugPrint("fetchAllCartList ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);

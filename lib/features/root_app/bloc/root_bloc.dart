@@ -50,7 +50,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
       return;
     }
     categorySearchList = searchCategories(event.word,event.categoryList);
-    // productSearchList = searchProducts(event.word,event.productList);
+    productSearchList = searchProducts(event.word,event.productList);
     enableSearch = true;
     emit(RootSuccessState());
     }catch(e){
@@ -69,7 +69,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     }
   }
 
-  List searchProducts(String word,List<ProductsEntity> list){
+  List<ProductsEntity> searchProducts(String word,List<ProductsEntity> list){
     try{
       return list.where((element) => element.title.toString().toLowerCase().startsWith(word)).toList();
     }catch(e){

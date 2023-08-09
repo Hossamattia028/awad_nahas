@@ -6,8 +6,9 @@ class CategoriesEntity extends Equatable{
   final String imgPath;
   final String title;
   final bool isArabic;
+  final String parentID;
 
-  const CategoriesEntity({required this.title,required this.id,required this.imgPath,required this.iconPath,required this.isArabic});
+  const CategoriesEntity({required this.title,required this.id,required this.imgPath,required this.iconPath,required this.isArabic,required this.parentID});
 
   @override
   // TODO: implement props

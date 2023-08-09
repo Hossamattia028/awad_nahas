@@ -14,6 +14,7 @@ class CategoriesModel  extends CategoriesEntity{
         required  super.title,
         required super.iconPath,
         required super.isArabic,
+        required super.parentID,
       });
 
   static CategoriesModel fromJson(Map<String, dynamic> json) {
@@ -23,6 +24,7 @@ class CategoriesModel  extends CategoriesEntity{
       imgPath: json['image'],
       iconPath: json['icon'],
       isArabic: json['is_arabic'],
+      parentID: (json['parent']??0).toString(),
     );
   }
 
@@ -34,6 +36,7 @@ class CategoriesModel  extends CategoriesEntity{
       imgPath: json['guid'],
       iconPath: json['icon'],
       isArabic: json['is_arabic'],
+      parentID: (json['parent']??0).toString(),
     );
   }
 

@@ -89,7 +89,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   addProductComment(AddProductCommentEvent event,emit)async{
     if(currentProduct==null)return;
     emit(const ProductCommentsLoadingState());
-    try{
+    // try{
       var res = await addProductCommentUseCase(data: {
         "comment_post_ID": currentProduct!.id.toString(),
         "comment_author":Util.getUserID().toString(),
@@ -109,17 +109,17 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
           emit(const ProductCommentsFailedState());
         }
       });
-    }catch(e){
-      debugPrint("getAllLatestProductsBlocError: $e");
-      emit(const ProductCommentsFailedState());
-    }
+    // }catch(e){
+    //   debugPrint("getAllLatestProductsBlocError: $e");
+    //   emit(const ProductCommentsFailedState());
+    // }
   }
 
   List<ProductComments> commentList = [];
   getProductComments(event,emit)async{
     if(currentProduct==null)return;
     emit(const ProductCommentsLoadingState());
-    try{
+    // try{
       var res = await getAllProductCommentsUseCase(data: {'product_id':currentProduct!.id.toString()});
       res.fold((l) {
         emit(const ProductCommentsFailedState());
@@ -127,10 +127,10 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
         commentList = data;
         emit(const ProductCommentsSuccessfullyState());
       });
-    }catch(e){
-      debugPrint("getAllLatestProductsBlocError: $e");
-      emit(const ProductsFailedState());
-    }
+    // }catch(e){
+    //   debugPrint("getAllLatestProductsBlocError: $e");
+    //   emit(const ProductsFailedState());
+    // }
   }
 
   updateCurrentProduct(UpdateCurrentProduct event,emit){

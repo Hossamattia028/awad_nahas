@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
+import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,8 +8,8 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class ProductDescription extends StatelessWidget {
-  final String desc;
-  const ProductDescription({Key? key,required this.desc}) : super(key: key);
+  final ProductsEntity item;
+  const ProductDescription({Key? key,required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class ProductDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10,),
-        const ImageWidget(imgUrl: testImg,height: 160,),
+        ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,height: 160,),
         const SizedBox(height: 5,),
         CustomText(
           text: "Charismatic identity",

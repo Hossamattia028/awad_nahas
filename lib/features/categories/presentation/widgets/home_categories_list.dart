@@ -14,15 +14,17 @@ class HomeCategoriesList extends StatelessWidget {
     return BlocBuilder<CategoriesBloc,CategoriesState>(
       builder: (ctx,state){
         var bloc = CategoriesBloc.get(ctx);
+        var list = bloc.categoriesList;
+        list = bloc.activateTransList(list);
         return SizedBox(
-          height: 104.h,
+          height: 109.h,
           child: ListView.separated(
-            itemCount: viewAll? bloc.categoriesList.length : bloc.categoriesList.length>10?8:bloc.categoriesList.length,
+            itemCount: list.length,
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(vertical: 3.h),
             itemBuilder: (BuildContext context, int index) {
-              var item = bloc.categoriesList[index];
+              var item = list[index];
               return CircleCategoryCard(item: item);
             }, separatorBuilder: (BuildContext context, int index)=> const SizedBox(width: 20,),
           ),

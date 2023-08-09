@@ -36,7 +36,7 @@ class ProductDetailsDataRow extends StatelessWidget {
                   Expanded(
                     child: TabBarView(
                       children: <Widget>[
-                        ProductDescription(desc: item.desc,),
+                        ProductDescription(item: item,),
                         const SizedBox(),
                         const SizedBox(),
                       ],

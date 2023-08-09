@@ -3,6 +3,7 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/main_slider.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/brand_products.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_data_taps.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/related_products.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
@@ -47,7 +47,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
       }
     }
     productsBloc = ProductsBloc.get(context);
-    productsBloc..add(UpdateCurrentProduct(item: widget.item))..add(const FetchProductCommentsEvent());
+    // productsBloc..add(UpdateCurrentProduct(item: widget.item))..add(const FetchProductCommentsEvent());
     super.didChangeDependencies();
   }
 
@@ -80,7 +80,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
                 ),
               ],
             ),
-            const SliderWidget(),
+
+            ImagesSlider(images: [
+              widget.item.imgPath
+            ],),
 
             const SizedBox(height: 10,),
 
@@ -100,7 +103,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
               ],
             ),
             CustomText(
-              text: "Specification\n*Smeg Portofino 90cm combination freestanding cooker.\n*Energy efficiency: A+.\n*Oven capacity: 126 liter.\n*Automatic programs: 20.\n*Number of cooking functions: 9.6 Gas hob.\n*Cleaning functions: vapor clean.\n*Colour: Yellow.", color: DMUtil.getDC(),
+              text: "description - وصف \n test test \n  \n ", color: DMUtil.getDC(),
               fontSize: AppStyle.average.sp,
               maxLine: 10,
             ),

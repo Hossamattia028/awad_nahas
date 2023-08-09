@@ -21,7 +21,7 @@ class WishListIconWidget extends StatelessWidget {
     return BlocBuilder<WishlistBloc,WishlistState>(
       builder: (ctx,state){
         var bloc = WishlistBloc.get(ctx);
-        int index = bloc.wishlistList.indexWhere((element) => element.id==item.id);
+        int index = bloc.wishlistList.indexWhere((element) => element.id==item.id || element.imgPath==item.imgPath);
         bool isFav = false;
         if(index!=-1)isFav = true;
         return InkWell(

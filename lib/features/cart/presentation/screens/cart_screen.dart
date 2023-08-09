@@ -31,7 +31,6 @@ class CartScreen extends StatelessWidget {
               if(Util.checkUser())... const[
                 CartListWidget(),
                 CouponWidget(),
-                SizedBox(height: 80,),
                 OrderDetails(),
                 CartBottomButton(),
               ]else...const[

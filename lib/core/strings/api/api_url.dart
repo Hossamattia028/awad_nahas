@@ -41,7 +41,7 @@ class ApiUrl {
 
 
   //cart
-  static const String ADD_TO_CART = '${BASE_URL}cart';
+  static const String ADD_TO_CART = '${BASE_URL}cart/';
   static const String GET_ALL_CART = '${BASE_URL}cart/all/';
   static const String UPDATE_CART = '${BASE_URL}cart/';
 

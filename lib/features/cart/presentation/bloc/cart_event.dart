@@ -15,8 +15,7 @@ class FetchAllCartEvent extends CartEvent{
 
 class AddToCartEvent extends CartEvent{
   final ProductsEntity? product;
-  final bool addAllCurrentList;
-  const AddToCartEvent({this.product,this.addAllCurrentList=false});
+  const AddToCartEvent({this.product,});
 }
 
 class RemoveToCartEvent extends CartEvent{
@@ -28,7 +27,8 @@ class UpdateCartProductEvent extends CartEvent{
   final ProductsEntity product;
   final bool isAdd;
   final BuildContext context;
-  const UpdateCartProductEvent({required this.product,required this.isAdd,required this.context});
+  final bool remove;
+  const UpdateCartProductEvent({required this.product,required this.isAdd,required this.context,this.remove=false});
 }
 
 class UpdateShippingCostEvent extends CartEvent{

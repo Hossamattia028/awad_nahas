@@ -16,15 +16,17 @@ class SubCategoriesHList extends StatelessWidget {
     return BlocBuilder<CategoriesBloc,CategoriesState>(
       builder: (ctx,state){
         var bloc = CategoriesBloc.get(ctx);
+        var list = bloc.subCategoriesList;
+        if(bloc.currentCategory!=null) list = list.where((element) => element.parentID.toString()==bloc.currentCategory!.id.toString()).toList();
         return SizedBox(
           height: 44.h,
           child: ListView.separated(
             padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            itemCount: bloc.subCategoriesList.length,
+            itemCount: list.length,
             itemBuilder: (ctx,index){
-              var item = bloc.subCategoriesList[index];
+              var item = list[index];
               bool isEnabled = item == bloc.currentSubCategory;
               return InkWell(
                 onTap: ()=> bloc.add(ChangeSubCategoriesEvent(categoriesModel: item)),
@@ -32,7 +34,7 @@ class SubCategoriesHList extends StatelessWidget {
                   decoration: BoxDecoration(
                       border: Border(bottom: BorderSide(width: 1,color:  isEnabled ? DMUtil.getPC():Colors.transparent))
                   ),
-                  child: CustomText(text: item.title, fontSize: AppStyle.average.sp,color: isEnabled ?DMUtil.getPC():DMUtil.getDC(),),
+                  child: CustomText(text: item.title.toString(), fontSize: AppStyle.average.sp,color: isEnabled ?DMUtil.getPC():DMUtil.getDC(),),
                 ),
               );
             },
