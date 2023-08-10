@@ -25,6 +25,7 @@ class HomeContentWidget extends StatelessWidget {
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
             if(bloc.categoriesList.isEmpty)return const SizedBox(height: 5,);
+            if(bloc.categoriesList.first.productsCount==0)return const SizedBox(height: 5,);
             return CatProductsList(cat: bloc.categoriesList.first,);
           },
         ),
@@ -35,6 +36,7 @@ class HomeContentWidget extends StatelessWidget {
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
             if(bloc.categoriesList.isEmpty)return const SizedBox(height: 5,);
+            if(bloc.categoriesList[2].productsCount==0)return const SizedBox(height: 5,);
             return CatProductsList(cat: bloc.categoriesList[2],);
           },
         ),
@@ -44,6 +46,7 @@ class HomeContentWidget extends StatelessWidget {
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
             if(bloc.categoriesList.isEmpty)return const SizedBox(height: 5,);
+            if(bloc.categoriesList[3].productsCount==0)return const SizedBox(height: 5,);
             return CatProductsList(cat: bloc.categoriesList[3],);
           },
         ),

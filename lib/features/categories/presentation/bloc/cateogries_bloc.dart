@@ -111,7 +111,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
 
   getAllCategories(emit)async{
     // emit(const FetchCategoriesLoadingState());
-    try{
+    // try{
       var res = await getAllCategoryUseCase();
       res.fold((l) {
         emit(const FetchCategoriesFailedState());
@@ -123,10 +123,10 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
         // subCategoriesList = activateTransList(subCategoriesList);
       });
       emit(const FetchCategoriesSuccessfullyState());
-    }catch(e){
-      debugPrint("getAllCategoriesBlocError: $e");
-      emit(const FetchCategoriesFailedState());
-    }
+    // }catch(e){
+    //   debugPrint("getAllCategoriesBlocError: $e");
+    //   emit(const FetchCategoriesFailedState());
+    // }
   }
 
   setProductListToCategory(SetProductsToCategoryEvent event,emit){

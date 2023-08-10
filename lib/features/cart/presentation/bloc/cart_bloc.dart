@@ -66,7 +66,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
           cartList.add(ProductsEntity(title: "", catTitle: "",
               desc: "", id: i.productID,
               imgPath: "", price: 0, discount: 0,discountRate: 0, stockStatus: true,
-              quantity: i.quantity,categoryList: const [],commentCount: 0,));
+              quantity: i.quantity,categoryList: const [],commentCount: 0,catID: 0));
         }
         cartList = cartList;
         if(cartList.isNotEmpty)totalPrice=data.total;
@@ -131,17 +131,18 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       if(event.remove){
         cartList.removeAt(index);
       }else{
-        int newQty = event.isAdd?cartList[index].quantity+1:(cartList[index].quantity==1?cartList[index].quantity:cartList[index].quantity-1);
-        cartList[index] = ProductsEntity(title: "", catTitle: "",
-            desc: "", id: cartList[index].id,discountRate: 0,
+        var item = cartList[index];
+        int newQty = event.isAdd?item.quantity+1:(item.quantity==1?item.quantity:item.quantity-1);
+        item = ProductsEntity(title: "", catTitle: "",
+            desc: "", id: item.id,discountRate: 0,
             imgPath: "", price: event.product.price, discount: 0, stockStatus: true,
-            quantity: newQty,categoryList: const [],commentCount: 0);
+            quantity: newQty,categoryList: const [],commentCount: 0,catID: item.catID);
       }
     }else{
       cartList.add(ProductsEntity(title: "", catTitle: "",
           desc: "", id: event.product.id,discountRate: 0,
           imgPath: "", price: event.product.price, discount: 0, stockStatus: true,
-          quantity: 1,categoryList: const [],commentCount: 0));
+          quantity: 1,categoryList: const [],commentCount: 0,catID:event.product.catID));
     }
     calcTotal();
     cartList = cartList;

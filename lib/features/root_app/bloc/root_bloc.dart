@@ -69,9 +69,19 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     }
   }
 
+
+  // WARNING
+  /// this function will be edit later
   List<ProductsEntity> searchProducts(String word,List<ProductsEntity> list){
+    List<ProductsEntity> thisList  = [];
     try{
-      return list.where((element) => element.title.toString().toLowerCase().startsWith(word)).toList();
+      var firstList = list.getRange(0, list.length~/2).toList();
+      thisList.addAll(firstList.where((element) => element.title.toString().toLowerCase().startsWith(word)).toList());
+      Future.delayed(const Duration(seconds: 3),(){
+        var secondList =  list.getRange(list.length~/2, list.length).toList();
+        thisList.addAll(secondList.where((element) => element.title.toString().toLowerCase().startsWith(word)).toList());
+      });
+      return thisList;
     }catch(e){
       debugPrint("searchProductsAndCategories: $e");
       return [];

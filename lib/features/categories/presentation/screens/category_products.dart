@@ -43,7 +43,7 @@ class CategoryProductsScreen extends StatelessWidget {
 
                   const SubCategoriesHList(),
 
-                  const CategoryProductsListWidget(),
+                  CategoryProductsListWidget(catID: bloc.currentCategory!.id,),
 
                 ],
               );

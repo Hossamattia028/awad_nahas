@@ -15,6 +15,7 @@ class CategoriesModel  extends CategoriesEntity{
         required super.iconPath,
         required super.isArabic,
         required super.parentID,
+        required super.productsCount,
       });
 
   static CategoriesModel fromJson(Map<String, dynamic> json) {
@@ -25,6 +26,7 @@ class CategoriesModel  extends CategoriesEntity{
       iconPath: json['icon'],
       isArabic: json['is_arabic'],
       parentID: (json['parent']??0).toString(),
+      productsCount: int.parse((json['products_count']!=null&&json['products_count']!=""?json['products_count']:0).toString()),
     );
   }
 
@@ -37,6 +39,7 @@ class CategoriesModel  extends CategoriesEntity{
       iconPath: json['icon'],
       isArabic: json['is_arabic'],
       parentID: (json['parent']??0).toString(),
+      productsCount: int.parse((json['products_count']!=null&&json['products_count']!=""?json['products_count']:0).toString()),
     );
   }
 

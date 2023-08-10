@@ -7,6 +7,7 @@ class ProductModel extends ProductsEntity{
     required super.catTitle, required super.desc, required super.discount,required super.discountRate,
     required super.stockStatus,required super.quantity,
     required super.categoryList,
+    required super.catID,
     required super.commentCount,
     required super.isArabic,
   });
@@ -31,6 +32,7 @@ class ProductModel extends ProductsEntity{
       quantity: 1,
       isArabic:jsonObject['is_arabic'],
       categoryList: const [],
+      catID: jsonObject['cat_id'] ?? 0,
     );
   }
 

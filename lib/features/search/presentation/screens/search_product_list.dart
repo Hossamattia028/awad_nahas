@@ -19,6 +19,7 @@ class SearchProductList extends StatelessWidget {
       builder: (ctx,state){
         var bloc = RootBloc.get(ctx);
         if(bloc.productSearchList.isEmpty)return const SizedBox.shrink();
+        var list = bloc.productSearchList;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -28,11 +29,11 @@ class SearchProductList extends StatelessWidget {
               fontSize: AppStyle.average.sp+2,
             ),
             ListView.separated(
-              itemCount: bloc.productSearchList.length,
+              itemCount: list.length>30?30:list.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                var item = bloc.productSearchList[index];
+                var item = list[index];
                 return ProductCard(item: item);
               },
               separatorBuilder: (context, index) => const SizedBox(height: 15),

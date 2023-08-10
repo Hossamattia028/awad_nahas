@@ -113,7 +113,7 @@ class CatProductsList extends StatelessWidget {
                                     width: 130.w,
                                     height: 50.h,
                                     child: CustomText(
-                                      text: item.title,
+                                      text: item.title.toString(),
                                       color: DMUtil.getDC(),
                                       fontWeight: FontWeight.w500,
                                       fontSize: AppStyle.large.sp-5,

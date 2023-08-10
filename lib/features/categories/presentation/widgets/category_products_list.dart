@@ -7,7 +7,8 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dar
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 
 class CategoryProductsListWidget extends StatelessWidget {
-  const CategoryProductsListWidget({Key? key}) : super(key: key);
+  final int catID;
+  const CategoryProductsListWidget({Key? key,required this.catID}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class CategoryProductsListWidget extends StatelessWidget {
       builder: (ctx,state){
         var bloc = ProductsBloc.get(ctx);
         var list = bloc.productsList;
-        // list = bloc.filterByCategoryID(cat.id);
+        // list = bloc.filterByCategoryID(catID);
         list = bloc.filterByCurrentLang(list);
         return Expanded(
           child: GridView.builder(
