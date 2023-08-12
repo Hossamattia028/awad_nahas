@@ -24,9 +24,10 @@ class HomeContentWidget extends StatelessWidget {
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
-            if(bloc.categoriesList.isEmpty)return const SizedBox(height: 5,);
-            if(bloc.categoriesList.first.productsCount==0)return const SizedBox(height: 5,);
-            return CatProductsList(cat: bloc.categoriesList.first,);
+            var list = bloc.activateTransList(bloc.categoriesList);
+            if(list.isEmpty)return const SizedBox(height: 5,);
+            if(list.first.productsCount==0)return const SizedBox(height: 5,);
+            return CatProductsList(cat: list.first,);
           },
         ),
 
@@ -35,9 +36,10 @@ class HomeContentWidget extends StatelessWidget {
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
-            if(bloc.categoriesList.isEmpty)return const SizedBox(height: 5,);
-            if(bloc.categoriesList[2].productsCount==0)return const SizedBox(height: 5,);
-            return CatProductsList(cat: bloc.categoriesList[2],);
+            var list = bloc.activateTransList(bloc.categoriesList);
+            if(list.isEmpty)return const SizedBox(height: 5,);
+            if(list[2].productsCount==0)return const SizedBox(height: 5,);
+            return CatProductsList(cat: list[2],);
           },
         ),
 
@@ -45,9 +47,10 @@ class HomeContentWidget extends StatelessWidget {
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
-            if(bloc.categoriesList.isEmpty)return const SizedBox(height: 5,);
-            if(bloc.categoriesList[3].productsCount==0)return const SizedBox(height: 5,);
-            return CatProductsList(cat: bloc.categoriesList[3],);
+            var list = bloc.activateTransList(bloc.categoriesList);
+            if(list.isEmpty)return const SizedBox(height: 5,);
+            if(list[3].productsCount==0)return const SizedBox(height: 5,);
+            return CatProductsList(cat: list[3],);
           },
         ),
 

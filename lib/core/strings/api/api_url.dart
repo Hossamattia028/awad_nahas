@@ -18,7 +18,7 @@ class ApiUrl {
   static const String LOGIN_URL = '${BASE_URL}auth/login';
 
   //user data
-  static const String USER_PROFILE_DATA = '${BASE_URL}profile/get-data';
+  static const String USER_PROFILE_DATA = '${BASE_URL}getProfile';
   static const String UPDATE_USER_PROFILE = '${BASE_URL}profile/update';
   static const String UPDATE_USER_PASSWORD_PROFILE = '${BASE_URL}password/reset';
   static const String USER_NOTIFICATIONS = '${BASE_URL}user/notifications';

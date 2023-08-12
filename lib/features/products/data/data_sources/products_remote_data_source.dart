@@ -23,7 +23,7 @@ class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
   @override
   Future<List<ProductModel>> getAllProducts({required String cat}) async {
     var response = await client.get(Uri.parse(ApiUrl.PRODUCTS_URL));
-    debugPrint("getAllProducts ${response.body}");
+    // debugPrint("getAllProducts ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       List<ProductModel> products =
@@ -39,7 +39,7 @@ class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
   @override
   Future<List<ProductModel>> getAllProductsByVendor({required int vendorID}) async {
     var response = await client.get(Uri.parse("${ApiUrl.PRODUCTS_URL}?offset=0&limit=10&sort[column]=name&sort[order]=asc&fields[post_author][$vendorID]"));
-    debugPrint("getAllProducts ${response.body}");
+    // debugPrint("getAllProducts ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       List<ProductModel> products =
@@ -55,7 +55,7 @@ class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
   @override
   Future<List<ProductComments>> getAllProductComments({required Map<String,dynamic> data}) async {
     var response = await client.get(Uri.parse("${ApiUrl.COMMENTS_URL}?offset=0&limit=100&sort[column]=name&sort[order]=asc&fields[comment_post_ID][value]=${data['product_id']}"));
-    debugPrint("getAllProductComments ${response.body}");
+    // debugPrint("getAllProductComments ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       List<ProductComments> products =
@@ -71,7 +71,7 @@ class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
   @override
   Future<bool> addProductComment({required Map<String,dynamic> data}) async {
     var response = await client.post(Uri.parse(ApiUrl.COMMENTS_URL),body: jsonEncode(data),headers: ApiUrl.headerAuth);
-    debugPrint("addProductComment ${response.body}");
+    // debugPrint("addProductComment ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       if(body.toString().contains("done"))return true;

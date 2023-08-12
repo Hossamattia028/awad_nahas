@@ -22,9 +22,9 @@ class ProductModel extends ProductsEntity{
       id: jsonObject['id'],
       title: jsonObject['title'],
       catTitle: jsonObject['post_title']??"",
-      discount: double.parse(getValFromOptions("_regular_price",jsonObject['options'])==""?"0.0":getValFromOptions("_regular_price",jsonObject['options'])),
-      discountRate: double.parse(getValFromOptions("_regular_price",jsonObject['options'])==""?"0.0":getValFromOptions("_regular_price",jsonObject['options'])),
-      price: double.parse(getValFromOptions("_regular_price",jsonObject['options'])==""?"0.0":getValFromOptions("_regular_price",jsonObject['options'])),
+      discount: double.parse((jsonObject['price'] ?? "0").toString()),
+      discountRate: double.parse((jsonObject['price'] ?? "0").toString()),
+      price: double.parse((jsonObject['price'] ?? "0").toString()),
       desc: jsonObject['title'] ?? "",
       stockStatus: getValFromOptions("_stock_status",jsonObject['options'])=="instock",
       imgPath: jsonObject['image']??"",
@@ -39,11 +39,6 @@ class ProductModel extends ProductsEntity{
   static String getValFromOptions(String metaKey,List<dynamic> list){
     int index = list.indexWhere((element) => element['meta_key']==metaKey);
     if(index==-1){
-      if(metaKey=="_regular_price"){
-        int ind = list.indexWhere((element) => element['meta_key']==metaKey);
-        if(ind!=-1) return"";
-        return getValFromOptions("_price", list);
-      }
       return "";
     }
     var value = list[index]['meta_value'].toString();

@@ -14,7 +14,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   CategoriesEntity? currentCategory;
 
   /// store the categories list to can convert title when switch the language
-  List<CategoriesEntity> storedCategoriesList = [];
+  // List<CategoriesEntity> storedCategoriesList = [];
   List<CategoriesEntity> categoriesList = [];
 
   CategoriesEntity? currentSubCategory;
@@ -116,11 +116,9 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
       res.fold((l) {
         emit(const FetchCategoriesFailedState());
       },(data) {
-        storedCategoriesList = data;
+        // storedCategoriesList = data;
         categoriesList = data.where((element) => element.parentID=="0").toList();
         subCategoriesList = data.where((element) => element.parentID!="0").toList();
-        // categoriesList = activateTransList(storedCategoriesList);
-        // subCategoriesList = activateTransList(subCategoriesList);
       });
       emit(const FetchCategoriesSuccessfullyState());
     // }catch(e){

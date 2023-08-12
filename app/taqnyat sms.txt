@@ -1,0 +1,42 @@
+https://api.taqnyat.sa/v1/messages?
+    bearerTokens=xxxxxxxxxxxxxxxxxxxxxxxxxx&
+    sender=test&
+    recipients=966500000000,966500000000&
+    body=bodyTest
+
+
+
+{
+    "statusCode": 201,
+    "messageId": 5452899970,
+    "cost": 0.026,
+    "currency": "SAR",
+    "totalCount": 1,
+    "msgLength": 1,
+    "accepted": "[966500000000,]",
+    "rejected": "[]"
+}
+
+
+
+https://api.taqnyat.sa/v1/messages?
+    bearerTokens=xxxxxxxxxxxxxxxxxxxxxxxxxx&
+    sender=test&
+    recipients=966500000000,966500000000&
+    body=bodyTest&
+    scheduledDatetime=2020-09-30T14:26
+
+
+{
+    "statusCode": 201,
+    "messageId": 5452899970,
+    "cost": 0.026,
+    "currency": "SAR",
+    "totalCount": 1,
+    "msgLength": 1,
+    "accepted": "[966500000000,]",
+    "rejected": "[]"
+}
+
+Bearer token
+6aab4c2b446bb4205faf178adb9b4e47

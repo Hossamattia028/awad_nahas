@@ -17,7 +17,7 @@ class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
   @override
   Future<List<CategoriesModel>> getAllCategory() async {
     var response = await client.get(Uri.parse(ApiUrl.CATEGORIES_URL));
-    debugPrint("getAllCategory ${response.body}");
+    // debugPrint("getAllCategory ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       List<CategoriesModel> categories =
