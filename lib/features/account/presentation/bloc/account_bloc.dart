@@ -86,7 +86,7 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
     if(!Util.checkUser())return;
     emit(UpdateProfileState(response: AuthResponse(isLoad:  true)));
     String resMsg = "";
-    try{
+    // try{
       var res = await updateUserServiceUseCase(userData: event.user);
       res.fold((l) {
         resMsg = l.toString();
@@ -99,10 +99,10 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
           resMsg = translate("toast.wrong");
         }
       });
-    }catch(e){
-      emit(UpdateProfileState(response: AuthResponse(msg: resMsg,isFailed: true)));
-      debugPrint("updateProfile: $e");
-    }
+    // }catch(e){
+    //   emit(UpdateProfileState(response: AuthResponse(msg: resMsg,isFailed: true)));
+    //   debugPrint("updateProfile: $e");
+    // }
   }
 
 
@@ -115,7 +115,6 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
       res.fold((l) {
         resMsg = l.toString();
       },(data) async{
-        print(data.userId);
         if(data.userId!=null){
           currentUser = data;
           emit(UpdateProfileState(response: AuthResponse(isSuccess:  true)));
@@ -130,6 +129,7 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
 
   saveUserDate(AuthResponse res)async{
     if(res.user==null)return;
+    await SharedPref().setPreferencesString(Constants.userLogin, res.user!.userLogin.toString());
     await SharedPref().setPreferencesString(Constants.email, res.user!.email.toString());
     await SharedPref().setPreferencesString(Constants.mobile, res.user!.phoneNumber.toString());
     await SharedPref().setPreferencesString(Constants.name, res.user!.userName.toString());

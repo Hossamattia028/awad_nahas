@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -14,6 +15,7 @@ class WishListEmpty extends StatelessWidget {
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(height: 200,),
 
@@ -21,13 +23,13 @@ class WishListEmpty extends StatelessWidget {
           const SizedBox(height: 10,),
           CustomText(
               text: translate("wishlist.fav_empty"),
-              color: kPrimary,
+              color: DMUtil.getPC(),
               fontWeight: FontWeight.w700,
               fontSize: AppStyle.average.sp
           ),
           CustomText(
               text: translate("wishlist.no_wait"),
-              color: kPrimary,
+              color: DMUtil.getPC(),
               fontWeight: FontWeight.w500,
               fontSize: AppStyle.small.sp
           ),

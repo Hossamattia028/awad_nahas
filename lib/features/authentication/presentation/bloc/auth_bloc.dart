@@ -90,7 +90,6 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
       debugPrint("registerError: $e");
       emit(RegisterFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
     }
-
   }
 
   logIn(LogInEvent event,emit)async{
@@ -142,6 +141,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
   saveUserDate(AuthResponse res)async{
     if(res.user==null)return;
     await SharedPref.preferences.setPreferencesString(Constants.userId, res.user!.userId.toString());
+    await SharedPref.preferences.setPreferencesString(Constants.userLogin, res.user!.userLogin.toString());
     await SharedPref.preferences.setPreferencesString(Constants.email, res.user!.email.toString());
     await SharedPref.preferences.setPreferencesString(Constants.name, res.user!.userName.toString());
     await SharedPref.preferences.setPreferencesString(Constants.mobile, res.user!.phoneNumber.toString());

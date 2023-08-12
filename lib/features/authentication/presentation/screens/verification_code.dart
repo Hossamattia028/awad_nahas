@@ -195,7 +195,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         return;
                       }
                       // if(await Util.verifyFirebaseCode(otp)) {
-                        Util.pushPage(ResetPassword(phone: widget.phone,), context);
+                        Util.pushPage(ResetPassword(userLogin: widget.phone,), context);
                       // }else{
                       //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.verification_code"), Colors.red);
                       // }

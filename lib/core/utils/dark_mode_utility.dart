@@ -38,6 +38,14 @@ class DMUtil{
     return kBackGround;
   }
 
+  static Color getBCD(){
+    return currentThemeIsDark()?kRed:kBackGround;
+  }
+
+  static Color getBCIcon(){
+    return currentThemeIsDark()?kWhite:kRed;
+  }
+
   /// get Dark Color
   static Color getDC(){
     return currentThemeIsDark()?kWhite:kBlack;

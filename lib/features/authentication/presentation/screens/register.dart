@@ -175,8 +175,8 @@ class RegisterScreen extends StatelessWidget {
                         hintText: translate("signup.password"),
                         radius: 10,
                         hintColor: kSecondPrimary,
-                        onChanged: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm())),
-                        onFieldSubmitted: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm())),
+                        onChanged: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm(bloc.registerByPhone))),
+                        onFieldSubmitted: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm(bloc.registerByPhone))),
                         textEditingController: passwordTextEditingController,
                         cursorColor: kPrimary,
                         validator: () {},
@@ -203,8 +203,7 @@ class RegisterScreen extends StatelessWidget {
                     var bloc = AuthBloc.get(ctx);
                     return MaterialButton(
                       onPressed: (){
-                        if(validateForm()){
-                          if(emailTextEditingController.text.contains("@")){
+                        if(validateForm(bloc.registerByPhone)){
                             bloc.add(RegisterEvent(user: {
                               'email':emailTextEditingController.text.toString().trim(),
                               'name':"${firstNameTextEditingController.text.toString().trim()} ${secondNameTextEditingController.text.toString().trim()}",
@@ -212,9 +211,6 @@ class RegisterScreen extends StatelessWidget {
                               'phone':phoneTextEditingController.text.toString().trim(),
                               'password':passwordTextEditingController.text.toString().trim(),
                             }));
-                          }else{
-                            SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), Colors.red);
-                          }
                         }else{
                           SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
                         }
@@ -274,13 +270,17 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  validateForm(){
+  validateForm(bool checkPhone,{BuildContext? context}){
+    if(checkPhone&& phoneTextEditingController.text.isEmpty) return false;
+    if(!checkPhone) {
+      if(emailTextEditingController.text.isEmpty || emailTextEditingController.text.contains("@")){
+        if(context!=null)SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), Colors.red);
+        return false;
+      }
+    }
     if(
      firstNameTextEditingController.text.isNotEmpty&&
-     secondNameTextEditingController.text.isNotEmpty&&
-        emailTextEditingController.text.isNotEmpty&&
-        phoneTextEditingController.text.isNotEmpty&&
-        passwordTextEditingController.text.isNotEmpty)return true;
+     secondNameTextEditingController.text.isNotEmpty&& passwordTextEditingController.text.isNotEmpty)return true;
     return false;
   }
 }

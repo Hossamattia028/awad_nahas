@@ -53,8 +53,8 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
 
   saveLocalData(Map<String, dynamic> bodyData)async{
     try{
-      // await SharedPref().setPreferencesString(Constants.token, bodyData['access_token']);
       await SharedPref().setPreferencesString(Constants.userId, bodyData['user']['ID'].toString());
+      await SharedPref().setPreferencesString(Constants.userId, bodyData['user']['user_login'].toString());
       ApiUrl.headerAuth = {
         'Content-Type': 'application/json',
         // 'Authorization': 'Bearer ${bodyData['access_token']}',

@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/notifications_utils.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
@@ -25,6 +26,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  NotificationsUtils.initialPushNotification();
   await di.init();
   await SharedPref().instantiatePreferences();
   var delegate = await LocalizationDelegate.create(

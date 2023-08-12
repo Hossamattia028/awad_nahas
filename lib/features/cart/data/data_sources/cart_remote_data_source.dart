@@ -41,8 +41,11 @@ class CartRemoteDataSource extends CartRemoteDataSourceImpl{
     var response = await client.get(Uri.parse("${ApiUrl.GET_ALL_CART}${Util.getUserID()}"),headers: ApiUrl.headerAuth);
     debugPrint("fetchAllCartList ${response.body}");
     if (response.statusCode == 200) {
-      final body = json.decode(response.body);
-      return CartModel.fromJson(body['data']);
+      final decodedData = json.decode(response.body);
+      if(decodedData['status']){
+        return CartModel.fromJson(decodedData['data']);
+      }
+      throw ServerException();
     } else {
       throw ServerException();
     }

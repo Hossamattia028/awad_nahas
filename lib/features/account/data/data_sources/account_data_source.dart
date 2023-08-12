@@ -39,7 +39,7 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   @override
   Future<UserServiceModel> updateUserProfile({required Map<String, dynamic> userData}) async {
     var body = {
-      if(userData['name']!=null)'user_login': userData['name']??'',
+      if(userData['name']!=null)'user_login': Util.getUserLogin()??'',
       if(userData['name']!=null)'user_nicename': userData['name']??'',
       if(userData['name']!=null)'display_name': userData['name']??'',
       if(userData['email']!=null)'user_email': userData['email'],
@@ -54,7 +54,7 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
     if(decodedData['status']==true){
       return UserServiceModel.fromJson(decodedData['user']);
     }else{
-      return const UserServiceModel(userId: 0,userName: '',email: '',phoneNumber: "",);
+      return const UserServiceModel(userId: 0,userLogin: '',userName: '',email: '',phoneNumber: "",);
     }
   }
 
@@ -81,16 +81,20 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   @override
   Future<AuthResponse> changePassword({required Map<String,dynamic> data}) async{
     var body = {
-      'phone':data['phone'],
+      'user_login': Util.getUserLogin(),
       'password':data['password'],
     };
     var response = await client.post(Uri.parse(ApiUrl.UPDATE_USER_PASSWORD_PROFILE),body: body);
     debugPrint("changePassword: ${response.body}");
+    var decodedData = json.decode(response.body);
     if (response.statusCode == 200) {
-      var body = json.decode(response.body);
-      return AuthResponse (msg: body['message'].toString().contains("no user")?translate("login.phone_not_registered"):translate("toast.oops"),isSuccess: body['status']);
+      if(decodedData['status'] && decodedData['message'].toString().contains("Successfully")){
+        return AuthResponse (msg: translate("toast.update_user_data"),isSuccess: true);
+      }
+      //translate("login.phone_not_registered"):translate("toast.oops")
+      return AuthResponse (msg: translate("toast.oops"),isFailed: true);
     } else {
-      return AuthResponse (msg: body['message'],isFailed: true);
+      return AuthResponse (msg: translate("toast.oops"),isFailed: true);
     }
   }
 

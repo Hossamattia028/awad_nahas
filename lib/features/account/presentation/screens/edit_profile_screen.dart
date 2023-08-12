@@ -215,7 +215,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     isLabelError: false,
                   ),
                   TextButton(
-                      onPressed: ()=> Util.pushPage(const ResetPassword(phone: "+00000000"), context),
+                      onPressed: ()=> Util.pushPage(const ResetPassword(userLogin: "",goToLogin: false,), context),
                       child: CustomText(
                         text: translate("button.change"),
                         fontSize: AppStyle.small.sp,

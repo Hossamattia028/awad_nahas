@@ -130,10 +130,10 @@ class Util{
   static String getLang(){
     return SharedPref().getPreferenceString(Constants.userLang);
   }
-  static String getUserType(){
-    return SharedPref().getPreferenceString(Constants.userType);
-  }
 
+  static String getUserLogin(){
+    return SharedPref().getPreferenceString(Constants.userLogin);
+  }
 
   static double getLatitude(){
     return SharedPref().getPreferenceDouble(Constants.userLatitude);

@@ -126,8 +126,8 @@ class LoginScreen extends StatelessWidget {
                         hintText: translate("signup.password"),
                         radius: 10,
                         hintColor: kSecondPrimary,
-                        onChanged: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm())),
-                        onFieldSubmitted: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm())),
+                        onChanged: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm(bloc.registerByPhone))),
+                        onFieldSubmitted: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm(bloc.registerByPhone))),
                         textEditingController: passTextEditingController,
                         cursorColor: kPrimary,
                         validator: () {},
@@ -163,7 +163,8 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 20,),
                 BlocBuilder<AuthBloc,AuthState>(
                   builder: (ctx,state){
-                    if(state is LogInLoadingState)return const CircularProgressIndicator(backgroundColor: kPrimary,);
+                    var bloc = AuthBloc.get(ctx);
+                    if(state is LogInLoadingState)return CircularProgressIndicator(backgroundColor: DMUtil.getPC(),);
                     return CustomButton(
                         height: 45.h,
                         width: double.infinity,
@@ -176,11 +177,11 @@ class LoginScreen extends StatelessWidget {
                         ),
                         color: DMUtil.getRED(),
                         onPressed: (){
-                          if(validateForm()){
-                              AuthBloc.get(context).add(LogInEvent(user: {
-                                // 'phone':phoneTextEditingController.text.toString().trim(),
-                                'email':emailTextEditingController.text.toString().trim(),
-                                'password':passTextEditingController.text.toString().trim(),
+                          if(validateForm(bloc.registerByPhone)){
+                            bloc.add(LogInEvent(user: {
+                                if(bloc.registerByPhone)'phone':phoneTextEditingController.text.trim(),
+                                if(!bloc.registerByPhone)'email':emailTextEditingController.text.trim(),
+                                'password':passTextEditingController.text.trim(),
                               }));
                           }else{
                             SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
@@ -226,9 +227,13 @@ class LoginScreen extends StatelessWidget {
   }
 
 
-  validateForm(){
-    if(emailTextEditingController.text.isNotEmpty&&
-        passTextEditingController.text.isNotEmpty)return true;
+  validateForm(bool checkPhone){
+    if(!checkPhone) {
+      if(emailTextEditingController.text.isEmpty || emailTextEditingController.text.contains("@")){
+        return false;
+      }
+    }
+    if(passTextEditingController.text.isNotEmpty)return true;
     return false;
   }
 }

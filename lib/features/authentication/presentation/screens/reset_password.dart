@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
+import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
@@ -24,8 +25,9 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 
 class ResetPassword extends StatelessWidget {
-  final String phone;
-  const ResetPassword({Key? key,required this.phone}) : super(key: key);
+  final String userLogin;
+  final bool goToLogin;
+  const ResetPassword({Key? key,required this.userLogin,this.goToLogin = true}) : super(key: key);
   static final TextEditingController passTextEditingController = TextEditingController();
   static final TextEditingController passEnsureTextEditingController = TextEditingController();
   @override
@@ -55,8 +57,8 @@ class ResetPassword extends StatelessWidget {
           listener: (ctx,state){
             if(state is ChangeUserPasswordState){
               if(state.response.isSuccess==true){
-                passTextEditingController.text = "";
-                Util.pushPage(const LoginScreen(), context);
+                // passTextEditingController.text = "";
+                if(goToLogin)Util.pushPage(const LoginScreen(), context);
                 SnackBarBuilder.showFeedBackMessage(context, state.response.msg.toString(), Colors.green);
               }else if(state.response.isFailed==true){
                 SnackBarBuilder.showFeedBackMessage(context, state.response.msg.toString(), Colors.red);
@@ -158,19 +160,18 @@ class ResetPassword extends StatelessWidget {
                         CircularProgressIndicator(color: DMUtil.getWC(),):
                         CustomText(
                           text: translate("button.confirm"),
-                          color: DMUtil.getDC(),
+                          color: Colors.white,
                           fontSize: AppStyle.average.sp,
                           alignCenter: true,
                         ),
                         color: DMUtil.getRED(),
                         onPressed: (){
-                          // if(!checkIfTheSame())return SnackBarBuilder.showFeedBackMessage(context, translate("signup.confirm_password_error"), Colors.red);
+                          if(!checkIfTheSame())return SnackBarBuilder.showFeedBackMessage(context, translate("signup.confirm_password_error"), Colors.red);
                           if(validateForm()){
-                            Util.pushPageAndRemoveRoutes(const RootScreen(), context);
-                            // bloc.add(ChangeUserPasswordEvent(data: {
-                            //   "phone": phone,
-                            //   "password": passTextEditingController.text.trim(),
-                            // }));
+                            bloc.add(ChangeUserPasswordEvent(data: {
+                              "user_login": userLogin,
+                              "password": passTextEditingController.text.trim(),
+                            }));
                           }else{
                             SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
                           }

@@ -1,8 +1,6 @@
 
 import 'package:awad_nahas/core/styles/my_fonts.dart';
-import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
-import 'package:awad_nahas/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +21,7 @@ class SignOut extends StatelessWidget {
   Widget build(BuildContext context) {
     return  BlocListener<AuthBloc,AuthState>(
         listener: (ctx,state){
-          if(state is LogOutState)Util.pushPageAndRemoveRoutes(const MyApp(), ctx);
+          if(state is LogOutState)Util.pushPageAndRemoveRoutes(const RootScreen(), ctx);
         },
         listenWhen: (ctx,state){
           return state is LogOutState;

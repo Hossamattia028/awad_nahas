@@ -7,7 +7,6 @@ import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
-import 'package:awad_nahas/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -79,7 +78,7 @@ class SettingSectionWidget extends StatelessWidget {
               activeColor: DMUtil.getRED(),
               onChanged: (val){
                 SharedPref().setPreferencesString(Constants.userTheme, DMUtil.currentThemeIsDark()?"light":"dark");
-                RootBloc.get(context).add(const ChangeIndex(index: 3, title: ""));
+                RootBloc.get(context).add(const ChangeIndex(index: 4, title: ""));
                 Util.pushPageAndRemoveRoutes(const RootScreen(), context);
               }),
           ),

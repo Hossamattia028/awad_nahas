@@ -150,7 +150,12 @@ class SetNotification{
     const NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails,iOS: DarwinNotificationDetails(presentAlert: true,presentSound: true));
     await flutterLocalNotificationsPlugin.show(
         0, title, msg, notificationDetails,
-        payload: 'item x');
+        payload: 'item x').onError((error, stackTrace){
+          debugPrint("showNotification $error");
+    }).catchError((e){
+      debugPrint("showNotification $e");
+      return;
+    });
   }
 
 }
