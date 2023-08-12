@@ -4,9 +4,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/utils/set_notification.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class NotificationsUtils{
   static Future initialPushNotification()async{
+      await Permission.notification.request();
       /// for android and ios versions
       await Firebase.initializeApp();
       await SetNotification.setupFlutterNotifications();

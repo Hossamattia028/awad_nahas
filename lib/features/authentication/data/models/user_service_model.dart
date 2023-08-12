@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/strings/api/api_url.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/authentication/domain/entities/user_entity.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
@@ -15,7 +16,7 @@ class UserServiceModel extends UserService {
 
   static UserServiceModel fromJson(Map<String, dynamic> fromJson) {
     return UserServiceModel(
-      userId: fromJson['id'],
+      userId: fromJson['ID']??Util.getUserID(),
       userName: fromJson['user_nicename'] ??  '',
       email: fromJson['user_email'],
       // image: getImage(fromJson['avatar']),

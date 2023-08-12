@@ -115,6 +115,7 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
       res.fold((l) {
         resMsg = l.toString();
       },(data) async{
+        print(data.userId);
         if(data.userId!=null){
           currentUser = data;
           emit(UpdateProfileState(response: AuthResponse(isSuccess:  true)));

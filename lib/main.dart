@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
               };
               return widget!;
             },
-            title: 'Awad Nahas',
+            title: 'AwadNahas',
             home: isTheme==true?  const RootScreen(): const SplashScreen(),
           ),
         ),
