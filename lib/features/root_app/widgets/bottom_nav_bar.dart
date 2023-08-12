@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,8 +28,9 @@ class BottomNavBar extends StatelessWidget {
           items: [
             BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.homeSelected, colorFilter: ColorFilter.mode(currentIndex==0?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),),label: translate("app_bar.home"),backgroundColor: DMUtil.getWC()),
             BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.categorySelected, colorFilter: ColorFilter.mode(currentIndex==1?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),),label: translate("app_bar.categories"),backgroundColor: DMUtil.getWC()),
-            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.cartSelected, colorFilter: ColorFilter.mode(currentIndex==2?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),) ,label: translate("app_bar.cart"),backgroundColor: DMUtil.getWC()),
-            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.accountSelected, colorFilter: ColorFilter.mode(currentIndex==3?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),) ,label: translate("profile.my_account"),backgroundColor: DMUtil.getWC()),
+            BottomNavigationBarItem(icon: WishListNavIconWidget(selected: currentIndex==2) ,label: translate("wishlist.title"),backgroundColor: DMUtil.getWC()),
+            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.cartSelected, colorFilter: ColorFilter.mode(currentIndex==3?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),) ,label: translate("app_bar.cart"),backgroundColor: DMUtil.getWC()),
+            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.accountSelected, colorFilter: ColorFilter.mode(currentIndex==4?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),) ,label: translate("profile.my_account"),backgroundColor: DMUtil.getWC()),
           ],
         );
       },

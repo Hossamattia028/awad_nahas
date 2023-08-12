@@ -1,9 +1,9 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/screens/cart_screen.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/categories_screen.dart';
 import 'package:awad_nahas/features/home/presentation/screens/home.dart';
 import 'package:awad_nahas/features/root_app/widgets/drawer_widget.dart';
+import 'package:awad_nahas/features/wishlist/presentation/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/features/account/presentation/screens/profile_screen.dart';
@@ -28,12 +28,13 @@ class RootScreen extends StatelessWidget {
           body: Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              if(!Util.checkUser())const SizedBox.shrink(),
               if (index == 0) ...[
                 const HomeScreen(),
               ] else if (index == 1) ...[
                 const CategoriesScreen()
               ] else if (index == 2) ...[
+                const WishListScreen(includeBackButton: false,)
+              ] else if (index == 3) ...[
                 const CartScreen()
               ] else ...[
                 const ProfileScreen()

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
@@ -25,8 +24,8 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
   @override
   Future<AuthResponse> loginUser(Map<String, dynamic> userData) async {
     var data = {
-      if(userData['phone']!=null)'phone': userData['phone'],
-      if(userData['email']!=null)'email': userData['email'],
+      if(userData['phone']!=null)'user_login': userData['phone'],
+      if(userData['email']!=null)'user_login': userData['email'],
       'password': userData['password'],
       // 'device_token': await Util.getCurrentUserPushToken()
     };
@@ -73,8 +72,9 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
       var headers = ApiUrl.headerAuth;
       // String? token =  await Util.getCurrentUserPushToken();
       request.fields['name'] = userData['name'];
-      if(userData['email'] != null)request.fields['email'] = userData['email'];
-      if(userData['phone'] != null)request.fields['phone'] = userData['phone'];
+      if(userData['email'] != null)request.fields['user_login'] = userData['email'];
+      if(userData['phone'] != null)request.fields['user_login'] = userData['phone'];
+
       request.fields['password'] = userData['password'];
       request.headers.addAll(headers);
       var streamedResponse = await request.send();

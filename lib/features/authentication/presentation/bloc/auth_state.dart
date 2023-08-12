@@ -48,6 +48,15 @@ class RegisterLoadingState extends AuthState{
 }
 
 
+class EnableRegisterPhoneLoadingState extends AuthState{
+  const EnableRegisterPhoneLoadingState();
+}
+
+class EnableRegisterPhoneSuccessState extends AuthState{
+  const EnableRegisterPhoneSuccessState();
+}
+
+
 
 
 class ChangePasswordState extends AuthState{

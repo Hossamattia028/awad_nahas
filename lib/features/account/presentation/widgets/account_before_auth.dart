@@ -16,7 +16,7 @@ class AccountNotAuth extends StatelessWidget {
     return Align(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(height: 100,),
           CustomText(

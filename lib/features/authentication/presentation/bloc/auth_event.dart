@@ -18,6 +18,11 @@ class RegisterEvent extends AuthEvent{
   const RegisterEvent({required this.user});
 }
 
+class EnablePhoneRegisterButtonEvent extends AuthEvent{
+  const EnablePhoneRegisterButtonEvent();
+}
+
+
 class ChangePasswordEvent extends AuthEvent{
   const ChangePasswordEvent();
 }
@@ -25,6 +30,7 @@ class ChangePasswordEvent extends AuthEvent{
 class RememberMeEvent extends AuthEvent{
   const RememberMeEvent();
 }
+
 
 class EnableAuthButtonEvent extends AuthEvent{
   final bool enable ;
@@ -38,10 +44,4 @@ class SendVerifyEmailEvent extends AuthEvent{
 
 class LogOutEvent extends AuthEvent{
   const LogOutEvent();
-}
-
-
-class SetCurrentGenerateUserEvent extends AuthEvent{
-  final UserService user;
-  const SetCurrentGenerateUserEvent({required this.user});
 }

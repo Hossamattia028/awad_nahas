@@ -107,6 +107,7 @@
       "toast_check": " من فضلك قم بالموافقه على البنود والتراخيص أولا  "
     },
     "login": {
+      "continue_with_email": "تابع التسجيل بالبريد الالكتروني",
       "continue_with_phone": "تابع التسجيل برقم الجوال",
       "continue_with_facebook": "تابع التسجيل بالفيسبوك",
       "continue_with_google": "تابع التسجيل بالجيميل",

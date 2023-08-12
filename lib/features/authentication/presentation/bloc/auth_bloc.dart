@@ -1,4 +1,3 @@
-import 'package:awad_nahas/features/authentication/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/core/strings/constant.dart';
@@ -8,9 +7,6 @@ import 'package:awad_nahas/features/authentication/domain/use_cases/login_user_u
 import 'package:awad_nahas/features/authentication/domain/use_cases/register_user_usecase.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_event.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_state.dart';
-import 'package:flutter_translate/flutter_translate.dart';
-
-
 
 class AuthBloc extends Bloc<AuthEvent,AuthState>{
   bool showPassword = false;
@@ -51,10 +47,12 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
       rememberMeFn(event,emit);
     });
 
-    on<SetCurrentGenerateUserEvent>((event, emit){
-      setCurrentGenerateUser(event, emit);
+    on<EnablePhoneRegisterButtonEvent>((event, emit) {
+      enableRegisterByPhone(event,emit);
     });
+
   }
+
   bool rememberMe = false;
   rememberMeFn(event,emit){
     emit(const EnableAuthButtonLoadingState());
@@ -66,6 +64,15 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     emit(const EnableAuthButtonLoadingState());
     // enableButton = event.enable;
     emit(const EnableAuthButtonState());
+  }
+
+
+  /// register section
+  bool registerByPhone = false;
+  enableRegisterByPhone(event,emit){
+    emit(const EnableRegisterPhoneLoadingState());
+    registerByPhone = !registerByPhone;
+    emit(const EnableRegisterPhoneSuccessState());
   }
 
   register(emit,RegisterEvent event)async{
@@ -111,6 +118,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     await SharedPref().clearPreferences();
     emit(const LogOutState());
   }
+
   changePasswordEvent(emit){
     showPassword = !showPassword;
     emit(ChangePasswordState(showPass: showPassword));
@@ -140,28 +148,5 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     await SharedPref.preferences.setPreferencesString(Constants.city, res.user!.countryCode.toString());
     await SharedPref.preferences.setPreferencesString(Constants.address, res.user!.address.toString());
   }
-
-
-  /// this section for generate or create new account [ADMIN_SECTION]
-  UserService? currentGenerateCurrentUser;
-  List <String> userTypeList = [
-    translate("order.delivery_boy"),
-    translate("order.manager"),
-    translate("order.super_admin"),
-  ];
-  setCurrentGenerateUser(SetCurrentGenerateUserEvent event,emit){
-    emit(const UpdateGenerateUserLoadingState());
-    currentGenerateCurrentUser = event.user;
-    emit(const UpdateGenerateUserSuccessfullyState());
-  }
-
-
-  String currentCityID = "Jeddah";
-  /// this city list can be assign the order on it
-  List<String> citiesList = [
-    "Jeddah",
-    "Riyadh",
-    "Elkhobar",
-  ];
 
 }

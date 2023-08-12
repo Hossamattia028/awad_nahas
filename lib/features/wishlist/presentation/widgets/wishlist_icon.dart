@@ -1,8 +1,10 @@
+import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
@@ -36,6 +38,28 @@ class WishListIconWidget extends StatelessWidget {
             }
           },
           child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:DMUtil.getD2C(),size: 23.w,),
+        );
+      },
+    );
+  }
+}
+
+class WishListNavIconWidget extends StatelessWidget {
+  final bool selected;
+  const WishListNavIconWidget({Key? key,required this.selected}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<WishlistBloc,WishlistState>(
+      builder: (ctx,state){
+        var bloc = WishlistBloc.get(ctx);
+        int length = bloc.wishlistList.length;
+        return Stack(
+          alignment: Alignment.topLeft,
+          children: [
+            Icon(selected?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: selected? DMUtil.getPC() : DMUtil.getDLight(),size: 23.w,),
+            if(length!=0)CustomText(text: "$length",fontSize: AppStyle.small.sp,color: DMUtil.getPC(),),
+          ],
         );
       },
     );

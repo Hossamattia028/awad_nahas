@@ -30,7 +30,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
   static final TextEditingController emailTextEditingController = TextEditingController();
-  // static final TextEditingController phoneTextEditingController = TextEditingController();
+  static final TextEditingController phoneTextEditingController = TextEditingController();
   static final TextEditingController passTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -69,23 +69,47 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10,),
-                CustomTextFromField(
-                    height: 50,
-                    hintText: translate("signup.email"),
-                    radius: 10,
-                    textEditingController: emailTextEditingController,
-                    validator: () {},
-                    hintColor: kSecondPrimary,
-                    textInputType: TextInputType.emailAddress,
-                    prefixIcon: null,
-                    cursorColor: kPrimary,
-                    suffixIcon:  null,
-                    obscureText: false,
-                    isLabelError: false,
-                    hasBorder: true,
-                    borderWidth: 1,
-                    borderColor: DMUtil.getD2C(),
-                    labelText: '',),
+                BlocBuilder<AuthBloc,AuthState>(
+                  builder: (ctx,state){
+                    var bloc = AuthBloc.get(ctx);
+                    bool registerByPhone = bloc.registerByPhone;
+                    return registerByPhone?
+                    CustomTextFromField(
+                      height: 50,
+                      hintText: translate("signup.phone"),
+                      radius: 10,
+                      textEditingController: phoneTextEditingController,
+                      validator: () {},
+                      hintColor: kSecondPrimary,
+                      textInputType: TextInputType.phone,
+                      prefixIcon: null,
+                      cursorColor: kPrimary,
+                      suffixIcon:  null,
+                      obscureText: false,
+                      isLabelError: false,
+                      hasBorder: true,
+                      borderWidth: 1,
+                      borderColor: DMUtil.getD2C(),
+                      labelText: '',):
+                    CustomTextFromField(
+                      height: 50,
+                      hintText: translate("signup.email"),
+                      radius: 10,
+                      textEditingController: emailTextEditingController,
+                      validator: () {},
+                      hintColor: kSecondPrimary,
+                      textInputType: TextInputType.emailAddress,
+                      prefixIcon: null,
+                      cursorColor: kPrimary,
+                      suffixIcon:  null,
+                      obscureText: false,
+                      isLabelError: false,
+                      hasBorder: true,
+                      borderWidth: 1,
+                      borderColor: DMUtil.getD2C(),
+                      labelText: '',);
+                  },
+                ),
                 const SizedBox(
                   height: 20,
                 ),

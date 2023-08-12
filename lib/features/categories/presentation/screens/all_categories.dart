@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/products/presentation/screens/products_list.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 
 class AllCategoriesList extends StatelessWidget {
   const AllCategoriesList({Key? key}) : super(key: key);

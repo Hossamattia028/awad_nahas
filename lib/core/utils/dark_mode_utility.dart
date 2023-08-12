@@ -48,5 +48,9 @@ class DMUtil{
     return currentThemeIsDark()?kBackGround:kBlack2;
   }
 
+  static Color getDLight(){
+    return currentThemeIsDark()?kWhite:kDark;
+  }
+
 
 }

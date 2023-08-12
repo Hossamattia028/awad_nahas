@@ -1,4 +1,5 @@
 import 'package:awad_nahas/features/products/presentation/widgets/product_card.dart';
+import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_empty.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +17,7 @@ class WishListWidget extends StatelessWidget {
       builder: (ctx,state){
         var bloc = WishlistBloc.get(ctx);
         var list = bloc.wishlistList;
-        // if(list.isEmpty)return const WishListEmpty();
+        if(list.isEmpty)return const WishListEmpty();
         return ListView.separated(
           padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: AppStyle.paddingFromTop.h),
           itemCount: list.length,

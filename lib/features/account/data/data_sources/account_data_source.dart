@@ -6,8 +6,6 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
-import 'package:awad_nahas/core/strings/constant.dart';
-import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/authentication/data/models/user_service_model.dart';
 

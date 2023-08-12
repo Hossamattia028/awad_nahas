@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -16,9 +15,9 @@ class WishListEmpty extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 100,),
+          const SizedBox(height: 200,),
 
-          Image.asset(AppImages.logo,height: 30.h,fit: BoxFit.cover,),
+          Image.asset(AppImages.logo,height: 130.h,fit: BoxFit.cover,),
           const SizedBox(height: 10,),
           CustomText(
               text: translate("wishlist.fav_empty"),

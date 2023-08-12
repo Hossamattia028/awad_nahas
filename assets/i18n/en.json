@@ -108,6 +108,7 @@
 		"toast_check": " please you should to be accepted the Licenses and Terms  "
 	},
 	"login": {
+		"continue_with_email": "Continue with email",
 		"continue_with_phone": "Continue with Phone number",
 		"continue_with_facebook": "Continue with Facebook",
 		"continue_with_google": "Continue with Gmail",

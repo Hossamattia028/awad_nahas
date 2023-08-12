@@ -119,41 +119,48 @@ class RegisterScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 15,),
-                CustomTextFromField(
-                  height: 50,
-                  hintText: translate("signup.email"),
-                  radius: 10,
-                  textEditingController: emailTextEditingController,
-                  validator: () {},
-                  hintColor: kSecondPrimary,
-                  textInputType: TextInputType.emailAddress,
-                  prefixIcon: null,
-                  cursorColor: kPrimary,
-                  suffixIcon:  null,
-                  obscureText: false,
-                  isLabelError: false,
-                  hasBorder: true,
-                  borderWidth: 1,
-                  borderColor: DMUtil.getD2C(),
-                  labelText: '',),
-                const SizedBox(height: 15,),
-                CustomTextFromField(
-                  height: 50,
-                  hintText: translate("signup.phone"),
-                  radius: 10,
-                  textEditingController: phoneTextEditingController,
-                  validator: () {},
-                  hintColor: kSecondPrimary,
-                  textInputType: TextInputType.phone,
-                  prefixIcon: null,
-                  cursorColor: kPrimary,
-                  suffixIcon:  null,
-                  obscureText: false,
-                  isLabelError: false,
-                  hasBorder: true,
-                  borderWidth: 1,
-                  borderColor: DMUtil.getD2C(),
-                  labelText: '',),
+                BlocBuilder<AuthBloc,AuthState>(
+                  builder: (ctx,state){
+                    var bloc = AuthBloc.get(ctx);
+                    bool registerByPhone = bloc.registerByPhone;
+                    return registerByPhone?
+                    CustomTextFromField(
+                      height: 50,
+                      hintText: translate("signup.phone"),
+                      radius: 10,
+                      textEditingController: phoneTextEditingController,
+                      validator: () {},
+                      hintColor: kSecondPrimary,
+                      textInputType: TextInputType.phone,
+                      prefixIcon: null,
+                      cursorColor: kPrimary,
+                      suffixIcon:  null,
+                      obscureText: false,
+                      isLabelError: false,
+                      hasBorder: true,
+                      borderWidth: 1,
+                      borderColor: DMUtil.getD2C(),
+                      labelText: '',):
+                    CustomTextFromField(
+                      height: 50,
+                      hintText: translate("signup.email"),
+                      radius: 10,
+                      textEditingController: emailTextEditingController,
+                      validator: () {},
+                      hintColor: kSecondPrimary,
+                      textInputType: TextInputType.emailAddress,
+                      prefixIcon: null,
+                      cursorColor: kPrimary,
+                      suffixIcon:  null,
+                      obscureText: false,
+                      isLabelError: false,
+                      hasBorder: true,
+                      borderWidth: 1,
+                      borderColor: DMUtil.getD2C(),
+                      labelText: '',);
+                  },
+                ),
+
                 const SizedBox(height: 20,),
                 BlocBuilder<AuthBloc,AuthState>(
                   builder: (ctx,state){
@@ -193,14 +200,15 @@ class RegisterScreen extends StatelessWidget {
 
                 BlocBuilder<AuthBloc,AuthState>(
                   builder: (ctx,state){
+                    var bloc = AuthBloc.get(ctx);
                     return MaterialButton(
                       onPressed: (){
                         if(validateForm()){
                           if(emailTextEditingController.text.contains("@")){
-                            AuthBloc.get(context).add(RegisterEvent(user: {
+                            bloc.add(RegisterEvent(user: {
                               'email':emailTextEditingController.text.toString().trim(),
                               'name':"${firstNameTextEditingController.text.toString().trim()} ${secondNameTextEditingController.text.toString().trim()}",
-                              'user_login':emailTextEditingController.text.toString().trim(),
+                              'user_login': bloc.registerByPhone? phoneTextEditingController.text.toString().trim() : emailTextEditingController.text.toString().trim(),
                               'phone':phoneTextEditingController.text.toString().trim(),
                               'password':passwordTextEditingController.text.toString().trim(),
                             }));

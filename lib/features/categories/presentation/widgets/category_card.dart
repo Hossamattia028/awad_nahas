@@ -44,7 +44,8 @@ class CategoryCard extends StatelessWidget {
              height: 120.h,
              width: 150.w,
              decoration:  BoxDecoration(
-               borderRadius: const BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10)),
+               borderRadius: Util.getLang()!="ar"? const BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10)):
+                  const BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10)),
                image: DecorationImage(
                  fit: BoxFit.fill,
                  image: NetworkImage(item.imgPath)
