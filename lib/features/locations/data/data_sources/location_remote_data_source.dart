@@ -60,7 +60,7 @@ class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
 
   @override
   Future<List<LocationModel>> fetchAllLocations() async{
-    var response = await client.get(Uri.parse("${ApiUrl.FETCH_ADDRESS}?offset=0&limit=100&sort[column]=name&sort[order]=asc"),
+    var response = await client.get(Uri.parse(ApiUrl.FETCH_ADDRESS),
         headers: ApiUrl.headerAuth);
     debugPrint("fetchAllLocations: ${response.body}");
     if (response.statusCode == 200) {

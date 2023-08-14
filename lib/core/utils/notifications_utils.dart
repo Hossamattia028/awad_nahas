@@ -8,7 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 class NotificationsUtils{
   static Future initialPushNotification()async{
-      await Permission.notification.request();
+      Permission.notification.request();
       /// for android and ios versions
       await Firebase.initializeApp();
       await SetNotification.setupFlutterNotifications();

@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +21,7 @@ class SearchProductList extends StatelessWidget {
         var bloc = RootBloc.get(ctx);
         if(bloc.productSearchList.isEmpty)return const SizedBox.shrink();
         var list = bloc.productSearchList;
+        list = ProductsBloc.get(context).filterByCurrentLang(list);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/widgets/circle_category_card.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
@@ -20,6 +21,7 @@ class SearchCategoryList extends StatelessWidget {
         var bloc = RootBloc.get(ctx);
         if(bloc.categorySearchList.isEmpty)return const SizedBox.shrink();
         var list = bloc.categorySearchList;
+        list = CategoriesBloc.get(context).activateTransList(list);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

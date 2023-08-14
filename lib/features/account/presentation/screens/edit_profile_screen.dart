@@ -31,6 +31,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController lastNameTextEditingController = TextEditingController();
   final TextEditingController emailTextEditingController = TextEditingController();
   final TextEditingController phoneTextEditingController = TextEditingController();
+  final TextEditingController passTextEditingController = TextEditingController();
 
 
   late AccountBloc accountBloc;
@@ -209,7 +210,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     radius: 10,
                     smallPadding: true,
                     textInputType: TextInputType.visiblePassword,
-                    textEditingController: phoneTextEditingController,
+                    textEditingController: passTextEditingController,
                     validator: (){},
                     obscureText: false,
                     isLabelError: false,

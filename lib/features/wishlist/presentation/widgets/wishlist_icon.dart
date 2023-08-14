@@ -53,12 +53,21 @@ class WishListNavIconWidget extends StatelessWidget {
     return BlocBuilder<WishlistBloc,WishlistState>(
       builder: (ctx,state){
         var bloc = WishlistBloc.get(ctx);
-        int length = bloc.wishlistList.length;
+        var list = bloc.wishlistList;
+        list = ProductsBloc.get(context).filterByCurrentLang(list);
+        int length = list.length;
         return Stack(
-          alignment: Alignment.topLeft,
+          alignment: Alignment.topRight,
           children: [
             Icon(selected?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: selected? DMUtil.getPC() : DMUtil.getDLight(),size: 23.w,),
-            if(length!=0)CustomText(text: "$length",fontSize: AppStyle.small.sp,color: DMUtil.getPC(),),
+            if(length!=0)Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: CircleAvatar(
+                backgroundColor:selected? DMUtil.getWC() : DMUtil.getPC(),
+                radius: 6.w,
+                child: CustomText(text: "$length",fontSize: AppStyle.small.sp-3,color: selected? DMUtil.getPC() : Colors.white,),
+              ),
+            )
           ],
         );
       },

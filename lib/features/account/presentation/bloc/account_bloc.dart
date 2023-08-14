@@ -129,6 +129,7 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
 
   saveUserDate(AuthResponse res)async{
     if(res.user==null)return;
+    await SharedPref().setPreferencesString(Constants.userId, res.user!.userId.toString());
     await SharedPref().setPreferencesString(Constants.userLogin, res.user!.userLogin.toString());
     await SharedPref().setPreferencesString(Constants.email, res.user!.email.toString());
     await SharedPref().setPreferencesString(Constants.mobile, res.user!.phoneNumber.toString());

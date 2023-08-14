@@ -78,6 +78,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     //   emit(CartErrorState(errors: translate("toast.oops")));
     // }
   }
+
   updateCartList(ProductsEntity item){
     int index = cartList.indexWhere((element) => element.id==item.id);
     if(index==-1){

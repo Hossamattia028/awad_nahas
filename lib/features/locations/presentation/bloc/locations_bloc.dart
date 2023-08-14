@@ -14,9 +14,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
   UpdateLocationUseCase  updateLocationUseCase;
   RemoveLocationUseCase  removeLocationUseCase;
   AddLocationUseCase addLocationUseCase;
-  List<LocationEntity> userLocationsList = [
-    const LocationEntity(address: "Building No. 2 (Riyadh -King Faisal Dist)", city: "city", country: "country", phone: "023432423", id: 0, type: "home", long: 234.0, lat: 23423.0),
-  ];
+  List<LocationEntity> userLocationsList = [];
 
   LocationEntity? currentCheckOutLocation;
 

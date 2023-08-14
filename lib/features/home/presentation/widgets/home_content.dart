@@ -1,3 +1,4 @@
+import 'package:awad_nahas/features/categories/presentation/screens/our_brand.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/banners_section.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/categories.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/single_banner.dart';
@@ -19,7 +20,7 @@ class HomeContentWidget extends StatelessWidget {
         const SliderWidget(),
 
         const HomeCategories(),
-
+        // OurBrandsScreen(),
 
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){

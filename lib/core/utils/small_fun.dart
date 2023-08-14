@@ -2,6 +2,8 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
+import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
+import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
@@ -18,8 +20,6 @@ import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
-import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
-import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,6 +32,7 @@ class Util{
     WishlistBloc.get(context).add(const FetchAllWishlistEvent());
     CartBloc.get(context).add(const FetchAllCartEvent());
     CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
+    LocationsBloc.get(context).add(const FetchUserLocationsEvent());
     // AccountBloc.get(context).add(const FetchAllNotificationsEvent());
     // OrderBloc.get(context).add(const FetchAllOrderEvent());
   }

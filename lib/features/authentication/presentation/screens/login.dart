@@ -229,7 +229,7 @@ class LoginScreen extends StatelessWidget {
 
   validateForm(bool checkPhone){
     if(!checkPhone) {
-      if(emailTextEditingController.text.isEmpty || emailTextEditingController.text.contains("@")){
+      if(emailTextEditingController.text.isEmpty || !emailTextEditingController.text.contains("@")){
         return false;
       }
     }

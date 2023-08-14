@@ -6,36 +6,11 @@ import 'package:awad_nahas/features/products/data/models/product_small_model.dar
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 
 class GenerateCartJson{
+
   static Map<String,dynamic> generate({required List<ProductsEntity> productList,required String total}){
-    Map<String,dynamic> mapData = {};
     print("s $total");
-    for(var i in productList){
-      var key = "22210129b${DateTime.now().millisecondsSinceEpoch.toString().substring(0,3)}852d73ea41affbbd9${DateTime.now().millisecond.toString().substring(0,3)}";
-      mapData.addAll({
-        key:{
-          "key": key,
-          "product_id": i.id,
-          "variation_id": 0,
-          "variation": [],
-          "quantity": i.quantity,
-          "data_hash": "b5c1d5ca8bae6d4896cf1807cdf763f0",
-          "line_tax_data": {
-            "subtotal": {
-              "1": 120
-            },
-            "total": {
-              "1": 120
-            }
-          },
-          "line_subtotal": 800,
-          "line_subtotal_tax": 120,
-          "line_total": 800,
-          "line_tax": 120
-        }
-      });
-    }
     var data = {
-      "cart": mapData,
+      "cart": generateList(productList),
       "cart_totals": {
         "subtotal": total.toString(),
         "subtotal_tax": 336.8999999999999772626324556767940521240234375,
@@ -111,4 +86,36 @@ class GenerateCartJson{
     // print(data);
     return data;
   }
+
+  static Map<String,dynamic> generateList(List<ProductsEntity> list){
+    Map<String,dynamic> mapData = {};
+    for(var i in list){
+      print(i.title);
+      var key = "22210129b${DateTime.now().millisecondsSinceEpoch.toString().substring(0,3)}852d73ea41affbbd9${DateTime.now().millisecond.toString().substring(0,3)}";
+      mapData.addAll({
+        key:{
+          "key": key,
+          "product_id": i.id,
+          "variation_id": 0,
+          "variation": [],
+          "quantity": i.quantity,
+          "data_hash": "b5c1d5ca8bae6d4896cf1807cdf763f0",
+          "line_tax_data": {
+            "subtotal": {
+              "1": 120
+            },
+            "total": {
+              "1": 120
+            }
+          },
+          "line_subtotal": 800,
+          "line_subtotal_tax": 120,
+          "line_total": 800,
+          "line_tax": 120
+        }
+      });
+    }
+    return mapData;
+  }
+
 }

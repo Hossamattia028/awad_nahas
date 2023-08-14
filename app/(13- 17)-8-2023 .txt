@@ -1,0 +1,15 @@
+
+
+ 								
+13-sunday : activate otp & address section 
+
+14-monday : filter products depend on sub & main categories + complete for cart section 
+
+     
+15-Tuesday : activate order section 
+
+
+16-Wednesday : create help center and maintenance pages 
+                  		             	
+
+17-Thursday: start activate help center 		  	 							

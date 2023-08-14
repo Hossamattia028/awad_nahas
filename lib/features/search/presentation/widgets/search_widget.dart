@@ -18,8 +18,8 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dar
 import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 
 class SearchWidget extends StatelessWidget {
-  final bool isPop;
-  const SearchWidget({Key? key,this.isPop =false}) : super(key: key);
+  final bool showDrawer;
+  const SearchWidget({Key? key,this.showDrawer =true}) : super(key: key);
   static TextEditingController searchTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -27,6 +27,7 @@ class SearchWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
+        if(showDrawer)
         InkWell(
           onTap: ()=> Scaffold.of(context).openDrawer(),
           child: SvgPicture.asset(AppImages.drawer,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn),width: 20.w,),

@@ -26,7 +26,7 @@ class ApiUrl {
 
 
   //address
-  static const String FETCH_ADDRESS = '${BASE_URL}user/address';
+  static const String FETCH_ADDRESS = '${BASE_URL}user/addresses';
   static const String ADD_NEW_ADDRESS = '${BASE_URL}user/address';
   static const String UPDATE_ADDRESS = '${BASE_URL}user/address/'; //user/address/{{addressID}}
   static const String REMOVE_ADDRESS = '${BASE_URL}user/address/'; //user/address/{{addressID}}

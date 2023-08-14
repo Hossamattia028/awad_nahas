@@ -4,7 +4,6 @@ import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart'
 import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
-import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
