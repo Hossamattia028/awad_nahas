@@ -20,22 +20,15 @@ class LocationsList extends StatelessWidget {
       child: BlocBuilder<LocationsBloc,LocationsState>(
         builder: (ctx,state){
           var bloc = LocationsBloc.get(ctx);
+          var list = bloc.userLocationsList;
           if(state is LocationsLoadingState)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
           // if(bloc.userLocationsList.isEmpty)return const LocationsEmpty();
-          return ListView.separated(
-            itemCount: bloc.userLocationsList.length,
-            padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.sp,vertical: 5.h),
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              var item =  bloc.userLocationsList[index];
-              return GestureDetector(
-                onTap: () {},
-                child: LocationCardWidget(locationEntity: item,),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 15,),
+          return Column(
+            children: [
+              if(list.first.shippingAddress!=null)LocationCardWidget(locationEntity: list.first.shippingAddress!),
+
+              if(list.first.shippingAddress!=null)LocationCardWidget(locationEntity: list.first.billingAddress!),
+            ],
           );
         },
       ),

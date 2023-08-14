@@ -50,7 +50,7 @@ class LocationCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: locationEntity.address,
+                      text: locationEntity.address1,
                       color: DMUtil.getDC(),
                       fontSize: AppStyle.average.sp,
                       maxLine: 3,

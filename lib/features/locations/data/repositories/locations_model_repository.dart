@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/error/failure.dart';
 import 'package:awad_nahas/core/network/network.dart';
+import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:awad_nahas/features/locations/data/data_sources/location_remote_data_source.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
@@ -28,7 +29,7 @@ class LocationsModelRepository implements LocationsRepository {
   }
 
   @override
-  Future<Either<Failure, List<LocationEntity>>> fetchAllLocations() async{
+  Future<Either<Failure, List<AddressModel>>> fetchAllLocations() async{
     if (await networkInfo.isConnected()) {
       try {
         return Right(await locationRemoteDataSource.fetchAllLocations());

@@ -42,7 +42,7 @@ class LocationSectionWidget extends StatelessWidget {
                   children: [
 
                     TextSpan(
-                      text: bloc.currentCheckOutLocation!.address,
+                      text: bloc.currentCheckOutLocation!.address1,
                       style:  TextStyle(color: kText1,fontWeight: FontWeight.w400,fontFamily: primaryFontReg,fontSize: AppStyle.verySmall.sp,overflow: TextOverflow.ellipsis),
                     ),
                   ]

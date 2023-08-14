@@ -6,5 +6,5 @@ abstract class LocationsRepository{
   Future<Either<Failure, bool>> addNewLocation({required Map<String,dynamic> data});
   Future<Either<Failure, bool>> removeLocation({required int addressId});
   Future<Either<Failure, bool>> updateLocation({required Map<String,dynamic> data});
-  Future<Either<Failure, List<LocationEntity>>> fetchAllLocations();
+  Future<Either<Failure, List<AddressEntity>>> fetchAllLocations();
 }

@@ -37,7 +37,8 @@ class SelectLocations extends StatelessWidget {
               ),
             ],
           ),
-          onChanged:(val) => bloc.add(UpdateCurrentLocationEvent(locationEntity: val!)),
+          onChanged:(val){},
+          //bloc.add(UpdateCurrentLocationEvent(locationEntity: val!))
           icon: Icon(Icons.keyboard_arrow_down_outlined,color: DMUtil.getDC(),),
           items: list.map((e) => DropdownMenuItem(
             value: e,

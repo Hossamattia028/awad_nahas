@@ -14,7 +14,10 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
   UpdateLocationUseCase  updateLocationUseCase;
   RemoveLocationUseCase  removeLocationUseCase;
   AddLocationUseCase addLocationUseCase;
-  List<LocationEntity> userLocationsList = [];
+  List<AddressEntity> userLocationsList = [];
+  LocationEntity? billingAddress ;
+  LocationEntity? shippingAddress ;
+
 
   LocationEntity? currentCheckOutLocation;
 
@@ -69,7 +72,10 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
         emit(const LocationsFailedState());
       },(data) {
         userLocationsList = data;
-        if(userLocationsList.isNotEmpty)currentCheckOutLocation = userLocationsList.first;
+        if(userLocationsList.isNotEmpty){
+          billingAddress = userLocationsList.first.billingAddress!;
+          shippingAddress = userLocationsList.first.shippingAddress;
+        }
         emit(const LocationsSuccessfullyState());
       });
     // }catch(e){

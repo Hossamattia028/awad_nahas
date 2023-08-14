@@ -7,7 +7,7 @@ class FetchUserLocationsUseCase{
   final LocationsRepository locationsRepository;
   FetchUserLocationsUseCase({required this.locationsRepository});
 
-  Future<Either<Failure , List<LocationEntity>>> call()async{
+  Future<Either<Failure , List<AddressEntity>>> call()async{
     return await locationsRepository.fetchAllLocations();
   }
 }

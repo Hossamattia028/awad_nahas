@@ -50,7 +50,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
     if(widget.locationEntity!=null){
       locationMapEntity = LocationMapEntity(
           lat: widget.locationEntity!.lat, long: widget.locationEntity!.long,
-          address: widget.locationEntity!.address, city: widget.locationEntity!.city, country: widget.locationEntity!.country);
+          address: widget.locationEntity!.address2, city: widget.locationEntity!.address1, country: widget.locationEntity!.country);
       if(widget.locationEntity!.type=="work"){
         locationEnum = LocationEnum.WORK;
       }else if(widget.locationEntity!.type=="home"){
@@ -68,7 +68,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
     return Scaffold(
       backgroundColor: DMUtil.getWC(),
       appBar: GlobalAppBar(
-        title: widget.locationEntity!=null?widget.locationEntity!.address:translate("map.add_location"),
+        title: widget.locationEntity!=null?widget.locationEntity!.address1:translate("map.add_location"),
         leadingIcon: const BackArrowButton(),
       ),
       body: BlocListener<LocationsBloc,LocationsState>(
