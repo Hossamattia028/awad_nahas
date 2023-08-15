@@ -52,9 +52,9 @@ class ApiUrl {
   static const String REMOVE_FAV = '${BASE_URL}wishlist/';
 
 
-  static const String ADD_ORDER = '${BASE_URL}order';
-  static const String FETCH_ALL_ORDERS = '${BASE_URL}order';
-  static const String CANCEL_ORDER = '${BASE_URL}order';
+  static const String ADD_ORDER = '${BASE_URL}orders';
+  static const String FETCH_ALL_ORDERS = '${BASE_URL}orders';
+  static const String CANCEL_ORDER = '${BASE_URL}orders';
   static const String coupon = '${BASE_URL}coupon';
 
 }

@@ -44,7 +44,7 @@ class ProductCardFewData extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 SizedBox(
-                  width: 140.w,
+                  width: 130.w,
                   child: SingleChildScrollView(
                     child: CustomText(
                       text: item.title.toString(),

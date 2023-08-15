@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/continue_shopping.dart';
+import 'package:awad_nahas/features/order/domain/entities/order.dart';
 import 'package:awad_nahas/features/order/presentation/widgets/order_tracking_widgets/order_card_details.dart';
 import 'package:awad_nahas/features/order/presentation/widgets/order_tracking_widgets/tracking_line.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
@@ -11,7 +12,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 
 class OrderTrackingScreen extends StatelessWidget {
-  const OrderTrackingScreen({Key? key}) : super(key: key);
+  final Orders item;
+  const OrderTrackingScreen({Key? key,required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class OrderTrackingScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const OrderCardDetails(),
+            OrderCardDetails(item: item,),
             const SizedBox(height: 10,),
 
             Container(

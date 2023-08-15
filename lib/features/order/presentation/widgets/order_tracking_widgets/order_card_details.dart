@@ -1,6 +1,8 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/order/domain/entities/order.dart';
 import 'package:awad_nahas/features/order/presentation/screens/order_tracking.dart';
+import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_card_with_few_data.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
@@ -14,7 +16,8 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class OrderCardDetails extends StatelessWidget {
   final bool enableTracking;
-  const OrderCardDetails({Key? key,this.enableTracking = false}) : super(key: key);
+  final Orders item;
+  const OrderCardDetails({Key? key,this.enableTracking = false,required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +38,33 @@ class OrderCardDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomText(
-                    text: "#23590",
+                    text: "#${item.orderId}",
                     color: DMUtil.getD2C(),
                     fontSize: AppStyle.small.sp,
                   ),
                   CustomText(
-                    text: "${translate("order.date")} ${Util.formatToDayFullMonthYear(DateTime.now())}",
+                    text: "${translate("order.date")} ${Util.formatToDayFullMonthYear(DateTime.parse(item.date.toString()))}",
                     color: DMUtil.getD2C(),
                     fontSize: AppStyle.small.sp,
                   ),
                 ],
               ),
               const SizedBox(height: 10,),
-              ProductCardFewData(item: ProductsBloc.get(context).productsList.first),
-              ProductCardFewData(item: ProductsBloc.get(context).productsList.first),
+              if(item.items!=null && item.items!.isNotEmpty)
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (ctx,index){
+                  var it = item.items![index];
+                  var product = ProductsEntity(title: it.title, catTitle: "", desc: "", id: 1, imgPath: "", price: it.price, discount: 0, discountRate: 0, stockStatus: true, quantity: 0, categoryList: [], catID: 0, commentCount: 2);
+                  int ind = ProductsBloc.get(context).productsList.indexWhere((element) => element.title==product.title);
+                  if(ind!=-1) product = ProductsBloc.get(context).productsList[ind];
+                  return ProductCardFewData(item: product);
+                },
+                separatorBuilder: (ctx,index) => const SizedBox(height: 5,),
+                itemCount: item.items!.length,
+              ),
+
               if(enableTracking)...[
                 const SizedBox(height: 10,),
                 CustomButton(
@@ -61,7 +77,7 @@ class OrderCardDetails extends StatelessWidget {
                     fontSize: AppStyle.small.sp+2,
                   ),
                   color: DMUtil.getRED(),
-                  onPressed: ()=>  Util.pushPage(const OrderTrackingScreen(), context),
+                  onPressed: ()=>  Util.pushPage(OrderTrackingScreen(item: item,), context),
                 ),
               ],
 

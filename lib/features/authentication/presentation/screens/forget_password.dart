@@ -81,7 +81,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     onPressed: ()async{
                       String phone = emailTextEditingController.text.trim();
                       if(phone.isNotEmpty){
-                        var res = await Util.sendFirebaseVerifyCode(phone);
+
                         // if(){
                         Util.pushPage(PinCodeVerificationScreen(phone: emailTextEditingController.text.trim(),), context);
                         // }

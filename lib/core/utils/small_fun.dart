@@ -4,6 +4,8 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
+import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
+import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
@@ -36,25 +38,7 @@ class Util{
     CartBloc.get(context).add(const FetchAllCartEvent());
     LocationsBloc.get(context).add(const FetchUserLocationsEvent());
     // AccountBloc.get(context).add(const FetchAllNotificationsEvent());
-    // OrderBloc.get(context).add(const FetchAllOrderEvent());
-  }
-
-  static sendFirebaseVerifyCode(String phone)async{
-    FirebaseAuth auth = FirebaseAuth.instance;
-    await auth.verifyPhoneNumber(
-      phoneNumber: phone,
-      timeout: const Duration(seconds: 60),
-      codeAutoRetrievalTimeout: (String verificationId) {},
-      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {  },
-      verificationFailed: (FirebaseAuthException error) {  },
-      codeSent: (String verificationId, int? forceResendingToken) async{
-        await SharedPref().setPreferencesString(Constants.lastVerificationCode, verificationId);
-      },
-    ).catchError((e){
-      debugPrint('sendFirebaseVerifyCode: $e');
-    }).onError((error, stackTrace){
-      debugPrint('sendFirebaseVerifyCode: $error');
-    });
+    OrderBloc.get(context).add(const FetchAllOrderEvent());
   }
 
   static Future<bool> verifyFirebaseCode(String otp) async{

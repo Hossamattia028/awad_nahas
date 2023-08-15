@@ -59,7 +59,6 @@ class OrderModel extends Orders {
         userName: jsonObject['customer_name']??"",
         driverID: int.parse(jsonObject['driver_id']??"0"),
         managerId: int.parse((jsonObject['manager_id'] ?? "0").toString()),
-        driverName: jsonObject['driver_name']??"",
         userPhone: jsonObject['customer_phone']??"",
         userEmail: jsonObject['customer_email']??"",
         userCity: jsonObject['customer_city']??"",

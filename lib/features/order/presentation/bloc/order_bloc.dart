@@ -26,21 +26,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     "Elkhobar",
   ];
 
-  List<Orders> orderList = [
-    Orders(items: [
-      OrderItem(title: "Smeg Dolce & Gabbana 2 Slice Toaster 50’s Retro Style", price: 200, qty: "2"),
-      OrderItem(title: "Smeg 90cm Freestanding Gas Hob 6 Burners & Full Electric Oven, Yellow", price: 200, qty: "2"),
-    ])
-  ];
-  List<Orders> orderFilteredList = [
-    Orders(items: [
-      OrderItem(title: "Smeg Dolce & Gabbana 2 Slice Toaster 50’s Retro Style", price: 200, qty: "2"),
-      OrderItem(title: "Smeg 90cm Freestanding Gas Hob 6 Burners & Full Electric Oven, Yellow", price: 200, qty: "2"),
-    ])
-  ];
-  // List<Orders> driverOrdersList = [];
-  int totalPrice = 0;
-
+  List<Orders> orderList = [];
 
   AddOrderUseCase addOrderUseCase;
   GetAllOrderUseCase getAllOrderUseCase;
@@ -95,10 +81,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
 
   filterOrderByDate(FilterOrderByDate event, emit){
     emit(OrderLoadingState());
-    orderFilteredList.clear();
-    if(event.dateTime!=null){
-      orderFilteredList = orderList.where((element) =>  Util.formatToDayFullMonthYear(DateTime.parse(element.date.toString())) == Util.formatToDayFullMonthYear(event.dateTime!)).toList();
-    }
+
     emit(OrderSuccessfullyState());
   }
 
@@ -124,7 +107,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       res.fold((l) {
         emit(OrderErrorState(errors: l.toString()));
       },(data) {
-        // orderList = data.reversed.toList();
+        orderList = data.reversed.toList();
         emit(OrderSuccessfullyState());
       });
     // }catch(e){

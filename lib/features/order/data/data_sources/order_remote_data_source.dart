@@ -12,7 +12,6 @@ import 'package:awad_nahas/features/order/data/models/order_model.dart';
 
 abstract class OrderRemoteDataSourceImpl {
   Future<List<OrderModel>> getAllOrder();
-  // Future<List<OrderModel>> getAllDriversOrders();
   Future<bool> addOrder({required Map<String,dynamic> data});
   Future<bool> updateOrder({required Map<String,dynamic> data,File? fileR});
   Future<bool> cancelOrder({required int orderId});
@@ -25,9 +24,9 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
   Future<List<OrderModel>> getAllOrder() async {
     var response = await client.get(Uri.parse(ApiUrl.FETCH_ALL_ORDERS), headers: ApiUrl.headerAuth);
     debugPrint("getAllOrder: ${response.body}");
-    if (response.body.toString().contains("true")) {
-      final body = json.decode(response.body);
-      List<OrderModel> orders = body['data'].map<OrderModel>((orderModel) {
+    final decodedData = json.decode(response.body);
+    if (decodedData['status']) {
+      List<OrderModel> orders = decodedData['data'].map<OrderModel>((orderModel) {
         return OrderModel.fromJson(orderModel);
       }).toList();
       return orders;
@@ -35,21 +34,6 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
       throw ServerException();
     }
   }
-
-  // @override
-  // Future<List<OrderModel>> getAllDriversOrders() async {
-  //   var response = await client.get(Uri.parse(ApiUrl.FETCH_ALL_DRIVERS_ORDERS), headers: ApiUrl.headerAuth);
-  //   debugPrint("getAllDriversOrders: ${response.body}");
-  //   if (response.body.toString().contains("true")) {
-  //     final body = json.decode(response.body);
-  //     List<OrderModel> orders = body['data'].map<OrderModel>((orderModel) {
-  //       return OrderModel.driversOrderFromJson(orderModel);
-  //     }).toList();
-  //     return orders;
-  //   } else {
-  //     throw ServerException();
-  //   }
-  // }
 
   @override
   Future<bool> addOrder({required Map<String,dynamic> data}) async {

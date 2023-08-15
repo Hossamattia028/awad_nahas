@@ -24,8 +24,6 @@ class OrderList extends StatelessWidget {
           var bloc = OrderBloc.get(ctx);
           bloc.add(ChangeCurrentOrdersEvent(type: index==0?ORDER_STATUS.ONGOING:ORDER_STATUS.COMPLETED,index: index,));
           var list = bloc.orderList;
-          // var list = bloc.getCurrentOrdersByType();
-          // var list = bloc.getCurrentOrdersByType();
           // if(state is OrderLoadingState) return const Center(child: CircularProgressIndicator(),);
           return Scrollbar(
             child: ListView.separated(
@@ -33,7 +31,7 @@ class OrderList extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   var item = list[index];
-                  return const OrderCardDetails(enableTracking: true);
+                  return OrderCardDetails(enableTracking: true,item: item,);
                 },
                 separatorBuilder: (context, index) => const SizedBox(height: 15),
                 itemCount: list.length),
