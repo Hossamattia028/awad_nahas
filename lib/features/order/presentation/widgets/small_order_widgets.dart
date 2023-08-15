@@ -22,8 +22,8 @@ class OrderList extends StatelessWidget {
       child: BlocBuilder<OrderBloc,OrderState>(
         builder: (ctx,state){
           var bloc = OrderBloc.get(ctx);
-          bloc.add(ChangeCurrentOrdersEvent(type: index==0?ORDER_STATUS.ONGOING:ORDER_STATUS.COMPLETED,index: index,));
-          var list = bloc.orderList;
+          bloc.add(ChangeCurrentOrdersEvent(type: index==0?ORDER_STATUS.PENDING:ORDER_STATUS.COMPLETED,index: index,));
+          var list = bloc.getCurrentOrdersByType();
           // if(state is OrderLoadingState) return const Center(child: CircularProgressIndicator(),);
           return Scrollbar(
             child: ListView.separated(

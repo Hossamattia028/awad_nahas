@@ -96,8 +96,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
   }
 
   List<Orders> getCurrentOrdersByType(){
-    List<Orders> list = [];
-    return list.where((element) => OrderModel.getStatusViewCheck(element.status.toString()) == currentOrdersType).toList();
+    return orderList.where((element) => OrderModel.getStatusViewCheck(element.status.toString()) == currentOrdersType).toList();
   }
 
   getAllOrder(emit)async{
