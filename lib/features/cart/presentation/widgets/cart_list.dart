@@ -65,13 +65,15 @@ class CartListWidget extends StatelessWidget {
                               Expanded(
                                 child: SizedBox(
                                   width: 200.w,
-                                  child: CustomText(
-                                    text: item.title,
-                                    color: DMUtil.getD2C(),
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: AppStyle.average.sp-2,
-                                    maxLine: 5,
-                                    isEllipsis: true,
+                                  child: SingleChildScrollView(
+                                    child: CustomText(
+                                      text: item.title,
+                                      color: DMUtil.getD2C(),
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: AppStyle.average.sp-2,
+                                      maxLine: 5,
+                                      isEllipsis: true,
+                                    ),
                                   ),
                                 ),
                               ),

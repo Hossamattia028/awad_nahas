@@ -1,10 +1,7 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
-import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_card_with_few_data.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/qt_widget.dart';
-import 'package:awad_nahas/features/shared_widgets/align_child_by_row.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
@@ -15,7 +12,6 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
-import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 
 
@@ -36,9 +32,7 @@ class AddToCartButton extends StatelessWidget {
       child: BlocBuilder<CartBloc,CartState>(
         builder: (ctx,state){
           var bloc = CartBloc.get(ctx);
-          int index = bloc.cartList.indexWhere((element) => element.id==item.id);
-          bool insideCartList = false;
-          if(index!=-1)insideCartList=true;
+          bool insideCartList = bloc.checkIFProductInsideCartList(item);
           return CustomButton(
             color: insideCartList?Colors.white:kBackBlueColor,
             height: 30.h,
@@ -68,7 +62,7 @@ class AddToCartButton extends StatelessWidget {
               if(item.stockStatus!=true){
                 SnackBarBuilder.showFeedBackMessage(context, translate("toast.out_of_stock"), Colors.red);
               }else{
-                bloc.add(AddToCartEvent(product: item,));
+                bloc.add(ModifyCartProductEvent(product: item, context: context, isAdd: true,remove: insideCartList));
               }
             },
           );
@@ -178,9 +172,8 @@ class AddToCartButtonWidget extends StatelessWidget {
         child: BlocBuilder<CartBloc,CartState>(
           builder: (ctx,state){
             var bloc = CartBloc.get(ctx);
-            int index = bloc.cartList.indexWhere((element) => element.id==item.id);
-            bool insideCartList = false;
-            if(index!=-1)insideCartList=true;
+            bool insideCartList = bloc.checkIFProductInsideCartList(item);
+            print("$insideCartList");
             return Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Container(
@@ -221,7 +214,7 @@ class AddToCartButtonWidget extends StatelessWidget {
                             ],
                           ),
                           color: DMUtil.getRED(),
-                          onPressed: ()=> CartBloc.get(context).add(AddToCartEvent(product: item,)),
+                          onPressed: ()=> CartBloc.get(context).add(ModifyCartProductEvent(product: item, context: context, isAdd: true,remove: insideCartList)),
                       ),
 
                     ],

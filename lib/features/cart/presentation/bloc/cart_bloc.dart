@@ -81,6 +81,12 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     // }
   }
 
+  bool checkIFProductInsideCartList(ProductsEntity item){
+    int index = cartList.indexWhere((element) => element.id==item.id || element.imgPath.trim() == item.imgPath.trim());
+    if(index!=-1)return true;
+    return false;
+  }
+
   calcTotal(){
     totalPrice = 0;
     for(var i in cartList){
@@ -100,20 +106,6 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       });
     }catch(e){
       emit(CartErrorState(errors: translate("toast.oops")));
-    }
-  }
-
-  removeToCartList(RemoveToCartEvent event,emit)async{
-    emit(CartLoadingState());
-    try{
-      var res = await removeCartItemUseCase(productID: event.product.id);
-      res.fold((l) {
-        emit(CartErrorState(errors: l.toString()));
-      },(data) {
-        emit(RemoveCartSuccessfullyState());
-      });
-    }catch(e){
-      emit(CartErrorState(errors: translate("toast.oops").toString()));
     }
   }
 
@@ -140,9 +132,10 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     }
     calcTotal();
     cartList = cartList;
-    print(cartList.length);
     emit(CartSuccessfullyState());
     await Future.delayed(const Duration(seconds: 1));
+    // addToCartList(AddToCartEvent(), emit);
+    // print(event.context.mounted);
     CartBloc.get(event.context).add(const AddToCartEvent());
   }
 
@@ -157,23 +150,38 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   getDiscountCoupon(ImplementCouponDiscountEvent event,emit)async {
     // emit(CartLoadingState());
     // try{
-    //   var res = await applyCouponUseCase(dataSet: {'code':event.couponTxt.trim()});
-    //   res.fold((l) {
-    //     emit(CartErrorState(errors: translate("toast.oops")));
-    //   },(data) {
-    //     couponModel= data;
-    //     if(couponModel!=null && couponModel!.total!=null && couponModel!.total != 0){
-    //       couponValue = totalPrice - couponModel!.total!;
-    //       totalPrice = couponModel!.total!;
-    //       emit(CouponSuccessfullyState());
-    //     }else{
-    //       emit(CartErrorState(errors: translate("cart.couponـwrong")));
-    //     }
-    //   });
+      var res = await applyCouponUseCase(dataSet: {'code':event.couponTxt.trim()});
+      res.fold((l) {
+        emit(CartErrorState(errors: translate("toast.oops")));
+      },(data) {
+        couponModel= data;
+        if(couponModel!=null && couponModel!.total!=null && couponModel!.total != 0){
+          couponValue = totalPrice - couponModel!.total!;
+          totalPrice = couponModel!.total!;
+          emit(CouponSuccessfullyState());
+        }else{
+          emit(CartErrorState(errors: translate("cart.couponـwrong")));
+        }
+      });
     // }catch(e){
     //   debugPrint("getDiscountCouponBloc: $e");
     //   emit(CartErrorState(errors: translate("toast.oops")));
     // }
+  }
+
+
+  removeToCartList(RemoveToCartEvent event,emit)async{
+    emit(CartLoadingState());
+    try{
+      var res = await removeCartItemUseCase(productID: event.product.id);
+      res.fold((l) {
+        emit(CartErrorState(errors: l.toString()));
+      },(data) {
+        emit(RemoveCartSuccessfullyState());
+      });
+    }catch(e){
+      emit(CartErrorState(errors: translate("toast.oops").toString()));
+    }
   }
 
 }

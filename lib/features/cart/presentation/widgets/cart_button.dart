@@ -20,9 +20,7 @@ class CartButtonWidget extends StatelessWidget {
     return BlocBuilder<CartBloc,CartState>(
       builder: (ctx,state){
         var bloc = CartBloc.get(ctx);
-        int index = bloc.cartList.indexWhere((element) => element.id==item.id || element.imgPath==item.imgPath);
-        bool insideCartList = false;
-        if(index!=-1)insideCartList=true;
+        bool insideCartList = bloc.checkIFProductInsideCartList(item);
         return Container(
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -44,7 +42,7 @@ class CartButtonWidget extends StatelessWidget {
               fontSize: insideCartList?AppStyle.small.sp-3:AppStyle.average.sp-3,
             ),
             color: DMUtil.getRED(),
-            onPressed: ()=> CartBloc.get(context).add(ModifyCartProductEvent(product: item, isAdd: true, context: context,)),
+            onPressed: ()=> CartBloc.get(context).add(ModifyCartProductEvent(product: item, isAdd: !insideCartList, context: context,remove: insideCartList)),
           ),
         );
       },
