@@ -50,18 +50,18 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
   @override
   void didChangeDependencies() {
     locationsBloc = LocationsBloc.get(context);
+    if(widget.type=="billing"){
+      locationEnum = LocationEnum.Billing;
+    }else if(widget.type=="shipping"){
+      locationEnum = LocationEnum.Shipping;
+    }else{
+      locationEnum = LocationEnum.OTHER;
+    }
     if(widget.locationEntity!=null){
       locationMapEntity = LocationMapEntity(
           lat: widget.locationEntity!.lat, long: widget.locationEntity!.long,
           address: widget.locationEntity!.address2, city: widget.locationEntity!.address1,
           country: widget.locationEntity!.country,postalCode: widget.locationEntity!.postCode.toString(),street: widget.locationEntity!.state.toString());
-      if(widget.locationEntity!.type=="billing"){
-        locationEnum = LocationEnum.Billing;
-      }else if(widget.locationEntity!.type=="shipping"){
-        locationEnum = LocationEnum.Shipping;
-      }else{
-        locationEnum = LocationEnum.OTHER;
-      }
       nameTextEditingController.text = Util.getName();
       phoneTextEditingController.text = widget.locationEntity!.phone;
       streetTextEditingController.text =  widget.locationEntity!.address2;
@@ -299,7 +299,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                       onPressed: () async {
                         var type = locationEnum == LocationEnum.Shipping? "shipping":"billing";
                         var phone = phoneTextEditingController.text.trim();
-                        if(flatNumberTextEditingController.text.trim().isNotEmpty&&buildingNumberTextEditingController.text.trim().isNotEmpty){
+                        if(flatNumberTextEditingController.text.trim().isNotEmpty&&buildingNumberTextEditingController.text.trim().isNotEmpty&&phone.isNotEmpty){
                           if(widget.locationEntity!=null){
                             locationsBloc.add(UpdateLocationEvent(data: {
                               // "id":widget.locationEntity!.id,

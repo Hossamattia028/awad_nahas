@@ -21,7 +21,7 @@ class SelectProductQuantityWidget extends StatelessWidget {
         Row(
           children: [
             InkWell(
-              onTap: ()=> CartBloc.get(context).add(UpdateCartProductEvent(product: item, isAdd: true,context: context)),
+              onTap: ()=> CartBloc.get(context).add(ModifyCartProductEvent(product: item, isAdd: true,context: context)),
               child: Card(
                 color: DMUtil.getWC(),
                 shape: const RoundedRectangleBorder(
@@ -43,7 +43,7 @@ class SelectProductQuantityWidget extends StatelessWidget {
                 String qty = "1";
                 if(index!=-1)qty=list[index].quantity.toString();
                 return  InkWell(
-                  onTap: ()=> bloc.add(UpdateCartProductEvent(product: item, isAdd: false,context: context,remove: qty=="1")),
+                  onTap: ()=> bloc.add(ModifyCartProductEvent(product: item, isAdd: false,context: context,remove: qty=="1")),
                   child: Card(
                     color: DMUtil.getWC(),
                     shape: const RoundedRectangleBorder(

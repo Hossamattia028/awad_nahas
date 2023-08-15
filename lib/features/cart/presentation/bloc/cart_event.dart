@@ -23,12 +23,12 @@ class RemoveToCartEvent extends CartEvent{
   const RemoveToCartEvent({required this.product});
 }
 
-class UpdateCartProductEvent extends CartEvent{
+class ModifyCartProductEvent extends CartEvent{
   final ProductsEntity product;
   final bool isAdd;
   final BuildContext context;
   final bool remove;
-  const UpdateCartProductEvent({required this.product,required this.isAdd,required this.context,this.remove=false});
+  const ModifyCartProductEvent({required this.product,required this.isAdd,required this.context,this.remove=false});
 }
 
 class UpdateShippingCostEvent extends CartEvent{

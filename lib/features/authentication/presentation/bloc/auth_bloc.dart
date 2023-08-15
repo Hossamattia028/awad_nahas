@@ -84,7 +84,11 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
         emit(RegisterFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
       },(data) {
         resMsg = data.msg.toString();
-        emit(RegisterSuccessfullyState(response: AuthResponse(msg: resMsg,isSuccess: true)));
+        if(data.isSuccess==true){
+          emit(RegisterSuccessfullyState(response: AuthResponse(msg: resMsg,isSuccess: true)));
+        }else{
+          emit(RegisterFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
+        }
       });
     }catch(e){
       debugPrint("registerError: $e");

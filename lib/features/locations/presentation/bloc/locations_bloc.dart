@@ -59,10 +59,13 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
 
   updateCurrentCheckOutLocation(UpdateCurrentLocationEvent event,emit){
     emit(const LocationsLoadingState());
+    currentCheckOutLocation = null;
     if(userLocationsList!.shippingAddress!=null && event.isShipping){
+      print("sdfsdf");
       currentCheckOutLocation = userLocationsList!.shippingAddress;
     }
     if(userLocationsList!.billingAddress!=null && !event.isShipping){
+      print("fdsf");
       currentCheckOutLocation = userLocationsList!.billingAddress;
     }
     emit(const UpdateCurrentLocationSuccessfullyState());
@@ -78,7 +81,9 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
       },(data) {
         userLocationsList = data;
         if(userLocationsList!.billingAddress!=null)billingAddress = userLocationsList!.billingAddress;
-        if(userLocationsList!.billingAddress!=null)shippingAddress = userLocationsList!.shippingAddress;
+        if(userLocationsList!.shippingAddress!=null)shippingAddress = userLocationsList!.shippingAddress;
+        print(userLocationsList!.shippingAddress!.type);
+        currentCheckOutLocation = null;
         emit(const LocationsSuccessfullyState());
       });
     // }catch(e){

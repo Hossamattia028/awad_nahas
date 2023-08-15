@@ -593,7 +593,9 @@
 		"location_name": "Address Title",
 		"select_on_map": "Select your location on map",
 		"sure_to_delete": "Are you sure to delete this Location!",
-		"location_deleted": "Successfully Deleted the Location"
+		"location_deleted": "Successfully Deleted the Location",
+		"shipping_not_found": "Shipping not found",
+		"billing_not_found": "Billing not found"
 	},
 	"language": {
 		"name": {

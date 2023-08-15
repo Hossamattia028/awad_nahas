@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/generat_cart_post_func.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +39,8 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       await addToCartList(event,emit);
       await getAllCart(emit);
     });
-    on<UpdateCartProductEvent>((event, emit) {
-      updateProductQuantity(event,emit);
+    on<ModifyCartProductEvent>((event, emit) async{
+      await modifyCartProduct(event,emit);
     });
 
     on<UpdateCountEvent>((event, emit) {
@@ -65,7 +67,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
         for(var i in data.sessionValue){
           cartList.add(ProductsEntity(title: "", catTitle: "",
               desc: "", id: i.productID,
-              imgPath: "", price: 0, discount: 0,discountRate: 0, stockStatus: true,
+              imgPath: "", price: i.price, discount: 0,discountRate: 0, stockStatus: true,
               quantity: i.quantity,categoryList: const [],commentCount: 0,catID: 0));
         }
         cartList = cartList;
@@ -79,28 +81,18 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     // }
   }
 
-  updateCartList(ProductsEntity item){
-    int index = cartList.indexWhere((element) => element.id==item.id);
-    if(index==-1){
-      cartList.add(item);
-    }else{
-      cartList.removeAt(index);
-    }
-  }
-
   calcTotal(){
     totalPrice = 0;
     for(var i in cartList){
-      totalPrice += i.price * i.quantity;
+      totalPrice = totalPrice + (i.price * i.quantity);
     }
-    return totalPrice;
+    return totalPrice.toStringAsFixed(2);
   }
 
   addToCartList(AddToCartEvent event,emit)async{
     emit(CartLoadingState());
     try{
-      if(event.product!=null)updateCartList(event.product!);
-      var res = await addCartItemUseCase(data:GenerateCartJson.generate(productList: cartList,total: calcTotal().toString()));
+      var res = await addCartItemUseCase(data: GenerateCartJson.generate(productList: cartList,total: calcTotal().toString()));
       res.fold((l) {
         emit(CartErrorState(errors: translate("toast.oops")));
       },(data) {
@@ -125,29 +117,32 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     }
   }
 
-  updateProductQuantity(UpdateCartProductEvent event,emit){
+  modifyCartProduct(ModifyCartProductEvent event,emit)async{
     // emit(CartLoadingState());
-    int index = cartList.indexWhere((element) => event.product.id.toString() == element.id.toString());
+    int index = cartList.indexWhere((element) => event.product.id.toString() == element.id.toString() || element.imgPath.trim() == event.product.imgPath.trim());
     if(index!=-1) {
       if(event.remove){
         cartList.removeAt(index);
       }else{
         var item = cartList[index];
         int newQty = event.isAdd?item.quantity+1:(item.quantity==1?item.quantity:item.quantity-1);
-        item = ProductsEntity(title: "", catTitle: "",
+        item = ProductsEntity(title: event.product.title, catTitle: "",
             desc: "", id: item.id,discountRate: 0,
-            imgPath: "", price: event.product.price, discount: 0, stockStatus: true,
+            imgPath: event.product.imgPath, price: event.product.price, discount: 0, stockStatus: true,
             quantity: newQty,categoryList: const [],commentCount: 0,catID: item.catID);
+        cartList[index] = item;
       }
     }else{
-      cartList.add(ProductsEntity(title: "", catTitle: "",
+      cartList.add(ProductsEntity(title: event.product.title, catTitle: "",
           desc: "", id: event.product.id,discountRate: 0,
-          imgPath: "", price: event.product.price, discount: 0, stockStatus: true,
+          imgPath: event.product.imgPath, price: event.product.price, discount: 0, stockStatus: true,
           quantity: 1,categoryList: const [],commentCount: 0,catID:event.product.catID));
     }
     calcTotal();
     cartList = cartList;
+    print(cartList.length);
     emit(CartSuccessfullyState());
+    await Future.delayed(const Duration(seconds: 1));
     CartBloc.get(event.context).add(const AddToCartEvent());
   }
 

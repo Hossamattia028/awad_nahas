@@ -73,6 +73,7 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
       // String? token =  await Util.getCurrentUserPushToken();
       request.fields['name'] = userData['name'];
       if(userData['email'] != null)request.fields['user_login'] = userData['email'];
+      if(userData['email'] != null)request.fields['email'] = userData['email'];
       if(userData['phone'] != null)request.fields['user_login'] = userData['phone'];
 
       request.fields['password'] = userData['password'];

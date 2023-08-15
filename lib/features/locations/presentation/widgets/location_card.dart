@@ -14,11 +14,13 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 class LocationCardWidget extends StatelessWidget {
   final LocationEntity locationEntity;
   final bool currentLocation;
-  const LocationCardWidget({Key? key, required this.locationEntity,required this.currentLocation})
+  final bool isAdd;
+  const LocationCardWidget({Key? key, required this.locationEntity,required this.currentLocation,this.isAdd = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var txt = locationEntity.type=="shipping"?translate("map.shipping_not_found"):translate("map.billing_not_found");
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
       decoration: BoxDecoration(
@@ -39,7 +41,7 @@ class LocationCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CircleDotsWidget(isEnabled: currentLocation,),
+          CircleDotsWidget(isEnabled: currentLocation ,),
           const SizedBox(width: 5,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,53 +54,30 @@ class LocationCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: locationEntity.address1,
+                      text:isAdd ? txt : locationEntity.address1,
                       color: DMUtil.getDC(),
                       fontSize: AppStyle.average.sp,
                       maxLine: 3,
                     ),
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () => Util.pushPage(AddNewLocationScreen(locationEntity: locationEntity,), context),
-                          child: CustomText(
-                            text: translate("button.edit"),
-                            color: DMUtil.getDC(),
-                            fontSize: AppStyle.average.sp,
-                          ),
-                        ),
-                        // const SizedBox(width: 10,),
-                        // InkWell(
-                        //   onTap: () async {
-                        //     final res = await CustomDialogs.sureToDelete(context);
-                        //     if (res == 'ok') LocationsBloc.get(context).add(RemoveLocationEvent(id: locationEntity.id));
-                        //   },
-                        //   child: Row(
-                        //     children: [
-                        //       const Icon(
-                        //         Icons.delete,
-                        //         color: kText1,
-                        //         size: 15,
-                        //       ),
-                        //       CustomText(
-                        //         text: translate("button.remove"),
-                        //         color: Colors.black,
-                        //         fontSize: AppStyle.small.sp,
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                      ],
+                    InkWell(
+                      onTap: () => Util.pushPage(AddNewLocationScreen(locationEntity: isAdd ? null : locationEntity,type: locationEntity.type,), context),
+                      child: CustomText(
+                        text: isAdd? translate("map.set_location") :translate("button.edit"),
+                        color: DMUtil.getDC(),
+                        fontSize: AppStyle.average.sp,
+                      ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 7,),
+              if(locationEntity.address1.isNotEmpty)
               SmallLineLocationData(
                 title: translate("profile.city"),
                 value: locationEntity.address1,
               ),
               const SizedBox(height: 5,),
+              if(locationEntity.phone.isNotEmpty)
               SmallLineLocationData(
                 title: translate("profile.mobile"),
                 value: locationEntity.phone,
@@ -126,13 +105,14 @@ class SmallLineLocationData extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 20.h,
-      width: 100.w,
+      width: 230.w,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           if(title!=null)
           SizedBox(
-            width: 40.w,
+            // width: 80.w,
             child: CustomText(
               text: title.toString(),
               color: DMUtil.getDC(),
@@ -140,7 +120,7 @@ class SmallLineLocationData extends StatelessWidget {
               fontSize: AppStyle.small.sp,
             ),
           ),
-
+          const SizedBox(width: 10,),
           Expanded(
             child: CustomText(
               text: value,

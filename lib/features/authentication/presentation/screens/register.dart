@@ -205,11 +205,11 @@ class RegisterScreen extends StatelessWidget {
                       onPressed: (){
                         if(validateForm(bloc.registerByPhone)){
                             bloc.add(RegisterEvent(user: {
-                              'email':emailTextEditingController.text.toString().trim(),
-                              'name':"${firstNameTextEditingController.text.toString().trim()} ${secondNameTextEditingController.text.toString().trim()}",
-                              'user_login': bloc.registerByPhone? phoneTextEditingController.text.toString().trim() : emailTextEditingController.text.toString().trim(),
-                              'phone':phoneTextEditingController.text.toString().trim(),
-                              'password':passwordTextEditingController.text.toString().trim(),
+                              if(!bloc.registerByPhone)'email':emailTextEditingController.text.trim(),
+                              'name':"${firstNameTextEditingController.text.trim()} ${secondNameTextEditingController.text.trim()}",
+                              'user_login': bloc.registerByPhone? phoneTextEditingController.text.trim() : emailTextEditingController.text.trim(),
+                              if(bloc.registerByPhone)'phone':phoneTextEditingController.text.trim(),
+                              'password':passwordTextEditingController.text.trim(),
                             }));
                         }else{
                           SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
@@ -273,7 +273,7 @@ class RegisterScreen extends StatelessWidget {
   validateForm(bool checkPhone,{BuildContext? context}){
     if(checkPhone&& phoneTextEditingController.text.isEmpty) return false;
     if(!checkPhone) {
-      if(emailTextEditingController.text.isEmpty || emailTextEditingController.text.contains("@")){
+      if(emailTextEditingController.text.isEmpty || !emailTextEditingController.text.contains("@")){
         if(context!=null)SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), Colors.red);
         return false;
       }

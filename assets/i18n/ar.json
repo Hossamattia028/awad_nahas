@@ -368,8 +368,7 @@
       "kilometer": "كيلو متر",
       "use_your_location": "استخدم موقعك الحالي",
       "location_sure_to_use": "تآكيد استخدام موقعك الحالي؟",
-      "your_location": "موقعك الحالي",
-      "kitchen_k": "مطبخ"
+      "your_location": "موقعك الحالي"
     },
     "vendor": {
       "my_products": "وجباتي",
@@ -595,7 +594,9 @@
       "location_name": "تسمية العنوان",
       "select_on_map": "تحديد العنوان علي الخريطة",
       "sure_to_delete": "هل تريد حذف هذا العنوان",
-      "location_deleted": "تم حذف العنوان بنجاح"
+      "location_deleted": "تم حذف العنوان بنجاح",
+      "shipping_not_found": "لم يتم اضافة عنوان توصيل",
+      "billing_not_found": "لم يتم اضافة عنوان للفاتورة"
     },
     "language": {
       "name": {

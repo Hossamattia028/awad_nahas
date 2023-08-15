@@ -48,7 +48,6 @@ class AddressModel extends AddressEntity{
   //         json.decode(str).map((x) => AddressModel.fromJson(x)));
 
   static AddressModel fromJson(Map<String, dynamic> jsonObject) {
-    print(jsonObject.toString());
     return AddressModel(
       shippingAddress: LocationModel.fromJson(jsonObject['shipping'], "shipping"),
       billingAddress: LocationModel.fromJson(jsonObject['billing'], "billing"),
