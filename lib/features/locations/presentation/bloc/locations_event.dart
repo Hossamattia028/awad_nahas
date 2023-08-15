@@ -29,8 +29,8 @@ class AddLocationEvent extends LocationsEvent{
 }
 
 class UpdateCurrentLocationEvent extends LocationsEvent{
-  final LocationEntity locationEntity;
-  const UpdateCurrentLocationEvent({required this.locationEntity});
+  final bool isShipping;
+  const UpdateCurrentLocationEvent({required this.isShipping});
 }
 
 

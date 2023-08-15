@@ -14,7 +14,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
   UpdateLocationUseCase  updateLocationUseCase;
   RemoveLocationUseCase  removeLocationUseCase;
   AddLocationUseCase addLocationUseCase;
-  List<AddressEntity> userLocationsList = [];
+  AddressEntity? userLocationsList ;
   LocationEntity? billingAddress ;
   LocationEntity? shippingAddress ;
 
@@ -59,8 +59,13 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
 
   updateCurrentCheckOutLocation(UpdateCurrentLocationEvent event,emit){
     emit(const LocationsLoadingState());
-    currentCheckOutLocation = event.locationEntity;
-    emit(const LocationsSuccessfullyState());
+    if(userLocationsList!.shippingAddress!=null && event.isShipping){
+      currentCheckOutLocation = userLocationsList!.shippingAddress;
+    }
+    if(userLocationsList!.billingAddress!=null && !event.isShipping){
+      currentCheckOutLocation = userLocationsList!.billingAddress;
+    }
+    emit(const UpdateCurrentLocationSuccessfullyState());
   }
 
   getUserLocationsData(event,emit)async{
@@ -72,10 +77,8 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
         emit(const LocationsFailedState());
       },(data) {
         userLocationsList = data;
-        if(userLocationsList.isNotEmpty){
-          billingAddress = userLocationsList.first.billingAddress!;
-          shippingAddress = userLocationsList.first.shippingAddress;
-        }
+        if(userLocationsList!.billingAddress!=null)billingAddress = userLocationsList!.billingAddress;
+        if(userLocationsList!.billingAddress!=null)shippingAddress = userLocationsList!.shippingAddress;
         emit(const LocationsSuccessfullyState());
       });
     // }catch(e){

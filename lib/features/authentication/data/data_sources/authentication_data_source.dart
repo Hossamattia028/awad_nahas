@@ -38,7 +38,7 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
     );
     var decodedData = json.decode(response.body);
     debugPrint("loginUser: ${response.body}");
-    if(response.body.contains("Unauthorized")){
+    if(response.body.contains("Unauthorized")||response.body.contains("user not found")){
       return AuthResponse(user: null,msg: translate("toast.sign_wrong"));
     }else if(decodedData['status']){
       final Map<String, dynamic> bodyData = json.decode(response.body);

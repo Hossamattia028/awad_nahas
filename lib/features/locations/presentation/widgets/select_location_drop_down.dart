@@ -1,4 +1,3 @@
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
-import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.dart';
 
 class SelectLocations extends StatelessWidget {
@@ -18,7 +16,10 @@ class SelectLocations extends StatelessWidget {
     return BlocBuilder<LocationsBloc,LocationsState>(
       builder: (ctx,state){
         var bloc = LocationsBloc.get(ctx);
-        var list = bloc.userLocationsList;
+        var list = [];
+        var location  = bloc.userLocationsList;
+        if(location!=null&&location.shippingAddress!=null)list.add(location.shippingAddress);
+        if(location!=null&&location.billingAddress!=null)list.add(location.billingAddress);
         if(list.isEmpty)return const SizedBox.shrink();
         return DropdownButton(
           isExpanded: true,

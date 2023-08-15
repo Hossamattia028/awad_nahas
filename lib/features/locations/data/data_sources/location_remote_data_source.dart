@@ -11,7 +11,7 @@ abstract class LocationRemoteDataSourceImpl{
   Future<bool> addNewLocation({required Map<String,dynamic> data});
   Future<bool> removeLocation({required int addressId});
   Future<bool> updateLocation({required Map<String,dynamic> data});
-  Future<List<AddressModel>> fetchAllLocations();
+  Future<AddressModel> fetchAllLocations();
 }
 
 
@@ -59,13 +59,13 @@ class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
   }
 
   @override
-  Future<List<AddressModel>> fetchAllLocations() async{
+  Future<AddressModel> fetchAllLocations() async{
     var response = await client.get(Uri.parse(ApiUrl.FETCH_ADDRESS),
         headers: ApiUrl.headerAuth);
     debugPrint("fetchAllLocations: ${response.body}");
     var decodedData = json.decode(response.body.toString());
     if (response.statusCode == 200 && decodedData['status']) {
-      return AddressModel.listFromJson(decodedData);
+      return AddressModel.fromJson(decodedData);
     } else {
       throw ServerException();
     }

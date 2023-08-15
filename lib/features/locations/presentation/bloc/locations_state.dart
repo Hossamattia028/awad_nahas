@@ -10,6 +10,10 @@ class LocationsSuccessfullyState extends LocationsState{
   const LocationsSuccessfullyState();
 }
 
+class UpdateCurrentLocationSuccessfullyState extends LocationsState{
+  const UpdateCurrentLocationSuccessfullyState();
+}
+
 
 class LocationsFailedState extends LocationsState{
   const LocationsFailedState();

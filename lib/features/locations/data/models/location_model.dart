@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
@@ -16,7 +15,7 @@ class LocationModel extends LocationEntity{
 
   static LocationModel fromJson(Map<String, dynamic> jsonObject,type) {
     return LocationModel(
-      id: jsonObject['id'],
+      id: jsonObject['id']??0,
       address1: (jsonObject['billing_address_1']??jsonObject['shipping_address_1']).toString().replaceAll("null", ""),
       address2:  (jsonObject['billing_address_2']??jsonObject['shipping_address_2']).toString().replaceAll("null", ""),
       country:  (jsonObject['billing_country']??jsonObject['shipping_country']).toString().replaceAll("null", ""),
@@ -44,14 +43,15 @@ class LocationModel extends LocationEntity{
 class AddressModel extends AddressEntity{
   const AddressModel({required super.shippingAddress, required super.billingAddress});
 
-  static List<AddressModel> listFromJson(String str) =>
-      List<AddressModel>.from(
-          json.decode(str).map((x) => AddressModel.fromJson(x)));
+  // static List<dynamic> listFromJson(String str) =>
+  //     List<AddressModel>.from(
+  //         json.decode(str).map((x) => AddressModel.fromJson(x)));
 
   static AddressModel fromJson(Map<String, dynamic> jsonObject) {
+    print(jsonObject.toString());
     return AddressModel(
-      shippingAddress: jsonObject['shipping'],
-      billingAddress: jsonObject['billing'],
+      shippingAddress: LocationModel.fromJson(jsonObject['shipping'], "shipping"),
+      billingAddress: LocationModel.fromJson(jsonObject['billing'], "billing"),
     );
   }
 }

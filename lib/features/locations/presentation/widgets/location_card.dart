@@ -13,7 +13,8 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class LocationCardWidget extends StatelessWidget {
   final LocationEntity locationEntity;
-  const LocationCardWidget({Key? key, required this.locationEntity})
+  final bool currentLocation;
+  const LocationCardWidget({Key? key, required this.locationEntity,required this.currentLocation})
       : super(key: key);
 
   @override
@@ -22,9 +23,10 @@ class LocationCardWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
       decoration: BoxDecoration(
         color: DMUtil.getWC(),
-        border: Border.all(width: 1,color: DMUtil.getRED()),
+        border: Border.all(width: 1,color: currentLocation?DMUtil.getRED():DMUtil.getD2C()),
         borderRadius: BorderRadius.circular(4),
           boxShadow: [
+            if(currentLocation)
             BoxShadow(
               blurRadius: 1.0,
               offset: const Offset(0.05, 0.05),
@@ -37,7 +39,7 @@ class LocationCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const CircleDotsWidget(isEnabled: true,),
+          CircleDotsWidget(isEnabled: currentLocation,),
           const SizedBox(width: 5,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,4 +1,6 @@
 
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:awad_nahas/core/strings/enum/location_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ import 'package:permission_handler/permission_handler.dart';
 class AddNewLocationScreen extends StatefulWidget {
   final LocationEntity? locationEntity;
   final String? type;
-  const AddNewLocationScreen({Key? key,this.locationEntity,this.type="work"}) : super(key: key);
+  const AddNewLocationScreen({Key? key,this.locationEntity,this.type="shipping"}) : super(key: key);
 
   @override
   State<AddNewLocationScreen> createState() => _AddNewLocationScreenState();
@@ -35,6 +37,7 @@ class AddNewLocationScreen extends StatefulWidget {
 class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
   final TextEditingController nameTextEditingController = TextEditingController();
   final TextEditingController phoneTextEditingController = TextEditingController();
+  final TextEditingController cityTextEditingController = TextEditingController();
   final TextEditingController streetTextEditingController = TextEditingController();
   final TextEditingController areaTextEditingController = TextEditingController();
   final TextEditingController flatNumberTextEditingController = TextEditingController();
@@ -42,7 +45,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
   final TextEditingController postCodeNumberTextEditingController = TextEditingController();
   late LocationsBloc locationsBloc;
   LocationMapEntity? locationMapEntity;
-  LocationEnum locationEnum = LocationEnum.HOME;
+  LocationEnum locationEnum = LocationEnum.Billing;
 
   @override
   void didChangeDependencies() {
@@ -50,16 +53,18 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
     if(widget.locationEntity!=null){
       locationMapEntity = LocationMapEntity(
           lat: widget.locationEntity!.lat, long: widget.locationEntity!.long,
-          address: widget.locationEntity!.address2, city: widget.locationEntity!.address1, country: widget.locationEntity!.country);
-      if(widget.locationEntity!.type=="work"){
-        locationEnum = LocationEnum.WORK;
-      }else if(widget.locationEntity!.type=="home"){
-        locationEnum = LocationEnum.HOME;
+          address: widget.locationEntity!.address2, city: widget.locationEntity!.address1,
+          country: widget.locationEntity!.country,postalCode: widget.locationEntity!.postCode.toString(),street: widget.locationEntity!.state.toString());
+      if(widget.locationEntity!.type=="billing"){
+        locationEnum = LocationEnum.Billing;
+      }else if(widget.locationEntity!.type=="shipping"){
+        locationEnum = LocationEnum.Shipping;
       }else{
         locationEnum = LocationEnum.OTHER;
       }
       nameTextEditingController.text = Util.getName();
       phoneTextEditingController.text = widget.locationEntity!.phone;
+      locationsBloc.add(UpdateCurrentLocationEvent(isShipping: locationEnum == LocationEnum.Shipping));
     }
     super.didChangeDependencies();
   }
@@ -89,77 +94,75 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InkWell(
-                  onTap: ()async{
-                    final res = await Util.pushPage(MapScreen(isSet: true, title: translate("map.select_on_map")), context);
-                    if(res!=null){
-                      setState(() {
-                        locationMapEntity = res;
-                      });
-                    }
-                  },
-                  child: Container(
-                    height: locationMapEntity!=null?190.h:160.h,
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5),
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 0.5,color: kSecondPrimary)
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomText(
-                          color: kSecondPrimary,
-                          fontSize: AppStyle.small.sp,
-                          fontWeight: FontWeight.w700,
-                          text: translate("map.location_details"),
-                        ),
-                        const Divider(color: kSecondPrimary,),
+                Container(
+                  height: locationMapEntity!=null?190.h:160.h,
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 0.5,color: kSecondPrimary)
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        color: kSecondPrimary,
+                        fontSize: AppStyle.small.sp,
+                        fontWeight: FontWeight.w700,
+                        text: translate("map.location_details"),
+                      ),
+                      const Divider(color: kSecondPrimary,),
 
-                        SizedBox(
-                          height: 110.h,
-                          child: Stack(
-                            alignment: Alignment.bottomRight,
-                            children: [
-                              const GoogleMap(
-                                initialCameraPosition: CameraPosition(target: LatLng(21.4504394, 38.8815082), zoom: 10),
-                                mapType: MapType.normal,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 50),
-                                child: CustomButton(
-                                  height: 22.h,
-                                  width: 70.w,
-                                  sideWidth: 0.6,
-                                  sideColor: DMUtil.getRED(),
-                                  circular: 10,
-                                  widget: CustomText(
-                                    text: locationMapEntity==null?translate("map.select_on_map"):translate("button.edit"),
-                                    color: DMUtil.getRED(),
-                                    fontSize: AppStyle.small.sp,
-                                  ),
-                                  color: DMUtil.getWC(),
-                                  onPressed: ()async{
-                                    await Permission.location.request();
-                                    Util.pushPage(MapScreen(isSet: true, title: translate("map.set_location")), context);
-                                  },
+                      SizedBox(
+                        height: 110.h,
+                        child: Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            const GoogleMap(
+                              initialCameraPosition: CameraPosition(target: LatLng(21.4504394, 38.8815082), zoom: 10),
+                              mapType: MapType.normal,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 4),
+                              child: CustomButton(
+                                height: 22.h,
+                                width: 70.w,
+                                sideWidth: 0.6,
+                                sideColor: DMUtil.getRED(),
+                                circular: 10,
+                                widget: CustomText(
+                                  text: locationMapEntity==null?translate("map.select_on_map"):translate("button.edit"),
+                                  color: DMUtil.getRED(),
+                                  fontSize: AppStyle.small.sp,
                                 ),
+                                color: DMUtil.getWC(),
+                                onPressed: ()async{
+                                  await Permission.location.request();
+                                  final res = await Util.pushPage(MapScreen(isSet: true, title: translate("map.select_on_map")), context);
+                                  if(res!=null){
+                                    setState(() {
+                                      locationMapEntity = res;
+                                    });
+                                    cityTextEditingController.text = locationMapEntity!.city;
+                                    streetTextEditingController.text = locationMapEntity!.street;
+                                    postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
+                                  }
+                                },
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
+                      ),
 
-                        if(locationMapEntity!=null)...[
-                          const SizedBox(height: 4,),
-                          CustomText(
-                            text: locationMapEntity!.address,
-                            color: kText1,
-                            fontSize: AppStyle.verySmall.sp-1,
-                            isEllipsis: true,
-                          ),
-                        ],
+                      if(locationMapEntity!=null)...[
+                        const SizedBox(height: 4,),
+                        CustomText(
+                          text: locationMapEntity!.address,
+                          color: kText1,
+                          fontSize: AppStyle.verySmall.sp-1,
+                          isEllipsis: true,
+                        ),
                       ],
-                    ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 10,),
@@ -178,7 +181,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                     hasBorder: true,
                     cursorColor: kPrimary,
                     radius: 4,
-                    textEditingController: streetTextEditingController,
+                    textEditingController: cityTextEditingController,
                     validator: (){},
                     obscureText: false,
                     isLabelError: false),
@@ -304,7 +307,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                               "longitude": locationMapEntity!.lat,
                               "latitude": locationMapEntity!.long,
                               "phone": phone.isEmpty?Util.getMobile().toString():phone ,
-                              "type": locationEnum == LocationEnum.HOME? "home":locationEnum == LocationEnum.WORK?"work":"other",
+                              "type": locationEnum == LocationEnum.Shipping? "shipping":"billing",
                               "user_id":Util.getUserID()
                             }));
                           }else{
@@ -318,7 +321,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                               "longitude": locationMapEntity!.lat,
                               "latitude": locationMapEntity!.long,
                               "phone": phone.isEmpty?Util.getMobile().toString():phone ,
-                              "type": locationEnum == LocationEnum.HOME? "home":locationEnum == LocationEnum.WORK?"work":"other",
+                              "type": locationEnum == LocationEnum.Shipping? "shipping":"billing",
                               "user_id":Util.getUserID()
                             }));
                           }

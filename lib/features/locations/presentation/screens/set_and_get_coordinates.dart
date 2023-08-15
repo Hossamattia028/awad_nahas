@@ -66,16 +66,18 @@ class MapScreenState extends State<MapScreen> {
           ),
 
         ),
-        floatingActionButton: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 80.h),
-          child: CircleAvatar(
-            backgroundColor: DMUtil.getRED(),
-            child: const Icon(CupertinoIcons.arrow_up_right),
+        floatingActionButton: InkWell(
+          onTap: ()=> _setUserCurrentLocation(),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 80.h),
+            child: CircleAvatar(
+              backgroundColor: DMUtil.getRED(),
+              child: const Icon(CupertinoIcons.arrow_up_right),
+            ),
           ),
         ),
         body: Stack(
           children: [
-
              GoogleMap(
                     initialCameraPosition: CameraPosition(target: lastLocation ?? const LatLng(21.4504394, 38.8815082), zoom: 10),
                     onMapCreated: onMapCreated,
@@ -134,7 +136,10 @@ class MapScreenState extends State<MapScreen> {
                       onPressed: () async{
                        if (lastLocation == null) return SnackBarBuilder.showFeedBackMessage(context, translate("toast.select_location"), Colors.red);
                        final data  = await Util.getAndSaveLocationDetails(lastLocation!);
-                       Navigator.pop(context, LocationMapEntity(lat: lastLocation!.latitude,long: lastLocation!.longitude,city: data.locality.toString(),country: data.country.toString(),address: "${data.country}-${data.subLocality}-${data.street}-${data.administrativeArea}"));
+                       Navigator.pop(context, LocationMapEntity(lat: lastLocation!.latitude,long: lastLocation!.longitude,city: data.locality.toString(),country: data.country.toString(),
+                           address: "${data.country}-${data.subLocality}-${data.street}-${data.administrativeArea}".replaceAll("null", ""),
+                           postalCode: data.postalCode.toString(),street: data.street.toString()
+                       ));
                       },
                       widget: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -232,7 +237,10 @@ class MapScreenState extends State<MapScreen> {
         _checkIFUserLocation(await Util.getAndSaveLocationDetails(latLng), latLng);
       } else {
         final data  = await Util.getAndSaveLocationDetails(latLng);
-        Navigator.pop(context, LocationMapEntity(lat: point.latitude,long: point.longitude,country: data.country.toString(),city: data.locality.toString(),address: "${data.country}-${data.subLocality}-${data.street}-${data.administrativeArea}"));
+        Navigator.pop(context, LocationMapEntity(lat: point.latitude,long: point.longitude,country: data.country.toString(),
+            city: data.locality.toString(),address: "${data.country}-${data.subLocality}-${data.street}-${data.administrativeArea}".replaceAll("null", ""),
+          postalCode: data.postalCode.toString(),street: data.street.toString()
+        ));
       }
     } catch (e) {
       debugPrint("_handleTap: $e");
@@ -271,7 +279,7 @@ class MapScreenState extends State<MapScreen> {
       }
       if(mounted) {
         setState(() {
-          selectedAddress = "${data.country}-${data.subLocality}-${data.street}-${data.administrativeArea}";
+          selectedAddress = "${data.country}-${data.subLocality}-${data.street}-${data.administrativeArea}".replaceAll("null", "");
         });
       }
       SharedPref().setPreferencesString(Constants.userLocationDetails, selectedAddress);
@@ -285,7 +293,9 @@ class LocationMapEntity{
   final double lat;
   final double long;
   final String city;
+  final String postalCode;
+  final String street;
   final String country;
   final String address;
-  LocationMapEntity({required this.lat,required this.long,required this.address,required this.city,required this.country});
+  LocationMapEntity({required this.lat,required this.long,required this.address,required this.city,required this.country,required this.postalCode,required this.street});
 }

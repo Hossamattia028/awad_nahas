@@ -23,12 +23,16 @@ class LocationsList extends StatelessWidget {
           var list = bloc.userLocationsList;
           if(state is LocationsLoadingState)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
           // if(bloc.userLocationsList.isEmpty)return const LocationsEmpty();
-          return Column(
-            children: [
-              if(list.first.shippingAddress!=null)LocationCardWidget(locationEntity: list.first.shippingAddress!),
-
-              if(list.first.shippingAddress!=null)LocationCardWidget(locationEntity: list.first.billingAddress!),
-            ],
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
+            child: Column(
+              children: [
+                if(list!.shippingAddress!=null)LocationCardWidget(locationEntity: list.shippingAddress!,currentLocation: bloc.currentCheckOutLocation==list.shippingAddress,),
+                const SizedBox(height: 20,),
+                if(list.shippingAddress!=null)LocationCardWidget(locationEntity: list.billingAddress!,currentLocation: bloc.currentCheckOutLocation==list.billingAddress),
+              ],
+            ),
           );
         },
       ),
