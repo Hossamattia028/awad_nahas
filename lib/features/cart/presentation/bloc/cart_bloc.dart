@@ -117,6 +117,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     emit(CartSuccessfullyState());
     await Future.delayed(const Duration(seconds: 1));
     await addToCart(emit);
+    await Future.delayed(const Duration(seconds: 1));
     await getAllCart(emit);
     // CartBloc.get(event.context).add(const AddToCartEvent());
   }

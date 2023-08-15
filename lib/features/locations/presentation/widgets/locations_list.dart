@@ -1,4 +1,3 @@
-import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,23 +28,16 @@ class LocationsList extends StatelessWidget {
             child: Column(
               children: [
                 if(list!.shippingAddress!=null)LocationCardWidget(locationEntity: list.shippingAddress!,currentLocation: bloc.currentCheckOutLocation==list.shippingAddress,
-                    isAdd: checkIFAddressEmpty(list.shippingAddress!)),
+                    isAdd: bloc.checkIFAddressEmpty(list.shippingAddress!)),
                 const SizedBox(height: 20,),
                 if(list.billingAddress!=null)LocationCardWidget(locationEntity: list.billingAddress!,currentLocation: bloc.currentCheckOutLocation==list.billingAddress,
-                    isAdd: checkIFAddressEmpty(list.billingAddress!)),
+                    isAdd: bloc.checkIFAddressEmpty(list.billingAddress!)),
               ],
             ),
           );
         },
       ),
     );
-  }
-
-  bool checkIFAddressEmpty(LocationEntity item){
-    if(item.phone.isEmpty&&item.country.isEmpty&&item.phone.isEmpty){
-      return true;
-    }
-    return false;
   }
 
   Future _onRefresh(BuildContext context)async{

@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/locations/presentation/widgets/circle_dots.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -15,20 +14,21 @@ class LocationCardWidget extends StatelessWidget {
   final LocationEntity locationEntity;
   final bool currentLocation;
   final bool isAdd;
-  const LocationCardWidget({Key? key, required this.locationEntity,required this.currentLocation,this.isAdd = false})
+  final bool isOrderPage;
+  const LocationCardWidget({Key? key, required this.locationEntity,required this.currentLocation,this.isAdd = false,this.isOrderPage = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var txt = locationEntity.type=="shipping"?translate("map.shipping_not_found"):translate("map.billing_not_found");
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
+      padding: isOrderPage ? EdgeInsets.zero: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
       decoration: BoxDecoration(
         color: DMUtil.getWC(),
-        border: Border.all(width: 1,color: currentLocation?DMUtil.getRED():DMUtil.getD2C()),
+        border: isOrderPage? Border.all(width: 0,color: Colors.transparent):Border.all(width: 1,color: currentLocation?DMUtil.getRED():DMUtil.getD2C()),
         borderRadius: BorderRadius.circular(4),
           boxShadow: [
-            if(currentLocation)
+            if(currentLocation&&isOrderPage==false)
             BoxShadow(
               blurRadius: 1.0,
               offset: const Offset(0.05, 0.05),
@@ -41,14 +41,15 @@ class LocationCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CircleDotsWidget(isEnabled: currentLocation ,),
+          // CircleDotsWidget(isEnabled: currentLocation ,),
+          Icon(Icons.location_on,color: DMUtil.getD2C(),),
           const SizedBox(width: 5,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                width: 290.w,
+                width: 270.w,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,

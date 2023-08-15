@@ -32,7 +32,7 @@ class WishListIconWidget extends StatelessWidget {
             if(Util.checkUser()){
               bloc.add(AddToWishlistEvent(product: item));
               int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.id!=item.id && element.imgPath==item.imgPath);
-              bloc.add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
+              if(index!=-1)bloc.add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
             }else{
               SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), Colors.red);
             }

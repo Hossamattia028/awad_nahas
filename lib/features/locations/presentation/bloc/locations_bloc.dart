@@ -1,4 +1,5 @@
 
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
@@ -61,19 +62,17 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
     emit(const LocationsLoadingState());
     currentCheckOutLocation = null;
     if(userLocationsList!.shippingAddress!=null && event.isShipping){
-      print("sdfsdf");
       currentCheckOutLocation = userLocationsList!.shippingAddress;
     }
     if(userLocationsList!.billingAddress!=null && !event.isShipping){
-      print("fdsf");
       currentCheckOutLocation = userLocationsList!.billingAddress;
     }
     emit(const UpdateCurrentLocationSuccessfullyState());
   }
 
   getUserLocationsData(event,emit)async{
-    // try{
-    //   if(!Util.checkUser())return;
+    try{
+      if(!Util.checkUser())return;
       emit(const LocationsLoadingState());
       var res = await fetchUserLocationsUseCase();
       res.fold((l) {
@@ -82,14 +81,13 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
         userLocationsList = data;
         if(userLocationsList!.billingAddress!=null)billingAddress = userLocationsList!.billingAddress;
         if(userLocationsList!.shippingAddress!=null)shippingAddress = userLocationsList!.shippingAddress;
-        print(userLocationsList!.shippingAddress!.type);
         currentCheckOutLocation = null;
         emit(const LocationsSuccessfullyState());
       });
-    // }catch(e){
-    //   debugPrint("getUserLocationsData: $e");
-    //   emit(const LocationsFailedState());
-    // }
+    }catch(e){
+      debugPrint("getUserLocationsData: $e");
+      emit(const LocationsFailedState());
+    }
   }
 
   addNewLocationsData(event,emit)async{
@@ -148,6 +146,13 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
       debugPrint("removeLocationsData: $e");
       emit(const LocationsFailedState());
     }
+  }
+
+  bool checkIFAddressEmpty(LocationEntity item){
+    if(item.phone.isEmpty&&item.country.isEmpty&&item.phone.isEmpty){
+      return true;
+    }
+    return false;
   }
 
 }

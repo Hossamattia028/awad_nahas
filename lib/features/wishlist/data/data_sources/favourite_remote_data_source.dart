@@ -34,7 +34,7 @@ class FavouriteRemoteDataSource extends FavouriteRemoteDataSourceImpl{
   @override
   Future<List<ProductModel>> fetchAllFavourites() async{
     var response = await client.get(Uri.parse("${ApiUrl.GET_ALL_FAV}${Util.getUserID()}"),headers: ApiUrl.headerAuth);
-    // debugPrint("fetchAllFavourites ${response.body}");
+    debugPrint("fetchAllFavourites ${response.body}");
     if (response.body.contains("true")) {
       final body = json.decode(response.body);
       if(body['data'].toString()=="[]")return [];

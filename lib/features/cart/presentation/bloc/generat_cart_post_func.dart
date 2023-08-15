@@ -1,14 +1,10 @@
-import 'dart:convert';
 
 import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:awad_nahas/features/cart/data/models/cart_model.dart';
-import 'package:awad_nahas/features/products/data/models/product_small_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 
 class GenerateCartJson{
 
   static Map<String,dynamic> generate({required List<ProductsEntity> productList,required String total}){
-    print("s $total");
     var data = {
       "cart": generateList(productList),
       "cart_totals": {
@@ -90,8 +86,7 @@ class GenerateCartJson{
   static Map<String,dynamic> generateList(List<ProductsEntity> list){
     Map<String,dynamic> mapData = {};
     for(var i in list){
-      print(i.title);
-      var key = "22210129b${DateTime.now().millisecondsSinceEpoch.toString().substring(0,3)}852d73ea41affbbd9${DateTime.now().millisecond.toString().substring(0,3)}";
+      var key = "22210129b${DateTime.now().millisecondsSinceEpoch.toString().substring(0,3)}852d73ea41affbbd9${i.id}${DateTime.now().millisecond.toString().substring(0,3)}";
       mapData.addAll({
         key:{
           "key": key,
@@ -110,7 +105,7 @@ class GenerateCartJson{
           },
           "line_subtotal": 800,
           "line_subtotal_tax": 120,
-          "line_total": 800,
+          "line_total": (i.price * i.quantity).toInt(),
           "line_tax": 120
         }
       });
