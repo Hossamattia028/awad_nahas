@@ -465,6 +465,7 @@
       "attributes": "الخصائص",
       "select": "قم باختيار",
       "please_select_option": "من فضلك قم باختيار خصائص للمنتج",
+      "coupon_t":"كوبون خصم",
       "coupon": "آضف كوبون خصم",
       "do_you_have_coupon": "هل لديك كود خصم ؟",
       "active_coupon": "تفعيل الكوبون",

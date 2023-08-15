@@ -45,6 +45,10 @@ class OrderDetails extends StatelessWidget {
                   // OrderRow(title: translate("cart.total_after_discount") ,value: "${bloc.subTotal}${translate("store.sar")}",),
                   OrderRow(title: translate("cart.shipping_cost") ,value: "${bloc.shippingCost}${translate("store.sar")}",),
                   const Divider(),
+                  if(bloc.couponValue!=null&&bloc.couponModel!=null)...[
+                    OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue}${translate("store.sar")}",),
+                    const Divider(),
+                  ],
                   OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("store.sar")}",),
                 ],
               ),

@@ -36,8 +36,8 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       await getAllCart(emit);
     });
     on<AddToCartEvent>((event, emit) async{
-      await addToCartList(event,emit);
-      await getAllCart(emit);
+      // await addToCartList(event,emit);
+      // await getAllCart(emit);
     });
     on<ModifyCartProductEvent>((event, emit) async{
       await modifyCartProduct(event,emit);
@@ -58,7 +58,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   getAllCart(emit)async{
     if(!Util.checkUser())return;
     emit(CartLoadingState());
-    // try{
+    try{
       var res = await getAllCartListUseCase();
       res.fold((l) {
         emit(CartErrorState(errors: translate("toast.oops")));
@@ -71,14 +71,16 @@ class CartBloc extends Bloc<CartEvent,CartState>{
               quantity: i.quantity,categoryList: const [],commentCount: 0,catID: 0));
         }
         cartList = cartList;
-        if(cartList.isNotEmpty)totalPrice=data.total;
-        if(data.sessionID!=null)cartID=int.parse((data.sessionID??0).toString());
-        emit(CartSuccessfullyState());
+        if(cartList.isNotEmpty) {
+        totalPrice = data.total;
+        total = totalPrice;
+      }
+      emit(CartSuccessfullyState());
       });
-    // }catch(e){
-    //   debugPrint("getAllCartBloc: $e");
-    //   emit(CartErrorState(errors: translate("toast.oops")));
-    // }
+    }catch(e){
+      debugPrint("getAllCartBloc: $e");
+      emit(CartErrorState(errors: translate("toast.oops")));
+    }
   }
 
   bool checkIFProductInsideCartList(ProductsEntity item){
@@ -92,55 +94,58 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     for(var i in cartList){
       totalPrice = totalPrice + (i.price * i.quantity);
     }
+    couponModel = null;couponValue = null;
+    total = totalPrice;
     return totalPrice.toStringAsFixed(2);
   }
 
-  addToCartList(AddToCartEvent event,emit)async{
-    emit(CartLoadingState());
-    try{
-      var res = await addCartItemUseCase(data: GenerateCartJson.generate(productList: cartList,total: calcTotal().toString()));
-      res.fold((l) {
-        emit(CartErrorState(errors: translate("toast.oops")));
-      },(data) {
-        emit(AddToCartSuccessfullyState());
-      });
-    }catch(e){
+  addToCart(emit)async{
+    var res = await addCartItemUseCase(data: GenerateCartJson.generate(productList: cartList,total: calcTotal().toString()));
+    res.fold((l) {
       emit(CartErrorState(errors: translate("toast.oops")));
-    }
+    },(data) {
+      emit(AddToCartSuccessfullyState());
+    });
   }
+
 
   modifyCartProduct(ModifyCartProductEvent event,emit)async{
     // emit(CartLoadingState());
-    int index = cartList.indexWhere((element) => event.product.id.toString() == element.id.toString() || element.imgPath.trim() == event.product.imgPath.trim());
-    if(index!=-1) {
-      if(event.remove){
-        cartList.removeAt(index);
-      }else{
-        var item = cartList[index];
-        int newQty = event.isAdd?item.quantity+1:(item.quantity==1?item.quantity:item.quantity-1);
-        item = ProductsEntity(title: event.product.title, catTitle: "",
-            desc: "", id: item.id,discountRate: 0,
-            imgPath: event.product.imgPath, price: event.product.price, discount: 0, stockStatus: true,
-            quantity: newQty,categoryList: const [],commentCount: 0,catID: item.catID);
-        cartList[index] = item;
-      }
-    }else{
-      cartList.add(ProductsEntity(title: event.product.title, catTitle: "",
-          desc: "", id: event.product.id,discountRate: 0,
-          imgPath: event.product.imgPath, price: event.product.price, discount: 0, stockStatus: true,
-          quantity: 1,categoryList: const [],commentCount: 0,catID:event.product.catID));
-    }
+    checkItemAndModifyInsideCart(event.product,event.remove,event.isAdd);
     calcTotal();
     cartList = cartList;
     emit(CartSuccessfullyState());
     await Future.delayed(const Duration(seconds: 1));
-    // addToCartList(AddToCartEvent(), emit);
-    // print(event.context.mounted);
-    CartBloc.get(event.context).add(const AddToCartEvent());
+    await addToCart(emit);
+    await getAllCart(emit);
+    // CartBloc.get(event.context).add(const AddToCartEvent());
   }
 
-  int cartID = 0;
-  double totalPrice = 200;
+  /// check product and add or update inside cart list
+  checkItemAndModifyInsideCart(ProductsEntity product,bool remove,bool isAdd){
+    int index = cartList.indexWhere((element) => product.id.toString() == element.id.toString() || element.imgPath.trim() == product.imgPath.trim());
+    if(index!=-1) {
+      if(remove){
+        cartList.removeAt(index);
+      }else{
+        var item = cartList[index];
+        int newQty = isAdd?item.quantity+1:(item.quantity==1?item.quantity:item.quantity-1);
+        item = ProductsEntity(title: product.title, catTitle: "",
+            desc: "", id: item.id,discountRate: 0,
+            imgPath: product.imgPath, price: product.price, discount: 0, stockStatus: true,
+            quantity: newQty,categoryList: const [],commentCount: 0,catID: item.catID);
+        cartList[index] = item;
+      }
+    }else{
+      cartList.add(ProductsEntity(title: product.title, catTitle: "",
+          desc: "", id: product.id,discountRate: 0,
+          imgPath: product.imgPath, price: product.price, discount: 0, stockStatus: true,
+          quantity: 1,categoryList: const [],commentCount: 0,catID:product.catID));
+    }
+  }
+
+  double totalPrice = 0;
+  double total = 0;
   double subTotal = 120;
   int shippingCost = 0;
   int minimumAmount = 0;
@@ -148,25 +153,26 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   CouponModel? couponModel;
 
   getDiscountCoupon(ImplementCouponDiscountEvent event,emit)async {
-    // emit(CartLoadingState());
-    // try{
+    emit(CouponLoadingState());
+    try{
       var res = await applyCouponUseCase(dataSet: {'code':event.couponTxt.trim()});
       res.fold((l) {
         emit(CartErrorState(errors: translate("toast.oops")));
       },(data) {
         couponModel= data;
-        if(couponModel!=null && couponModel!.total!=null && couponModel!.total != 0){
-          couponValue = totalPrice - couponModel!.total!;
-          totalPrice = couponModel!.total!;
+        if(couponModel!=null && couponModel!.amount !=null){
+          totalPrice = total;
+          couponValue = couponModel!.amount!.toDouble();
+          totalPrice = totalPrice - couponModel!.amount!.toDouble();
           emit(CouponSuccessfullyState());
         }else{
           emit(CartErrorState(errors: translate("cart.couponـwrong")));
         }
       });
-    // }catch(e){
-    //   debugPrint("getDiscountCouponBloc: $e");
-    //   emit(CartErrorState(errors: translate("toast.oops")));
-    // }
+    }catch(e){
+      debugPrint("getDiscountCouponBloc: $e");
+      emit(CartErrorState(errors: translate("toast.oops")));
+    }
   }
 
 

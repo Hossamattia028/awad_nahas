@@ -23,4 +23,5 @@ class CartErrorState extends CartState {
   const CartErrorState({required this.errors});
 }
 
+class CouponLoadingState extends CartState {}
 class CouponSuccessfullyState extends CartState {}

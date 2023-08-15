@@ -65,25 +65,20 @@ class CartRemoteDataSource extends CartRemoteDataSourceImpl{
 
   @override
   Future<CouponModel> applyCoupon({required Map<String,dynamic> dataSet}) async{
-    var data = {
-      // "session_key": Util.getCartKey(),
-      'coupon_name': dataSet['code'],
-    };
     var response = await http.post(Uri.parse(ApiUrl.coupon),
-        headers: ApiUrl.headerAuth,body: jsonEncode(data));
+        headers: ApiUrl.headerAuth,body: jsonEncode(dataSet));
     debugPrint("applyCoupon ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
-      if(body['message'].toString().contains("done") && !body['data'].toString().contains("coupon already added")) {
+      if(body['status']) {
         return CouponModel(
-            total: double.parse(body['data']['session_value']['cart_totals']['total'].toString()).toDouble(),
-            code: body['data']['session_value']['applied_coupons'][0]??"",
-            amount: int.parse(body['data']['session_value']['coupon_discount_totals']['${dataSet['code']}'].toString()),
+            total: 0,
+            code: body['coupon']['code'].toString(),
+            amount: int.parse(body['coupon']['amount'].toString()),
             isPercent: false);
       }else{
         return CouponModel(total: 0,code: "",amount: 0,isPercent: false);
       }
-      //test-coupon
     } else {
       throw ServerException();
     }

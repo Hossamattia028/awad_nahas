@@ -245,6 +245,7 @@
 		"select": "select",
 		"please_select_option": "Please select product variations",
 		"do_you_have_coupon": "Do you have a coupon code?",
+		"coupon_t":"Coupon",
 		"coupon": "Add Coupon",
 		"active_coupon": "Apply",
 		"couponـwrong": "Please re check the coupon (wrong)",

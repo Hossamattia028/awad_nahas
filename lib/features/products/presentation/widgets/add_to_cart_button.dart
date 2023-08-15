@@ -173,7 +173,6 @@ class AddToCartButtonWidget extends StatelessWidget {
           builder: (ctx,state){
             var bloc = CartBloc.get(ctx);
             bool insideCartList = bloc.checkIFProductInsideCartList(item);
-            print("$insideCartList");
             return Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Container(

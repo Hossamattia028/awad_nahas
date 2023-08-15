@@ -74,7 +74,7 @@ class CouponWidget extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 5,),
-                    state is CartLoadingState?
+                    state is CouponLoadingState?
                     SizedBox(height: 25.h,width: 25.w,child: const CircularProgressIndicator(backgroundColor: kPrimary,)):
                     CustomButton(
                       height: 40.h,
@@ -84,15 +84,12 @@ class CouponWidget extends StatelessWidget {
                         color: Colors.white,
                         fontSize: AppStyle.small.sp,
                         fontWeight: FontWeight.w500,
-                        text: translate("cart.active_coupon"),
+                        text: bloc.couponModel==null ? translate("cart.active_coupon"):  translate("button.update"),
                       ),
                       color: DMUtil.getRED(),
                       onPressed: () {
                         if(couponTextEditingController.text.trim().isNotEmpty){
                           bloc.add(ImplementCouponDiscountEvent(couponTxt: couponTextEditingController.text.trim()));
-                          Timer(const Duration(seconds: 4), () {
-                            couponTextEditingController.text = "";
-                          });
                         }else{
                           SnackBarBuilder.showFeedBackMessage(context, translate("cart.couponـwrong"),Colors.red);
                         }
