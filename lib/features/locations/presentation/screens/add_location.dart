@@ -64,6 +64,9 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       }
       nameTextEditingController.text = Util.getName();
       phoneTextEditingController.text = widget.locationEntity!.phone;
+      streetTextEditingController.text =  widget.locationEntity!.address2;
+      cityTextEditingController.text =  widget.locationEntity!.address1;
+      postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
       locationsBloc.add(UpdateCurrentLocationEvent(isShipping: locationEnum == LocationEnum.Shipping));
     }
     super.didChangeDependencies();
@@ -294,35 +297,38 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                       ),
                       color: DMUtil.getRED(),
                       onPressed: () async {
+                        var type = locationEnum == LocationEnum.Shipping? "shipping":"billing";
                         var phone = phoneTextEditingController.text.trim();
                         if(flatNumberTextEditingController.text.trim().isNotEmpty&&buildingNumberTextEditingController.text.trim().isNotEmpty){
                           if(widget.locationEntity!=null){
                             locationsBloc.add(UpdateLocationEvent(data: {
-                              "id":widget.locationEntity!.id,
-                              "street1": locationMapEntity!.address,
-                              "street2": locationMapEntity!.address,
-                              "country": locationMapEntity!.country,
-                              "city": locationMapEntity!.city,
-                              "zipcode": "00",
-                              "longitude": locationMapEntity!.lat,
-                              "latitude": locationMapEntity!.long,
-                              "phone": phone.isEmpty?Util.getMobile().toString():phone ,
-                              "type": locationEnum == LocationEnum.Shipping? "shipping":"billing",
-                              "user_id":Util.getUserID()
+                              // "id":widget.locationEntity!.id,
+                              type:{
+                               "${type}_phone": phone,
+                               "${type}_email": Util.getEmail(),
+                               "${type}_country": locationMapEntity!.country,
+                               "${type}_postcode": locationMapEntity!.postalCode,
+                               "${type}_state": locationMapEntity!.street,
+                               "${type}_address_2": locationMapEntity!.street,
+                               "${type}_address_1": locationMapEntity!.city,
+                               "${type}_last_name": Util.getName(),
+                               "${type}_first_name": Util.getName(),
+                             }
                             }));
                           }else{
                             if(locationMapEntity==null)return SnackBarBuilder.showFeedBackMessage(context, translate("toast.select_location"), Colors.red);
                             locationsBloc.add(AddLocationEvent(data: {
-                              "street1": locationMapEntity!.address,
-                              "street2": locationMapEntity!.address,
-                              "country": locationMapEntity!.country,
-                              "city": locationMapEntity!.city,
-                              "zipcode": "00",
-                              "longitude": locationMapEntity!.lat,
-                              "latitude": locationMapEntity!.long,
-                              "phone": phone.isEmpty?Util.getMobile().toString():phone ,
-                              "type": locationEnum == LocationEnum.Shipping? "shipping":"billing",
-                              "user_id":Util.getUserID()
+                              type:{
+                                "${type}_phone": phone,
+                                "${type}_email": Util.getEmail(),
+                                "${type}_country": locationMapEntity!.country,
+                                "${type}_postcode": locationMapEntity!.postalCode,
+                                "${type}_state": locationMapEntity!.street,
+                                "${type}_address_2": locationMapEntity!.street,
+                                "${type}_address_1": locationMapEntity!.city,
+                                "${type}_last_name": Util.getName(),
+                                "${type}_first_name": Util.getName(),
+                              }
                             }));
                           }
                         }else{

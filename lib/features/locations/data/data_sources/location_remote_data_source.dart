@@ -23,7 +23,7 @@ class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
   Future<bool> addNewLocation({required Map<String, dynamic> data}) async{
     var response = await client.post(Uri.parse(ApiUrl.ADD_NEW_ADDRESS),
         headers: ApiUrl.headerAuth,body: jsonEncode(data));
-    // debugPrint("addNewLocation: ${response.body}");
+    debugPrint("addNewLocation: ${response.body}");
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
       return body['status']??false;
@@ -47,7 +47,9 @@ class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
 
   @override
   Future<bool> updateLocation({required Map<String,dynamic> data}) async {
-    var response = await client.put(Uri.parse("${ApiUrl.UPDATE_ADDRESS}${data['id']}"),
+    // var response = await client.put(Uri.parse("${ApiUrl.UPDATE_ADDRESS}${data['id']}"),
+    //     headers: ApiUrl.headerAuth,body: jsonEncode(data));
+    var response = await client.post(Uri.parse(ApiUrl.ADD_NEW_ADDRESS),
         headers: ApiUrl.headerAuth,body: jsonEncode(data));
     debugPrint("updateLocation: ${response.body}");
     if (response.statusCode == 200) {

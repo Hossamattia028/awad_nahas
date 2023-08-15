@@ -95,12 +95,12 @@ class LocationCardWidget extends StatelessWidget {
               ),
               const SizedBox(height: 7,),
               SmallLineLocationData(
-                title: "${translate("profile.mobile")}: ",
-                value: locationEntity.phone,
+                title: translate("profile.city"),
+                value: locationEntity.address1,
               ),
-              const SizedBox(height: 3,),
+              const SizedBox(height: 5,),
               SmallLineLocationData(
-                title: "${translate("profile.landline_number")}: ",
+                title: translate("profile.mobile"),
                 value: locationEntity.phone,
               ),
               const SizedBox(height: 5,),
