@@ -1,6 +1,8 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
+import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
@@ -30,7 +32,7 @@ class CheckOutButton extends StatelessWidget {
             alignCenter: true,
           ),
           color: DMUtil.getRED(),
-          onPressed: () {},
+          onPressed: ()=> orderBloc.add(AddOrderEvent(list: CartBloc.get(context).cartList, totalPrice: CartBloc.get(context).totalPrice)),
         );
       },
     );

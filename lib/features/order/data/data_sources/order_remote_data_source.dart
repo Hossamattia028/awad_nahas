@@ -37,7 +37,7 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
 
   @override
   Future<bool> addOrder({required Map<String,dynamic> data}) async {
-    final response = await client.post(Uri.parse(ApiUrl.STORAGE_URL),
+    final response = await client.post(Uri.parse(ApiUrl.ADD_ORDER),
         body: json.encode(data),
         headers: ApiUrl.headerAuth);
      debugPrint("addOrder: ${response.body}");

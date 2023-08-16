@@ -8,6 +8,7 @@ import 'package:awad_nahas/features/order/data/models/order_model.dart';
 import 'package:awad_nahas/features/order/domain/use_cases/get_all_order_usecase.dart';
 import 'package:awad_nahas/features/order/domain/use_cases/update_order_usecase.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
+import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/features/order/domain/entities/order.dart';
@@ -123,11 +124,12 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     confirmOrderData = null;
     emit(OrderSuccessfullyState());
   }
+
+
   addNewOrder(AddOrderEvent event,emit)async{
-    if(currentOrder==null)return;
     emit(OrderLoadingState());
     try{
-      var res = await addOrderUseCase(data: collectOrderData());
+      var res = await addOrderUseCase(data: collectOrderData(products: event.list,totalPrice: event.totalPrice));
       res.fold((l) {
         emit(OrderErrorState(errors: l.toString()));
       },(data) {
@@ -185,17 +187,30 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
   }
 
 
-  Map<String, dynamic>  collectOrderData(){
+  Map<String, dynamic>  collectOrderData({
+    required List<ProductsEntity> products,
+    required double totalPrice
+  }){
+    List<Map<String,dynamic>> list = [];
+    for(var i in products){
+      list.add({
+        "product_id": i.id,
+        "product_title" : i.title,
+        "product_sku" : i.title,
+        "qty": i.quantity,
+        "price": i.price
+      });
+    }
     var data = {
-      'wordpress_order_code' : currentOrder!.code,
-      'manager_id' : Util.getUserID(),
-      'city' : currentCityID,
-      'delivery_status' : 'PENDING',
-      'grand_total' : currentOrder!.totalPrice,
-      'customer_id' : currentOrder!.userId,
-      'customer_email' : currentOrder!.userEmail,
-      'customer_phone' : currentOrder!.userPhone,
-      'customer_name' : currentOrder!.userName,
+      "parent_id": "0",
+      "num_items_sold" : list.length.toString(),
+      "total_sales" : totalPrice.toString(),
+      "tax_total": "0",
+      "shipping_total" : "0",
+      "net_total" : totalPrice.toString(),
+      "returning_customer" : "0",
+      "status" : "wc-processing",
+      "items":list
     };
     return data;
   }

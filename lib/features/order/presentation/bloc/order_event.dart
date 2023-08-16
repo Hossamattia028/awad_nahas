@@ -5,6 +5,7 @@ import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/features/authentication/domain/entities/user_entity.dart';
 import 'package:awad_nahas/features/order/data/models/confirm_order_data.dart';
 import 'package:awad_nahas/features/order/domain/entities/order.dart';
+import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -23,7 +24,9 @@ class FetchAllOrderEvent extends OrderEvent{
 }
 
 class AddOrderEvent extends OrderEvent{
-  const AddOrderEvent();
+  final List<ProductsEntity> list;
+  final double totalPrice;
+  const AddOrderEvent({required this.list,required this.totalPrice});
 }
 
 class SetCurrentOrderEvent extends OrderEvent{

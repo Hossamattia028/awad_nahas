@@ -2,15 +2,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-
-import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
-import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
-import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
-import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
-import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
-import 'package:awad_nahas/features/home/presentation/screens/home.dart';
-import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
-import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/notifications_utils.dart';
@@ -44,13 +35,6 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       alignment: Alignment.center,
       color: Colors.white,
-      // decoration: const BoxDecoration(
-      //   color: Colors.white,
-      //   image:  DecorationImage(
-      //     image: AssetImage(AppImages.logoGif),
-      //     fit: BoxFit.contain
-      //   )
-      // ),
       child: Image.asset(AppImages.logo,width: 200.w,),
 
     );
