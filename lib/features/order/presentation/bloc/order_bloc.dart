@@ -101,14 +101,14 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
   }
 
   getAllOrder(emit)async{
-    emit(OrderLoadingState());
+    // emit(OrderLoadingState());
     // try{
       var res = await getAllOrderUseCase();
       res.fold((l) {
-        emit(OrderErrorState(errors: l.toString()));
+        // emit(OrderErrorState(errors: l.toString()));
       },(data) {
         orderList = data.reversed.toList();
-        emit(OrderSuccessfullyState());
+        // emit(OrderSuccessfullyState());
       });
     // }catch(e){
     //   emit(OrderErrorState(errors: e.toString()));
@@ -129,7 +129,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
   addNewOrder(AddOrderEvent event,emit)async{
     emit(OrderLoadingState());
     try{
-      var res = await addOrderUseCase(data: collectOrderData(products: event.list,totalPrice: event.totalPrice));
+      var res = await addOrderUseCase(data: collectOrderData(cartList:event.list,totalPrice: event.totalPrice));
       res.fold((l) {
         emit(OrderErrorState(errors: l.toString()));
       },(data) {
@@ -188,15 +188,16 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
 
 
   Map<String, dynamic>  collectOrderData({
-    required List<ProductsEntity> products,
+    required List<ProductsEntity> cartList,
     required double totalPrice
   }){
+
     List<Map<String,dynamic>> list = [];
-    for(var i in products){
+    for(var i in cartList){
       list.add({
         "product_id": i.id,
-        "product_title" : i.title,
-        "product_sku" : i.title,
+        "product_title" :i.title,
+        "product_sku" :  i.title,
         "qty": i.quantity,
         "price": i.price
       });

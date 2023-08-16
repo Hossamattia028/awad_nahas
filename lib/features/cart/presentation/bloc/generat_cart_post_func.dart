@@ -105,7 +105,7 @@ class GenerateCartJson{
           },
           "line_subtotal": 800,
           "line_subtotal_tax": 120,
-          "line_total": (i.price * i.quantity).toInt(),
+          "line_total": i.price.toString(),
           "line_tax": 120
         }
       });

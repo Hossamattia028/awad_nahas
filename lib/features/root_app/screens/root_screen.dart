@@ -1,5 +1,4 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/screens/cart_screen.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/categories_screen.dart';
 import 'package:awad_nahas/features/home/presentation/screens/home.dart';
