@@ -1,7 +1,5 @@
 
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:awad_nahas/features/authentication/domain/entities/user_entity.dart';
 import 'package:awad_nahas/features/order/data/models/confirm_order_data.dart';
 import 'package:awad_nahas/features/order/data/models/issue_model.dart';
 import 'package:awad_nahas/features/order/data/models/order_model.dart';
@@ -18,15 +16,6 @@ import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
 
 
 class OrderBloc extends Bloc<OrderEvent,OrderState>{
-
-  String currentCityID = "Jeddah";
-  /// this city list can be assign the order on it
-  List<String> citiesList = [
-    "Jeddah",
-    "Riyadh",
-    "Elkhobar",
-  ];
-
   List<Orders> orderList = [];
 
   AddOrderUseCase addOrderUseCase;

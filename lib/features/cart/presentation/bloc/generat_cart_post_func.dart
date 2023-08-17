@@ -86,7 +86,7 @@ class GenerateCartJson{
   static Map<String,dynamic> generateList(List<ProductsEntity> list){
     Map<String,dynamic> mapData = {};
     for(var i in list){
-      var key = "22210129b${DateTime.now().millisecondsSinceEpoch.toString().substring(0,3)}852d73ea41affbbd9${i.id}${DateTime.now().millisecond.toString().substring(0,3)}";
+      var key = "22210129b${DateTime.now().millisecondsSinceEpoch.toString()}852d73ea41affbbd9${i.id}";
       mapData.addAll({
         key:{
           "key": key,

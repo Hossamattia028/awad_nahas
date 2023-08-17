@@ -111,7 +111,12 @@ class CartBloc extends Bloc<CartEvent,CartState>{
 
   modifyCartProduct(ModifyCartProductEvent event,emit)async{
     // emit(CartLoadingState());
-    checkItemAndModifyInsideCart(event.product,event.remove,event.isAdd);
+    if(event.product!=null) {
+      checkItemAndModifyInsideCart(event.product!,event.remove,event.isAdd);
+    }else{
+      //remove all cart when create new order
+      cartList.clear();
+    }
     calcTotal();
     cartList = cartList;
     emit(CartSuccessfullyState());
@@ -119,7 +124,6 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     await addToCart(emit);
     await Future.delayed(const Duration(seconds: 1));
     await getAllCart(emit);
-    // CartBloc.get(event.context).add(const AddToCartEvent());
   }
 
   /// check product and add or update inside cart list

@@ -24,7 +24,7 @@ class CheckOutScreen extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
         color: DMUtil.getWC(),
-        padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
+        padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
         child: const CheckOutButton(),
       ),
       body: SingleChildScrollView(

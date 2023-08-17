@@ -24,11 +24,11 @@ class RemoveToCartEvent extends CartEvent{
 }
 
 class ModifyCartProductEvent extends CartEvent{
-  final ProductsEntity product;
+  final ProductsEntity? product;
   final bool isAdd;
   final BuildContext context;
   final bool remove;
-  const ModifyCartProductEvent({required this.product,required this.isAdd,required this.context,this.remove=false});
+  const ModifyCartProductEvent({required this.product,required this.isAdd,required this.context,this.remove=false,});
 }
 
 class UpdateShippingCostEvent extends CartEvent{

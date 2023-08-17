@@ -29,14 +29,14 @@ import 'package:url_launcher/url_launcher.dart';
 class Util{
   // implemented this function after register and login
   static getAllUserAppData({required BuildContext context,bool isSplash=false}){
-    // if(isSplash){
-    //   ProductsBloc.get(context).add(const FetchAllProductsEvent());
-    //   CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
-    // }
-    // AccountBloc.get(context).add(const FetchProfileDataEvent());
-    // WishlistBloc.get(context).add(const FetchAllWishlistEvent());
-    // CartBloc.get(context).add(const FetchAllCartEvent());
-    // LocationsBloc.get(context).add(const FetchUserLocationsEvent());
+    if(isSplash){
+      ProductsBloc.get(context).add(const FetchAllProductsEvent());
+      CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
+    }
+    AccountBloc.get(context).add(const FetchProfileDataEvent());
+    WishlistBloc.get(context).add(const FetchAllWishlistEvent());
+    CartBloc.get(context).add(const FetchAllCartEvent());
+    LocationsBloc.get(context).add(const FetchUserLocationsEvent());
     // AccountBloc.get(context).add(const FetchAllNotificationsEvent());
     OrderBloc.get(context).add(const FetchAllOrderEvent());
   }
