@@ -90,18 +90,18 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
   }
 
   getAllOrder(emit)async{
-    // emit(OrderLoadingState());
-    // try{
+    emit(OrderLoadingState());
+    try{
       var res = await getAllOrderUseCase();
       res.fold((l) {
-        // emit(OrderErrorState(errors: l.toString()));
+        emit(OrderErrorState(errors: l.toString()));
       },(data) {
         orderList = data.reversed.toList();
-        // emit(OrderSuccessfullyState());
+        emit(OrderSuccessfullyState());
       });
-    // }catch(e){
-    //   emit(OrderErrorState(errors: e.toString()));
-    // }
+    }catch(e){
+      emit(OrderErrorState(errors: e.toString()));
+    }
   }
 
 

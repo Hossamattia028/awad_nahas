@@ -1,10 +1,5 @@
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
-import 'package:awad_nahas/features/shared_widgets/align_child_by_row.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
-import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
@@ -13,7 +8,6 @@ import 'package:awad_nahas/features/products/domain/entities/products_entity.dar
 import 'package:awad_nahas/features/products/presentation/screens/product_details_screen.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 
 
 class ProductCardFewData extends StatelessWidget {

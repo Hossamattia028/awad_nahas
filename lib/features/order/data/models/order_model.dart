@@ -48,8 +48,8 @@ class OrderModel extends Orders {
 
   static OrderModel fromJson(Map<String, dynamic> jsonObject) {
     return OrderModel(
-        orderId: int.parse(jsonObject['ID']??"0"),
-        code: int.parse(jsonObject['ID']??"0"),
+        orderId: int.parse((jsonObject['ID']??"0").toString()),
+        code: int.parse((jsonObject['ID']??"0").toString()),
         desc: jsonObject['post_title'],
         status: jsonObject['post_status'],
         statusView: getStatus(jsonObject['post_status']),

@@ -37,7 +37,6 @@ class CheckOutScreen extends StatelessWidget {
             DeliveryTypeWidget(),
             PaymentSummaryWidget(),
             OrderNoteWidget(),
-
           ],
         ),
       ),

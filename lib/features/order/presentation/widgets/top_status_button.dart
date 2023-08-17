@@ -1,5 +1,4 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
@@ -35,7 +34,7 @@ class SmallTapItem extends StatelessWidget {
             child: CustomText(
               text: title,
               color: enable?Colors.white:DMUtil.getDC(),
-              fontSize: AppStyle.small.sp,
+              fontSize: AppStyle.average.sp,
               fontFamily: primaryFontSemiBold,
               alignCenter: true,
             ),

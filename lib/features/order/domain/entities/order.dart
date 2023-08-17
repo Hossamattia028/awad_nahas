@@ -107,10 +107,11 @@ class Orders extends Equatable {
 
 
 class OrderItem {
+  final int id;
   final String title;
   final double price;
   final String qty;
-  OrderItem({required this.title,required this.price,required this.qty});
+  OrderItem({required this.id,required this.title,required this.price,required this.qty});
 
   static List<OrderItem> listFromJson(String str) =>
       List<OrderItem>.from(
@@ -118,6 +119,7 @@ class OrderItem {
 
   static OrderItem fromJson(Map<String, dynamic> jsonObject) {
     return OrderItem(
+      id: int.parse((jsonObject['product_id']??"0").toString()),
       title: jsonObject['order_item_name']??"",
       price: double.parse((jsonObject['price']??0).toString()),
       qty: jsonObject['qty']??"0",

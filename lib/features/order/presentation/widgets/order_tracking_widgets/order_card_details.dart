@@ -56,8 +56,8 @@ class OrderCardDetails extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (ctx,index){
                   var it = item.items![index];
-                  var product = ProductsEntity(title: it.title, catTitle: "", desc: "", id: 1, imgPath: "", price: it.price, discount: 0, discountRate: 0, stockStatus: true, quantity: 0, categoryList: [], catID: 0, commentCount: 2);
-                  int ind = ProductsBloc.get(context).productsList.indexWhere((element) => element.title==product.title);
+                  var product = ProductsEntity(title: it.title, catTitle: "", desc: "", id: it.id, imgPath: "", price: it.price, discount: 0, discountRate: 0, stockStatus: true, quantity: 0, categoryList: [], catID: 0, commentCount: 2);
+                  int ind = ProductsBloc.get(context).productsList.indexWhere((element) => element.id==product.id );
                   if(ind!=-1) product = ProductsBloc.get(context).productsList[ind];
                   return ProductCardFewData(item: product);
                 },
