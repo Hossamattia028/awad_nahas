@@ -99,12 +99,18 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     return totalPrice.toStringAsFixed(2);
   }
 
-  addToCart(emit)async{
+  addToCart(emit,bool isRemoveProduct)async{
     var res = await addCartItemUseCase(data: GenerateCartJson.generate(productList: cartList,total: calcTotal().toString()));
     res.fold((l) {
       emit(CartErrorState(errors: translate("toast.oops")));
     },(data) {
-      emit(AddToCartSuccessfullyState());
+      if(data){
+        if(isRemoveProduct){
+          emit(RemoveCartSuccessfullyState());
+        }else{
+          emit(AddToCartSuccessfullyState());
+        }
+      }
     });
   }
 
@@ -121,7 +127,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     cartList = cartList;
     emit(CartSuccessfullyState());
     await Future.delayed(const Duration(seconds: 1));
-    await addToCart(emit);
+    await addToCart(emit,event.remove);
     await Future.delayed(const Duration(seconds: 1));
     await getAllCart(emit);
   }

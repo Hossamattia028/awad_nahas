@@ -6,6 +6,7 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,35 +18,45 @@ class CartButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartBloc,CartState>(
-      builder: (ctx,state){
-        var bloc = CartBloc.get(ctx);
-        bool insideCartList = bloc.checkIFProductInsideCartList(item);
-        return Container(
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 1.0,
-                  offset: const Offset(0.1, 0.1),
-                  color: DMUtil.getRED(),
-                )
-              ]
-          ),
-          child: CustomButton(
-            height: 25.h,
-            width: 110.w,
-            circular: 10,
-            widget: CustomText(
-              text: insideCartList?translate("cart.remove_from_cart"):translate("cart.add_to_cart"),
-              color: Colors.white,
-              fontSize: insideCartList?AppStyle.small.sp-3:AppStyle.average.sp-3,
-            ),
-            color: DMUtil.getRED(),
-            onPressed: ()=> CartBloc.get(context).add(ModifyCartProductEvent(product: item, isAdd: !insideCartList, context: context,remove: insideCartList)),
-          ),
-        );
+    return BlocListener<CartBloc,CartState>(
+      listener: (ctx,state){
+        if(state is AddToCartSuccessfullyState){
+          SnackBarBuilder.showFeedBackMessage(context, translate("toast.cart_success"), Colors.green);
+        }else if(state is RemoveCartSuccessfullyState){
+          SnackBarBuilder.showFeedBackMessage(context, translate("toast.cart_remove_success"), Colors.green);
+        }
       },
+      listenWhen: (ctx,state)=> state is AddToCartSuccessfullyState || state is RemoveCartSuccessfullyState,
+      child: BlocBuilder<CartBloc,CartState>(
+        builder: (ctx,state){
+          var bloc = CartBloc.get(ctx);
+          bool insideCartList = bloc.checkIFProductInsideCartList(item);
+          return Container(
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 1.0,
+                    offset: const Offset(0.1, 0.1),
+                    color: DMUtil.getRED(),
+                  )
+                ]
+            ),
+            child: CustomButton(
+              height: 25.h,
+              width: 110.w,
+              circular: 10,
+              widget: CustomText(
+                text: insideCartList?translate("cart.remove_from_cart"):translate("cart.add_to_cart"),
+                color: Colors.white,
+                fontSize: insideCartList?AppStyle.small.sp-3:AppStyle.average.sp-3,
+              ),
+              color: DMUtil.getRED(),
+              onPressed: ()=> CartBloc.get(context).add(ModifyCartProductEvent(product: item, isAdd: !insideCartList, context: context,remove: insideCartList)),
+            ),
+          );
+        },
+      ),
     );
   }
 }

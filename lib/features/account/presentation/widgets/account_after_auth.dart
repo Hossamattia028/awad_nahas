@@ -1,10 +1,13 @@
-import 'package:awad_nahas/core/styles/my_colors.dart';
+import 'package:awad_nahas/core/styles/app_style.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 class AccountAuthCard extends StatelessWidget {
   final bool darkText;
@@ -13,45 +16,38 @@ class AccountAuthCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Color color = Colors.white;
-    // if(darkText)color=Colors.black;
-    // if(primaryColor)color=kPrimary;
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: BlocBuilder<AccountBloc, AccountState>(
         builder: (ctx, state) {
-          // var user = AccountBloc.get(ctx).currentUser;
+          var user = AccountBloc.get(ctx).currentUser;
           // if (user == null) return const SizedBox.shrink();
-          return Column(
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CircleAvatar(
-                radius: 50.h,
-                backgroundColor: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 3),
-                  child: Image.asset(
-                    AppImages.logo,
-                    height: 50.h,
-                    fit: BoxFit.contain,
+                radius: 20.h,
+                backgroundColor: DMUtil.getBCC(),
+                child: Icon(CupertinoIcons.person,color: DMUtil.getD2C(),),
+              ),
+              const SizedBox(width: 10,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText(
+                    text:translate("profile.welcome"),
+                    color: DMUtil.getD2C(),
+                    fontSize: AppStyle.average.sp,
                   ),
-                ),
+                  CustomText(
+                    text: user == null? translate("drawer.join_us"):user.userName.toString(),
+                    color: user == null? DMUtil.getRED() : DMUtil.getD2C(),
+                    fontSize: AppStyle.average.sp,
+                  ),
+                ],
               ),
-              // CustomText(
-              //   text: "${translate("profile.welcome")} ${user.userName}",
-              //   color: color,
-              //   fontFamily: primaryFontSemiBold,
-              //   fontSize: AppStyle.average.sp,
-              // ),
-              // CustomText(
-              //   text: user.email.toString(),
-              //   color: color,
-              //   fontFamily: primaryFontSemiBold,
-              //   fontSize: AppStyle.small.sp-3,
-              // ),
-              const SizedBox(
-                height: 10,
-              ),
+
             ],
           );
         },

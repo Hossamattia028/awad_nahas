@@ -19,6 +19,16 @@
 		"more_info": "More Info",
 		"search": "Search for ..."
 	},
+	"drawer": {
+		"menu": "Menu",
+		"our_company": "Our Company",
+		"where_to_buy": "Where to buy?",
+		"polices": "The policies",
+		"installment": "Installment",
+		"help_center": "Help Center",
+		"maintaenance_request": "Maintaenance request",
+		"join_us": "Join with us"
+	},
 	"cities": {
 		"Riyadh": "Riyadh",
 		"Dammam": "Dammam",
@@ -396,7 +406,7 @@
 	},
 	"profile": {
 		"account_setting": "Account Settings",
-		"welcome": "Welcome",
+		"welcome": "Welcome \uD83D\uDC4B",
 		"offline": "Offline",
 		"online": "Online",
 		"name": "User Name",

@@ -18,6 +18,16 @@
       "more_info": "معلومات اخري",
       "search": "ابحث عن .."
     },
+    "drawer": {
+      "menu": "قائمة",
+      "our_company": "عن الشركة",
+      "where_to_buy": "من أين أشتري؟",
+      "polices": "السياسات",
+      "installment": "تقسيط",
+      "help_center": "مركز المساعدة",
+      "maintaenance_request": "طلب صيانة",
+      "join_us": "انضم إلينا الآن"
+    },
     "cities": {
       "Riyadh": "الرياض",
       "Dammam": "الدمام",
@@ -56,7 +66,7 @@
       "internet": "من فضلك افحص  الإتصال بالإنترنت",
       "user_exist": "!انت مسجل بالفعل معنا",
       "user_not_exist": " المستخدم غير مسجل من قبل",
-      "welcome" : "أهلا بك فى تطبيق Awad Nahas",
+      "welcome" : "أهلا بك فى تطبيق AwadNahas",
       "order_send": "تم ارسال الطلب بنجاح",
       "update_user_data": "تم تحديث البيانات بنجاح",
       "gbs": " قم بتفعيل ال GBS ",
@@ -71,11 +81,11 @@
       "user_already_exist": "رقم الجوال او البريد الالكتروني مسجل بالفعل!",
       "resend_verification_code": "  تم اعادة ارسال كود التحقق بنجاح ",
       "email_invalid": "من فضلك قم بالتحقق من الايميل",
-      "cart_success": "تم اضافه العنصر الي السلة",
-      "cart_remove_success": "تم ازاله العنصر من السلة",
-      "cart_already_added": "تمت اضافة الوجبة للسلة بالفعل",
-      "fav_success": "تم اضافه العنصر الي المفضلة",
-      "fav_remove_success": "تم ازاله العنصر من المفضلة",
+      "cart_success": "تم اضافه المنتج الي السلة",
+      "cart_remove_success": "تم ازاله المنتج من السلة",
+      "cart_already_added": "تمت اضافة المنتج للسلة بالفعل",
+      "fav_success": "تم اضافه المنتج الي المفضلة",
+      "fav_remove_success": "تم ازاله المنتج من المفضلة",
       "empty": "لايوجد بيانات",
       "complete_order": "تم انهاء الطلب بنجاح",
       "accept_request": "تم قبول طلبك بنجاح",
@@ -216,7 +226,7 @@
 
     "profile": {
       "account_setting": "اعدادات الحساب",
-      "welcome": "مرحبا بك",
+      "welcome": "اهلاً بك \uD83D\uDC4B",
       "offline": "غير متاح",
       "online": "متاح",
       "name": "الاسم",
