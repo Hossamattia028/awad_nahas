@@ -1,6 +1,8 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
+import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/continue_shopping.dart';
+import 'package:awad_nahas/features/order/data/models/order_model.dart';
 import 'package:awad_nahas/features/order/domain/entities/order.dart';
 import 'package:awad_nahas/features/order/presentation/widgets/order_tracking_widgets/order_card_details.dart';
 import 'package:awad_nahas/features/order/presentation/widgets/order_tracking_widgets/tracking_line.dart';
@@ -17,6 +19,7 @@ class OrderTrackingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ORDER_STATUS status  = OrderModel.getStatusViewCheck(item.status.toString());
     return Scaffold(
       backgroundColor: DMUtil.getWC(),
       appBar: GlobalAppBar(
@@ -40,23 +43,24 @@ class OrderTrackingScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(AppImages.orderStep1,),
+                  SvgPicture.asset(AppImages.orderStep1,colorFilter: ColorFilter.mode(status==ORDER_STATUS.PENDING?DMUtil.getRED():DMUtil.getREdOPACITY(), BlendMode.srcIn),),
                   const SmallRowDots(),
-                  SvgPicture.asset(AppImages.orderStep2, ),
+                  Icon(Icons.directions_bus,color: status==ORDER_STATUS.ONGOING?DMUtil.getRED():DMUtil.getREdOPACITY(),size: 25.w,),
+                  // SvgPicture.asset(AppImages.orderStep2, colorFilter: ColorFilter.mode(status==ORDER_STATUS.COMPLETED?DMUtil.getRED():DMUtil.getREdOPACITY(), BlendMode.color),),
                   const SmallRowDots(),
-                  SvgPicture.asset(AppImages.orderStep3,),
+                  SvgPicture.asset(AppImages.orderStep3,colorFilter: ColorFilter.mode(status==ORDER_STATUS.COMPLETED?DMUtil.getRED():DMUtil.getREdOPACITY(), BlendMode.srcIn),),
                 ],
               ),
             ),
 
             const SizedBox(height: 10,),
 
-            const TrackingLineWidget(),
+            TrackingLineWidget(status: status,),
 
 
             const SizedBox(height: 30,),
             const ContinueShoppingButton(),
-
+            const SizedBox(height: 10,),
           ],
         ),
       ),

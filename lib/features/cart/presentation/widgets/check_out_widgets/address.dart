@@ -13,34 +13,35 @@ class OrderAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      color: DMUtil.getWC(),
-      shape: const RoundedRectangleBorder(
-        side: BorderSide(width: 1,color: Colors.white)
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: BlocBuilder<LocationsBloc,LocationsState>(
-          builder: (ctx,state){
-            var bloc = LocationsBloc.get(ctx);
-            var list = bloc.userLocationsList;
-            if(state is LocationsLoadingState)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
-            // if(bloc.userLocationsList.isEmpty)return const LocationsEmpty();
-            return SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
-              child: Column(
-                children: [
+    return BlocBuilder<LocationsBloc,LocationsState>(
+      builder: (ctx,state){
+        var bloc = LocationsBloc.get(ctx);
+        var list = bloc.userLocationsList;
+        if(state is LocationsLoadingState)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
+        if(list==null)return const SizedBox.shrink();
+        return Card(
+          elevation: 4,
+          color: DMUtil.getWC(),
+          shape: const RoundedRectangleBorder(
+              side: BorderSide(width: 1,color: Colors.white)
+          ),
+          child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
+                child: Column(
+                  children: [
 
-                  if(list!.billingAddress!=null)LocationCardWidget(locationEntity: list.billingAddress!,currentLocation: bloc.currentCheckOutLocation==list.billingAddress,
+                    if(list.billingAddress!=null)LocationCardWidget(locationEntity: list.billingAddress!,currentLocation: bloc.currentCheckOutLocation==list.billingAddress,
                       isAdd: bloc.checkIFAddressEmpty(list.billingAddress!),isOrderPage: true,),
-                ],
-              ),
-            );
-          },
-        )
-      ),
+                  ],
+                ),
+              )
+          ),
+        );
+      },
     );
+
   }
 }

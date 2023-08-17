@@ -23,8 +23,9 @@ class ProductCardFewData extends StatelessWidget {
       child: Card(
         elevation: isElevation?2:0,
         color: DMUtil.getWC(),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+        shape:  RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          side: BorderSide(width: 1,color: DMUtil.getBCC())
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

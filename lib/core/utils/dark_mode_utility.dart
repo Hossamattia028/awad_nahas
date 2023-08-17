@@ -33,6 +33,10 @@ class DMUtil{
     return kRed;
   }
 
+  static Color getREdOPACITY(){
+    return kRed.withOpacity(0.4);
+  }
+
   /// get categories background color
   static Color getBCC(){
     return kBackGround;

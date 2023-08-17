@@ -7,6 +7,8 @@ import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
 import 'package:awad_nahas/features/order/presentation/screens/order_screen.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
@@ -25,6 +27,7 @@ class CheckOutButton extends StatelessWidget {
       listener: (ctx,state){
         if(state is AssignOrderSuccessfullyState){
           CartBloc.get(context).add(ModifyCartProductEvent(product: null, isAdd: false, context: context));
+          RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
           Util.pushPageAndRemoveRoutes(const RootScreen(), context);
           Util.pushPage(const OrderScreen(), context);
         }

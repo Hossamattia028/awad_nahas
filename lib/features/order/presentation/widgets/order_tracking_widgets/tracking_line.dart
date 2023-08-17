@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/locations/presentation/widgets/circle_dots.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,8 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 
 class TrackingLineWidget extends StatelessWidget {
-  const TrackingLineWidget({Key? key}) : super(key: key);
+  final ORDER_STATUS status ;
+  const TrackingLineWidget({Key? key,required this.status}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,20 +19,20 @@ class TrackingLineWidget extends StatelessWidget {
       children: [
         Column(
           children: [
-            const CircleDotsWidget(isEnabled: true,),
+            CircleDotsWidget(isEnabled:  status == ORDER_STATUS.PENDING?true:false,isOpacity: status != ORDER_STATUS.PENDING?true:false),
             Container(
               width: 6.w,
               height: 85.h,
               color: DMUtil.getRED().withOpacity(0.6),
             ),
-            const CircleDotsWidget(isOpacity: true,),
+            CircleDotsWidget(isEnabled:  status == ORDER_STATUS.ONGOING?true:false,isOpacity: status != ORDER_STATUS.ONGOING?true:false),
             ///////////////////////////////
             Container(
               width: 6.w,
               height: 85.h,
               color: DMUtil.getRED().withOpacity(0.6),
             ),
-            const CircleDotsWidget(isOpacity: true,),
+            CircleDotsWidget(isEnabled:  status == ORDER_STATUS.COMPLETED?true:false,isOpacity: status != ORDER_STATUS.COMPLETED?true:false),
 
           ],
         ),
@@ -48,13 +50,13 @@ class TrackingLineWidget extends StatelessWidget {
               color: DMUtil.getD2C(),
               fontSize: AppStyle.small.sp,
             ),
-            SizedBox(height: 65.h,),
+            SizedBox(height: 62.h,),
             CustomText(
               text: translate("order.ongoing"),
               color: DMUtil.getD2C(),
               fontSize: AppStyle.average.sp,
             ),
-            SizedBox(height: 85.h,),
+            SizedBox(height: 70.h,),
             CustomText(
               text: translate("order.delivered"),
               color: DMUtil.getD2C(),
