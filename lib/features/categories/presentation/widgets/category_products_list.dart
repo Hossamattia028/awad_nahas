@@ -16,7 +16,7 @@ class CategoryProductsListWidget extends StatelessWidget {
       builder: (ctx,state){
         var bloc = ProductsBloc.get(ctx);
         var list = bloc.productsList;
-        // list = bloc.filterByCategoryID(catID);
+        list = bloc.filterByCategoryID(catID);
         list = bloc.filterByCurrentLang(list);
         return Expanded(
           child: GridView.builder(

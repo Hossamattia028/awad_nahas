@@ -219,7 +219,14 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
 
   List<ProductsEntity> filterByCategoryID(int catId){
-    return productsList.where((element) => element.catID==catId).toList();
+    List<ProductsEntity> list = [];
+    for(var i in productsList){
+      if(i.catID == catId){
+        list.add(i);
+      }
+    }
+    return list;
+    // return productsList.where((element) => element.catID.toString().trim()==catId.toString().trim()).toList();
   }
 
 

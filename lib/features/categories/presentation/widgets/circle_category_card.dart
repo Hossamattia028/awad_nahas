@@ -1,7 +1,6 @@
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/shared_widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +30,7 @@ class CircleCategoryCard extends StatelessWidget {
             height: 43.h,
             width: 60.w,
             child: CustomText(
-              text: item.title,
+              text: item.title.toString(),
               fontSize: AppStyle.small.sp,
               alignCenter: true,
               maxLine: item.title.toString().contains(" ") ? 2 : 1,

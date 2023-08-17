@@ -24,7 +24,8 @@ class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
           body['data'].map<CategoriesModel>((categoryModel) {
         return CategoriesModel.fromJson(categoryModel);
       }).toList();
-      return categories.where((element) => (!element.imgPath.toString().contains("{s:")) && element.imgPath.toString().trim()!="").toList();
+      return categories;
+      // return categories.where((element) => (!element.imgPath.toString().contains("{s:")) && element.imgPath.toString().trim()!="").toList();
     } else {
       throw ServerException();
     }

@@ -25,7 +25,7 @@ class CategoryProductsScreen extends StatelessWidget {
             return Column(
               children: [
 
-                GlobalAppBar(title: bloc.currentCategory!.title,leadingIcon: const BackArrowButton()),
+                GlobalAppBar(title: bloc.currentCategory!.id.toString(),leadingIcon: const BackArrowButton()),
                 const SearchWidget(showDrawer: false,),
 
 
