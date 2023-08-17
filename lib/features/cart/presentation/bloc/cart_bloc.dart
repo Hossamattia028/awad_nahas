@@ -171,7 +171,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
         emit(CartErrorState(errors: translate("toast.oops")));
       },(data) {
         couponModel= data;
-        if(couponModel!=null && couponModel!.amount !=null){
+        if(couponModel!=null && couponModel!.amount !=null && couponModel!.amount!=0 && couponModel!.code!=""){
           totalPrice = total;
           couponValue = couponModel!.amount!.toDouble();
           totalPrice = totalPrice - couponModel!.amount!.toDouble();

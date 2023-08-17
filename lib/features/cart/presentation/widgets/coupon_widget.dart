@@ -32,7 +32,7 @@ class CouponWidget extends StatelessWidget {
         }
       },
       listenWhen: (ctx,state){
-        return state is CartErrorState || state is CouponSuccessfullyState;
+        return state is CartErrorState || state is CouponSuccessfullyState ;
       },
       child: BlocBuilder<CartBloc,CartState>(
         builder: (ctx,state){
