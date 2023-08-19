@@ -33,11 +33,11 @@ class CategoriesModel  extends CategoriesEntity{
 
   static CategoriesModel fromJsonProducts(Map<String, dynamic> json) {
     return CategoriesModel(
-      id: json['taxonomy'],
+      id: json['term_id'],
       title: json['name'],
-      imgPath: json['guid'],
-      iconPath: json['icon'],
-      isArabic: json['is_arabic'],
+      imgPath: json['guid']??"",
+      iconPath: json['icon']??"",
+      isArabic: json['is_arabic']??false,
       parentID: (json['parent']??0).toString(),
       productsCount: int.parse((json['products_count']!=null&&json['products_count']!=""?json['products_count']:0).toString()),
     );

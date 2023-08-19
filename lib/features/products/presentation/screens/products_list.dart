@@ -10,7 +10,8 @@ import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 
 class ProductListScreen extends StatelessWidget {
   final String catID;
-  const ProductListScreen({Key? key,required this.catID}) : super(key: key);
+  final int? subCatID;
+  const ProductListScreen({Key? key,required this.catID,required this.subCatID}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class ProductListScreen extends StatelessWidget {
           }else if (catID=="last"){
             list = bloc.latestSellerProductsList;
           }else{
-            list = bloc.filterByCategoryID(int.tryParse(catID)??0);
+            list = bloc.filterByCategoryID(int.tryParse(catID)??0,subCatID??-1);
           }
           if(list.isEmpty)return EmptyDataWidget(txt: translate("products.empty"),);
           return ListView.separated(

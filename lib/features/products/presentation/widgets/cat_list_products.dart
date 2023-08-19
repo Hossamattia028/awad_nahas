@@ -1,4 +1,3 @@
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
@@ -14,7 +13,6 @@ import 'package:awad_nahas/features/categories/domain/entities/categories_entity
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/products/presentation/screens/product_details_screen.dart';
-import 'package:awad_nahas/features/products/presentation/screens/products_list.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
@@ -30,7 +28,7 @@ class CatProductsList extends StatelessWidget {
       builder: (ctx, state) {
         var bloc = ProductsBloc.get(ctx);
         var list = bloc.productsList;
-        // list = bloc.filterByCategoryID(cat.id);
+        list = bloc.filterByCategoryID(cat.id,-1);
         list = bloc.filterByCurrentLang(list);
         if (list.isEmpty) return const SizedBox.shrink();
         return Column(

@@ -218,11 +218,15 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
 
 
-  List<ProductsEntity> filterByCategoryID(int catId){
+  List<ProductsEntity> filterByCategoryID(int catId,int subCatID){
     List<ProductsEntity> list = [];
     for(var i in productsList){
-      if(i.catID == catId){
-        list.add(i);
+      for(var cat in i.categoryList){
+        if(cat.id == catId && subCatID==-1){
+          list.add(i);
+        }else if(cat.id == catId || cat.id == subCatID){
+          list.add(i);
+        }
       }
     }
     return list;

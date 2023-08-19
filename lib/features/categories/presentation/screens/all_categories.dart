@@ -41,7 +41,7 @@ class AllCategoriesList extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               var item = list[index];
               return InkWell(
-                onTap: ()=> Util.pushPage(ProductListScreen(catID: item.id.toString()), context),
+                onTap: ()=> Util.pushPage(ProductListScreen(catID: item.id.toString(),subCatID: bloc.currentSubCategory==null?-1:bloc.currentSubCategory!.id,), context),
                 child: Container(
                   decoration: const BoxDecoration(
                     borderRadius:  BorderRadius.all(Radius.circular(3)),

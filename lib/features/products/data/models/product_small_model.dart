@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:awad_nahas/features/categories/data/models/categories_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 
 
@@ -26,23 +27,14 @@ class ProductModel extends ProductsEntity{
       discountRate: double.parse((jsonObject['price'] ?? "0").toString()),
       price: double.parse((jsonObject['price'] ?? "0").toString()),
       desc: jsonObject['title'] ?? "",
-      stockStatus: getValFromOptions("_stock_status",jsonObject['options'])=="instock",
+      stockStatus:  jsonObject['stock_status'] == "instock",
       imgPath: jsonObject['image']??"",
       commentCount: 1,
       quantity: 1,
       isArabic:jsonObject['is_arabic'],
-      categoryList: const [],
+      categoryList: jsonObject['categories']!=null ? CategoriesModel.listModelFromJson(jsonEncode(jsonObject['categories'])):[],
       catID: jsonObject['cat_id'] ?? 0,
     );
-  }
-
-  static String getValFromOptions(String metaKey,List<dynamic> list){
-    int index = list.indexWhere((element) => element['meta_key']==metaKey);
-    if(index==-1){
-      return "";
-    }
-    var value = list[index]['meta_value'].toString();
-    return value;
   }
 
   static double calcDiscountRate(double price,double newPrice){
@@ -56,8 +48,6 @@ class ProductModel extends ProductsEntity{
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['ID'] = id;
-
-
     return data;
   }
 }

@@ -105,7 +105,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   changeCurrentCategory(ChangeCategoriesEvent event,emit){
     emit(CategoriesInitialState());
     currentCategory = event.categoriesModel;
-    // currentSubCategory = subCategoriesList.first;
+    currentSubCategory = null;
     emit(CategoriesIndexChangedSuccessState());
   }
 
@@ -117,7 +117,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
         emit(const FetchCategoriesFailedState());
       },(data) {
         // storedCategoriesList = data;
-        categoriesList = data.where((element) => element.parentID=="0").toList();
+        categoriesList = data.where((element) => element.parentID=="0" && (!element.imgPath.toString().contains("{s:")) && element.imgPath.toString().trim()!="").toList();
         subCategoriesList = data.where((element) => element.parentID!="0").toList();
       });
       emit(const FetchCategoriesSuccessfullyState());

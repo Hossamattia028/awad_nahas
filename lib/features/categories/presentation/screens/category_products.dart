@@ -25,7 +25,7 @@ class CategoryProductsScreen extends StatelessWidget {
             return Column(
               children: [
 
-                GlobalAppBar(title: bloc.currentCategory!.id.toString(),leadingIcon: const BackArrowButton()),
+                GlobalAppBar(title: bloc.currentCategory!.title.toString(),leadingIcon: const BackArrowButton()),
                 const SearchWidget(showDrawer: false,),
 
 
@@ -37,7 +37,8 @@ class CategoryProductsScreen extends StatelessWidget {
                 BlocBuilder<RootBloc,RootState>(
                   builder: (ctx,state){
                     var rootBloc = RootBloc.get(ctx);
-                    return  rootBloc.enableSearch?  const Expanded(child: SingleChildScrollView(physics: BouncingScrollPhysics(),child: SearchScreen())) : CategoryProductsListWidget(catID: bloc.currentCategory!.id,);
+                    return  rootBloc.enableSearch?  const Expanded(child: SingleChildScrollView(physics: BouncingScrollPhysics(),child: SearchScreen())) :
+                    CategoryProductsListWidget(catID: bloc.currentCategory!.id,subCatID: bloc.currentSubCategory==null?-1:bloc.currentSubCategory!.id,);
                   },
                 ),
 
