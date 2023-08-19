@@ -13,9 +13,11 @@ import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.da
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:awad_nahas/core/strings/constant.dart';
@@ -41,6 +43,17 @@ class Util{
     OrderBloc.get(context).add(const FetchAllOrderEvent());
   }
 
+  static String? validatePhone(String value) {
+    String pattern = r'^(^\+9665[5|0|3|6|4|9|1|8|7]{1}[0-9]{7})$';
+    String patternEg = r'^(^\+2[0]1[0-2|5]{1}[0-9]{8})$';
+    RegExp regExp = RegExp(pattern);
+    if (!(regExp.hasMatch(value) ||
+        (RegExp(patternEg).hasMatch(value)))) {
+      return translate("login.phone_is_wrong");
+    }
+    return null;
+  }
+
   static Future<bool> verifyFirebaseCode(String otp) async{
     try{
       FirebaseAuth auth = FirebaseAuth.instance;
@@ -53,6 +66,38 @@ class Util{
     }
   }
 
+  /// social auth
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    // Optional clientId
+/*     clientId:
+        '192805405686-9qe0bem69g0ph14u4coga9ibtj1v936i.apps.googleusercontent.com',*/
+    serverClientId: '192805405686-7roe5iammlfnaamj588png8io80aok7f.apps.googleusercontent.com',
+    scopes: <String>[
+      'profile',
+      'email',
+    ],
+  );
+
+  googleSign()async{
+    GoogleSignInAccount? googleData =  await _googleSignIn.signIn();
+    final GoogleSignInAuthentication? googleAuth = await googleData?.authentication;
+    // "access_token": googleAuth?.accessToken,
+  }
+
+  facebookLogin() async {
+    final LoginResult result = await FacebookAuth.instance.login();
+    if (result.status == LoginStatus.success) {
+      // _accessToken = result.accessToken!;
+    }
+  }
+  Future<AccessToken?> _checkIfIsLogged() async {
+    final accessToken = await FacebookAuth.instance.accessToken;
+    if (accessToken != null) {
+      return accessToken;
+    } else {
+      return null;
+    }
+  }
   static openUrl(String url)async{
     await canLaunchUrl(Uri.parse(url))==true?
     await launchUrl(Uri.parse(url)):debugPrint("error when openGmsUrl");

@@ -1,13 +1,12 @@
 import 'package:awad_nahas/core/strings/enum/social_enum.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/authentication/presentation/screens/register.dart';
 import 'package:awad_nahas/features/authentication/presentation/widgets/auth_with_social.dart';
+import 'package:awad_nahas/features/authentication/presentation/widgets/not_have_an_account.dart';
 import 'package:awad_nahas/features/authentication/presentation/widgets/remember_me.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -178,6 +177,8 @@ class LoginScreen extends StatelessWidget {
                         color: DMUtil.getRED(),
                         onPressed: (){
                           if(validateForm(bloc.registerByPhone)){
+                            var phone = phoneTextEditingController.text.trim();
+                            if(validatePhoneInput(bloc.registerByPhone, phone, context)==false) return;
                             bloc.add(LogInEvent(user: {
                                 if(bloc.registerByPhone)'phone':phoneTextEditingController.text.trim(),
                                 if(!bloc.registerByPhone)'email':emailTextEditingController.text.trim(),
@@ -194,36 +195,24 @@ class LoginScreen extends StatelessWidget {
                 const AuthWithSocial(socialEnum: SocialEnum.PHONE),
                 const AuthWithSocial(socialEnum: SocialEnum.GOOGLE),
                 const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK),
-                Text.rich(
-                  TextSpan(
-                    text:
-                    "${translate("login.dont_have_anaccount")}  ",
-                    children: [
-                      TextSpan(
-                        text: translate("signup.signup"),
-                        style: TextStyle(
-                          color: DMUtil.getPC(),
-                          fontWeight: FontWeight.w500,
-                          fontSize: AppStyle.average.sp,
-                          fontFamily: primaryFontReg,
-                          decoration: TextDecoration.underline,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => Util.pushPage(const RegisterScreen(), context),
-                      )
-                    ],
-                    style: TextStyle(
-                      color: DMUtil.getD2C(),
-                      fontFamily: primaryFontReg,
-                    ),
-                  ),
-                ),
+                const NotHaveAnAccountWidget(),
                 const SizedBox(height: 30,),
               ],
             ),
           ),
         )
     );
+  }
+
+  bool validatePhoneInput(bool registerByPhone,String phone,BuildContext context){
+    if(registerByPhone&&phone.isNotEmpty){
+      String? txt = Util.validatePhone(phone);
+      if(txt!=null){
+        SnackBarBuilder.showFeedBackMessage(context, txt, DMUtil.getRED());
+        return false;
+      }
+    }
+    return true;
   }
 
 
@@ -233,6 +222,7 @@ class LoginScreen extends StatelessWidget {
         return false;
       }
     }
+    if(phoneTextEditingController.text.isEmpty) return false;
     if(passTextEditingController.text.isNotEmpty)return true;
     return false;
   }

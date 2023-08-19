@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">AwadNahas</string>
+  <string name="facebook_app_id">5578542308859685</string>
+  <string name="fb_login_protocol_scheme">5578542308859685</string>
+  <string name="facebook_client_token">475b6faa4211673a9fd9814d5b670ee4</string>
+</resources>

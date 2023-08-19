@@ -141,7 +141,8 @@
       "re_type_password": "اعد كتابة كلمه المرود",
       "enter_phone": "ادخل رقم الهاتف لارسال كود التحقق",
       "remember_me": "تذكرني",
-      "phone_not_registered": "الرقم ليس مسجل"
+      "phone_not_registered": "الرقم ليس مسجل",
+      "phone_is_wrong": "يجب ان يكون رقم الجوال يبدا ب 9665+"
     },
     "signup": {
       "reset_password": "اعادة تعيين كلمة المرور",

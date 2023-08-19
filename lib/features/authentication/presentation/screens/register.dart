@@ -1,19 +1,17 @@
 import 'package:awad_nahas/core/strings/enum/social_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
+import 'package:awad_nahas/features/authentication/presentation/widgets/already_have_account.dart';
 import 'package:awad_nahas/features/authentication/presentation/widgets/auth_with_social.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
-import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_event.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_state.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -237,31 +235,7 @@ class RegisterScreen extends StatelessWidget {
                 const AuthWithSocial(socialEnum: SocialEnum.GOOGLE),
                 const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK),
                 const SizedBox(height: 25,),
-                Center(
-                  child: Text.rich(
-                    TextSpan(
-                      text: "${translate("signup.already_have_account")}  ",
-                      children: [
-                        TextSpan(
-                          text: translate("login.app_bar"),
-                          style: TextStyle(
-                            color: DMUtil.getPC(),
-                            fontWeight: FontWeight.w500,
-                            fontSize: AppStyle.average.sp,
-                            fontFamily: primaryFontReg,
-                            decoration: TextDecoration.underline,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => Util.pushPage(const LoginScreen(), context),
-                        )
-                      ],
-                      style: TextStyle(
-                        color: DMUtil.getD2C(),
-                        fontFamily: primaryFontReg,
-                      ),
-                    ),
-                  ),
-                ),
+                const AlreadyHaveAnAccountWidget(),
                 const SizedBox(height: 30,),
               ],
             ),
@@ -284,9 +258,3 @@ class RegisterScreen extends StatelessWidget {
     return false;
   }
 }
-
-// AuthBloc.get(context).add(SendVerifyEmailEvent(email: emailTextEditingController.text.trim()));
-// Util.pushPage(PinCodeVerificationScreen(userModel: UserModel(username: fullNameTextEditingController.text.trim(),
-//     email: emailTextEditingController.text.trim(),password: passwordTextEditingController.text.trim(),
-//     phone:phoneTextEditingController.text.trim(),city: cityTextEditingController.text.trim(),
-//     age: ageTextEditingController.text.trim(),address: addressTextEditingController.text.trim()),), context);

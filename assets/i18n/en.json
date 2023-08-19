@@ -142,7 +142,8 @@
 		"your_password": "Your password",
 		"re_type_password": "Retype password",
 		"remember_me": "Remember me",
-		"phone_not_registered": "The phone is not registered"
+		"phone_not_registered": "The phone is not registered",
+		"phone_is_wrong": "Phone number must beginning with +9665"
 	},
 	"signup": {
 		"reset_password": "Reset Password",
