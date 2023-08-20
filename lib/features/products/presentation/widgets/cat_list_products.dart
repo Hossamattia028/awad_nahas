@@ -79,7 +79,7 @@ class CatProductsList extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          const SizedBox(height: 12,),
+                          const SizedBox(height: 5,),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             width: 130.w,
@@ -91,6 +91,7 @@ class CatProductsList extends StatelessWidget {
                               ],
                             ),
                           ),
+                          const SizedBox(height: 15,),
                           ImageWidget(
                             imgUrl: item.imgPath,
                             fit: BoxFit.fill,

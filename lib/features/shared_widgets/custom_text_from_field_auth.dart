@@ -5,7 +5,6 @@ import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 
 
 class CustomTextFromFieldAuth extends StatelessWidget {

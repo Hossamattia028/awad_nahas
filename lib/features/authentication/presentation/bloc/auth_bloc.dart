@@ -40,7 +40,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     });
 
     on<SendVerifyEmailEvent>((event, emit) async{
-      await sendVerifyEmail(event,emit);
+      // await sendVerifyEmail(event,emit);
     });
 
     on<RememberMeEvent>((event, emit) {
@@ -134,12 +134,6 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     // emit(ConfirmEmailState(response: AuthResponse(state: states = FetchStates.SUCCESSFULLY,msg: translate("toast.successfully_send"))));
   }
 
-  bool verifyChangeEmailCode(String code){
-    // if(code==SharedPref.preferences.getPreferenceString(Constants.lastVerificationCode).toString().trim()){
-    //   return true;
-    // }
-    return false;
-  }
 
 
   saveUserDate(AuthResponse res)async{

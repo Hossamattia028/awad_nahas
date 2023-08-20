@@ -1,16 +1,19 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:awad_nahas/core/strings/enum/social_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/core/utils/sms_api.dart';
+import 'package:awad_nahas/features/authentication/presentation/screens/verification_code.dart';
 import 'package:awad_nahas/features/authentication/presentation/widgets/already_have_account.dart';
 import 'package:awad_nahas/features/authentication/presentation/widgets/auth_with_social.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_event.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_state.dart';
-import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,19 +38,15 @@ class RegisterScreen extends StatelessWidget {
         backgroundColor: DMUtil.getWC(),
         body: BlocListener<AuthBloc,AuthState>(
           listener: (ctx,state){
-            var bloc = AuthBloc.get(ctx);
-            if(state is RegisterSuccessfullyState && state.response.isSuccess==true){
-              // if(state.response.state==FetchStates.SUCCESSFULLY){
-                passwordTextEditingController.text = "";
-                Util.getAllUserAppData(context: context);
-                SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.green);
-                Util.pushPage(const RootScreen(), context);
-              // }else{
-
-              // }
-            }else{
-              SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.red);
-            }
+            // var bloc = AuthBloc.get(ctx);
+            // if(state is RegisterSuccessfullyState && state.response.isSuccess==true){
+            //     passwordTextEditingController.text = "";
+            //     Util.getAllUserAppData(context: context);
+            //     SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.green);
+            //     Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+            // }else{
+            //   SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.red);
+            // }
           },
           listenWhen: (ctx,state) => state is RegisterSuccessfullyState  || state is RegisterFailedState,
           child: SingleChildScrollView(
@@ -200,15 +199,18 @@ class RegisterScreen extends StatelessWidget {
                   builder: (ctx,state){
                     var bloc = AuthBloc.get(ctx);
                     return MaterialButton(
-                      onPressed: (){
-                        if(validateForm(bloc.registerByPhone)){
-                            bloc.add(RegisterEvent(user: {
-                              if(!bloc.registerByPhone)'email':emailTextEditingController.text.trim(),
-                              'name':"${firstNameTextEditingController.text.trim()} ${secondNameTextEditingController.text.trim()}",
-                              'user_login': bloc.registerByPhone? phoneTextEditingController.text.trim() : emailTextEditingController.text.trim(),
-                              if(bloc.registerByPhone)'phone':phoneTextEditingController.text.trim(),
-                              'password':passwordTextEditingController.text.trim(),
-                            }));
+                      onPressed: ()async{
+                        var phone = phoneTextEditingController.text.trim();
+                        var email = emailTextEditingController.text.trim();
+                        if(validatePhoneInput(bloc.registerByPhone, phone, context)==false) return;
+                        if(validateForm(bloc.registerByPhone) && await SmsApi.sendOtp(provider: bloc.registerByPhone?phone:email,isEmail: !bloc.registerByPhone)){
+                          Util.pushPage(PinCodeVerificationScreen(data: {
+                            if(!bloc.registerByPhone)'email':email,
+                            'name':"${firstNameTextEditingController.text.trim()} ${secondNameTextEditingController.text.trim()}",
+                            'user_login': bloc.registerByPhone? phone : email,
+                            if(bloc.registerByPhone)'phone':phone,
+                            'password':passwordTextEditingController.text.trim(),
+                          },isRegister: true,), context);
                         }else{
                           SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
                         }
@@ -219,8 +221,9 @@ class RegisterScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: state is RegisterLoadingState?
-                      const CircularProgressIndicator(color: Colors.white,):
+                      child:
+                      // state is RegisterLoadingState?
+                      // const CircularProgressIndicator(color: Colors.white,):
                       CustomText(
                         text: translate("signup.signup"),
                         color: Colors.white,
@@ -242,6 +245,16 @@ class RegisterScreen extends StatelessWidget {
           )
         )
     );
+  }
+  bool validatePhoneInput(bool registerByPhone,String phone,BuildContext context){
+    if(registerByPhone&&phone.isNotEmpty){
+      String? txt = Util.validatePhone(phone);
+      if(txt!=null){
+        SnackBarBuilder.showFeedBackMessage(context, txt, DMUtil.getRED());
+        return false;
+      }
+    }
+    return true;
   }
 
   validateForm(bool checkPhone,{BuildContext? context}){

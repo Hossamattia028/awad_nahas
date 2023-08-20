@@ -85,13 +85,13 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
       if(decodedData['status']){
         await saveLocalData(decodedData);
         SetNotification.showNotification(title: "", msg: translate("toast.welcome"));
-        return AuthResponse(user: UserServiceModel.fromJson(decodedData['user']),msg: translate("toast.signup"));
+        return AuthResponse(user: UserServiceModel.fromJson(decodedData['user']),msg: translate("toast.signup"),isSuccess: true);
       }else if(decodedData.toString().contains("already")){
-        return  AuthResponse(user: null,msg: translate("toast.user_exist"));
+        return  AuthResponse(user: null,msg: translate("toast.user_exist"),isFailed: true);
       }
-      return AuthResponse(user: null,msg: translate("toast.oops"));
+      return AuthResponse(user: null,msg: translate("toast.oops"),isFailed: true);
     }catch(e){
-      return AuthResponse(user: null,msg: translate("toast.oops"));
+      return AuthResponse(user: null,msg: translate("toast.oops"),isFailed: true);
     }
   }
 

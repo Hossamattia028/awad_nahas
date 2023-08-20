@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:awad_nahas/features/cart/data/models/cart_serilize_data.dart';
 import 'package:awad_nahas/features/cart/domain/entities/cart_entity.dart';
 
 class CartModel extends CartEntity {

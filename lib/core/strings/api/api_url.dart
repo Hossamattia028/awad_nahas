@@ -24,6 +24,8 @@ class ApiUrl {
   static const String USER_NOTIFICATIONS = '${BASE_URL}user/notifications';
   static const String FETCH_ALL_USER_PROFILE = '${BASE_URL}users';
 
+  static const String SEND_OTP = '${BASE_URL}send-otp';
+
 
   //address
   static const String FETCH_ADDRESS = '${BASE_URL}user/addresses';

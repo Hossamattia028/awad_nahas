@@ -3,7 +3,9 @@
 import 'dart:async';
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/authentication/presentation/bloc/auth_event.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/reset_password.dart';
+import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,8 +27,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 
 class PinCodeVerificationScreen extends StatefulWidget {
-  final String phone;
-  const PinCodeVerificationScreen({Key? key,required this.phone}) : super(key: key);
+  final Map<String,dynamic> data;
+  final bool isRegister;
+  const PinCodeVerificationScreen({Key? key,required this.data,required this.isRegister}) : super(key: key);
 
   @override
   State<PinCodeVerificationScreen> createState() => _PinCodeVerificationScreenState();
@@ -103,7 +106,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 color: DMUtil.getD2C(),
               ),
               CustomText(
-                text: "${translate("signup.code_sent")} \n ${widget.phone}",
+                text: "${translate("signup.code_sent")} \n ${widget.data['phone'] ??  widget.data['email']}",
                 fontSize: AppStyle.small.sp,
                 color: DMUtil.getD2C(),
                 alignCenter: true,
@@ -113,21 +116,21 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
               Form(
                   key: formKey,
                   child: Directionality(
-                    textDirection: SharedPref.preferences.getPreferenceString(Constants.userLang)=="ar"?TextDirection.rtl:TextDirection.ltr,
+                    textDirection: SharedPref.preferences.getPreferenceString(Constants.userLang)=="ar"?TextDirection.ltr:TextDirection.ltr,
                     child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        padding: EdgeInsets.symmetric(horizontal: 60.w),
                         child: PinCodeTextField(
                           appContext: context,
                           pastedTextStyle: TextStyle(
                             color: Colors.green.shade600,
                             fontWeight: FontWeight.bold,
                           ),
-                          length: 6,
+                          length: 4,
                           obscureText: false,
                           obscuringCharacter: '*',
                           animationType: AnimationType.slide,
                           validator: (v) {
-                            if (v!.length < 6) {
+                            if (v!.length < 4) {
                               return "";
                             } else {
                               return null;
@@ -185,35 +188,54 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     fontWeight: FontWeight.w400),
               ),
               const SizedBox(height: 25,),
-              BlocBuilder<AuthBloc,AuthState>(
-                builder: (ctx,state){
-                  return MaterialButton(
-                    onPressed: ()async{
-                      var otp = textEditingController.text.trim();
-                      if(otp.isEmpty) {
-                        SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
-                        return;
-                      }
-                      // if(await Util.verifyFirebaseCode(otp)) {
-                        Util.pushPage(ResetPassword(userLogin: widget.phone,), context);
-                      // }else{
-                      //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.verification_code"), Colors.red);
-                      // }
-                    },
-                    minWidth: double.infinity,
-                    height: 40.h,
-                    color: DMUtil.getRED(),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: CustomText(
-                      text: translate("button.confirm"),
-                      color: Colors.white,
-                      fontFamily: primaryFontBold,
-                      fontSize: AppStyle.average.sp,
-                    ),
-                  );
+              BlocListener<AuthBloc,AuthState>(
+                listener: (ctx,state){
+                  var bloc = AuthBloc.get(ctx);
+                  if(state is RegisterSuccessfullyState && state.response.isSuccess==true){
+                    Util.getAllUserAppData(context: context);
+                    SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.green);
+                    Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+                  }else{
+                    SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.red);
+                  }
                 },
+                listenWhen: (ctx,state) => state is RegisterSuccessfullyState  || state is RegisterFailedState,
+                child: BlocBuilder<AuthBloc,AuthState>(
+                  builder: (ctx,state){
+                    var bloc = AuthBloc.get(ctx);
+                    return MaterialButton(
+                      onPressed: ()async{
+                        var otp = textEditingController.text.trim();
+                        if(otp.isEmpty) {
+                          SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
+                          return;
+                        }
+                        if(await Util.verifyCode(otp)) {
+                          if(widget.isRegister){
+                            bloc.add(RegisterEvent(user: widget.data));
+                          }else{
+                            Util.pushPage(ResetPassword(userLogin: widget.data['phone'] ??  widget.data['email'],), context);
+                          }
+                        }else{
+                          SnackBarBuilder.showFeedBackMessage(context, translate("toast.verification_code"), Colors.red);
+                        }
+                      },
+                      minWidth: double.infinity,
+                      height: 40.h,
+                      color: DMUtil.getRED(),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: state is RegisterLoadingState?
+                      const CircularProgressIndicator(color: Colors.white,):
+                      CustomText(
+                        text: translate("button.confirm"),
+                        color: Colors.white,
+                        fontSize: AppStyle.average.sp+2,
+                      ),
+                    );
+                  },
+                ),
               ),
               const SizedBox(height: 16,),
               RichText(

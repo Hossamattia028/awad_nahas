@@ -10,7 +10,6 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dar
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -54,12 +53,11 @@ class Util{
     return null;
   }
 
-  static Future<bool> verifyFirebaseCode(String otp) async{
+
+  static Future<bool> verifyCode(String otp) async{
     try{
-      FirebaseAuth auth = FirebaseAuth.instance;
-      var vId = SharedPref().getPreferenceString(Constants.lastVerificationCode);
-      var credential = await auth.signInWithCredential(PhoneAuthProvider.credential(verificationId: vId, smsCode: otp));
-      return credential.user != null;
+      var vC = SharedPref().getPreferenceString(Constants.lastVerificationCode);
+      return vC.trim() == otp.trim();
     }catch(e){
       debugPrint("verifyFirebaseCode: $e");
       return false;

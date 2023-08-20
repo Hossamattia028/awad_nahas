@@ -1,4 +1,3 @@
-import 'package:awad_nahas/features/authentication/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 
 

@@ -83,7 +83,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                       if(phone.isNotEmpty){
 
                         // if(){
-                        Util.pushPage(PinCodeVerificationScreen(phone: emailTextEditingController.text.trim(),), context);
+                        Util.pushPage(const PinCodeVerificationScreen(data: {},isRegister: false,), context);
                         // }
                       }else{
                         SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);

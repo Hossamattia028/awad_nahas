@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';

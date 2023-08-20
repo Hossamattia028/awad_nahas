@@ -2,7 +2,6 @@
 import 'dart:io';
 
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
-import 'package:awad_nahas/features/authentication/domain/entities/user_entity.dart';
 import 'package:awad_nahas/features/order/data/models/confirm_order_data.dart';
 import 'package:awad_nahas/features/order/domain/entities/order.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';

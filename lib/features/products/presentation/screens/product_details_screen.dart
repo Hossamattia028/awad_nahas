@@ -1,6 +1,5 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/home/presentation/widgets/main_slider.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/brand_products.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
