@@ -28,6 +28,19 @@ class AuthServiceModelRepository implements AuthServiceRepository {
   }
 
   @override
+  Future<Either<Failure, AuthResponse>> socialAuthUser(Map<String, dynamic> userData) async {
+    if (await networkInfo.isConnected()) {
+      try {
+        return Right(await userServiceRemoteDataSource.socialAuthUser(userData));
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, AuthResponse>> registerUser(
       Map<String, dynamic> userData,{File? storeBanner,File? storeLicense}) async {
     return Right(await userServiceRemoteDataSource.registerUser(userData,storeLicense: storeLicense,storeBanner: storeBanner));

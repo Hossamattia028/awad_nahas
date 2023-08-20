@@ -1,3 +1,4 @@
+import 'package:awad_nahas/features/authentication/domain/use_cases/social_login_user_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/core/strings/constant.dart';
@@ -15,9 +16,11 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
 
   LoginUserServiceUseCase loginUserServiceUseCase;
   RegisterUserServiceUseCase registerUserServiceUseCase;
+  SocialUserServiceUseCase socialUserServiceUseCase;
   AuthBloc({
     required this.loginUserServiceUseCase,
     required this.registerUserServiceUseCase,
+    required this.socialUserServiceUseCase,
 }) : super(AuthInitialState()) {
     on<RegisterEvent>((RegisterEvent event, emit) async{
       await register(emit, event);
@@ -48,6 +51,10 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     });
 
     on<EnablePhoneRegisterButtonEvent>((event, emit) {
+      enableRegisterByPhone(event,emit);
+    });
+
+    on<SocialLoginEvent>((event, emit) async{
       enableRegisterByPhone(event,emit);
     });
 
@@ -100,6 +107,26 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     emit(const LogInLoadingState());
     try{
       var res = await loginUserServiceUseCase(data: event.user);
+      res.fold((l) {
+        resMsg = l.toString();
+      },(data) {
+        resMsg = data.msg.toString();
+        if(data.user==null){
+          emit(LogInFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
+        }else{
+          emit(LogInSuccessfullyState(response: AuthResponse(msg: resMsg,isSuccess: true)));
+        }
+      });
+    }catch(e){
+      debugPrint("logInError: $e");
+      emit(LogInFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
+    }
+  }
+
+  socialLogin(LogInEvent event,emit)async{
+    emit(const LogInLoadingState());
+    try{
+      var res = await socialUserServiceUseCase(data: event.user);
       res.fold((l) {
         resMsg = l.toString();
       },(data) {

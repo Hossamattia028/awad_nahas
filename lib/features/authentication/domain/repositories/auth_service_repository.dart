@@ -6,4 +6,5 @@ import 'package:awad_nahas/features/authentication/data/models/auth_response.dar
 abstract class AuthServiceRepository {
   Future<Either<Failure, AuthResponse>> registerUser(Map<String, dynamic> userData);
   Future<Either<Failure, AuthResponse>> loginUser(Map<String, dynamic> userData);
+  Future<Either<Failure, AuthResponse>> socialAuthUser(Map<String, dynamic> userData);
 }

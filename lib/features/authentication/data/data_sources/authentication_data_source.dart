@@ -14,6 +14,7 @@ import 'package:awad_nahas/features/authentication/data/models/user_service_mode
 abstract class AuthServiceRemoteDataSourceImpl {
   Future<AuthResponse> registerUser(Map<String, dynamic> userData);
   Future<AuthResponse> loginUser(Map<String, dynamic> userData);
+  Future<AuthResponse> socialAuthUser(Map<String, dynamic> userData);
 }
 
 class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
@@ -96,6 +97,34 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
   }
 
 
+  @override
+  Future<AuthResponse> socialAuthUser(Map<String, dynamic> userData) async {
+    var data = {
+      if(userData['email']!=null)'user_login': userData['email'],
+      'password': userData['password'],
+      // 'device_token': await Util.getCurrentUserPushToken()
+    };
+    var response = await client.post(
+      Uri.parse(ApiUrl.SOCIAL_AUTH_URL),
+      body: json.encode(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    );
+    var decodedData = json.decode(response.body);
+    debugPrint("socialAuthUser: ${response.body}");
+    if(response.body.contains("Unauthorized")||response.body.contains("user not found")){
+      return AuthResponse(user: null,msg: translate("toast.sign_wrong"));
+    }else if(decodedData['status']){
+      final Map<String, dynamic> bodyData = json.decode(response.body);
+      UserServiceModel user = UserServiceModel.fromJson(bodyData['user']);
+      await saveLocalData(bodyData);
+      SetNotification.showNotification(title: "", msg: translate("toast.welcome"));
+      return AuthResponse(user: user,msg: translate("toast.signup"));
+    }else{
+      return AuthResponse(user: null,msg: translate("toast.oops"));
+    }
+  }
 
 
 

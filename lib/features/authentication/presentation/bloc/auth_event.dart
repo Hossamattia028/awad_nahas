@@ -12,6 +12,11 @@ class LogInEvent extends AuthEvent{
   const LogInEvent({required this.user});
 }
 
+class SocialLoginEvent extends AuthEvent{
+  final Map<String,dynamic> user;
+  const SocialLoginEvent({required this.user});
+}
+
 class RegisterEvent extends AuthEvent{
   final Map<String,dynamic> user;
   const RegisterEvent({required this.user});

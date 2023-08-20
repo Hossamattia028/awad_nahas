@@ -1,5 +1,6 @@
 
 import 'package:awad_nahas/features/account/domain/use_cases/get_all_users_usecase.dart';
+import 'package:awad_nahas/features/authentication/domain/use_cases/social_login_user_usecase.dart';
 import 'package:awad_nahas/features/cart/data/data_sources/cart_remote_data_source.dart';
 import 'package:awad_nahas/features/cart/data/repositories/cart_model_repository.dart';
 import 'package:awad_nahas/features/cart/domain/repositories/cart_repository.dart';
@@ -66,10 +67,12 @@ Future<void> init() async {
   sl.registerFactory(() => AuthBloc(
       loginUserServiceUseCase: sl(),
       registerUserServiceUseCase: sl(),
+      socialUserServiceUseCase: sl(),
     ));
 
   sl.registerLazySingleton(() => RegisterUserServiceUseCase(authServiceRepository: sl()));
   sl.registerLazySingleton(() => LoginUserServiceUseCase(authServiceRepository: sl()));
+  sl.registerLazySingleton(() => SocialUserServiceUseCase(authServiceRepository: sl()));
 
   sl.registerLazySingleton<AuthServiceRepository>(() => AuthServiceModelRepository(networkInfo: sl(), userServiceRemoteDataSource: sl()));
   sl.registerLazySingleton<AuthServiceRemoteDataSource>(() => AuthServiceRemoteDataSource(client: sl()));
