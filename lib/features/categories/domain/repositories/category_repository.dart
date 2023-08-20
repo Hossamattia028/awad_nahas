@@ -5,5 +5,6 @@ import 'package:awad_nahas/features/categories/domain/entities/slider_entity.dar
 
 abstract class CategoryRepository {
   Future<Either<Failure, List<CategoriesEntity>>> getAllCategories();
+  Future<Either<Failure, List<CategoriesEntity>>> getAllBrands();
   Future<Either<Failure, SliderEntity>> getAllSliders({required String sliderTitle});
 }

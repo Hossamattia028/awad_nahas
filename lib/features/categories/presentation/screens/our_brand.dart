@@ -21,7 +21,7 @@ class OurBrandsScreen extends StatelessWidget {
       body: BlocBuilder<CategoriesBloc,CategoriesState>(
         builder: (ctx,state){
           var bloc = CategoriesBloc.get(ctx);
-          var list = bloc.brandList;
+          var list = bloc.brandsList;
           return GridView.builder(
             itemCount: list.length,
             physics: const BouncingScrollPhysics(),

@@ -25,7 +25,8 @@ class ProductDetailsDataRow extends StatelessWidget {
                     unselectedLabelColor: DMUtil.getDC(),
                     indicatorColor: DMUtil.getPC(),
                     labelColor: DMUtil.getPC(),
-                    labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp),
+                    isScrollable: true,
+                    labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+2),
                     tabs: <Widget>[
                       Tab(text: translate("products.desc"),),
                       Tab(text: translate("products.reviews"),),

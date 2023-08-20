@@ -17,6 +17,18 @@ class GetAllCategoryUseCase {
 
 
 
+class GetAllBrandsUseCase {
+  final CategoryRepository categoryRepository;
+
+  GetAllBrandsUseCase({required this.categoryRepository});
+
+  Future<Either<Failure, List<CategoriesEntity>>> call() async {
+    return await categoryRepository.getAllBrands();
+  }
+}
+
+
+
 class GetAllSlidersUseCase {
   final CategoryRepository categoryRepository;
 

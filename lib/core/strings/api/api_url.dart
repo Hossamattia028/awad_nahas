@@ -41,6 +41,7 @@ class ApiUrl {
   static const String SLIDERS_URL = '${BASE_URL}banner';
   static const String CITIES_URL = '${BASE_URL}cities/';
   static const String CATEGORIES_URL = '${BASE_URL}categories/all';
+  static const String BRANDS_URL = '${BASE_URL}brands/all';
 
 
   //cart

@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/products/data/models/product_small_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/comment_usecase.dart';
@@ -233,6 +234,22 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     // return productsList.where((element) => element.catID.toString().trim()==catId.toString().trim()).toList();
   }
 
+  List<ProductsEntity> relatedProducts(List<CategoriesEntity> catList){
+    List<ProductsEntity> list = [];
+    for(var i in catList){
+      for(var p in productsList){
+          if(p.categoryList.contains(i)){
+             list.add(p);
+          }
+      }
+      // list.addAll(productsList.where((element) => element.categoryList.contains(i)).toList());
+    }
+    return list;
+  }
+
+  List<ProductsEntity> brandProducts(int brandID){
+    return productsList.where((element) => element.brandID == brandID).toList();
+  }
 
   List<ProductsEntity> filterByCurrentLang(List<ProductsEntity> list){
     if(Util.getLang()=="ar"){

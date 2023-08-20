@@ -8,6 +8,7 @@ import 'package:awad_nahas/features/categories/data/models/slider_model.dart';
 
 abstract class CategoryRemoteDataSourceImpl {
   Future<List<CategoriesModel>> getAllCategory();
+  Future<List<CategoriesModel>> getAllBrands();
   Future<SliderModel> getAllSliders({required String sliderTitle});
 }
 
@@ -18,6 +19,23 @@ class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
   Future<List<CategoriesModel>> getAllCategory() async {
     var response = await client.get(Uri.parse(ApiUrl.CATEGORIES_URL));
     // debugPrint("getAllCategory ${response.body}");
+    if (response.statusCode == 200) {
+      final body = json.decode(response.body);
+      List<CategoriesModel> categories =
+          body['data'].map<CategoriesModel>((categoryModel) {
+        return CategoriesModel.fromJson(categoryModel);
+      }).toList();
+      return categories;
+      // return categories.where((element) => (!element.imgPath.toString().contains("{s:")) && element.imgPath.toString().trim()!="").toList();
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<CategoriesModel>> getAllBrands() async {
+    var response = await client.get(Uri.parse(ApiUrl.BRANDS_URL));
+    // debugPrint("getAllBrands ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       List<CategoriesModel> categories =

@@ -56,6 +56,7 @@ import 'package:awad_nahas/features/order/domain/use_cases/delete_order_usecase.
 import 'package:awad_nahas/features/order/domain/use_cases/get_all_order_usecase.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
+
 final sl = GetIt.instance;
 
 Future<void> init() async {
@@ -133,8 +134,9 @@ Future<void> init() async {
 
 
   /// categories bloc and classes initial
-  sl.registerFactory(() => CategoriesBloc(getAllCategoryUseCase: sl(),getAllSlidersUseCase: sl()));
+  sl.registerFactory(() => CategoriesBloc(getAllCategoryUseCase: sl(),getAllSlidersUseCase: sl(),getAllBrandsUseCase: sl()));
   sl.registerLazySingleton(() => GetAllCategoryUseCase(categoryRepository: sl()));
+  sl.registerLazySingleton(() => GetAllBrandsUseCase(categoryRepository: sl()));
   sl.registerLazySingleton(() => GetAllSlidersUseCase(categoryRepository: sl()));
   sl.registerLazySingleton<CategoryRepository>(() => CategoryModelRepository(networkInfo: sl(), categoryRemoteDataSource: sl()));
   sl.registerLazySingleton<CategoryRemoteDataSourceImpl>(() => CategoryRemoteDataSource(client: sl()));

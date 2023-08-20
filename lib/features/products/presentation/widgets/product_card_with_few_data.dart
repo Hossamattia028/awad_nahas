@@ -31,7 +31,7 @@ class ProductCardFewData extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 10,),
+            const SizedBox(height: 5,),
             ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.contain,),
             const SizedBox(width: 5,),
             Row(

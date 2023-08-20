@@ -1,11 +1,15 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/brand_products.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_data_taps.dart';
+import 'package:awad_nahas/features/shared_widgets/svg_icon.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
@@ -14,6 +18,7 @@ import 'package:awad_nahas/features/products/presentation/widgets/product_detail
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share_plus/share_plus.dart';
 
 
@@ -46,6 +51,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
       }
     }
     productsBloc = ProductsBloc.get(context);
+
     // productsBloc..add(UpdateCurrentProduct(item: widget.item))..add(const FetchProductCommentsEvent());
     super.didChangeDependencies();
   }
@@ -98,7 +104,20 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ProductPriceWidget(productModel: widget.item,isBig: true,),
-                Image.asset("${AppImages.images}/brand.png"),
+
+                BlocBuilder<CategoriesBloc,CategoriesState>(
+                  builder: (ctx,state){
+                    var bloc = CategoriesBloc.get(ctx);
+                    int index = bloc.brandsList.indexWhere((element) => element.id==widget.item.brandID);
+                    if(index == -1) return const SizedBox.shrink();
+                    var brand = bloc.brandsList[index];
+                    if(brand.iconPath.contains("svg")){
+                      return SvgPicture.network(brand.iconPath,width: 26.w,height: 25.h,);
+                    }else{
+                      return Image.network(brand.imgPath);
+                    }
+                  },
+                ),
               ],
             ),
             CustomText(
@@ -108,9 +127,19 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
             ),
             ProductDetailsDataRow(item: widget.item),
 
-            const BrandProductsWidget(),
 
-            const RelatedProductsWidget(),
+            if(widget.item.brandID!=null)
+            BlocBuilder<CategoriesBloc,CategoriesState>(
+              builder: (ctx,state){
+                var bloc = CategoriesBloc.get(ctx);
+                int index = bloc.brandsList.indexWhere((element) => element.id==widget.item.brandID);
+                if(index == -1) return const SizedBox.shrink();
+                var brand = bloc.brandsList[index];
+                return BrandProductsWidget(item:  widget.item,brandTitle: brand.title,);
+              },
+            ),
+
+            RelatedProductsWidget(item:  widget.item,),
 
           ],
         )

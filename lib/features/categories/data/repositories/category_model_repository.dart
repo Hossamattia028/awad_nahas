@@ -26,6 +26,19 @@ class CategoryModelRepository implements CategoryRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, List<CategoriesEntity>>> getAllBrands() async {
+    if (await networkInfo.isConnected()) {
+      try {
+        return Right(await categoryRemoteDataSource.getAllBrands());
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
 
   @override
   Future<Either<Failure, SliderEntity>> getAllSliders({required String sliderTitle}) async{

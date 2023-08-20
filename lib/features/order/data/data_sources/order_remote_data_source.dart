@@ -23,7 +23,7 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
   @override
   Future<List<OrderModel>> getAllOrder() async {
     var response = await client.get(Uri.parse(ApiUrl.FETCH_ALL_ORDERS), headers: ApiUrl.headerAuth);
-    debugPrint("getAllOrder: ${response.body} \n ${ApiUrl.headerAuth}");
+    debugPrint("getAllOrder: ${response.body}");
     final decodedData = json.decode(response.body);
     if (decodedData['status']) {
       List<OrderModel> orders = decodedData['data'].map<OrderModel>((orderModel) {

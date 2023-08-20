@@ -9,6 +9,7 @@ class ProductModel extends ProductsEntity{
     required super.stockStatus,required super.quantity,
     required super.categoryList,
     required super.catID,
+    required super.brandID,
     required super.commentCount,
     required super.isArabic,
   });
@@ -33,7 +34,8 @@ class ProductModel extends ProductsEntity{
       quantity: 1,
       isArabic:jsonObject['is_arabic'],
       categoryList: jsonObject['categories']!=null ? CategoriesModel.listModelFromJson(jsonEncode(jsonObject['categories'])):[],
-      catID: jsonObject['cat_id'] ?? 0,
+      catID: int.parse((jsonObject['cat_id']??"0").toString()),
+      brandID: int.parse((jsonObject['brand_id']??"0").toString()),
     );
   }
 

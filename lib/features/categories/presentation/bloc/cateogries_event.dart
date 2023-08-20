@@ -38,6 +38,10 @@ class FetchAllCategoriesEvent extends CategoriesEvent{
   const FetchAllCategoriesEvent();
 }
 
+class FetchAllBrandsEvent extends CategoriesEvent{
+  const FetchAllBrandsEvent();
+}
+
 class SetProductsToCategoryEvent extends CategoriesEvent{
   final List list;
   final int catID;

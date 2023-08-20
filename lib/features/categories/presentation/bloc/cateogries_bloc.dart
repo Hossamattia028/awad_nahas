@@ -14,19 +14,20 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   CategoriesEntity? currentCategory;
 
   /// store the categories list to can convert title when switch the language
-  // List<CategoriesEntity> storedCategoriesList = [];
   List<CategoriesEntity> categoriesList = [];
+  List<CategoriesEntity> brandsList = [];
 
   CategoriesEntity? currentSubCategory;
   List<CategoriesEntity> subCategoriesList =  [];
 
   CategoriesEntity? currentBrand;
-  List<CategoriesEntity> brandList = const [];
 
   GetAllCategoryUseCase getAllCategoryUseCase;
+  GetAllBrandsUseCase getAllBrandsUseCase;
   GetAllSlidersUseCase getAllSlidersUseCase;
   CategoriesBloc({
     required this.getAllCategoryUseCase,
+    required this.getAllBrandsUseCase,
     required this.getAllSlidersUseCase,
   }) : super(CategoriesInitialState()) {
     on<ChangeCategoriesEvent>((event, emit) {
@@ -43,6 +44,10 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
 
     on<FetchAllCategoriesEvent>((event, emit) async{
       await getAllCategories(emit);
+    });
+
+    on<FetchAllBrandsEvent>((event, emit) async{
+      await getAllBrands(emit);
     });
 
     on<SetProductsToCategoryEvent>((SetProductsToCategoryEvent event, emit) async{
@@ -123,6 +128,22 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
       emit(const FetchCategoriesSuccessfullyState());
     // }catch(e){
     //   debugPrint("getAllCategoriesBlocError: $e");
+    //   emit(const FetchCategoriesFailedState());
+    // }
+  }
+
+  getAllBrands(emit)async{
+    // emit(const FetchCategoriesLoadingState());
+    // try{
+      var res = await getAllBrandsUseCase();
+      res.fold((l) {
+        emit(const FetchCategoriesFailedState());
+      },(data) {
+        brandsList = data;
+      });
+      emit(const FetchCategoriesSuccessfullyState());
+    // }catch(e){
+    //   debugPrint("getAllBrandsBlocError: $e");
     //   emit(const FetchCategoriesFailedState());
     // }
   }

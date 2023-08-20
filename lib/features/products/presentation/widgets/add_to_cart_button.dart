@@ -72,88 +72,6 @@ class AddToCartButton extends StatelessWidget {
   }
 }
 
-// class AddToCartButtonBottomNav extends StatelessWidget {
-//   final ProductsEntity item;
-//   const AddToCartButtonBottomNav({Key? key,required this.item,}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.all(7.0),
-//       child: Container(
-//         color: Colors.transparent,
-//         height: 130.h,
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           children: [
-//             const AlignChildRow(child: ProductQuantityWidget()),
-//             const SizedBox(height: 5,),
-//             BlocBuilder<CartBloc,CartState>(
-//               builder: (ctx,state){
-//                 var bloc = CartBloc.get(ctx);
-//                 int index = bloc.cartList.indexWhere((element) => element.id==item.id);
-//                 bool insideCartList = false;
-//                 if(index!=-1)insideCartList=true;
-//                 return CustomButton(
-//                   color: insideCartList?Colors.white:DMUtil.getRED(),
-//                   height: 34.h,
-//                   circular: 15,
-//                   sideColor: DMUtil.getRED(),
-//                   sideWidth: 1,
-//                   width: 250.w,
-//                   widget: CustomText(
-//                     text: insideCartList?translate("cart.remove_from_cart"):translate("cart.add_to_cart"),
-//                     color: insideCartList?Colors.red:Colors.white,
-//                     fontWeight: FontWeight.w500,
-//                     fontSize: AppStyle.average.sp-1,
-//                   ),
-//                   onPressed: (){
-//                     if(item.stockStatus!=true){
-//                       SnackBarBuilder.showFeedBackMessage(context, translate("toast.out_of_stock"), Colors.red);
-//                     }else{
-//                       bloc.add(AddToCartEvent(product: item,));
-//                     }
-//                   },
-//                 );
-//               },
-//             ),
-//             const SizedBox(height: 4,),
-//             BlocBuilder<OrderBloc,OrderState>(
-//               builder: (ctx,state){
-//                 var bloc = OrderBloc.get(ctx);
-//                 return CustomButton(
-//                   color: Colors.white,
-//                   height: 34.h,
-//                   circular: 15,
-//                   sideColor: DMUtil.getRED(),
-//                   sideWidth: 1,
-//                   width: 250.w,
-//                   widget: CustomText(
-//                     text: translate("home.buy"),
-//                     color: DMUtil.getRED(),
-//                     fontWeight: FontWeight.w500,
-//                     fontSize: AppStyle.average.sp-1,
-//                   ),
-//                   onPressed: (){
-//                     if(item.stockStatus!=true){
-//                       SnackBarBuilder.showFeedBackMessage(context, translate("toast.out_of_stock"), Colors.red);
-//                     }else{
-//
-//                     }
-//                   },
-//                 );
-//               },
-//             ),
-//
-//
-//           ],
-//         ),
-//       )
-//     );
-//   }
-// }
-
-
 
 class AddToCartButtonWidget extends StatelessWidget {
   final ProductsEntity item;
@@ -177,14 +95,14 @@ class AddToCartButtonWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(4.0),
                 child: Container(
                   color: Colors.transparent,
-                  height: 60.h,
+                  height: 65.h,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
 
                       Expanded(child: ProductCardFewData(item: item,showPrice: false,isElevation: false,)),
                       CustomButton(
-                          height: 45.h,
+                          height: 50.h,
                           width: 118.w,
                           widget: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
