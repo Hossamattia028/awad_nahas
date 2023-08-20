@@ -55,7 +55,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     });
 
     on<SocialLoginEvent>((event, emit) async{
-      enableRegisterByPhone(event,emit);
+      await socialLogin(event,emit);
     });
 
   }
@@ -123,7 +123,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     }
   }
 
-  socialLogin(LogInEvent event,emit)async{
+  socialLogin(SocialLoginEvent event,emit)async{
     emit(const SocialLoadingState());
     try{
       var res = await socialUserServiceUseCase(data: event.user);

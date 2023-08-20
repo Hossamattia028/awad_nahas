@@ -7,6 +7,7 @@ import 'package:awad_nahas/features/authentication/presentation/widgets/remember
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
+import 'package:awad_nahas/features/shared_widgets/switch_language.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,13 @@ class LoginScreen extends StatelessWidget {
             child:  Column(
               children: [
                 SizedBox(height: AppStyle.paddingFromTop.h,),
-                const AlignChildRow(child: BackArrowButton(),),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AlignChildRow(child: BackArrowButton(),),
+                    SwitchLanguageWidget(),
+                  ],
+                ),
                 const LogoWidget(width: 180,fit: BoxFit.contain,height: 90,),
 
                 const SizedBox(height: 10,),
@@ -221,9 +228,10 @@ class LoginScreen extends StatelessWidget {
       if(emailTextEditingController.text.isEmpty || !emailTextEditingController.text.contains("@")){
         return false;
       }
+    }else{
+      if(phoneTextEditingController.text.isEmpty) return false;
     }
-    if(phoneTextEditingController.text.isEmpty) return false;
-    if(passTextEditingController.text.isNotEmpty)return true;
-    return false;
+    if(passTextEditingController.text.isEmpty)return false;
+    return true;
   }
 }

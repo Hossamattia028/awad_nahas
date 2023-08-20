@@ -77,7 +77,7 @@ class CouponWidget extends StatelessWidget {
                     SizedBox(height: 25.h,width: 25.w,child: const CircularProgressIndicator(backgroundColor: kPrimary,)):
                     CustomButton(
                       height: 40.h,
-                      width: 87.w,
+                      width: 91.w,
                       circular: 20,
                       widget: CustomText(
                         color: Colors.white,

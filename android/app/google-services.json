@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "220828393138",
-    "project_id": "awadnahas-fc1ba",
-    "storage_bucket": "awadnahas-fc1ba.appspot.com"
+    "project_number": "540112321778",
+    "project_id": "awad-nahas-2ecd0",
+    "storage_bucket": "awad-nahas-2ecd0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:220828393138:android:56c24df29a1fb2fe9ff3ab",
+        "mobilesdk_app_id": "1:540112321778:android:6a4884fb1b73b22618e46b",
         "android_client_info": {
-          "package_name": "com.awad_nahas.awad_nahas"
+          "package_name": "com.awadnahas.awadnahas"
         }
       },
       "oauth_client": [
         {
-          "client_id": "220828393138-9atrc03isnjnccj79n2u7jfid6r7bgab.apps.googleusercontent.com",
+          "client_id": "540112321778-onjq1cnsafvsu3lgihu2tgh4hf20u38i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.awad_nahas.awad_nahas",
+            "package_name": "com.awadnahas.awadnahas",
             "certificate_hash": "82c988c5ac5d00f29cc4a3e6f96ea5903e1a56c1"
           }
         },
         {
-          "client_id": "220828393138-58oukhvqhlmtkcvbmb1mptfup6mlobms.apps.googleusercontent.com",
+          "client_id": "540112321778-sbtogat1183b86boqer1k8k9tc0kanu9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDt_tAdEebvMcFMTW-e-zxPiR5uYbqZ4LI"
+          "current_key": "AIzaSyBQR3pucWV88qLIUYSokbTZlPv7S4WlAMg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "220828393138-58oukhvqhlmtkcvbmb1mptfup6mlobms.apps.googleusercontent.com",
+              "client_id": "540112321778-sbtogat1183b86boqer1k8k9tc0kanu9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

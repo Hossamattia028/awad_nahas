@@ -1,3 +1,4 @@
+import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
@@ -141,11 +142,15 @@ class Util{
     return SharedPref.preferences.containPreference(Constants.userId);
   }
 
-  static void changeLang({required BuildContext ctx}){
+  static void changeLang({required BuildContext ctx,bool isLogin =false}){
     String lng = getLang()=="ar"?"en_US":"ar";
     changeLocale(ctx,lng);
     SharedPref.preferences.setPreferencesString(Constants.userLang,lng);
-    Util.pushPageAndRemoveRoutes(const RootScreen(),ctx);
+    if(isLogin){
+      Util.pushPageAndRemoveRoutes(const LoginScreen(),ctx);
+    }else{
+      Util.pushPageAndRemoveRoutes(const RootScreen(),ctx);
+    }
   }
 
   static String getToken(){

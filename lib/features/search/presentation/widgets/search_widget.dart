@@ -47,7 +47,7 @@ class SearchWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 39.h,
+                        height: 42.h,
                         width: 240.w,
                         child: CustomTextFromField(
                           onChanged: (val){

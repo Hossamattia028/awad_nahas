@@ -20,43 +20,42 @@ class AuthWithSocial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: ()async{
-        var bloc = AuthBloc.get(context);
-        if(socialEnum == SocialEnum.PHONE){
-          bloc.add(const EnablePhoneRegisterButtonEvent());
-        }else if(socialEnum == SocialEnum.GOOGLE){
-          String email = await Util.googleSign();
-          SnackBarBuilder.showFeedBackMessage(context, email, Colors.green);
-          _socialLogin(bloc, email);
-        }else if(socialEnum == SocialEnum.FACEBOOK){
-          String email = await Util.facebookLogin();
-          SnackBarBuilder.showFeedBackMessage(context, email, Colors.green);
-          _socialLogin(bloc, email);
+    return BlocListener<AuthBloc,AuthState>(
+      listener: (ctx,state){
+        var bloc = AuthBloc.get(ctx);
+        if(state is SocialSuccessfullyState && state.response.isSuccess==true){
+          Util.getAllUserAppData(context: context);
+          SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.green);
+          Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+        }else{
+          SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.red);
         }
-
       },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 7.h),
-        margin: const EdgeInsets.symmetric(vertical: 7),
-        decoration: BoxDecoration(
-          color: DMUtil.getWC(),
-          border: Border.all(width: 0.5,color: DMUtil.getD2C()),
-          borderRadius: const BorderRadius.all(Radius.circular(15))
-        ),
-        child: BlocListener<AuthBloc,AuthState>(
-          listener: (ctx,state){
-            var bloc = AuthBloc.get(ctx);
-            if(state is SocialSuccessfullyState && state.response.isSuccess==true){
-              Util.getAllUserAppData(context: context);
-              SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.green);
-              Util.pushPageAndRemoveRoutes(const RootScreen(), context);
-            }else{
-              SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.red);
-            }
-          },
-          listenWhen: (ctx,state) => state is SocialSuccessfullyState  || state is SocialFailedState,
-          child: BlocBuilder<AuthBloc,AuthState>(
+      listenWhen: (ctx,state) => state is SocialSuccessfullyState  || state is SocialFailedState,
+      child: InkWell(
+        onTap: ()async{
+          var bloc = AuthBloc.get(context);
+          if(socialEnum == SocialEnum.PHONE){
+            bloc.add(const EnablePhoneRegisterButtonEvent());
+          }else if(socialEnum == SocialEnum.GOOGLE){
+            String email = await Util.googleSign();
+            _socialLogin(bloc, email);
+          }else if(socialEnum == SocialEnum.FACEBOOK){
+            String email = await Util.facebookLogin();
+            // SnackBarBuilder.showFeedBackMessage(context, email, Colors.green);
+            _socialLogin(bloc, email);
+          }
+
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 7.h),
+          margin: const EdgeInsets.symmetric(vertical: 7),
+          decoration: BoxDecoration(
+              color: DMUtil.getWC(),
+              border: Border.all(width: 0.5,color: DMUtil.getD2C()),
+              borderRadius: const BorderRadius.all(Radius.circular(15))
+          ),
+          child:  BlocBuilder<AuthBloc,AuthState>(
               builder: (ctx,state) {
                 var bloc = AuthBloc.get(ctx);
                 return Row(
@@ -109,6 +108,7 @@ class AuthWithSocial extends StatelessWidget {
       ),
     );
   }
+
   _socialLogin(var bloc,String email){
     bloc.add(SocialLoginEvent(user: {
       'email' : email,

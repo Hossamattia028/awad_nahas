@@ -1,4 +1,4 @@
-package com.awad_nahas.awad_nahas
+package com.awadnahas.awadnahas
 
 import io.flutter.embedding.android.FlutterActivity
 

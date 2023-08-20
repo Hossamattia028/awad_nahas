@@ -9,8 +9,8 @@ class AppStyle {
   static const double z24 = 8.6;
   static const double z22 = 7.9;
   static const double verySmall = 9;
-  static const double small = 11;
-  static const double average = 13;
+  static const double small = 12;
+  static const double average = 14;
   static const double large = 17.9;
   static const double veryLarge = 22;
 
