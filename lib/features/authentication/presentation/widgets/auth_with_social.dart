@@ -26,7 +26,9 @@ class AuthWithSocial extends StatelessWidget {
         if(socialEnum == SocialEnum.PHONE){
           bloc.add(const EnablePhoneRegisterButtonEvent());
         }else if(socialEnum == SocialEnum.GOOGLE){
-          bloc.add()
+          // bloc.add(SocialLoginEvent(user: user));
+        }else if(socialEnum == SocialEnum.FACEBOOK){
+          // bloc.add(SocialLoginEvent(user: user));
         }
       },
       child: Container(

@@ -16,7 +16,7 @@ class ApiUrl {
   //auth
   static const String REGISTER_URL = '${BASE_URL}auth/signup';
   static const String LOGIN_URL = '${BASE_URL}auth/login';
-  static const String SOCIAL_AUTH_URL = '${BASE_URL}auth/login';
+  static const String SOCIAL_AUTH_URL = '${BASE_URL}auth/social';
 
   //user data
   static const String USER_PROFILE_DATA = '${BASE_URL}profile/data';
