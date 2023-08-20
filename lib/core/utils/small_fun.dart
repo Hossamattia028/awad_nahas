@@ -10,6 +10,7 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dar
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -65,7 +66,7 @@ class Util{
   }
 
   /// social auth
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
+  static GoogleSignIn googleSignIn = GoogleSignIn(
     // Optional clientId
 /*     clientId:
         '192805405686-9qe0bem69g0ph14u4coga9ibtj1v936i.apps.googleusercontent.com',*/
@@ -76,19 +77,30 @@ class Util{
     ],
   );
 
-  googleSign()async{
-    GoogleSignInAccount? googleData =  await _googleSignIn.signIn();
-    final GoogleSignInAuthentication? googleAuth = await googleData?.authentication;
+  static Future<String> googleSign()async{
+    final GoogleSignInAccount? googleData = await GoogleSignIn(scopes: ['profile', 'email']).signIn().catchError((e){return e;});
+    // GoogleSignInAccount? googleData =  await googleSignIn.signIn();
+    return googleData!=null ? googleData.email : '' ;
+    // final GoogleSignInAuthentication? googleAuth = await googleData?.authentication;
     // "access_token": googleAuth?.accessToken,
   }
 
-  facebookLogin() async {
-    final LoginResult result = await FacebookAuth.instance.login();
-    if (result.status == LoginStatus.success) {
+  static Future<String> facebookLogin() async {
+    final LoginResult loginResult = await FacebookAuth.instance.login(permissions: ['email', 'public_profile']).catchError((e){return e;});
+    if(loginResult.accessToken==null)return "";
+    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    var data = await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+    if(data.user==null)return "user not found";
+    String email =  data.user!.email.toString();
+    if (loginResult.status == LoginStatus.success) {
+      return email;
       // _accessToken = result.accessToken!;
+    }else{
+      return translate("toast.oops");
     }
   }
-  Future<AccessToken?> _checkIfIsLogged() async {
+
+  static Future<AccessToken?> _checkIfIsLogged() async {
     final accessToken = await FacebookAuth.instance.accessToken;
     if (accessToken != null) {
       return accessToken;

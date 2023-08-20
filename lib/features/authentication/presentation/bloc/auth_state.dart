@@ -38,6 +38,7 @@ class RegisterSuccessfullyState extends AuthState{
   final AuthResponse response;
   const RegisterSuccessfullyState({required this.response});
 }
+
 class RegisterFailedState extends AuthState{
   final AuthResponse response;
   const RegisterFailedState({required this.response});
@@ -47,6 +48,19 @@ class RegisterLoadingState extends AuthState{
   const RegisterLoadingState();
 }
 
+
+class SocialSuccessfullyState extends AuthState{
+  final AuthResponse response;
+  const SocialSuccessfullyState({required this.response});
+}
+class SocialFailedState extends AuthState{
+  final AuthResponse response;
+  const SocialFailedState({required this.response});
+}
+
+class SocialLoadingState extends AuthState{
+  const SocialLoadingState();
+}
 
 class EnableRegisterPhoneLoadingState extends AuthState{
   const EnableRegisterPhoneLoadingState();

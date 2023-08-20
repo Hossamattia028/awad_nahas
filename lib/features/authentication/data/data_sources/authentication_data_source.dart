@@ -100,7 +100,9 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
   @override
   Future<AuthResponse> socialAuthUser(Map<String, dynamic> userData) async {
     var data = {
-      if(userData['email']!=null)'user_login': userData['email'],
+      'user_login': userData['email'],
+      'email': userData['email'],
+      'name':userData['email'].toString().split("@").first.toString().replaceAll("null", ""),
       'password': userData['password'],
       // 'device_token': await Util.getCurrentUserPushToken()
     };

@@ -21,15 +21,20 @@ class AuthWithSocial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: ()async{
         var bloc = AuthBloc.get(context);
         if(socialEnum == SocialEnum.PHONE){
           bloc.add(const EnablePhoneRegisterButtonEvent());
         }else if(socialEnum == SocialEnum.GOOGLE){
-          // bloc.add(SocialLoginEvent(user: user));
+          String email = await Util.googleSign();
+          SnackBarBuilder.showFeedBackMessage(context, email, Colors.green);
+          _socialLogin(bloc, email);
         }else if(socialEnum == SocialEnum.FACEBOOK){
-          // bloc.add(SocialLoginEvent(user: user));
+          String email = await Util.facebookLogin();
+          SnackBarBuilder.showFeedBackMessage(context, email, Colors.green);
+          _socialLogin(bloc, email);
         }
+
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 7.h),
@@ -42,7 +47,7 @@ class AuthWithSocial extends StatelessWidget {
         child: BlocListener<AuthBloc,AuthState>(
           listener: (ctx,state){
             var bloc = AuthBloc.get(ctx);
-            if(state is RegisterSuccessfullyState && state.response.isSuccess==true){
+            if(state is SocialSuccessfullyState && state.response.isSuccess==true){
               Util.getAllUserAppData(context: context);
               SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.green);
               Util.pushPageAndRemoveRoutes(const RootScreen(), context);
@@ -50,7 +55,7 @@ class AuthWithSocial extends StatelessWidget {
               SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.red);
             }
           },
-          listenWhen: (ctx,state) => state is RegisterSuccessfullyState  || state is RegisterFailedState,
+          listenWhen: (ctx,state) => state is SocialSuccessfullyState  || state is SocialFailedState,
           child: BlocBuilder<AuthBloc,AuthState>(
               builder: (ctx,state) {
                 var bloc = AuthBloc.get(ctx);
@@ -103,5 +108,11 @@ class AuthWithSocial extends StatelessWidget {
         ),
       ),
     );
+  }
+  _socialLogin(var bloc,String email){
+    bloc.add(SocialLoginEvent(user: {
+      'email' : email,
+      'password': email
+    }));
   }
 }

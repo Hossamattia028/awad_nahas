@@ -124,7 +124,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
   }
 
   socialLogin(LogInEvent event,emit)async{
-    emit(const LogInLoadingState());
+    emit(const SocialLoadingState());
     try{
       var res = await socialUserServiceUseCase(data: event.user);
       res.fold((l) {
@@ -132,14 +132,14 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
       },(data) {
         resMsg = data.msg.toString();
         if(data.user==null){
-          emit(LogInFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
+          emit(SocialFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
         }else{
-          emit(LogInSuccessfullyState(response: AuthResponse(msg: resMsg,isSuccess: true)));
+          emit(SocialSuccessfullyState(response: AuthResponse(msg: resMsg,isSuccess: true)));
         }
       });
     }catch(e){
-      debugPrint("logInError: $e");
-      emit(LogInFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
+      debugPrint("socialLogin: $e");
+      emit(SocialFailedState(response: AuthResponse(msg: resMsg,isFailed: true)));
     }
   }
 
