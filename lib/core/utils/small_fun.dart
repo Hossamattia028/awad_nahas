@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
@@ -9,6 +10,7 @@ import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
+import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,6 +47,7 @@ class Util{
     // AccountBloc.get(context).add(const FetchAllNotificationsEvent());
     OrderBloc.get(context).add(const FetchAllOrderEvent());
   }
+
 
   static String? validatePhone(String value) {
     String pattern = r'^(^\+9665[5|0|3|6|4|9|1|8|7]{1}[0-9]{7})$';

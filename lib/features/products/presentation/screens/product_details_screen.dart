@@ -5,7 +5,6 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_event.da
 import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/brand_products.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/prodcut_desc.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_data_taps.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';

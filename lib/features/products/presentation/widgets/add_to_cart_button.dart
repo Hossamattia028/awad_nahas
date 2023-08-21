@@ -133,7 +133,7 @@ class AddToCartButtonWidget extends StatelessWidget {
                           ),
                           color: DMUtil.getRED(),
                           onPressed: (){
-                            if(Util.checkUser()){
+                            if(!Util.checkUser()){
                               SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED());
                               return;
                             }

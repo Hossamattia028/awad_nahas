@@ -1,5 +1,7 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,10 +42,13 @@ class AccountAuthCard extends StatelessWidget {
                     color: DMUtil.getD2C(),
                     fontSize: AppStyle.average.sp,
                   ),
-                  CustomText(
-                    text: user == null? translate("drawer.join_us"):user.userName.toString(),
-                    color: user == null? DMUtil.getRED() : DMUtil.getD2C(),
-                    fontSize: AppStyle.average.sp,
+                  InkWell(
+                    onTap: ()=> Util.pushPage(const LoginScreen(), context),
+                    child: CustomText(
+                      text: user == null? translate("drawer.join_us"):user.userName.toString(),
+                      color: user == null? DMUtil.getRED() : DMUtil.getD2C(),
+                      fontSize: AppStyle.average.sp,
+                    ),
                   ),
                 ],
               ),
