@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/payment_utils/payment_controller.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
@@ -12,14 +13,27 @@ import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
-class CheckOutButton extends StatelessWidget {
+class CheckOutButton extends StatefulWidget {
   const CheckOutButton({Key? key}) : super(key: key);
 
+  @override
+  State<CheckOutButton> createState() => _CheckOutButtonState();
+}
+
+class _CheckOutButtonState extends State<CheckOutButton> {
+  PayFortController payFortController =  PayFortController();
+
+  @override
+  void initState() {
+    payFortController.init();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocListener<OrderBloc,OrderState>(
@@ -48,10 +62,25 @@ class CheckOutButton extends StatelessWidget {
               alignCenter: true,
             ),
             color: DMUtil.getRED(),
-            onPressed: ()=> orderBloc.add(AddOrderEvent(list: CartBloc.get(context).cartList, totalPrice: CartBloc.get(context).totalPrice)),
+            onPressed: ()=> _checkOut(context,orderBloc),
           );
         },
       ),
+    );
+  }
+  void _checkOut(BuildContext context,var orderBloc){
+    payFortController.paymentWithCreditOrDebitCard(
+        onSucceeded: (val){
+          debugPrint("success ${val.status}");
+          orderBloc.add(AddOrderEvent(list: CartBloc.get(context).cartList, totalPrice: CartBloc.get(context).totalPrice));
+        },
+        onFailed: (val){
+          debugPrint("failed ${val.toString()}");
+          SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
+        },
+        onCancelled: (){
+          debugPrint("canceled");
+        },
     );
   }
 }
