@@ -278,7 +278,11 @@
 		"add_comment": "Add Comment",
 		"related_products": "Related products",
 		"qty": "Qty",
-		"empty": "There are currently no products in this section"
+		"empty": "There are currently no products in this section",
+		"delivery_service": "Delivery Service",
+		"shipping": "Awad Badi Nahas Trading Company's provides delivery service to its customers through the main cities where the Customer Care Centers are located and their sub-areas.\n\nThis service includes delivery of all large and small household appliances to customers",
+		"install_service": "Installation service",
+		"install": "Installation service is not included with the delivery so the product will only be delivered without installation. You can order the installation service after purchasing the product through our Customer Care number 920003240.\n\nThis service is only available in the main cities where the Company’s customer service centers are available and the sub-areas around "
 	},
 	"brand": {
 		"brand_products": "Brand Products",

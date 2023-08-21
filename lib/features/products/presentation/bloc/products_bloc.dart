@@ -50,6 +50,10 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     on<ChangeCurrencyEvent>((event, emit) {
     });
 
+    on<ChangeWidgetSizeEvent>((event, emit) {
+      _changeWidgetSize(event, emit);
+    });
+
     on<FetchAllProductsEvent>((event, emit)async {
           await getAllProducts(event,emit);
     });
@@ -79,6 +83,12 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
 
 
+  double widgetSize = 340;
+  _changeWidgetSize(ChangeWidgetSizeEvent event,emit){
+    emit(const ProductCommentsLoadingState());
+    widgetSize = event.height;
+    emit(const ProductsSuccessfullyState());
+  }
 
   bool showComments = true;
   showCommentsFun(event,emit){

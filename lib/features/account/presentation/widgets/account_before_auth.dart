@@ -23,7 +23,7 @@ class AccountNotAuth extends StatelessWidget {
             text: translate("profile.welcome"),
             color: DMUtil.getDC(),
             fontWeight: FontWeight.w700,
-            fontSize: AppStyle.average.sp,
+            fontSize: AppStyle.large.sp,
           ),
 
           const SizedBox(height: 10,),
@@ -33,8 +33,7 @@ class AccountNotAuth extends StatelessWidget {
             child: CustomText(
               text: translate("login.app_bar"),
               color: DMUtil.getPC(),
-              fontWeight: FontWeight.w700,
-              fontSize: AppStyle.small.sp,
+              fontSize: AppStyle.average.sp,
             ),
           ),
 

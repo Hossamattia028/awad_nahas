@@ -16,7 +16,7 @@ class SettingLineOption extends StatelessWidget {
     return GestureDetector(
       onTap: onTap??(){},
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 6),
+        margin: EdgeInsets.symmetric(vertical: 6.h),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           border: Border.all(width: 0.6,color: DMUtil.getBCC())
@@ -31,7 +31,7 @@ class SettingLineOption extends StatelessWidget {
               fontSize: AppStyle.average.sp+2,
             ),
 
-            widget ?? Icon(Icons.arrow_forward_ios,color: DMUtil.getDC(),size: 15.w),
+            widget ?? Icon(Icons.arrow_forward_ios,color: DMUtil.getDC(),size: 17.w),
           ],
         ),
       ),

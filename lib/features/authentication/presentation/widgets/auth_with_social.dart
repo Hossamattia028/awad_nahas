@@ -67,11 +67,11 @@ class AuthWithSocial extends StatelessWidget {
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          if(socialEnum==SocialEnum.FACEBOOK)Image.asset(AppImages.facebook,width: 20.w,height: 20.h,fit: BoxFit.contain,),
-                          if(socialEnum==SocialEnum.GOOGLE)Image.asset(AppImages.google,width: 20.w,height: 20.h,fit: BoxFit.contain,),
+                          if(socialEnum==SocialEnum.FACEBOOK)Image.asset(AppImages.facebook,width: 20.w,height: 22.h,fit: BoxFit.contain,),
+                          if(socialEnum==SocialEnum.GOOGLE)Image.asset(AppImages.google,width: 20.w,height: 22.h,fit: BoxFit.contain,),
 
                           if(!bloc.registerByPhone)...[
-                            if(socialEnum==SocialEnum.PHONE)Image.asset(AppImages.phone,width: 20.w,height: 20.h,fit: BoxFit.contain,),
+                            if(socialEnum==SocialEnum.PHONE)Image.asset(AppImages.phone,width: 20.w,height: 22.h,fit: BoxFit.contain,),
                           ]else ...[
                             if(socialEnum==SocialEnum.PHONE)Icon(Icons.email_outlined,color: DMUtil.getPC(),),
                           ],

@@ -69,7 +69,7 @@ class OrderCardDetails extends StatelessWidget {
                 const SizedBox(height: 10,),
                 CustomButton(
                   height: 30.h,
-                  width: 105.w,
+                  width: 110.w,
                   circular: 14,
                   widget: CustomText(
                     text: translate("order.track_location"),

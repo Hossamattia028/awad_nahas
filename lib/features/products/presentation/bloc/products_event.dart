@@ -66,3 +66,9 @@ class AddProductCommentEvent extends ProductsEvent{
   final String txt;
   const AddProductCommentEvent({required this.txt,});
 }
+
+
+class ChangeWidgetSizeEvent extends ProductsEvent{
+  final double height;
+  const ChangeWidgetSizeEvent({required this.height,});
+}

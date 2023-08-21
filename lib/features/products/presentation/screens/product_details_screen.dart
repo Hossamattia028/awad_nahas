@@ -1,4 +1,3 @@
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
@@ -8,7 +7,6 @@ import 'package:awad_nahas/features/products/presentation/widgets/product_detail
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/prodcut_desc.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_data_taps.dart';
-import 'package:awad_nahas/features/shared_widgets/svg_icon.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -113,7 +111,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
                     if(index == -1) return const SizedBox.shrink();
                     var brand = bloc.brandsList[index];
                     if(brand.iconPath.contains("svg")){
-                      return SvgPicture.network(brand.iconPath,width: 26.w,height: 25.h,);
+                      return SvgPicture.network(brand.iconPath,width: 26.w,height: 35.h,);
                     }else{
                       return Image.network(brand.imgPath);
                     }
@@ -121,7 +119,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
                 ),
               ],
             ),
-            ProductDescriptionWidget(txt: widget.item.desc),
+            const SizedBox(height: 10,),
+
+
             ProductDetailsDataRow(item: widget.item),
 
 

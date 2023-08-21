@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_card_with_few_data.dart';
@@ -131,7 +132,13 @@ class AddToCartButtonWidget extends StatelessWidget {
                             ],
                           ),
                           color: DMUtil.getRED(),
-                          onPressed: ()=> CartBloc.get(context).add(ModifyCartProductEvent(product: item, context: context, isAdd: true,remove: insideCartList)),
+                          onPressed: (){
+                            if(Util.checkUser()){
+                              SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED());
+                              return;
+                            }
+                            CartBloc.get(context).add(ModifyCartProductEvent(product: item, context: context, isAdd: true,remove: insideCartList));
+                          },
                       ),
 
                     ],

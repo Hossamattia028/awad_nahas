@@ -45,9 +45,11 @@ class AppImages{
   static const String orderStep3 = "$icons/order_step_three.svg";
 
 
+  // products
+  static const String shipping = "$images/oboutBrand1.jpg";
+  static const String shippingT = "$images/aboutBrand2.jpg";
 
   //search
-
   static const String filter = "$icons/Filter.svg";
   static const String sort = "$icons/Vector.svg";
   static const String searImg = "$images/sear_img.png";
