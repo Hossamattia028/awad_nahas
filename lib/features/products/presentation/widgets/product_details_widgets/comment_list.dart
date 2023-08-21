@@ -19,9 +19,10 @@ class CommentList extends StatelessWidget {
     return BlocBuilder<ProductsBloc,ProductsState>(
       builder: (ctx,state){
         var bloc = ProductsBloc.get(ctx);
-        var list = bloc.commentList;
+        if(bloc.currentProduct==null)return const SizedBox.shrink();
+        var list = bloc.currentProduct!.reviewsList;
         if(state is ProductCommentsLoadingState)return  LoadingWidget(height: 50.h,);
-        if(list.isEmpty)return const EmptyDataWidget();
+        if(list!.isEmpty)return const EmptyDataWidget();
         return ListView.separated(
           itemCount: list.length,
           shrinkWrap: true,

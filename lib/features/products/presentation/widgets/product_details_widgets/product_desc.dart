@@ -15,7 +15,6 @@ class ProductDescription extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 10,),
         ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,height: 160,),
         const SizedBox(height: 5,),
         CustomText(
@@ -27,7 +26,7 @@ class ProductDescription extends StatelessWidget {
           child: SizedBox(
             height: 120.h,
             child: CustomText(
-                text: "This colorful range, inspired by the intense tones of the Mediterranean, offers exceptional performance and is characterized by the clean lines typical of professional kitchen design. The Portofino cooker expresses its unique charm in any position of the kitchen, whether built-in or countertop, providing a flash of unique color. The colored sides add the final touch, highlighting the precise attention to detail that transforms these luminaires into real design pieces.",
+                text: '',
                 color: DMUtil.getDC(),
                 fontSize: AppStyle.average.sp,
                 maxLine: 50,

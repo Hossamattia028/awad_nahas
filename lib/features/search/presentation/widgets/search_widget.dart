@@ -35,7 +35,7 @@ class SearchWidget extends StatelessWidget {
         const SizedBox(width: 5,),
         Expanded(
           child: Container(
-              height: 39.h,
+              height: 42.h,
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10))
               ),

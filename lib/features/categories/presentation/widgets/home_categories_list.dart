@@ -22,7 +22,7 @@ class HomeCategoriesList extends StatelessWidget {
             itemCount: list.length,
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(vertical: 3.h),
+            padding: EdgeInsets.symmetric(vertical: 2.h),
             itemBuilder: (BuildContext context, int index) {
               var item = list[index];
               return CircleCategoryCard(item: item);

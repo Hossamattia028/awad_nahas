@@ -2,9 +2,11 @@ import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/brand_products.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/prodcut_desc.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_data_taps.dart';
 import 'package:awad_nahas/features/shared_widgets/svg_icon.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
@@ -51,8 +53,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
       }
     }
     productsBloc = ProductsBloc.get(context);
-
-    // productsBloc..add(UpdateCurrentProduct(item: widget.item))..add(const FetchProductCommentsEvent());
+    productsBloc.add(UpdateCurrentProduct(item: widget.item));
     super.didChangeDependencies();
   }
 
@@ -120,11 +121,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
                 ),
               ],
             ),
-            CustomText(
-              text: "description - وصف \n test test \n  \n ", color: DMUtil.getDC(),
-              fontSize: AppStyle.average.sp,
-              maxLine: 10,
-            ),
+            ProductDescriptionWidget(txt: widget.item.desc),
             ProductDetailsDataRow(item: widget.item),
 
 

@@ -15,7 +15,7 @@ class SvgIconWidget extends StatelessWidget {
       radius: 26.w,
       child:iconUrl.contains("file:///")||iconUrl.isEmpty?
       Image.asset(AppImages.logo):
-      SvgPicture.network(iconUrl,width: 26.w,colorFilter: ColorFilter.mode(DMUtil.getBCIcon(), BlendMode.srcIn),),
+      SvgPicture.network(iconUrl,width: 30.w,colorFilter: ColorFilter.mode(DMUtil.getBCIcon(), BlendMode.srcIn),),
     );
   }
 }

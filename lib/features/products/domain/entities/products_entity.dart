@@ -1,3 +1,4 @@
+import 'package:awad_nahas/features/products/data/models/product_small_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 
@@ -17,6 +18,7 @@ class ProductsEntity extends Equatable{
   final int catID;
   final int? brandID;
   final List<CategoriesEntity> categoryList;
+  final List<ProductComments>? reviewsList;
 
 
   const ProductsEntity({required this.title,required this.catTitle,
@@ -28,6 +30,7 @@ class ProductsEntity extends Equatable{
     required this.catID,
     this.brandID,
     this.isArabic,
+    this.reviewsList,
     required this.commentCount,
   });
 

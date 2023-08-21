@@ -12,6 +12,7 @@ class ProductModel extends ProductsEntity{
     required super.brandID,
     required super.commentCount,
     required super.isArabic,
+    required super.reviewsList,
   });
 
   static List<ProductModel> listModelFromJson(String str) =>
@@ -27,7 +28,7 @@ class ProductModel extends ProductsEntity{
       discount: double.parse((jsonObject['price'] ?? "0").toString()),
       discountRate: double.parse((jsonObject['price'] ?? "0").toString()),
       price: double.parse((jsonObject['price'] ?? "0").toString()),
-      desc: jsonObject['title'] ?? "",
+      desc: jsonObject['desc'] ?? "",
       stockStatus:  jsonObject['stock_status'] == "instock",
       imgPath: jsonObject['image']??"",
       commentCount: 1,
@@ -36,6 +37,7 @@ class ProductModel extends ProductsEntity{
       categoryList: jsonObject['categories']!=null ? CategoriesModel.listModelFromJson(jsonEncode(jsonObject['categories'])):[],
       catID: int.parse((jsonObject['cat_id']??"0").toString()),
       brandID: int.parse((jsonObject['brand_id']??"0").toString()),
+      reviewsList: ProductComments.listModelFromJson(jsonEncode(jsonObject['reviews']))
     );
   }
 
@@ -63,15 +65,19 @@ class ProductComments {
   final String userName;
 
   ProductComments({required this.productID,required this.commentContent,required this.commentType,required this.userID,required this.date,required this.userName});
+  static List<ProductComments> listModelFromJson(String str) =>
+      List<ProductComments>.from(
+          json.decode(str).map((x) => ProductComments.fromJson(x)));
+
 
   static ProductComments fromJson(Map<String, dynamic> jsonObject) {
     return ProductComments(
-      productID: jsonObject['comment_post_ID'],
-      commentContent: jsonObject['comment_content']??"",
+      productID: int.parse(jsonObject['comment_post_ID'] ?? "0"),
+      commentContent: jsonObject['comment']??"",
       commentType: jsonObject['comment_agent']??"",
-      date: jsonObject['comment_date']??DateTime.now(),
+      date: jsonObject['date']??DateTime.now(),
       userID: jsonObject['user_id']??0,
-      userName: jsonObject['user']['user_nicename']??"",
+      userName: jsonObject['author']??"",
     );
   }
 

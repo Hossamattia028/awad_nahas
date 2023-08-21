@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/comment_list.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_desc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +18,7 @@ class ProductDetailsDataRow extends StatelessWidget {
         child: Builder(
           builder: (ctxB){
             return SizedBox(
-              height: 470.h,
+              height: 380.h,
               child: Column(
                 children: <Widget>[
                   TabBar(
@@ -38,7 +39,7 @@ class ProductDetailsDataRow extends StatelessWidget {
                     child: TabBarView(
                       children: <Widget>[
                         ProductDescription(item: item,),
-                        const SizedBox(),
+                        const CommentList(),
                         const SizedBox(),
                       ],
                     ),

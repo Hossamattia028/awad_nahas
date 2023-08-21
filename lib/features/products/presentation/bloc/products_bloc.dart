@@ -35,12 +35,12 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     });
 
     on<FetchProductCommentsEvent>((event, emit) async{
-      await getProductComments(event,emit);
+      // await getProductComments(event,emit);
     });
 
     on<AddProductCommentEvent>((event, emit) async{
       await addProductComment(event,emit);
-      await getProductComments(event,emit);
+      // await getProductComments(event,emit);
     });
 
     on<UpdateCurrentProduct>((event, emit) {
@@ -115,29 +115,27 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     //   emit(const ProductCommentsFailedState());
     // }
   }
-
-  List<ProductComments> commentList = [];
-  getProductComments(event,emit)async{
-    if(currentProduct==null)return;
-    emit(const ProductCommentsLoadingState());
-    // try{
-      var res = await getAllProductCommentsUseCase(data: {'product_id':currentProduct!.id.toString()});
-      res.fold((l) {
-        emit(const ProductCommentsFailedState());
-      },(data) {
-        commentList = data;
-        emit(const ProductCommentsSuccessfullyState());
-      });
-    // }catch(e){
-    //   debugPrint("getAllLatestProductsBlocError: $e");
-    //   emit(const ProductsFailedState());
-    // }
-  }
+  //
+  // getProductComments(event,emit)async{
+  //   if(currentProduct==null)return;
+  //   emit(const ProductCommentsLoadingState());
+  //   // try{
+  //     var res = await getAllProductCommentsUseCase(data: {'product_id':currentProduct!.id.toString()});
+  //     res.fold((l) {
+  //       emit(const ProductCommentsFailedState());
+  //     },(data) {
+  //       commentList = data;
+  //       emit(const ProductCommentsSuccessfullyState());
+  //     });
+  //   // }catch(e){
+  //   //   debugPrint("getAllLatestProductsBlocError: $e");
+  //   //   emit(const ProductsFailedState());
+  //   // }
+  // }
 
   updateCurrentProduct(UpdateCurrentProduct event,emit){
     emit(const ProductsLoadingState());
     currentProduct = event.item;
-    commentList.clear();
     emit(const ProductsSuccessfullyState());
   }
 
