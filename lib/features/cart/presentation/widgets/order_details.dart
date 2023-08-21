@@ -29,21 +29,8 @@ class OrderDetails extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  // ListView.builder(
-                  //   shrinkWrap:true,
-                  //   itemCount: list.length,
-                  //   physics: const NeverScrollableScrollPhysics(),
-                  //   itemBuilder: (ctx,index){
-                  //     var productList = ProductsBloc.get(context).productsList;
-                  //     if(productList.isEmpty)return const SizedBox.shrink();
-                  //     int ind = productList.indexWhere((element) => list[index].id==element.id);
-                  //     if(ind==-1)return const SizedBox.shrink();
-                  //     var item = ProductsBloc.get(context).productsList[ind];
-                  //     return OrderRow(title: item.title,value: "${item.price}${translate("store.sar")}",);
-                  //   },
-                  // ),
-                  // OrderRow(title: translate("cart.total_after_discount") ,value: "${bloc.subTotal}${translate("store.sar")}",),
-                  OrderRow(title: translate("cart.shipping_cost") ,value: "${bloc.shippingCost}${translate("store.sar")}",),
+
+                  OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost}${translate("store.sar")}",),
                   const Divider(),
                   if(bloc.couponValue!=null&&bloc.couponModel!=null)...[
                     OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue}${translate("store.sar")}",),

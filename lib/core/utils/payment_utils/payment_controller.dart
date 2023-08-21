@@ -22,13 +22,14 @@ class PayFortController{
     required SucceededCallback onSucceeded,
     required FailedCallback onFailed,
     required CancelledCallback onCancelled,
+    required int amount
   }) async {
     try {
       var sdkTokenResponse = await _generateSdkToken();
 
       /// Step 4: Processing Payment [Amount multiply with 100] ex. 10 * 100 = 1000 (10 SAR)
       FortRequest request = FortRequest(
-        amount: 10 * 100,
+        amount: amount * 100,
         customerName: 'Test Customer',
         customerEmail: 'test@customer.com',
         orderDescription: 'Test Order',
