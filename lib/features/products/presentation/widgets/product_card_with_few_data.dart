@@ -12,9 +12,10 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class ProductCardFewData extends StatelessWidget {
   final ProductsEntity item;
+  final String qty;
   final bool showPrice;
   final bool isElevation;
-  const ProductCardFewData({Key? key,required this.item,this.showPrice = true,this.isElevation=true}) : super(key: key);
+  const ProductCardFewData({Key? key,required this.item,this.showPrice = true,this.isElevation=true,this.qty = "0"}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +32,27 @@ class ProductCardFewData extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 5,),
-            ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.contain,),
+            if(qty!="0")...[
+              Column(
+                children: [
+                  const SizedBox(height: 5,),
+                  CircleAvatar(
+                    backgroundColor: DMUtil.getRED(),
+                    radius: 10.w,
+                    child: CustomText(
+                      text: qty,
+                      color: Colors.white,
+                      fontSize: AppStyle.small.sp,
+                    ),
+                  ),
+                  ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.contain,),
+                ],
+              ),
+
+            ]else...[
+              ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.contain,),
+            ],
+
             const SizedBox(width: 5,),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,

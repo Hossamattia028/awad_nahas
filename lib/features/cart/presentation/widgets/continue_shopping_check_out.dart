@@ -35,7 +35,7 @@ class CartBottomButton extends StatelessWidget {
                 listener: (ctx,state){
                   if(state is OrderSuccessfullyState){
                     cartBloc.add(const FetchAllCartEvent());
-                    Util.pushPage(const OrderCompletedScreen(), context);
+                    // Util.pushPage(const OrderCompletedScreen(), context);
                   }
                 },
                 child: BlocBuilder<OrderBloc,OrderState>(

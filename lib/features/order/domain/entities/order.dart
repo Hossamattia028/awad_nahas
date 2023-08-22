@@ -122,7 +122,7 @@ class OrderItem {
       id: int.parse((jsonObject['product_id']??"0").toString()),
       title: jsonObject['order_item_name']??"",
       price: double.parse((jsonObject['price']??0).toString()),
-      qty: jsonObject['qty']??"0",
+      qty: jsonObject['qty']??"1",
     );
   }
 }

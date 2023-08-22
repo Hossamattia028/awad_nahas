@@ -12,7 +12,8 @@ class SmsApi{
 
   static Future<bool> sendOtp({required String provider,bool isEmail=true})async{
     if(isEmail){
-      var otp = "${DateTime.now().millisecondsSinceEpoch.toString().substring(0,2)}${DateTime.now().microsecond.toString().substring(1,3)}";
+      var otp = "${DateTime.now().millisecondsSinceEpoch.toString().substring(0,2)}${DateTime.now().millisecondsSinceEpoch.toString().substring(1,3)}";
+      SharedPref().setPreferencesString(Constants.lastVerificationCode, otp);
       return await SendGmail.sendEmailMessage("This is verification code : $otp  for AwadNahas App", provider, "Verification Otp");
     }else{
       return await sendMobileOtp(phone: provider);

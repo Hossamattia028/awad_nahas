@@ -55,7 +55,7 @@ class ProductCard extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const DiscountWidget(value: "-15%"),
+                        // const DiscountWidget(value: "-15%"),
                         WishListIconWidget(item: item),
                       ],
                     ),
