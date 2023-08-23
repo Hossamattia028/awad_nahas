@@ -43,7 +43,7 @@ class AccountAuthCard extends StatelessWidget {
                     fontSize: AppStyle.average.sp,
                   ),
                   InkWell(
-                    onTap: ()=> Util.pushPage(const LoginScreen(), context),
+                    onTap: ()=> user==null? Util.pushPage(const LoginScreen(), context):debugPrint("exist user"),
                     child: CustomText(
                       text: user == null? translate("drawer.join_us"):user.userName.toString(),
                       color: user == null? DMUtil.getRED() : DMUtil.getD2C(),

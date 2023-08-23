@@ -70,5 +70,6 @@ class AddProductCommentEvent extends ProductsEvent{
 
 class ChangeWidgetSizeEvent extends ProductsEvent{
   final double height;
-  const ChangeWidgetSizeEvent({required this.height,});
+  final int index;
+  const ChangeWidgetSizeEvent({required this.height,required this.index});
 }

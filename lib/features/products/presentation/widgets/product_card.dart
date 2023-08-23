@@ -53,7 +53,7 @@ class ProductCard extends StatelessWidget {
                   SizedBox(
                     width: 230.w,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         // const DiscountWidget(value: "-15%"),
                         WishListIconWidget(item: item),

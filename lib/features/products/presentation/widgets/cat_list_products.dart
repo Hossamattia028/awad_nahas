@@ -84,7 +84,7 @@ class CatProductsList extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             width: 130.w,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 // const DiscountWidget(value: "-15%"),
                                 WishListIconWidget(item: item),

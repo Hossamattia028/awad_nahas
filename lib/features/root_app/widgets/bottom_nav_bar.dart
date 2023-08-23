@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
+import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_icon.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
@@ -24,7 +25,9 @@ class BottomNavBar extends StatelessWidget {
           currentIndex: currentIndex,
           backgroundColor: DMUtil.getWC(),
           selectedItemColor: DMUtil.getRED(),
-          unselectedItemColor: DMUtil.getD2C(),
+          unselectedItemColor: DMUtil.getDC(),
+          selectedLabelStyle: TextStyle(fontFamily: primaryFontReg,),
+          unselectedLabelStyle: TextStyle(fontFamily: primaryFontReg,),
           showUnselectedLabels: true,
           items: [
             BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.homeSelected, colorFilter: ColorFilter.mode(currentIndex==0?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),),label: translate("app_bar.home"),backgroundColor: DMUtil.getWC()),

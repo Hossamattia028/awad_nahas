@@ -66,7 +66,7 @@ class _OrderScreenState extends State<OrderScreen>  with TickerProviderStateMixi
                     SmallTapItem(title: translate("order.on_going_orders"),enable: currentTapOrdersIndex==0,),
                     SmallTapItem(title: translate("order.completed_orders"),enable: currentTapOrdersIndex==1,),
                   ],
-                  labelStyle: const TextStyle(fontFamily: primaryFontSemiBold),
+                  labelStyle: TextStyle(fontFamily: primaryFontSemiBold),
                 );
               }
             ),

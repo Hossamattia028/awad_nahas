@@ -84,13 +84,13 @@ class SettingSectionWidget extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 5,),
+        const SizedBox(height: 15,),
         CustomText(
-          text: translate("activity_setting.help_center"),
+          text: translate("drawer.help_center"),
           color: DMUtil.getDC(),
           fontSize: AppStyle.average.sp,
         ),
-        SettingLineOption(title: translate("activity_setting.help_center"),onTap: (){}),
+        SettingLineOption(title: translate("drawer.help_center"),onTap: (){}),
 
       ],
     );

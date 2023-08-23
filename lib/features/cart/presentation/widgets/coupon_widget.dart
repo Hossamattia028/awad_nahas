@@ -77,11 +77,11 @@ class CouponWidget extends StatelessWidget {
                     SizedBox(height: 25.h,width: 25.w,child: const CircularProgressIndicator(backgroundColor: kPrimary,)):
                     CustomButton(
                       height: 40.h,
-                      width: 91.w,
+                      width: 92.w,
                       circular: 20,
                       widget: CustomText(
                         color: Colors.white,
-                        fontSize: AppStyle.small.sp,
+                        fontSize: AppStyle.small.sp-2,
                         fontWeight: FontWeight.w500,
                         text: bloc.couponModel==null ? translate("cart.active_coupon"):  translate("button.update"),
                       ),

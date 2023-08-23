@@ -1,6 +1,6 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +19,7 @@ class SwitchLanguageWidget extends StatelessWidget {
           child: CustomText(
             text: translate("language.name.en"),
             fontSize: AppStyle.average.sp,
-            color: Util.getLang()!="ar"?kPrimary:kPrimaryBlack,
+            color: Util.getLang()!="ar"?DMUtil.getPC():DMUtil.getD2C(),
           ),
         ),
         TextButton(
@@ -27,7 +27,7 @@ class SwitchLanguageWidget extends StatelessWidget {
           child: CustomText(
             text: translate("language.name.ar"),
             fontSize: AppStyle.average.sp,
-            color: Util.getLang()=="ar"?kPrimary:kPrimaryBlack,
+            color: Util.getLang()=="ar"?DMUtil.getPC():DMUtil.getD2C(),
           ),
         ),
       ],

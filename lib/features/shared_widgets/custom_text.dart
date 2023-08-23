@@ -35,7 +35,7 @@ class CustomText extends StatelessWidget {
         decoration: textDecoration ?? TextDecoration.none,
         color: color ?? DMUtil.getDC(),
         fontSize: fontSize,
-        fontFamily: fontFamily ?? primaryFontReg,
+        fontFamily: primaryFontReg,
         fontWeight: fontWeight ?? FontWeight.normal,
         wordSpacing: wordSpace
       ),

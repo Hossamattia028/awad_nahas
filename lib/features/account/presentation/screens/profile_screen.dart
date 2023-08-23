@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/account/presentation/widgets/account_after_auth.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/root_app/widgets/drawer_icon.dart';
 import 'package:awad_nahas/features/setting/presentation/widgets/small_widgets.dart';
@@ -32,19 +33,19 @@ class ProfileScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(vertical: AppStyle.paddingFromTop.h,horizontal: AppStyle.paddingFromH.w - 4),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children:  [
-
+              const AccountAuthCard(),
+              const SizedBox(height: 10,),
 
               if(Util.checkUser())...[
                 const MyAccountSetting(),
               ]else...[
                 SettingLineOption(title: translate("login.login"),onTap: ()=> Util.pushPage(const LoginScreen(), context),),
-
               ],
 
-
+              const SizedBox(height: 10,),
               const SettingSectionWidget(),
+
               if(Util.checkUser())...[
                 if(Platform.isIOS)...[
                   const SizedBox(height: 10,),

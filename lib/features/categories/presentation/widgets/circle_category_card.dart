@@ -26,6 +26,7 @@ class CircleCategoryCard extends StatelessWidget {
         children: [
           SvgIconWidget(iconUrl: item.iconPath),
 
+          const SizedBox(height: 5,),
           SizedBox(
             height: 40.h,
             width: 60.w,
