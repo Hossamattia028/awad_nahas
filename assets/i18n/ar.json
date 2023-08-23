@@ -105,7 +105,8 @@
       "kitchen_offline_now": "المطبخ غير متاح الآن",
       "gmail_send": "تم الارسال بنجاح",
       "account_added": "تم اضافة الحساب بنجاح",
-      "completed_order": "تم انهاء الطلب بنجاح"
+      "completed_order": "تم انهاء الطلب بنجاح",
+      "wrong_payment": "عملية خاطئة"
     },
     "search": {
       "market": "الأسواق",

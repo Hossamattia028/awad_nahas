@@ -106,7 +106,8 @@
 		"kitchen_offline_now": "kitchen is offline now",
 		"gmail_send": "Successfully sent your message",
 		"account_added": "Account Successfully added",
-		"completed_order": "Order has been completed"
+		"completed_order": "Order has been completed",
+		"wrong_payment": "Wrong process"
 	},
 	"search": {
 		"market": " Market's ",

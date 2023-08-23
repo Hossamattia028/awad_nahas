@@ -25,7 +25,8 @@ class MyAccountSetting extends StatelessWidget {
         CustomText(
           text: translate("profile.my_account"),
           color: DMUtil.getDC(),
-          fontSize: AppStyle.average.sp,
+          fontWeight: FontWeight.w600,
+          fontSize: AppStyle.average.sp+3,
         ),
 
         SettingLineOption(title: translate("profile.orders"),onTap: ()=> Util.pushPage(const OrderScreen(), context),

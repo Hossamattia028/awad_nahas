@@ -334,6 +334,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_amazonpaymentservices:
+    dependency: "direct main"
+    description:
+      name: flutter_amazonpaymentservices
+      sha256: "1d47198f02a1bd1b03c2bf085cb7da91842610af5cfdac65eee1edaa994cef68"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.6"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -427,6 +435,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_payfort_sdk:
+    dependency: "direct main"
+    description:
+      name: flutter_payfort_sdk
+      sha256: "6359d4ef944ae587a511212996706f410bd2ce9abc0f05e90111af5d4824fd68"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:

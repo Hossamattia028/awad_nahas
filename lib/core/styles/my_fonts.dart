@@ -7,6 +7,11 @@
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-var primaryFontReg =  Util.getLang()!="ar"?GoogleFonts.poppins().fontFamily:GoogleFonts.tajawal().fontFamily;
-var primaryFontBold = Util.getLang()!="ar"?GoogleFonts.poppins().fontFamily:GoogleFonts.tajawal().fontFamily;
-var primaryFontSemiBold = Util.getLang()!="ar"?GoogleFonts.poppins().fontFamily:GoogleFonts.tajawal().fontFamily;
+
+
+
+//Util.getLang()!="ar"?GoogleFonts.poppins().fontFamily:
+var primaryFontReg =  GoogleFonts.tajawal().fontFamily;
+var primaryFontBold = GoogleFonts.tajawal().fontFamily;
+var primaryFontSemiBold = GoogleFonts.tajawal().fontFamily;
+//tajawal

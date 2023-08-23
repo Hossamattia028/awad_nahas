@@ -28,7 +28,7 @@ class SettingLineOption extends StatelessWidget {
             CustomText(
               text: title,
               color: DMUtil.getDC(),
-              fontSize: AppStyle.average.sp+4,
+              fontSize: AppStyle.average.sp+1,
             ),
 
             widget ?? Icon(Icons.arrow_forward_ios,color: DMUtil.getDC(),size: 17.w),

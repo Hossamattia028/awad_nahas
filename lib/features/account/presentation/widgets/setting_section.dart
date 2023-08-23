@@ -44,8 +44,9 @@ class SettingSectionWidget extends StatelessWidget {
         const SizedBox(height: 5,),
         CustomText(
           text: translate("activity_setting.app_bar"),
-          color: DMUtil.getDC(),
-          fontSize: AppStyle.average.sp,
+          color: DMUtil.getD2C(),
+          fontWeight: FontWeight.w600,
+          fontSize: AppStyle.average.sp+2,
         ),
         SettingLineOption(
           title: translate("button.change_language"),
@@ -87,8 +88,9 @@ class SettingSectionWidget extends StatelessWidget {
         const SizedBox(height: 15,),
         CustomText(
           text: translate("drawer.help_center"),
-          color: DMUtil.getDC(),
-          fontSize: AppStyle.average.sp,
+          color: DMUtil.getD2C(),
+          fontWeight: FontWeight.w600,
+          fontSize: AppStyle.average.sp+2,
         ),
         SettingLineOption(title: translate("drawer.help_center"),onTap: (){}),
 

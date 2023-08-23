@@ -23,7 +23,7 @@ class CartNavIconWidget extends StatelessWidget {
         return Stack(
           alignment: Alignment.topRight,
           children: [
-            SvgPicture.asset(AppImages.cartSelected, colorFilter: ColorFilter.mode(selected?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),height: 21.w,),
+            SvgPicture.asset(AppImages.cartSelected, colorFilter: ColorFilter.mode(selected?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),height: 23.w,),
             if(length!=0)Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: CircleAvatar(

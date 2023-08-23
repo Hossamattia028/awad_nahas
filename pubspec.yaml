@@ -72,6 +72,10 @@ dependencies:
 
   #payment
   amazon_payfort: ^0.0.8
+  flutter_amazonpaymentservices: ^0.0.6
+#  payfort_plugin: ^0.3.1
+  flutter_payfort_sdk: ^0.1.2
+
 
 dev_dependencies:
   flutter_test:
