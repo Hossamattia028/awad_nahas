@@ -21,14 +21,14 @@ class SettingLineOption extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           border: Border.all(width: 0.6,color: DMUtil.getBCC())
         ),
-        padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 7.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 8.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomText(
               text: title,
               color: DMUtil.getDC(),
-              fontSize: AppStyle.average.sp+3,
+              fontSize: AppStyle.average.sp+4,
             ),
 
             widget ?? Icon(Icons.arrow_forward_ios,color: DMUtil.getDC(),size: 17.w),

@@ -15,38 +15,38 @@ class ShippingAndInstallmentWidget extends StatelessWidget {
       children: [
        Row(
          children: [
-           Image.asset(AppImages.shipping,width: 60.w,fit: BoxFit.fill,),
+           Image.asset(AppImages.shipping,width: 60.w,height: 80.h,fit: BoxFit.fill,),
            const SizedBox(width: 10,),
-           Image.asset(AppImages.shippingT,width: 60.w,fit: BoxFit.fill),
+           Image.asset(AppImages.shippingT,width: 60.w,height: 80.h,fit: BoxFit.fill),
          ],
        ),
 
 
-       SingleChildScrollView(
-         child: Column(
-           children: [
-             CustomText(
-               text: translate("products.delivery_service"),
-               fontSize: AppStyle.average.sp,
-             ),
-             CustomText(
-               text: translate("products.shipping"),
-               fontSize: AppStyle.small.sp-1,
-               maxLine: 22,
-             ),
-             const SizedBox(height: 5,),
-             CustomText(
-               text: translate("products.install_service"),
-               fontSize: AppStyle.average.sp,
-             ),
-             CustomText(
-               text: translate("products.install"),
-               fontSize: AppStyle.small.sp-1,
-               maxLine: 24,
-             ),
-           ],
-         ),
-       ),
+        Column(
+          children: [
+            CustomText(
+              text: translate("products.delivery_service"),
+              fontSize: AppStyle.average.sp+2,
+            ),
+            const SizedBox(width: 5,),
+            CustomText(
+              text: translate("products.shipping"),
+              fontSize: AppStyle.small.sp+2,
+              maxLine: 22,
+            ),
+            const SizedBox(height: 5,),
+            CustomText(
+              text: translate("products.install_service"),
+              fontSize: AppStyle.average.sp+2,
+            ),
+            const SizedBox(width: 5,),
+            CustomText(
+              text: translate("products.install"),
+              fontSize: AppStyle.small.sp+2,
+              maxLine: 24,
+            ),
+          ],
+        ),
       ],
     );
   }

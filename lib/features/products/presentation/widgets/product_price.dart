@@ -32,7 +32,7 @@ class ProductPriceWidget extends StatelessWidget {
         ]else...[
           CustomText(
             text: "${productModel.price.toString()} ${translate("store.sar")}" ,
-            fontSize: isBig?AppStyle.average.sp:AppStyle.small.sp,
+            fontSize: isBig?AppStyle.average.sp+1:AppStyle.small.sp,
           ),
         ],
 

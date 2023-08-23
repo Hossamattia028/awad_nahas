@@ -34,7 +34,7 @@ class ProductDetailsDataRow extends StatelessWidget {
                   SizedBox(
                     height: 34.h,
                     child: TabBar(
-                      onTap: (index) => bloc.add(ChangeWidgetSizeEvent(height: index==0?heightDesc:index==1?300.h:340.h,index: index)),
+                      onTap: (index) => bloc.add(ChangeWidgetSizeEvent(height: index==0?heightDesc:index==1?300.h:410.h,index: index)),
                       indicatorPadding: const EdgeInsets.symmetric(horizontal: 6),
                       unselectedLabelColor: DMUtil.getDC(),
                       indicatorColor: DMUtil.getPC(),

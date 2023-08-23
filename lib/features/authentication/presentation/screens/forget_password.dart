@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/sms_api.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,12 +80,13 @@ class ForgetPasswordScreen extends StatelessWidget {
                   // if(state==FetchStates.LOADING)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
                   return MaterialButton(
                     onPressed: ()async{
-                      String phone = emailTextEditingController.text.trim();
-                      if(phone.isNotEmpty){
-
-                        // if(){
-                        Util.pushPage(const PinCodeVerificationScreen(data: {},isRegister: false,), context);
-                        // }
+                      String email = emailTextEditingController.text.trim();
+                      if(email.isNotEmpty){
+                        if(await SmsApi.sendOtp(provider: email,isEmail: true)){
+                              Util.pushPage(PinCodeVerificationScreen(data: {
+                                "email":email
+                              },isRegister: false,), context);
+                        }
                       }else{
                         SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
                       }

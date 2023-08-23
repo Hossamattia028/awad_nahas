@@ -106,7 +106,7 @@ class AddToCartButtonWidget extends StatelessWidget {
                           height: 50.h,
                           width: 119.w,
                           widget: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Icon(
                                 insideCartList?Icons.remove_shopping_cart:Icons.shopping_cart_outlined,
@@ -120,13 +120,13 @@ class AddToCartButtonWidget extends StatelessWidget {
                                     CustomText(
                                       text: insideCartList?translate("cart.remove_from_cart").toUpperCase():translate("cart.add_to_cart").toUpperCase(),
                                       color: Colors.white,
-                                      fontSize: AppStyle.small.sp - 2 ,
+                                      fontSize: AppStyle.small.sp - 3 ,
                                     ),
                                     const SizedBox(height: 5,),
                                     CustomText(
                                       text: "${item.discount} ${translate("store.sar")}",
                                       color: Colors.white,
-                                      fontSize: AppStyle.small.sp,
+                                      fontSize: AppStyle.small.sp - 3,
                                     ),
 
                                   ],
