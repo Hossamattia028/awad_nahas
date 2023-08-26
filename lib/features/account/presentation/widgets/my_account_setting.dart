@@ -37,10 +37,12 @@ class MyAccountSetting extends StatelessWidget {
                   var bloc = OrderBloc.get(ctx);
                   var length = bloc.orderList.length;
                   return Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       if(length!=0)CircleAvatar(
                         backgroundColor: DMUtil.getPC(),
-                        radius: 9.w,
+                        radius: 11.w,
                         child: CustomText(text: "$length",fontSize: AppStyle.small.sp,color: Colors.white,),
                       ),
                       const SizedBox(width: 10,),

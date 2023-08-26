@@ -28,7 +28,7 @@ class FilterRow extends StatelessWidget {
               },
             );
           },
-          child: SvgPicture.asset(AppImages.sort,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn),width: 20.w,),
+          child: SvgPicture.asset(AppImages.sort,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn),width: 21.w,),
         ),
         SizedBox(width: 6.w,),
         InkWell(

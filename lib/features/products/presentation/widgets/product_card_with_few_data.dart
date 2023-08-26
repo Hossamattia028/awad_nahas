@@ -45,12 +45,12 @@ class ProductCardFewData extends StatelessWidget {
                       fontSize: AppStyle.small.sp,
                     ),
                   ),
-                  ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.contain,),
+                  ImageWidget(imgUrl: item.imgPath,width: 80,fit: BoxFit.contain,),
                 ],
               ),
 
             ]else...[
-              ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.contain,),
+              ImageWidget(imgUrl: item.imgPath,width: 80,fit: BoxFit.contain,),
             ],
 
             const SizedBox(width: 5,),

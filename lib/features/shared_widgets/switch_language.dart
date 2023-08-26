@@ -15,19 +15,19 @@ class SwitchLanguageWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         TextButton(
-          onPressed: ()=> Util.changeLang(ctx: context,isLogin: true),
+          onPressed: ()=> Util.changeLang(ctx: context,isLogin: true,lang: "ar"),
           child: CustomText(
-            text: translate("language.name.en"),
+            text: "عربي",
             fontSize: AppStyle.average.sp,
-            color: Util.getLang()!="ar"?DMUtil.getPC():DMUtil.getD2C(),
+            color: Util.getLang()=="ar"?DMUtil.getPC():DMUtil.getD2C(),
           ),
         ),
         TextButton(
-          onPressed: ()=> Util.changeLang(ctx: context,isLogin: true),
+          onPressed: ()=> Util.changeLang(ctx: context,isLogin: true,lang: "en_US"),
           child: CustomText(
-            text: translate("language.name.ar"),
+            text: "English",
             fontSize: AppStyle.average.sp,
-            color: Util.getLang()=="ar"?DMUtil.getPC():DMUtil.getD2C(),
+            color: Util.getLang()!="ar"?DMUtil.getPC():DMUtil.getD2C(),
           ),
         ),
       ],

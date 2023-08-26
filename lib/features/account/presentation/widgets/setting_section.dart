@@ -50,7 +50,39 @@ class SettingSectionWidget extends StatelessWidget {
         ),
         SettingLineOption(
           title: translate("button.change_language"),
-          onTap: ()=> Util.changeLang(ctx: context),
+          widget:  SizedBox(
+            height: 30.h,
+            width: 90.w,
+            child: DropdownButton(
+              isExpanded: true,
+              dropdownColor: DMUtil.getWC(),
+              alignment: Alignment.center,
+              underline: const SizedBox.shrink(),
+              style: TextStyle(color: DMUtil.getDC(), fontSize: 12.sp,),
+              hint: CustomText(
+                text: Util.getLang()=="ar"?"عربي":"English",
+                color: DMUtil.getDC(),
+                fontSize: AppStyle.average.sp,
+              ),
+              onChanged:(val){
+                if(val=="English"){
+                  Util.changeLang(ctx: context,lang: "en_US");
+                }else{
+                  Util.changeLang(ctx: context,lang: "ar");
+                }
+              },
+              icon: Icon(Icons.keyboard_arrow_down_outlined,color: DMUtil.getDC(),),
+              items: items.map((e) => DropdownMenuItem(
+                value: e,
+                child: CustomText(
+                  text: e.toString(),
+                  color: DMUtil.getDC(),
+                  fontSize: AppStyle.average.sp,
+                ),
+              )).toList(),
+              value: Util.getLang()=="ar"?"عربي":"English",
+            ),
+          ),
         ),
         SettingLineOption(
           title: translate("profile.notification"),
@@ -97,4 +129,8 @@ class SettingSectionWidget extends StatelessWidget {
       ],
     );
   }
+  static var items = [
+    'عربي',
+    'English'
+  ];
 }

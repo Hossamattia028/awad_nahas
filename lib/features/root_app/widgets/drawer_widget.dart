@@ -27,7 +27,7 @@ class DrawerWidget extends StatelessWidget {
                 fontSize: AppStyle.large.sp,
             ),
             const SizedBox(height: 20,),
-            const AccountAuthCard(darkText: true,),
+            const AccountAuthCard(darkText: true,isDrawer: true,),
             const SizedBox(height: 20,),
             ItemLineDrawer(
               title: translate("drawer.our_company"),

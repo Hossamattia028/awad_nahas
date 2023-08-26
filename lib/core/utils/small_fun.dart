@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
@@ -145,10 +146,12 @@ class Util{
     return SharedPref.preferences.containPreference(Constants.userId);
   }
 
-  static void changeLang({required BuildContext ctx,bool isLogin =false}){
-    String lng = getLang()=="ar"?"en_US":"ar";
+  static void changeLang({required BuildContext ctx,bool isLogin =false,required String lang}){
+    // String lng = getLang()=="ar"?"en_US":"ar";
+    String lng = lang;
     changeLocale(ctx,lng);
     SharedPref.preferences.setPreferencesString(Constants.userLang,lng);
+    Fonts.update();
     if(isLogin){
       Util.pushPageAndRemoveRoutes(const LoginScreen(),ctx);
     }else{

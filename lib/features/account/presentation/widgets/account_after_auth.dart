@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
+import 'package:awad_nahas/features/authentication/presentation/screens/register.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 class AccountAuthCard extends StatelessWidget {
   final bool darkText;
   final bool primaryColor;
-  const AccountAuthCard({Key? key,this.darkText = false,this.primaryColor = false}) : super(key: key);
+  final bool isDrawer;
+  const AccountAuthCard({Key? key,this.darkText = false,this.primaryColor = false,this.isDrawer = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class AccountAuthCard extends StatelessWidget {
           var user = AccountBloc.get(ctx).currentUser;
           // if (user == null) return const SizedBox.shrink();
           return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircleAvatar(
                 radius: 20.h,
@@ -42,6 +44,9 @@ class AccountAuthCard extends StatelessWidget {
                     color: DMUtil.getD2C(),
                     fontSize: AppStyle.average.sp,
                   ),
+                  const SizedBox(height: 5,),
+
+                  if(isDrawer && user == null)
                   InkWell(
                     onTap: ()=> user==null? Util.pushPage(const LoginScreen(), context):debugPrint("exist user"),
                     child: CustomText(
@@ -50,6 +55,41 @@ class AccountAuthCard extends StatelessWidget {
                       fontSize: AppStyle.average.sp,
                     ),
                   ),
+
+                  if(user!=null)
+                    CustomText(
+                      text: user.userName.toString(),
+                      color: DMUtil.getD2C(),
+                      fontSize: AppStyle.average.sp,
+                    ),
+
+                  if(!isDrawer && user == null)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: ()=> Util.pushPage(const LoginScreen(), context),
+                          child: CustomText(
+                            text:  translate("login.login"),
+                            color: DMUtil.getRED() ,
+                            fontSize: AppStyle.average.sp,
+                          ),
+                        ),
+                        CustomText(
+                          text:  "   /  ",
+                          color: DMUtil.getRED() ,
+                          fontSize: AppStyle.average.sp,
+                        ),
+                        InkWell(
+                          onTap: ()=> Util.pushPage(const RegisterScreen(), context),
+                          child: CustomText(
+                            text: translate("login.sing_up_now"),
+                            color: DMUtil.getRED(),
+                            fontSize: AppStyle.average.sp,
+                          ),
+                        ),
+                      ],
+                    )
                 ],
               ),
 

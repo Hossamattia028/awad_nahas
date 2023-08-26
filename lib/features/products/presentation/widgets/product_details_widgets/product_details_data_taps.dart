@@ -20,7 +20,7 @@ class ProductDetailsDataRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String desc = item.desc;
-    double heightDesc = desc.length>200?412:280;
+    double heightDesc = desc.length>210?472:280;
     return DefaultTabController(
         length: 3,
         child: BlocBuilder<ProductsBloc,ProductsState>(
@@ -34,7 +34,7 @@ class ProductDetailsDataRow extends StatelessWidget {
                   SizedBox(
                     height: 34.h,
                     child: TabBar(
-                      onTap: (index) => bloc.add(ChangeWidgetSizeEvent(height: index==0?heightDesc:index==1?300.h:410.h,index: index)),
+                      onTap: (index) => bloc.add(ChangeWidgetSizeEvent(height: index==0?heightDesc:index==1?300.h:585.h,index: index)),
                       indicatorPadding: const EdgeInsets.symmetric(horizontal: 6),
                       unselectedLabelColor: DMUtil.getDC(),
                       indicatorColor: DMUtil.getPC(),

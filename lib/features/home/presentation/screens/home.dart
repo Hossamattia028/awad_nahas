@@ -42,9 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: AppStyle.paddingFromTop.h,),
-            const LogoWidget(width: 120,height: 70,fit: BoxFit.contain,),
-            const SizedBox(height: 10,),
+            SizedBox(height: AppStyle.paddingFromTop.h-15,),
+            const LogoWidget(width: 140,height: 80,fit: BoxFit.contain,),
             const SearchWidget(),
             const SizedBox(height: 6,),
             // const SelectLocations(),

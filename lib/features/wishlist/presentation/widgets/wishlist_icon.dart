@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class WishListIconWidget extends StatelessWidget {
   final ProductsEntity item ;
@@ -63,9 +64,9 @@ class WishListNavIconWidget extends StatelessWidget {
             if(length!=0)Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: CircleAvatar(
-                backgroundColor:selected? DMUtil.getWC() : DMUtil.getPC(),
-                radius: 6.w,
-                child: CustomText(text: "$length",fontSize: AppStyle.small.sp-3,color: selected? DMUtil.getPC() : Colors.white,),
+                radius: 7.w,
+                backgroundColor: selected? DMUtil.getBCC() : DMUtil.getPC(),
+                child: CustomText(text: "$length",fontSize: AppStyle.small.sp-1,color: selected? DMUtil.getPC() : Colors.white,),
               ),
             )
           ],

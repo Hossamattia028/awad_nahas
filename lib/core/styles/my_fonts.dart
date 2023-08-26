@@ -11,7 +11,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 //Util.getLang()!="ar"?GoogleFonts.poppins().fontFamily:
-var primaryFontReg =  GoogleFonts.tajawal().fontFamily;
-var primaryFontBold = GoogleFonts.tajawal().fontFamily;
-var primaryFontSemiBold = GoogleFonts.tajawal().fontFamily;
+var primaryFontReg =  Util.getLang()!="ar"?GoogleFonts.poppins().fontFamily:GoogleFonts.tajawal().fontFamily;
+var primaryFontBold = Util.getLang()!="ar"?GoogleFonts.poppins().fontFamily:GoogleFonts.tajawal().fontFamily;
+var primaryFontSemiBold = Util.getLang()!="ar"?GoogleFonts.poppins().fontFamily:GoogleFonts.tajawal().fontFamily;
 //tajawal
+
+
+class Fonts{
+
+  static update(){
+    primaryFontReg =  Util.getLang()!="ar"?GoogleFonts.poppins().fontFamily:GoogleFonts.tajawal().fontFamily;
+    primaryFontBold = Util.getLang()!="ar"?GoogleFonts.poppins().fontFamily:GoogleFonts.tajawal().fontFamily;
+    primaryFontSemiBold = Util.getLang()!="ar"?GoogleFonts.poppins().fontFamily:GoogleFonts.tajawal().fontFamily;
+
+  }
+}

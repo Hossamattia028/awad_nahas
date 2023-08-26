@@ -2,7 +2,6 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,16 +90,16 @@ class CatProductsList extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 15,),
+                          const SizedBox(height: 5,),
                           ImageWidget(
                             imgUrl: item.imgPath,
                             fit: BoxFit.fill,
                             height: 120,
-                            width: 110,
+                            width: 120,
                           ),
                           Expanded(
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 3),
+                              padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
                               decoration:  BoxDecoration(
                                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                                 color: DMUtil.getWC(),
@@ -123,11 +122,12 @@ class CatProductsList extends StatelessWidget {
                                   ProductPriceWidget(
                                     productModel: item,
                                     isRedPrice: true,
+                                    isBig: true,
                                   ),
                                   CustomText(
                                     text: "( VAT Included )",
                                     color: DMUtil.getD2C(),
-                                    fontSize: AppStyle.small.sp,
+                                    fontSize: AppStyle.small.sp+2,
                                   ),
 
                                   const SizedBox(height: 2),

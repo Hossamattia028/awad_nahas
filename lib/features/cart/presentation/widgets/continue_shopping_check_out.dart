@@ -50,7 +50,7 @@ class CartBottomButton extends StatelessWidget {
                       CustomText(
                         text: translate("cart.checkOut"),
                         color: Colors.white,
-                        fontSize: AppStyle.average.sp,
+                        fontSize: AppStyle.average.sp+1,
                         alignCenter: true,
                       ),
                       color: DMUtil.getRED(),
