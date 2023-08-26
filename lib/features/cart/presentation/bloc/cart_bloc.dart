@@ -17,6 +17,8 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   RemoveCartItemUseCase removeCartItemUseCase;
   ApplyCouponUseCase applyCouponUseCase;
   int currentCategoryIndex = 0;
+  bool paymentWithCard = true;
+
   CartBloc({
     required this.getAllCartListUseCase,
     required this.addCartItemUseCase,
@@ -49,12 +51,20 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       cartCount = event.value;
       emit(CartSuccessfullyState());
     });
+
+    on<PaymentWithCardEvent>((event,emit){
+      changePaymentMethod(event,emit);
+    });
   }
   static CartBloc get(BuildContext context) => BlocProvider.of(context);
 
+  changePaymentMethod(event,emit){
+    emit(PaymentLoadingState());
+    paymentWithCard = !paymentWithCard;
+    emit(PaymentSuccessfullyState());
+  }
   int cartCount = 1;
   List<ProductsEntity> cartList = [];
-
   getAllCart(emit)async{
     if(!Util.checkUser())return;
     emit(CartLoadingState());

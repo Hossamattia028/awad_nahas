@@ -73,8 +73,9 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     );
   }
 
-  _checkOut(BuildContext context,var orderBloc)async{
-    await payFortController.paymentWithCreditOrDebitCard(
+  _checkOut(BuildContext context,var orderBloc) async {
+    if(cartBloc.paymentWithCard){
+      await payFortController.paymentWithCreditOrDebitCard(
         fn: ()=> SnackBarBuilder.showFeedBackMessage(context, "err ", DMUtil.getRED()),
         amount: cartBloc.totalPrice.toInt(),
         onSucceeded:(val){
@@ -90,7 +91,22 @@ class _CheckOutButtonState extends State<CheckOutButton> {
           debugPrint("canceled");
           SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
         },
-    );
+      );
+    }else{
+      await payFortController.paymentWithApplePay(
+        fn: ()=> SnackBarBuilder.showFeedBackMessage(context, "err ", DMUtil.getRED()),
+        amount: cartBloc.totalPrice.toInt(),
+        onSucceeded:(val){
+          debugPrint("success ${val.status}");
+          // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
+          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
+        },
+        onFailed: (val){
+          // debugPrint("failed ${val.toString()}");
+          SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
+        },
+      );
+    }
 
 
   }

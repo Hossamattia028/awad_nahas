@@ -52,3 +52,8 @@ class UpdateCountEvent extends CartEvent{
   final int value;
   const UpdateCountEvent({required this.value});
 }
+
+
+class PaymentWithCardEvent extends CartEvent{
+  const PaymentWithCardEvent();
+}

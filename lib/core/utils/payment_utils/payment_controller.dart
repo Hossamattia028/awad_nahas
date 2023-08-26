@@ -23,10 +23,10 @@ class PayFortController{
   }
 
   Future<void> paymentWithCreditOrDebitCard({
-    VoidCallback? fn,
     required SucceededCallback onSucceeded,
     required FailedCallback onFailed,
     required CancelledCallback onCancelled,
+    VoidCallback? fn,
     required int amount
   }) async {
     try {
@@ -61,12 +61,14 @@ class PayFortController{
   Future<void> paymentWithApplePay({
     required SucceededCallback onSucceeded,
     required FailedCallback onFailed,
+    VoidCallback? fn,
+    required int amount
   }) async {
     try {
        var sdkTokenResponse = await _generateSdkToken(isApplePay: true);
       /// Step 4: Processing Payment [Don't multiply with 100]
       FortRequest request = FortRequest(
-        amount: 1000,
+        amount: amount * 100,
         customerName: 'Test Customer',
         customerEmail: 'test@customer.com',
         orderDescription: 'Test Order',
@@ -87,6 +89,7 @@ class PayFortController{
       );
     } catch (e) {
       onFailed(e.toString());
+      if(fn!=null)fn;
     }
   }
 

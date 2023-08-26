@@ -15,7 +15,7 @@ class OrderNoteWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 5,),
+        const SizedBox(height: 7,),
         CustomText(
           text: translate("cart.order_note"),
           color: DMUtil.getDC(),
