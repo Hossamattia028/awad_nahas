@@ -43,7 +43,10 @@ class MyAccountSetting extends StatelessWidget {
                       if(length!=0)CircleAvatar(
                         backgroundColor: DMUtil.getPC(),
                         radius: 11.w,
-                        child: CustomText(text: "$length",fontSize: AppStyle.small.sp,color: Colors.white,),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: CustomText(text: "$length",fontSize: AppStyle.small.sp,color: Colors.white,),
+                        ),
                       ),
                       const SizedBox(width: 10,),
                     ],

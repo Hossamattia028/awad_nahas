@@ -41,6 +41,7 @@ class ProductCardFewData extends StatelessWidget {
                 SizedBox(
                   width: 110.w,
                   child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: CustomText(
                       text: item.title.toString(),
                       color: DMUtil.getDC(),
@@ -58,10 +59,13 @@ class ProductCardFewData extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: DMUtil.getRED(),
                 radius: 10.w,
-                child: CustomText(
-                  text: qty,
-                  color: Colors.white,
-                  fontSize: AppStyle.small.sp,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: CustomText(
+                    text: qty,
+                    color: Colors.white,
+                    fontSize: AppStyle.small.sp,
+                  ),
                 ),
               ),
             ),
