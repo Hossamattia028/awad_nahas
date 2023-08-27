@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void didChangeDependencies() {
     Util.getAllUserAppData(context: context,isSplash: true);
-    Timer(const Duration(seconds: 2), () async{
+    Timer(const Duration(seconds: 4), () async{
       await NotificationsUtils.initialPushNotification();
       Util.pushPageAndRemoveRoutes(const RootScreen(), context);
     });
@@ -34,9 +34,13 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      color: Colors.white,
-      child: Image.asset(AppImages.logo,width: 200.w,),
-
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(AppImages.splashGif),
+          fit: BoxFit.fill
+        )
+      ),
+      // child: Image.asset(AppImages.logo,width: 200.w,),
     );
   }
 }

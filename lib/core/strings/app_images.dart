@@ -14,6 +14,7 @@ class AppImages{
   static const String logoWhite = "$icons/logo-white.png";
   static const String logoWithoutBackGround = "$icons/logo.png";
   static const String splashImage = "$images/splash.png";
+  static const String splashGif = "$images/splash-animated.gif";
   static const String loadingGif = "$images/loading.gif";
 
   //auth icons

@@ -9,7 +9,6 @@ import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 class HomeCategories extends StatelessWidget {
   final bool viewAll;
   const HomeCategories({Key? key,this.viewAll=false}) : super(key: key);
-  static ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Column(

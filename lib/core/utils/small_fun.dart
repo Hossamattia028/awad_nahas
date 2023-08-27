@@ -33,7 +33,6 @@ import 'package:url_launcher/url_launcher.dart';
 class Util{
   // implemented this function after register and login
   static getAllUserAppData({required BuildContext context,bool isSplash=false}){
-    CategoriesBloc.get(context).add(const FetchAllBrandsEvent());
     if(isSplash){
       ProductsBloc.get(context).add(const FetchAllProductsEvent());
       CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());

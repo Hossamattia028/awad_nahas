@@ -1,4 +1,3 @@
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
@@ -6,10 +5,12 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_even
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/about_brand.dart';
 import 'package:awad_nahas/features/categories/presentation/widgets/products_brand.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class BrandDetailsScreen extends StatelessWidget{
@@ -29,16 +30,8 @@ class BrandDetailsScreen extends StatelessWidget{
             padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
             child: Column(
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 90.h,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("${AppImages.images}/MIELE-Logo-01.png"),
-                      fit: BoxFit.fill
-                    )
-                  ),
-                ),
+                const SizedBox(height: 10,),
+                SvgPicture.network(brand.iconPath,width: double.infinity,height: 100.h,),
 
 
                 const SizedBox(height: 10,),
@@ -69,12 +62,13 @@ class BrandDetailsScreen extends StatelessWidget{
                                       },child: TabWidget(title: translate("brand.about_brand"),isSelected: bloc.currentBrandIndex==1,)),),
                                     ],
                                   ),
+                                  const SizedBox(height: 5,),
 
-                                  const Expanded(
+                                  Expanded(
                                     child: TabBarView(
                                       children: <Widget>[
-                                        ProductsBrand(),
-                                        AboutBrand(),
+                                        ProductsBrand(itemBrand: brand,),
+                                        AboutBrand(itemBrand: brand,),
                                       ],
                                     ),
                                   ),
@@ -115,9 +109,11 @@ class TabWidget extends StatelessWidget {
         color: isSelected?DMUtil.getRED():Colors.transparent,
         border: Border.all(width: 1,color:DMUtil.getRED()),
       ),
-      child: Text(
-        title,
-        style: TextStyle(color: isSelected?DMUtil.getWC():DMUtil.getDC()),),
+      child: CustomText(
+        text: title,
+        fontSize: AppStyle.small.sp-2,
+        color: isSelected?DMUtil.getWC():DMUtil.getDC(),
+      )
     );
   }
 }

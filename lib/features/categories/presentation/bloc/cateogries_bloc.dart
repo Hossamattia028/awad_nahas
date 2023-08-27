@@ -190,7 +190,9 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
 
   /// brands section
   setCurrentBrand(ChangeCurrentBrand event,emit){
+    emit(CategoriesInitialState());
     currentBrand = event.brandModel;
+    currentBrandIndex = 0;
     emit(ChangeCurrentBrandSuccessState());
   }
 

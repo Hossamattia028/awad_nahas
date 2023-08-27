@@ -1,3 +1,4 @@
+import 'package:awad_nahas/features/categories/presentation/widgets/our_brands_home.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/banners_section.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/categories.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/single_banner.dart';
@@ -30,6 +31,7 @@ class HomeContentWidget extends StatelessWidget {
             return CatProductsList(cat: list.first,);
           },
         ),
+        const OurBrandsHome(),
 
         const BannersSection(),
 

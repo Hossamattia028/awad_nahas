@@ -94,7 +94,7 @@ class CatProductsList extends StatelessWidget {
                           ImageWidget(
                             imgUrl: item.imgPath,
                             fit: BoxFit.fill,
-                            height: 120,
+                            height: 130,
                             width: 120,
                           ),
                           Expanded(
