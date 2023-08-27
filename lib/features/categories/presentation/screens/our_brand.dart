@@ -8,6 +8,7 @@ import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class OurBrandsScreen extends StatelessWidget {
@@ -22,6 +23,7 @@ class OurBrandsScreen extends StatelessWidget {
         builder: (ctx,state){
           var bloc = CategoriesBloc.get(ctx);
           var list = bloc.brandsList;
+          list = bloc.activateTransList(list);
           return GridView.builder(
             itemCount: list.length,
             physics: const BouncingScrollPhysics(),
@@ -45,7 +47,7 @@ class OurBrandsScreen extends StatelessWidget {
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
-                    child: Image.asset(item.imgPath),
+                    child: SvgPicture.network(item.iconPath,width: 30.w,height: 40.h,),
                   )
               );
             },

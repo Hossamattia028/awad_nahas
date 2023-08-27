@@ -99,7 +99,7 @@ class CatProductsList extends StatelessWidget {
                           ),
                           Expanded(
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
+                              padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 4),
                               decoration:  BoxDecoration(
                                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                                 color: DMUtil.getWC(),

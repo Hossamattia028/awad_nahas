@@ -55,11 +55,11 @@ class BrandDetailsScreen extends StatelessWidget{
                                       Tab(child: InkWell(onTap:() {
                                         DefaultTabController.of(ctxB).animateTo(0);
                                         bloc.add(const ChangeBrandIndexEvent(index: 0));
-                                      },child: TabWidget(title: translate("brand.brand_products"),isSelected: bloc.currentBrandIndex==0,)),),
+                                      },child: TabWidget(title: "${translate("store.products")} ${brand.title}",isSelected: bloc.currentBrandIndex==0,)),),
                                       Tab(child: InkWell(onTap:() {
                                         DefaultTabController.of(ctxB).animateTo(1);
                                         bloc.add(const ChangeBrandIndexEvent(index: 1));
-                                      },child: TabWidget(title: translate("brand.about_brand"),isSelected: bloc.currentBrandIndex==1,)),),
+                                      },child: TabWidget(title: "${translate("brand.about")} ${brand.title}",isSelected: bloc.currentBrandIndex==1,)),),
                                     ],
                                   ),
                                   const SizedBox(height: 5,),
@@ -111,7 +111,7 @@ class TabWidget extends StatelessWidget {
       ),
       child: CustomText(
         text: title,
-        fontSize: AppStyle.small.sp-2,
+        fontSize: AppStyle.small.sp+2,
         color: isSelected?DMUtil.getWC():DMUtil.getDC(),
       )
     );

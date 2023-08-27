@@ -287,7 +287,8 @@
 	},
 	"brand": {
 		"brand_products": "Brand Products",
-		"about_brand": "About Brand"
+		"about_brand": "About Brand",
+		"about": "About"
 	},
     "home": {
 		"view_all": "View All",
@@ -316,6 +317,7 @@
 		"fam_kitchen": "Do you want to be known and your kitchen to be famous?"
 	},
 	"store": {
+		"products": "Products",
 		"popularity": "Popularity",
 		"averageـrating": "Average rating",
 		"newness": "Newness",

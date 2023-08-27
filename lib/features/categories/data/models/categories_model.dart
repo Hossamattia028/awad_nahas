@@ -12,6 +12,7 @@ class CategoriesModel  extends CategoriesEntity{
       {required super.id,
         required  super.imgPath,
         required  super.title,
+        required  super.desc,
         required super.iconPath,
         required super.isArabic,
         required super.parentID,
@@ -22,6 +23,7 @@ class CategoriesModel  extends CategoriesEntity{
     return CategoriesModel(
       id: json['id'],
       title: json['name'],
+      desc: json['desc']??"",
       imgPath: json['image'],
       iconPath: json['icon'],
       isArabic: json['is_arabic'],
@@ -35,6 +37,7 @@ class CategoriesModel  extends CategoriesEntity{
     return CategoriesModel(
       id: json['term_id'],
       title: json['name'],
+      desc: json['desc']??"",
       imgPath: json['guid']??"",
       iconPath: json['icon']??"",
       isArabic: json['is_arabic']??false,

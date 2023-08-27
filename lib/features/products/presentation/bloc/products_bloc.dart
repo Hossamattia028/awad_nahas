@@ -257,7 +257,10 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     return list;
   }
 
-  List<ProductsEntity> brandProducts(int brandID){
+  List<ProductsEntity> brandProducts(int brandID,{List<ProductsEntity>? list}){
+    if(list!=null){
+      return list.where((element) => element.brandID == brandID).toList();
+    }
     return productsList.where((element) => element.brandID == brandID).toList();
   }
 

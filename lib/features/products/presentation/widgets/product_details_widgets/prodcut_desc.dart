@@ -1,4 +1,6 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 class ProductDescriptionWidget extends StatelessWidget {
@@ -7,6 +9,14 @@ class ProductDescriptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return Html(
+    //     style: {
+    //       'body': Style(
+    //           color: DMUtil.getD2C()),
+    //       'p': Style(
+    //           color: DMUtil.getPC())
+    //     },
+    //     data: txt );
     return HtmlWidget(
       '''
       $txt

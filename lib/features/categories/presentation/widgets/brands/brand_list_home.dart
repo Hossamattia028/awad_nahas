@@ -18,7 +18,7 @@ class BrandListHome extends StatelessWidget {
         var bloc = CategoriesBloc.get(ctx);
         var list = bloc.activateTransList(bloc.brandsList);
         return SizedBox(
-          height: 45.h,
+          height: 50.h,
           child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,

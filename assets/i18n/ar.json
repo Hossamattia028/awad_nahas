@@ -335,6 +335,7 @@
       "deliver_enj": "كن معنا واستمتع بتوصيل وجباتنا"
     },
     "store": {
+      "products": "منتجات",
       "popularity": "شعبية",
       "averageـrating": "متوسط تقييم",
       "newness": "الاحدث",
@@ -455,7 +456,8 @@
     },
     "brand": {
       "brand_products": "منتجات تخص العلامات التجارية",
-      "about_brand": "عن العلامة التجارية"
+      "about_brand": "عن العلامة التجارية",
+      "about": "عن"
     },
     "cart": {
       "cart": "السلة",

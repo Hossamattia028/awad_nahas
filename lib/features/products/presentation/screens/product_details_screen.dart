@@ -121,7 +121,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
             const SizedBox(height: 10,),
 
 
-            ProductDetailsDataRow(item: widget.item),
+           ProductDetailsDataRow(item: widget.item),
 
 
             if(widget.item.brandID!=null)
