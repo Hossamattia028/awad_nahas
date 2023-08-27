@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/shared_widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 class CircleCategoryCard extends StatelessWidget {
@@ -24,7 +26,15 @@ class CircleCategoryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          
+          // if(item.title.startsWith("ماكي"))...[
+          //   CircleAvatar(
+          //     backgroundColor: DMUtil.getBCD(),
+          //     radius: 26.w,
+          //     child: SvgPicture.asset("assets/test/mixer-blender.svg",width: 30.w,colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),),
+          //   )
+          // ]else...[
+          //   SvgIconWidget(iconUrl: item.iconPath),
+          // ],
           SvgIconWidget(iconUrl: item.iconPath),
 
           const SizedBox(height: 5,),

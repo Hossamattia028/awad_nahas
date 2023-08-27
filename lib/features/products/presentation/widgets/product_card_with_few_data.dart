@@ -32,34 +32,14 @@ class ProductCardFewData extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            if(qty!="0")...[
-              Column(
-                children: [
-                  const SizedBox(height: 5,),
-                  CircleAvatar(
-                    backgroundColor: DMUtil.getRED(),
-                    radius: 10.w,
-                    child: CustomText(
-                      text: qty,
-                      color: Colors.white,
-                      fontSize: AppStyle.small.sp,
-                    ),
-                  ),
-                  ImageWidget(imgUrl: item.imgPath,width: 80,fit: BoxFit.contain,),
-                ],
-              ),
-
-            ]else...[
-              ImageWidget(imgUrl: item.imgPath,width: 80,fit: BoxFit.contain,),
-            ],
-
+            ImageWidget(imgUrl: item.imgPath,width: 80,fit: BoxFit.contain,),
             const SizedBox(width: 5,),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 SizedBox(
-                  width: 130.w,
+                  width: 110.w,
                   child: SingleChildScrollView(
                     child: CustomText(
                       text: item.title.toString(),
@@ -72,7 +52,19 @@ class ProductCardFewData extends StatelessWidget {
                 if(showPrice)ProductPriceWidget(productModel: item,isBig:true),
               ],
             ),
-
+            if(qty!="0")
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: CircleAvatar(
+                backgroundColor: DMUtil.getRED(),
+                radius: 10.w,
+                child: CustomText(
+                  text: qty,
+                  color: Colors.white,
+                  fontSize: AppStyle.small.sp,
+                ),
+              ),
+            ),
           ],
         ),
       ),
