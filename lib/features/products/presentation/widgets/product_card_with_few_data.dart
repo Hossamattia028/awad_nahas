@@ -34,41 +34,55 @@ class ProductCardFewData extends StatelessWidget {
           children: [
             ImageWidget(imgUrl: item.imgPath,width: 80,fit: BoxFit.contain,),
             const SizedBox(width: 5,),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SizedBox(
-                  width: 110.w,
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: CustomText(
-                      text: item.title.toString(),
-                      color: DMUtil.getDC(),
-                      fontSize: AppStyle.average.sp-1,
-                      maxLine: 4,
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 100.w,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: CustomText(
+                        text: item.title.toString(),
+                        color: DMUtil.getDC(),
+                        fontSize: AppStyle.average.sp-1,
+                        maxLine: 4,
+                      ),
                     ),
                   ),
-                ),
-                if(showPrice)ProductPriceWidget(productModel: item,isBig:true),
-              ],
-            ),
-            if(qty!="0")
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: CircleAvatar(
-                backgroundColor: DMUtil.getRED(),
-                radius: 10.w,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: CustomText(
-                    text: qty,
-                    color: Colors.white,
-                    fontSize: AppStyle.small.sp,
-                  ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if(qty!="0")
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: CircleAvatar(
+                              backgroundColor: DMUtil.getRED(),
+                              radius: 10.w,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: CustomText(
+                                  text: qty,
+                                  color: Colors.white,
+                                  fontSize: AppStyle.small.sp,
+                                ),
+                              ),
+                            ),
+                          ),
+                        SizedBox(height: 30.h,),
+                        if(showPrice)ProductPriceWidget(productModel: item,isBig:true),
+                      ],
+                    ),
+                  )
+
+                ],
               ),
             ),
+
           ],
         ),
       ),

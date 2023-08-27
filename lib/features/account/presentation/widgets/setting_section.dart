@@ -24,23 +24,6 @@ class SettingSectionWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // const SizedBox(height: 5,),
-        // CustomText(
-        //   text: translate("activity_setting.contact_us"),
-        //   color: DMUtil.getDC(),
-        //   fontSize: AppStyle.average.sp,
-        // ),
-        // SettingLineOption(title: translate("activity_setting.contact_us"),onTap: ()=> Util.pushPage(AboutUsScreen(title: translate("activity_setting.replacement")),context)),
-        //
-        // Container(
-        //   color: Colors.white,
-        //   child: Column(
-        //     children: [
-        //       SettingLineOption(title: translate("activity_setting.about_us"),onTap: ()=> Util.pushPage(AboutUsScreen(title: translate("activity_setting.about_us")), context),),
-        //       SettingLineOption(title: translate("activity_setting.privacy"),onTap: ()=> Util.pushPage(AboutUsScreen(title: translate("activity_setting.privacy")), context),),
-        //     ],
-        //   ),
-        // ),
         const SizedBox(height: 5,),
         CustomText(
           text: translate("activity_setting.app_bar"),

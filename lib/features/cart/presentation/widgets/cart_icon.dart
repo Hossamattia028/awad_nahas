@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
@@ -24,13 +25,13 @@ class CartNavIconWidget extends StatelessWidget {
           alignment: Alignment.topRight,
           children: [
             SvgPicture.asset(AppImages.cartSelected, colorFilter: ColorFilter.mode(selected?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),height: 24.w,),
-            if(length!=0)Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: CircleAvatar(
-                backgroundColor:selected? DMUtil.getBCC() : DMUtil.getPC(),
-                radius: 7.w,
-                child: CustomText(text: "$length",fontSize: AppStyle.small.sp-1,color: selected? DMUtil.getPC() : Colors.white,),
-              ),
+            if(length!=0)CircleAvatar(
+              backgroundColor:selected? DMUtil.getBCC() : DMUtil.getPC(),
+              radius: 7.w,
+              child: Padding(
+                padding: EdgeInsets.only(top: Util.getLang()=="ar"?2:0,bottom: Util.getLang()!="ar"?2:0),
+                child: CustomText(text: "$length",fontSize: AppStyle.small.sp-2,color: selected? DMUtil.getPC() : Colors.white,),
+              )
             )
           ],
         );

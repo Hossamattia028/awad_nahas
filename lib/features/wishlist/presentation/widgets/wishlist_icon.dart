@@ -61,13 +61,13 @@ class WishListNavIconWidget extends StatelessWidget {
           alignment: Alignment.topRight,
           children: [
             Icon(selected?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: selected? DMUtil.getPC() : DMUtil.getDLight(),size: 23.w,),
-            if(length!=0)Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: CircleAvatar(
-                radius: 7.w,
-                backgroundColor: selected? DMUtil.getBCC() : DMUtil.getPC(),
-                child: CustomText(text: "$length",fontSize: AppStyle.small.sp-1,color: selected? DMUtil.getPC() : Colors.white,),
-              ),
+            if(length!=0)CircleAvatar(
+              radius: 7.w,
+              backgroundColor: selected? DMUtil.getBCC() : DMUtil.getPC(),
+              child: Padding(
+                padding: EdgeInsets.only(top: Util.getLang()=="ar"?2:0,bottom: Util.getLang()!="ar"?2:0),
+                child: CustomText(text: "$length",fontSize: AppStyle.small.sp-2,color: selected? DMUtil.getPC() : Colors.white,),
+              )
             )
           ],
         );

@@ -30,6 +30,7 @@ class AccountAuthCard extends StatelessWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              if(user == null)
               CircleAvatar(
                 radius: 20.h,
                 backgroundColor: DMUtil.getBCC(),
@@ -60,7 +61,7 @@ class AccountAuthCard extends StatelessWidget {
                     CustomText(
                       text: user.userName.toString(),
                       color: DMUtil.getD2C(),
-                      fontSize: AppStyle.average.sp,
+                      fontSize: AppStyle.average.sp+2,
                     ),
 
                   if(!isDrawer && user == null)

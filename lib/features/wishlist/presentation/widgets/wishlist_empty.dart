@@ -18,7 +18,11 @@ class WishListEmpty extends StatelessWidget {
         children: [
           const SizedBox(height: 200,),
 
-          Image.asset(AppImages.logo,height: 130.h,fit: BoxFit.cover,),
+          if(DMUtil.currentThemeIsDark())...[
+            Image.asset(AppImages.logoWhite,height: 130.h,fit: BoxFit.cover,),
+          ]else...[
+            Image.asset(AppImages.logo,height: 130.h,fit: BoxFit.cover,),
+          ],
           const SizedBox(height: 10,),
           CustomText(
               text: translate("wishlist.fav_empty"),

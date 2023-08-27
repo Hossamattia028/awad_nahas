@@ -35,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             children:  [
               const AccountAuthCard(),
-              const SizedBox(height: 15,),
+              const SizedBox(height: 13,),
 
               if(Util.checkUser())...[
                 const MyAccountSetting(),

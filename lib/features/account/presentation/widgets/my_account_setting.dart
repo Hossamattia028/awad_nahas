@@ -44,7 +44,7 @@ class MyAccountSetting extends StatelessWidget {
                         backgroundColor: DMUtil.getPC(),
                         radius: 11.w,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 5),
+                          padding: const EdgeInsets.only(top: 2),
                           child: CustomText(text: "$length",fontSize: AppStyle.small.sp,color: Colors.white,),
                         ),
                       ),

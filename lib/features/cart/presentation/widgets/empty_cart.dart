@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -18,7 +19,12 @@ class EmptyCartWidget extends StatelessWidget {
         children: [
           const SizedBox(height: 200,),
 
-          Image.asset(AppImages.logo,height: 130.h,fit: BoxFit.cover,),
+          if(DMUtil.currentThemeIsDark())...[
+            Image.asset(AppImages.logoWhite,height: 130.h,fit: BoxFit.cover,),
+          ]else...[
+            Image.asset(AppImages.logo,height: 130.h,fit: BoxFit.cover,),
+          ],
+
           const SizedBox(height: 10,),
           CustomText(
             text: translate("cart.empty"),

@@ -15,25 +15,14 @@ import 'package:awad_nahas/features/home/presentation/widgets/home_content.dart'
 import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
 
 
-class HomeScreen extends StatefulWidget {
+
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-
-  @override
-  void didChangeDependencies() {
-
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh:_onRefresh,
+      onRefresh: ()=> onRefresh(context),
       color: DMUtil.getRED(),
       child: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.sp,),
@@ -42,8 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: AppStyle.paddingFromTop.h-15,),
+            SizedBox(height: AppStyle.paddingFromTop.h-10,),
             const LogoWidget(width: 140,height: 80,fit: BoxFit.contain,),
+            const SizedBox(height: 10,),
             const SearchWidget(),
             const SizedBox(height: 6,),
             // const SelectLocations(),
@@ -61,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<void> _onRefresh()async{
+  Future onRefresh(BuildContext context)async{
     ProductsBloc.get(context).add(const FetchAllProductsEvent());
     // ProductsBloc.get(context).add(const FetchAllLatestProductsEvent());
     // ProductsBloc.get(context).add(const FetchAllBestSellerProductsEvent());
@@ -69,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
     CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
   }
 }
-
 
 
 
