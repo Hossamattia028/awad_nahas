@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class AboutBrand extends StatelessWidget {
               }
               return null;
             },
+            textStyle: TextStyle(fontFamily: primaryFontReg,color: DMUtil.getD2C()),
           )
           // CustomText(
           //   text: itemBrand.title,

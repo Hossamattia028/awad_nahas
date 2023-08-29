@@ -19,6 +19,7 @@ class SearchCategoryList extends StatelessWidget {
     return BlocBuilder<RootBloc,RootState>(
       builder: (ctx,state){
         var bloc = RootBloc.get(ctx);
+        if(bloc.categorySearchList.isEmpty&&bloc.productSearchList.isEmpty)return CustomText(text: translate("search.no_result"), fontSize: AppStyle.small.sp);
         if(bloc.categorySearchList.isEmpty)return const SizedBox.shrink();
         var list = bloc.categorySearchList;
         list = CategoriesBloc.get(context).activateTransList(list);
@@ -40,7 +41,7 @@ class SearchCategoryList extends StatelessWidget {
                 crossAxisSpacing: 10.h,
                 mainAxisSpacing: 10.h,
                 childAspectRatio: 1.2,
-                mainAxisExtent: 102.h,
+                mainAxisExtent: 107.h,
               ),
               itemBuilder: (BuildContext context, int index) {
                 var item = list[index];

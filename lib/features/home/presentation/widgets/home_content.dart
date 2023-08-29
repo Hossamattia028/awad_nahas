@@ -2,7 +2,6 @@ import 'package:awad_nahas/features/categories/presentation/widgets/our_brands_h
 import 'package:awad_nahas/features/home/presentation/widgets/banners_section.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/categories.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/single_banner.dart';
-import 'package:awad_nahas/features/home/presentation/widgets/why_awad_nahas.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/cat_list_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +21,7 @@ class HomeContentWidget extends StatelessWidget {
         const HomeCategories(),
         // OurBrandsScreen(),
 
+        const SizedBox(height: 10,),
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
@@ -31,10 +31,13 @@ class HomeContentWidget extends StatelessWidget {
             return CatProductsList(cat: list.first,);
           },
         ),
+        const SizedBox(height: 10,),
         const OurBrandsHome(),
 
+        const SizedBox(height: 10,),
         const BannersSection(),
 
+        const SizedBox(height: 10,),
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
@@ -45,7 +48,10 @@ class HomeContentWidget extends StatelessWidget {
           },
         ),
 
+        const SizedBox(height: 10,),
         const SingleBannerWidget(),
+
+        const SizedBox(height: 10,),
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
@@ -56,7 +62,31 @@ class HomeContentWidget extends StatelessWidget {
           },
         ),
 
-        const WhyAwaNahWidget(),
+        const SizedBox(height: 10,),
+        BlocBuilder<CategoriesBloc,CategoriesState>(
+          builder: (ctx,state){
+            var bloc = CategoriesBloc.get(ctx);
+            var list = bloc.activateTransList(bloc.categoriesList);
+            if(list.isEmpty)return const SizedBox();
+            if(list[4]==null || list[4].productsCount==0)return const SizedBox(height: 5,);
+            return CatProductsList(cat: list[4],);
+          },
+        ),
+
+        const SizedBox(height: 10,),
+        BlocBuilder<CategoriesBloc,CategoriesState>(
+          builder: (ctx,state){
+            var bloc = CategoriesBloc.get(ctx);
+            var list = bloc.activateTransList(bloc.categoriesList);
+            if(list.isEmpty)return const SizedBox();
+            if(list[5]==null || list[5].productsCount==0)return const SizedBox(height: 5,);
+            return CatProductsList(cat: list[5],);
+          },
+        ),
+
+
+        const SizedBox(height: 10,),
+        // const WhyAwaNahWidget(),
 
       ],
     );

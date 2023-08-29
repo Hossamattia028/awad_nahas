@@ -26,16 +26,13 @@ class CircleCategoryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // if(item.title.startsWith("ماكي"))...[
-          //   CircleAvatar(
-          //     backgroundColor: DMUtil.getBCD(),
-          //     radius: 26.w,
-          //     child: SvgPicture.asset("assets/test/mixer-blender.svg",width: 30.w,colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),),
-          //   )
-          // ]else...[
-          //   SvgIconWidget(iconUrl: item.iconPath),
-          // ],
-          SvgIconWidget(iconUrl: item.iconPath),
+          if(DMUtil.currentThemeIsDark() && item.darkIcon!=null && item.darkIcon.toString().trim()!="")...[
+            SvgPicture.network(item.darkIcon!,height: 59.h,),
+          ]else if(!DMUtil.currentThemeIsDark() && item.lightIcon!=null && item.lightIcon.toString().trim()!="")...[
+            SvgPicture.network(item.lightIcon!,height: 59.h,),
+          ]else ...[
+            SvgIconWidget(iconUrl: item.iconPath),
+          ],
 
           const SizedBox(height: 5,),
           SizedBox(

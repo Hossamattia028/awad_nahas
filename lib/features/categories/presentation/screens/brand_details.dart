@@ -112,7 +112,7 @@ class TabWidget extends StatelessWidget {
       child: CustomText(
         text: title,
         fontSize: AppStyle.small.sp+2,
-        color: isSelected?DMUtil.getWC():DMUtil.getDC(),
+        color: isSelected?Colors.white:DMUtil.getDC(),
       )
     );
   }

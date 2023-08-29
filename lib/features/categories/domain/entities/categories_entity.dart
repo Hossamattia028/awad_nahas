@@ -3,6 +3,8 @@ import 'package:equatable/equatable.dart';
 class CategoriesEntity extends Equatable{
   final int id;
   final String iconPath;
+  final String? darkIcon;
+  final String? lightIcon;
   final String imgPath;
   final String title;
   final String desc;
@@ -12,7 +14,13 @@ class CategoriesEntity extends Equatable{
 
 
 
-  const CategoriesEntity({required this.title,required this.desc,required this.id,required this.imgPath,required this.iconPath,required this.isArabic,required this.parentID,required this.productsCount});
+  const CategoriesEntity({required this.title,required this.desc,
+    required this.id,
+    required this.imgPath,
+    required this.iconPath,
+    this.darkIcon,
+    this.lightIcon,
+    required this.isArabic,required this.parentID,required this.productsCount});
 
   @override
   // TODO: implement props
