@@ -18,6 +18,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   ApplyCouponUseCase applyCouponUseCase;
   int currentCategoryIndex = 0;
   bool paymentWithCard = true;
+  bool deliveryAndInstallment = false;
 
   CartBloc({
     required this.getAllCartListUseCase,
@@ -52,11 +53,21 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       emit(CartSuccessfullyState());
     });
 
+    on<DeliveryWithInstallmentEvent>((event,emit){
+      deliveryWithInstallmentMethod(event,emit);
+    });
+
     on<PaymentWithCardEvent>((event,emit){
       changePaymentMethod(event,emit);
     });
   }
   static CartBloc get(BuildContext context) => BlocProvider.of(context);
+
+  deliveryWithInstallmentMethod(DeliveryWithInstallmentEvent event,emit){
+    emit(DeliveryLoadingState());
+    deliveryAndInstallment = event.withInstallment;
+    emit(DeliverySuccessfullyState());
+  }
 
   changePaymentMethod(event,emit){
     emit(PaymentLoadingState());

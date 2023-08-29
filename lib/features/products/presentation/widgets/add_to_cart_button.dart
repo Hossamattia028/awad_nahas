@@ -104,7 +104,7 @@ class AddToCartButtonWidget extends StatelessWidget {
                       Expanded(child: ProductCardFewData(item: item,showPrice: false,isElevation: false,)),
                       CustomButton(
                           height: 50.h,
-                          width: 123.w,
+                          width: 124.w,
                           widget: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

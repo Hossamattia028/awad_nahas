@@ -33,8 +33,8 @@ class CheckOutScreen extends StatelessWidget {
         child: const Column(
           children: [
             OrderAddress(),
-            PayWithWidget(),
             DeliveryTypeWidget(),
+            PayWithWidget(),
             PaymentSummaryWidget(),
             OrderNoteWidget(),
           ],

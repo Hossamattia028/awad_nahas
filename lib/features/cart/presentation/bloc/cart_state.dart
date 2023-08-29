@@ -26,5 +26,9 @@ class CartErrorState extends CartState {
 class CouponLoadingState extends CartState {}
 class CouponSuccessfullyState extends CartState {}
 
+class DeliveryLoadingState extends CartState {}
+class DeliverySuccessfullyState extends CartState {}
+
+
 class PaymentLoadingState extends CartState {}
 class PaymentSuccessfullyState extends CartState {}

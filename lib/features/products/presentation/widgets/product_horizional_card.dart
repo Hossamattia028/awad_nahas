@@ -74,7 +74,7 @@ class ProductHorizontalCard extends StatelessWidget {
                     ),
                   ),
                 ],
-                ImageWidget(imgUrl: item.imgPath, fit: BoxFit.contain, height: 145,width: isSmall?150:double.infinity,),
+                ImageWidget(imgUrl: item.imgPath, fit: BoxFit.contain, height: 140,width: isSmall?150:double.infinity,),
                 const SizedBox(height: 3,),
                 SizedBox(
                   width: widTh.w,

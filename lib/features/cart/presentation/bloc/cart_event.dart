@@ -54,6 +54,11 @@ class UpdateCountEvent extends CartEvent{
 }
 
 
+class DeliveryWithInstallmentEvent extends CartEvent{
+  final bool withInstallment;
+  const DeliveryWithInstallmentEvent({required this.withInstallment});
+}
+
 class PaymentWithCardEvent extends CartEvent{
   const PaymentWithCardEvent();
 }
