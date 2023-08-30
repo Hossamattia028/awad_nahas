@@ -29,7 +29,7 @@ class ProductModel extends ProductsEntity{
       catTitle: jsonObject['post_title']??"",
       discount: double.parse((jsonObject['price'] ?? "0").toString()),
       discountRate: double.parse((jsonObject['price'] ?? "0").toString()),
-      price: double.parse((jsonObject['price'] ?? "0").toString()),
+      price: double.parse((jsonObject['regular_price'] ?? "0").toString()),
       desc: jsonObject['desc'] ?? "",
       stockStatus:  jsonObject['stock_status'] == "instock",
       imgPath: jsonObject['image']??"",

@@ -2,7 +2,7 @@
 
 enum SortEnum{
   POPULAR,
-  RATE_AVERAGE,
+  AVERAGE_RATE,
   NEW,
   PRICE_LOW_TO_HIGH,
   PRICE_HIGH_TO_LOW,

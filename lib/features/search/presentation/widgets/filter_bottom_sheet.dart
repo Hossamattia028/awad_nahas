@@ -1,9 +1,13 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
@@ -42,45 +46,76 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
             ),
             const FromToRow(),
             const SizedBox(height: 5,),
-            CheckBoxWidget(title: translate("store.on_sale"),),
-            CheckBoxWidget(title: translate("store.in_of_stock"),),
+           BlocBuilder<ProductsBloc,ProductsState>(
+             builder: (ctx,state){
+               var bloc = ProductsBloc.get(ctx);
+               var fModel = bloc.filterModel;
+               return Column(
+                 children: [
+                   InkWell(
+                     onTap:()=> bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: fModel?.filterPrice,
+                       isDiscount: fModel?.isDiscount ==null ?true:(fModel?.isDiscount==true?false:true),
+                       isAvailable: fModel?.isAvailable,
+                       brandID: fModel?.brandID
+                     ))),
+                     child: CheckBoxWidget(
+                       title: translate("store.on_sale"),
+                       isEnabled: fModel?.isDiscount == true,
+                     ),
+                   ),
+                   InkWell(
+                     onTap:()=> bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: fModel?.filterPrice,
+                         isDiscount: fModel?.isDiscount ,
+                         isAvailable: fModel?.isAvailable ==null ?true:(fModel?.isAvailable==true?false:true),
+                         brandID: fModel?.brandID
+                     ))),
+                     child: CheckBoxWidget(
+                       title: translate("store.in_of_stock"),
+                       isEnabled: fModel?.isAvailable == true,
+                     ),
+                   ),
 
-            CheckBoxWidget(title: translate("store.size"),plus: true,),
-            CheckBoxWidget(title: translate("store.color"),plus: true,),
-            CheckBoxWidget(title: translate("store.brand"),plus: true,),
 
-            const SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomButton(
-                  height: 40.h,
-                  width: 200.w,
-                  circular: 20,
-                  widget:  CustomText(
-                    text: "${translate("button.view")} 12 items",
-                    color: Colors.white,
-                    fontSize: AppStyle.average.sp,
-                  ),
-                  color: DMUtil.getRED(),
-                  onPressed: (){},
-                ),
-                CustomButton(
-                  height: 40.h,
-                  width: 70.w,
-                  circular: 20,
-                  sideWidth: 1,
-                  sideColor: DMUtil.getRED(),
-                  widget:  CustomText(
-                    text: translate("button.clear"),
-                    color: DMUtil.getDC(),
-                    fontSize: AppStyle.average.sp,
-                  ),
-                  color: DMUtil.getWC(),
-                  onPressed: (){},
-                ),
-              ],
-            ),
+                   CheckBoxWidget(title: translate("store.size"),plus: true,),
+                   // CheckBoxWidget(title: translate("store.color"),plus: true,),
+                   CheckBoxWidget(title: translate("store.brand"),plus: true,),
+
+                   const SizedBox(height: 10,),
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                     children: [
+                       CustomButton(
+                         height: 40.h,
+                         width: 200.w,
+                         circular: 20,
+                         widget:  CustomText(
+                           text: "${translate("button.view")} ${bloc.productsList.length} ${translate("products.product")}",
+                           color: Colors.white,
+                           fontSize: AppStyle.average.sp,
+                         ),
+                         color: DMUtil.getRED(),
+                         onPressed: ()=> Navigator.of(context).pop(),
+                       ),
+                       CustomButton(
+                         height: 40.h,
+                         width: 70.w,
+                         circular: 20,
+                         sideWidth: 1,
+                         sideColor: DMUtil.getRED(),
+                         widget:  CustomText(
+                           text: translate("button.clear"),
+                           color: DMUtil.getDC(),
+                           fontSize: AppStyle.average.sp,
+                         ),
+                         color: DMUtil.getWC(),
+                         onPressed: ()=>  bloc.add(const FilterProductEvent(filterModel: null)),
+                       ),
+                     ],
+                   ),
+                 ],
+               );
+             },
+           ),
 
             const SizedBox(height: 10,),
           ],
@@ -94,20 +129,21 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
 class CheckBoxWidget extends StatelessWidget {
   final String title ;
   final bool plus ;
-  const CheckBoxWidget({Key? key,required this.title,this.plus=false}) : super(key: key);
+  final bool isEnabled;
+  const CheckBoxWidget({Key? key,required this.title,this.plus=false,this.isEnabled=false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h),
-      margin: EdgeInsets.symmetric(vertical: 4.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 6.h),
+      margin: EdgeInsets.symmetric(vertical: 6.h),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(6)),
           border: Border.all(width: 0.5,color: DMUtil.getD2C())
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CustomText(
             text: title,
@@ -122,7 +158,8 @@ class CheckBoxWidget extends StatelessWidget {
               height: 27.h,
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(6)),
-                  border: Border.all(width: 1.0,color: DMUtil.getD2C())
+                  border: Border.all(width: 1.0,color: isEnabled?DMUtil.getPC(): DMUtil.getD2C()),
+                color: isEnabled?DMUtil.getPC() : Colors.transparent
               ),
             ),
           ],
@@ -136,75 +173,89 @@ class CheckBoxWidget extends StatelessWidget {
 
 class FromToRow extends StatelessWidget {
   const FromToRow({Key? key}) : super(key: key);
-  static final TextEditingController textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocBuilder<ProductsBloc,ProductsState>(
+      builder: (ctx,state){
+        var bloc = ProductsBloc.get(ctx);
+        var fModel = bloc.filterModel;
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomText(
-              text: translate("store.from"),
-              fontSize: AppStyle.average.sp,
-            ),
-            const SizedBox(height: 5,),
-            SizedBox(
-              width: 150.w,
-              child: CustomTextFromField(
-                hintText: "   220.0  ${translate("store.sar")}",
-                radius: 10,
-                textEditingController: textEditingController,
-                validator: () {},
-                hintColor: DMUtil.getD2C(),
-                textInputType: TextInputType.phone,
-                prefixIcon:  null,
-                cursorColor: DMUtil.getDC(),
-                suffixIcon:  null,
-                smallPadding: true,
-                hasBorder: true,
-                obscureText: false,
-                isLabelError: false,
-                borderColor: DMUtil.getD2C(),
-                labelText: '',
-              ),
-            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  text: translate("store.from"),
+                  fontSize: AppStyle.average.sp,
+                ),
+                const SizedBox(height: 5,),
+                SizedBox(
+                  width: 150.w,
+                  child: CustomTextFromField(
+                    hintText: "  ${bloc.filterModel?.filterPrice?.start ?? 0}  ${translate("store.sar")}",
+                    radius: 10,
+                    textEditingController: bloc.textStartEditingController,
+                    validator: () {},
+                    hintColor: DMUtil.getD2C(),
+                    textInputType: TextInputType.number,
+                    prefixIcon:  null,
+                    cursorColor: DMUtil.getDC(),
+                    suffixIcon:  null,
+                    smallPadding: true,
+                    hasBorder: true,
+                    obscureText: false,
+                    isLabelError: false,
+                    borderColor: DMUtil.getD2C(),
+                    labelText: '',
+                  ),
+                ),
 
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomText(
-              text: translate("store.to"),
-              fontSize: AppStyle.average.sp,
+              ],
             ),
-            const SizedBox(height: 5,),
-            SizedBox(
-              width: 150.w,
-              child: CustomTextFromField(
-                hintText: "   220.0  ${translate("store.sar")}",
-                radius: 10,
-                textEditingController: textEditingController,
-                validator: () {},
-                hintColor: DMUtil.getD2C(),
-                textInputType: TextInputType.phone,
-                prefixIcon:  null,
-                cursorColor: DMUtil.getDC(),
-                suffixIcon:  null,
-                smallPadding: true,
-                hasBorder: true,
-                obscureText: false,
-                isLabelError: false,
-                borderColor: DMUtil.getD2C(),
-                labelText: '',
-              ),
-            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  text: translate("store.to"),
+                  fontSize: AppStyle.average.sp,
+                ),
+                const SizedBox(height: 5,),
+                SizedBox(
+                  width: 150.w,
+                  child: CustomTextFromField(
+                    hintText: "   ${bloc.filterModel?.filterPrice?.end ?? 0}  ${translate("store.sar")}",
+                    radius: 10,
+                    onFieldSubmitted: (val){
+                      bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: FilterPrice(start: double.parse(bloc.textStartEditingController.text.trim()),
+                          end: double.parse(bloc.textEndEditingController.text.trim())),
+                          isDiscount: fModel?.isDiscount ,
+                          isAvailable: fModel?.isAvailable ,
+                          brandID: fModel?.brandID
+                      )));
+                    },
+                    textEditingController: bloc.textEndEditingController,
+                    validator: () {},
+                    hintColor: DMUtil.getD2C(),
+                    textInputType: TextInputType.number,
+                    prefixIcon:  null,
+                    cursorColor: DMUtil.getDC(),
+                    suffixIcon:  null,
+                    smallPadding: true,
+                    hasBorder: true,
+                    obscureText: false,
+                    isLabelError: false,
+                    borderColor: DMUtil.getD2C(),
+                    labelText: '',
+                  ),
+                ),
 
+              ],
+            ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }

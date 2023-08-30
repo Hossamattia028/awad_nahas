@@ -80,3 +80,22 @@ class ChangeSortEvent extends ProductsEvent{
   final SortEnum sortEnum;
   const ChangeSortEvent({required this.sortEnum,});
 }
+
+class FilterProductEvent extends ProductsEvent{
+  final FilterModel? filterModel;
+  const FilterProductEvent({this.filterModel});
+}
+
+class FilterModel{
+  final FilterPrice? filterPrice;
+  final bool? isDiscount;
+  final bool? isAvailable;
+  final int? brandID;
+  const FilterModel({this.filterPrice,this.isDiscount,this.isAvailable,this.brandID});
+}
+class FilterPrice{
+  final double start;
+  final double end;
+  const FilterPrice({required this.start,required this.end});
+}
+

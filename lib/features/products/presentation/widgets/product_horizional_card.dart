@@ -67,7 +67,7 @@ class ProductHorizontalCard extends StatelessWidget {
                   ),
                 ],
                 ImageWidget(imgUrl: item.imgPath, fit: BoxFit.contain, height: 140,width: isSmall?150:double.infinity,),
-                const SizedBox(height: 2,),
+
                 SizedBox(
                   width: widTh.w,
                   child: CustomText(
@@ -76,7 +76,7 @@ class ProductHorizontalCard extends StatelessWidget {
                     fontSize: AppStyle.average.sp,
                   ),
                 ),
-                const SizedBox(height: 5,),
+                const SizedBox(height: 2,),
                 ProductPriceWidget(productModel: item,isBig: true,),
                 const VatIncludedWidget(),
               ],

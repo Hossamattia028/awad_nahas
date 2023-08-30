@@ -75,6 +75,10 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       changeSort(event,emit);
     });
 
+    on<FilterProductEvent>((event, emit){
+      filterProducts(event,emit);
+    });
+
 
   }
   static ProductsBloc get(BuildContext context) => BlocProvider.of(context);
@@ -279,16 +283,60 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
   sortProducts(SortEnum sortType){
     if(sortType == SortEnum.NEW){
-      productsList.sort((a, b) => DateTime.parse(a.date!).compareTo(DateTime.parse(b.date!)));
+      productsList.sort((a, b) => DateTime.parse(b.date!).compareTo(DateTime.parse(a.date!)));
     }else if(sortType == SortEnum.PRICE_HIGH_TO_LOW){
+      productsList.sort((a, b) => b.price.compareTo(a.price));
+    }else if(sortType == SortEnum.PRICE_LOW_TO_HIGH){
       productsList.sort((a, b) => a.price.compareTo(b.price));
-    }else if(sortType == SortEnum.PRICE_HIGH_TO_LOW){
-      productsList.sort((a, b) => a.price.compareTo(b.price));
+    }else if(sortType == SortEnum.AVERAGE_RATE){
+      productsList.sort((a, b) => double.parse(b.averageRate.toString()).compareTo(double.parse(a.averageRate.toString())));
     }else{
       productsList = storedProductsList;
     }
+  }
+
+  FilterModel? filterModel;
+  filterProducts(FilterProductEvent event,emit){
+    emit(const FilterLoadingState());
+    if(event.filterModel==null){
+      if(filterModel!=null)productsList = storedProductsList;
+      filterModel = null;
+      textStartEditingController.text="";
+      textEndEditingController.text="";
+      return;
+    }
+    filterModel = event.filterModel;
+    if(event.filterModel!.filterPrice!=null)productsList = filterPrice(event.filterModel!.filterPrice!);
+    if(event.filterModel!.isAvailable!=null)productsList = filterStock(productsList);
+    if(event.filterModel!.isDiscount!=null)productsList = filterIfHasDiscount(productsList);
+    if(event.filterModel!.brandID!=null)productsList = filterByBrandID(productsList,event.filterModel!.brandID!);
+    emit(const FilterSuccessfullyState());
+  }
+
+  final TextEditingController textStartEditingController = TextEditingController();
+  final TextEditingController textEndEditingController = TextEditingController();
+  filterPrice(FilterPrice filterPrice){
+    productsList = productsList.where((element) => element.price<=filterPrice.end && element.price>=filterPrice.start).toList();
+    return productsList;
+  }
 
 
+  /// filter by stock if true is instock
+  filterStock(List<ProductsEntity> products){
+    products = products.where((element) => element.stockStatus==true).toList();
+    return products;
+  }
+
+  /// filter if product has discount or not
+  filterIfHasDiscount(List<ProductsEntity> products){
+    products = products.where((element) => element.discount !=0 && element.discount!=element.price).toList();
+    return products;
+  }
+
+  /// filter by brand id
+  filterByBrandID(List<ProductsEntity> products,int brandID){
+    products = products.where((element) => element.brandID == brandID).toList();
+    return products;
   }
 
 }

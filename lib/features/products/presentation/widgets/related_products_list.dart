@@ -24,7 +24,7 @@ class RelatedProductsList extends StatelessWidget {
           list = bloc.relatedProducts(item.categoryList);
         }
         return SizedBox(
-          height: 260.h,
+          height: 263.h,
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(2),
