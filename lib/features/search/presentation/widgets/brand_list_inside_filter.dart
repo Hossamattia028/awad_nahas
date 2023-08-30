@@ -21,7 +21,7 @@ class BrandFilterList extends StatelessWidget {
         var list = catBloc.activateTransList(catBloc.brandsList);
         var fModel = bloc.filterModel;
         return SizedBox(
-          height: 24.h,
+          height: 29.h,
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
@@ -32,9 +32,10 @@ class BrandFilterList extends StatelessWidget {
                     isDiscount: fModel?.isDiscount ,
                     isAvailable: fModel?.isAvailable,
                     weight: fModel?.weight,
-                    brandID: item.id
+                    brandID: item.id == fModel?.brandID ? null : item.id
                 ))),
                 child: Container(
+                  alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 4),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(4)),

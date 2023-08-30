@@ -310,23 +310,25 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     }
   }
 
+  /// filter
   FilterModel? filterModel;
   filterProducts(FilterProductEvent event,emit){
     emit(const FilterLoadingState());
     productsList = storedProductsList;
+    productsList = filterByCurrentLang(productsList);
     if(event.filterModel==null){
       filterModel = null;
       textStartEditingController.text="";
       textEndEditingController.text="";
+      emit(const FilterSuccessfullyState());
       return;
     }
     filterModel = event.filterModel;
-    productsList = filterByCurrentLang(productsList);
-    if(event.filterModel!.filterPrice!=null)productsList = filterPrice(event.filterModel!.filterPrice!);
-    if(event.filterModel!.isAvailable!=null)productsList = filterStock(productsList);
-    if(event.filterModel!.isDiscount!=null)productsList = filterIfHasDiscount(productsList);
-    if(event.filterModel!.brandID!=null)productsList = filterByBrandID(productsList,event.filterModel!.brandID!);
-    if(event.filterModel!.weight!=null)productsList = filterByWeight(productsList,event.filterModel!.weight!);
+    if(event.filterModel!.filterPrice!=null && (event.filterModel!.filterPrice?.end!=0.0 || event.filterModel!.filterPrice?.start!=0.0))productsList = filterPrice(event.filterModel!.filterPrice!);
+    if(event.filterModel!.isAvailable!=null && event.filterModel!.isAvailable==true)productsList = filterStock(productsList);
+    if(event.filterModel!.isDiscount!=null && event.filterModel!.isDiscount == true)productsList = filterIfHasDiscount(productsList);
+    if(event.filterModel!.brandID!=null && showBrandFilter == true)productsList = filterByBrandID(productsList,event.filterModel!.brandID!);
+    if(event.filterModel!.weight!=null && showWeightFilter == true)productsList = filterByWeight(productsList,event.filterModel!.weight!);
     emit(const FilterSuccessfullyState());
   }
 

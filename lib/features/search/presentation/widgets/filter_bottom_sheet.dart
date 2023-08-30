@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 import 'package:awad_nahas/features/search/presentation/widgets/brand_list_inside_filter.dart';
 import 'package:awad_nahas/features/search/presentation/widgets/weight_list_inside_filter.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
@@ -102,17 +107,27 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                    Row(
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
-                       CustomButton(
-                         height: 40.h,
-                         width: 200.w,
-                         circular: 20,
-                         widget:  CustomText(
-                           text: "${translate("button.view")} ${bloc.productsList.length} ${translate("products.product")}",
-                           color: Colors.white,
-                           fontSize: AppStyle.average.sp,
-                         ),
-                         color: DMUtil.getRED(),
-                         onPressed: ()=> Navigator.of(context).pop(),
+                       BlocBuilder<RootBloc,RootState>(
+                         builder: (ctx,state){
+                           var rootBloc = RootBloc.get(ctx);
+                           return CustomButton(
+                             height: 40.h,
+                             width: 200.w,
+                             circular: 20,
+                             widget:  CustomText(
+                               text: "${translate("button.view")} ${bloc.productsList.length} ${translate("products.product")}",
+                               color: Colors.white,
+                               fontSize: AppStyle.average.sp,
+                             ),
+                             color: DMUtil.getRED(),
+                             onPressed: (){
+                               Timer(const Duration(milliseconds: 200), () {
+                                 rootBloc.add(EnableSearchEvent(productList: bloc.productsList,enable: true));
+                               });
+                               Navigator.of(context).pop();
+                             },
+                           );
+                         },
                        ),
                        CustomButton(
                          height: 40.h,
@@ -126,7 +141,10 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                            fontSize: AppStyle.average.sp,
                          ),
                          color: DMUtil.getWC(),
-                         onPressed: ()=>  bloc.add(const FilterProductEvent(filterModel: null)),
+                         onPressed: (){
+                           bloc.add(const FilterProductEvent(filterModel: null));
+                           RootBloc.get(context).add(const EnableSearchEvent(enable: false));
+                         },
                        ),
                      ],
                    ),
@@ -153,41 +171,44 @@ class CheckBoxWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 6.h),
-      margin: EdgeInsets.symmetric(vertical: 6.h),
-      decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(6)),
-          border: Border.all(width: 0.5,color: DMUtil.getD2C())
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CustomText(
-            text: title,
-            fontSize: AppStyle.average.sp,
-          ),
-
-          if(plus)...[
-            InkWell(
-              onTap: onTapPlusIcon ,
-              child: Icon(isEnabled ? Icons.remove :Icons.add,size: 24,color: DMUtil.getDC(),),
+    return InkWell(
+      onTap: onTapPlusIcon,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 6.h),
+        margin: EdgeInsets.symmetric(vertical: 6.h),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(6)),
+            border: Border.all(width: 0.5,color: DMUtil.getD2C())
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomText(
+              text: title,
+              fontSize: AppStyle.average.sp,
             ),
-          ]else...[
-            Container(
-              width: 24.w,
-              height: 27.h,
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(6)),
-                  border: Border.all(width: 1.0,color: isEnabled?DMUtil.getPC(): DMUtil.getD2C()),
-                color: isEnabled?DMUtil.getPC() : Colors.transparent
+
+            if(plus)...[
+              InkWell(
+                onTap: onTapPlusIcon ,
+                child: Icon(isEnabled ? Icons.remove :Icons.add,size: 24,color: DMUtil.getDC(),),
               ),
-            ),
+            ]else...[
+              Container(
+                width: 24.w,
+                height: 27.h,
+                decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(6)),
+                    border: Border.all(width: 1.0,color: isEnabled?DMUtil.getPC(): DMUtil.getD2C()),
+                  color: isEnabled?DMUtil.getPC() : Colors.transparent
+                ),
+              ),
+            ],
+
+
           ],
-
-
-        ],
+        ),
       ),
     );
   }
@@ -250,8 +271,8 @@ class FromToRow extends StatelessWidget {
                     hintText: "   ${bloc.filterModel?.filterPrice?.end ?? 0}  ${translate("store.sar")}",
                     radius: 10,
                     onFieldSubmitted: (val){
-                      bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: FilterPrice(start: double.parse(bloc.textStartEditingController.text.trim()),
-                          end: double.parse(bloc.textEndEditingController.text.trim())),
+                      bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: FilterPrice(start: val.toString().isEmpty?0.0:double.parse(bloc.textStartEditingController.text.trim()),
+                          end: val.toString().isEmpty?0.0:double.parse(bloc.textEndEditingController.text.trim())),
                           isDiscount: fModel?.isDiscount ,
                           isAvailable: fModel?.isAvailable ,
                           brandID: fModel?.brandID

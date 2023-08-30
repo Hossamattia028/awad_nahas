@@ -30,9 +30,10 @@ class WeightFilterList extends StatelessWidget {
                     isDiscount: fModel?.isDiscount ,
                     isAvailable: fModel?.isAvailable,
                     brandID: fModel?.brandID,
-                    weight: item
+                    weight: item == fModel?.weight ? null : item
                 ))),
                 child: Container(
+                  alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 4),
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(4)),

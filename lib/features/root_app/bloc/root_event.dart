@@ -28,5 +28,8 @@ class SearchEvent extends RootEvent {
 }
 
 class EnableSearchEvent extends RootEvent{
-  const EnableSearchEvent();
+  final List<ProductsEntity>? productList;
+  final bool? enable;
+  const EnableSearchEvent({this.productList,this.enable});
 }
+

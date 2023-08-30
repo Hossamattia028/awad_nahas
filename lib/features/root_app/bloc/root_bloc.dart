@@ -97,7 +97,12 @@ class RootBloc extends Bloc<RootEvent, RootState> {
   bool enableSearch = false;
   modifySearchAvailability(EnableSearchEvent event,emit){
     emit(RootInitialState());
-    enableSearch = !enableSearch;
+    if(event.enable!=null){
+      enableSearch = event.enable!;
+    }else{
+      enableSearch = !enableSearch;
+    }
+    if(event.productList!=null)productSearchList = event.productList!;
     emit(RootSuccessState());
   }
 
