@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/vat_included.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,7 +79,7 @@ class CatProductsList extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          const SizedBox(height: 5,),
+                          const SizedBox(height: 2,),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             width: 130.w,
@@ -90,7 +91,7 @@ class CatProductsList extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 5,),
+                          const SizedBox(height: 3,),
                           ImageWidget(
                             imgUrl: item.imgPath,
                             fit: BoxFit.fill,
@@ -109,7 +110,7 @@ class CatProductsList extends StatelessWidget {
                                 children: [
                                   SizedBox(
                                     width: 130.w,
-                                    height: 50.h,
+                                    height: 46.h,
                                     child: CustomText(
                                       text: item.title.toString(),
                                       color: DMUtil.getDC(),
@@ -124,13 +125,8 @@ class CatProductsList extends StatelessWidget {
                                     isRedPrice: true,
                                     isBig: true,
                                   ),
-                                  CustomText(
-                                    text: "( VAT Included )",
-                                    color: DMUtil.getD2C(),
-                                    fontSize: AppStyle.small.sp+2,
-                                  ),
+                                  const VatIncludedWidget(),
 
-                                  const SizedBox(height: 2),
 
                                   // AddToCartButton(item: item,),
 

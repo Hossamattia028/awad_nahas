@@ -19,6 +19,8 @@ class ProductsEntity extends Equatable{
   final int? brandID;
   final List<CategoriesEntity> categoryList;
   final List<ProductComments>? reviewsList;
+  final String? date;
+  final String? averageRate;
 
 
   const ProductsEntity({required this.title,required this.catTitle,
@@ -32,6 +34,8 @@ class ProductsEntity extends Equatable{
     this.isArabic,
     this.reviewsList,
     required this.commentCount,
+    this.date,
+    this.averageRate
   });
 
   @override

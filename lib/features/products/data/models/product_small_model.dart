@@ -13,6 +13,8 @@ class ProductModel extends ProductsEntity{
     required super.commentCount,
     required super.isArabic,
     required super.reviewsList,
+    required super.date,
+    required super.averageRate,
   });
 
   static List<ProductModel> listModelFromJson(String str) =>
@@ -37,7 +39,9 @@ class ProductModel extends ProductsEntity{
       categoryList: jsonObject['categories']!=null ? CategoriesModel.listModelFromJson(jsonEncode(jsonObject['categories'])):[],
       catID: int.parse((jsonObject['cat_id']??"0").toString()),
       brandID: int.parse((jsonObject['brand_id']??"0").toString()),
-      reviewsList: ProductComments.listModelFromJson(jsonEncode(jsonObject['reviews']))
+      reviewsList: ProductComments.listModelFromJson(jsonEncode(jsonObject['reviews'])),
+      date: jsonObject['date'] ?? "",
+      averageRate: jsonObject['average_rating'] ?? "0",
     );
   }
 

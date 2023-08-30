@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/strings/enum/filter_enum.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -72,4 +73,10 @@ class ChangeWidgetSizeEvent extends ProductsEvent{
   final double height;
   final int index;
   const ChangeWidgetSizeEvent({required this.height,required this.index});
+}
+
+
+class ChangeSortEvent extends ProductsEvent{
+  final SortEnum sortEnum;
+  const ChangeSortEvent({required this.sortEnum,});
 }

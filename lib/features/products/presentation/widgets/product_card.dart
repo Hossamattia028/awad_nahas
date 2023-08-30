@@ -10,6 +10,7 @@ import 'package:awad_nahas/features/products/domain/entities/products_entity.dar
 import 'package:awad_nahas/features/products/presentation/screens/product_details_screen.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 
 class ProductCard extends StatelessWidget {
@@ -77,7 +78,7 @@ class ProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                        text: "( VAT Included )",
+                        text: translate("products.vat_included"),
                         color: DMUtil.getD2C(),
                         fontSize: AppStyle.small.sp,
                       ),

@@ -1,6 +1,6 @@
+import 'package:awad_nahas/core/strings/enum/filter_enum.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
-import 'package:awad_nahas/features/products/data/models/product_small_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/comment_usecase.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/products_usecase.dart';
@@ -58,14 +58,6 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
           await getAllProducts(event,emit);
     });
 
-    // on<FilterByCategoryEvent>((FilterByCategoryEvent event, emit)async{
-    //   await filterByCategory(emit,event);
-    // });
-    //
-    // on<FilterFavProductsEvent>((FilterFavProductsEvent event, emit){
-    //    filterFavProducts(event,emit);
-    // });
-
     on<FetchAllLatestProductsEvent>((event, emit)async{
       await getAllLatestProducts(emit);
     });
@@ -78,9 +70,14 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       await getAllOfferProducts(event,emit);
     });
 
+    /// filter section
+    on<ChangeSortEvent>((event, emit){
+      changeSort(event,emit);
+    });
+
+
   }
   static ProductsBloc get(BuildContext context) => BlocProvider.of(context);
-
 
 
   double widgetSize = 340;
@@ -179,6 +176,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
         emit(const ProductsFailedState());
       },(data) {
         if(data.isNotEmpty){
+          storedProductsList = data;
           productsList = data;
           emit(const ProductsSuccessfullyState());
         }
@@ -227,8 +225,6 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     // }
   }
 
-
-
   List<ProductsEntity> filterByCategoryID(int catId,int subCatID){
     List<ProductsEntity> list = [];
     for(var i in productsList){
@@ -272,5 +268,27 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     }
   }
 
+  /// filter & sort products section
+  SortEnum currentSort = SortEnum.POPULAR;
+  changeSort(ChangeSortEvent event,emit){
+    emit(const FilterLoadingState());
+    currentSort = event.sortEnum;
+    sortProducts(currentSort);
+    emit(const FilterSuccessfullyState());
+  }
+
+  sortProducts(SortEnum sortType){
+    if(sortType == SortEnum.NEW){
+      productsList.sort((a, b) => DateTime.parse(a.date!).compareTo(DateTime.parse(b.date!)));
+    }else if(sortType == SortEnum.PRICE_HIGH_TO_LOW){
+      productsList.sort((a, b) => a.price.compareTo(b.price));
+    }else if(sortType == SortEnum.PRICE_HIGH_TO_LOW){
+      productsList.sort((a, b) => a.price.compareTo(b.price));
+    }else{
+      productsList = storedProductsList;
+    }
+
+
+  }
 
 }

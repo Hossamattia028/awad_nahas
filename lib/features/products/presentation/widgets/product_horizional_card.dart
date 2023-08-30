@@ -1,6 +1,6 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/vat_included.dart';
 import 'package:awad_nahas/features/shared_widgets/align_child_by_row.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
@@ -31,14 +31,6 @@ class ProductHorizontalCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: DMUtil.getWC(),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
-              // gradient: index==1? const LinearGradient(
-              //     begin: Alignment.topCenter,
-              //     end: Alignment.bottomCenter,
-              //     colors: [
-              //       kBackOpacity,
-              //       kBackOpacity
-              //     ]
-              // ):null,
               boxShadow: const [
                 BoxShadow(
                   color: Colors.grey,
@@ -75,7 +67,7 @@ class ProductHorizontalCard extends StatelessWidget {
                   ),
                 ],
                 ImageWidget(imgUrl: item.imgPath, fit: BoxFit.contain, height: 140,width: isSmall?150:double.infinity,),
-                const SizedBox(height: 3,),
+                const SizedBox(height: 2,),
                 SizedBox(
                   width: widTh.w,
                   child: CustomText(
@@ -86,11 +78,7 @@ class ProductHorizontalCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 5,),
                 ProductPriceWidget(productModel: item,isBig: true,),
-                CustomText(
-                  text: "( VAT Included )",
-                  color: DMUtil.getD2C(),
-                  fontSize: AppStyle.average.sp,
-                ),
+                const VatIncludedWidget(),
               ],
             ),
           ),

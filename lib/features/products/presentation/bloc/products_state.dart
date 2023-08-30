@@ -40,3 +40,12 @@ class ProductCommentsSuccessfullyState extends ProductsState{
 class ProductCommentsFailedState extends ProductsState{
   const ProductCommentsFailedState();
 }
+
+
+class FilterLoadingState extends ProductsState{
+  const FilterLoadingState();
+}
+
+class FilterSuccessfullyState extends ProductsState{
+  const FilterSuccessfullyState();
+}

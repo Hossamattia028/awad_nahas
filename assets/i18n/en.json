@@ -271,6 +271,7 @@
 		"why_wait": "what are you waiting for ? Start enjoying shopping nowً"
 	},
 	"products": {
+		"vat_included": "( VAT Included )",
 		"more_from": "More from",
 		"product": "product",
 		"desc": "Description",
