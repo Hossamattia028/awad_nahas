@@ -1,3 +1,5 @@
+import 'package:awad_nahas/features/products/data/models/product_attributes.dart';
+import 'package:awad_nahas/features/products/data/models/product_comments.dart';
 import 'package:awad_nahas/features/products/data/models/product_small_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
@@ -21,7 +23,7 @@ class ProductsEntity extends Equatable{
   final List<ProductComments>? reviewsList;
   final String? date;
   final String? averageRate;
-
+  final ProductAttributes? attributes;
 
   const ProductsEntity({required this.title,required this.catTitle,
     required this.desc,required this.id,required this.imgPath,
@@ -35,7 +37,8 @@ class ProductsEntity extends Equatable{
     this.reviewsList,
     required this.commentCount,
     this.date,
-    this.averageRate
+    this.averageRate,
+    this.attributes,
   });
 
   @override
@@ -44,3 +47,4 @@ class ProductsEntity extends Equatable{
 
 
 }
+

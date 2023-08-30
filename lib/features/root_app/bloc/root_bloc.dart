@@ -50,7 +50,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
       return;
     }
     categorySearchList = searchCategories(event.word,event.categoryList);
-    productSearchList = searchProducts(event.word,event.productList);
+    productSearchList = await searchProducts(event.word,event.productList,emit);
     enableSearch = true;
     emit(RootSuccessState());
     }catch(e){
@@ -72,16 +72,20 @@ class RootBloc extends Bloc<RootEvent, RootState> {
 
   // WARNING
   /// this function will be edit later
-  List<ProductsEntity> searchProducts(String word,List<ProductsEntity> list){
+  Future searchProducts(String word,List<ProductsEntity> list,emit)async{
     List<ProductsEntity> thisList  = [];
     try{
       var firstList = list.getRange(0, list.length~/2).toList();
       thisList.addAll(firstList.where((element) => element.title.toString().toLowerCase().startsWith(word)).toList());
-      Future.delayed(const Duration(seconds: 3),(){
+      productSearchList = thisList;
+      enableSearch = true;
+      emit(RootSuccessState());
+      await Future.delayed(const Duration(seconds: 2),(){
         var secondList =  list.getRange(list.length~/2, list.length).toList();
         thisList.addAll(secondList.where((element) => element.title.toString().toLowerCase().startsWith(word)).toList());
+        productSearchList.addAll(thisList);
+        emit(RootSuccessState());
       });
-      return thisList;
     }catch(e){
       debugPrint("searchProductsAndCategories: $e");
       return [];

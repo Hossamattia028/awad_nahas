@@ -79,6 +79,14 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       filterProducts(event,emit);
     });
 
+    on<EnableBrandFilterEvent>((event, emit){
+      enableBrandFilter(event,emit);
+    });
+
+    on<EnableWeightFilterEvent>((event, emit){
+      enableWightFilter(event,emit);
+    });
+
 
   }
   static ProductsBloc get(BuildContext context) => BlocProvider.of(context);
@@ -171,6 +179,12 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     // }
   }
 
+  List<double> weightList = [];
+  _calcWeight(List<ProductsEntity> productsList){
+    for(var i in productsList){
+      if(i.attributes!=null  && !weightList.contains(i.attributes?.weight))weightList.add(i.attributes!.weight);
+    }
+  }
   getAllProducts(event,emit)async{
     // if(latestSellerProductsList.isNotEmpty)return;
     // emit(const ProductsFailedState());
@@ -182,6 +196,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
         if(data.isNotEmpty){
           storedProductsList = data;
           productsList = data;
+          _calcWeight(productsList);
           emit(const ProductsSuccessfullyState());
         }
       });
@@ -298,18 +313,20 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   FilterModel? filterModel;
   filterProducts(FilterProductEvent event,emit){
     emit(const FilterLoadingState());
+    productsList = storedProductsList;
     if(event.filterModel==null){
-      if(filterModel!=null)productsList = storedProductsList;
       filterModel = null;
       textStartEditingController.text="";
       textEndEditingController.text="";
       return;
     }
     filterModel = event.filterModel;
+    productsList = filterByCurrentLang(productsList);
     if(event.filterModel!.filterPrice!=null)productsList = filterPrice(event.filterModel!.filterPrice!);
     if(event.filterModel!.isAvailable!=null)productsList = filterStock(productsList);
     if(event.filterModel!.isDiscount!=null)productsList = filterIfHasDiscount(productsList);
     if(event.filterModel!.brandID!=null)productsList = filterByBrandID(productsList,event.filterModel!.brandID!);
+    if(event.filterModel!.weight!=null)productsList = filterByWeight(productsList,event.filterModel!.weight!);
     emit(const FilterSuccessfullyState());
   }
 
@@ -333,9 +350,29 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     return products;
   }
 
+  bool showBrandFilter = false;
+  enableBrandFilter(event,emit){
+    emit(const FilterLoadingState());
+    showBrandFilter = !showBrandFilter;
+    emit(const FilterSuccessfullyState());
+  }
+
   /// filter by brand id
   filterByBrandID(List<ProductsEntity> products,int brandID){
     products = products.where((element) => element.brandID == brandID).toList();
+    return products;
+  }
+
+
+  bool showWeightFilter = false;
+  enableWightFilter(event,emit){
+    emit(const FilterLoadingState());
+    showWeightFilter = !showWeightFilter;
+    emit(const FilterSuccessfullyState());
+  }
+  /// filter by weight
+  filterByWeight(List<ProductsEntity> products,double weight){
+    products = products.where((element) => element.attributes?.weight == weight).toList();
     return products;
   }
 

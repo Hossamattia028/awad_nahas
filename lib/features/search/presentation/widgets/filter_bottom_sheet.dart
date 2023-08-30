@@ -3,6 +3,8 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
+import 'package:awad_nahas/features/search/presentation/widgets/brand_list_inside_filter.dart';
+import 'package:awad_nahas/features/search/presentation/widgets/weight_list_inside_filter.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
@@ -56,6 +58,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                      onTap:()=> bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: fModel?.filterPrice,
                        isDiscount: fModel?.isDiscount ==null ?true:(fModel?.isDiscount==true?false:true),
                        isAvailable: fModel?.isAvailable,
+                       weight: fModel?.weight,
                        brandID: fModel?.brandID
                      ))),
                      child: CheckBoxWidget(
@@ -67,6 +70,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                      onTap:()=> bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: fModel?.filterPrice,
                          isDiscount: fModel?.isDiscount ,
                          isAvailable: fModel?.isAvailable ==null ?true:(fModel?.isAvailable==true?false:true),
+                         weight: fModel?.weight,
                          brandID: fModel?.brandID
                      ))),
                      child: CheckBoxWidget(
@@ -76,9 +80,23 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                    ),
 
 
-                   CheckBoxWidget(title: translate("store.size"),plus: true,),
+                   CheckBoxWidget(title: translate("store.weight"),isEnabled: bloc.showWeightFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableWeightFilterEvent()),),
+                   if(bloc.showWeightFilter)... const[
+                     SizedBox(height: 5,),
+                     WeightFilterList(),
+                     SizedBox(height: 5,),
+                   ],
+
+                   // CheckBoxWidget(title: translate("store.size"),plus: true,),
                    // CheckBoxWidget(title: translate("store.color"),plus: true,),
-                   CheckBoxWidget(title: translate("store.brand"),plus: true,),
+
+                   CheckBoxWidget(title: translate("store.brand"),isEnabled: bloc.showBrandFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableBrandFilterEvent()),),
+
+                   if(bloc.showBrandFilter)...[
+                     const SizedBox(height: 5,),
+                     BrandFilterList(bloc: bloc),
+                     const SizedBox(height: 5,),
+                   ],
 
                    const SizedBox(height: 10,),
                    Row(
@@ -130,7 +148,8 @@ class CheckBoxWidget extends StatelessWidget {
   final String title ;
   final bool plus ;
   final bool isEnabled;
-  const CheckBoxWidget({Key? key,required this.title,this.plus=false,this.isEnabled=false}) : super(key: key);
+  final VoidCallback? onTapPlusIcon;
+  const CheckBoxWidget({Key? key,required this.title,this.plus=false,this.isEnabled=false,this.onTapPlusIcon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +170,10 @@ class CheckBoxWidget extends StatelessWidget {
           ),
 
           if(plus)...[
-            Icon(Icons.add,size: 24,color: DMUtil.getDC(),),
+            InkWell(
+              onTap: onTapPlusIcon ,
+              child: Icon(isEnabled ? Icons.remove :Icons.add,size: 24,color: DMUtil.getDC(),),
+            ),
           ]else...[
             Container(
               width: 24.w,

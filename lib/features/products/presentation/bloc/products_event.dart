@@ -86,12 +86,20 @@ class FilterProductEvent extends ProductsEvent{
   const FilterProductEvent({this.filterModel});
 }
 
+class EnableBrandFilterEvent extends ProductsEvent{
+  const EnableBrandFilterEvent();
+}
+class EnableWeightFilterEvent extends ProductsEvent{
+  const EnableWeightFilterEvent();
+}
+
 class FilterModel{
   final FilterPrice? filterPrice;
   final bool? isDiscount;
   final bool? isAvailable;
+  final double? weight;
   final int? brandID;
-  const FilterModel({this.filterPrice,this.isDiscount,this.isAvailable,this.brandID});
+  const FilterModel({this.filterPrice,this.isDiscount,this.isAvailable,this.weight,this.brandID});
 }
 class FilterPrice{
   final double start;
