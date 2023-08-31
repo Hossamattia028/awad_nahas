@@ -33,6 +33,11 @@ class DMUtil{
     return kRed;
   }
 
+
+  static Color getGreen(){
+    return currentThemeIsDark() ? kWhite : const  Color(0xff007F2D);
+  }
+
   static Color getREdOPACITY(){
     return kRed.withOpacity(0.4);
   }

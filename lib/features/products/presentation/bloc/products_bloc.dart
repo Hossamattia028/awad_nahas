@@ -183,7 +183,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       },(data) {
         if(data.isNotEmpty){
           storedProductsList = data;
-          productsList = data;
+          productsList = filterByCurrentLang(storedProductsList);
           _calcWeight(productsList);
           emit(const ProductsSuccessfullyState());
         }
@@ -196,7 +196,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
   updateProducts(event,emit){
     emit(const ProductsLoadingState());
-    productsList = storedProductsList;
+    productsList = filterByCurrentLang(storedProductsList);
     emit(const ProductsSuccessfullyState());
   }
 
@@ -213,7 +213,6 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       }
     }
     return list;
-    // return productsList.where((element) => element.catID.toString().trim()==catId.toString().trim()).toList();
   }
 
   List<ProductsEntity> relatedProducts(List<CategoriesEntity> catList){
@@ -335,6 +334,10 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   }
 
 }
+
+
+
+
 
 // getAllBestSellerProducts(emit)async{
 //   // if(bestSellerProductsList.isNotEmpty)return;

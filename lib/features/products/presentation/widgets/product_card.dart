@@ -73,14 +73,19 @@ class ProductCard extends StatelessWidget {
                 // const RateWidget(countRate: 300),
                 ProductPriceWidget(productModel: item,isBig:true),
                 SizedBox(
-                  width: 210.w,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      CustomText(
-                        text: translate("products.vat_included"),
-                        color: DMUtil.getD2C(),
-                        fontSize: AppStyle.small.sp,
+                      SizedBox(
+                        width: 120.w,
+                        height: 30.h,
+                        child: CustomText(
+                          text: translate("products.vat_included"),
+                          color: DMUtil.getD2C(),
+                          fontSize: AppStyle.small.sp,
+                          maxLine: 3,
+                        ),
                       ),
                       if(enableCartBtn)
                         CartButtonWidget(item: item),

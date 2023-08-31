@@ -497,6 +497,7 @@
 		"confirm_current_location":"Confirm the location"
 	},
     "order": {
+		"thanks_order": "Thank you for your trust",
 		"super_admin": "Super Admin",
 		"manager": "Manager",
 		"delivery_boy": "Delivery Boy",

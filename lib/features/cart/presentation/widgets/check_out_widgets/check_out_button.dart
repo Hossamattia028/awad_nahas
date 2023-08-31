@@ -15,6 +15,7 @@ import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
@@ -42,9 +43,12 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   Widget build(BuildContext context) {
     return BlocListener<OrderBloc,OrderState>(
       listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState,
-      listener: (ctx,state){
+      listener: (ctx,state)async{
         if(state is AssignOrderSuccessfullyState){
           cartBloc.add(ModifyCartProductEvent(product: null, isAdd: false, context: context));
+          CustomDialogs.thanksOrder(context);
+          await Future.delayed(const Duration(seconds: 2));
+          Navigator.of(context).pop();
           RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
           Util.pushPageAndRemoveRoutes(const RootScreen(), context);
           Util.pushPage(const OrderScreen(), context);
@@ -107,7 +111,5 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         },
       );
     }
-
-
   }
 }

@@ -44,6 +44,7 @@ class AppImages{
   static const String orderStep1 = "$icons/order_step_one.svg";
   static const String orderStep2 = "$icons/order_step_two.svg";
   static const String orderStep3 = "$icons/order_step_three.svg";
+  static const String thanksOrder = "$images/thanks_order.png";
 
 
   // products
