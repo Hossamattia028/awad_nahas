@@ -22,10 +22,11 @@ class ProductDetailsDataRow extends StatelessWidget {
     double heightDesc = item.desc.length>212?420:200;
     if(item.desc.length>400)heightDesc= 500;
     if(item.desc.length>490)heightDesc= 550;
-    if(item.desc.length>700)heightDesc= 750;
+    if(item.desc.length>700)heightDesc= 800;
     if(item.desc.length>1000)heightDesc= 1250;
     if(item.desc.length>1400)heightDesc= 1590;
     if(item.desc.length>1900)heightDesc= 1900;
+    if(item.desc.length>2100)heightDesc= 2000;
     return DefaultTabController(
         length: 3,
         child: BlocBuilder<ProductsBloc,ProductsState>(

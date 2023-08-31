@@ -49,7 +49,7 @@ class HomeContentWidget extends StatelessWidget {
         ),
 
         const SizedBox(height: 10,),
-        const SingleBannerWidget(),
+        const SingleBannerWidget(position: "third",),
 
         const SizedBox(height: 10,),
         BlocBuilder<CategoriesBloc,CategoriesState>(
@@ -72,7 +72,7 @@ class HomeContentWidget extends StatelessWidget {
             return CatProductsList(cat: list[4],);
           },
         ),
-
+        const SingleBannerWidget(position: "forth",),
         const SizedBox(height: 10,),
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){

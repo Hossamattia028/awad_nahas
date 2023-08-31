@@ -9,7 +9,7 @@ import 'package:awad_nahas/features/categories/data/models/slider_model.dart';
 abstract class CategoryRemoteDataSourceImpl {
   Future<List<CategoriesModel>> getAllCategory();
   Future<List<CategoriesModel>> getAllBrands();
-  Future<SliderModel> getAllSliders({required String sliderTitle});
+  Future<List<SliderModel>> getAllSliders();
 }
 
 class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
@@ -51,13 +51,16 @@ class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
 
 
   @override
-  Future<SliderModel> getAllSliders({required String sliderTitle}) async{
-    var response = await client.get(Uri.parse("${ApiUrl.SLIDERS_URL}?offset=0&limit=100&sort[column]=name&sort[order]=asc&fields[post_title][value]=$sliderTitle"));
-    // debugPrint("getAllSliders-$sliderTitle: ${response.body}");
+  Future<List<SliderModel>> getAllSliders() async{
+    var response = await client.get(Uri.parse(ApiUrl.SLIDERS_URL));
+    debugPrint("getAllSliders: ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
-      if(body['data']['data'].toString()=="[]")return const SliderModel(title: "null", images: [], id: 0);
-      return SliderModel.fromJson(body['data']['data'][0]);
+      List<SliderModel> sliders =
+      body['data'].map<SliderModel>((model) {
+        return SliderModel.fromJson(model);
+      }).toList();
+      return sliders;
     } else {
       throw ServerException();
     }

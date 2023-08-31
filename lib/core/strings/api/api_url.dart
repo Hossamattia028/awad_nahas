@@ -38,7 +38,7 @@ class ApiUrl {
   static const String PRODUCTS_URL = '${BASE_URL}products';
   static const String COMMENTS_URL = '${BASE_URL}comments';
   static const String OFFERS_URL = '${BASE_URL}products/featured';
-  static const String SLIDERS_URL = '${BASE_URL}banner';
+  static const String SLIDERS_URL = '${BASE_URL}sliders/all';
   static const String CITIES_URL = '${BASE_URL}cities/';
   static const String CATEGORIES_URL = '${BASE_URL}categories/all';
   static const String BRANDS_URL = '${BASE_URL}brands/all';

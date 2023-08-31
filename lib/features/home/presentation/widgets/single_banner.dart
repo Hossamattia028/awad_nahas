@@ -1,64 +1,41 @@
+import 'package:awad_nahas/features/categories/domain/entities/slider_entity.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:flutter/material.dart';
-import 'package:awad_nahas/core/strings/app_images.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:awad_nahas/core/styles/app_style.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 
 
 class SingleBannerWidget extends StatelessWidget {
-  const SingleBannerWidget({Key? key}) : super(key: key);
+  final String position;
+  const SingleBannerWidget({Key? key,required this.position}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 220.h,
-      width: double.infinity,
-      padding: EdgeInsets.only(top: 80.h,left: 20,right: 20),
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          image: const DecorationImage(
-              image: AssetImage(AppImages.bannerS,),
-              fit: BoxFit.fill
-          )
-      ),
-      child:  Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CustomText(
-            text: "sub title",
-            color: Colors.white,
-            fontSize: AppStyle.small.sp,
+    return BlocBuilder<CategoriesBloc,CategoriesState>(
+      builder: (ctx,state){
+        var bloc = CategoriesBloc.get(ctx);
+        List<SliderEntity> list = bloc.filterSliderByLang(bloc.anotherSliders);
+        int index = list.indexWhere((element) => element.title.toLowerCase().contains(position));
+        if(index==-1)return const SizedBox();
+        SliderEntity slider = list[index];
+        return InkWell(
+          onTap: ()=> bloc.goSliderPath(slider, context),
+          child: Container(
+            height: 220.h,
+            width: double.infinity,
+            padding: EdgeInsets.only(top: 80.h,left: 20,right: 20),
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                    image: NetworkImage(slider.img,),
+                    fit: BoxFit.fill
+                )
+            ),
           ),
-          CustomText(
-            text: "Title",
-            color: Colors.white,
-            fontSize: AppStyle.large.sp,
-          ),
-          CustomText(
-            text: "From Price",
-            color: Colors.white,
-            fontSize: AppStyle.large.sp,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CustomText(
-                text: translate("store.shop_now"),
-                color: Colors.white,
-                fontSize: AppStyle.large.sp,
-                alignCenter: true,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 7,left: 5,right: 5),
-                child: Icon(Icons.arrow_forward,color: Colors.white,size: 20,),
-              ),
-            ],
-          ),
-        ],
-      )
+        );
+      },
     );
   }
 }

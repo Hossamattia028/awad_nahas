@@ -41,10 +41,10 @@ class CategoryModelRepository implements CategoryRepository {
 
 
   @override
-  Future<Either<Failure, SliderEntity>> getAllSliders({required String sliderTitle}) async{
+  Future<Either<Failure, List<SliderEntity>>> getAllSliders() async{
     if (await networkInfo.isConnected()) {
       try {
-        return Right(await categoryRemoteDataSource.getAllSliders(sliderTitle: sliderTitle));
+        return Right(await categoryRemoteDataSource.getAllSliders());
       } on ServerException {
         return Left(ServerFailure());
       }

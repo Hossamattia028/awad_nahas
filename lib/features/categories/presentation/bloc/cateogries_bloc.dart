@@ -5,6 +5,9 @@ import 'package:awad_nahas/features/categories/domain/entities/slider_entity.dar
 import 'package:awad_nahas/features/categories/domain/use_cases/get_all_categories_usecase.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
+import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -76,17 +79,9 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   }
   static CategoriesBloc get(BuildContext context) => BlocProvider.of(context);
 
-  List<PhotoModel> mainSlider = [
-    const PhotoModel(status: true, id: 0, imgUrl: testImg),
-    const PhotoModel(status: true, id: 0, imgUrl: testImg),
-    const PhotoModel(status: true, id: 0, imgUrl: testImg),
-    const PhotoModel(status: true, id: 0, imgUrl: testImg),
-    const PhotoModel(status: true, id: 0, imgUrl: testImg),
-  ];
-
-  SliderEntity? categorySlider;
-  SliderEntity? cartSlider;
-
+  /// slider section
+  List<SliderEntity> mainSlider = [];
+  List<SliderEntity> anotherSliders = [];
   int currentSliderIndex = 0;
   changeCurrentSlider(event,emit){
     emit(FetchSliderLoadingState());
@@ -97,13 +92,42 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   getAllSliders(emit)async{
     emit(FetchSliderLoadingState());
     try{
-    //   await _downloadCustomizeSlider(sliderEnum: SliderEnum.l_s_0,list: ls0Slider,emit: emit);
+     var res = await getAllSlidersUseCase();
+     res.fold((l) {
+       emit(FetchSliderFailedState());
+     },(data) {
+       mainSlider = data.where((element) => element.kind == "slider").toList();
+       anotherSliders = data.where((element) => element.kind != "slider").toList();
+       emit(FetchSliderSuccessfullyState());
+     });
     }catch(e){
       debugPrint("getAllSlidersBlocError: $e");
       emit(FetchSliderFailedState());
     }
   }
 
+  filterSliderByLang(List<SliderEntity> sliders){
+    if(Util.getLang()=="ar"){
+      return sliders.where((element) => element.title.toString().toLowerCase().contains("ar")).toList();
+    }else{
+      return sliders.where((element) => element.title.toString().toLowerCase().contains("en")).toList();
+    }
+  }
+
+  goSliderPath(SliderEntity slider,BuildContext context){
+    if(slider.type=="cat"){
+      var list = categoriesList;
+      int index = list.indexWhere((element) => element.id.toString()==slider.typeID.trim());
+      if(index==-1)return;
+      CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: list[index]));
+      Util.pushPage(const CategoryProductsScreen(), context);
+    }else if(slider.type=="product"){
+      var list = ProductsBloc.get(context).productsList;
+      int index = list.indexWhere((element) => element.id.toString()==slider.typeID.trim());
+      if(index==-1)return;
+      Util.pushPage(ProductDetailPage(item: list[index],), context);
+    }
+  }
 
 
   /// categories section

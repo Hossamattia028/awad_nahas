@@ -19,9 +19,9 @@ class BannersSection extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
-                SmallBannerWidget(),
+                SmallBannerWidget(position: "top",),
                 SizedBox(height: 10,),
-                SmallBannerWidget(),
+                SmallBannerWidget(position: "button",),
              ],
            ),
          ),

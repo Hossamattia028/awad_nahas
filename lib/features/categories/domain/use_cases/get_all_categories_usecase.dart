@@ -34,8 +34,8 @@ class GetAllSlidersUseCase {
 
   GetAllSlidersUseCase({required this.categoryRepository});
 
-  Future<Either<Failure, SliderEntity>> call({required String sliderTitle}) async {
-    return await categoryRepository.getAllSliders(sliderTitle: sliderTitle);
+  Future<Either<Failure, List<SliderEntity>>> call() async {
+    return await categoryRepository.getAllSliders();
   }
 }
 

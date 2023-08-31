@@ -1,3 +1,5 @@
+import 'package:awad_nahas/features/categories/data/models/fetch_states.dart';
+import 'package:awad_nahas/features/shared_widgets/loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,8 +21,8 @@ class SliderWidget extends StatelessWidget {
         builder: (ctx,state){
           var bloc = CategoriesBloc.get(ctx);
           var list = bloc.mainSlider;
-          // FetchStates state = bloc.slidersState;
-          // if(state==FetchStates.LOADING)return LoadingShimmer(height: 200.h,width: double.infinity,);
+          list = bloc.filterSliderByLang(list);
+          if(state is FetchSliderLoadingState)return LoadingShimmer(height: 200.h,width: double.infinity,);
           // if(state==FetchStates.FAILED)return CustomText(text: translate("toast.oops"), color: Colors.red, fontSize: 12);
           return Stack(
             alignment: Alignment.bottomCenter,
@@ -38,7 +40,14 @@ class SliderWidget extends StatelessWidget {
                     onPageChanged: (index,reason)=> bloc.add(ChangeSliderIndexEvent(val: index)),
                   ),
                   itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
-                    return ImageWidget(imgUrl: list[itemIndex].imgUrl,fit: BoxFit.fill,width: double.infinity,);
+                    var item = list[itemIndex];
+                    return InkWell(
+                        onTap: () => bloc.goSliderPath(item, context),
+                        child: ImageWidget(
+                          imgUrl: item.img,
+                          fit: BoxFit.fill,
+                          width: double.infinity,
+                        ));
                   },
                 ),
               ),

@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/utils/notifications_utils.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (ctx) => di.sl<AuthBloc>()),
           BlocProvider(create: (ctx) => di.sl<AccountBloc>()),
           BlocProvider(create: (ctx) => di.sl<LocationsBloc>()),
-          BlocProvider(create: (ctx) => di.sl<CategoriesBloc>()),
+          BlocProvider(create: (ctx) => di.sl<CategoriesBloc>()..add(const FetchMainSlidersEvent())),
           BlocProvider(create: (ctx) => di.sl<ProductsBloc>()),
           BlocProvider(create: (ctx) => di.sl<WishlistBloc>()),
           BlocProvider(create: (ctx) => di.sl<CartBloc>()),
