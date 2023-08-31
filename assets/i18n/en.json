@@ -28,7 +28,11 @@
 		"help_center": "Help Center",
 		"maintaenance_request": "Maintaenance request",
 		"join_us": "Join with us",
-		"locations": "Our Locations"
+		"locations": "Our Locations",
+		"faqs": "Faq's",
+		"contact": "Contact Us",
+		"support": "Customers service",
+		"whats": "WhatsApp"
 	},
 	"cities": {
 		"Riyadh": "Riyadh",

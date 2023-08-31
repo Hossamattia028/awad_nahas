@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 import 'package:awad_nahas/core/utils/small_fun.dart';
 
@@ -58,6 +58,7 @@ class ApiUrl {
 
   //setting
   static String OUR_LOCATIONS = 'https://demo.awadnahas.com/wp-json/inetwork/api/branches?lang=${Util.getLang()=="ar"?"ar":"en"}';
+  static String OUR_FAQS = 'https://demo.awadnahas.com/wp-json/inetwork/api/faq?lang=${Util.getLang()=="ar"?"ar":"en"}';
 
   static const String ADD_ORDER = '${BASE_URL}orders';
   static const String FETCH_ALL_ORDERS = '${BASE_URL}orders';

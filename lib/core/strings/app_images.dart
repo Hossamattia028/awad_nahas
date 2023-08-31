@@ -58,4 +58,8 @@ class AppImages{
 
 
 
+  static const String whats = "$icons/whatsapp.png";
+  static const String support = "$icons/support.png";
+  static const String mail = "$icons/mail.png";
+
 }

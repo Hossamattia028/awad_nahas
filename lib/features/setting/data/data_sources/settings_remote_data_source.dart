@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
+import 'package:awad_nahas/features/setting/data/models/faqs_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/error/exception.dart';
@@ -81,6 +82,24 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
         );
       }).toList();
       return categories;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  static Future<List<FaqsModel>> getOurFaqs() async{
+    var response = await http.get(Uri.parse(ApiUrl.OUR_FAQS),headers: ApiUrl.headerAuth);
+    debugPrint("getOurFaqs ${response.body}");
+    var decodedData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      List<FaqsModel> faqs =
+      decodedData.map<FaqsModel>((model) {
+        return FaqsModel(
+            title: model['name'] ?? "",
+            faqList: model['faq'] ==null || model['faq'].toString()=="[]" ? [] : FaqModel.listModelFromJson(jsonEncode(model['faq']))
+        );
+      }).toList();
+      return faqs;
     } else {
       throw ServerException();
     }

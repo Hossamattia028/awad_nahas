@@ -2,6 +2,7 @@ import 'package:awad_nahas/features/categories/domain/entities/categories_entity
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/setting/data/data_sources/settings_remote_data_source.dart';
+import 'package:awad_nahas/features/setting/data/models/faqs_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -116,25 +117,26 @@ class RootBloc extends Bloc<RootEvent, RootState> {
 
   getAllSetting(event,emit)async{
     await getLocations();
+    await getFaqs();
     emit(RootSuccessState());
   }
 
   /// our locations
   List<LocationModel> ourLocations = [];
   getLocations()async{
-    // try{
-      ourLocations = await SettingsRemoteDataSource.getOurLocations();
-    // }catch(e){
-    //   debugPrint("getLocationsRootBloc: $e");
-    // }
-  }
-
-  List<LocationModel> ourFaqs = [];
-  getFaqs()async{
     try{
       ourLocations = await SettingsRemoteDataSource.getOurLocations();
     }catch(e){
       debugPrint("getLocationsRootBloc: $e");
+    }
+  }
+
+  List<FaqsModel> ourFaqs = [];
+  getFaqs()async{
+    try{
+      ourFaqs = await SettingsRemoteDataSource.getOurFaqs();
+    }catch(e){
+      debugPrint("getFaqsRootBloc: $e");
     }
   }
 

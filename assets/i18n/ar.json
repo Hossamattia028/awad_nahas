@@ -27,7 +27,11 @@
       "help_center": "مركز المساعدة",
       "maintaenance_request": "طلب صيانة",
       "join_us": "انضم إلينا الآن",
-      "locations": "مواقعنا"
+      "locations": "مواقعنا",
+      "faqs": "الاسئلة الشائعة",
+      "contact": "تواصل معنا",
+      "support": "خدمة العملاء",
+      "whats": "واتس اب"
     },
     "cities": {
       "Riyadh": "الرياض",

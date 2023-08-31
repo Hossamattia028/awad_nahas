@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -142,7 +144,26 @@ class Util{
     String? token = await FirebaseMessaging.instance.getToken();
     return token??"";
   }
-
+  static sendWhatsApp(String phone,)async{
+    openUrl("https://wa.me/$phone");
+    if(Platform.isAndroid){
+      // await FlutterOpenWhatsapp.sendSingleMessage(phone, " ").then((value) {
+      //   }).onError((error, stackTrace) {
+      //   Util.snackBar(msg: error.toString(), color: redColor);
+      // });
+    }else{
+      // await shareWhatsapp.shareText("",phone: phone).onError((error, stackTrace) {
+      //   Util.snackBar(msg: error.toString(), color: redColor);
+      //   return false;
+      // });
+    }
+    // launchH('https://wa.me/$phone');
+    // launchH('https://api.whatsapp.com/send/?phone=$phone');
+    // await Open.whatsApp(whatsAppNumber: phone, text: " ").onError((error, stackTrace) {
+    //   print(error.toString());
+    //   return false;
+    // });
+  }
 
   static bool checkUser(){
     return SharedPref.preferences.containPreference(Constants.userId);
