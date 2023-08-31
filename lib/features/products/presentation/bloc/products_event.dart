@@ -8,7 +8,9 @@ abstract class ProductsEvent{
 }
 
 
-
+class UpdateAllProductsEvent extends ProductsEvent{
+  const UpdateAllProductsEvent();
+}
 class FetchAllProductsEvent extends ProductsEvent{
   const FetchAllProductsEvent();
 }

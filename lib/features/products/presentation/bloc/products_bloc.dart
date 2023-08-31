@@ -58,17 +58,21 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
           await getAllProducts(event,emit);
     });
 
+    on<UpdateAllProductsEvent>((event, emit)async {
+        updateProducts(event,emit);
+    });
+
     on<FetchAllLatestProductsEvent>((event, emit)async{
       await getAllLatestProducts(emit);
     });
 
-    on<FetchAllBestSellerProductsEvent>((event, emit)async{
-      await getAllBestSellerProducts(emit);
-    });
-
-    on<FetchOffersProductsEvent>((event, emit)async{
-      await getAllOfferProducts(event,emit);
-    });
+    // on<FetchAllBestSellerProductsEvent>((event, emit)async{
+    //   await getAllBestSellerProducts(emit);
+    // });
+    //
+    // on<FetchOffersProductsEvent>((event, emit)async{
+    //   await getAllOfferProducts(event,emit);
+    // });
 
     /// filter section
     on<ChangeSortEvent>((event, emit){
@@ -136,23 +140,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     //   emit(const ProductCommentsFailedState());
     // }
   }
-  //
-  // getProductComments(event,emit)async{
-  //   if(currentProduct==null)return;
-  //   emit(const ProductCommentsLoadingState());
-  //   // try{
-  //     var res = await getAllProductCommentsUseCase(data: {'product_id':currentProduct!.id.toString()});
-  //     res.fold((l) {
-  //       emit(const ProductCommentsFailedState());
-  //     },(data) {
-  //       commentList = data;
-  //       emit(const ProductCommentsSuccessfullyState());
-  //     });
-  //   // }catch(e){
-  //   //   debugPrint("getAllLatestProductsBlocError: $e");
-  //   //   emit(const ProductsFailedState());
-  //   // }
-  // }
+
 
   updateCurrentProduct(UpdateCurrentProduct event,emit){
     emit(const ProductsLoadingState());
@@ -206,43 +194,12 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     // }
   }
 
-  getAllBestSellerProducts(emit)async{
-    // if(bestSellerProductsList.isNotEmpty)return;
-    // emit(const ProductsFailedState());
-    // try{
-      var res = await getAllProductsUseCase(cat: "top");
-      res.fold((l) {
-        emit(const ProductsFailedState());
-      },(data) {
-        if(data.isNotEmpty){
-          bestSellerProductsList = data;
-          emit(const ProductsSuccessfullyState());
-        }
-      });
-    // }catch(e){
-    //   debugPrint("getAllBestSellerProductsBlocError: $e");
-    //   emit(const ProductsFailedState());
-    // }
+  updateProducts(event,emit){
+    emit(const ProductsLoadingState());
+    productsList = storedProductsList;
+    emit(const ProductsSuccessfullyState());
   }
 
-  getAllOfferProducts(FetchOffersProductsEvent event,emit)async{
-    // if(bigOfferProducts.isNotEmpty)return;
-    // emit(const ProductsFailedState());
-    // try{
-      var res = await getAllProductsUseCase(cat: "offers");
-      res.fold((l) {
-        emit(const ProductsFailedState());
-      },(data) {
-        if(data.isNotEmpty){
-          bigOfferProducts = data;
-          emit(const ProductsSuccessfullyState());
-        }
-      });
-    // }catch(e){
-    //   debugPrint("getAllBestSellerProductsBlocError: $e");
-    //   emit(const ProductsFailedState());
-    // }
-  }
 
   List<ProductsEntity> filterByCategoryID(int catId,int subCatID){
     List<ProductsEntity> list = [];
@@ -267,7 +224,6 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
              list.add(p);
           }
       }
-      // list.addAll(productsList.where((element) => element.categoryList.contains(i)).toList());
     }
     return list;
   }
@@ -379,3 +335,58 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   }
 
 }
+
+// getAllBestSellerProducts(emit)async{
+//   // if(bestSellerProductsList.isNotEmpty)return;
+//   // emit(const ProductsFailedState());
+//   // try{
+//     var res = await getAllProductsUseCase(cat: "top");
+//     res.fold((l) {
+//       emit(const ProductsFailedState());
+//     },(data) {
+//       if(data.isNotEmpty){
+//         bestSellerProductsList = data;
+//         emit(const ProductsSuccessfullyState());
+//       }
+//     });
+//   // }catch(e){
+//   //   debugPrint("getAllBestSellerProductsBlocError: $e");
+//   //   emit(const ProductsFailedState());
+//   // }
+// }
+
+// getAllOfferProducts(FetchOffersProductsEvent event,emit)async{
+//   // if(bigOfferProducts.isNotEmpty)return;
+//   // emit(const ProductsFailedState());
+//   // try{
+//     var res = await getAllProductsUseCase(cat: "offers");
+//     res.fold((l) {
+//       emit(const ProductsFailedState());
+//     },(data) {
+//       if(data.isNotEmpty){
+//         bigOfferProducts = data;
+//         emit(const ProductsSuccessfullyState());
+//       }
+//     });
+//   // }catch(e){
+//   //   debugPrint("getAllBestSellerProductsBlocError: $e");
+//   //   emit(const ProductsFailedState());
+//   // }
+// }
+//
+// getProductComments(event,emit)async{
+//   if(currentProduct==null)return;
+//   emit(const ProductCommentsLoadingState());
+//   // try{
+//     var res = await getAllProductCommentsUseCase(data: {'product_id':currentProduct!.id.toString()});
+//     res.fold((l) {
+//       emit(const ProductCommentsFailedState());
+//     },(data) {
+//       commentList = data;
+//       emit(const ProductCommentsSuccessfullyState());
+//     });
+//   // }catch(e){
+//   //   debugPrint("getAllLatestProductsBlocError: $e");
+//   //   emit(const ProductsFailedState());
+//   // }
+// }
