@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/error/exception.dart';
@@ -60,6 +61,29 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
   Future<List<TermsModel>> getTermsData() {
     // TODO: implement getTermsData
     throw UnimplementedError();
+  }
+
+  static Future<List<LocationModel>> getOurLocations() async{
+    var response = await http.get(Uri.parse(ApiUrl.OUR_LOCATIONS),headers: ApiUrl.headerAuth);
+    debugPrint("getOurLocations ${response.body}");
+    var decodedData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      List<LocationModel> categories =
+      decodedData.map<LocationModel>((categoryModel) {
+
+        return LocationModel(
+            address1: categoryModel['title']??"",
+            address2: categoryModel['address']??"",
+            country: categoryModel['country']??"",
+            hours: categoryModel['hours']??[],
+            lat: double.parse(categoryModel['lat']??"0.0",),
+            long:double.parse(categoryModel['lng']??"0.0",), phone: categoryModel['phone'], state: '', id: 0, type: '', postCode: '', lastName: '', firstName: '', email: '',
+        );
+      }).toList();
+      return categories;
+    } else {
+      throw ServerException();
+    }
   }
 
 

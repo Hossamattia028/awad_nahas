@@ -33,3 +33,9 @@ class EnableSearchEvent extends RootEvent{
   const EnableSearchEvent({this.productList,this.enable});
 }
 
+class FetchSettingEvent extends RootEvent{
+  const FetchSettingEvent();
+}
+
+
+

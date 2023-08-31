@@ -26,7 +26,8 @@
       "installment": "تقسيط",
       "help_center": "مركز المساعدة",
       "maintaenance_request": "طلب صيانة",
-      "join_us": "انضم إلينا الآن"
+      "join_us": "انضم إلينا الآن",
+      "locations": "مواقعنا"
     },
     "cities": {
       "Riyadh": "الرياض",
@@ -224,7 +225,8 @@
       "Request_quotation": "طلب اقتباس",
       "sell_with_us": "البيع معنا",
       "Rating_FeedBack": "التقييم او النقد",
-      "would_leave_comment": "هل تمانع في ترك مراجعة وإعلامنا بما تريد .."
+      "would_leave_comment": "هل تمانع في ترك مراجعة وإعلامنا بما تريد ..",
+      "open_until": "مفتوح حتي"
     },
 
     "profile": {
@@ -596,6 +598,7 @@
     },
 
     "map": {
+      "sides": "الاتجاهات",
       "add_location": "إضافة عنوان جديد",
       "work": "العمل",
       "home": "المنزل",

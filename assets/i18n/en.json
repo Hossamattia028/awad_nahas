@@ -27,7 +27,8 @@
 		"installment": "Installment",
 		"help_center": "Help Center",
 		"maintaenance_request": "Maintaenance request",
-		"join_us": "Join with us"
+		"join_us": "Join with us",
+		"locations": "Our Locations"
 	},
 	"cities": {
 		"Riyadh": "Riyadh",
@@ -224,7 +225,8 @@
 		"Request_quotation": "Request Quotation",
 		"sell_with_us": "Sell with Us",
 		"Rating_FeedBack": "Rating & FeedBack",
-		"would_leave_comment": "Would you mind leaving a review and let us know what you .."
+		"would_leave_comment": "Would you mind leaving a review and let us know what you ..",
+		"open_until": "Open Until"
 	},
 	"wishlist": {
 		"title": "Wishlist",
@@ -595,6 +597,7 @@
 		"total_issues": "Total issues"
 	},
 	"map": {
+		"sides": "Directions",
 		"add_location": "Add new address",
 		"work": "Work",
 		"home": "Home",

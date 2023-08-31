@@ -10,6 +10,8 @@ import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -37,6 +39,7 @@ class Util{
       ProductsBloc.get(context).add(const FetchAllProductsEvent());
       CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
       CategoriesBloc.get(context).add(const FetchAllBrandsEvent());
+      RootBloc.get(context).add(const FetchSettingEvent());
     }
     AccountBloc.get(context).add(const FetchProfileDataEvent());
     WishlistBloc.get(context).add(const FetchAllWishlistEvent());

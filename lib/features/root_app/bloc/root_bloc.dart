@@ -1,5 +1,7 @@
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
+import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
+import 'package:awad_nahas/features/setting/data/data_sources/settings_remote_data_source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -29,6 +31,11 @@ class RootBloc extends Bloc<RootEvent, RootState> {
 
     on<EnableSearchEvent>((event, emit)async{
       modifySearchAvailability(event,emit);
+    });
+
+
+    on<FetchSettingEvent>((event, emit)async{
+      await getAllSetting(event,emit);
     });
   }
 
@@ -103,6 +110,32 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     }
     if(event.productList!=null)productSearchList = event.productList!;
     emit(RootSuccessState());
+  }
+
+
+
+  getAllSetting(event,emit)async{
+    await getLocations();
+    emit(RootSuccessState());
+  }
+
+  /// our locations
+  List<LocationModel> ourLocations = [];
+  getLocations()async{
+    // try{
+      ourLocations = await SettingsRemoteDataSource.getOurLocations();
+    // }catch(e){
+    //   debugPrint("getLocationsRootBloc: $e");
+    // }
+  }
+
+  List<LocationModel> ourFaqs = [];
+  getFaqs()async{
+    try{
+      ourLocations = await SettingsRemoteDataSource.getOurLocations();
+    }catch(e){
+      debugPrint("getLocationsRootBloc: $e");
+    }
   }
 
 

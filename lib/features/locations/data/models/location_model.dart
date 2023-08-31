@@ -6,7 +6,7 @@ class LocationModel extends LocationEntity{
   const LocationModel({required super.address1,required super.address2,required super.phone,
     required super.state,required super.country,required super.id,required super.type,
     required super.lat,required super.long,required super.postCode,required super.lastName,required super.firstName,
-    required super.email});
+    required super.email,super.hours});
 
   // static List<LocationModel> locationListFromJson(String str) =>
   //     List<LocationModel>.from(
@@ -28,6 +28,7 @@ class LocationModel extends LocationEntity{
       firstName: (jsonObject['billing_first_name']??jsonObject['shipping_first_name']).toString().replaceAll("null", ""),
       lastName:  (jsonObject['billing_last_name']??jsonObject['shipping_last_name']).toString().replaceAll("null", ""),
       email:  (jsonObject['billing_email']??jsonObject['shipping_email']).toString().replaceAll("null", ""),
+      hours: jsonObject['hours']??[]
     );
   }
 

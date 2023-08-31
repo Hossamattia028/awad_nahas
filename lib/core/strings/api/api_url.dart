@@ -56,6 +56,9 @@ class ApiUrl {
   static const String REMOVE_FAV = '${BASE_URL}wishlist/';
 
 
+  //setting
+  static String OUR_LOCATIONS = 'https://demo.awadnahas.com/wp-json/inetwork/api/branches?lang=${Util.getLang()=="ar"?"ar":"en"}';
+
   static const String ADD_ORDER = '${BASE_URL}orders';
   static const String FETCH_ALL_ORDERS = '${BASE_URL}orders';
   static const String CANCEL_ORDER = '${BASE_URL}orders';
