@@ -4,7 +4,6 @@ import 'package:awad_nahas/core/error/failure.dart';
 import 'package:awad_nahas/features/products/data/models/product_comments.dart';
 import 'package:dartz/dartz.dart';
 import 'package:awad_nahas/features/products/data/data_sources/products_remote_data_source.dart';
-import 'package:awad_nahas/features/products/data/models/product_small_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/domain/repositories/products_repository.dart';
 

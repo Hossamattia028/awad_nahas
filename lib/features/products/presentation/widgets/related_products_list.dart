@@ -1,4 +1,3 @@
-import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_horizional_card.dart';
 import 'package:flutter/material.dart';

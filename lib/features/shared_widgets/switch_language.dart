@@ -4,7 +4,6 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 
 class SwitchLanguageWidget extends StatelessWidget {
   const SwitchLanguageWidget({Key? key}) : super(key: key);

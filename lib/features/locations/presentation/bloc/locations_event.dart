@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 
 
 @immutable

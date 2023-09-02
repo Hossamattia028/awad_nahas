@@ -1,4 +1,3 @@
-import 'package:awad_nahas/features/categories/data/models/fetch_states.dart';
 import 'package:awad_nahas/features/shared_widgets/loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

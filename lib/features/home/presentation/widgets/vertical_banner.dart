@@ -1,18 +1,9 @@
-import 'package:awad_nahas/core/strings/app_images.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/domain/entities/slider_entity.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
-import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
-import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
-import 'package:awad_nahas/features/products/presentation/screens/product_details_screen.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 
 class VerticalBannerWidget extends StatelessWidget {
   const VerticalBannerWidget({Key? key}) : super(key: key);

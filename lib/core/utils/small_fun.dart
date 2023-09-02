@@ -117,6 +117,7 @@ class Util{
       return null;
     }
   }
+
   static openUrl(String url)async{
     await canLaunchUrl(Uri.parse(url))==true?
     await launchUrl(Uri.parse(url)):debugPrint("error when openGmsUrl");
@@ -209,7 +210,7 @@ class Util{
   }
 
   static String getUserLogin(){
-    return SharedPref().getPreferenceString(Constants.userLogin);
+    return SharedPref().getPreferenceString(Constants.userLogin).toString().trim().replaceAll("null", "");
   }
 
   static double getLatitude(){

@@ -39,7 +39,7 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   @override
   Future<UserServiceModel> updateUserProfile({required Map<String, dynamic> userData}) async {
     var body = {
-      if(userData['name']!=null)'user_login': Util.getUserLogin()??'',
+      if(userData['name']!=null)'user_login': Util.getUserLogin(),
       if(userData['name']!=null)'user_nicename': userData['name']??'',
       if(userData['name']!=null)'display_name': userData['name']??'',
       if(userData['email']!=null)'user_email': userData['email'],

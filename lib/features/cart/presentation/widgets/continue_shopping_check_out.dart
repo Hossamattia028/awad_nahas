@@ -11,7 +11,6 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
-import 'package:awad_nahas/features/order/presentation/screens/order_completed.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
@@ -40,7 +39,6 @@ class CartBottomButton extends StatelessWidget {
                 },
                 child: BlocBuilder<OrderBloc,OrderState>(
                   builder: (ctx,state){
-                    var orderBloc = OrderBloc.get(ctx);
                     return CustomButton(
                       height: 45.h,
                       width: double.infinity,

@@ -1,6 +1,5 @@
 import 'package:awad_nahas/features/products/data/models/product_attributes.dart';
 import 'package:awad_nahas/features/products/data/models/product_comments.dart';
-import 'package:awad_nahas/features/products/data/models/product_small_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 

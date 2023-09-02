@@ -1,5 +1,4 @@
 import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:awad_nahas/features/categories/data/models/photo_model.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/categories/domain/entities/slider_entity.dart';
 import 'package:awad_nahas/features/categories/domain/use_cases/get_all_categories_usecase.dart';

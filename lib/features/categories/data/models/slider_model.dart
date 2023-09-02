@@ -1,8 +1,5 @@
 
 
-import 'dart:convert';
-
-import 'package:awad_nahas/features/categories/data/models/photo_model.dart';
 import 'package:awad_nahas/features/categories/domain/entities/slider_entity.dart';
 
 class SliderModel extends SliderEntity{

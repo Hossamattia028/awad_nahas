@@ -1,12 +1,8 @@
-import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/our_brand.dart';
 import 'package:awad_nahas/features/categories/presentation/widgets/brands/brand_list_home.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/view_all.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class OurBrandsHome extends StatelessWidget {
