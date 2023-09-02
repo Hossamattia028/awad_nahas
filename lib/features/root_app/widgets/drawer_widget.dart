@@ -5,6 +5,7 @@ import 'package:awad_nahas/features/account/presentation/widgets/account_after_a
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/setting/presentation/screens/help_center.dart';
+import 'package:awad_nahas/features/setting/presentation/screens/maintenance.dart';
 import 'package:awad_nahas/features/setting/presentation/screens/our_locations.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
@@ -72,6 +73,7 @@ class DrawerWidget extends StatelessWidget {
               fn: (){
                 Scaffold.of(context).closeEndDrawer();
                 RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
+                Util.pushPage(const MaintenanceScreen(), context);
               },
             ),
             // ItemLineDrawer(

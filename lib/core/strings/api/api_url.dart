@@ -13,6 +13,8 @@ class ApiUrl {
   static const String BASE_URL = 'https://demo.awadnahas.com/awadnahas/api/';
   static const String STORAGE_URL = 'https://demo.awadnahas.com/awadnahas/public/';
 
+  static const String BASE_URL_ABN_PLUGIN = 'https://demo.awadnahas.com/wp-json/inetwork/api/';
+
   //auth
   static const String REGISTER_URL = '${BASE_URL}auth/signup';
   static const String LOGIN_URL = '${BASE_URL}auth/login';
@@ -57,8 +59,10 @@ class ApiUrl {
 
 
   //setting
-  static String OUR_LOCATIONS = 'https://demo.awadnahas.com/wp-json/inetwork/api/branches?lang=${Util.getLang()=="ar"?"ar":"en"}';
-  static String OUR_FAQS = 'https://demo.awadnahas.com/wp-json/inetwork/api/faq?lang=${Util.getLang()=="ar"?"ar":"en"}';
+  static String OUR_LOCATIONS = '${BASE_URL_ABN_PLUGIN}branches?lang=${Util.getLang()=="ar"?"ar":"en"}';
+  static String OUR_FAQS = '${BASE_URL_ABN_PLUGIN}faq?lang=${Util.getLang()=="ar"?"ar":"en"}';
+  static String MAINTENANCE_IMG = '${BASE_URL_ABN_PLUGIN}maintenance_request/image';
+  static String MAINTENANCE = '${BASE_URL_ABN_PLUGIN}maintenance_request?lang=${Util.getLang()=="ar"?"ar":"en"}';
 
   static const String ADD_ORDER = '${BASE_URL}orders';
   static const String FETCH_ALL_ORDERS = '${BASE_URL}orders';

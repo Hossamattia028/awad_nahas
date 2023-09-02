@@ -232,6 +232,16 @@
 		"would_leave_comment": "Would you mind leaving a review and let us know what you ..",
 		"open_until": "Open Until"
 	},
+	"maintenance": {
+		"number_of_maintenance_device": "Number of maintained devices",
+		"warranty": "Warranty",
+		"product_type": "Product Type",
+		"Device_completed_2_years": "Device completed 2 years from purchase date",
+		"serial": "Product serial",
+		"product_module": "Product model",
+		"complaints":"Complaints"
+	},
+
 	"wishlist": {
 		"title": "Wishlist",
 		"empty": "it is empty here",

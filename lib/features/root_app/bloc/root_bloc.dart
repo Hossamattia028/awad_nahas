@@ -131,6 +131,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     }
   }
 
+  /// faqs
   List<FaqsModel> ourFaqs = [];
   getFaqs()async{
     try{
@@ -140,6 +141,15 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     }
   }
 
+  /// maintenance
+
+  sendMaintenance(Map<String,dynamic> data)async{
+    try{
+      bool check = await SettingsRemoteDataSource.sendMaintenanceRequest(data);
+    }catch(e){
+      debugPrint("getFaqsRootBloc: $e");
+    }
+  }
 
 
 }

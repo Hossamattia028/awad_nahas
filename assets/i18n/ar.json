@@ -177,7 +177,7 @@
       "username": "اسم المستخدم",
       "first_name": "الاسم الاول",
       "last_name": "الاسم الاخير",
-      "phone": "الهاتف",
+      "phone": "رقم الجوال",
       "email": "البريد الإلكترونى ",
       "password": "كلمة المرور",
       "password_sure": "تأكيد كلمة المرور",
@@ -231,6 +231,15 @@
       "Rating_FeedBack": "التقييم او النقد",
       "would_leave_comment": "هل تمانع في ترك مراجعة وإعلامنا بما تريد ..",
       "open_until": "مفتوح حتي"
+    },
+    "maintenance": {
+      "number_of_maintenance_device": "عدد الأجهزة التي تمت صيانتها",
+      "warranty": "ضمان",
+      "product_type": "نوع المنتج",
+      "Device_completed_2_years": "تم اكتمال عامين للجهاز من تاريخ الشراء",
+      "serial": "مسلسل المنتج",
+      "product_module": "وحدة المنتج",
+      "complaints":"الشكاوي"
     },
 
     "profile": {

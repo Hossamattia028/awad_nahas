@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/setting/data/models/faqs_model.dart';
 import 'package:flutter/material.dart';
@@ -104,6 +106,49 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
       throw ServerException();
     }
   }
+
+  static Future<bool> sendMaintenanceRequest(Map<String,dynamic> data) async{
+    String imgID = await sendMaintenanceRequestImage(data['img']);
+    var response = await http.post(Uri.parse(ApiUrl.MAINTENANCE),
+        body: {
+          "first_name": data['first_name'] ?? "",
+          "last_name": data['last_name'] ?? "",
+          "city": data['city'] ?? "",
+          "neighborhood": data['neighborhood'] ?? "",
+          "phone_number": data['phone_number'] ?? "",
+          "complaints": data['complaints'] ?? "",
+          "warranty": data['warranty'] ?? "",
+          "number_of_maintained_devices": data['devices_number'] ?? "",
+          "product_serial": data['serial'] ?? "",
+          "brand_id": data['brand_id'] ?? "",
+          "product_type": data['product_type'] ?? "",
+          "product_model": data['product_model'] ?? "",
+          "device_complete_2_years": data['years_number'] ?? "",
+          'images_id': imgID,
+          'lang': Util.getLang()
+        });
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<String> sendMaintenanceRequestImage(File img) async{
+    var request = http.MultipartRequest("POST", Uri.parse(ApiUrl.MAINTENANCE_IMG));
+    var multipartFile =
+    await http.MultipartFile.fromPath("image", img.path);
+    request.files.add(multipartFile);
+    final response = await request.send();
+    if (response.statusCode == 200) {
+    final respStr = await response.stream.bytesToString();
+    return json.decode(respStr)['data']['image_id'];
+    } else {
+      throw ServerException();
+    }
+  }
+
+
 
 
 
