@@ -37,5 +37,10 @@ class FetchSettingEvent extends RootEvent{
   const FetchSettingEvent();
 }
 
+class SendMaintenanceEvent extends RootEvent{
+  final Map<String,dynamic> data;
+  const SendMaintenanceEvent({required this.data});
+}
+
 
 

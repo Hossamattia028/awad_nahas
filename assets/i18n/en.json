@@ -239,7 +239,8 @@
 		"Device_completed_2_years": "Device completed 2 years from purchase date",
 		"serial": "Product serial",
 		"product_module": "Product model",
-		"complaints":"Complaints"
+		"complaints":"Complaints",
+		"upload_image": "Upload Image"
 	},
 
 	"wishlist": {
