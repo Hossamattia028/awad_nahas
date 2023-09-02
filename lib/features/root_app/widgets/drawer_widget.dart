@@ -1,19 +1,14 @@
-import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/strings/enum/drawer_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 import 'package:awad_nahas/features/root_app/widgets/drawer_company_section.dart';
-import 'package:awad_nahas/features/root_app/widgets/drawer_item_line.dart';
+import 'package:awad_nahas/features/root_app/widgets/drawer_privacy_section.dart';
 import 'package:awad_nahas/features/root_app/widgets/main_drawer_section.dart';
-import 'package:awad_nahas/features/setting/presentation/screens/web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -35,19 +30,8 @@ class DrawerWidget extends StatelessWidget {
 
                 if(bloc.drawerEnum == DrawerEnum.OUR_COMPANY)...[
                   OurCompanySection(ctx: context),
-                ]else if(bloc.drawerEnum == DrawerEnum.OUR_COMPANY)...[
-                  InkWell(
-                    onTap: ()=> bloc.add(const ChangeDrawerViewEvent(drawerEnum: DrawerEnum.MAIN)),
-                    child: const Icon(Icons.close),
-                  ),
-                  ItemLineDrawer(
-                    title: translate("activity_setting.projects"),
-                    fn: (){
-                      Scaffold.of(context).closeEndDrawer();
-                      RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
-                      Util.pushPage(WebViewScreen(title: translate("activity_setting.projects"), url: ApiUrl.OUR_PROJECTS), context);
-                    },
-                  ),
+                ]else if(bloc.drawerEnum == DrawerEnum.PRIVACY)...[
+                  OurPrivacySection(ctx: context),
                 ]else ...[
                   MainDrawerSection(ctx: context),
                 ],

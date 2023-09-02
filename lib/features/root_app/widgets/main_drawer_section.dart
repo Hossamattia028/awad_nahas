@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/strings/enum/drawer_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/account/presentation/widgets/account_after_auth.dart';
@@ -27,6 +28,7 @@ class MainDrawerSection extends StatelessWidget {
           fn: (){
             Scaffold.of(ctx).closeEndDrawer();
             RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
+            RootBloc.get(context).add(const ChangeDrawerViewEvent(drawerEnum: DrawerEnum.OUR_COMPANY));
           },
         ),
         ItemLineDrawer(
@@ -41,6 +43,7 @@ class MainDrawerSection extends StatelessWidget {
           fn: (){
             Scaffold.of(ctx).closeEndDrawer();
             RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
+            RootBloc.get(context).add(const ChangeDrawerViewEvent(drawerEnum: DrawerEnum.PRIVACY));
           },
         ),
 
