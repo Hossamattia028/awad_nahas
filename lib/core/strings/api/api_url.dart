@@ -85,4 +85,18 @@ class ApiUrl {
   static String ENSURE = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/warranty-certificate-ar/":"en/policies/mobile/"}"';
   static String DELIVERY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/delivery-policy-mobile-ar/":"en/policies/delivery-policy-mobile/"}"';
 
+
+  static updateSettingUrl(){
+    SERVICES = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/services-mobile-ar/":"en/about-us/services-mobile/"}"';
+    ESTRAIGIATNA = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/strategy-mobile-ar/":"en/about-us/strategy-mobile/"}"';
+    OUR_BRANDS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/our-brands-mobile-ar/":"en/about-us/our-brands-mobile/"}"';
+    OUR_PROJECTS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/projects-mobile-ar/":"en/projects-mobile/"}"';
+
+    PRIVACY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/privacy-policy-mobile-ar/":"en/policies/privacy-policy-mobile/"}"';
+    PAYMENT_GATEWAYS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/payment-method-mobile-ar/":"en/policies/payment-method-mobile/"}"';
+    TERMS_CONDITIONS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/terms-and-conditions-mobile-ar/":"en/policies/terms-and-conditions-mobile/"}"';
+    REPLACEMENT = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/arexchange-return-policy-mobile-ar/":"en/policies/exchange-return-policy-mobile/"}"';
+    ENSURE = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/warranty-certificate-ar/":"en/policies/mobile/"}"';
+    DELIVERY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/delivery-policy-mobile-ar/":"en/policies/delivery-policy-mobile/"}"';
+  }
 }

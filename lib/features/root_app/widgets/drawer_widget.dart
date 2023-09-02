@@ -24,7 +24,6 @@ class DrawerWidget extends StatelessWidget {
           builder: (ctx,state){
             var bloc = RootBloc.get(ctx);
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const SizedBox(height: 20,),
 

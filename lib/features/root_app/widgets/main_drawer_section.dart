@@ -55,15 +55,15 @@ class MainDrawerSection extends StatelessWidget {
             Util.pushPage(const HelpCenterScreen(), context);
           },
         ),
-        ItemLineDrawer(
-          title: translate("drawer.maintaenance_request"),
-          fn: (){
-            Scaffold.of(ctx).closeEndDrawer();
-            RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
-            Util.pushPage(const MaintenanceScreen(), context);
-          },
-        ),
-        if(Util.checkUser())
+        if(Util.checkUser())...[
+          ItemLineDrawer(
+            title: translate("drawer.maintaenance_request"),
+            fn: (){
+              Scaffold.of(ctx).closeEndDrawer();
+              RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
+              Util.pushPage(const MaintenanceScreen(), context);
+            },
+          ),
           ItemLineDrawer(
             title: translate("activity_setting.sign_out"),
             icon: Icon(Icons.logout,size: 22,color: DMUtil.getD2C().withOpacity(0.7),),
@@ -72,6 +72,7 @@ class MainDrawerSection extends StatelessWidget {
               CustomDialogs.signOut(context);
             },
           ),
+        ],
       ],
     );
   }

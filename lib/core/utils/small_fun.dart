@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -176,6 +177,7 @@ class Util{
     changeLocale(ctx,lng);
     SharedPref.preferences.setPreferencesString(Constants.userLang,lng);
     Fonts.update();
+    ApiUrl.updateSettingUrl();
     ProductsBloc.get(ctx).add(const UpdateAllProductsEvent());
     if(isLogin){
       Util.pushPageAndRemoveRoutes(const LoginScreen(),ctx);
