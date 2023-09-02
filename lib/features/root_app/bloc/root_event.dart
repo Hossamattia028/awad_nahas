@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/strings/enum/drawer_enum.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,10 @@ abstract class RootEvent  {
   const RootEvent();
 }
 
+class ChangeDrawerViewEvent extends RootEvent{
+  final DrawerEnum drawerEnum;
+  const ChangeDrawerViewEvent({required this.drawerEnum});
+}
 
 class ChangeIndex extends RootEvent {
   final int index;

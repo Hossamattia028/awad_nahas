@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/strings/enum/drawer_enum.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
@@ -34,6 +35,10 @@ class RootBloc extends Bloc<RootEvent, RootState> {
       modifySearchAvailability(event,emit);
     });
 
+    on<ChangeDrawerViewEvent>((event, emit)async{
+      changeDrawerView(event,emit);
+    });
+
 
     on<FetchSettingEvent>((event, emit)async{
       await getAllSetting(event,emit);
@@ -42,8 +47,17 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     on<SendMaintenanceEvent>((event, emit)async{
       await sendMaintenance(event,emit);
     });
+
+
   }
 
+
+  DrawerEnum drawerEnum = DrawerEnum.MAIN;
+  changeDrawerView(ChangeDrawerViewEvent event,emit){
+    emit(RootLoadingState());
+    drawerEnum = event.drawerEnum;
+    emit(RootSuccessState());
+  }
 
   changeCurrentCurrency(event,emit){
     emit(RootSuccessState());

@@ -10,6 +10,7 @@ class RootLoadingState extends RootState {}
 
 class RootSuccessState extends RootState {}
 
+
 class RootErrorState extends RootState {
   final String errors;
 
