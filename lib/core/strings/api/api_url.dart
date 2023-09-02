@@ -10,10 +10,13 @@ class ApiUrl {
   };
 
   // static const String BASE_URL = 'http://10.0.2.2:8000/api/';
-  static const String BASE_URL = 'https://demo.awadnahas.com/awadnahas/api/';
-  static const String STORAGE_URL = 'https://demo.awadnahas.com/awadnahas/public/';
 
-  static const String BASE_URL_ABN_PLUGIN = 'https://demo.awadnahas.com/wp-json/inetwork/api/';
+  static const String MAIN_DOMAIN = 'https://demo.awadnahas.com';
+
+  static const String BASE_URL = '$MAIN_DOMAIN/awadnahas/api/';
+  static const String STORAGE_URL = '$MAIN_DOMAIN/awadnahas/public/';
+
+  static const String BASE_URL_ABN_PLUGIN = '$MAIN_DOMAIN/wp-json/inetwork/api/';
 
   //auth
   static const String REGISTER_URL = '${BASE_URL}auth/signup';
@@ -68,5 +71,18 @@ class ApiUrl {
   static const String FETCH_ALL_ORDERS = '${BASE_URL}orders';
   static const String CANCEL_ORDER = '${BASE_URL}orders';
   static const String coupon = '${BASE_URL}coupon';
+
+
+  static String SERVICES = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/services-mobile-ar/":"en/about-us/services-mobile/"}"';
+  static String ESTRAIGIATNA = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/strategy-mobile-ar/":"en/about-us/strategy-mobile/"}"';
+  static String TRADEMARK = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/our-brands-mobile-ar/":"en/about-us/our-brands-mobile/"}"';
+  static String OUR_PROJECTS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/projects-mobile-ar/":"en/projects-mobile/"}"';
+
+  static String PRIVACY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/privacy-policy-mobile-ar/":"en/policies/privacy-policy-mobile/"}"';
+  static String PAYMENT_GATEWAYS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/payment-method-mobile-ar/":"en/policies/payment-method-mobile/"}"';
+  static String TERMS_CONDITIONS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/terms-and-conditions-mobile-ar/":"en/policies/terms-and-conditions-mobile/"}"';
+  static String REPLACEMENT = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/arexchange-return-policy-mobile-ar/":"en/policies/exchange-return-policy-mobile/"}"';
+  static String ENSURE = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/warranty-certificate-ar/":"en/policies/mobile/"}"';
+  static String DELIVERY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/delivery-policy-mobile-ar/":"en/policies/delivery-policy-mobile/"}"';
 
 }
