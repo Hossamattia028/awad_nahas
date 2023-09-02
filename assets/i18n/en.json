@@ -240,7 +240,8 @@
 		"serial": "Product serial",
 		"product_module": "Product model",
 		"complaints":"Complaints",
-		"upload_image": "Upload Image"
+		"upload_image": "Upload Image",
+		"success_msg": "Successfully sent your request"
 	},
 
 	"wishlist": {

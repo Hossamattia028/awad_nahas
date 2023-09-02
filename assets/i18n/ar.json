@@ -239,8 +239,9 @@
       "Device_completed_2_years": "تم اكتمال عامين للجهاز من تاريخ الشراء",
       "serial": "مسلسل المنتج",
       "product_module": "وحدة المنتج",
-      "complaints":"الشكاوي",
-      "upload_image": "اضافة صورة"
+      "complaints":"تفاصيل الشكوي",
+      "upload_image": "اضافة صورة",
+      "success_msg": "تم ارسال الطلب بنجاح"
     },
 
     "profile": {

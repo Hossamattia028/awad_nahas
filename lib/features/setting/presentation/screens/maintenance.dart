@@ -1,11 +1,12 @@
-
 import 'dart:io';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
+import 'package:awad_nahas/features/shared_widgets/align_child_by_row.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
@@ -19,8 +20,6 @@ import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:image_picker/image_picker.dart';
-
-
 
 class MaintenanceScreen extends StatefulWidget {
   const MaintenanceScreen({Key? key}) : super(key: key);
@@ -41,6 +40,16 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
   int deviceNumber = 1;
   int brandID = 1;
   File? img;
+  @override
+  void initState() {
+    if (Util.checkUser()) {
+      firstNameTextEditingController.text = Util.getName();
+      lastNameTextEditingController.text = Util.getName();
+      emailTextEditingController.text = Util.getEmail();
+      phoneTextEditingController.text = Util.getMobile();
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,288 +61,317 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: CustomButton(
-          height: 40.h,
-          width: 200.w,
-          circular: 10,
-          color: DMUtil.getRED(),
-          widget: CustomText(
-            text: translate("button.send"),
-            color: Colors.white,
-            fontSize: AppStyle.average.sp,
-          ),
-          onPressed: () {
-            RootBloc.get(context).add(SendMaintenanceEvent(data: {
-              "first_name": firstNameTextEditingController.text.trim(),
-              "last_name": lastNameTextEditingController.text.trim(),
-              "city": firstNameTextEditingController.text.trim(),
-              "neighborhood": firstNameTextEditingController.text.trim(),
-              "phone_number": phoneTextEditingController.text.trim(),
-              "complaints": complaintTextEditingController.text.trim(),
-              "warranty": warrantyTextEditingController.text.trim(),
-              "number_of_maintained_devices": deviceNumber,
-              "product_serial": deviceNumber,
-              "brand_id": brandID,
-              "product_type": deviceNumber,
-              "product_model": productModuleTextEditingController.text.trim(),
-              "device_complete_2_years": deviceNumber,
-              'img': img!,
-            }));
+        child: BlocListener<RootBloc, RootState>(
+          listenWhen: (ctx,state)=> state is MaintenanceSuccessState,
+          listener: (ctx,state) {
+            if(state is MaintenanceSuccessState){
+              firstNameTextEditingController.text = "";
+              lastNameTextEditingController.text = "";
+              emailTextEditingController.text = "";
+              phoneTextEditingController.text = "";
+              productModuleTextEditingController.text = "";
+              complaintTextEditingController.text = "";
+              serialTextEditingController.text = "";
+              warrantyTextEditingController.text = "";
+              img = null;
+              SnackBarBuilder.showFeedBackMessage(context, translate("maintenance.success_msg"), DMUtil.getGreen());
+            }
           },
-        ),
+          child: BlocBuilder<RootBloc, RootState>(builder: (ctx, state) {
+            return CustomButton(
+              height: 40.h,
+              width: 200.w,
+              circular: 10,
+              color: DMUtil.getRED(),
+              widget: state is MaintenanceLoadingState
+                  ? const CircularProgressIndicator(color: Colors.white,)
+                  : CustomText(
+                text: translate("button.send"),
+                color: Colors.white,
+                fontSize: AppStyle.average.sp,
+              ),
+              onPressed: () {
+                if (firstNameTextEditingController.text.trim().isEmpty ||
+                    lastNameTextEditingController.text.trim().isEmpty ||
+                    phoneTextEditingController.text.trim().isEmpty ||
+                    complaintTextEditingController.text.trim().isEmpty ||
+                    productModuleTextEditingController.text.trim().isEmpty ||
+                    serialTextEditingController.text.trim().isEmpty ||
+                    warrantyTextEditingController.text.trim().isEmpty ||
+                    brandID == 1 ||
+                    img == null) {
+                  SnackBarBuilder.showFeedBackMessage(
+                      context, translate("toast.field_empty"), DMUtil.getRED());
+                  return;
+                }
+                RootBloc.get(context).add(SendMaintenanceEvent(data: {
+                  "first_name": firstNameTextEditingController.text.trim(),
+                  "last_name": lastNameTextEditingController.text.trim(),
+                  "city": Util.getCity() + Util.getAddress() ,
+                  "neighborhood": firstNameTextEditingController.text.trim(),
+                  "phone_number": phoneTextEditingController.text.trim(),
+                  "complaints": complaintTextEditingController.text.trim(),
+                  "warranty": warrantyTextEditingController.text.trim(),
+                  "number_of_maintained_devices": deviceNumber,
+                  "product_serial": serialTextEditingController.text.trim(),
+                  "brand_id": brandID,
+                  "product_type": deviceNumber,
+                  "product_model": productModuleTextEditingController.text.trim(),
+                  "device_complete_2_years": deviceNumber,
+                  'img': img!,
+                }));
+              },
+            );
+          }),
+        )
       ),
       body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 12.h),
+          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w, vertical: 12.h),
           physics: const BouncingScrollPhysics(),
-          child: BlocBuilder<RootBloc,RootState>(
-            builder: (ctx,state){
-              var bloc = RootBloc.get(ctx);
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText(
-                            text: translate("profile.name"),
-                            color: DMUtil.getDC(),
-                            fontSize: AppStyle.average.sp,
-                          ),
-                          const SizedBox(height: 5,),
-                          SizedBox(
-                            width: 160.w,
-                            child: CustomTextFromField(
-                              hintText: translate("signup.first_name"),
-                              labelText: "",
-                              hasBorder: true,
-                              smallPadding: true,
-                              cursorColor: kPrimary,
-                              radius: 10,
-                              textEditingController: firstNameTextEditingController,
-                              validator: (){},
-                              obscureText: false,
-                              isLabelError: false,
-                            ),
-                          ),
-                        ],
+                      CustomText(
+                        text: translate("profile.name"),
+                        color: DMUtil.getDC(),
+                        fontSize: AppStyle.average.sp,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText(
-                            text: translate("signup.last_name"),
-                            color: DMUtil.getDC(),
-                            fontSize: AppStyle.average.sp,
-                          ),
-                          const SizedBox(height: 5,),
-                          SizedBox(
-                            width: 160.w,
-                            child: CustomTextFromField(
-                              hintText: translate("signup.last_name"),
-                              labelText: "",
-                              hasBorder: true,
-                              smallPadding: true,
-                              cursorColor: kPrimary,
-                              radius: 10,
-                              textEditingController: lastNameTextEditingController,
-                              validator: (){},
-                              obscureText: false,
-                              isLabelError: false,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 12,),
-                  CustomText(
-                    text: translate("signup.phone"),
-                    color: DMUtil.getDC(),
-                    fontSize: AppStyle.average.sp,
-                  ),
-                  const SizedBox(height: 5,),
-                  CustomTextFromField(
-                    hintText: translate("signup.phone"),
-                    labelText: "",
-                    hasBorder: true,
-                    smallPadding: true,
-                    cursorColor: kPrimary,
-                    radius: 10,
-                    textEditingController: phoneTextEditingController,
-                    validator: (){},
-                    obscureText: false,
-                    isLabelError: false,
-                  ),
-
-                  const SizedBox(height: 12,),
-                  CustomText(
-                    text: translate("maintenance.number_of_maintenance_device"),
-                    color: DMUtil.getDC(),
-                    fontSize: AppStyle.average.sp,
-                  ),
-                  const SizedBox(height: 5,),
-                  DropdownButtonFormField(
-                    icon: const Icon(Icons.arrow_drop_down_circle_outlined),
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: DMUtil.getBCC()),),
-                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: DMUtil.getBCC()),),
-                      border: OutlineInputBorder(borderSide: BorderSide(color: DMUtil.getBCC()),),
-                      hintText:translate("maintenance.number_of_maintenance_device"),
-                      hintStyle: TextStyle(
-                          fontSize: 15,
-                          color: DMUtil.getD2C()),
-                      isDense: true,
-                    ),
-                    // value: deviceNumber,
-                    items: <DropdownMenuItem<String>>[
-                      for (var i = 0; i < 5; i++)
-                        DropdownMenuItem(
-                            value: (i + 1).toString(),
-                            child: Text((i + 1).toString(),
-                                style: TextStyle(
-                                  color: DMUtil.getD2C()
-                                )))
-                    ],
-                    onChanged: (value) {
-                      setState(() {
-                        deviceNumber = int.parse(value.toString());
-                      });
-                    },
-                  ),
-
-                  const SizedBox(height: 12,),
-                  CustomText(
-                    text: translate("maintenance.warranty"),
-                    color: DMUtil.getDC(),
-                    fontSize: AppStyle.average.sp,
-                  ),
-                  const SizedBox(height: 5,),
-                  CustomTextFromField(
-                    hintText: translate("maintenance.warranty"),
-                    labelText: "",
-                    hasBorder: true,
-                    maxLines: 2,
-                    smallPadding: true,
-                    cursorColor: kPrimary,
-                    radius: 10,
-                    textEditingController: warrantyTextEditingController,
-                    validator: (){},
-                    obscureText: false,
-                    isLabelError: false,
-                  ),
-
-                  const SizedBox(height: 12,),
-                  CustomText(
-                    text: translate("store.brand"),
-                    color: DMUtil.getDC(),
-                    fontSize: AppStyle.average.sp,
-                  ),
-                  BlocBuilder<CategoriesBloc,CategoriesState>(
-                    builder: (ctx,state) {
-                      var bloc = CategoriesBloc.get(ctx);
-                      List<CategoriesEntity> list = bloc.activateTransList(bloc.brandsList);
-                      return DropdownButtonFormField(
-                        icon: const Icon(Icons.arrow_drop_down_circle_outlined),
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: DMUtil.getBCC()),),
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: DMUtil.getBCC()),),
-                          border: OutlineInputBorder(borderSide: BorderSide(color: DMUtil.getBCC()),),
-                          hintText:translate("store.brand"),
-                          hintStyle: TextStyle(
-                              fontSize: 15,
-                              color: DMUtil.getD2C()),
-                          isDense: true,
+                      const SizedBox(height: 5,),
+                      SizedBox(
+                        width: 160.w,
+                        child: CustomTextFromField(
+                          hintText: translate("signup.first_name"),
+                          labelText: "",
+                          hasBorder: true,
+                          smallPadding: true,
+                          cursorColor: kPrimary,
+                          radius: 10,
+                          textEditingController: firstNameTextEditingController,
+                          validator: () {},
+                          obscureText: false,
+                          isLabelError: false,
                         ),
-                        // value: deviceNumber,
-                        items: <DropdownMenuItem<String>>[
-                          for (var i = 0; i < list.length ; i++)
-                            DropdownMenuItem(
-                                value: list[i].id.toString(),
-                                child: Text(list[i].title.toString(),
-                                    style: TextStyle(
-                                        color: DMUtil.getD2C()
-                                    )))
-                        ],
-                        onChanged: (value) {
-                          setState(() {
-                            brandID = int.parse(value.toString());
-                          });
-                        },
-                      );
-                    }
+                      ),
+                    ],
                   ),
-
-
-                  const SizedBox(height: 12,),
-                  CustomText(
-                    text: translate("maintenance.serial"),
-                    color: DMUtil.getDC(),
-                    fontSize: AppStyle.average.sp,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        text: translate("signup.last_name"),
+                        color: DMUtil.getDC(),
+                        fontSize: AppStyle.average.sp,
+                      ),
+                      const SizedBox(height: 5,),
+                      SizedBox(
+                        width: 160.w,
+                        child: CustomTextFromField(
+                          hintText: translate("signup.last_name"),
+                          labelText: "",
+                          hasBorder: true,
+                          smallPadding: true,
+                          cursorColor: kPrimary,
+                          radius: 10,
+                          textEditingController: lastNameTextEditingController,
+                          validator: () {},
+                          obscureText: false,
+                          isLabelError: false,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 5,),
-                  CustomTextFromField(
-                    hintText: translate("maintenance.serial"),
-                    labelText: "",
-                    hasBorder: true,
-                    smallPadding: true,
-                    cursorColor: kPrimary,
-                    radius: 10,
-                    textEditingController: serialTextEditingController,
-                    validator: (){},
-                    obscureText: false,
-                    isLabelError: false,
+                ],
+              ),
+              const SizedBox(height: 12,),
+              CustomText(
+                text: translate("signup.phone"),
+                color: DMUtil.getDC(),
+                fontSize: AppStyle.average.sp,
+              ),
+              const SizedBox(height: 5,),
+              CustomTextFromField(
+                hintText: translate("signup.phone"),
+                labelText: "",
+                hasBorder: true,
+                smallPadding: true,
+                cursorColor: kPrimary,
+                radius: 10,
+                textEditingController: phoneTextEditingController,
+                validator: () {},
+                obscureText: false,
+                isLabelError: false,
+              ),
+              const SizedBox(height: 12,),
+              CustomText(
+                text: translate("maintenance.number_of_maintenance_device"),
+                color: DMUtil.getDC(),
+                fontSize: AppStyle.average.sp,
+              ),
+              const SizedBox(height: 5,),
+              DropdownButtonFormField(
+                icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: DMUtil.getBCC()),
                   ),
-
-
-                  const SizedBox(height: 12,),
-                  CustomText(
-                    text: translate("maintenance.product_module"),
-                    color: DMUtil.getDC(),
-                    fontSize: AppStyle.average.sp,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: DMUtil.getBCC()),
                   ),
-                  const SizedBox(height: 5,),
-                  CustomTextFromField(
-                    hintText: translate("maintenance.product_module"),
-                    labelText: "",
-                    hasBorder: true,
-                    smallPadding: true,
-                    cursorColor: kPrimary,
-                    radius: 10,
-                    textEditingController: productModuleTextEditingController,
-                    validator: (){},
-                    obscureText: false,
-                    isLabelError: false,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: DMUtil.getBCC()),
                   ),
-
-
-                  const SizedBox(height: 12,),
-                  CustomText(
-                    text: translate("maintenance.complaints"),
-                    color: DMUtil.getDC(),
-                    fontSize: AppStyle.average.sp,
+                  hintText:
+                      translate("maintenance.number_of_maintenance_device"),
+                  hintStyle: TextStyle(fontSize: 15, color: DMUtil.getD2C()),
+                  isDense: true,
+                ),
+                // value: deviceNumber,
+                items: <DropdownMenuItem<String>>[
+                  for (var i = 0; i < 5; i++)
+                    DropdownMenuItem(
+                        value: (i + 1).toString(),
+                        child: Text((i + 1).toString(),
+                            style: TextStyle(color: DMUtil.getD2C())))
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    deviceNumber = int.parse(value.toString());
+                  });
+                },
+              ),
+              const SizedBox(height: 12,),
+              CustomText(
+                text: translate("maintenance.warranty"),
+                color: DMUtil.getDC(),
+                fontSize: AppStyle.average.sp,
+              ),
+              const SizedBox(height: 5,),
+              CustomTextFromField(
+                hintText: translate("maintenance.warranty"),
+                labelText: "",
+                hasBorder: true,
+                maxLines: 2,
+                smallPadding: true,
+                cursorColor: kPrimary,
+                radius: 10,
+                textEditingController: warrantyTextEditingController,
+                validator: () {},
+                obscureText: false,
+                isLabelError: false,
+              ),
+              const SizedBox(height: 12,),
+              CustomText(
+                text: translate("store.brand"),
+                color: DMUtil.getDC(),
+                fontSize: AppStyle.average.sp,
+              ),
+              BlocBuilder<CategoriesBloc, CategoriesState>(
+                  builder: (ctx, state) {
+                var bloc = CategoriesBloc.get(ctx);
+                List<CategoriesEntity> list =
+                    bloc.activateTransList(bloc.brandsList);
+                return DropdownButtonFormField(
+                  icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: DMUtil.getBCC()),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: DMUtil.getBCC()),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: DMUtil.getBCC()),
+                    ),
+                    hintText: translate("store.brand"),
+                    hintStyle: TextStyle(fontSize: 15, color: DMUtil.getD2C()),
+                    isDense: true,
                   ),
-                  const SizedBox(height: 5,),
-                  CustomTextFromField(
-                    hintText: translate("maintenance.complaints"),
-                    labelText: "",
-                    height: 80.h,
-                    hasBorder: true,
-                    smallPadding: true,
-                    cursorColor: kPrimary,
-                    radius: 10,
-                    maxLines: 10,
-                    textEditingController: complaintTextEditingController,
-                    validator: (){},
-                    obscureText: false,
-                    isLabelError: false,
-                  ),
-
-                  const SizedBox(height: 15,),
-                  CustomButton(
+                  // value: deviceNumber,
+                  items: <DropdownMenuItem<String>>[
+                    for (var i = 0; i < list.length; i++)
+                      DropdownMenuItem(
+                          value: list[i].id.toString(),
+                          child: Text(list[i].title.toString(),
+                              style: TextStyle(color: DMUtil.getD2C())))
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      brandID = int.parse(value.toString());
+                    });
+                  },
+                );
+              }),
+              const SizedBox(height: 12,),
+              CustomText(
+                text: translate("maintenance.serial"),
+                color: DMUtil.getDC(),
+                fontSize: AppStyle.average.sp,
+              ),
+              const SizedBox(height: 5,),
+              CustomTextFromField(
+                hintText: translate("maintenance.serial"),
+                labelText: "",
+                hasBorder: true,
+                smallPadding: true,
+                cursorColor: kPrimary,
+                radius: 10,
+                textEditingController: serialTextEditingController,
+                validator: () {},
+                obscureText: false,
+                isLabelError: false,
+              ),
+              const SizedBox(height: 12,),
+              CustomText(
+                text: translate("maintenance.product_module"),
+                color: DMUtil.getDC(),
+                fontSize: AppStyle.average.sp,
+              ),
+              const SizedBox(height: 5,),
+              CustomTextFromField(
+                hintText: translate("maintenance.product_module"),
+                labelText: "",
+                hasBorder: true,
+                smallPadding: true,
+                cursorColor: kPrimary,
+                radius: 10,
+                textEditingController: productModuleTextEditingController,
+                validator: () {},
+                obscureText: false,
+                isLabelError: false,
+              ),
+              const SizedBox(height: 12,),
+              CustomText(
+                text: translate("maintenance.complaints"),
+                color: DMUtil.getDC(),
+                fontSize: AppStyle.average.sp,
+              ),
+              const SizedBox(height: 5,),
+              CustomTextFromField(
+                hintText: translate("maintenance.complaints"),
+                labelText: "",
+                height: 80.h,
+                hasBorder: true,
+                smallPadding: true,
+                cursorColor: kPrimary,
+                radius: 10,
+                maxLines: 10,
+                textEditingController: complaintTextEditingController,
+                validator: () {},
+                obscureText: false,
+                isLabelError: false,
+              ),
+              AlignChildRow(
+                isStart: false,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 15,),
+                    CustomButton(
                       height: 30.h,
                       width: 220.w,
                       widget: Row(
@@ -348,20 +386,32 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                         ],
                       ),
                       color: DMUtil.getRED(),
-                      onPressed: ()async{
+                      onPressed: () async {
                         final ImagePicker picker = ImagePicker();
-                        final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-                        if(image!=null){
-                          img = File(image.path);
+                        final XFile? image =
+                            await picker.pickImage(source: ImageSource.gallery);
+                        if (image != null) {
+                          setState(() {
+                            img = File(image.path);
+                          });
                         }
                       },
-                  ),
-
-                ],
-              );
-            },
-          )
-      ),
+                    ),
+                    if (img != null) ...[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.file(
+                          img!,
+                          height: 80.h,
+                          width: 200.w,
+                        ),
+                      )
+                    ],
+                  ],
+                ),
+              ),
+            ],
+          )),
     );
   }
 }

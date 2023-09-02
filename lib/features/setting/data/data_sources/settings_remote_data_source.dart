@@ -109,26 +109,32 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
 
   static Future<bool> sendMaintenanceRequest(Map<String,dynamic> data) async{
     String imgID = await sendMaintenanceRequestImage(data['img']);
+    var postData = {
+      "first_name": data['first_name'] ?? "",
+      "last_name": data['last_name'] ?? "",
+      "city": data['city'] ?? "",
+      "neighborhood": data['neighborhood'] ?? "",
+      "phone_number": data['phone_number'] ?? "",
+      "complaints": data['complaints'] ?? "",
+      "warranty": data['warranty'] ?? "",
+      "number_of_maintained_devices": (data['number_of_maintained_devices'] ?? "1").toString(),
+      "product_serial": (data['product_serial'] ?? "1").toString(),
+      "brand_id": (data['brand_id'] ?? "1").toString(),
+      "product_type": (data['product_type'] ?? "").toString(),
+      "product_model": (data['product_model'] ?? "0").toString(),
+      "device_complete_2_years": (data['years_number'] ?? "1").toString(),
+      'images_id': imgID,
+      'lang': Util.getLang()
+    };
     var response = await http.post(Uri.parse(ApiUrl.MAINTENANCE),
-        body: {
-          "first_name": data['first_name'] ?? "",
-          "last_name": data['last_name'] ?? "",
-          "city": data['city'] ?? "",
-          "neighborhood": data['neighborhood'] ?? "",
-          "phone_number": data['phone_number'] ?? "",
-          "complaints": data['complaints'] ?? "",
-          "warranty": data['warranty'] ?? "",
-          "number_of_maintained_devices": data['devices_number'] ?? "",
-          "product_serial": data['serial'] ?? "",
-          "brand_id": data['brand_id'] ?? "",
-          "product_type": data['product_type'] ?? "",
-          "product_model": data['product_model'] ?? "",
-          "device_complete_2_years": data['years_number'] ?? "",
-          'images_id': imgID,
-          'lang': Util.getLang()
-        });
+        body: postData);
+    debugPrint("sendMaintenanceRequest: ${response.body}");
+    var decodedData = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      return true;
+      if(decodedData['success']==true){
+        return true;
+      }
+      return false;
     } else {
       return false;
     }
@@ -136,13 +142,13 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
 
   static Future<String> sendMaintenanceRequestImage(File img) async{
     var request = http.MultipartRequest("POST", Uri.parse(ApiUrl.MAINTENANCE_IMG));
-    var multipartFile =
-    await http.MultipartFile.fromPath("image", img.path);
+    var multipartFile = await http.MultipartFile.fromPath("image", img.path);
     request.files.add(multipartFile);
     final response = await request.send();
-    if (response.statusCode == 200) {
     final respStr = await response.stream.bytesToString();
-    return json.decode(respStr)['data']['image_id'];
+    debugPrint("sendMaintenanceRequestImage: $respStr");
+    if (response.statusCode == 200) {
+    return json.decode(respStr)['data']['image_id'].toString();
     } else {
       throw ServerException();
     }

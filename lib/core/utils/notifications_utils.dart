@@ -28,15 +28,6 @@ class NotificationsUtils{
       /// for android and ios versions
       FirebaseMessaging.onMessage.listen((event) {
         SetNotification.showFlutterNotification(RemoteMessage(notification: event.notification!));
-        Timer(const Duration(seconds: 2),(){
-          if(event.notification!.body.toString().toLowerCase().contains("order")||event.notification!.body.toString().contains("الطلب")){
-            // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-
-            // });
-          }else if(event.notification!.body.toString().toLowerCase().contains("deactivated")||event.notification!.body.toString().toLowerCase().contains("activated")){
-
-          }
-        });
       });
     }
   // }

@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -43,19 +44,7 @@ class _ContactScreenState extends State<ContactScreen> {
         child:  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                const Icon(Icons.phone,color: Colors.black38,size: 20,),
-                const SizedBox(width: 5,),
-                CustomText(
-                  text: "00000000",
-                  fontSize: 12.sp,
-                  color: kPrimary,
-                  fontWeight: FontWeight.w600,
-                ),
-              ],
-            ),
-            const Divider(),
+
             const SizedBox(height: 10,),
             Container(
               height: 50.h,
@@ -123,11 +112,12 @@ class _ContactScreenState extends State<ContactScreen> {
               height: 20,
             ),
             SizedBox(
-              height: 50.h,
+              height: 100.h,
               child: CustomTextFromField(
                   hintText: translate("activity_setting.content"),
                   labelText: translate("activity_setting.content"),
                   radius: 10,
+                  maxLines: 5,
                   textEditingController: contentTextEditingController,
                   validator: () {},
                   prefixIcon: null,
@@ -156,21 +146,15 @@ class _ContactScreenState extends State<ContactScreen> {
                 }
               },
               minWidth: double.infinity,
-              color: kPrimary,
+              color: DMUtil.getRED(),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              child:  InkWell(
-                splashColor: kPrimary,
-                hoverColor: kPrimary,
-                focusColor: kPrimary,
-                highlightColor: kPrimary,
-                child: CustomText(
-                  text: translate("button.send").toUpperCase(),
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16.w,
-                ),
+              child: CustomText(
+                text: translate("button.send").toUpperCase(),
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+                fontSize: 16.w,
               ),
             ),
             const SizedBox(
