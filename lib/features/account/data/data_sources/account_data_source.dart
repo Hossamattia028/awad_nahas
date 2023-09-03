@@ -81,7 +81,7 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   @override
   Future<AuthResponse> changePassword({required Map<String,dynamic> data}) async{
     var body = {
-      'user_login': Util.getUserLogin(),
+      'user_login': data['user_login'],
       'password':data['password'],
     };
     var response = await client.post(Uri.parse(ApiUrl.UPDATE_USER_PASSWORD_PROFILE),body: body);

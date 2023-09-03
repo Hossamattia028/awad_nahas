@@ -60,7 +60,7 @@ class WishListNavIconWidget extends StatelessWidget {
           alignment: Alignment.topRight,
           children: [
             Icon(selected?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: selected? DMUtil.getPC() : DMUtil.getDLight(),size: 23.w,),
-            if(length!=0)CircleAvatar(
+            if(length!=0&&Util.checkUser())CircleAvatar(
               radius: 7.w,
               backgroundColor: selected? DMUtil.getBCC() : DMUtil.getPC(),
               child: Padding(

@@ -21,7 +21,7 @@ class SignOut extends StatelessWidget {
   Widget build(BuildContext context) {
     return  BlocListener<AuthBloc,AuthState>(
         listener: (ctx,state){
-          if(state is LogOutState)Util.pushPageAndRemoveRoutes(const RootScreen(), ctx);
+          if(state is LogOutState) Util.pushPageAndRemoveRoutes(const RootScreen(), ctx);
         },
         listenWhen: (ctx,state){
           return state is LogOutState;

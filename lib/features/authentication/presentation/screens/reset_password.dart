@@ -57,7 +57,7 @@ class ResetPassword extends StatelessWidget {
             if(state is ChangeUserPasswordState){
               if(state.response.isSuccess==true){
                 // passTextEditingController.text = "";
-                if(goToLogin)Util.pushPage(const LoginScreen(), context);
+                if(goToLogin)Util.pushPageAndRemoveRoutes(const LoginScreen(), context);
                 SnackBarBuilder.showFeedBackMessage(context, state.response.msg.toString(), Colors.green);
               }else if(state.response.isFailed==true){
                 SnackBarBuilder.showFeedBackMessage(context, state.response.msg.toString(), Colors.red);

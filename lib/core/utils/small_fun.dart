@@ -57,8 +57,7 @@ class Util{
     String pattern = r'^(^\+9665[5|0|3|6|4|9|1|8|7]{1}[0-9]{7})$';
     String patternEg = r'^(^\+2[0]1[0-2|5]{1}[0-9]{8})$';
     RegExp regExp = RegExp(pattern);
-    if (!(regExp.hasMatch(value) ||
-        (RegExp(patternEg).hasMatch(value)))) {
+    if (!(regExp.hasMatch(value) || (RegExp(patternEg).hasMatch(value)))) {
       return translate("login.phone_is_wrong");
     }
     return null;

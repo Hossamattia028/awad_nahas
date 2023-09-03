@@ -57,14 +57,14 @@ class AccountAuthCard extends StatelessWidget {
                   //   ),
                   // ),
 
-                  if(user!=null)
+                  if(user!=null && Util.checkUser())
                     CustomText(
                       text: user.userName.toString(),
                       color: DMUtil.getD2C(),
                       fontSize: AppStyle.average.sp+2,
                     ),
 
-                  if(user == null)
+                  if(user == null || Util.checkUser()==false)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
