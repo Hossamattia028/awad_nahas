@@ -146,24 +146,12 @@ class Util{
     return token??"";
   }
   static sendWhatsApp(String phone,)async{
-    openUrl("https://wa.me/$phone");
-    if(Platform.isAndroid){
-      // await FlutterOpenWhatsapp.sendSingleMessage(phone, " ").then((value) {
-      //   }).onError((error, stackTrace) {
-      //   Util.snackBar(msg: error.toString(), color: redColor);
-      // });
-    }else{
-      // await shareWhatsapp.shareText("",phone: phone).onError((error, stackTrace) {
-      //   Util.snackBar(msg: error.toString(), color: redColor);
-      //   return false;
-      // });
+    var whatsappUrl = "whatsapp://send?phone=$phone&text=${Uri.encodeComponent("")}";
+    try {
+      await launchUrl(Uri.parse(whatsappUrl));
+    } catch (e) {
+      debugPrint("sendWhatsApp: $e");
     }
-    // launchH('https://wa.me/$phone');
-    // launchH('https://api.whatsapp.com/send/?phone=$phone');
-    // await Open.whatsApp(whatsAppNumber: phone, text: " ").onError((error, stackTrace) {
-    //   print(error.toString());
-    //   return false;
-    // });
   }
 
   static bool checkUser(){
