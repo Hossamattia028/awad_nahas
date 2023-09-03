@@ -49,7 +49,7 @@ class LocationCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                width: 270.w,
+                width: 290.w,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,14 +57,15 @@ class LocationCardWidget extends StatelessWidget {
                     CustomText(
                       text:isAdd ? txt : locationEntity.address1,
                       color: DMUtil.getDC(),
-                      fontSize: AppStyle.average.sp,
+                      fontWeight: FontWeight.w600,
+                      fontSize: AppStyle.average.sp-2,
                       maxLine: 3,
                     ),
                     InkWell(
                       onTap: () => Util.pushPage(AddNewLocationScreen(locationEntity: isAdd ? null : locationEntity,type: locationEntity.type,), context),
                       child: CustomText(
                         text: isAdd? translate("map.set_location") :translate("button.edit"),
-                        color: DMUtil.getDC(),
+                        color: DMUtil.getRED(),
                         fontSize: AppStyle.average.sp,
                       ),
                     ),

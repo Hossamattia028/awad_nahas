@@ -53,99 +53,99 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
             ),
             const FromToRow(),
             const SizedBox(height: 5,),
-           BlocBuilder<ProductsBloc,ProductsState>(
-             builder: (ctx,state){
-               var bloc = ProductsBloc.get(ctx);
-               var fModel = bloc.filterModel;
-               return Column(
-                 children: [
-                   InkWell(
-                     onTap:()=> bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: fModel?.filterPrice,
-                       isDiscount: fModel?.isDiscount ==null ?true:(fModel?.isDiscount==true?false:true),
-                       isAvailable: fModel?.isAvailable,
-                       weight: fModel?.weight,
-                       brandID: fModel?.brandID
-                     ))),
-                     child: CheckBoxWidget(
-                       title: translate("store.on_sale"),
-                       isEnabled: fModel?.isDiscount == true,
-                     ),
-                   ),
-                   InkWell(
-                     onTap:()=> bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: fModel?.filterPrice,
-                         isDiscount: fModel?.isDiscount ,
-                         isAvailable: fModel?.isAvailable ==null ?true:(fModel?.isAvailable==true?false:true),
-                         weight: fModel?.weight,
-                         brandID: fModel?.brandID
-                     ))),
-                     child: CheckBoxWidget(
-                       title: translate("store.in_of_stock"),
-                       isEnabled: fModel?.isAvailable == true,
-                     ),
-                   ),
-
-
-                   CheckBoxWidget(title: translate("store.weight"),isEnabled: bloc.showWeightFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableWeightFilterEvent()),),
-                   if(bloc.showWeightFilter)... const[
-                     SizedBox(height: 5,),
-                     WeightFilterList(),
-                     SizedBox(height: 5,),
-                   ],
-
-                   // CheckBoxWidget(title: translate("store.size"),plus: true,),
-                   // CheckBoxWidget(title: translate("store.color"),plus: true,),
-
-                   CheckBoxWidget(title: translate("store.brand"),isEnabled: bloc.showBrandFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableBrandFilterEvent()),),
-
-                   if(bloc.showBrandFilter)...[
-                     const SizedBox(height: 5,),
-                     BrandFilterList(bloc: bloc),
-                     const SizedBox(height: 5,),
-                   ],
-
-                   const SizedBox(height: 10,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                     children: [
-                       BlocBuilder<RootBloc,RootState>(
-                         builder: (ctx,state){
-                           var rootBloc = RootBloc.get(ctx);
-                           return CustomButton(
-                             height: 40.h,
-                             width: 200.w,
-                             circular: 20,
-                             widget:  CustomText(
-                               text: "${translate("button.view")} ${bloc.productsList.length} ${translate("products.product")}",
-                               color: Colors.white,
-                               fontSize: AppStyle.average.sp,
-                             ),
-                             color: DMUtil.getRED(),
-                             onPressed: (){
-                               Timer(const Duration(milliseconds: 200), () {
-                                 rootBloc.add(EnableSearchEvent(productList: bloc.productsList,enable: true));
-                               });
-                               Navigator.of(context).pop();
-                             },
-                           );
-                         },
+            BlocBuilder<ProductsBloc,ProductsState>(
+              builder: (ctx,state){
+                var bloc = ProductsBloc.get(ctx);
+                var fModel = bloc.filterModel;
+                return Column(
+                  children: [
+                    InkWell(
+                      onTap:()=> bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: fModel?.filterPrice,
+                        isDiscount: fModel?.isDiscount ==null ?true:(fModel?.isDiscount==true?false:true),
+                        isAvailable: fModel?.isAvailable,
+                        weight: fModel?.weight,
+                        brandID: fModel?.brandID
+                      ))),
+                      child: CheckBoxWidget(
+                        title: translate("store.on_sale"),
+                        isEnabled: fModel?.isDiscount == true,
+                      ),
+                    ),
+                    InkWell(
+                      onTap:()=> bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: fModel?.filterPrice,
+                           isDiscount: fModel?.isDiscount ,
+                           isAvailable: fModel?.isAvailable ==null ?true:(fModel?.isAvailable==true?false:true),
+                           weight: fModel?.weight,
+                           brandID: fModel?.brandID
+                      ))),
+                      child: CheckBoxWidget(
+                         title: translate("store.in_of_stock"),
+                         isEnabled: fModel?.isAvailable == true,
                        ),
-                       CustomButton(
-                         height: 40.h,
-                         width: 70.w,
-                         circular: 20,
-                         sideWidth: 1,
-                         sideColor: DMUtil.getRED(),
-                         widget:  CustomText(
-                           text: translate("button.clear"),
-                           color: DMUtil.getDC(),
-                           fontSize: AppStyle.average.sp,
+                    ),
+
+
+                    CheckBoxWidget(title: translate("store.weight"),isEnabled: bloc.showWeightFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableWeightFilterEvent()),),
+                     if(bloc.showWeightFilter)... const[
+                       SizedBox(height: 5,),
+                       WeightFilterList(),
+                       SizedBox(height: 5,),
+                     ],
+
+                     // CheckBoxWidget(title: translate("store.size"),plus: true,),
+                     // CheckBoxWidget(title: translate("store.color"),plus: true,),
+
+                    CheckBoxWidget(title: translate("store.brand"),isEnabled: bloc.showBrandFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableBrandFilterEvent()),),
+
+                     if(bloc.showBrandFilter)...[
+                       const SizedBox(height: 5,),
+                       BrandFilterList(bloc: bloc),
+                       const SizedBox(height: 5,),
+                     ],
+
+                     const SizedBox(height: 10,),
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                       children: [
+                         BlocBuilder<RootBloc,RootState>(
+                           builder: (ctx,state){
+                             var rootBloc = RootBloc.get(ctx);
+                             return CustomButton(
+                               height: 40.h,
+                               width: 200.w,
+                               circular: 20,
+                               widget:  CustomText(
+                                 text: "${translate("button.view")} ${bloc.productsList.length} ${translate("products.product")}",
+                                 color: Colors.white,
+                                 fontSize: AppStyle.average.sp,
+                               ),
+                               color: DMUtil.getRED(),
+                               onPressed: (){
+                                 Timer(const Duration(milliseconds: 200), () {
+                                   rootBloc.add(EnableSearchEvent(productList: bloc.productsList,enable: true));
+                                 });
+                                 Navigator.of(context).pop();
+                               },
+                             );
+                           },
                          ),
-                         color: DMUtil.getWC(),
-                         onPressed: (){
-                           bloc.add(const FilterProductEvent(filterModel: null));
-                           RootBloc.get(context).add(const EnableSearchEvent(enable: false));
-                         },
-                       ),
+                         CustomButton(
+                           height: 40.h,
+                           width: 70.w,
+                           circular: 20,
+                           sideWidth: 1,
+                           sideColor: DMUtil.getRED(),
+                           widget:  CustomText(
+                             text: translate("button.clear"),
+                             color: DMUtil.getDC(),
+                             fontSize: AppStyle.average.sp,
+                           ),
+                           color: DMUtil.getWC(),
+                           onPressed: (){
+                             bloc.add(const FilterProductEvent(filterModel: null));
+                             RootBloc.get(context).add(const EnableSearchEvent(enable: false));
+                           },
+                         ),
                      ],
                    ),
                  ],

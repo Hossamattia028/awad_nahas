@@ -43,7 +43,7 @@ class SortBottomSheetWidget extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 5,),
+            const SizedBox(height: 10,),
 
             BlocBuilder<ProductsBloc,ProductsState>(
               builder: (ctx,state){
@@ -84,7 +84,7 @@ class CheckBoxWidget extends StatelessWidget {
     return InkWell(
       onTap: ()=> ProductsBloc.get(context).add(ChangeSortEvent(sortEnum: sortType)),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
         margin: EdgeInsets.symmetric(vertical: 4.h),
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(10)),

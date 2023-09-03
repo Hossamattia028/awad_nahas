@@ -30,7 +30,7 @@ class OurPrivacySection extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 30,),
+        SizedBox(height: 50.h,),
 
 
         ItemLineDrawer(

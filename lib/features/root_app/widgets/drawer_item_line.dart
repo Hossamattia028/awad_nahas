@@ -27,7 +27,7 @@ class ItemLineDrawer extends StatelessWidget {
                   text: title,
                   color:DMUtil.getDC(),
                   fontWeight: FontWeight.w600,
-                  fontSize: AppStyle.small.sp+2,
+                  fontSize: AppStyle.average.sp+1,
                 ),
               ),
               icon ?? Icon(Icons.arrow_forward_ios,color: DMUtil.getD2C().withOpacity(0.7),size: 15.w,),
@@ -36,7 +36,7 @@ class ItemLineDrawer extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: const Divider(height: 50,),
+            child: const Divider(height: 60,),
           ),
 
 
