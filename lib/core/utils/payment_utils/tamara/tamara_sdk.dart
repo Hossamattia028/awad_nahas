@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http ;
 
@@ -28,68 +29,16 @@ class TamaraSdk{
         "payment_type": "PAY_BY_INSTALMENTS",
         "instalments": null,
         "locale": "en_US",
-        "items": [
-          {
-            "reference_id": "123456",
-            "type": "Digital",
-            "name": "Lego City 8601",
-            "sku": "SA-12436",
-            "image_url": "https://www.example.com/product.jpg",
-            "item_url": "https://www.example.com/product.html",
-            "quantity": 1,
-            "unit_price": {
-              "amount": "100.00",
-              "currency": "SAR"
-            },
-            "discount_amount": {
-              "amount": "100.00",
-              "currency": "SAR"
-            },
-            "tax_amount": {
-              "amount": "100.00",
-              "currency": "SAR"
-            },
-            "total_amount": {
-              "amount": "100.00",
-              "currency": "SAR"
-            }
-          }
-        ],
+        "items": data['items'],
         "consumer": {
-          "first_name": "Mona",
-          "last_name": "Lisa",
-          "phone_number": "502223333",
-          "email": "user@example.com"
+          "first_name": Util.getName()==""?"guest":Util.getName(),
+          "last_name": Util.getName()==""?"guest":Util.getName(),
+          "phone_number": Util.getMobile()==""?"502223333":Util.getMobile(),
+          "email": Util.getEmail()==""?"guest@gmail.com":Util.getEmail(),
         },
-        "billing_address": {
-          "first_name": "Mona",
-          "last_name": "Lisa",
-          "line1": "3764 Al Urubah Rd",
-          "line2": "string",
-          "region": "As Sulimaniyah",
-          "postal_code": "12345",
-          "city": "Riyadh",
-          "country_code": "SA",
-          "phone_number": "502223333"
-        },
-        "shipping_address": {
-          "first_name": "Mona",
-          "last_name": "Lisa",
-          "line1": "3764 Al Urubah Rd",
-          "line2": "string",
-          "region": "As Sulimaniyah",
-          "postal_code": "12345",
-          "city": "Riyadh",
-          "country_code": "SA",
-          "phone_number": "502223333"
-        },
-        "discount": {
-          "name": "Christmas 2020",
-          "amount": {
-            "amount": "100.00",
-            "currency": "SAR"
-          }
-        },
+        "billing_address": data['billing_address'],
+        "shipping_address": data['shipping_address'],
+        if(data['discount']!=null)"discount": data['discount'],
         "tax_amount": {
           "amount": "100.00",
           "currency": "SAR"
@@ -145,6 +94,7 @@ class TamaraSdk{
           ]
         }
       };
+      print(orderData);
       var response = await http.post(Uri.parse("$baseUrl/checkout"),
         body: jsonEncode(orderData),
         headers: headers,

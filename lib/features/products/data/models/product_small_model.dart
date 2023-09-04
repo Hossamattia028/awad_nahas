@@ -6,7 +6,10 @@ import 'package:awad_nahas/features/products/domain/entities/products_entity.dar
 
 
 class ProductModel extends ProductsEntity{
-  const ProductModel({required super.id,required  super.title,required super.price,required super.imgPath,
+  const ProductModel({
+    required super.id,
+    required super.sku,
+    required  super.title,required super.price,required super.imgPath,
     required super.catTitle, required super.desc, required super.discount,required super.discountRate,
     required super.stockStatus,required super.quantity,
     required super.categoryList,
@@ -28,6 +31,7 @@ class ProductModel extends ProductsEntity{
   static ProductModel fromJson(Map<String, dynamic> jsonObject) {
     return ProductModel(
       id: jsonObject['id'],
+      sku: jsonObject['sku'] ?? "",
       title: jsonObject['title'],
       catTitle: jsonObject['post_title']??"",
       discount: double.parse((jsonObject['price'] ?? "0").toString()),
@@ -45,7 +49,7 @@ class ProductModel extends ProductsEntity{
       reviewsList: ProductComments.listModelFromJson(jsonEncode(jsonObject['reviews'])),
       date: jsonObject['date'] ?? "",
       averageRate: jsonObject['average_rating'] ?? "0",
-      attributes: ProductAttributes.fromJson(jsonObject)
+      attributes: ProductAttributes.fromJson(jsonObject),
     );
   }
 

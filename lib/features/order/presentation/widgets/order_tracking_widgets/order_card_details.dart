@@ -57,7 +57,7 @@ class OrderCardDetails extends StatelessWidget {
                 itemBuilder: (ctx,index){
                   var it = item.items![index];
                   var qty = it.qty;
-                  var product = ProductsEntity(title: it.title, catTitle: "", desc: "", id: it.id, imgPath: "", price: it.price, discount: 0, discountRate: 0, stockStatus: true, quantity: int.parse(it.qty), categoryList: const [], catID: 0, commentCount: 2);
+                  var product = ProductsEntity(title: it.title, sku: "",catTitle: "", desc: "", id: it.id, imgPath: "", price: it.price, discount: 0, discountRate: 0, stockStatus: true, quantity: int.parse(it.qty), categoryList: const [], catID: 0, commentCount: 2);
                   int ind = ProductsBloc.get(context).productsList.indexWhere((element) => element.id==product.id );
                   if(ind!=-1) product = ProductsBloc.get(context).productsList[ind];
                   return ProductCardFewData(item: product,qty: qty.toString(),);

@@ -5,6 +5,7 @@ import 'package:awad_nahas/features/categories/domain/entities/categories_entity
 
 class ProductsEntity extends Equatable{
   final int id;
+  final String sku;
   final String imgPath;
   final String title;
   final String catTitle;
@@ -24,8 +25,13 @@ class ProductsEntity extends Equatable{
   final String? averageRate;
   final ProductAttributes? attributes;
 
-  const ProductsEntity({required this.title,required this.catTitle,
-    required this.desc,required this.id,required this.imgPath,
+  const ProductsEntity({
+    required this.title,
+    required this.catTitle,
+    required this.desc,
+    required this.id,
+    required this.sku,
+    required this.imgPath,
     required this.price,required this.discount,
     required this.discountRate,
     required this.stockStatus,required this.quantity,

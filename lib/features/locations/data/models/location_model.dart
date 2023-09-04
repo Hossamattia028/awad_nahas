@@ -39,6 +39,22 @@ class LocationModel extends LocationEntity{
       return translate("map.home");
     }
   }
+
+  static Map<String, dynamic> toJson(LocationEntity location) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    var country = location.country.toString().trim()==""?"SA":location.country.toString();
+    data['first_name'] = location.firstName.toString();
+    data['last_name'] = location.lastName.toString();
+    data['line1'] = location.address1.toString();
+    data['line2'] = location.address2.toString();
+    data['region'] = "Saudi Arabia";
+    data['postal_code'] = location.postCode.toString();
+    data['city'] = country;
+    data['country_code'] = "SA";
+    data['phone_number'] = location.phone.toString();
+    return data;
+  }
+
 }
 
 class AddressModel extends AddressEntity{

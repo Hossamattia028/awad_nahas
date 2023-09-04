@@ -18,7 +18,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   RemoveCartItemUseCase removeCartItemUseCase;
   ApplyCouponUseCase applyCouponUseCase;
   int currentCategoryIndex = 0;
-  PaymentEnum paymentWithCard = PaymentEnum.CASH;
+  PaymentEnum paymentWithCard = PaymentEnum.PAYFORT;
   bool applePay = false;
   bool deliveryAndInstallment = false;
 
@@ -90,7 +90,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
         cartList.clear();
         for(var i in data.sessionValue){
           cartList.add(ProductsEntity(title: "", catTitle: "",
-              desc: "", id: i.productID,
+              desc: "", id: i.productID,  sku: "",
               imgPath: "", price: i.price, discount: 0,discountRate: 0, stockStatus: true,
               quantity: i.quantity,categoryList: const [],commentCount: 0,catID: 0));
         }
@@ -165,14 +165,16 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       }else{
         var item = cartList[index];
         int newQty = isAdd?item.quantity+1:(item.quantity==1?item.quantity:item.quantity-1);
-        item = ProductsEntity(title: product.title, catTitle: "",
+        item = ProductsEntity(title: product.title,
+            catTitle: "", sku: product.sku,
             desc: "", id: item.id,discountRate: 0,
             imgPath: product.imgPath, price: product.price, discount: 0, stockStatus: true,
             quantity: newQty,categoryList: const [],commentCount: 0,catID: item.catID);
         cartList[index] = item;
       }
     }else{
-      cartList.add(ProductsEntity(title: product.title, catTitle: "",
+      cartList.add(ProductsEntity(title: product.title,
+          catTitle: "", sku: product.sku,
           desc: "", id: product.id,discountRate: 0,
           imgPath: product.imgPath, price: product.price, discount: 0, stockStatus: true,
           quantity: 1,categoryList: const [],commentCount: 0,catID:product.catID));
@@ -223,6 +225,55 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     }catch(e){
       emit(CartErrorState(errors: translate("toast.oops").toString()));
     }
+  }
+
+  Map<String,dynamic>? prepareCouponTamara(){
+    if(couponModel!=null && couponModel!.amount !=null && couponModel!.amount!=0 && couponModel!.code!=""){
+      return {
+        "name": couponModel!.code,
+        "amount": {
+          "amount": couponModel!.amount.toString(),
+          "currency": "SAR"
+        }
+      };
+    }
+    return null;
+  }
+
+
+  prepareProductsAsTamaraOrder(List<ProductsEntity> list){
+    List<Map<String,dynamic>> products = [];
+    for(var i in cartList){
+      int index = list.indexWhere((element) => element.id == i.id);
+      products.add(
+          {
+            "reference_id": i.id.toString(),
+            "type": "Digital",
+            "name": index == -1? "item" : list[index].title,
+            "sku": index == -1? "item" : list[index].sku,
+            "image_url": i.imgPath.toString(),
+            "item_url": i.imgPath.toString(),
+            "quantity": i.quantity,
+            "unit_price": {
+              "amount": i.price.toString(),
+              "currency": "SAR"
+            },
+            "discount_amount": {
+              "amount": i.discount.toString(),
+              "currency": "SAR"
+            },
+            "tax_amount": {
+              "amount": "${i.price-i.discount}",
+              "currency": "SAR"
+            },
+            "total_amount": {
+              "amount": "${i.price}",
+              "currency": "SAR"
+            }
+          }
+      );
+    }
+    return products;
   }
 
 }
