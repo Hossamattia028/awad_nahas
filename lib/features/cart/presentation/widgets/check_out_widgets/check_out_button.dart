@@ -1,9 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/payment_utils/payment_controller.dart';
+import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_sdk.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
@@ -14,6 +16,7 @@ import 'package:awad_nahas/features/order/presentation/screens/order_screen.dart
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
+import 'package:awad_nahas/features/setting/presentation/screens/web_view.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
@@ -77,8 +80,46 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     );
   }
 
-  _checkOut(BuildContext context,var orderBloc) async {
-    if(cartBloc.paymentWithCard){
+  _checkOut(BuildContext context,OrderBloc orderBloc){
+    if(cartBloc.paymentWithCard == PaymentEnum.CASH){
+      _cash(orderBloc);
+    }else if(cartBloc.paymentWithCard == PaymentEnum.PAYFORT){
+      _checkOutPayfort(context,orderBloc);
+    }else if(cartBloc.paymentWithCard == PaymentEnum.TAMARA){
+      _checkOutTamra(context,orderBloc);
+    }
+  }
+
+  _cash(var orderBloc)async{
+    orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
+  }
+
+  _checkOutTamra(BuildContext context,OrderBloc orderBloc) async {
+    final res = await TamaraSdk.checkOut(data: {
+      "total_price":cartBloc.totalPrice
+    });
+    if(res!=null){
+      Util.pushPage(WebViewScreen(title: "", url: res.toString()), context);
+    }
+  }
+
+
+  _checkOutPayfort(BuildContext context,OrderBloc orderBloc) async {
+    if(cartBloc.applePay){
+      await payFortController.paymentWithApplePay(
+        fn: ()=> SnackBarBuilder.showFeedBackMessage(context, "err ", DMUtil.getRED()),
+        amount: cartBloc.totalPrice.toInt(),
+        onSucceeded:(val){
+          debugPrint("success ${val.status}");
+          // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
+          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
+        },
+        onFailed: (val){
+          // debugPrint("failed ${val.toString()}");
+          SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
+        },
+      );
+    }else{
       await payFortController.paymentWithCreditOrDebitCard(
         fn: ()=> SnackBarBuilder.showFeedBackMessage(context, "err ", DMUtil.getRED()),
         amount: cartBloc.totalPrice.toInt(),
@@ -94,20 +135,6 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         onCancelled: (){
           debugPrint("canceled");
           SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
-        },
-      );
-    }else{
-      await payFortController.paymentWithApplePay(
-        fn: ()=> SnackBarBuilder.showFeedBackMessage(context, "err ", DMUtil.getRED()),
-        amount: cartBloc.totalPrice.toInt(),
-        onSucceeded:(val){
-          debugPrint("success ${val.status}");
-          // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
-          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
-        },
-        onFailed: (val){
-          // debugPrint("failed ${val.toString()}");
-          SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
         },
       );
     }

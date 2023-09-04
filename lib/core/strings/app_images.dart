@@ -62,4 +62,7 @@ class AppImages{
   static const String support = "$icons/support.png";
   static const String mail = "$icons/mail.png";
 
+  //payments
+  static const String tamara = "$icons/tamara.png";
+
 }

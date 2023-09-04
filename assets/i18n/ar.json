@@ -487,6 +487,10 @@
       "about_brand": "عن العلامة التجارية",
       "about": "عن"
     },
+    "payment": {
+      "tamra_txt": "أو قسمها إلى 4 دفعات",
+      "interest-free": "بدون فؤائد"
+    },
     "cart": {
       "cart": "السلة",
       "checkOut_title": "إتمام عملية الشراء",

@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 
@@ -60,5 +61,7 @@ class DeliveryWithInstallmentEvent extends CartEvent{
 }
 
 class PaymentWithCardEvent extends CartEvent{
-  const PaymentWithCardEvent();
+  final PaymentEnum paymentEnum;
+  final bool? enableApplePay;
+  const PaymentWithCardEvent({required this.paymentEnum,this.enableApplePay});
 }

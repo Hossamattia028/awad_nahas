@@ -259,6 +259,10 @@
 		"my_fav": "My Wishlist",
 		"no_wait": "what are you waiting for ? Start enjoying shopping nowً"
 	},
+	"payment": {
+		"tamra_txt": "or split it into 4 payments ",
+		"interest-free": "interest-free"
+	},
 	"cart": {
 		"cart": "Cart",
 		"checkOut_title": "Checkout",

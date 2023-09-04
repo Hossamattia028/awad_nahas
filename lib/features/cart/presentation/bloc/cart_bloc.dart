@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/generat_cart_post_func.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,8 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   RemoveCartItemUseCase removeCartItemUseCase;
   ApplyCouponUseCase applyCouponUseCase;
   int currentCategoryIndex = 0;
-  bool paymentWithCard = true;
+  PaymentEnum paymentWithCard = PaymentEnum.CASH;
+  bool applePay = false;
   bool deliveryAndInstallment = false;
 
   CartBloc({
@@ -69,9 +71,10 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     emit(DeliverySuccessfullyState());
   }
 
-  changePaymentMethod(event,emit){
+  changePaymentMethod(PaymentWithCardEvent event,emit){
     emit(PaymentLoadingState());
-    paymentWithCard = !paymentWithCard;
+    paymentWithCard = event.paymentEnum;
+    if(event.enableApplePay!=null)applePay = event.enableApplePay!;
     emit(PaymentSuccessfullyState());
   }
   int cartCount = 1;

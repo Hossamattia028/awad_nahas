@@ -1,4 +1,6 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_widgets.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
@@ -31,19 +33,13 @@ class ProductDetailPage extends StatefulWidget {
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage>  {
-  List selectedOptions = [];
-  double lowPrice = 0;
-  double highPrice = 0;
-  double currentPrice = 0;
-  double salePrice = 0;
-  String currentImg = "";
-  String currentDesc = "";
-  bool isVariationProduct = false;
-
   String catListString = "";
   late ProductsBloc productsBloc;
+  double currentPrice = 0.0;
+
   @override
   void didChangeDependencies() {
+    currentPrice = widget.item.price!=widget.item.discount&&widget.item.discount!=0?widget.item.discount:widget.item.price;
     if(widget.item.categoryList.isNotEmpty){
       for(var i in widget.item.categoryList){
         catListString += i.title;
@@ -119,7 +115,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
               ],
             ),
             const SizedBox(height: 10,),
-
+            if(Util.checkUser() && currentPrice<=2000)...[
+              TamaraSmallProductWidget(price: currentPrice),
+            ],
 
            ProductDetailsDataRow(item: widget.item),
 

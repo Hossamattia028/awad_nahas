@@ -28,7 +28,6 @@ class PaymentSummaryWidget extends StatelessWidget {
           if(list.isEmpty)return const SizedBox.shrink();
           return Column(
             children: [
-              SizedBox(height: 15.h,),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
                 decoration: BoxDecoration(
@@ -43,7 +42,7 @@ class PaymentSummaryWidget extends StatelessWidget {
                       color: DMUtil.getDC(),
                       fontSize: AppStyle.average.sp,
                     ),
-                    const Divider(height: 5,),
+                    const Divider(height: 15,),
                     OrderRow(title: translate("cart.shipping_cost") ,value: "${bloc.shippingCost}${translate("store.sar")}",),
                     const SizedBox(height: 10,),
                     if(bloc.couponValue!=null&&bloc.couponModel!=null)...[

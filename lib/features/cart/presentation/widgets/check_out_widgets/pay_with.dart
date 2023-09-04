@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:awad_nahas/core/strings/app_images.dart';
+import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_widgets.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
@@ -37,35 +39,41 @@ class PayWithWidget extends StatelessWidget {
               fontSize: AppStyle.average.sp,
             ),
             const SizedBox(height: 10,),
-            Image.asset(AppImages.paymentRow,width: 80.w,),
-            const SizedBox(height: 10,),
+
             BlocBuilder<CartBloc,CartState>(
               builder: (ctx,state){
                 var bloc = CartBloc.get(ctx);
-                var enablePayWithCard = bloc.paymentWithCard;
+                var enablePayWithCard = bloc.applePay;
                 return Column(
                   children: [
                     InkWell(
-                      onTap: ()=> bloc.add(const PaymentWithCardEvent()),
+                      onTap: ()=> bloc.add(const PaymentWithCardEvent(enableApplePay: false,paymentEnum: PaymentEnum.PAYFORT)),
                       child: Row(
                         children: [
-                          CircleDotsWidget(isEnabled: enablePayWithCard,),
+                          CircleDotsWidget(isEnabled: !enablePayWithCard && bloc.paymentWithCard == PaymentEnum.PAYFORT,),
                           const SizedBox(width: 10,),
-                          CustomText(
-                            text: translate("cart.debit_credit"),
-                            color: DMUtil.getDC(),
-                            fontSize: AppStyle.average.sp,
+                          Row(
+                            children: [
+                              Image.asset(AppImages.paymentRow,width: 60.w,),
+                              const SizedBox(width: 10,),
+                              CustomText(
+                                text: translate("cart.debit_credit"),
+                                color: DMUtil.getDC(),
+                                fontSize: AppStyle.average.sp,
+                              ),
+                            ],
                           ),
+
                         ],
                       ),
                     ),
                     if(Platform.isIOS)...[
                       const SizedBox(height: 10,),
                       InkWell(
-                        onTap: ()=> bloc.add(const PaymentWithCardEvent()),
+                        onTap: ()=> bloc.add(const PaymentWithCardEvent(enableApplePay: true,paymentEnum: PaymentEnum.PAYFORT)),
                         child: Row(
                           children: [
-                            CircleDotsWidget(isEnabled: !enablePayWithCard,),
+                            CircleDotsWidget(isEnabled: enablePayWithCard,),
                             const SizedBox(width: 10,),
                             Row(
                               children: [
@@ -81,6 +89,21 @@ class PayWithWidget extends StatelessWidget {
                         ),
                       ),
                     ],
+
+                    if(bloc.totalPrice<=2000)...[
+                      const SizedBox(height: 10,),
+                      InkWell(
+                          onTap: ()=> bloc.add(const PaymentWithCardEvent(enableApplePay: false,paymentEnum: PaymentEnum.TAMARA)),
+                          child: Row(
+                            children: [
+                              CircleDotsWidget(isEnabled: !enablePayWithCard && bloc.paymentWithCard == PaymentEnum.TAMARA,),
+                              const SizedBox(width: 10,),
+                              TamaraSmallCheckOutWidget(price: bloc.totalPrice),
+                            ],
+                          )
+                      ),
+                    ],
+
                   ],
                 );
               },
