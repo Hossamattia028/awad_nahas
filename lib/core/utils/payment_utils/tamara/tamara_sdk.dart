@@ -37,7 +37,7 @@ class TamaraSdk{
           "email": Util.getEmail()==""?"guest@gmail.com":Util.getEmail(),
         },
         "billing_address": data['billing_address'],
-        "shipping_address": data['shipping_address'],
+        "shipping_address": data['shipping_address'] ?? data['billing_address'],
         if(data['discount']!=null)"discount": data['discount'],
         "tax_amount": {
           "amount": "100.00",
