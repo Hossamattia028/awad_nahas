@@ -25,6 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:tamara_sdk/tamara_sdk.dart';
 
 class CheckOutButton extends StatefulWidget {
   const CheckOutButton({Key? key}) : super(key: key);
@@ -99,7 +100,21 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       "total_price":cartBloc.totalPrice
     });
     if(res!=null){
-      Util.pushPage(WebViewScreen(title: "", url: res.toString()), context);
+      Util.pushPage(TamaraCheckout(
+        res,
+        "https://demo.awadnahas.com/",
+        "https://demo.awadnahas.com/",
+        "https://demo.awadnahas.com/",
+        onPaymentSuccess: () {
+          print("onPaymentSuccess");
+        },
+        onPaymentFailed: () {
+          print("onPaymentFailed");
+        },
+        onPaymentCanceled: () {
+          print("onPaymentCanceled");
+        },
+      ), context);
     }
   }
 
