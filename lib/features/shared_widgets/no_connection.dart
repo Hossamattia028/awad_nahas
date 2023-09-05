@@ -1,9 +1,10 @@
 
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/splash.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 class NoConnectionScreen extends StatelessWidget {
   const NoConnectionScreen({Key? key}) : super(key: key);
@@ -18,12 +19,12 @@ class NoConnectionScreen extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CustomText(
-                text: "no internet connection",
-                color: Colors.black54,
+              CustomText(
+                text: translate("toast.no_internet_connection"),
+                color: DMUtil.getD2C(),
                 fontSize: 20,
               ),
-              IconButton(onPressed: ()=> Util.pushPageAndRemoveRoutes(const SplashScreen(), context), icon: const Icon(Icons.refresh,color: kPrimary,)),
+              IconButton(onPressed: ()=> Util.pushPageAndRemoveRoutes(const SplashScreen(), context), icon:  Icon(Icons.refresh,color: DMUtil.getRED(),)),
             ],
           )
       ),

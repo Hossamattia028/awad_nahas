@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
@@ -109,14 +107,14 @@ class Util{
     }
   }
 
-  static Future<AccessToken?> _checkIfIsLogged() async {
-    final accessToken = await FacebookAuth.instance.accessToken;
-    if (accessToken != null) {
-      return accessToken;
-    } else {
-      return null;
-    }
-  }
+  // static Future<AccessToken?> _checkIfIsLogged() async {
+  //   final accessToken = await FacebookAuth.instance.accessToken;
+  //   if (accessToken != null) {
+  //     return accessToken;
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   static openUrl(String url)async{
     await canLaunchUrl(Uri.parse(url))==true?

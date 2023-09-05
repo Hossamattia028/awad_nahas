@@ -2,12 +2,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'package:awad_nahas/core/network/network.dart';
+import 'package:awad_nahas/features/shared_widgets/no_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/notifications_utils.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -18,8 +19,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  NetworkInfo? networkInfo;
+  _checkInternet()async{
+    if(!await networkInfo!.isConnected()){
+      Util.pushPageAndRemoveRoutes(const NoConnectionScreen(), context);
+    }
+  }
   @override
   void didChangeDependencies() {
+    _checkInternet();
     Util.getAllUserAppData(context: context,isSplash: true);
     Timer(const Duration(seconds: 4), () async{
       await NotificationsUtils.initialPushNotification();

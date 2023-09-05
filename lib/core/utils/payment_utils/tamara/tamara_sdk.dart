@@ -94,7 +94,6 @@ class TamaraSdk{
           ]
         }
       };
-      print(orderData);
       var response = await http.post(Uri.parse("$baseUrl/checkout"),
         body: jsonEncode(orderData),
         headers: headers,

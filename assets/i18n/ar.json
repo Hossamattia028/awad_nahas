@@ -111,7 +111,8 @@
       "gmail_send": "تم الارسال بنجاح",
       "account_added": "تم اضافة الحساب بنجاح",
       "completed_order": "تم انهاء الطلب بنجاح",
-      "wrong_payment": "عملية خاطئة"
+      "wrong_payment": "عملية خاطئة",
+      "no_internet_connection": "انت غير متصل بالانترنت!"
     },
     "search": {
       "market": "الأسواق",
