@@ -20,23 +20,25 @@ class CategoryProductsListWidget extends StatelessWidget {
         list = bloc.filterByCategoryID(catID,subCatID??-1);
         list = bloc.filterByCurrentLang(list);
         return Expanded(
-          child: GridView.builder(
-            itemCount: list.length,
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(vertical: 5.h,horizontal: AppStyle.paddingFromH.w),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10.h,
-              mainAxisSpacing: 10.h,
-              childAspectRatio: 1.4,
-              mainAxisExtent: 255.h,
+          child: Scrollbar(
+            child: GridView.builder(
+              itemCount: list.length,
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(vertical: 5.h,horizontal: AppStyle.paddingFromH.w),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10.h,
+                mainAxisSpacing: 10.h,
+                childAspectRatio: 1.4,
+                mainAxisExtent: 255.h,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                var item = list[index];
+                return ProductHorizontalCard(item: item, index: index);
+              },
             ),
-            itemBuilder: (BuildContext context, int index) {
-              var item = list[index];
-              return ProductHorizontalCard(item: item, index: index);
-            },
-          ),
+          )
         );
       },
     );

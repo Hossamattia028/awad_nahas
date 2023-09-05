@@ -3,6 +3,7 @@ import 'package:amazon_payfort/amazon_payfort.dart';
 import 'package:awad_nahas/core/utils/payment_utils/fort_constants.dart';
 import 'package:awad_nahas/core/utils/payment_utils/payfort_api.dart';
 import 'package:awad_nahas/core/utils/payment_utils/sdk_token_response.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/services.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:uuid/uuid.dart';
@@ -34,9 +35,9 @@ class PayFortController{
       /// Step 4: Processing Payment [Amount multiply with 100] ex. 10 * 100 = 1000 (10 SAR)
       FortRequest request = FortRequest(
         amount: amount * 100,
-        customerName: 'Test Customer',
-        customerEmail: 'test@customer.com',
-        orderDescription: 'Test Order',
+        customerName: Util.getName() == ""?"customer": Util.getName(),
+        customerEmail: Util.getEmail() == ""?"customer@gmail.com": Util.getEmail(),
+        orderDescription: 'New Order',
         sdkToken: sdkTokenResponse?.sdkToken ?? '',
         merchantReference: const Uuid().v4(),
         currency: 'SAR',
@@ -69,9 +70,9 @@ class PayFortController{
       /// Step 4: Processing Payment [Don't multiply with 100]
       FortRequest request = FortRequest(
         amount: amount * 100,
-        customerName: 'Test Customer',
-        customerEmail: 'test@customer.com',
-        orderDescription: 'Test Order',
+        customerName: Util.getName() == ""?"customer": Util.getName(),
+        customerEmail: Util.getEmail() == ""?"customer@gmail.com": Util.getEmail(),
+        orderDescription: 'New Order',
         sdkToken: sdkTokenResponse?.sdkToken ?? '',
         merchantReference: const Uuid().v4(),
         currency: 'SAR',

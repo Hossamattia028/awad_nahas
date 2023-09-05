@@ -18,6 +18,7 @@ class WebViewScreen extends StatelessWidget {
       ),
       body: WebView(
         initialUrl: url,
+        javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (WebViewController webViewController) {
           // controller.complete(webViewController);
         },

@@ -48,10 +48,10 @@ class ProfileScreen extends StatelessWidget {
 
               if(Util.checkUser())...[
                 if(Platform.isIOS)...[
-                  const SizedBox(height: 10,),
+                  const SizedBox(height: 15,),
                   const DeleteAccountWidget(),
                 ],
-                const SizedBox(height: 20,),
+                const SizedBox(height: 25,),
                 const SignOutWidget(),
               ],
 

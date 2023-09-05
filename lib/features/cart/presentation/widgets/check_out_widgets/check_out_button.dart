@@ -97,9 +97,9 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     }
   }
 
-  _cash(var orderBloc)async{
-    orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
-  }
+  // _cash(var orderBloc)async{
+  //   orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
+  // }
 
   //+966 50 844 3655
   //Checkout1!

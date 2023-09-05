@@ -57,5 +57,12 @@
     <string>This app needs access to location to determine order location.</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>We need access to photo library so you can change image in your account</string>
+    <key>io.flutter.embedded_views_preview</key>
+    <string>YES</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 </dict>
 </plist>

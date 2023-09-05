@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
@@ -115,6 +117,13 @@ class Util{
   //     return null;
   //   }
   // }
+
+
+  static Future<bool> isConnected () async{
+    final result = await InternetAddress.lookup('google.com');
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) return true;
+    return false;
+  }
 
   static openUrl(String url)async{
     await canLaunchUrl(Uri.parse(url))==true?

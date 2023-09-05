@@ -2,7 +2,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-import 'package:awad_nahas/core/network/network.dart';
 import 'package:awad_nahas/features/shared_widgets/no_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/strings/app_images.dart';
@@ -19,9 +18,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  NetworkInfo? networkInfo;
+
   _checkInternet()async{
-    if(!await networkInfo!.isConnected()){
+    if(!await Util.isConnected()){
       Util.pushPageAndRemoveRoutes(const NoConnectionScreen(), context);
     }
   }
