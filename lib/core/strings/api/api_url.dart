@@ -64,6 +64,7 @@ class ApiUrl {
   //setting
   static String OUR_LOCATIONS = '${BASE_URL_ABN_PLUGIN}branches?lang=${Util.getLang()=="ar"?"ar":"en"}';
   static String OUR_FAQS = '${BASE_URL_ABN_PLUGIN}faq?lang=${Util.getLang()=="ar"?"ar":"en"}';
+  static String CONTACT = '${BASE_URL_ABN_PLUGIN}contact_us?lang=${Util.getLang()=="ar"?"ar":"en"}';
   static String MAINTENANCE_IMG = '${BASE_URL_ABN_PLUGIN}maintenance_request/image';
   static String MAINTENANCE = '${BASE_URL_ABN_PLUGIN}maintenance_request?lang=${Util.getLang()=="ar"?"ar":"en"}';
 

@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class OurLocationsScreen extends StatelessWidget {
   const OurLocationsScreen({Key? key}) : super(key: key);
@@ -79,9 +78,7 @@ class OurLocationsScreen extends StatelessWidget {
                               fontSize: AppStyle.small.sp,
                             ),
                             color: DMUtil.getRED(),
-                            onPressed: (){
-                              Util.openMapApp(item.lat.toString(), item.long.toString());
-                            },
+                            onPressed: ()=> Util.openMapApp(item.lat.toString(), item.long.toString()),
                           ),
                         )
                       ],

@@ -138,8 +138,8 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   }
 
   getAllCategories(emit)async{
-    // emit(const FetchCategoriesLoadingState());
-    // try{
+    emit(const FetchCategoriesLoadingState());
+    try{
       var res = await getAllCategoryUseCase();
       res.fold((l) {
         emit(const FetchCategoriesFailedState());
@@ -149,15 +149,15 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
         subCategoriesList = data.where((element) => element.parentID!="0").toList();
       });
       emit(const FetchCategoriesSuccessfullyState());
-    // }catch(e){
-    //   debugPrint("getAllCategoriesBlocError: $e");
-    //   emit(const FetchCategoriesFailedState());
-    // }
+    }catch(e){
+      debugPrint("getAllCategoriesBlocError: $e");
+      emit(const FetchCategoriesFailedState());
+    }
   }
 
   getAllBrands(emit)async{
-    // emit(const FetchCategoriesLoadingState());
-    // try{
+    emit(const FetchCategoriesLoadingState());
+    try{
       var res = await getAllBrandsUseCase();
       res.fold((l) {
         emit(const FetchCategoriesFailedState());
@@ -165,10 +165,15 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
         brandsList = data;
       });
       emit(const FetchCategoriesSuccessfullyState());
-    // }catch(e){
-    //   debugPrint("getAllBrandsBlocError: $e");
-    //   emit(const FetchCategoriesFailedState());
-    // }
+    }catch(e){
+      debugPrint("getAllBrandsBlocError: $e");
+      emit(const FetchCategoriesFailedState());
+    }
+  }
+
+  getCat(List<CategoriesEntity> brandsList,String titleAr,String titleEn){
+    int index =  brandsList.indexWhere((element) => element.title.toString().toLowerCase().startsWith(titleAr) || element.title.toString().toLowerCase().startsWith(titleEn));
+    return brandsList[index];
   }
 
   setProductListToCategory(SetProductsToCategoryEvent event,emit){
@@ -199,15 +204,13 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
     emit(CategoriesIndexChangedSuccessState());
   }
 
-  activateTransList(List<CategoriesEntity> list){
+  List<CategoriesEntity> activateTransList(List<CategoriesEntity> list){
     if(Util.getLang()=="ar"){
       return list.where((element) => element.isArabic==true).toList();
     }else{
       return list.where((element) => element.isArabic==false).toList();
     }
   }
-
-
 
 
 

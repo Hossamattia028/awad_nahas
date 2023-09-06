@@ -11,6 +11,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 class ProductsBrand extends StatelessWidget {
   final CategoriesEntity itemBrand;
@@ -18,72 +19,76 @@ class ProductsBrand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        BlocBuilder<CategoriesBloc,CategoriesState>(
-          builder: (ctx,state){
-            var bloc = CategoriesBloc.get(ctx);
-            var list = bloc.categoriesList;
-            list = bloc.activateTransList(list);
-            var cat = bloc.currentCategory;
-            return SizedBox(
-              height: 47.h,
-              child: ListView.separated(
-                padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: list.length,
-                itemBuilder: (ctx,index){
-                  var item = list[index];
-                  return InkWell(
-                    onTap: ()=> bloc.add(ChangeCategoriesEvent(categoriesModel: item)),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(width: 1,color: cat?.id==item.id?DMUtil.getPC():Colors.transparent))
-                      ),
-                      child: CustomText(text: item.title, fontSize: AppStyle.average.sp,color: cat?.id==item.id?DMUtil.getPC():DMUtil.getDC(),),
-                    ),
-                  );
-                },
-                separatorBuilder: (ctx,index)=> const SizedBox(width: 10,),
-              ),
-            );
-          },
-        ),
-
-        Expanded(
-          child: BlocBuilder<CategoriesBloc,CategoriesState>(
-            builder: (ctx,state){
-              var catBloc = CategoriesBloc.get(ctx);
-              return BlocBuilder<ProductsBloc, ProductsState>(
-                builder: (ctx, state) {
-                  var bloc = ProductsBloc.get(ctx);
-                  var list = bloc.productsList;
-                  if(catBloc.currentCategory!=null)list = bloc.filterByCategoryID(catBloc.currentCategory!.id, -1);
-                  list = bloc.brandProducts(itemBrand.id,list: list);
-                  if (list.isEmpty) return const SizedBox.shrink();
-                  return ListView.separated(
-                    shrinkWrap: true,
+    return BlocBuilder<CategoriesBloc,CategoriesState>(
+      builder: (ctx,state){
+        var catBloc = CategoriesBloc.get(ctx);
+        var list = catBloc.activateTransList(catBloc.categoriesList);
+        var currentCat = catBloc.currentCategory;
+        var bloc = ProductsBloc.get(ctx);
+        var productList = bloc.productsList;
+        if(currentCat!=null)productList = bloc.filterByCategoryID(currentCat.id, -1);
+        productList = bloc.brandProducts(itemBrand.id,list: productList);
+        return BlocBuilder<ProductsBloc, ProductsState>(
+          builder: (ctx, state) {
+            return Column(
+              children: [
+                SizedBox(
+                  height: 47.h,
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
                     itemCount: list.length,
+                    itemBuilder: (ctx,index){
+                      var item = list[index];
+                        return InkWell(
+                          onTap: ()=> catBloc.add(ChangeCategoriesEvent(categoriesModel: item)),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border(bottom: BorderSide(width: 1,color: currentCat?.id==item.id?DMUtil.getPC():Colors.transparent))
+                            ),
+                            child: CustomText(text: item.title, fontSize: AppStyle.average.sp,color: currentCat?.id==item.id?DMUtil.getPC():DMUtil.getDC(),),
+                          ),
+                        );
+                    },
+                    separatorBuilder: (ctx,index)=> const SizedBox(width: 10,),
+                  ),
+                ),
+                productList.isEmpty? Padding(
+                  padding: const EdgeInsets.all(50.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomText(text: translate("products.empty"), fontSize: AppStyle.small.sp),
+                      Icon(Icons.hourglass_empty,color: DMUtil.getRED(),),
+                    ],
+                  ),
+                ):
+                Expanded(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: productList.length,
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 2),
                     itemBuilder: (BuildContext context, int index) {
-                      var item = list[index];
+                      var item = productList[index];
+                      if(productList.isEmpty)return CustomText(text: translate("products.empty"), fontSize: AppStyle.small.sp);
                       return SizedBox(
                         height: 130.h,
                         child: ProductCard(item: item),
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10,),
-                  );
-                },
-              );
-            },
-          )
-        ),
+                  ),
+                ),
 
-      ],
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

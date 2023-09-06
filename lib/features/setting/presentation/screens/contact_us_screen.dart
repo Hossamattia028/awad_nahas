@@ -121,7 +121,7 @@ class _ContactScreenState extends State<ContactScreen> {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 1,color: DMUtil.getBCC()),
+                border: Border.all(width: 1,color: DMUtil.getOpacity()),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child:  DropdownButton(
@@ -186,14 +186,17 @@ class _ContactScreenState extends State<ContactScreen> {
                     contentTextEditingController.text.trim().isNotEmpty&&
                     phoneTextEditingController.text.trim().isNotEmpty
                 ){
-                  String userName = "${firstNameTextEditingController.text.trim()} ${lastNameTextEditingController.text.trim()}";
                   if(!emailTextEditingController.text.trim().contains("@")){
                     SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), DMUtil.getRED());
                     return;
                   }
-                  String msg = "${subjectTextEditingController.text.trim()}\nFrom: $userName - "
-                      "Phone: ${phoneTextEditingController.text.trim()} \n\n${contentTextEditingController.text.trim()}";
-                  final res = await SendGmail.sendContactUs(msg, userName,emailTextEditingController.text.trim(), subject);
+                  final res = await SendGmail.sendContactUs(
+                      subjectTextEditingController.text.trim(),
+                      contentTextEditingController.text.trim(),
+                      firstNameTextEditingController.text.trim(),
+                      lastNameTextEditingController.text.trim(),
+                      phoneTextEditingController.text.trim(),
+                      emailTextEditingController.text.trim(), subject);
                   setState(() {
                     loading = false;
                   });

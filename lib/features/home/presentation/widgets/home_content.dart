@@ -43,8 +43,8 @@ class HomeContentWidget extends StatelessWidget {
             var bloc = CategoriesBloc.get(ctx);
             var list = bloc.activateTransList(bloc.categoriesList);
             if(list.isEmpty)return const SizedBox();
-            if(list[2].productsCount==0)return const SizedBox(height: 5,);
-            return CatProductsList(cat: list[2],);
+            if(list[1].productsCount==0)return const SizedBox(height: 5,);
+            return CatProductsList(cat: list[1],);
           },
         ),
 
@@ -55,10 +55,11 @@ class HomeContentWidget extends StatelessWidget {
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
-            var list = bloc.activateTransList(bloc.categoriesList);
+            var listA = bloc.categoriesList.where((element) => element.enableHomeScreen==true).toList();
+            var list = bloc.activateTransList(listA);
             if(list.isEmpty)return const SizedBox();
-            if(list[3].productsCount==0)return const SizedBox(height: 5,);
-            return CatProductsList(cat: list[3],);
+            if(list.length <= 2 || list[2].productsCount==0)return const SizedBox(height: 5,);
+            return CatProductsList(cat: list[2],);
           },
         ),
 
@@ -66,10 +67,11 @@ class HomeContentWidget extends StatelessWidget {
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
-            var list = bloc.activateTransList(bloc.categoriesList);
+            var listA = bloc.categoriesList.where((element) => element.enableHomeScreen==true).toList();
+            var list = bloc.activateTransList(listA);
             if(list.isEmpty)return const SizedBox();
-            if(list[4]==null || list[4].productsCount==0)return const SizedBox(height: 5,);
-            return CatProductsList(cat: list[4],);
+            if(list.length <= 3 || list[3].productsCount==0)return const SizedBox(height: 5,);
+            return CatProductsList(cat: list[3],);
           },
         ),
         const SingleBannerWidget(position: "forth",),
@@ -77,10 +79,36 @@ class HomeContentWidget extends StatelessWidget {
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
-            var list = bloc.activateTransList(bloc.categoriesList);
+            var listA = bloc.categoriesList.where((element) => element.enableHomeScreen==true).toList();
+            var list = bloc.activateTransList(listA);
             if(list.isEmpty)return const SizedBox();
-            if(list[5]==null || list[5].productsCount==0)return const SizedBox(height: 5,);
+            if(list.length <= 4 || list[4].productsCount==0)return const SizedBox(height: 5,);
+            return CatProductsList(cat: list[4],);
+          },
+        ),
+
+        const SizedBox(height: 10,),
+        BlocBuilder<CategoriesBloc,CategoriesState>(
+          builder: (ctx,state){
+            var bloc = CategoriesBloc.get(ctx);
+            var listA = bloc.categoriesList.where((element) => element.enableHomeScreen==true).toList();
+            var list = bloc.activateTransList(listA);
+            if(list.isEmpty)return const SizedBox();
+            if(list.length <= 5 || list[5].productsCount==0)return const SizedBox(height: 5,);
             return CatProductsList(cat: list[5],);
+          },
+        ),
+
+
+        const SizedBox(height: 10,),
+        BlocBuilder<CategoriesBloc,CategoriesState>(
+          builder: (ctx,state){
+            var bloc = CategoriesBloc.get(ctx);
+            var listA = bloc.categoriesList.where((element) => element.enableHomeScreen==true).toList();
+            var list = bloc.activateTransList(listA);
+            if(list.isEmpty)return const SizedBox();
+            if(list.length <= 6 || list[6].productsCount==0)return const SizedBox(height: 5,);
+            return CatProductsList(cat: list[6],);
           },
         ),
 

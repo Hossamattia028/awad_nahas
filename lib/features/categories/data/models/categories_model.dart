@@ -19,6 +19,7 @@ class CategoriesModel  extends CategoriesEntity{
         required super.isArabic,
         required super.parentID,
         required super.productsCount,
+        required super.enableHomeScreen,
       });
 
   static CategoriesModel fromJson(Map<String, dynamic> json) {
@@ -31,6 +32,7 @@ class CategoriesModel  extends CategoriesEntity{
       darkIcon: json['dark_icon'],
       lightIcon: json['light_icon'],
       isArabic: json['is_arabic'],
+      enableHomeScreen: json['show_on_mobile'] ?? false,
       parentID: (json['parent']??0).toString(),
       productsCount: int.parse((json['products_count']!=null&&json['products_count']!=""?json['products_count']:0).toString()),
     );
@@ -47,6 +49,7 @@ class CategoriesModel  extends CategoriesEntity{
       darkIcon: json['dark_icon'],
       lightIcon: json['light_icon'],
       isArabic: json['is_arabic']??false,
+      enableHomeScreen: json['show_on_mobile'] ?? false,
       parentID: (json['parent']??0).toString(),
       productsCount: int.parse((json['products_count']!=null&&json['products_count']!=""?json['products_count']:0).toString()),
     );

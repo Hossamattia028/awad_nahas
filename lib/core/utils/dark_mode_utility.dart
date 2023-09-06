@@ -69,5 +69,9 @@ class DMUtil{
     return currentThemeIsDark()?kWhite:kDark;
   }
 
+  static Color getOpacity(){
+    return currentThemeIsDark()?kWhite:kBackOpacity;
+  }
+
 
 }

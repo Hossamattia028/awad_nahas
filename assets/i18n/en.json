@@ -158,7 +158,7 @@
 		"enter": "Enter ",
 		"confirm_email": "Confirm Your Email",
 		"very": "Very Code",
-		"have_sent_code": "We have sent you a verification code via phone.",
+		"have_sent_code": "We have sent you a verification code via ",
 		"write_code": "Enter the verification code",
 		"confirm_password_error": "Please confirm the password with right way",
 		"next": "Next",

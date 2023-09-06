@@ -17,6 +17,12 @@ class BrandListHome extends StatelessWidget {
       builder: (ctx,state){
         var bloc = CategoriesBloc.get(ctx);
         var list = bloc.activateTransList(bloc.brandsList);
+        var newSortList = [];
+        newSortList.add(bloc.getCat(list,"mi","م"));
+        newSortList.add(bloc.getCat(list,"sm","س"));
+        newSortList.add(bloc.getCat(list,"li","ل"));
+        newSortList.add(bloc.getCat(list,"ae","أ"));
+        newSortList.add(bloc.getCat(list,"ba","باو"));
         return SizedBox(
           height: 50.h,
           child: ListView.separated(
@@ -24,14 +30,14 @@ class BrandListHome extends StatelessWidget {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (ctx,index){
-                var item = list[index];
+                var item = newSortList[index];
                 return InkWell(
                   onTap: (){
                     bloc.add(ChangeCurrentBrand(brandModel: item));
                     Util.pushPage(const BrandDetailsScreen(), context);
                   },
                   child: Card(
-                    child: SvgPicture.network(item.iconPath,width: 30.w,height: 40.h,),
+                    child: SvgPicture.network(item.iconPath,width: 30.w,height: 30.h,),
                   ),
                 );
               },

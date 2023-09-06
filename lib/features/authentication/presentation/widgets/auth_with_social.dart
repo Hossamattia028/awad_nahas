@@ -48,7 +48,7 @@ class AuthWithSocial extends StatelessWidget {
 
         },
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 7.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
           margin: const EdgeInsets.symmetric(vertical: 7),
           decoration: BoxDecoration(
               color: DMUtil.getWC(),

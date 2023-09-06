@@ -92,7 +92,7 @@ class CustomTextFromField extends StatelessWidget {
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide:  hasBorder==true?  strokeBorder==true?  BorderSide(color: DMUtil.getD2C(), width: borderWidth ?? 1.0):  BorderSide(color: DMUtil.getBCC(), width: borderWidth ?? 1.0): const BorderSide(color: Colors.white),
+            borderSide:  hasBorder==true?  strokeBorder==true?  BorderSide(color: DMUtil.getD2C(), width: borderWidth ?? 1.0):  BorderSide(color: DMUtil.getOpacity(), width: borderWidth ?? 1.0): const BorderSide(color: Colors.white),
             borderRadius: BorderRadius.all(
               Radius.circular(radius),
             ),

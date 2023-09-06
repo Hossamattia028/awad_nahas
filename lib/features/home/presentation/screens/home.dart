@@ -53,8 +53,6 @@ class HomeScreen extends StatelessWidget {
 
   Future onRefresh(BuildContext context)async{
     ProductsBloc.get(context).add(const FetchAllProductsEvent());
-    // ProductsBloc.get(context).add(const FetchAllLatestProductsEvent());
-    // ProductsBloc.get(context).add(const FetchAllBestSellerProductsEvent());
     // CategoriesBloc.get(context).add(const FetchMainSlidersEvent());
     CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
     CategoriesBloc.get(context).add(const FetchAllBrandsEvent());

@@ -11,6 +11,7 @@ class CategoriesEntity extends Equatable{
   final bool isArabic;
   final String parentID;
   final int productsCount;
+  final bool? enableHomeScreen;
 
 
 
@@ -20,6 +21,7 @@ class CategoriesEntity extends Equatable{
     required this.iconPath,
     this.darkIcon,
     this.lightIcon,
+    this.enableHomeScreen,
     required this.isArabic,required this.parentID,required this.productsCount});
 
   @override

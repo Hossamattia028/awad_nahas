@@ -34,6 +34,7 @@ class CatProductsList extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 10,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -48,20 +49,20 @@ class CatProductsList extends StatelessWidget {
                 },),
               ],
             ),
-            const SizedBox(height: 5,),
+            const SizedBox(height: 12,),
             SizedBox(
-              height: 290.h,
+              height: Util.getLang()=="ar"? 284.h : 294.h ,
               child: ListView.separated(
                 itemCount: list.length,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 1),
+                padding: EdgeInsets.symmetric(vertical: 2.h,horizontal: 1),
                 itemBuilder: (BuildContext context, int index) {
                   var item = list[index];
                   return InkWell(
                     onTap: () => Util.pushPage(ProductDetailPage(item: item,), context),
                     child: Container(
-                      padding: const EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
                         color: DMUtil.getWC(),
                         borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -91,16 +92,16 @@ class CatProductsList extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 3,),
+                          const SizedBox(height: 1,),
                           ImageWidget(
                             imgUrl: item.imgPath,
                             fit: BoxFit.fill,
-                            height: 130,
+                            height: 126,
                             width: 120,
                           ),
                           Expanded(
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 4),
+                              padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 2),
                               decoration:  BoxDecoration(
                                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                                 color: DMUtil.getWC(),
@@ -110,7 +111,7 @@ class CatProductsList extends StatelessWidget {
                                 children: [
                                   SizedBox(
                                     width: 130.w,
-                                    height: 46.h,
+                                    height: 42.h,
                                     child: CustomText(
                                       text: item.title.toString(),
                                       color: DMUtil.getDC(),
@@ -139,7 +140,7 @@ class CatProductsList extends StatelessWidget {
                     ),
                   );
                 },
-                separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 15,),
+                separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 10,),
               ),
             ),
             const SizedBox(height: 5,),

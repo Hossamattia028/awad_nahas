@@ -90,7 +90,7 @@ class LoginScreen extends StatelessWidget {
                       textInputType: TextInputType.phone,
                       prefixIcon: null,
                       cursorColor: kPrimary,
-                      suffixIcon:  null,
+                      suffixIcon:  Icon(Icons.phone,color: DMUtil.getD2C(),),
                       obscureText: false,
                       isLabelError: false,
                       hasBorder: true,
@@ -107,7 +107,7 @@ class LoginScreen extends StatelessWidget {
                       textInputType: TextInputType.emailAddress,
                       prefixIcon: null,
                       cursorColor: kPrimary,
-                      suffixIcon:  null,
+                      suffixIcon:  Icon(Icons.email_outlined,color: DMUtil.getD2C(),),
                       obscureText: false,
                       isLabelError: false,
                       hasBorder: true,
@@ -145,7 +145,7 @@ class LoginScreen extends StatelessWidget {
                             showPassword==true
                                 ? CupertinoIcons.eye
                                 : CupertinoIcons.eye_slash,
-                            color: DMUtil.getDC(),
+                            color: DMUtil.getD2C(),
                           ),
                         ),
                         isLabelError: false);

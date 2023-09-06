@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/sms_api.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_event.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/reset_password.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
@@ -46,6 +47,8 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
 
+  bool sendVerify = true;
+
   @override
   void initState() {
     authBloc = AuthBloc.get(context);
@@ -78,7 +81,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
               Expanded(
                 flex: 2,
                 child: CustomText(
-                  text: 'OTP',
+                  text: translate("signup.verify"),
                   fontSize: AppStyle.large.sp,
                   fontFamily: primaryFontSemiBold,
                   color: DMUtil.getD2C(),
@@ -111,6 +114,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 color: DMUtil.getD2C(),
                 alignCenter: true,
                 fontFamily: primaryFontSemiBold,
+                maxLine: 3,
               ),
               const SizedBox(height: 30,),
               Form(
@@ -238,22 +242,36 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 ),
               ),
               const SizedBox(height: 16,),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                    text: translate("signup.not_get_code"),
-                    style: TextStyle(
-                        fontFamily: primaryFontSemiBold,
-                        color: DMUtil.getD2C(), fontSize: AppStyle.small.sp),
-                    children: [
-                      TextSpan(
-                          text: " ${translate("signup.resend")}",
-                          recognizer: onTapRecognizer,
-                          style: TextStyle(
-                              color: kPrimary,
-                              fontFamily: primaryFontSemiBold,
-                              fontSize: AppStyle.small.sp))
-                    ]),
+              InkWell(
+                onTap: ()async{
+                  if(sendVerify==false)return;
+                  await SmsApi.sendOtp(provider: widget.data['email'] ?? widget.data['phone'],isEmail: widget.data['email'] != null);
+                  setState(() {
+                    sendVerify = false;
+                  });
+                  Timer(const Duration(seconds: 10),(){
+                    setState(() {
+                      sendVerify = true;
+                    });
+                  });
+                },
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                      text: translate("signup.not_get_code"),
+                      style: TextStyle(
+                          fontFamily: primaryFontSemiBold,
+                          color: DMUtil.getD2C(), fontSize: AppStyle.small.sp),
+                      children: [
+                        TextSpan(
+                            text: " ${translate("signup.resend")}",
+                            recognizer: onTapRecognizer,
+                            style: TextStyle(
+                                color: sendVerify == false ? DMUtil.getOpacity() : DMUtil.getRED(),
+                                fontSize: AppStyle.small.sp),
+                        )
+                      ]),
+                ),
               ),
             ],
           ),

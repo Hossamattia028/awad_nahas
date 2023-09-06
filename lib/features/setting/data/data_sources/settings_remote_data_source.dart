@@ -154,6 +154,21 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
     }
   }
 
+  static Future<bool> sendContactUs(Map<String,dynamic> data) async{
+    var response = await http.post(Uri.parse(ApiUrl.CONTACT),
+        body: data);
+    debugPrint("sendContactUs: ${response.body}");
+    var decodedData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      if(decodedData['success']==true){
+        return true;
+      }
+      return false;
+    } else {
+      return false;
+    }
+  }
+
 
 
 

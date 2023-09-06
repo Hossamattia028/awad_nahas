@@ -17,7 +17,7 @@ class OurBrandsHome extends StatelessWidget {
         ViewAllRow(title: translate("app_bar.brands"), fn:()=> Util.pushPage(const OurBrandsScreen(), context)),
 
 
-        const SizedBox(height: 5,),
+        const SizedBox(height: 12,),
         const BrandListHome(),
         const SizedBox(height: 10,),
       ],

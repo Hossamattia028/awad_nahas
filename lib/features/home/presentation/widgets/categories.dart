@@ -15,10 +15,10 @@ class HomeCategories extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const SizedBox(height: 10,),
+        const SizedBox(height: 15,),
         ViewAllRow(title: translate("app_bar.shop_categories"), fn:()=> RootBloc.get(context).add(ChangeIndex(index: 1, title: translate("app_bar.shop_categories")))),
 
-        const SizedBox(height: 5,),
+        const SizedBox(height: 12,),
         HomeCategoriesList(viewAll: viewAll,),
 
 

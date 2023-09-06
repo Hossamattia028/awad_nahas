@@ -40,7 +40,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
   int brandID = 1;
   File? img;
   var border = OutlineInputBorder(
-      borderSide: BorderSide(color: DMUtil.getBCC()),
+      borderSide: BorderSide(color: DMUtil.getOpacity()),
       borderRadius: const BorderRadius.all(Radius.circular(10))
   );
 
