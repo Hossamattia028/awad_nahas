@@ -186,13 +186,14 @@ class _ContactScreenState extends State<ContactScreen> {
                     contentTextEditingController.text.trim().isNotEmpty&&
                     phoneTextEditingController.text.trim().isNotEmpty
                 ){
+                  String userName = "${firstNameTextEditingController.text.trim()} ${lastNameTextEditingController.text.trim()}";
                   if(!emailTextEditingController.text.trim().contains("@")){
                     SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), DMUtil.getRED());
                     return;
                   }
-                  String msg = "${subjectTextEditingController.text.trim()}\nFrom: ${firstNameTextEditingController.text.trim()} ${lastNameTextEditingController.text.trim()} - "
+                  String msg = "${subjectTextEditingController.text.trim()}\nFrom: $userName - "
                       "Phone: ${phoneTextEditingController.text.trim()} \n\n${contentTextEditingController.text.trim()}";
-                  final res = await SendGmail.sendEmailMessage(msg, emailTextEditingController.text.trim(), subject);
+                  final res = await SendGmail.sendContactUs(msg, userName,emailTextEditingController.text.trim(), subject);
                   setState(() {
                     loading = false;
                   });

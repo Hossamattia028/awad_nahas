@@ -162,6 +162,14 @@ class Util{
       debugPrint("error when call: $e ");
     }
   }
+  static openMapApp(String lat,String long)async{
+    var url = "https://www.google.com/maps/dir/?api=1&destination=$lat,$long&travelmode=driving";
+    try {
+      await launchUrl(Uri.parse(url),mode: LaunchMode.externalApplication);
+    } catch (e) {
+      debugPrint("sendWhatsApp: $e");
+    }
+  }
 
   static sendWhatsApp(String phone,)async{
     var whatsappUrl = "whatsapp://send?phone=$phone&text=${Uri.encodeComponent("")}";
