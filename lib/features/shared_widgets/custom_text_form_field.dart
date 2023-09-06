@@ -83,16 +83,16 @@ class CustomTextFromField extends StatelessWidget {
         decoration: InputDecoration(
           filled: filled,
           contentPadding: smallPadding==true?
-          const EdgeInsets.symmetric(vertical: 1,horizontal: 4):null,
+          const EdgeInsets.symmetric(vertical: 1,horizontal: 5):null,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           focusedBorder:  OutlineInputBorder(
-            borderSide: hasBorder==true?  BorderSide(color: borderColor ?? Colors.black, width: borderWidth ?? 1.0): const BorderSide(color: Colors.white),
+            borderSide: hasBorder==true?  BorderSide(color: borderColor ??DMUtil.getD2C(), width: borderWidth ?? 1.0): const BorderSide(color: Colors.white),
             borderRadius: BorderRadius.all(
               Radius.circular(radius),
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide:  hasBorder==true?  strokeBorder==true?  BorderSide(color: Colors.black, width: borderWidth ?? 1.0):  BorderSide(color: Colors.grey, width: borderWidth ?? 1.0): const BorderSide(color: Colors.white),
+            borderSide:  hasBorder==true?  strokeBorder==true?  BorderSide(color: DMUtil.getD2C(), width: borderWidth ?? 1.0):  BorderSide(color: DMUtil.getBCC(), width: borderWidth ?? 1.0): const BorderSide(color: Colors.white),
             borderRadius: BorderRadius.all(
               Radius.circular(radius),
             ),

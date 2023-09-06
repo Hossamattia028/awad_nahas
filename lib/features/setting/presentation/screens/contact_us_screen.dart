@@ -1,9 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/send_gmail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
@@ -20,10 +22,14 @@ class ContactScreen extends StatefulWidget {
 }
 
 class _ContactScreenState extends State<ContactScreen> {
-  static final TextEditingController nameTextEditingController = TextEditingController();
-  static final TextEditingController emailTextEditingController = TextEditingController();
-  static final TextEditingController contentTextEditingController = TextEditingController();
+  final TextEditingController firstNameTextEditingController = TextEditingController();
+  final TextEditingController lastNameTextEditingController = TextEditingController();
+  final TextEditingController emailTextEditingController = TextEditingController();
+  final TextEditingController phoneTextEditingController = TextEditingController();
+  final TextEditingController subjectTextEditingController = TextEditingController();
+  final TextEditingController contentTextEditingController = TextEditingController();
 
+  bool loading  = false;
   @override
   void initState() {
     dropDownMenu = getDropDownMenu();
@@ -44,55 +50,42 @@ class _ContactScreenState extends State<ContactScreen> {
         child:  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-            const SizedBox(height: 10,),
-            Container(
-              height: 50.h,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 1,color: Colors.grey),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child:  DropdownButton(
-                isExpanded: true,
-                style: TextStyle(color: Colors.black, fontSize: 12.sp,),
-                hint: CustomText(
-                  text: translate("activity_setting.select_subject"),
-                  fontSize: 12.sp,
-                  color: Colors.black,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 160.w,
+                  child: CustomTextFromField(
+                    hintText: translate("signup.first_name"),
+                    labelText: translate("signup.first_name"),
+                    hasBorder: true,
+                    smallPadding: true,
+                    cursorColor: kPrimary,
+                    radius: 10,
+                    textEditingController: firstNameTextEditingController,
+                    validator: () {},
+                    obscureText: false,
+                    isLabelError: false,
+                  ),
                 ),
-                onChanged:(val){
-                  setState(() {
-                    subject = val.toString();
-                  });
-                },
-                icon: const Icon(Icons.keyboard_arrow_down),
-                items:  dropDownMenu,
-                value: subject,
-              ),
+                SizedBox(
+                  width: 160.w,
+                  child: CustomTextFromField(
+                    hintText: translate("signup.last_name"),
+                    labelText: translate("signup.last_name"),
+                    hasBorder: true,
+                    smallPadding: true,
+                    cursorColor: kPrimary,
+                    radius: 10,
+                    textEditingController: lastNameTextEditingController,
+                    validator: () {},
+                    obscureText: false,
+                    isLabelError: false,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              height: 50.h,
-              child: CustomTextFromField(
-                  hintText: translate("signup.username"),
-                  labelText: translate("signup.username"),
-                  radius: 10,
-                  textEditingController: nameTextEditingController,
-                  validator: () {},
-                  prefixIcon: null,
-                  cursorColor: kPrimary,
-                  hasBorder: true,
-                  suffixIcon: const SizedBox(),
-                  obscureText: false,
-                  isLabelError: false),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20,),
             SizedBox(
               height: 50.h,
               child: CustomTextFromField(
@@ -108,9 +101,61 @@ class _ContactScreenState extends State<ContactScreen> {
                   obscureText: false,
                   isLabelError: false),
             ),
-            const SizedBox(
-              height: 20,
+            const SizedBox(height: 20,),
+            CustomTextFromField(
+              hintText: translate("signup.phone"),
+              labelText: translate("signup.phone"),
+              hasBorder: true,
+              smallPadding: true,
+              cursorColor: DMUtil.getRED(),
+              radius: 10,
+              textEditingController: phoneTextEditingController,
+              validator: () {},
+              obscureText: false,
+              isLabelError: false,
+              borderColor: DMUtil.getDC(),
             ),
+            const SizedBox(height: 20,),
+            Container(
+              height: 50.h,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(width: 1,color: DMUtil.getBCC()),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child:  DropdownButton(
+                isExpanded: true,
+                style: TextStyle(color: DMUtil.getD2C(), fontSize: 12.sp,),
+                hint: CustomText(
+                  text: translate("activity_setting.select_subject"),
+                  fontSize: 12.sp,
+                  color: Colors.black,
+                ),
+                onChanged:(val){
+                  setState(() {
+                    subject = val.toString();
+                  });
+                },
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items:  dropDownMenu,
+                value: subject,
+              ),
+            ),
+            const SizedBox(height: 20,),
+            CustomTextFromField(
+                hintText: translate("activity_setting.message_title"),
+                labelText: translate("activity_setting.message_title"),
+                radius: 10,
+                textEditingController: subjectTextEditingController,
+                validator: () {},
+                prefixIcon: null,
+                cursorColor: kPrimary,
+                hasBorder: true,
+                suffixIcon: const SizedBox(),
+                obscureText: false,
+                isLabelError: false),
+            const SizedBox(height: 20,),
             SizedBox(
               height: 100.h,
               child: CustomTextFromField(
@@ -128,19 +173,40 @@ class _ContactScreenState extends State<ContactScreen> {
                   isLabelError: false),
             ),
 
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30,),
             MaterialButton(
               onPressed: ()async{
-                if(emailTextEditingController.text.isNotEmpty&&
-                    nameTextEditingController.text.isNotEmpty&&
-                    contentTextEditingController.text.isNotEmpty
+                setState(() {
+                  loading = true;
+                });
+                if(emailTextEditingController.text.trim().isNotEmpty&&
+                    firstNameTextEditingController.text.trim().isNotEmpty&&
+                    lastNameTextEditingController.text.trim().isNotEmpty&&
+                    subjectTextEditingController.text.trim().isNotEmpty&&
+                    contentTextEditingController.text.trim().isNotEmpty&&
+                    phoneTextEditingController.text.trim().isNotEmpty
                 ){
-                  await Util.sendMailMsg(
-                    subject: subject,
-                    msg: "${nameTextEditingController.text.trim()}\n ${contentTextEditingController.text.trim()}",
-                  );
+                  if(!emailTextEditingController.text.trim().contains("@")){
+                    SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), DMUtil.getRED());
+                    return;
+                  }
+                  String msg = "${subjectTextEditingController.text.trim()}\nFrom: ${firstNameTextEditingController.text.trim()} ${lastNameTextEditingController.text.trim()} - "
+                      "Phone: ${phoneTextEditingController.text.trim()} \n\n${contentTextEditingController.text.trim()}";
+                  final res = await SendGmail.sendEmailMessage(msg, emailTextEditingController.text.trim(), subject);
+                  setState(() {
+                    loading = false;
+                  });
+                  if(res){
+                    emailTextEditingController.text = "";
+                    firstNameTextEditingController.text = "";
+                    lastNameTextEditingController.text = "";
+                    contentTextEditingController.text = "";
+                    subjectTextEditingController.text = "";
+                    phoneTextEditingController.text = "";
+                    SnackBarBuilder.showFeedBackMessage(context, translate("toast.gmail_send"), DMUtil.getGreen());
+                  }else{
+                    SnackBarBuilder.showFeedBackMessage(context, translate("toast.oops"), Colors.red);
+                  }
                 }else{
                   SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
                 }
@@ -150,7 +216,7 @@ class _ContactScreenState extends State<ContactScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: CustomText(
+              child: loading? const CircularProgressIndicator(color: Colors.white,) : CustomText(
                 text: translate("button.send").toUpperCase(),
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
@@ -182,22 +248,6 @@ class _ContactScreenState extends State<ContactScreen> {
       value: translate("activity_setting.suggestion"),
       child: CustomText(
         text: translate("activity_setting.suggestion"),
-        fontSize: 12.sp,
-        color: Colors.black,
-      ),
-    ));
-    itemsMarketKind.add(DropdownMenuItem(
-      value: translate("activity_setting.Request_quotation"),
-      child: CustomText(
-        text: translate("activity_setting.Request_quotation"),
-        fontSize: 12.sp,
-        color: Colors.black,
-      ),
-    ));
-    itemsMarketKind.add(DropdownMenuItem(
-      value: translate("activity_setting.sell_with_us"),
-      child: CustomText(
-        text: translate("activity_setting.sell_with_us"),
         fontSize: 12.sp,
         color: Colors.black,
       ),

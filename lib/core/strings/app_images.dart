@@ -58,9 +58,9 @@ class AppImages{
 
 
 
-  static const String whats = "$icons/whatsapp.png";
-  static const String support = "$icons/support.png";
-  static const String mail = "$icons/mail.png";
+  static const String whats = "$icons/whatsapp.svg";
+  static const String support = "$icons/call_center.svg";
+  static const String mail = "$icons/mail.svg";
 
   //payments
   static const String tamara = "$icons/tamara.png";

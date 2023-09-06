@@ -9,7 +9,6 @@ import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 import 'package:awad_nahas/features/shared_widgets/align_child_by_row.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
@@ -40,16 +39,11 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
   int deviceNumber = 1;
   int brandID = 1;
   File? img;
-  @override
-  void initState() {
-    if (Util.checkUser()) {
-      firstNameTextEditingController.text = Util.getName();
-      lastNameTextEditingController.text = Util.getName();
-      emailTextEditingController.text = Util.getEmail();
-      phoneTextEditingController.text = Util.getMobile();
-    }
-    super.initState();
-  }
+  var border = OutlineInputBorder(
+      borderSide: BorderSide(color: DMUtil.getBCC()),
+      borderRadius: const BorderRadius.all(Radius.circular(10))
+  );
+
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +144,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                           labelText: "",
                           hasBorder: true,
                           smallPadding: true,
-                          cursorColor: kPrimary,
+                          cursorColor: DMUtil.getRED(),
                           radius: 10,
                           textEditingController: firstNameTextEditingController,
                           validator: () {},
@@ -176,7 +170,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                           labelText: "",
                           hasBorder: true,
                           smallPadding: true,
-                          cursorColor: kPrimary,
+                          cursorColor: DMUtil.getRED(),
                           radius: 10,
                           textEditingController: lastNameTextEditingController,
                           validator: () {},
@@ -200,12 +194,13 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 labelText: "",
                 hasBorder: true,
                 smallPadding: true,
-                cursorColor: kPrimary,
+                cursorColor: DMUtil.getRED(),
                 radius: 10,
                 textEditingController: phoneTextEditingController,
                 validator: () {},
                 obscureText: false,
                 isLabelError: false,
+                borderColor: DMUtil.getDC(),
               ),
               const SizedBox(height: 12,),
               CustomText(
@@ -215,23 +210,15 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
               ),
               const SizedBox(height: 5,),
               DropdownButtonFormField(
-                icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+                icon: const Icon(Icons.keyboard_arrow_down),
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: DMUtil.getBCC()),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: DMUtil.getBCC()),
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: DMUtil.getBCC()),
-                  ),
-                  hintText:
-                      translate("maintenance.number_of_maintenance_device"),
+                  focusedBorder:border,
+                  enabledBorder: border,
+                  border: border,
+                  hintText: translate("maintenance.number_of_maintenance_device"),
                   hintStyle: TextStyle(fontSize: 15, color: DMUtil.getD2C()),
                   isDense: true,
                 ),
-                // value: deviceNumber,
                 items: <DropdownMenuItem<String>>[
                   for (var i = 0; i < 5; i++)
                     DropdownMenuItem(
@@ -256,9 +243,8 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 hintText: translate("maintenance.warranty"),
                 labelText: "",
                 hasBorder: true,
-                maxLines: 2,
                 smallPadding: true,
-                cursorColor: kPrimary,
+                cursorColor: DMUtil.getRED(),
                 radius: 10,
                 textEditingController: warrantyTextEditingController,
                 validator: () {},
@@ -277,17 +263,11 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 List<CategoriesEntity> list =
                     bloc.activateTransList(bloc.brandsList);
                 return DropdownButtonFormField(
-                  icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+                  icon: const Icon(Icons.keyboard_arrow_down),
                   decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: DMUtil.getBCC()),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: DMUtil.getBCC()),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: DMUtil.getBCC()),
-                    ),
+                    focusedBorder:border,
+                    enabledBorder: border,
+                    border: border,
                     hintText: translate("store.brand"),
                     hintStyle: TextStyle(fontSize: 15, color: DMUtil.getD2C()),
                     isDense: true,
@@ -319,7 +299,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 labelText: "",
                 hasBorder: true,
                 smallPadding: true,
-                cursorColor: kPrimary,
+                cursorColor: DMUtil.getRED(),
                 radius: 10,
                 textEditingController: serialTextEditingController,
                 validator: () {},
@@ -338,7 +318,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 labelText: "",
                 hasBorder: true,
                 smallPadding: true,
-                cursorColor: kPrimary,
+                cursorColor: DMUtil.getRED(),
                 radius: 10,
                 textEditingController: productModuleTextEditingController,
                 validator: () {},
@@ -358,7 +338,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 height: 80.h,
                 hasBorder: true,
                 smallPadding: true,
-                cursorColor: kPrimary,
+                cursorColor: DMUtil.getRED(),
                 radius: 10,
                 maxLines: 10,
                 textEditingController: complaintTextEditingController,

@@ -45,8 +45,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>  with TickerProvide
               child: SizedBox(
                 height: 40.h,
                 child: TabBar(
-                  indicatorPadding: const EdgeInsets.symmetric(horizontal: 20),
                   controller: tabController,
+                  indicatorPadding: EdgeInsets.symmetric(horizontal: 10.w),
                   indicator: ShapeDecoration(
                       color: DMUtil.getRED(),
                       shape: const RoundedRectangleBorder(
@@ -57,16 +57,23 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>  with TickerProvide
                   indicatorColor: DMUtil.getPC(),
                   labelColor: DMUtil.getWC(),
                   isScrollable: true,
-                  labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+1,fontFamily: primaryFontReg,fontWeight: FontWeight.w600),
+                  labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+1,fontFamily: primaryFontReg,fontWeight: FontWeight.w500),
                   tabs: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 30.w) + const EdgeInsets.only(top: 3),
+                      decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          border: Border.all(width: 1,color: DMUtil.getRED())
+                      ),
                       child: Tab(text: translate("drawer.faqs"),),
                     ),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Tab(text: translate("drawer.contact"),),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 30.w) + const EdgeInsets.only(top: 3),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        border: Border.all(width: 1,color: DMUtil.getRED())
+                      ),
+                      child: Tab(text: translate("activity_setting.call_us"),),
                     ),
 
                   ],

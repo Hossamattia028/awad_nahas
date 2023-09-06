@@ -152,6 +152,17 @@ class Util{
     String? token = await FirebaseMessaging.instance.getToken();
     return token??"";
   }
+
+  static call(String phone)async{
+    try{
+      phone = "tel:$phone";
+      await canLaunchUrl(Uri.parse(phone))==true?
+      await launchUrl(Uri.parse(phone)):debugPrint("error when call");
+    }catch(e){
+      debugPrint("error when call: $e ");
+    }
+  }
+
   static sendWhatsApp(String phone,)async{
     var whatsappUrl = "whatsapp://send?phone=$phone&text=${Uri.encodeComponent("")}";
     try {

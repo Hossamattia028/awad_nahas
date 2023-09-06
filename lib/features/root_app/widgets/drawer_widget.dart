@@ -17,7 +17,7 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: DMUtil.getWC(),
-      width: 230.w,
+      width: 240.w,
       child: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: AppStyle.paddingFromTop.h+20),
         child: BlocBuilder<RootBloc,RootState>(

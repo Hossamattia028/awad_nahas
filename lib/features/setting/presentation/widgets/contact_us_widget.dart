@@ -6,6 +6,7 @@ import 'package:awad_nahas/features/setting/presentation/screens/contact_us_scre
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class ContactUsWidget extends StatelessWidget {
@@ -17,9 +18,9 @@ class ContactUsWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w),
       child: Column(
         children: [
-          SmallWidget(title: translate("drawer.whats"), img: AppImages.whats,onTap: ()=> Util.sendWhatsApp("+966508443655"),),
+          SmallWidget(title: translate("drawer.whats"), img: AppImages.whats,onTap: ()=> Util.sendWhatsApp("+966920003240"),),
 
-          SmallWidget(title: translate("drawer.support"), img: AppImages.support,onTap: ()=> Util.sendMailMsg(subject: "test",msg: "message") ,),
+          SmallWidget(title: translate("drawer.support"), img: AppImages.support,onTap: ()=> Util.call("8002446660") ,),
 
           SmallWidget(title: translate("drawer.contact"), img: AppImages.mail,onTap: ()=> Util.pushPage(const ContactScreen(), context),),
 
@@ -42,14 +43,15 @@ class SmallWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             border: Border.all(width: 1,color: DMUtil.getBCC())
         ),
         child: Row(
           children: [
-            Image.asset(img,height: 30.w,),
+            SvgPicture.asset(img,height: 24.w,),
+            const SizedBox(width: 12,),
             CustomText(
               text: title,
               fontWeight: FontWeight.w600,

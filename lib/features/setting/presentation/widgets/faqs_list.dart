@@ -27,10 +27,11 @@ class FaqsListWidget extends StatelessWidget {
               children: [
                 CustomText(
                     text: item.title.toString(),
-                    color: DMUtil.getDC(),
+                    color: DMUtil.getD2C(),
                     fontWeight: FontWeight.w600,
                     fontSize: AppStyle.average.sp
                 ),
+                const SizedBox(height: 10,),
                 if(item.faqList!=null && item.faqList!.isNotEmpty)
                 ListView.separated(
                     shrinkWrap: true,
@@ -45,11 +46,13 @@ class FaqsListWidget extends StatelessWidget {
                         child: ExpansionTile(
                           collapsedIconColor: DMUtil.getDC(),
                           iconColor: DMUtil.getRED(),
-                          title: CustomText(
-                              text: smallItem.title.toString(),
-                              color: DMUtil.getDC(),
-                              fontWeight: FontWeight.w600,
-                              fontSize: AppStyle.small.sp
+                          title: SizedBox(
+                            child: CustomText(
+                                text: smallItem.title.toString(),
+                                color: DMUtil.getDC(),
+                                fontSize: AppStyle.small.sp,
+                                maxLine: 3,
+                            ),
                           ),
                           children: [
                             Padding(
