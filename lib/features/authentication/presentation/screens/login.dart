@@ -1,6 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:awad_nahas/core/strings/enum/social_enum.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/sms_api.dart';
+import 'package:awad_nahas/features/authentication/presentation/screens/verification_code.dart';
 import 'package:awad_nahas/features/authentication/presentation/widgets/auth_with_social.dart';
 import 'package:awad_nahas/features/authentication/presentation/widgets/not_have_an_account.dart';
 import 'package:awad_nahas/features/authentication/presentation/widgets/remember_me.dart';
@@ -82,7 +86,7 @@ class LoginScreen extends StatelessWidget {
                     return registerByPhone?
                     CustomTextFromField(
                       height: 50,
-                      hintText: translate("signup.phone"),
+                      hintText: "502441695",
                       radius: 10,
                       textEditingController: phoneTextEditingController,
                       validator: () {},
@@ -96,7 +100,7 @@ class LoginScreen extends StatelessWidget {
                       hasBorder: true,
                       borderWidth: 1,
                       borderColor: DMUtil.getD2C(),
-                      labelText: '',):
+                      labelText: translate("signup.phone"),):
                     CustomTextFromField(
                       height: 50,
                       hintText: translate("signup.email"),
@@ -123,6 +127,7 @@ class LoginScreen extends StatelessWidget {
                   builder: (ctx,state){
                     var bloc = AuthBloc.get(ctx);
                     bool showPassword = bloc.showPassword;
+                    if(bloc.registerByPhone==true)return const SizedBox.shrink();
                     return CustomTextFromField(
                         hasBorder: true,
                         borderWidth: 1,
@@ -182,10 +187,20 @@ class LoginScreen extends StatelessWidget {
                           alignCenter: true,
                         ),
                         color: DMUtil.getRED(),
-                        onPressed: (){
-                          if(validateForm(bloc.registerByPhone)){
-                            var phone = phoneTextEditingController.text.trim();
+                        onPressed: ()async{
+                          if(bloc.registerByPhone){
+                            var phone = "+966${phoneTextEditingController.text.trim()}";
                             if(validatePhoneInput(bloc.registerByPhone, phone, context)==false) return;
+                            if(await SmsApi.sendOtp(provider: phone,isEmail: false)){
+                              Util.pushPage(PinCodeVerificationScreen(data: {
+                                'user_login': phone,
+                                'phone':phone,
+                                'password':"otp"
+                              },isLogin: true,isRegister: false,), context);
+                            }
+                            return;
+                          }
+                          if(validateForm(bloc.registerByPhone)){
                             bloc.add(LogInEvent(user: {
                                 if(bloc.registerByPhone)'phone':phoneTextEditingController.text.trim(),
                                 if(!bloc.registerByPhone)'email':emailTextEditingController.text.trim(),

@@ -30,7 +30,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class PinCodeVerificationScreen extends StatefulWidget {
   final Map<String,dynamic> data;
   final bool isRegister;
-  const PinCodeVerificationScreen({Key? key,required this.data,required this.isRegister}) : super(key: key);
+  final bool? isLogin;
+  const PinCodeVerificationScreen({Key? key,required this.data,required this.isRegister,this.isLogin = false}) : super(key: key);
 
   @override
   State<PinCodeVerificationScreen> createState() => _PinCodeVerificationScreenState();
@@ -217,6 +218,8 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         if(await Util.verifyCode(otp)) {
                           if(widget.isRegister){
                             bloc.add(RegisterEvent(user: widget.data));
+                          }else if(widget.isLogin !=null && widget.isLogin == true){
+                            bloc.add(LogInEvent(user: widget.data));
                           }else{
                             Util.pushPage(ResetPassword(userLogin: widget.data['phone'] ??  widget.data['email'],), context);
                           }

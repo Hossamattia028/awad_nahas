@@ -120,41 +120,49 @@ class RegisterScreen extends StatelessWidget {
                   builder: (ctx,state){
                     var bloc = AuthBloc.get(ctx);
                     bool registerByPhone = bloc.registerByPhone;
-                    return registerByPhone?
-                    CustomTextFromField(
-                      height: 50,
-                      hintText: translate("signup.phone"),
-                      radius: 10,
-                      textEditingController: phoneTextEditingController,
-                      validator: () {},
-                      hintColor: kSecondPrimary,
-                      textInputType: TextInputType.phone,
-                      prefixIcon: null,
-                      cursorColor: kPrimary,
-                      suffixIcon:  null,
-                      obscureText: false,
-                      isLabelError: false,
-                      hasBorder: true,
-                      borderWidth: 1,
-                      borderColor: DMUtil.getD2C(),
-                      labelText: '',):
-                    CustomTextFromField(
-                      height: 50,
-                      hintText: translate("signup.email"),
-                      radius: 10,
-                      textEditingController: emailTextEditingController,
-                      validator: () {},
-                      hintColor: kSecondPrimary,
-                      textInputType: TextInputType.emailAddress,
-                      prefixIcon: null,
-                      cursorColor: kPrimary,
-                      suffixIcon:  null,
-                      obscureText: false,
-                      isLabelError: false,
-                      hasBorder: true,
-                      borderWidth: 1,
-                      borderColor: DMUtil.getD2C(),
-                      labelText: '',);
+                    return Column(
+                      children: [
+                        if(registerByPhone)...[
+                          CustomTextFromField(
+                            height: 50,
+                            hintText: translate("signup.phone"),
+                            radius: 10,
+                            textEditingController: phoneTextEditingController,
+                            validator: () {},
+                            hintColor: kSecondPrimary,
+                            textInputType: TextInputType.phone,
+                            prefixIcon: null,
+                            cursorColor: kPrimary,
+                            suffixIcon:  null,
+                            obscureText: false,
+                            isLabelError: false,
+                            hasBorder: true,
+                            borderWidth: 1,
+                            borderColor: DMUtil.getD2C(),
+                            labelText: '',
+                          ),
+                          const SizedBox(height: 15,),
+                        ],
+                        CustomTextFromField(
+                          height: 50,
+                          hintText: translate("signup.email"),
+                          radius: 10,
+                          textEditingController: emailTextEditingController,
+                          validator: () {},
+                          hintColor: kSecondPrimary,
+                          textInputType: TextInputType.emailAddress,
+                          prefixIcon: null,
+                          cursorColor: kPrimary,
+                          suffixIcon:  null,
+                          obscureText: false,
+                          isLabelError: false,
+                          hasBorder: true,
+                          borderWidth: 1,
+                          borderColor: DMUtil.getD2C(),
+                          labelText: '',
+                        )
+                      ],
+                    );
                   },
                 ),
 
@@ -200,7 +208,7 @@ class RegisterScreen extends StatelessWidget {
                     var bloc = AuthBloc.get(ctx);
                     return MaterialButton(
                       onPressed: ()async{
-                        var phone = phoneTextEditingController.text.trim();
+                        var phone = "+966${phoneTextEditingController.text.trim()}";
                         var email = emailTextEditingController.text.trim();
                         if(validatePhoneInput(bloc.registerByPhone, phone, context)==false) return;
                         if(validateForm(bloc.registerByPhone) && await SmsApi.sendOtp(provider: bloc.registerByPhone?phone:email,isEmail: !bloc.registerByPhone)){
