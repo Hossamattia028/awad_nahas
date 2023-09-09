@@ -240,7 +240,12 @@
       "sell_with_us": "البيع معنا",
       "Rating_FeedBack": "التقييم او النقد",
       "would_leave_comment": "هل تمانع في ترك مراجعة وإعلامنا بما تريد ..",
-      "open_until": "مفتوح حتي"
+      "open_until": "مفتوح حتي",
+      "am": "صباحا",
+      "pm": "مساء",
+      "from": "من",
+      "to": "الي",
+      "closed_friday": "مغلق الجمعة"
     },
     "maintenance": {
       "number_of_maintenance_device": "عدد الأجهزة التي تمت صيانتها",
@@ -490,7 +495,7 @@
       "about": "عن"
     },
     "payment": {
-      "tamra_txt": "أو قسمها إلى 4 دفعات",
+      "tamra_txt": "ادفع علي 4 دفعات",
       "interest-free": "بدون فؤائد"
     },
     "cart": {
@@ -498,7 +503,7 @@
       "checkOut_title": "إتمام عملية الشراء",
       "checkOut": "إتمام الشراء",
       "pay_with": "الدفع عن طريق",
-      "delivery_type": "اختار عملية التوصيل",
+      "delivery_type": "اختر عملية التوصيل",
       "delivery_only": "التوصيل فقط",
       "delivery_install": "التوصيل والتركيب",
       "payment_summary": "ملخص الدفع",
@@ -612,7 +617,8 @@
       "file": "مرفق توصيل الطلب",
       "upload_photo": "تحميل صوره",
       "take_photo": "التقط صورة",
-      "order_process": "نحن نعمل على معالجة طلبك"
+      "order_process": "نحن نعمل على معالجة طلبك",
+      "shipping_to": "الشحن الي "
     },
 
     "admin": {

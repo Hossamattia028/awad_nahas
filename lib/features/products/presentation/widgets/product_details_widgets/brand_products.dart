@@ -21,7 +21,7 @@ class BrandProductsWidget extends StatelessWidget {
           text: "${translate("products.more_from")} $brandTitle",
           fontSize: AppStyle.average.sp+2,
         ),
-        const SizedBox(height: 5,),
+        const SizedBox(height: 10,),
         RelatedProductsList(item: item,isBrand: true,),
         const SizedBox(height: 20,),
       ],

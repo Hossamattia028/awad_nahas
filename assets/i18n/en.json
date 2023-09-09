@@ -240,7 +240,12 @@
 		"sell_with_us": "Sell with Us",
 		"Rating_FeedBack": "Rating & FeedBack",
 		"would_leave_comment": "Would you mind leaving a review and let us know what you ..",
-		"open_until": "Open Until"
+		"open_until": "Open Until",
+		"am": "AM",
+		"pm": "PM",
+		"from": "from",
+		"to": "to",
+		"closed_friday": "closed friday"
 	},
 	"maintenance": {
 		"number_of_maintenance_device": "Number of maintained devices",
@@ -262,7 +267,7 @@
 		"no_wait": "what are you waiting for ? Start enjoying shopping nowً"
 	},
 	"payment": {
-		"tamra_txt": "or split it into 4 payments ",
+		"tamra_txt": "pay with 4 payments ",
 		"interest-free": "interest-free"
 	},
 	"cart": {
@@ -610,7 +615,8 @@
 		"file": "Order delivery file",
 		"upload_photo": "upload photo",
 		"take_photo": "take a photo",
-		"order_process": "We are working on processing your request"
+		"order_process": "We are working on processing your request",
+		"shipping_to": "Shipping to"
     },
     "support": {
         "title": "Support"

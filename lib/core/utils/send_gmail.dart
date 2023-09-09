@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/setting/data/data_sources/settings_remote_data_source.dart';
 import 'package:flutter/material.dart';

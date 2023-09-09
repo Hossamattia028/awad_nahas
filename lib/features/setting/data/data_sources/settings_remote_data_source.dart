@@ -73,7 +73,6 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
     if (response.statusCode == 200) {
       List<LocationModel> categories =
       decodedData.map<LocationModel>((categoryModel) {
-
         return LocationModel(
             address1: categoryModel['title']??"",
             address2: categoryModel['address']??"",

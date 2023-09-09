@@ -32,6 +32,8 @@ class LocationsList extends StatelessWidget {
                 const SizedBox(height: 20,),
                 if(list.billingAddress!=null)LocationCardWidget(locationEntity: list.billingAddress!,currentLocation: bloc.currentCheckOutLocation==list.billingAddress,
                     isAdd: bloc.checkIFAddressEmpty(list.billingAddress!)),
+
+                
               ],
             ),
           );

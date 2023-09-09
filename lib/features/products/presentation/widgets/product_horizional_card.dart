@@ -20,7 +20,7 @@ class ProductHorizontalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double widTh = isSmall?130.w:210.w;
+    double widTh = isSmall?120.w:210.w;
     return InkWell(
       onTap: ()=> Util.pushPage(ProductDetailPage(item: item,), context),
       child: Stack(
@@ -66,16 +66,18 @@ class ProductHorizontalCard extends StatelessWidget {
                     ),
                   ),
                 ],
-                ImageWidget(imgUrl: item.imgPath, fit: BoxFit.contain, height: 138,width: isSmall?150:double.infinity,),
+                ImageWidget(imgUrl: item.imgPath, fit: BoxFit.contain, height: 123,width: isSmall?150:double.infinity,),
 
                 SizedBox(
                   width: widTh.w,
                   child: CustomText(
                     text: item.title.toString(),
                     color: DMUtil.getDC(),
-                    fontSize: AppStyle.average.sp,
+                    maxLine: Util.getLang()=="ar"?  2:1,
+                    fontSize: Util.getLang()=="ar"? AppStyle.average.sp : AppStyle.average.sp -2 ,
                   ),
                 ),
+                const SizedBox(height: 2,),
 
                 ProductPriceWidget(productModel: item,isBig: true,),
                 const VatIncludedWidget(),

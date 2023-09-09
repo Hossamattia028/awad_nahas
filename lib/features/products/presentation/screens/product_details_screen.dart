@@ -87,9 +87,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
             const SizedBox(height: 10,),
 
             CustomText(
-                text: widget.item.title,
-                color: DMUtil.getDC(),
-                fontSize: AppStyle.large.sp-3,
+              text: widget.item.title,
+              color: DMUtil.getDC(),
+              fontSize: AppStyle.large.sp-3,
+              maxLine: 2,
             ),
 
 
@@ -116,7 +117,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
             ),
             const SizedBox(height: 10,),
             if(Util.checkUser() && currentPrice<=2000)...[
+              const SizedBox(height: 5,),
               TamaraSmallProductWidget(price: currentPrice),
+              const SizedBox(height: 10,),
             ],
 
            ProductDetailsDataRow(item: widget.item),

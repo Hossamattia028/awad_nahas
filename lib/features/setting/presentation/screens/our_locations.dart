@@ -33,11 +33,22 @@ class OurLocationsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               itemBuilder: (ctx,index){
                 var item = list[index];
-                var cl = "invalid";
-                if (item.hours != null) {
-                  var closed = (item.hours!.last).split(',');
-                    cl = closed[1];
+                String title = item.address1;
+                if(item.address1.contains("Miel") && Util.getLang()=="ar"){
+                  title = "معرض ميلي";
                 }
+                if(Util.getLang()!="ar"){
+                  if(item.address1.contains("الرياض"))title = "Riyadh Showroom";
+                  if(item.address1.contains("رياض 2"))title = "Riyadh Showroom 2";
+                  if(item.address1.contains("الخبر"))title = "Khobar Showroom";
+                  if(item.address1.contains("ميلي"))title = "Miele Gallery";
+                  if(item.address1.contains("معرض المدينة"))title = "Madina Road";
+                }
+                // var cl = "invalid";
+                // if (item.hours != null) {
+                //   var closed = (item.hours!.last).split(',');
+                //     cl = closed[1];
+                // }
                 return Card(
                   elevation: 2,
                   shape: const RoundedRectangleBorder(
@@ -49,22 +60,29 @@ class OurLocationsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomText(
-                            text: item.address1,
+                            text: title,
                             color: DMUtil.getDC(),
                             fontSize: AppStyle.average.sp+1
                         ),
                         const SizedBox(height: 5,),
+                        // CustomText(
+                        //     text: item.address2,
+                        //     color: DMUtil.getD2C(),
+                        //     fontSize: AppStyle.small.sp
+                        // ),
+                        // if(item.hours != null &&  item.hours!.isNotEmpty)
                         CustomText(
-                            text: item.address2,
+                            text: "${translate("activity_setting.from")} 9 ${translate("activity_setting.am")} ${translate("activity_setting.to")} 11 ${translate("activity_setting.pm")}",
                             color: DMUtil.getD2C(),
                             fontSize: AppStyle.small.sp
                         ),
-                        if(item.hours != null &&  item.hours!.isNotEmpty)
-                        CustomText(
-                            text: "${translate("activity_setting.open_until")} $cl",
-                            color: DMUtil.getRED(),
-                            fontSize: AppStyle.small.sp
-                        ),
+                        if(item.address1.contains("الخبر")||item.address1.contains("elhob"))...[
+                          CustomText(
+                              text: "${translate("activity_setting.closed_friday")} *",
+                              color: DMUtil.getRED(),
+                              fontSize: AppStyle.small.sp
+                          ),
+                        ],
                         AlignChildRow(
                           isStart: false,
                           child: CustomButton(

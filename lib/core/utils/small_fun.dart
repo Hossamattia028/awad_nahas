@@ -67,8 +67,6 @@ class Util{
   static Future<bool> verifyCode(String otp) async{
     try{
       var vC = SharedPref().getPreferenceString(Constants.lastVerificationCode);
-      print(vC);
-      print(otp);
       return vC.trim() == otp.trim();
     }catch(e){
       debugPrint("verifyFirebaseCode: $e");

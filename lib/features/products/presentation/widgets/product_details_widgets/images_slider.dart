@@ -1,3 +1,5 @@
+import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/slider_full_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +27,13 @@ class ImagesSlider extends StatelessWidget {
               // onPageChanged: (index,reason)=> bloc.add(ChangeSliderIndexEvent(val: index)),
             ),
             itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
-              return ImageWidget(imgUrl: images[itemIndex].toString(),fit: BoxFit.contain,width: double.infinity,);
+              return InkWell(
+                  onTap: ()=> Util.pushPage(FullImageViewer(images: images), context),
+                  child: ImageWidget(
+                    imgUrl: images[itemIndex].toString(),
+                    fit: BoxFit.contain,
+                    width: double.infinity,
+                  ));
             },
           ),
         ),

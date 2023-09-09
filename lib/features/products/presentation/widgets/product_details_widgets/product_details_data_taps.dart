@@ -75,6 +75,7 @@ class ProductDetailsDataRow extends StatelessWidget {
 
                   Expanded(
                     child: TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
                       children: <Widget>[
                         ProductDescription(item: item,),
                         const CommentList(),

@@ -63,6 +63,7 @@ class AppImages{
   static const String mail = "$icons/mail.svg";
 
   //payments
-  static const String tamara = "$icons/tamara.png";
+  static const String tamaraEn = "$icons/tamara.png";
+  static const String tamaraAr = "$icons/tamara_ar.jpeg";
 
 }
