@@ -2,6 +2,7 @@
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/send_gmail.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -54,7 +55,7 @@ class _ContactScreenState extends State<ContactScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  width: 160.w,
+                  width: 154.w,
                   child: CustomTextFromField(
                     hintText: translate("signup.first_name"),
                     labelText: translate("signup.first_name"),
@@ -68,8 +69,9 @@ class _ContactScreenState extends State<ContactScreen> {
                     isLabelError: false,
                   ),
                 ),
+                const SizedBox(width: 10,),
                 SizedBox(
-                  width: 160.w,
+                  width: 154.w,
                   child: CustomTextFromField(
                     hintText: translate("signup.last_name"),
                     labelText: translate("signup.last_name"),
@@ -103,7 +105,7 @@ class _ContactScreenState extends State<ContactScreen> {
             ),
             const SizedBox(height: 20,),
             CustomTextFromField(
-              hintText: translate("signup.phone"),
+              hintText: "502441695",
               labelText: translate("signup.phone"),
               hasBorder: true,
               smallPadding: true,
@@ -186,7 +188,17 @@ class _ContactScreenState extends State<ContactScreen> {
                     contentTextEditingController.text.trim().isNotEmpty&&
                     phoneTextEditingController.text.trim().isNotEmpty
                 ){
+                  String phone = "+966${phoneTextEditingController.text.trim()}";
+                  if(validatePhoneInput(phone, context) == false){
+                    setState(() {
+                      loading = false;
+                    });
+                    return;
+                  }
                   if(!emailTextEditingController.text.trim().contains("@")){
+                    setState(() {
+                      loading = false;
+                    });
                     SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), DMUtil.getRED());
                     return;
                   }
@@ -195,7 +207,7 @@ class _ContactScreenState extends State<ContactScreen> {
                       contentTextEditingController.text.trim(),
                       firstNameTextEditingController.text.trim(),
                       lastNameTextEditingController.text.trim(),
-                      phoneTextEditingController.text.trim(),
+                      phone,
                       emailTextEditingController.text.trim(), subject);
                   setState(() {
                     loading = false;
@@ -212,6 +224,9 @@ class _ContactScreenState extends State<ContactScreen> {
                     SnackBarBuilder.showFeedBackMessage(context, translate("toast.oops"), Colors.red);
                   }
                 }else{
+                  setState(() {
+                    loading = false;
+                  });
                   SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
                 }
               },
@@ -234,6 +249,17 @@ class _ContactScreenState extends State<ContactScreen> {
         ),
       ),
     );
+  }
+
+  bool validatePhoneInput(String phone,BuildContext context){
+    if(phone.isNotEmpty){
+      String? txt = Util.validatePhone(phone);
+      if(txt!=null){
+        SnackBarBuilder.showFeedBackMessage(context, txt, DMUtil.getRED());
+        return false;
+      }
+    }
+    return true;
   }
 
   List<DropdownMenuItem<String>> dropDownMenu = [];

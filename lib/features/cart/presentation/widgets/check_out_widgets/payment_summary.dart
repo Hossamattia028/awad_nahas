@@ -43,7 +43,7 @@ class PaymentSummaryWidget extends StatelessWidget {
                       fontSize: AppStyle.average.sp,
                     ),
                     const Divider(height: 15,),
-                    OrderRow(title: translate("cart.shipping_cost") ,value: "${bloc.shippingCost}${translate("store.sar")}",),
+                    OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost}${translate("store.sar")}",),
                     const SizedBox(height: 10,),
                     if(bloc.couponValue!=null&&bloc.couponModel!=null)...[
                       OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue}${translate("store.sar")}",),

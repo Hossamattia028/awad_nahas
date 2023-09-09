@@ -60,12 +60,12 @@ class OrderRow extends StatelessWidget {
       children: [
         CustomText(
           text: title,
-          color: DMUtil.getDC(),
+          color: DMUtil.getD2C().withOpacity(0.8),
           fontSize: isBig?AppStyle.average.sp+2:AppStyle.average.sp-2,
         ),
         CustomText(
           text: value,
-          color: DMUtil.getDC(),
+          color: value==translate("cart.free")  ? DMUtil.getRED() : DMUtil.getDC(),
           fontSize: isBig?AppStyle.average.sp+2:AppStyle.average.sp-2,
         ),
       ],
