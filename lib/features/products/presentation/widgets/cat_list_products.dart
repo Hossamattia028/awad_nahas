@@ -51,7 +51,7 @@ class CatProductsList extends StatelessWidget {
             ),
             const SizedBox(height: 12,),
             SizedBox(
-              height: Util.getLang()=="ar"? 284.h : 294.h ,
+              height: Util.getLang()=="ar"? 255.h : 263.h ,
               child: ListView.separated(
                 itemCount: list.length,
                 physics: const BouncingScrollPhysics(),
@@ -93,11 +93,12 @@ class CatProductsList extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 1,),
-                          ImageWidget(
-                            imgUrl: item.imgPath,
-                            fit: BoxFit.fill,
-                            height: 126,
-                            width: 120,
+                          Expanded(
+                            child: ImageWidget(
+                              imgUrl: item.imgPath,
+                              fit: BoxFit.fill,
+                              width: 120,
+                            ),
                           ),
                           Expanded(
                             child: Container(

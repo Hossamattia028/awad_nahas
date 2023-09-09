@@ -17,6 +17,7 @@ class BrandListHome extends StatelessWidget {
       builder: (ctx,state){
         var bloc = CategoriesBloc.get(ctx);
         var list = bloc.activateTransList(bloc.brandsList);
+        if(list.isEmpty)return const SizedBox.shrink();
         var newSortList = [];
         newSortList.add(bloc.getCat(list,"mi","م"));
         newSortList.add(bloc.getCat(list,"sm","س"));

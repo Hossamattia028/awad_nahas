@@ -8,7 +8,7 @@
 PRODUCT_NAME = awad_nahas
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.awadnahas.awadnahas.awadNahas
+PRODUCT_BUNDLE_IDENTIFIER = com.awadnahas.ios.awadNahas
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.awadnahas.awadnahas. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 com.awadnahas.ios. All rights reserved.
