@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/products/data/models/product_comments.dart';
 import 'package:awad_nahas/features/products/data/models/product_small_model.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
@@ -38,7 +40,7 @@ class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
 
   @override
   Future<List<ProductModel>> getAllProductsByVendor({required int vendorID}) async {
-    var response = await client.get(Uri.parse("${ApiUrl.PRODUCTS_URL}?offset=0&limit=10&sort[column]=name&sort[order]=asc&fields[post_author][$vendorID]"));
+    var response = await client.get(Uri.parse("${ApiUrl.BASE_URL_ABN_PLUGIN}/products/$vendorID?lang=${Util.getLang()=="ar"?"ar":"en"}"));
     // debugPrint("getAllProducts ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
@@ -47,6 +49,17 @@ class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
         return ProductModel.fromJson(model);
       }).toList();
       return products;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  static Future<String> getProductDetails({required int id}) async {
+    var response = await http.get(Uri.parse("${ApiUrl.BASE_URL_ABN_PLUGIN}products/$id?lang=${Util.getLang()=="ar"?"ar":"en"}"));
+    debugPrint("getProductDetails ${response.body}");
+    if (response.statusCode == 200) {
+      final body = json.decode(response.body);
+      return body['description'];
     } else {
       throw ServerException();
     }

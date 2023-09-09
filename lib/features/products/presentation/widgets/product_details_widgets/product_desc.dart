@@ -12,8 +12,6 @@ class ProductDescription extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,height: 160,),
-        const SizedBox(height: 5,),
 
         ProductDescriptionWidget(txt: item.desc),
       ],

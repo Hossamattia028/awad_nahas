@@ -9,8 +9,13 @@ class ProductModel extends ProductsEntity{
   const ProductModel({
     required super.id,
     required super.sku,
-    required  super.title,required super.price,required super.imgPath,
-    required super.catTitle, required super.desc, required super.discount,required super.discountRate,
+    required  super.title,required super.price,
+    required super.imgPath,
+    required super.images,
+    required super.catTitle,
+    required super.desc,
+    required super.attributesDes,
+    required super.discount,required super.discountRate,
     required super.stockStatus,required super.quantity,
     required super.categoryList,
     required super.catID,
@@ -29,6 +34,12 @@ class ProductModel extends ProductsEntity{
 
 
   static ProductModel fromJson(Map<String, dynamic> jsonObject) {
+    List<String> list = [];
+    if(jsonObject['images']!=null && jsonObject['images'].toString()!="[]"){
+      for(var i in jsonObject['images']){
+        list.add(i.toString());
+      }
+    }
     return ProductModel(
       id: jsonObject['id'],
       sku: jsonObject['sku'] ?? "",
@@ -38,8 +49,10 @@ class ProductModel extends ProductsEntity{
       discountRate: double.parse((jsonObject['price'] ?? "0").toString()),
       price: double.parse((jsonObject['regular_price'] ?? "0").toString()),
       desc: jsonObject['desc'] ?? "",
+      attributesDes: jsonObject['attributes_des'] ?? "",
       stockStatus:  jsonObject['stock_status'] == "instock",
       imgPath: jsonObject['image']??"",
+      images: list,
       commentCount: 1,
       quantity: 1,
       isArabic:jsonObject['is_arabic'],

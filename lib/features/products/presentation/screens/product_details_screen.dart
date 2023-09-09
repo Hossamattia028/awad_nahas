@@ -7,6 +7,7 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_event.da
 import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/brand_products.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_attributes.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_data_taps.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,9 +82,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
               ],
             ),
 
-            ImagesSlider(images: [
-              widget.item.imgPath
-            ],),
+            if(widget.item.images!=null && widget.item.images!.isNotEmpty)...[
+              ImagesSlider(images: widget.item.images!,),
+            ]else ...[
+              ImagesSlider(images: [
+                widget.item.imgPath
+              ],),
+            ],
 
             const SizedBox(height: 10,),
 
@@ -115,6 +121,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
                 ),
               ],
             ),
+
+            const SizedBox(height: 5,),
+            if(widget.item.attributesDes!=null)ProductAttributes(txt: widget.item.attributesDes!),
             const SizedBox(height: 10,),
             if(Util.checkUser() && currentPrice<=2000)...[
               const SizedBox(height: 5,),

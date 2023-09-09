@@ -7,9 +7,11 @@ class ProductsEntity extends Equatable{
   final int id;
   final String sku;
   final String imgPath;
+  final List<String>? images;
   final String title;
   final String catTitle;
   final String desc;
+  final String? attributesDes;
   final double price;
   final double discount;
   final double discountRate;
@@ -29,9 +31,11 @@ class ProductsEntity extends Equatable{
     required this.title,
     required this.catTitle,
     required this.desc,
+    this.attributesDes,
     required this.id,
     required this.sku,
     required this.imgPath,
+    this.images,
     required this.price,required this.discount,
     required this.discountRate,
     required this.stockStatus,required this.quantity,
