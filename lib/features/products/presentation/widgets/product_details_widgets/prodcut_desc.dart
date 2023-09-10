@@ -10,7 +10,7 @@ class ProductDescriptionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.only(top: 5),
-      physics: const NeverScrollableScrollPhysics(),
+      // physics: const NeverScrollableScrollPhysics(),
       child: HtmlWidget(
         '''
         $txt

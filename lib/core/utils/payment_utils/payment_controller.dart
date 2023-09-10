@@ -4,6 +4,7 @@ import 'package:awad_nahas/core/utils/payment_utils/fort_constants.dart';
 import 'package:awad_nahas/core/utils/payment_utils/payfort_api.dart';
 import 'package:awad_nahas/core/utils/payment_utils/sdk_token_response.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:uuid/uuid.dart';
@@ -89,6 +90,7 @@ class PayFortController{
         ),
       );
     } catch (e) {
+      debugPrint("paymentWithApplePay: $e");
       onFailed(e.toString());
       if(fn!=null)fn;
     }

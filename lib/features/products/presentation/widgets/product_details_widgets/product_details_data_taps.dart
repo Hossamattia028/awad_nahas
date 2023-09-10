@@ -53,44 +53,24 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
             var bloc = ProductsBloc.get(ctx);
             if(bloc.index==0)bloc.widgetSize = heightDesc;
             return SizedBox(
-              height: bloc.widgetSize.h,
+              height: bloc.widgetSize,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  SizedBox(
-                    height: 34.h,
-                    child: TabBar(
-                      onTap: (index) => bloc.add(ChangeWidgetSizeEvent(height: index==0?heightDesc:index==1?300.h:585.h,index: index)),
-                      // indicatorPadding: const EdgeInsets.symmetric(horizontal: 6),
-                      unselectedLabelColor: DMUtil.getDC(),
-                      indicatorColor: DMUtil.getPC(),
-                      labelColor: DMUtil.getPC(),
-                      isScrollable: true,
-                      labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+2,fontFamily: primaryFontReg),
-                      tabs: <Widget>[
-                        Tab(text: translate("products.desc"),),
-                        Tab(text: translate("products.reviews"),),
-                        Tab(text: translate("products.shipping_delivery"),),
-                      ],
-                    ),
+                  TabBar(
+                    onTap: (index) => bloc.add(ChangeWidgetSizeEvent(height: index==0?heightDesc:index==1?300.h:585.h,index: index)),
+                    // indicatorPadding: const EdgeInsets.symmetric(horizontal: 6),
+                    unselectedLabelColor: DMUtil.getDC(),
+                    indicatorColor: DMUtil.getPC(),
+                    labelColor: DMUtil.getPC(),
+                    // isScrollable: true,
+                    labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+2,fontFamily: primaryFontReg),
+                    tabs: <Widget>[
+                      Tab(text: translate("products.desc"),),
+                      Tab(text: translate("products.reviews"),),
+                      Tab(text: translate("products.shipping_delivery"),),
+                    ],
                   ),
-
-                  // SizedBox(
-                  //   height: 150.h,
-                  //   child: TabBarView(
-                  //     children: <Widget>[
-                  //       SingleChildScrollView(
-                  //         child: ProductDescription(item: item,),
-                  //       ),
-                  //       const SingleChildScrollView(
-                  //         child: CommentList(),
-                  //       ),
-                  //       const SingleChildScrollView(
-                  //         child:  ShippingAndInstallmentWidget(),
-                  //       ),
-                  //
-                  //     ],
-                  //   ),
-                  // ),
 
                   Expanded(
                     child: TabBarView(
@@ -102,7 +82,6 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
                       ],
                     ),
                   ),
-
                 ],
               ),
             );
