@@ -31,7 +31,7 @@ class TamaraSmallProductWidget extends StatelessWidget {
               maxLine: 3,
             ),
           ),
-          Image.asset(Util.getLang()=="ar"?AppImages.tamaraAr:AppImages.tamaraEn,width: 65.w,fit: BoxFit.fill,),
+          Image.asset(Util.getLang()=="ar"?AppImages.tamaraAr:AppImages.tamaraEn,width: 80.w,fit: BoxFit.fill,),
         ],
       ),
     );

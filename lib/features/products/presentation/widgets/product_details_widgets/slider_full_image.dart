@@ -4,11 +4,12 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 
 class FullImageViewer extends StatelessWidget {
   final List<String> images;
@@ -16,6 +17,7 @@ class FullImageViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PageController controller = PageController();
     return Scaffold(
       backgroundColor: DMUtil.getWC(),
       body: BlocBuilder<CategoriesBloc,CategoriesState>(
@@ -24,22 +26,31 @@ class FullImageViewer extends StatelessWidget {
           return Stack(
             alignment: Alignment.bottomCenter,
             children: [
-
-              SizedBox(
-                height: double.infinity,
-                width: double.infinity,
-                child:  CarouselSlider.builder(
-                  itemCount: images.length,
-                  options: CarouselOptions(
-                    autoPlay: true,
-                    viewportFraction: 1,
-                    enlargeCenterPage: false,
-                    onPageChanged: (index,reason)=> bloc.add(ChangeSliderIndexEvent(val: index)),
+              PhotoViewGallery.builder(
+                scrollPhysics: const BouncingScrollPhysics(),
+                builder: (BuildContext context, int itemIndex) {
+                  // itemIndex = bloc.currentSliderIndex;
+                  return PhotoViewGalleryPageOptions(
+                    imageProvider: NetworkImage(images[itemIndex].toString()),
+                    initialScale: PhotoViewComputedScale.contained * 0.8,
+                    heroAttributes: PhotoViewHeroAttributes(tag: images[itemIndex].toString()),
+                  );
+                },
+                itemCount: images.length,
+                loadingBuilder: (context, event) => Center(
+                  child: SizedBox(
+                    width: 20.0,
+                    height: 20.0,
+                    child: CircularProgressIndicator(
+                      value: event == null
+                          ? 0
+                          : event.cumulativeBytesLoaded / 2,
+                    ),
                   ),
-                  itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
-                    return ImageWidget(imgUrl: images[itemIndex].toString(),fit: BoxFit.contain,width: double.infinity,height: double.infinity,);
-                  },
                 ),
+                backgroundDecoration: const BoxDecoration(),
+                pageController: controller,
+                onPageChanged: (index) => bloc.add(ChangeSliderIndexEvent(val: index)),
               ),
               Align(
                 alignment: Util.getLang()!="ar"? Alignment.topLeft:Alignment.topRight,
@@ -48,10 +59,33 @@ class FullImageViewer extends StatelessWidget {
                   child: BackArrowButton(color: DMUtil.getRED()),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 40),
+                child: SizedBox(
+                  height: 50.h,
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (ctx,index){
+                      return InkWell(
+                        onTap: (){
+                          bloc.add(ChangeSliderIndexEvent(val: index));
+                          controller.animateToPage(index, duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
+                        },
+                        child: ImageWidget(imgUrl: images[index],width: 50.w,),
+                      );
+                    },
+                    separatorBuilder: (ctx,index) =>  const SizedBox(width: 10,),
+                    itemCount: images.length,
+                  ),
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+
                   for(int i = 0 ; i<images.length; i++)...[
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10,left: 10),

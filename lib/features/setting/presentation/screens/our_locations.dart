@@ -44,6 +44,9 @@ class OurLocationsScreen extends StatelessWidget {
                   if(item.address1.contains("ميلي"))title = "Miele Gallery";
                   if(item.address1.contains("معرض المدينة"))title = "Madina Road";
                 }
+                if(!title.contains("معرض")){
+                  title = "  معرض $title " ;
+                }
                 // var cl = "invalid";
                 // if (item.hours != null) {
                 //   var closed = (item.hours!.last).split(',');
@@ -60,51 +63,57 @@ class OurLocationsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomText(
-                            text: title,
-                            color: DMUtil.getDC(),
-                            fontSize: AppStyle.average.sp+1
+                          text: title,
+                          color: DMUtil.getDC(),
+                          fontSize: AppStyle.average.sp+1,
+                          fontWeight: FontWeight.w600,
                         ),
                         const SizedBox(height: 5,),
-                        // CustomText(
-                        //     text: item.address2,
-                        //     color: DMUtil.getD2C(),
-                        //     fontSize: AppStyle.small.sp
-                        // ),
-                        // if(item.hours != null &&  item.hours!.isNotEmpty)
-                        CustomText(
-                            text: "${translate("activity_setting.from")} 9 ${translate("activity_setting.am")} ${translate("activity_setting.to")} 11 ${translate("activity_setting.pm")}",
-                            color: DMUtil.getD2C(),
-                            fontSize: AppStyle.small.sp
-                        ),
-                        if(item.address1.contains("الخبر")||item.address1.contains("elhob"))...[
-                          CustomText(
-                              text: "${translate("activity_setting.closed_friday")} *",
-                              color: DMUtil.getRED(),
-                              fontSize: AppStyle.small.sp
-                          ),
-                        ],
-                        AlignChildRow(
-                          isStart: false,
-                          child: CustomButton(
-                            circular: 10,
-                            height: 30.h,
-                            width: 100.w,
-                            widget: CustomText(
-                              text: translate("map.sides"),
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: AppStyle.small.sp,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomText(
+                                  text: "${translate("activity_setting.from")} 9 ${translate("activity_setting.am")} ${translate("activity_setting.to")} 11 ${translate("activity_setting.pm")}",
+                                  color: DMUtil.getD2C(),
+                                  fontSize: AppStyle.small.sp,
+                                ),
+                                if(item.address1.contains("الخبر")||item.address1.contains("elhob"))...[
+                                  const SizedBox(height: 4,),
+                                  CustomText(
+                                      text: "${translate("activity_setting.closed_friday")} *",
+                                      color: DMUtil.getRED(),
+                                      fontSize: AppStyle.small.sp
+                                  ),
+                                ],
+                              ],
                             ),
-                            color: DMUtil.getRED(),
-                            onPressed: ()=> Util.openMapApp(item.lat.toString(), item.long.toString()),
-                          ),
-                        )
+                            AlignChildRow(
+                              isStart: false,
+                              child: CustomButton(
+                                circular: 10,
+                                height: 30.h,
+                                width: 100.w,
+                                widget: CustomText(
+                                  text: translate("map.sides"),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: AppStyle.small.sp,
+                                ),
+                                color: DMUtil.getRED(),
+                                onPressed: ()=> Util.openMapApp(item.lat.toString(), item.long.toString()),
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 );
               },
-              separatorBuilder: (ctx,state)=> const SizedBox(height: 10,),
+              separatorBuilder: (ctx,state)=> const SizedBox(height: 15,),
               itemCount: list.length,
           );
         },

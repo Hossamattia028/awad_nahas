@@ -83,7 +83,7 @@ class CustomTextFromField extends StatelessWidget {
         decoration: InputDecoration(
           filled: filled,
           contentPadding: smallPadding==true?
-          const EdgeInsets.symmetric(vertical: 1,horizontal: 5):null,
+          const EdgeInsets.symmetric(vertical: 6,horizontal: 6):null,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           focusedBorder:  OutlineInputBorder(
             borderSide: hasBorder==true?  BorderSide(color: borderColor ??DMUtil.getD2C(), width: borderWidth ?? 1.0): const BorderSide(color: Colors.white),

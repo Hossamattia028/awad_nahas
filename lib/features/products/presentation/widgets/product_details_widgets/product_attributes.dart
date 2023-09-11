@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
@@ -18,7 +19,7 @@ class ProductAttributes extends StatelessWidget {
         }
         return null;
       },
-      textStyle: TextStyle(color: DMUtil.getD2C(),height: 2),
+      textStyle: TextStyle(color: DMUtil.getD2C(),height: 2,fontFamily: primaryFontReg),
     );
   }
 }
