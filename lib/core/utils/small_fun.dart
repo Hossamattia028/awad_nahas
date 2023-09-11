@@ -191,6 +191,7 @@ class Util{
     SharedPref.preferences.setPreferencesString(Constants.userLang,lng);
     Fonts.update();
     ApiUrl.updateSettingUrl();
+    RootBloc.get(ctx).add(const FetchSettingEvent());
     ProductsBloc.get(ctx).add(const UpdateAllProductsEvent());
     if(isLogin){
       Util.pushPageAndRemoveRoutes(const LoginScreen(),ctx);

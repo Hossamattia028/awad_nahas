@@ -29,7 +29,7 @@ class FaqsListWidget extends StatelessWidget {
                     text: item.title.toString(),
                     color: DMUtil.getD2C(),
                     fontWeight: FontWeight.w600,
-                    fontSize: AppStyle.average.sp
+                    fontSize: AppStyle.average.sp+2
                 ),
                 const SizedBox(height: 10,),
                 if(item.faqList!=null && item.faqList!.isNotEmpty)

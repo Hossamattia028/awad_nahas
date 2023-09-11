@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/send_gmail.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
@@ -104,18 +105,26 @@ class _ContactScreenState extends State<ContactScreen> {
                   isLabelError: false),
             ),
             const SizedBox(height: 20,),
-            CustomTextFromField(
-              hintText: "502441695",
-              labelText: translate("signup.phone"),
-              hasBorder: true,
-              smallPadding: true,
-              cursorColor: DMUtil.getRED(),
-              radius: 10,
-              textEditingController: phoneTextEditingController,
-              validator: () {},
-              obscureText: false,
-              isLabelError: false,
-              borderColor: DMUtil.getDC(),
+            Row(
+              children: [
+                SizedBox(width: 30.w, child: CustomText(text: "+966", fontSize: AppStyle.small.sp,)),
+                Expanded(
+                  // width: 280.w,
+                  child: CustomTextFromField(
+                    hintText: "502441695",
+                    labelText: translate("signup.phone"),
+                    hasBorder: true,
+                    smallPadding: true,
+                    cursorColor: DMUtil.getRED(),
+                    radius: 10,
+                    textEditingController: phoneTextEditingController,
+                    validator: () {},
+                    obscureText: false,
+                    isLabelError: false,
+                    borderColor: DMUtil.getDC(),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 20,),
             Container(

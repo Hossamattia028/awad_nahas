@@ -57,7 +57,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>  with TickerProvide
                   indicatorColor: DMUtil.getPC(),
                   labelColor: DMUtil.getWC(),
                   isScrollable: true,
-                  labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+1,fontFamily: primaryFontReg,fontWeight: FontWeight.w500),
+                  labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+1,fontFamily: primaryFontReg,fontWeight: FontWeight.w600),
                   tabs: <Widget>[
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 30.w) + const EdgeInsets.only(top: 3),

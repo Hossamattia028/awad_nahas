@@ -160,6 +160,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
 
 
   getAllSetting(event,emit)async{
+    emit(RootLoadingState());
     await getLocations();
     await getFaqs();
     emit(RootSuccessState());
@@ -188,7 +189,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
   /// maintenance
 
   sendMaintenance(SendMaintenanceEvent event,emit)async{
-    // try{
+    try{
       emit(MaintenanceLoadingState());
       bool check = await SettingsRemoteDataSource.sendMaintenanceRequest(event.data);
       if(check){
@@ -196,9 +197,9 @@ class RootBloc extends Bloc<RootEvent, RootState> {
       }else{
         emit(MaintenanceErrorState());
       }
-    // }catch(e){
-    //   debugPrint("sendMaintenanceRootBloc: $e");
-    // }
+    }catch(e){
+      debugPrint("sendMaintenanceRootBloc: $e");
+    }
   }
 
 
