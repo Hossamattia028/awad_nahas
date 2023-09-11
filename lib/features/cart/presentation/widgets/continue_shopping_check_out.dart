@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/cart/presentation/screens/check_out_screen.dart';
+import 'package:awad_nahas/features/cart/presentation/widgets/animate_arrow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,11 +46,17 @@ class CartBottomButton extends StatelessWidget {
                       circular: 20,
                       widget: state is OrderLoadingState ?
                       const CircularProgressIndicator(color: Colors.white,):
-                      CustomText(
-                        text: translate("cart.checkOut"),
-                        color: Colors.white,
-                        fontSize: AppStyle.average.sp+1,
-                        alignCenter: true,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CustomText(
+                            text: translate("cart.checkOut"),
+                            color: Colors.white,
+                            fontSize: AppStyle.average.sp+1,
+                            alignCenter: true,
+                          ),
+                          const AnimateArrowWidget(),
+                        ],
                       ),
                       color: DMUtil.getRED(),
                       onPressed: () => Util.pushPage(const CheckOutScreen(), context) ,

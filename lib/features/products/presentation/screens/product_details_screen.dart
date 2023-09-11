@@ -65,70 +65,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
         leadingIcon: const BackArrowButton(color: Colors.white,),
       ),
       bottomNavigationBar: AddToCartButtonWidget(item: widget.item,),
-      // body: Stack(
-      //     children: [
-      //       Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           WishListIconWidget(item: widget.item),
-      //           const SizedBox(width: 10,),
-      //           InkWell(
-      //             onTap: ()=> Share.share('check the website ${ApiUrl.MAIN_DOMAIN}/', subject: widget.item.title.toString()),
-      //             child: Icon(Icons.ios_share_outlined,color: DMUtil.getRED(),),
-      //           ),
-      //         ],
-      //       ),
-      //
-      //       if(widget.item.images!=null && widget.item.images!.isNotEmpty)...[
-      //         ImagesSlider(images: widget.item.images!,),
-      //       ]else ...[
-      //         ImagesSlider(images: [
-      //           widget.item.imgPath
-      //         ],),
-      //       ],
-      //
-      //       const SizedBox(height: 10,),
-      //
-      //       CustomText(
-      //         text: widget.item.title,
-      //         color: DMUtil.getDC(),
-      //         fontSize: AppStyle.large.sp-3,
-      //         maxLine: 2,
-      //       ),
-      //
-      //
-      //       const Divider(thickness: 1,),
-      //       Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           ProductPriceWidget(productModel: widget.item,isBig: true,),
-      //           BlocBuilder<CategoriesBloc,CategoriesState>(
-      //             builder: (ctx,state){
-      //               var bloc = CategoriesBloc.get(ctx);
-      //               int index = bloc.brandsList.indexWhere((element) => element.id==widget.item.brandID);
-      //               if(index == -1) return const SizedBox.shrink();
-      //               var brand = bloc.brandsList[index];
-      //               if(brand.iconPath.contains("svg")){
-      //                 return SvgPicture.network(brand.iconPath,width: 26.w,height: 35.h,);
-      //               }else{
-      //                 return Image.network(brand.imgPath);
-      //               }
-      //             },
-      //           ),
-      //         ],
-      //       ),
-      //       Positioned(
-      //         // top: 20.h,
-      //         child: ProductDetailsDataRow(item: widget.item),
-      //       ),
-      //     ],
-      // ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 10.w,),
         child: Column(
           children: [
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

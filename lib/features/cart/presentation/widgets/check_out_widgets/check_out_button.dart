@@ -50,6 +50,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
   @override
   Widget build(BuildContext context) {
+
     return BlocListener<OrderBloc,OrderState>(
       listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState,
       listener: (ctx,state)async{
@@ -145,7 +146,6 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   _checkOutPayfort(BuildContext context,OrderBloc orderBloc) async {
     if(cartBloc.applePay){
       await payFortController.paymentWithApplePay(
-        fn: ()=> SnackBarBuilder.showFeedBackMessage(context, "err ", DMUtil.getRED()),
         amount: cartBloc.totalPrice.toInt(),
         onSucceeded:(val){
           debugPrint("success ${val.status}");
@@ -153,13 +153,12 @@ class _CheckOutButtonState extends State<CheckOutButton> {
           orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
         },
         onFailed: (val){
-          // debugPrint("failed ${val.toString()}");
+          debugPrint("failed ${val.toString()}");
           SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
         },
       );
     }else{
       await payFortController.paymentWithCreditOrDebitCard(
-        fn: ()=> SnackBarBuilder.showFeedBackMessage(context, "err ", DMUtil.getRED()),
         amount: cartBloc.totalPrice.toInt(),
         onSucceeded:(val){
           debugPrint("success ${val.status}");
