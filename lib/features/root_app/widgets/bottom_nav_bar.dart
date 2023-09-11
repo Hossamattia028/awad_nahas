@@ -1,7 +1,9 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_icon.dart';
+import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,8 @@ import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 
 class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({Key? key}) : super(key: key);
+  final bool isRoot;
+  const BottomNavBar({Key? key,this.isRoot = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,12 @@ class BottomNavBar extends StatelessWidget {
         var bloc = RootBloc.get(ctx);
         int currentIndex = bloc.currentScreenIndex;
         return BottomNavigationBar(
-          onTap: (index)=> bloc.add(ChangeIndex(index: index, title: "")),
+          onTap: (index){
+            if(isRoot == false){
+              Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+            }
+            bloc.add(ChangeIndex(index: index, title: ""));
+          },
           currentIndex: currentIndex,
           backgroundColor: DMUtil.getWC(),
           selectedItemColor: DMUtil.getRED(),

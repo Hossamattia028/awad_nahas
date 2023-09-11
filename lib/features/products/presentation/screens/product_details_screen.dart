@@ -10,6 +10,7 @@ import 'package:awad_nahas/features/products/presentation/widgets/product_detail
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_attributes.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_data_taps.dart';
+import 'package:awad_nahas/features/root_app/widgets/bottom_nav_bar.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,99 +57,118 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: DMUtil.getWC(),
-      appBar: GlobalAppBar(
-        backGroundColor: DMUtil.getRED(),
-        title: widget.item.title,
-        textColor: Colors.white,
-        leadingIcon: const BackArrowButton(color: Colors.white,),
-      ),
-      bottomNavigationBar: AddToCartButtonWidget(item: widget.item,),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 10.w,),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Scaffold(
+          backgroundColor: DMUtil.getWC(),
+          appBar: GlobalAppBar(
+            backGroundColor: DMUtil.getRED(),
+            title: widget.item.title,
+            textColor: Colors.white,
+            leadingIcon: const BackArrowButton(color: Colors.white,),
+          ),
+
+          body: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: 10.w,),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      WishListIconWidget(item: widget.item),
+                      const SizedBox(width: 10,),
+                      InkWell(
+                        onTap: ()=> Share.share('check the website ${ApiUrl.MAIN_DOMAIN}/', subject: widget.item.title.toString()),
+                        child: Icon(Icons.ios_share_outlined,color: DMUtil.getRED(),),
+                      ),
+                    ],
+                  ),
+
+                  if(widget.item.images!=null && widget.item.images!.isNotEmpty)...[
+                    ImagesSlider(images: widget.item.images!,),
+                  ]else ...[
+                    ImagesSlider(images: [
+                      widget.item.imgPath
+                    ],),
+                  ],
+
+                  const SizedBox(height: 10,),
+
+                  CustomText(
+                    text: widget.item.title,
+                    color: DMUtil.getDC(),
+                    fontSize: AppStyle.large.sp-3,
+                    maxLine: 2,
+                  ),
+
+
+                  const Divider(thickness: 1,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ProductPriceWidget(productModel: widget.item,isBig: true,),
+                      BlocBuilder<CategoriesBloc,CategoriesState>(
+                        builder: (ctx,state){
+                          var bloc = CategoriesBloc.get(ctx);
+                          int index = bloc.brandsList.indexWhere((element) => element.id==widget.item.brandID);
+                          if(index == -1) return const SizedBox.shrink();
+                          var brand = bloc.brandsList[index];
+                          if(brand.iconPath.contains("svg")){
+                            return SvgPicture.network(brand.iconPath,width: 26.w,height: 35.h,);
+                          }else{
+                            return Image.network(brand.imgPath);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 5,),
+                  if(widget.item.attributesDes!=null)ProductAttributes(txt: widget.item.attributesDes!),
+                  const SizedBox(height: 10,),
+                  if(Util.checkUser() && currentPrice<=2000)...[
+                    const SizedBox(height: 5,),
+                    TamaraSmallProductWidget(price: currentPrice),
+                    const SizedBox(height: 10,),
+                  ],
+
+                  ProductDetailsDataRow(item: widget.item),
+
+
+                  if(widget.item.brandID!=null)
+                    BlocBuilder<CategoriesBloc,CategoriesState>(
+                      builder: (ctx,state){
+                        var bloc = CategoriesBloc.get(ctx);
+                        int index = bloc.brandsList.indexWhere((element) => element.id==widget.item.brandID);
+                        if(index == -1) return const SizedBox.shrink();
+                        var brand = bloc.brandsList[index];
+                        return BrandProductsWidget(item:  widget.item,brandTitle: brand.title,);
+                      },
+                    ),
+
+                  RelatedProductsWidget(item:  widget.item,),
+
+                ],
+              )
+          ),
+        ),
+        Material(
+          child: SizedBox(
+            height: 140.h,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                WishListIconWidget(item: widget.item),
-                const SizedBox(width: 10,),
-                InkWell(
-                  onTap: ()=> Share.share('check the website ${ApiUrl.MAIN_DOMAIN}/', subject: widget.item.title.toString()),
-                  child: Icon(Icons.ios_share_outlined,color: DMUtil.getRED(),),
-                ),
+                AddToCartButtonWidget(item: widget.item,),
+                const BottomNavBar(isRoot: false ),
               ],
             ),
+          ),
+        ),
 
-            if(widget.item.images!=null && widget.item.images!.isNotEmpty)...[
-              ImagesSlider(images: widget.item.images!,),
-            ]else ...[
-              ImagesSlider(images: [
-                widget.item.imgPath
-              ],),
-            ],
-
-            const SizedBox(height: 10,),
-
-            CustomText(
-              text: widget.item.title,
-              color: DMUtil.getDC(),
-              fontSize: AppStyle.large.sp-3,
-              maxLine: 2,
-            ),
-
-
-            const Divider(thickness: 1,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ProductPriceWidget(productModel: widget.item,isBig: true,),
-                BlocBuilder<CategoriesBloc,CategoriesState>(
-                  builder: (ctx,state){
-                    var bloc = CategoriesBloc.get(ctx);
-                    int index = bloc.brandsList.indexWhere((element) => element.id==widget.item.brandID);
-                    if(index == -1) return const SizedBox.shrink();
-                    var brand = bloc.brandsList[index];
-                    if(brand.iconPath.contains("svg")){
-                      return SvgPicture.network(brand.iconPath,width: 26.w,height: 35.h,);
-                    }else{
-                      return Image.network(brand.imgPath);
-                    }
-                  },
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 5,),
-            if(widget.item.attributesDes!=null)ProductAttributes(txt: widget.item.attributesDes!),
-            const SizedBox(height: 10,),
-            if(Util.checkUser() && currentPrice<=2000)...[
-              const SizedBox(height: 5,),
-              TamaraSmallProductWidget(price: currentPrice),
-              const SizedBox(height: 10,),
-            ],
-
-            ProductDetailsDataRow(item: widget.item),
-
-
-            if(widget.item.brandID!=null)
-            BlocBuilder<CategoriesBloc,CategoriesState>(
-              builder: (ctx,state){
-                var bloc = CategoriesBloc.get(ctx);
-                int index = bloc.brandsList.indexWhere((element) => element.id==widget.item.brandID);
-                if(index == -1) return const SizedBox.shrink();
-                var brand = bloc.brandsList[index];
-                return BrandProductsWidget(item:  widget.item,brandTitle: brand.title,);
-              },
-            ),
-
-            RelatedProductsWidget(item:  widget.item,),
-
-          ],
-        )
-      ),
+      ],
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/account/presentation/widgets/account_before_auth.dart';
+import 'package:awad_nahas/features/cart/presentation/widgets/cart_payment_options.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -21,6 +22,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: DMUtil.getWC(),
       appBar: GlobalAppBar(title: translate("app_bar.cart"),),
+      bottomNavigationBar: const CartBottomButton(),
       body: RefreshIndicator(
         onRefresh: () =>  _buildRefresh(context),
         child: SingleChildScrollView(
@@ -29,10 +31,10 @@ class CartScreen extends StatelessWidget {
           child: Column(
             children: [
               if(Util.checkUser())... const[
+                CartPaymentOptions(),
                 CartListWidget(),
                 CouponWidget(),
                 OrderDetails(),
-                CartBottomButton(),
               ]else...const[
                 AccountNotAuth(),
               ],

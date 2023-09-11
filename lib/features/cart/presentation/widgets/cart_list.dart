@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/select_product_quantity_widget.dart';
@@ -29,11 +30,17 @@ class CartListWidget extends StatelessWidget {
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (ctx,index){
+              ProductsEntity? item ;
               int ind = ProductsBloc.get(context).productsList.indexWhere((element) => list[index].id==element.id);
-              if(ind==-1)return const SizedBox.shrink();
-              var item = ProductsBloc.get(context).productsList[ind];
+              if(ind==-1){
+                ind = ProductsBloc.get(context).storedProductsList.indexWhere((element) => list[index].imgPath==element.imgPath);
+                if(ind==-1)return const SizedBox.shrink();
+                item = ProductsBloc.get(context).storedProductsList[ind];
+              }else{
+                item = ProductsBloc.get(context).productsList[ind];
+              }
               return Container(
-                height: 120.h,
+                height: 125.h,
                 padding: const EdgeInsets.all(10),
                 decoration:  BoxDecoration(
                   color: DMUtil.getWC(),
@@ -58,19 +65,20 @@ class CartListWidget extends StatelessWidget {
                             side: BorderSide(width: 1,color: Colors.white)
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(6.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
                                 child: SizedBox(
                                   width: 200.w,
+                                  height: 20.h,
                                   child: SingleChildScrollView(
                                     child: CustomText(
                                       text: item.title,
                                       color: DMUtil.getD2C(),
                                       fontWeight: FontWeight.w700,
-                                      fontSize: AppStyle.average.sp-2,
+                                      fontSize: AppStyle.average.sp-3,
                                       maxLine: 5,
                                       isEllipsis: true,
                                     ),

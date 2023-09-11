@@ -78,6 +78,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
               color: Colors.white,
               fontSize: AppStyle.average.sp,
               alignCenter: true,
+              fontWeight: FontWeight.w600,
             ),
             color: DMUtil.getRED(),
             onPressed: () async => await _checkOut(context,orderBloc),

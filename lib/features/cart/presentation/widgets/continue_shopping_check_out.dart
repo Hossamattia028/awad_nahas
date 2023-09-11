@@ -26,10 +26,11 @@ class CartBottomButton extends StatelessWidget {
         var cartBloc = CartBloc.get(ctx);
         if(cartBloc.cartList.isEmpty)return const SizedBox.shrink();
         return Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
+          height: 70.h,
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
                 color: DMUtil.getWC(),
-                borderRadius: BorderRadius.circular(10)
+                borderRadius: BorderRadius.circular(5)
             ),
             child: BlocListener<OrderBloc,OrderState>(
                 listener: (ctx,state){
@@ -40,26 +41,43 @@ class CartBottomButton extends StatelessWidget {
                 },
                 child: BlocBuilder<OrderBloc,OrderState>(
                   builder: (ctx,state){
-                    return CustomButton(
-                      height: 45.h,
-                      width: double.infinity,
-                      circular: 20,
-                      widget: state is OrderLoadingState ?
-                      const CircularProgressIndicator(color: Colors.white,):
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CustomText(
-                            text: translate("cart.checkOut"),
-                            color: Colors.white,
-                            fontSize: AppStyle.average.sp+1,
-                            alignCenter: true,
+                    return Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        CustomButton(
+                          height: 45.h,
+                          width: double.infinity,
+                          circular: 10,
+                          widget: state is OrderLoadingState ?
+                          const CircularProgressIndicator(color: Colors.white,):
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                child: CustomText(
+                                  text: translate("cart.checkOut"),
+                                  color: Colors.white,
+                                  fontSize: AppStyle.average.sp+1,
+                                  alignCenter: true,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const AnimateArrowWidget(),
+                            ],
                           ),
-                          const AnimateArrowWidget(),
-                        ],
-                      ),
-                      color: DMUtil.getRED(),
-                      onPressed: () => Util.pushPage(const CheckOutScreen(), context) ,
+                          color: DMUtil.getRED(),
+                          onPressed: () => Util.pushPage(const CheckOutScreen(), context) ,
+                        ),
+                        Positioned(
+                          left: 1.w,
+                          bottom: 50.h,
+                          child: CustomText(
+                            text: "${cartBloc.cartList.length} ${cartBloc.cartList.length>1?translate("store.items"):translate("store.item")}",
+                            fontSize: AppStyle.small.sp,
+                            color: DMUtil.getD2C().withOpacity(0.8),
+                          ),
+                        ),
+                      ],
                     );
                   },
                 )

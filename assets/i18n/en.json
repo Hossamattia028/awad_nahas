@@ -406,7 +406,8 @@
 		"order_your_favourite_food": "Order your favourite food at home",
 		"location_sure_to_use": "Are you sure to use current location?",
 		"your_location": "Your current location",
-		"kitchen_k": "kitchen"
+		"item": "Item",
+		"items": "Items"
 	},
 	"vendor": {
 		"my_products": "My Products",

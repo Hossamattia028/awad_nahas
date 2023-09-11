@@ -415,7 +415,9 @@
       "kilometer": "كيلو متر",
       "use_your_location": "استخدم موقعك الحالي",
       "location_sure_to_use": "تآكيد استخدام موقعك الحالي؟",
-      "your_location": "موقعك الحالي"
+      "your_location": "موقعك الحالي",
+      "item": "عنصر",
+      "items": "عنصر"
     },
     "vendor": {
       "my_products": "وجباتي",
