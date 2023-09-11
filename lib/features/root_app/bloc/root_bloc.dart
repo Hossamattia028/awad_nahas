@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/strings/enum/drawer_enum.dart';
+import 'package:awad_nahas/core/strings/enum/filter_enum.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
@@ -48,6 +49,9 @@ class RootBloc extends Bloc<RootEvent, RootState> {
       await sendMaintenance(event,emit);
     });
 
+    on<UpdateSearchProductList>((event, emit){
+      updateProductSearchList(event,emit);
+    });
 
   }
 
@@ -115,6 +119,28 @@ class RootBloc extends Bloc<RootEvent, RootState> {
       debugPrint("searchProductsAndCategories: $e");
       return [];
     }
+  }
+
+  updateProductSearchList(UpdateSearchProductList event,emit){
+    emit(RootLoadingState());
+    if(event.productList!=null)productSearchList = event.productList!;
+    if(event.sortEnum!=null)productSearchList = sortProducts(event.sortEnum!, productSearchList);
+    emit(RootSuccessState());
+  }
+
+  List<ProductsEntity> sortProducts(SortEnum sortType,List<ProductsEntity> list){
+    if(sortType == SortEnum.NEW){
+      list.sort((a, b) => DateTime.parse(b.date!).compareTo(DateTime.parse(a.date!)));
+    }else if(sortType == SortEnum.PRICE_HIGH_TO_LOW){
+      list.sort((a, b) => b.price.compareTo(a.price));
+    }else if(sortType == SortEnum.PRICE_LOW_TO_HIGH){
+      list.sort((a, b) => a.price.compareTo(b.price));
+    }else if(sortType == SortEnum.AVERAGE_RATE){
+      list.sort((a, b) => double.parse(b.averageRate.toString()).compareTo(double.parse(a.averageRate.toString())));
+    }else{
+      list = list;
+    }
+    return list;
   }
 
 

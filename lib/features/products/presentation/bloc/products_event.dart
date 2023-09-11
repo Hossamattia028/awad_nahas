@@ -18,11 +18,6 @@ class FetchAllProductsDataEvent extends ProductsEvent{
   final BuildContext ctx;
   const FetchAllProductsDataEvent({required this.ctx});
 }
-
-class FetchAllLatestProductsEvent extends ProductsEvent{
-  const FetchAllLatestProductsEvent();
-}
-
 class FetchAllBestSellerProductsEvent extends ProductsEvent{
   const FetchAllBestSellerProductsEvent();
 }

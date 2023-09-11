@@ -21,7 +21,7 @@ class HomeContentWidget extends StatelessWidget {
         const HomeCategories(),
         // OurBrandsScreen(),
 
-        const SizedBox(height: 10,),
+        const SizedBox(height: 5,),
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);

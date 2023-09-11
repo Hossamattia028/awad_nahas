@@ -39,7 +39,7 @@ class BrandListHome extends StatelessWidget {
                     bloc.add(ChangeCurrentBrand(brandModel: item));
                     Util.pushPage(const BrandDetailsScreen(), context);
                   },
-                  child: SvgPicture.asset(DMUtil.currentThemeIsDark() ? item.darkIcon  : item.lightIcon,height: 37.h,fit: BoxFit.fill,),
+                  child: SvgPicture.asset(DMUtil.currentThemeIsDark() ? item.darkIcon  : item.lightIcon,height: 39.h,fit: BoxFit.fill,),
                 );
               },
               separatorBuilder: (ctx,index)=> const SizedBox(width: 10,),

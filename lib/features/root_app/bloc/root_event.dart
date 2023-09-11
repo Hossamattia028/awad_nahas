@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/strings/enum/drawer_enum.dart';
+import 'package:awad_nahas/core/strings/enum/filter_enum.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,13 @@ class SearchEvent extends RootEvent {
   final List<ProductsEntity> productList;
   const SearchEvent({required this.word,required this.categoryList,required this.productList});
 }
+
+class UpdateSearchProductList extends RootEvent {
+  final List<ProductsEntity>? productList;
+  final SortEnum? sortEnum;
+  const UpdateSearchProductList({this.productList,this.sortEnum});
+}
+
 
 class EnableSearchEvent extends RootEvent{
   final List<ProductsEntity>? productList;

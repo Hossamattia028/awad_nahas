@@ -21,7 +21,7 @@ class BrandFilterList extends StatelessWidget {
         var list = catBloc.activateTransList(catBloc.brandsList);
         var fModel = bloc.filterModel;
         return SizedBox(
-          height: 29.h,
+          height: 30.h,
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,

@@ -26,7 +26,7 @@ class BottomNavBar extends StatelessWidget {
           backgroundColor: DMUtil.getWC(),
           selectedItemColor: DMUtil.getRED(),
           unselectedItemColor: DMUtil.getDC(),
-          selectedLabelStyle: TextStyle(fontFamily: primaryFontReg,height: 1.4),
+          selectedLabelStyle: TextStyle(fontFamily: primaryFontReg,height: 1.4,),
           unselectedLabelStyle: TextStyle(fontFamily: primaryFontReg,height: 1.4),
           showUnselectedLabels: true,
           items: [

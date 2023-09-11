@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/filter_row.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,6 +54,7 @@ class SearchWidget extends StatelessWidget {
                         child: CustomTextFromField(
                           onChanged: (val){
                             if(val.toString().trim()==""){
+                              ProductsBloc.get(context).add(const FilterProductEvent(filterModel: null));
                               return bloc.add(SearchEvent(word: val.toString().trim().toLowerCase(),
                                   categoryList: CategoriesBloc.get(context).categoriesList,productList: ProductsBloc.get(context).productsList));
                             }

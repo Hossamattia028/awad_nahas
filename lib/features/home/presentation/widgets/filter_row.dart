@@ -20,8 +20,8 @@ class FilterRow extends StatelessWidget {
             showModalBottomSheet(
               context: context,
               backgroundColor: Colors.transparent,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
+              shape:  const RoundedRectangleBorder(
+                borderRadius:  BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
               ),
               builder: (ctx){
                 return const SortBottomSheetWidget();

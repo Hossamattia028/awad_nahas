@@ -19,7 +19,7 @@ class WeightFilterList extends StatelessWidget {
         var list = bloc.weightList;
         var fModel = bloc.filterModel;
         return SizedBox(
-          height: 24.h,
+          height: 26.h,
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
@@ -44,6 +44,7 @@ class WeightFilterList extends StatelessWidget {
                     text: item.toString(),
                     color: fModel?.weight == item ?Colors.white:DMUtil.getD2C(),
                     fontSize: AppStyle.small.sp,
+                    alignCenter: true,
                   ),
                 ),
               );
