@@ -10,7 +10,6 @@ import 'package:awad_nahas/features/products/presentation/screens/product_detail
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-const String testImg = "https://firebasestorage.googleapis.com/v0/b/tabib-14438.appspot.com/o/main-banner.png?alt=media&token=37aa3289-a748-4413-83f4-0b79a006006c";
 
 class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   CategoriesEntity? currentCategory;
@@ -18,7 +17,6 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   /// store the categories list to can convert title when switch the language
   List<CategoriesEntity> categoriesList = [];
   List<CategoriesEntity> brandsList = [];
-
   CategoriesEntity? currentSubCategory;
   List<CategoriesEntity> subCategoriesList =  [];
 
@@ -163,6 +161,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
         emit(const FetchCategoriesFailedState());
       },(data) {
         brandsList = data;
+        print(brandsList.first.darkIcon);
       });
       emit(const FetchCategoriesSuccessfullyState());
     }catch(e){
@@ -172,7 +171,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   }
 
   getCat(List<CategoriesEntity> brandsList,String titleAr,String titleEn){
-    int index =  brandsList.indexWhere((element) => element.title.toString().toLowerCase().startsWith(titleAr) || element.title.toString().toLowerCase().startsWith(titleEn));
+    int index = brandsList.indexWhere((element) => element.title.toString().toLowerCase().startsWith(titleAr) || element.title.toString().toLowerCase().startsWith(titleEn));
     return brandsList[index];
   }
 

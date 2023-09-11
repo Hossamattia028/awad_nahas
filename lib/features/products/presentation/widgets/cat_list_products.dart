@@ -69,7 +69,7 @@ class CatProductsList extends StatelessWidget {
                         boxShadow: const [
                           BoxShadow(
                             color: Colors.grey,
-                            blurRadius: 1.0, // soften the shadow
+                            blurRadius: 2.0, // soften the shadow
                             spreadRadius: 0.7, //extend the shadow
                             offset: Offset(
                               0.01, // Move to right 10  horizontally
@@ -128,9 +128,6 @@ class CatProductsList extends StatelessWidget {
                                     isBig: true,
                                   ),
                                   const VatIncludedWidget(),
-
-
-                                  // AddToCartButton(item: item,),
 
                                 ],
                               ),

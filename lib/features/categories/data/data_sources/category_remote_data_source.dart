@@ -40,7 +40,7 @@ class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
       final body = json.decode(response.body);
       List<CategoriesModel> categories =
           body['data'].map<CategoriesModel>((categoryModel) {
-        return CategoriesModel.fromJson(categoryModel);
+        return CategoriesModel.fromBrandJson(categoryModel);
       }).toList();
       return categories;
       // return categories.where((element) => (!element.imgPath.toString().contains("{s:")) && element.imgPath.toString().trim()!="").toList();

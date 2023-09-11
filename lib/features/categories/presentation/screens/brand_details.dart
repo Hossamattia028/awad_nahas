@@ -7,7 +7,6 @@ import 'package:awad_nahas/features/categories/presentation/screens/about_brand.
 import 'package:awad_nahas/features/categories/presentation/widgets/products_brand.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

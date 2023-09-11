@@ -55,12 +55,12 @@ class ProductsBrand extends StatelessWidget {
                   ),
                 ),
                 productList.isEmpty? Padding(
-                  padding: const EdgeInsets.all(50.0),
+                  padding: const EdgeInsets.only(top: 50),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CustomText(text: translate("products.empty"), fontSize: AppStyle.small.sp),
+                      CustomText(text: translate("products.empty"), fontSize: AppStyle.small.sp-2),
                       Icon(Icons.hourglass_empty,color: DMUtil.getRED(),),
                     ],
                   ),
@@ -71,7 +71,7 @@ class ProductsBrand extends StatelessWidget {
                     itemCount: productList.length,
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 2),
+                    padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 2) + const EdgeInsets.only(bottom: 30),
                     itemBuilder: (BuildContext context, int index) {
                       var item = productList[index];
                       if(productList.isEmpty)return CustomText(text: translate("products.empty"), fontSize: AppStyle.small.sp);

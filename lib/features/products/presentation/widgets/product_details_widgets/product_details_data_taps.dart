@@ -29,7 +29,7 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
   _getDesc()async {
     desc = await ProductsRemoteDataSource.getProductDetails(id:  widget.item.id);
     if(desc != ""){
-      setState(() {});
+      if(mounted)setState(() {});
     }
   }
   @override

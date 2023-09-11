@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
@@ -17,36 +18,36 @@ class BrandListHome extends StatelessWidget {
       builder: (ctx,state){
         var bloc = CategoriesBloc.get(ctx);
         var list = bloc.activateTransList(bloc.brandsList);
-        if(list.isEmpty)return const SizedBox.shrink();
         var newSortList = [];
         newSortList.add(bloc.getCat(list,"mi","م"));
         newSortList.add(bloc.getCat(list,"sm","س"));
         newSortList.add(bloc.getCat(list,"li","ل"));
         newSortList.add(bloc.getCat(list,"ae","أ"));
         newSortList.add(bloc.getCat(list,"ba","باو"));
+        if(list.isEmpty)return const SizedBox.shrink();
         return SizedBox(
-          height: 50.h,
+          height: 40.h,
           child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (ctx,index){
                 var item = newSortList[index];
+                if(item == null || item.darkIcon == null|| item.lightIcon == null)return const SizedBox.shrink();
                 return InkWell(
                   onTap: (){
                     bloc.add(ChangeCurrentBrand(brandModel: item));
                     Util.pushPage(const BrandDetailsScreen(), context);
                   },
-                  child: Card(
-                    child: SvgPicture.network(item.iconPath,width: 30.w,height: 30.h,),
-                  ),
+                  child: SvgPicture.asset(DMUtil.currentThemeIsDark() ? item.darkIcon  : item.lightIcon,height: 37.h,fit: BoxFit.fill,),
                 );
               },
               separatorBuilder: (ctx,index)=> const SizedBox(width: 10,),
-              itemCount: list.length,
+              itemCount: newSortList.length,
           ),
         );
       },
     );
   }
+
 }

@@ -37,6 +37,19 @@ class AppImages{
   static const String cartSelected = "$icons/Cart.svg";
   // static const String bannerS = "$images/banner.png";
 
+  //brands
+  static const String aeg = "$icons/brands/aeg_light.svg";
+  static const String baum = "$icons/brands/baum_light.svg";
+  static const String lieb = "$icons/brands/libher_light.svg";
+  static const String mie = "$icons/brands/miele_light.svg";
+  static const String smeg = "$icons/brands/smeg_light.svg";
+  static const String aegDark = "$icons/brands/aeg_dark.svg";
+  static const String baumDark = "$icons/brands/bau_dark.svg";
+  static const String liebDark = "$icons/brands/lib_dark.svg";
+  static const String mieDark = "$icons/brands/mie_dark.svg";
+  static const String smegDark = "$icons/brands/smeg_dark.svg";
+
+
   //order icons
   static const String assigned = "$icons/assigned.png";
   static const String delivered = "$icons/verified_black.png";
