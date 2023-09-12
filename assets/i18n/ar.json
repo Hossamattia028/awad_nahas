@@ -112,7 +112,8 @@
       "account_added": "تم اضافة الحساب بنجاح",
       "completed_order": "تم انهاء الطلب بنجاح",
       "wrong_payment": "عملية خاطئة",
-      "no_internet_connection": "انت غير متصل بالانترنت!"
+      "no_internet_connection": "انت غير متصل بالانترنت!",
+      "location_mis": "من فضلك قم بتحديد موقع التوصيل"
     },
     "search": {
       "market": "الأسواق",

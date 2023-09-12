@@ -161,7 +161,6 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
         emit(const FetchCategoriesFailedState());
       },(data) {
         brandsList = data;
-        print(brandsList.first.darkIcon);
       });
       emit(const FetchCategoriesSuccessfullyState());
     }catch(e){
@@ -172,7 +171,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
 
   getCat(List<CategoriesEntity> brandsList,String titleAr,String titleEn){
     int index = brandsList.indexWhere((element) => element.title.toString().toLowerCase().startsWith(titleAr) || element.title.toString().toLowerCase().startsWith(titleEn));
-    return brandsList[index];
+    if(index!=-1)return brandsList[index];
   }
 
   setProductListToCategory(SetProductsToCategoryEvent event,emit){

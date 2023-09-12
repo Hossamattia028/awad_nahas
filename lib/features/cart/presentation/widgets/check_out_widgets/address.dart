@@ -35,7 +35,8 @@ class OrderAddress extends StatelessWidget {
               elevation: 4,
               color: DMUtil.getWC(),
               shape: const RoundedRectangleBorder(
-                  side: BorderSide(width: 1,color: Colors.white)
+                  side: BorderSide(width: 1,color: Colors.white),
+                  borderRadius: BorderRadius.all(Radius.circular(5))
               ),
               child: Padding(
                   padding: const EdgeInsets.all(6.0),

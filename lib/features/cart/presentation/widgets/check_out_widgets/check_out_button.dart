@@ -67,21 +67,49 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       child: BlocBuilder<OrderBloc,OrderState>(
         builder: (ctx,state){
           var orderBloc = OrderBloc.get(ctx);
-          return CustomButton(
-            height: 45.h,
-            width: double.infinity,
-            circular: 20,
-            widget: state is OrderLoadingState ?
-            const CircularProgressIndicator(color: Colors.white,):
-            CustomText(
-              text: translate("cart.place_order"),
-              color: Colors.white,
-              fontSize: AppStyle.average.sp,
-              alignCenter: true,
-              fontWeight: FontWeight.w600,
+          return SizedBox(
+            height: 75.h,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                if(cartBloc.cartList.isNotEmpty)...[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomText(
+                        text: "${cartBloc.totalPrice} ${translate("store.sar")}",
+                        fontSize: AppStyle.small.sp,
+                        color: DMUtil.getD2C().withOpacity(0.8),
+                        fontWeight: FontWeight.w600,
+                      ),
+                      CustomText(
+                        text: "${cartBloc.cartList.length} ${cartBloc.cartList.length>1?translate("store.items"):translate("store.item")}",
+                        fontSize: AppStyle.small.sp,
+                        color: DMUtil.getD2C().withOpacity(0.8),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10,),
+                ],
+                CustomButton(
+                  height: 45.h,
+                  width: double.infinity,
+                  circular: 10,
+                  widget: state is OrderLoadingState ?
+                  const CircularProgressIndicator(color: Colors.white,):
+                  CustomText(
+                    text: translate("cart.place_order"),
+                    color: Colors.white,
+                    fontSize: AppStyle.average.sp,
+                    alignCenter: true,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  color: DMUtil.getRED(),
+                  onPressed: () async => await _checkOut(context,orderBloc),
+                ),
+              ],
             ),
-            color: DMUtil.getRED(),
-            onPressed: () async => await _checkOut(context,orderBloc),
           );
         },
       ),
@@ -89,6 +117,10 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
 
   _checkOut(BuildContext context,OrderBloc orderBloc){
+    if(LocationsBloc.get(context).billingAddress==null || LocationsBloc.get(context).billingAddress!.country==""){
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
+      return;
+    }
     if(cartBloc.paymentWithCard == PaymentEnum.CASH){
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
       // _cash(orderBloc);

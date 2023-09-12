@@ -71,7 +71,7 @@ class ProductsBrand extends StatelessWidget {
                     itemCount: productList.length,
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 2) + const EdgeInsets.only(bottom: 30),
+                    padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 2) + EdgeInsets.only(bottom: 85.h),
                     itemBuilder: (BuildContext context, int index) {
                       var item = productList[index];
                       if(productList.isEmpty)return CustomText(text: translate("products.empty"), fontSize: AppStyle.small.sp);

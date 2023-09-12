@@ -155,17 +155,21 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
           ),
         ),
         Material(
-          child: SizedBox(
-            height: 140.h,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                AddToCartButtonWidget(item: widget.item,),
-                const BottomNavBar(isRoot: false ),
-              ],
-            ),
-          ),
+          child: Stack(
+            children: [
+              SizedBox(
+                height: 130.h,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    AddToCartButtonWidget(item: widget.item,),
+                    const BottomNavBar(isRoot: false ),
+                  ],
+                ),
+              ),
+            ],
+          )
         ),
 
       ],

@@ -9,9 +9,9 @@ class AnimateArrowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
-      decoration: BoxDecoration(
-          color: DMUtil.getWC(),
-          borderRadius: const BorderRadius.all(Radius.circular(5))),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(5))),
       child: Icon(
         Icons.arrow_forward,
         color: DMUtil.getRED(),

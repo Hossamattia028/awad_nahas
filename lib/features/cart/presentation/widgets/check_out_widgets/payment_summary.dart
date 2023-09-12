@@ -19,7 +19,8 @@ class PaymentSummaryWidget extends StatelessWidget {
       elevation: 4,
       color: DMUtil.getWC(),
       shape: const RoundedRectangleBorder(
-          side: BorderSide(width: 1,color: Colors.white)
+          side: BorderSide(width: 1,color: Colors.white),
+          borderRadius: BorderRadius.all(Radius.circular(5))
       ),
       child: BlocBuilder<CartBloc,CartState>(
         builder: (ctx,state){
@@ -49,7 +50,7 @@ class PaymentSummaryWidget extends StatelessWidget {
                       OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue}${translate("store.sar")}",),
                       const SizedBox(height: 10,),
                     ],
-                    OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("store.sar")}",),
+                    OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("store.sar")}",isTotal:true),
                   ],
                 ),
               ),

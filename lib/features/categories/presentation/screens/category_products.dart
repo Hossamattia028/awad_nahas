@@ -5,6 +5,7 @@ import 'package:awad_nahas/features/categories/presentation/widgets/category_pro
 import 'package:awad_nahas/features/categories/presentation/widgets/sub_categories.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
+import 'package:awad_nahas/features/root_app/widgets/bottom_nav_bar.dart';
 import 'package:awad_nahas/features/search/presentation/screens/search_screen.dart';
 import 'package:awad_nahas/features/search/presentation/widgets/search_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
@@ -18,6 +19,7 @@ class CategoryProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: DMUtil.getWC(),
+      bottomNavigationBar: const BottomNavBar(isRoot: false,),
       body: BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state) {
             var bloc = CategoriesBloc.get(ctx);

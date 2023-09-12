@@ -20,7 +20,8 @@ class DeliveryTypeWidget extends StatelessWidget {
       elevation: 4,
       color: DMUtil.getWC(),
       shape: const RoundedRectangleBorder(
-          side: BorderSide(width: 1,color: Colors.white)
+          side: BorderSide(width: 1,color: Colors.white),
+          borderRadius: BorderRadius.all(Radius.circular(5))
       ),
       child: Container(
         width: double.infinity,

@@ -72,9 +72,20 @@ class CartBottomButton extends StatelessWidget {
                           left: 1.w,
                           bottom: 50.h,
                           child: CustomText(
+                            text: "${cartBloc.totalPrice} ${translate("store.sar")}",
+                            fontSize: AppStyle.small.sp,
+                            color: DMUtil.getD2C().withOpacity(0.8),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Positioned(
+                          right: 1.w,
+                          bottom: 50.h,
+                          child: CustomText(
                             text: "${cartBloc.cartList.length} ${cartBloc.cartList.length>1?translate("store.items"):translate("store.item")}",
                             fontSize: AppStyle.small.sp,
                             color: DMUtil.getD2C().withOpacity(0.8),
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],

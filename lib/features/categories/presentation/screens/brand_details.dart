@@ -5,6 +5,7 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_even
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/about_brand.dart';
 import 'package:awad_nahas/features/categories/presentation/widgets/products_brand.dart';
+import 'package:awad_nahas/features/root_app/widgets/bottom_nav_bar.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class BrandDetailsScreen extends StatelessWidget{
         if(brand==null)return const SizedBox.shrink();
         return Scaffold(
           backgroundColor: DMUtil.getWC(),
+          bottomNavigationBar: const BottomNavBar(isRoot: false,),
           appBar: GlobalAppBar(title: brand.title,leadingIcon: const BackArrowButton()),
           body: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),

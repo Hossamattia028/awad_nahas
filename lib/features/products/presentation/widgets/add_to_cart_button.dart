@@ -103,14 +103,14 @@ class AddToCartButtonWidget extends StatelessWidget {
                   Expanded(
                     child: CustomButton(
                       height: 50.h,
-                      width: 124.w,
+                      width: double.infinity,
                       widget:Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(
-                            insideCartList?Icons.remove_shopping_cart:Icons.shopping_cart_outlined,
-                            color:  Colors.white,
-                          ),
+                          // Icon(
+                          //   insideCartList?Icons.remove_shopping_cart:Icons.shopping_cart_outlined,
+                          //   color:  Colors.white,
+                          // ),
                           Expanded(
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,27 +131,27 @@ class AddToCartButtonWidget extends StatelessWidget {
                       color: DMUtil.getRED(),
                       onPressed: (){
                         if(!Util.checkUser()){
-                          SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED());
+                          SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),isMarginBottom: true);
                           return;
                         }
                         CartBloc.get(context).add(ModifyCartProductEvent(product: item, context: context, isAdd: true,remove: insideCartList));
                       },
                     ),
                   ),
-                  Card(
-                    child: Row(
-                      children: [
-                        ImageWidget(imgUrl: item.imgPath,width: 50,height: 40,),
-                        const SizedBox(width: 2,),
-                        CustomText(
-                          text: "${item.discount} ${translate("store.sar")}",
-                          color: DMUtil.getD2C(),
-                          fontSize: AppStyle.small.sp ,
-                        ),
-                        const SizedBox(width: 3,),
-                      ],
-                    ),
-                  ),
+                  // Card(
+                  //   child: Row(
+                  //     children: [
+                  //       // ImageWidget(imgUrl: item.imgPath,width: 50,height: 40,),
+                  //       // const SizedBox(width: 2,),
+                  //       // CustomText(
+                  //       //   text: "${item.discount} ${translate("store.sar")}",
+                  //       //   color: DMUtil.getD2C(),
+                  //       //   fontSize: AppStyle.small.sp ,
+                  //       // ),
+                  //       // const SizedBox(width: 3,),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             );
