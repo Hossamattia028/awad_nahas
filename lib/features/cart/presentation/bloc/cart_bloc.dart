@@ -1,8 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/generat_cart_post_func.dart';
+import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -62,8 +64,32 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     on<PaymentWithCardEvent>((event,emit){
       changePaymentMethod(event,emit);
     });
+
+    on<UpdateCountBeforeInsertInCart>((event,emit){
+      updateCountBeforeInsertToCart(event,emit);
+    });
+
+    on<UpdateCountWidgetEvent>((event,emit){
+      updateCurrentCountWidget(event,emit);
+    });
   }
   static CartBloc get(BuildContext context) => BlocProvider.of(context);
+
+
+  /// current count before add to cart (PRODUCT_DETAILS_PAGE)
+  bool showCountWidget = false;
+  updateCurrentCountWidget(event,emit){
+    emit(CountWidgetLoadingState());
+    showCountWidget = !showCountWidget;
+    emit(CountSuccessfullyState());
+  }
+  int currentCount = 1;
+  updateCountBeforeInsertToCart(UpdateCountBeforeInsertInCart event,emit){
+    emit(CountLoadingState());
+    currentCount = event.value;
+    emit(CountSuccessfullyState());
+  }
+
 
   deliveryWithInstallmentMethod(DeliveryWithInstallmentEvent event,emit){
     emit(DeliveryLoadingState());
@@ -113,6 +139,12 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     return false;
   }
 
+  ProductsEntity? getProductInCart(ProductsEntity item){
+    int index = cartList.indexWhere((element) => element.id==item.id || element.imgPath.trim() == item.imgPath.trim());
+    if(index!=-1)return cartList[index];
+    return null;
+  }
+
   calcTotal(){
     totalPrice = 0;
     for(var i in cartList){
@@ -142,7 +174,10 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   modifyCartProduct(ModifyCartProductEvent event,emit)async{
     // emit(CartLoadingState());
     if(event.product!=null) {
-      checkItemAndModifyInsideCart(event.product!,event.remove,event.isAdd);
+      ///update current count after added last chooser count
+      currentCount = 1;
+      showCountWidget = false;
+      checkItemAndModifyInsideCart(event.product!,event.remove,event.isAdd,count: event.count ?? -1);
     }else{
       //remove all cart when create new order
       cartList.clear();
@@ -157,14 +192,14 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   }
 
   /// check product and add or update inside cart list
-  checkItemAndModifyInsideCart(ProductsEntity product,bool remove,bool isAdd){
+  checkItemAndModifyInsideCart(ProductsEntity product,bool remove,bool isAdd, {int? count}){
     int index = cartList.indexWhere((element) => product.id.toString() == element.id.toString() || element.imgPath.trim() == product.imgPath.trim());
     if(index!=-1) {
       if(remove){
         cartList.removeAt(index);
       }else{
         var item = cartList[index];
-        int newQty = isAdd?item.quantity+1:(item.quantity==1?item.quantity:item.quantity-1);
+        int newQty = count == -1? (isAdd?item.quantity+1:(item.quantity==1?item.quantity:item.quantity-1)) : count!;
         item = ProductsEntity(title: product.title,
             catTitle: "", sku: product.sku,
             desc: "", id: item.id,discountRate: 0,
@@ -177,7 +212,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
           catTitle: "", sku: product.sku,
           desc: "", id: product.id,discountRate: 0,
           imgPath: product.imgPath, price: product.price, discount: 0, stockStatus: true,
-          quantity: 1,categoryList: const [],commentCount: 0,catID:product.catID));
+          quantity: count == -1 ? 1 : count!,categoryList: const [],commentCount: 0,catID:product.catID));
     }
   }
 
@@ -274,6 +309,14 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       );
     }
     return products;
+  }
+
+  addToCartInView({required BuildContext context,required var bloc,required var item,required bool insideCartList}){
+    if(!Util.checkUser()){
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),isMarginBottom: true);
+      return;
+    }
+    bloc.add(ModifyCartProductEvent(product: item, context: context, isAdd: true,remove: insideCartList,count: currentCount));
   }
 
 }

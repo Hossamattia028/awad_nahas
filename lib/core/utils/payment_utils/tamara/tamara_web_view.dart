@@ -28,37 +28,46 @@ class TamaraCheckout extends StatefulWidget {
 }
 
 class TamaraCheckoutState extends State<TamaraCheckout> {
-
-  // late InAppWebViewController _webViewController;
-  final Completer<WebViewController> _controller = Completer<WebViewController>();
+  // final Completer<WebViewController> _controller = Completer<WebViewController>();
 
 // set a HTTP auth credential for a particular Protection Space
 
-
+  late final WebViewController _controller;
   @override
   void initState() {
-    super.initState();
-  }
+    const PlatformWebViewControllerCreationParams params  = PlatformWebViewControllerCreationParams();
+    final WebViewController controller = WebViewController.fromPlatformCreationParams(params );
+    // #enddocregion platform_features
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: DMUtil.getWC(),
-      appBar: const GlobalAppBar(
-        title: "",
-        leadingIcon: BackArrowButton(),
-      ),
-      body: Builder(builder: (BuildContext context) {
-        return WebView(
-          initialUrl: widget.checkoutUrl,
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController webViewController) {
-            _controller.complete(webViewController);
-          },
+    controller
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
           onProgress: (int progress) {
             debugPrint('WebView is loading (progress : $progress%)');
           },
-          navigationDelegate: (NavigationRequest request) {
+          onPageStarted: (String url) {
+            // debugPrint('Page started loading: $url');
+          },
+          onPageFinished: (String url) {
+            debugPrint("finished: $url");
+            if(url.contains("successful")){
+              Navigator.of(context).pop("successful");
+            }else if(url.contains("canceled")){
+              Navigator.of(context).pop("canceled");
+            }
+          },
+          onWebResourceError: (WebResourceError error) {
+            debugPrint('''
+Page resource error:
+  code: ${error.errorCode}
+  description: ${error.description}
+  errorType: ${error.errorType}
+  isForMainFrame: ${error.isForMainFrame}
+          ''');
+          },
+          onNavigationRequest: (NavigationRequest request) {
             String url = request.url;
             if (url.startsWith(widget.successUrl)) {
               if (widget.onPaymentSuccess != null) {
@@ -77,22 +86,37 @@ class TamaraCheckoutState extends State<TamaraCheckout> {
               }
             }
             return NavigationDecision.navigate;
+          },
+          onUrlChange: (UrlChange change) {
+            // debugPrint('url change to ${change.url}');
+          },
+        ),
+      )
+      ..addJavaScriptChannel(
+        'Toaster',
+        onMessageReceived: (JavaScriptMessage message) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(message.message)),
+          );
+        },
+      )
+      ..loadRequest(Uri.parse(widget.checkoutUrl));
 
-          },
-          onPageStarted: (String url) {
+    _controller = controller;
+    super.initState();
+  }
 
-          },
-          onPageFinished: (String url) {
-            debugPrint("finished: $url");
-            if(url.contains("successful")){
-              Navigator.of(context).pop("successful");
-            }else if(url.contains("canceled")){
-              Navigator.of(context).pop("canceled");
-            }
-          },
-          gestureNavigationEnabled: true,
-          backgroundColor: const Color(0x00000000),
-        );
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: DMUtil.getWC(),
+      appBar: const GlobalAppBar(
+        title: "",
+        leadingIcon: BackArrowButton(),
+      ),
+      body: Builder(builder: (BuildContext context) {
+        return WebViewWidget(controller: _controller);
       }),
     );
   }

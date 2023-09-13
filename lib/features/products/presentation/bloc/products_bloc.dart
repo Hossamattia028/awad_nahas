@@ -61,13 +61,6 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     on<UpdateAllProductsEvent>((event, emit)async {
         updateProducts(event,emit);
     });
-    // on<FetchAllBestSellerProductsEvent>((event, emit)async{
-    //   await getAllBestSellerProducts(emit);
-    // });
-    //
-    // on<FetchOffersProductsEvent>((event, emit)async{
-    //   await getAllOfferProducts(event,emit);
-    // });
 
     /// filter section
     on<ChangeSortEvent>((event, emit){
@@ -86,15 +79,27 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       enableWightFilter(event,emit);
     });
 
+    on<ShowFullContentEvent>((event, emit){
+      showFullContentFn(event, emit);
+    });
+
 
   }
   static ProductsBloc get(BuildContext context) => BlocProvider.of(context);
 
 
-  double widgetSize = 340;
+  /// product details states
+  bool showFullContent = false;
+  showFullContentFn(event,emit){
+    emit(const ProductsLoadingState());
+    showFullContent = !showFullContent;
+    emit(const ProductsSuccessfullyState());
+  }
+
+  double widgetSize = 500;
   int index = 0;
   _changeWidgetSize(ChangeWidgetSizeEvent event,emit){
-    emit(const ProductCommentsLoadingState());
+    emit(const ProductsLoadingState());
     widgetSize = event.height;
     index = event.index;
     emit(const ProductsSuccessfullyState());

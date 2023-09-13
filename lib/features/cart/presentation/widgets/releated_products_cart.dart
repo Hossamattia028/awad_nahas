@@ -15,6 +15,7 @@ class CartRelatedProducts extends StatelessWidget {
       builder: (ctx,state){
         var bloc = CartBloc.get(ctx);
         var list = bloc.cartList;
+        if(list.isEmpty)return const SizedBox.shrink();
         int ind = ProductsBloc.get(context).productsList.indexWhere((element) => list.first.id==element.id);
         if(ind==-1)return const SizedBox.shrink();
         var item = ProductsBloc.get(context).productsList[ind];

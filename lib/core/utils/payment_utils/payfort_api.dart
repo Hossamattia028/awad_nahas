@@ -1,10 +1,14 @@
+
+
 import 'dart:convert';
 
 import 'package:amazon_payfort/amazon_payfort.dart';
+import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/utils/payment_utils/fort_constants.dart';
 import 'package:awad_nahas/core/utils/payment_utils/sdk_token_response.dart';
 
 import 'package:http/http.dart';
+
 
 class PayFortApi {
   PayFortApi._();
@@ -14,7 +18,7 @@ class PayFortApi {
     var response = await post(
       Uri.parse(FortConstants.environment.paymentApi),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(request.toRequest()),
+      body: jsonEncode(request.asRequest()),
     );
     if (response.statusCode == 200) {
       var decodedResponse = jsonDecode(response.body);
@@ -43,6 +47,22 @@ class PayFortApi {
     if (response.statusCode == 200) {
       var decodedResponse = jsonDecode(response.body);
       return SdkTokenResponse.fromMap(decodedResponse);
+    }
+    return null;
+  }
+
+  static Future<String?> generateTokenFromApi(
+      String deviceID) async {
+    var response = await post(
+      Uri.parse("${ApiUrl.BASE_URL}token_value"),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        "deviceID":deviceID
+      }),
+    );
+    if (response.statusCode == 200) {
+      var decodedResponse = jsonDecode(response.body);
+      return decodedResponse['output'];
     }
     return null;
   }

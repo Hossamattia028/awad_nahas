@@ -8,6 +8,7 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_event.da
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/comment_list.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/prodcut_desc.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_attributes.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_desc.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/shipping_installment.dart';
 import 'package:awad_nahas/features/shared_widgets/loading_widget.dart';
@@ -39,36 +40,37 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
   }
   @override
   Widget build(BuildContext context) {
-    double heightDesc = desc.length>212?420:200;
-    if(desc.length>400)heightDesc= 500;
-    if(desc.length>490)heightDesc= 550;
-    if(desc.length>700)heightDesc= 800;
-    if(desc.length>1000)heightDesc= 1200;
-    if(desc.length>1400)heightDesc= 1490;
-    if(desc.length>1900)heightDesc= 1500;
     return DefaultTabController(
         length: 3,
         child: BlocBuilder<ProductsBloc,ProductsState>(
           builder: (ctx,state){
             var bloc = ProductsBloc.get(ctx);
-            if(bloc.index==0)bloc.widgetSize = heightDesc;
-            return SizedBox(
-              height: bloc.widgetSize,
+            if(bloc.index==0 && bloc.showFullContent ==true){
+              if(desc.length>490) bloc.widgetSize= 550;
+              if(desc.length>700) bloc.widgetSize= 800;
+              if(desc.length>1000) bloc.widgetSize= 1200;
+              if(desc.length>1400) bloc.widgetSize= 1490;
+              if(desc.length>1900) bloc.widgetSize= 1500;
+            }else{
+              bloc.widgetSize= 550;
+            }
+            return Container(
+              color: DMUtil.getWC(),
+              padding: const EdgeInsets.symmetric(vertical: 10,),
+              height: bloc.widgetSize.h,
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TabBar(
-                    onTap: (index) => bloc.add(ChangeWidgetSizeEvent(height: index==0?heightDesc:index==1?300.h:585.h,index: index)),
-                    // indicatorPadding: const EdgeInsets.symmetric(horizontal: 6),
+                    onTap: (index) => bloc.add(ChangeWidgetSizeEvent(height: index==0?bloc.widgetSize:500,index: index)),
                     unselectedLabelColor: DMUtil.getDC(),
                     indicatorColor: DMUtil.getPC(),
                     labelColor: DMUtil.getPC(),
                     // isScrollable: true,
-                    labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+2,fontFamily: primaryFontReg),
+                    labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp,fontFamily: primaryFontReg,fontWeight: FontWeight.w600),
                     tabs: <Widget>[
                       Tab(text: translate("products.desc"),),
                       Tab(text: translate("products.reviews"),),
-                      Tab(text: translate("products.shipping_delivery"),),
+                      Tab(text: translate("cart.attributes"),),
                     ],
                   ),
 
@@ -78,7 +80,8 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
                       children: <Widget>[
                         desc==""? const LoadingWidget(height: 30,): ProductDescriptionWidget(txt:  desc,),
                         const CommentList(),
-                        const ShippingAndInstallmentWidget(),
+                        widget.item.attributesDes!=null ? ProductAttributes(txt: widget.item.attributesDes!) :const SizedBox.shrink(),
+                        // const ShippingAndInstallmentWidget(),
                       ],
                     ),
                   ),

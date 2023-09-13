@@ -26,7 +26,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: DMUtil.getWC(),
+      backgroundColor: DMUtil.getBackGround(),
       appBar: AppBar(
         title: BlocBuilder<CartBloc,CartState>(
           builder: (ctx,state){
@@ -42,7 +42,6 @@ class CartScreen extends StatelessWidget {
       body: RefreshIndicator(
         onRefresh: () =>  _buildRefresh(context),
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [

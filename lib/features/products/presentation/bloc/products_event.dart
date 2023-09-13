@@ -104,3 +104,8 @@ class FilterPrice{
   const FilterPrice({required this.start,required this.end});
 }
 
+
+class ShowFullContentEvent extends ProductsEvent{
+  const ShowFullContentEvent();
+}
+

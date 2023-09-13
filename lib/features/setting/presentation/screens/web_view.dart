@@ -1,28 +1,85 @@
-
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewScreen extends StatelessWidget {
+
+class WebViewScreen extends StatefulWidget {
   final String url;
   final String title;
   const WebViewScreen({Key? key,required this.title,required this.url}) : super(key: key);
 
-  // static Completer<WebViewController> controller =  Completer<WebViewController>();
+  @override
+  State<WebViewScreen> createState() => _WebViewScreenState();
+}
+
+class _WebViewScreenState extends State<WebViewScreen> {
+  late final WebViewController _controller;
+  @override
+  void initState() {
+    const PlatformWebViewControllerCreationParams params  = PlatformWebViewControllerCreationParams();
+    final WebViewController controller = WebViewController.fromPlatformCreationParams(params );
+    // #enddocregion platform_features
+
+    controller
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            debugPrint('WebView is loading (progress : $progress%)');
+          },
+          onPageStarted: (String url) {
+            // debugPrint('Page started loading: $url');
+          },
+          onPageFinished: (String url) {
+            // debugPrint('Page finished loading: $url');
+          },
+          onWebResourceError: (WebResourceError error) {
+            debugPrint('''
+Page resource error:
+  code: ${error.errorCode}
+  description: ${error.description}
+  errorType: ${error.errorType}
+  isForMainFrame: ${error.isForMainFrame}
+          ''');
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              // debugPrint('blocking navigation to ${request.url}');
+              return NavigationDecision.prevent;
+            }
+            // debugPrint('allowing navigation to ${request.url}');
+            return NavigationDecision.navigate;
+          },
+          onUrlChange: (UrlChange change) {
+            // debugPrint('url change to ${change.url}');
+          },
+        ),
+      )
+      ..addJavaScriptChannel(
+        'Toaster',
+        onMessageReceived: (JavaScriptMessage message) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(message.message)),
+          );
+        },
+      )
+      ..loadRequest(Uri.parse(widget.url));
+
+
+
+    _controller = controller;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GlobalAppBar(
-        title: title,
+        title: widget.title,
         leadingIcon: const BackArrowButton(),
       ),
-      body: WebView(
-        initialUrl: url,
-        javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController webViewController) {
-          // controller.complete(webViewController);
-        },
-      ),
+      body: WebViewWidget(controller: _controller),
     );
   }
 }

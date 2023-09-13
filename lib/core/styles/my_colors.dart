@@ -15,6 +15,10 @@ const kConfirmed = Color(0xffAC737B);
 const kChart = Color(0xffBCACF3);
 
 
+
+const kBackGroundN = Color(0xfff3f4f8);
+
+
 const kBackGround = Color(0xffEEEEEE);
 const kBackOpacity = Color(0xff9E9E9E);
 

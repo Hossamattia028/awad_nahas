@@ -29,7 +29,8 @@ class ModifyCartProductEvent extends CartEvent{
   final bool isAdd;
   final BuildContext context;
   final bool remove;
-  const ModifyCartProductEvent({required this.product,required this.isAdd,required this.context,this.remove=false,});
+  final int? count;
+  const ModifyCartProductEvent({required this.product,required this.isAdd,required this.context,this.remove=false,this.count});
 }
 
 class UpdateShippingCostEvent extends CartEvent{
@@ -64,4 +65,14 @@ class PaymentWithCardEvent extends CartEvent{
   final PaymentEnum paymentEnum;
   final bool? enableApplePay;
   const PaymentWithCardEvent({required this.paymentEnum,this.enableApplePay});
+}
+
+
+class UpdateCountBeforeInsertInCart extends CartEvent{
+  final int value;
+  const UpdateCountBeforeInsertInCart({required this.value});
+}
+
+class UpdateCountWidgetEvent extends CartEvent{
+  const UpdateCountWidgetEvent();
 }

@@ -1,29 +1,25 @@
-import 'package:awad_nahas/core/strings/api/api_url.dart';
+import 'dart:io';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_widgets.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/back_to_top.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/brand_products.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_attributes.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_data_taps.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_main_details.dart';
 import 'package:awad_nahas/features/root_app/widgets/bottom_nav_bar.dart';
-import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/related_products.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:share_plus/share_plus.dart';
 
 
 
@@ -39,6 +35,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
   String catListString = "";
   late ProductsBloc productsBloc;
   double currentPrice = 0.0;
+  ScrollController controller = ScrollController();
+  bool enableBTop = false;
 
   @override
   void didChangeDependencies() {
@@ -50,10 +48,23 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
     }
     productsBloc = ProductsBloc.get(context);
     productsBloc.add(UpdateCurrentProduct(item: widget.item));
+    controller.addListener(() {
+      if(controller.position.pixels>500){
+        if(enableBTop!=true){
+          setState(() {
+            enableBTop = true;
+          });
+        }
+      }else if(controller.position.pixels<100){
+        if(enableBTop!=false){
+          setState(() {
+            enableBTop = false;
+          });
+        }
+      }
+    });
     super.didChangeDependencies();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +72,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
       alignment: Alignment.bottomCenter,
       children: [
         Scaffold(
-          backgroundColor: DMUtil.getWC(),
+          backgroundColor: DMUtil.getBackGround(),
           appBar: GlobalAppBar(
             backGroundColor: DMUtil.getRED(),
             title: widget.item.title,
@@ -70,66 +81,14 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
           ),
 
           body: SingleChildScrollView(
+              controller: controller,
               physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: 10.w,),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      WishListIconWidget(item: widget.item),
-                      const SizedBox(width: 10,),
-                      InkWell(
-                        onTap: ()=> Share.share('check the website ${ApiUrl.MAIN_DOMAIN}/', subject: widget.item.title.toString()),
-                        child: Icon(Icons.ios_share_outlined,color: DMUtil.getRED(),),
-                      ),
-                    ],
-                  ),
+                  ProductMainDetails(item: widget.item),
 
-                  if(widget.item.images!=null && widget.item.images!.isNotEmpty)...[
-                    ImagesSlider(images: widget.item.images!,),
-                  ]else ...[
-                    ImagesSlider(images: [
-                      widget.item.imgPath
-                    ],),
-                  ],
-
-                  const SizedBox(height: 10,),
-
-                  CustomText(
-                    text: widget.item.title,
-                    color: DMUtil.getDC(),
-                    fontSize: AppStyle.large.sp-3,
-                    maxLine: 2,
-                  ),
-
-
-                  const Divider(thickness: 1,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ProductPriceWidget(productModel: widget.item,isBig: true,),
-                      BlocBuilder<CategoriesBloc,CategoriesState>(
-                        builder: (ctx,state){
-                          var bloc = CategoriesBloc.get(ctx);
-                          int index = bloc.brandsList.indexWhere((element) => element.id==widget.item.brandID);
-                          if(index == -1) return const SizedBox.shrink();
-                          var brand = bloc.brandsList[index];
-                          if(brand.iconPath.contains("svg")){
-                            return SvgPicture.network(brand.iconPath,width: 26.w,height: 35.h,);
-                          }else{
-                            return Image.network(brand.imgPath);
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 5,),
-                  if(widget.item.attributesDes!=null)ProductAttributes(txt: widget.item.attributesDes!),
-                  const SizedBox(height: 10,),
                   if(Util.checkUser() && currentPrice<=2000)...[
-                    const SizedBox(height: 5,),
+                    const SizedBox(height: 15,),
                     TamaraSmallProductWidget(price: currentPrice),
                     const SizedBox(height: 10,),
                   ],
@@ -137,7 +96,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
                   ProductDetailsDataRow(item: widget.item),
 
 
-                  if(widget.item.brandID!=null)
+                  if(widget.item.brandID!=null)...[
+                    const SizedBox(height: 20,),
                     BlocBuilder<CategoriesBloc,CategoriesState>(
                       builder: (ctx,state){
                         var bloc = CategoriesBloc.get(ctx);
@@ -147,27 +107,47 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
                         return BrandProductsWidget(item:  widget.item,brandTitle: brand.title,);
                       },
                     ),
+                  ],
 
+                  const SizedBox(height: 20,),
                   RelatedProductsWidget(item:  widget.item,),
-
+                  SizedBox(height: 170.h,),
                 ],
-              )
+              ),
           ),
         ),
+        if(enableBTop==true)
+          Material(
+            color: Colors.transparent,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 130.h,),
+              child: InkWell(
+                onTap: ()=> controller.animateTo(10, duration: const Duration(milliseconds: 1000), curve: Curves.linear),
+                child: const BackToTopWidget(),
+              ),
+            ),
+          ),
         Material(
+          color: Colors.transparent,
           child: Stack(
             children: [
-              SizedBox(
-                height: 130.h,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    AddToCartButtonWidget(item: widget.item,),
-                    const BottomNavBar(isRoot: false ),
-                  ],
-                ),
-              ),
+              BlocBuilder<CartBloc,CartState>(
+                builder: (ctx,state){
+                  var bloc =  CartBloc.get(ctx);
+                  return SizedBox(
+                    // duration: const Duration(milliseconds: 500),
+                    height: bloc.showCountWidget ? (Platform.isIOS?  190.h : 185.h) :(Platform.isIOS?  140.h : 125.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        AddToCartButtonWidget(item: widget.item,),
+                        const BottomNavBar(isRoot: false ),
+                      ],
+                    ),
+                  );
+                },
+              )
             ],
           )
         ),

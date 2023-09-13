@@ -37,7 +37,7 @@ class WishListIconWidget extends StatelessWidget {
               SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), Colors.red);
             }
           },
-          child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:DMUtil.getD2C(),size: 23.w,),
+          child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:DMUtil.getOpacity(),size: 23.w,),
         );
       },
     );

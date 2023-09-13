@@ -9,17 +9,20 @@ class ProductAttributes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HtmlWidget(
-      '''
-      $txt
-      ''',
-      customStylesBuilder: (element) {
-        if (element.classes.contains('name')) {
-          return {'color': 'red'};
-        }
-        return null;
-      },
-      textStyle: TextStyle(color: DMUtil.getD2C(),height: 2,fontFamily: primaryFontReg),
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: HtmlWidget(
+        '''
+        $txt
+        ''',
+        customStylesBuilder: (element) {
+          if (element.classes.contains('name')) {
+            return {'color': 'red'};
+          }
+          return null;
+        },
+        textStyle: TextStyle(color: DMUtil.getD2C(),height: 2,fontFamily: primaryFontReg),
+      ),
     );
   }
 }

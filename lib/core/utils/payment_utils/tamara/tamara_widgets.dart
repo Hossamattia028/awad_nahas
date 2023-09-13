@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,10 @@ class TamaraSmallProductWidget extends StatelessWidget {
     return Container(
       decoration:  BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
-          border: Border.all(width: 1,color: kTamaraColor)
+          border: Border.all(width: 1,color: kTamaraColor),
+          color: DMUtil.getWC()
       ),
+      margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10,),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -28,6 +31,7 @@ class TamaraSmallProductWidget extends StatelessWidget {
             child: CustomText(
               text: "${translate("payment.tamra_txt")} $val ${translate("store.sar")} ${translate("payment.interest-free")}" ,
               fontSize: AppStyle.average.sp,
+              color: DMUtil.getD2C(),
               maxLine: 3,
             ),
           ),

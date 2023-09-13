@@ -50,7 +50,6 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
   @override
   Widget build(BuildContext context) {
-
     return BlocListener<OrderBloc,OrderState>(
       listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState,
       listener: (ctx,state)async{
@@ -125,6 +124,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
       // _cash(orderBloc);
     }else if(cartBloc.paymentWithCard == PaymentEnum.PAYFORT){
+      // payFortController.flutterAmazon();
       _checkOutPayfort(context,orderBloc);
     }else if(cartBloc.paymentWithCard == PaymentEnum.TAMARA){
       _checkOutTamra(context,orderBloc);

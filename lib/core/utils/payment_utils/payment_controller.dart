@@ -62,33 +62,34 @@ class PayFortController{
   }
 
   Future flutterAmazon()async{
-    var sdkTokenResponse = await _generateSdkToken();
+    // var sdkTokenResponse = await _generateSdkToken();
     String? id = await FlutterAmazonpaymentservices.getUDID;
-    print(id.toString());
+    var token = await PayFortApi.generateTokenFromApi(id.toString());
+    debugPrint(id.toString());
+    debugPrint(token.toString());
     var requestParam = {
       "amount": 100,
       "command": "AUTHORIZATION",
-      "currency": "USD",
+      "currency": "SAR",
       "customer_email": "test@gmail.com",
       "language": "en",
-      "merchant_reference": "f74689b50cb54fcab4664b4331163d5e",
-      "sdk_token": "f74689b50cb54fcab4664b4331163d5e"
+      "merchant_reference": id,
+      "sdk_token": token
       // "merchant_reference": id.toString(),
       // "sdk_token": sdkTokenResponse?.sdkToken ?? '',
     };
-    print("sdf");
     try {
-      var result = await FlutterAmazonpaymentservices.validateApi( requestParam, EnvironmentType.production,).onError((error, stackTrace) {
-        print(error.toString());
-        throw "dfs";
+      var result = await FlutterAmazonpaymentservices.normalPay(requestParam, EnvironmentType.sandbox,).onError((error, stackTrace) {
+        debugPrint(error.toString());
+        throw "error";
       }).catchError((va){
-        print(va.toString());
+        debugPrint(va.toString());
         return va;
       }).whenComplete(() => debugPrint("comp"));
-      print("Success $result");
+      debugPrint("Success $result");
     } on PlatformException catch (e)
     {
-      print("Error ${e.message} details:${e.details}"); return;
+      debugPrint("Error ${e.message} details:${e.details}"); return;
     }
   }
 

@@ -32,3 +32,11 @@ class DeliverySuccessfullyState extends CartState {}
 
 class PaymentLoadingState extends CartState {}
 class PaymentSuccessfullyState extends CartState {}
+
+
+
+class CountLoadingState extends CartState {}
+class CountSuccessfullyState extends CartState {}
+
+class CountWidgetLoadingState extends CartState {}
+class CountWidgetSuccessfullyState extends CartState {}

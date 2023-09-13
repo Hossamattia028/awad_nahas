@@ -44,7 +44,7 @@ class ProductCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
 
-            ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.contain,),
+            ImageWidget(imgUrl: item.imgPath,width: 67.w,fit: BoxFit.contain,),
 
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

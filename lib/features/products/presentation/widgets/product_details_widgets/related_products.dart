@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,18 +13,22 @@ class RelatedProductsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 10,),
-        CustomText(
-          text: translate("products.related_products"),
-          fontSize: AppStyle.average.sp+2,
-        ),
-        const SizedBox(height: 10,),
-        RelatedProductsList(item: item,),
-        const SizedBox(height: 20,),
-      ],
+    return Container(
+      color: DMUtil.getWC(),
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10,),
+          CustomText(
+            text: translate("products.related_products"),
+            fontSize: AppStyle.average.sp+2,
+          ),
+          const SizedBox(height: 10,),
+          RelatedProductsList(item: item,),
+          const SizedBox(height: 20,),
+        ],
+      ),
     );
   }
 }

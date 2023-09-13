@@ -12,18 +12,19 @@ import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 
 class ImagesSlider extends StatelessWidget {
   final List<String> images;
-  const ImagesSlider({Key? key,required this.images}) : super(key: key);
+  final double height ;
+  const ImagesSlider({Key? key,required this.images,this.height = 160}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategoriesBloc,CategoriesState>(
       builder: (ctx,state){
         var bloc = CategoriesBloc.get(ctx);
-        return Stack(
-          alignment: Alignment.bottomCenter,
+        return Column(
+          // alignment: Alignment.bottomCenter,
           children: [
             SizedBox(
-              height: 160.h,
+              height: height.h,
               width: double.infinity,
               child:  CarouselSlider.builder(
                 itemCount: images.length,
@@ -44,14 +45,15 @@ class ImagesSlider extends StatelessWidget {
                 },
               ),
             ),
+            const SizedBox(height: 10,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 for(int i = 0 ; i<images.length; i++)...[
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10,left: 10),
-                    child: Icon(Icons.circle,color: bloc.currentSliderIndex == i?DMUtil.getRED(): DMUtil.getD2C(),size: 11.w,),
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Icon(Icons.circle,color: bloc.currentSliderIndex == i?DMUtil.getRED(): DMUtil.getD2C(),size: 9.w,),
                   ),
                 ],
               ],
