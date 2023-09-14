@@ -5,6 +5,7 @@ import 'package:awad_nahas/features/account/presentation/widgets/account_before_
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_payment_options.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/releated_products_cart.dart';
+import 'package:awad_nahas/features/locations/presentation/widgets/select_location_drop_down.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -35,6 +36,7 @@ class CartScreen extends StatelessWidget {
         ),
         backgroundColor: DMUtil.getWC(),
         elevation: 0,
+        toolbarHeight: AppStyle.appBarHeight.h,
         centerTitle: true,
       ),
       bottomNavigationBar: const CartBottomButton(),
@@ -46,6 +48,7 @@ class CartScreen extends StatelessWidget {
             children: [
               if(Util.checkUser())... const[
                 CartPaymentOptions(),
+                SelectLocations(),
                 CartListWidget(),
                 CouponWidget(),
                 SizedBox(height: 10,),

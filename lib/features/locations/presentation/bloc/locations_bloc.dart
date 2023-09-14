@@ -60,13 +60,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
 
   updateCurrentCheckOutLocation(UpdateCurrentLocationEvent event,emit){
     emit(const LocationsLoadingState());
-    currentCheckOutLocation = null;
-    if(userLocationsList!.shippingAddress!=null && event.isShipping){
-      currentCheckOutLocation = userLocationsList!.shippingAddress;
-    }
-    if(userLocationsList!.billingAddress!=null && !event.isShipping){
-      currentCheckOutLocation = userLocationsList!.billingAddress;
-    }
+    currentCheckOutLocation = event.location;
     emit(const UpdateCurrentLocationSuccessfullyState());
   }
 

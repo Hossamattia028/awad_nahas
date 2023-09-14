@@ -1,3 +1,4 @@
+import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:flutter/material.dart';
 
 
@@ -28,8 +29,8 @@ class AddLocationEvent extends LocationsEvent{
 }
 
 class UpdateCurrentLocationEvent extends LocationsEvent{
-  final bool isShipping;
-  const UpdateCurrentLocationEvent({required this.isShipping});
+  final LocationEntity location;
+  const UpdateCurrentLocationEvent({required this.location});
 }
 
 

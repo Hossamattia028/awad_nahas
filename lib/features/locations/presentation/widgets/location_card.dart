@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
+import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -21,73 +23,76 @@ class LocationCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var txt = locationEntity.type=="shipping"?translate("map.shipping_not_found"):translate("map.billing_not_found");
-    return Container(
-      padding: isOrderPage ? EdgeInsets.zero: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
-      decoration: BoxDecoration(
-        color: DMUtil.getWC(),
-        border: isOrderPage? Border.all(width: 0,color: Colors.transparent):Border.all(width: 1,color: currentLocation?DMUtil.getRED():DMUtil.getD2C()),
-        borderRadius: BorderRadius.circular(4),
-          boxShadow: [
-            if(currentLocation&&isOrderPage==false)
-            BoxShadow(
-              blurRadius: 1.0,
-              offset: const Offset(0.05, 0.05),
-              spreadRadius: 2.2,
-              color: DMUtil.getRED().withOpacity(0.3),
-            )
-          ]
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          // CircleDotsWidget(isEnabled: currentLocation ,),
-          Icon(Icons.location_on,color: DMUtil.getD2C(),),
-          const SizedBox(width: 5,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 271.w,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText(
-                      text:isAdd ? txt : locationEntity.address1,
-                      color: DMUtil.getDC(),
-                      fontWeight: FontWeight.w600,
-                      fontSize: AppStyle.average.sp-2,
-                      maxLine: 3,
-                    ),
-                    InkWell(
-                      onTap: () => Util.pushPage(AddNewLocationScreen(locationEntity: isAdd ? null : locationEntity,type: locationEntity.type,), context),
-                      child: CustomText(
-                        text: isAdd? translate("map.set_location") :translate("button.edit"),
-                        color: DMUtil.getRED(),
-                        fontSize: AppStyle.average.sp,
+    return InkWell(
+      onTap: ()=> LocationsBloc.get(context).add(UpdateCurrentLocationEvent(location: locationEntity)),
+      child: Container(
+        padding: isOrderPage ? EdgeInsets.zero: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
+        decoration: BoxDecoration(
+          color: DMUtil.getWC(),
+          border: isOrderPage? Border.all(width: 0,color: Colors.transparent):Border.all(width: 1,color: currentLocation?DMUtil.getRED():DMUtil.getD2C()),
+          borderRadius: BorderRadius.circular(4),
+            boxShadow: [
+              if(currentLocation&&isOrderPage==false)
+              BoxShadow(
+                blurRadius: 1.0,
+                offset: const Offset(0.05, 0.05),
+                spreadRadius: 2.2,
+                color: DMUtil.getRED().withOpacity(0.3),
+              )
+            ]
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            // CircleDotsWidget(isEnabled: currentLocation ,),
+            Icon(Icons.location_on,color: DMUtil.getD2C(),),
+            const SizedBox(width: 5,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 271.w,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        text:isAdd ? txt : locationEntity.address1,
+                        color: DMUtil.getDC(),
+                        fontWeight: FontWeight.w600,
+                        fontSize: AppStyle.average.sp-2,
+                        maxLine: 3,
                       ),
-                    ),
-                  ],
+                      InkWell(
+                        onTap: () => Util.pushPage(AddNewLocationScreen(locationEntity: isAdd ? null : locationEntity,type: locationEntity.type,), context),
+                        child: CustomText(
+                          text: isAdd? translate("map.set_location") :translate("button.edit"),
+                          color: DMUtil.getRED(),
+                          fontSize: AppStyle.average.sp,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 7,),
-              if(locationEntity.address1.isNotEmpty)
-              SmallLineLocationData(
-                title: translate("profile.city"),
-                value: locationEntity.address1,
-              ),
-              const SizedBox(height: 5,),
-              if(locationEntity.phone.isNotEmpty)
-              SmallLineLocationData(
-                title: translate("profile.mobile"),
-                value: locationEntity.phone,
-              ),
-              const SizedBox(height: 5,),
-            ],
-          ),
-        ],
+                const SizedBox(height: 7,),
+                if(locationEntity.address1.isNotEmpty)
+                SmallLineLocationData(
+                  title: translate("profile.city"),
+                  value: locationEntity.address1,
+                ),
+                const SizedBox(height: 5,),
+                if(locationEntity.phone.isNotEmpty)
+                SmallLineLocationData(
+                  title: translate("profile.mobile"),
+                  value: locationEntity.phone,
+                ),
+                const SizedBox(height: 5,),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

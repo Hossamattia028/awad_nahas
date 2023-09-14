@@ -67,7 +67,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       streetTextEditingController.text =  widget.locationEntity!.address2;
       cityTextEditingController.text =  widget.locationEntity!.address1;
       postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
-      locationsBloc.add(UpdateCurrentLocationEvent(isShipping: locationEnum == LocationEnum.Shipping));
+      locationsBloc.add(UpdateCurrentLocationEvent(location: widget.locationEntity!));
     }
     super.didChangeDependencies();
   }
