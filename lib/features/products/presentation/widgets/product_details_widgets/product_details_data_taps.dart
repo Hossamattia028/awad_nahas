@@ -49,6 +49,9 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
               if(desc.length>1000) bloc.widgetSize= 1200;
               if(desc.length>1400) bloc.widgetSize= 1490;
               if(desc.length>1900) bloc.widgetSize= 1500;
+              if(desc.length>2900) bloc.widgetSize= 2000;
+              double height = double.tryParse(desc.toString().split('height="').last.split('"').first) != null ? double.parse(desc.toString().split('height="').last.split('"').first):10;
+              bloc.widgetSize = bloc.widgetSize + height / 5;
             }else{
               bloc.widgetSize= 500;
             }

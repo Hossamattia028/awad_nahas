@@ -106,6 +106,7 @@ class FilterPrice{
 
 
 class ShowFullContentEvent extends ProductsEvent{
-  const ShowFullContentEvent();
+  final bool? val;
+  const ShowFullContentEvent({this.val});
 }
 

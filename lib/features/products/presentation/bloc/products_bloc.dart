@@ -90,9 +90,9 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
   /// product details states
   bool showFullContent = false;
-  showFullContentFn(event,emit){
+  showFullContentFn(ShowFullContentEvent event,emit){
     emit(const ProductsLoadingState());
-    showFullContent = !showFullContent;
+    showFullContent = event.val!=null ? event.val! : !showFullContent;
     emit(const ProductsSuccessfullyState());
   }
 

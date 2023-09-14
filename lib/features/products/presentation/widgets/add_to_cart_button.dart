@@ -149,7 +149,7 @@ class AddToCartButtonWidget extends StatelessWidget {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(Radius.circular(6)),
-                                border: Border.all(width: 1,color: DMUtil.getD2C())
+                                border: Border.all(width: 1,color: DMUtil.getD2C().withOpacity(0.7))
                             ),
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 2),
@@ -166,7 +166,7 @@ class AddToCartButtonWidget extends StatelessWidget {
                                     CustomText(
                                       text: "$currentCount",
                                       color: DMUtil.getD2C(),
-                                      fontSize: AppStyle.small.sp,
+                                      fontSize: AppStyle.average.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ],
