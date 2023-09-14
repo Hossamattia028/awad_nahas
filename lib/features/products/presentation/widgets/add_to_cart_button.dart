@@ -1,12 +1,8 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -150,19 +146,23 @@ class AddToCartButtonWidget extends StatelessWidget {
                         child: Container(
                             height: 42.h,
                             width: 50.w,
+                            alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(Radius.circular(6)),
-                                border: Border.all(width: 1,color: DMUtil.getBackGround())
+                                border: Border.all(width: 1,color: DMUtil.getD2C())
                             ),
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 2),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CustomText(
                                       text: translate("products.qty").toUpperCase(),
                                       color: DMUtil.getD2C(),
                                       fontSize: AppStyle.verySmall.sp ,
                                     ),
+                                    const SizedBox(height: 3,),
                                     CustomText(
                                       text: "$currentCount",
                                       color: DMUtil.getD2C(),

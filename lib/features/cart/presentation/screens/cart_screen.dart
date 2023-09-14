@@ -6,7 +6,6 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_payment_options.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/releated_products_cart.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';

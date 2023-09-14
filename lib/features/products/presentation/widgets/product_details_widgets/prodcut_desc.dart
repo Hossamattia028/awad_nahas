@@ -25,7 +25,7 @@ class ProductDescriptionWidget extends StatelessWidget {
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: SingleChildScrollView(
                   physics: const NeverScrollableScrollPhysics(),
                   child: HtmlWidget(

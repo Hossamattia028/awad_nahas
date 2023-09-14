@@ -1,7 +1,5 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/select_product_quantity_widget.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
@@ -30,15 +28,7 @@ class CartListWidget extends StatelessWidget {
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (ctx,index){
-              ProductsEntity? item ;
-              int ind = ProductsBloc.get(context).productsList.indexWhere((element) => list[index].id==element.id);
-              if(ind==-1){
-                ind = ProductsBloc.get(context).storedProductsList.indexWhere((element) => list[index].imgPath==element.imgPath);
-                if(ind==-1)return const SizedBox.shrink();
-                item = ProductsBloc.get(context).storedProductsList[ind];
-              }else{
-                item = ProductsBloc.get(context).productsList[ind];
-              }
+              var item = list[index];
               return Container(
                 height: 125.h,
                 padding: const EdgeInsets.all(10),

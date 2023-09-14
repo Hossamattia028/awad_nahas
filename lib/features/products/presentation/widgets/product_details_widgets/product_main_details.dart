@@ -51,6 +51,7 @@ class ProductMainDetails extends StatelessWidget {
                   const SizedBox(height: 10,),
 
                   Card(
+                    color: DMUtil.getWC(),
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
@@ -66,12 +67,13 @@ class ProductMainDetails extends StatelessWidget {
                     child: InkWell(
                       onTap: ()=> Share.share('check the website ${ApiUrl.MAIN_DOMAIN}/', subject: item.title.toString()),
                       child: Card(
+                        color: DMUtil.getWC(),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: Icon(Icons.share,color: DMUtil.getOpacity(),size: 20.w,),
+                          child: Icon(Icons.share,color: DMUtil.getDC(),size: 20.w,),
                         ),
                       ),
                     ),

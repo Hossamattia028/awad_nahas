@@ -94,6 +94,10 @@ class GenerateCartJson{
           "variation_id": 0,
           "variation": [],
           "quantity": i.quantity,
+          "title":i.title.toString(),
+          "imgPath":i.imgPath.toString(),
+          "sku": i.sku.toString(),
+          "discount":i.discount.toString(),
           "data_hash": "b5c1d5ca8bae6d4896cf1807cdf763f0",
           "line_tax_data": {
             "subtotal": {

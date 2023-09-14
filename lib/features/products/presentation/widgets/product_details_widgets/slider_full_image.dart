@@ -29,7 +29,6 @@ class FullImageViewer extends StatelessWidget {
               PhotoViewGallery.builder(
                 scrollPhysics: const BouncingScrollPhysics(),
                 builder: (BuildContext context, int itemIndex) {
-                  // itemIndex = bloc.currentSliderIndex;
                   return PhotoViewGalleryPageOptions(
                     imageProvider: NetworkImage(images[itemIndex].toString()),
                     initialScale: PhotoViewComputedScale.contained * 0.8,

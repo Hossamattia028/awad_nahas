@@ -90,14 +90,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
                   if(Util.checkUser() && currentPrice<=2000)...[
                     const SizedBox(height: 15,),
                     TamaraSmallProductWidget(price: currentPrice),
-                    const SizedBox(height: 10,),
                   ],
-
+                  const SizedBox(height: 20,),
                   ProductDetailsDataRow(item: widget.item),
 
 
                   if(widget.item.brandID!=null)...[
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 25,),
                     BlocBuilder<CategoriesBloc,CategoriesState>(
                       builder: (ctx,state){
                         var bloc = CategoriesBloc.get(ctx);
@@ -109,7 +108,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
                     ),
                   ],
 
-                  const SizedBox(height: 20,),
+                  const SizedBox(height: 25,),
                   RelatedProductsWidget(item:  widget.item,),
                   SizedBox(height: 170.h,),
                 ],

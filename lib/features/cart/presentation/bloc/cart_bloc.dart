@@ -115,9 +115,9 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       },(data) {
         cartList.clear();
         for(var i in data.sessionValue){
-          cartList.add(ProductsEntity(title: "", catTitle: "",
-              desc: "", id: i.productID,  sku: "",
-              imgPath: "", price: i.price, discount: 0,discountRate: 0, stockStatus: true,
+          cartList.add(ProductsEntity(title: i.title, catTitle: "",
+              desc: "", id: i.productID,  sku: i.sku,
+              imgPath: i.imgPath, price: i.price, discount: i.discount,discountRate: 0, stockStatus: true,
               quantity: i.quantity,categoryList: const [],commentCount: 0,catID: 0));
         }
         cartList = cartList;
@@ -134,13 +134,13 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   }
 
   bool checkIFProductInsideCartList(ProductsEntity item){
-    int index = cartList.indexWhere((element) => element.id==item.id || element.imgPath.trim() == item.imgPath.trim());
+    int index = cartList.indexWhere((element) => element.sku == item.sku);
     if(index!=-1)return true;
     return false;
   }
 
   ProductsEntity? getProductInCart(ProductsEntity item){
-    int index = cartList.indexWhere((element) => element.id==item.id || element.imgPath.trim() == item.imgPath.trim());
+    int index = cartList.indexWhere((element) => element.sku == item.sku);
     if(index!=-1)return cartList[index];
     return null;
   }
@@ -193,7 +193,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
 
   /// check product and add or update inside cart list
   checkItemAndModifyInsideCart(ProductsEntity product,bool remove,bool isAdd, {int? count}){
-    int index = cartList.indexWhere((element) => product.id.toString() == element.id.toString() || element.imgPath.trim() == product.imgPath.trim());
+    int index = cartList.indexWhere((element) => product.sku == element.sku);
     if(index!=-1) {
       if(remove){
         cartList.removeAt(index);
@@ -203,7 +203,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
         item = ProductsEntity(title: product.title,
             catTitle: "", sku: product.sku,
             desc: "", id: item.id,discountRate: 0,
-            imgPath: product.imgPath, price: product.price, discount: 0, stockStatus: true,
+            imgPath: product.imgPath, price: product.price,discount: product.discount, stockStatus: true,
             quantity: newQty,categoryList: const [],commentCount: 0,catID: item.catID);
         cartList[index] = item;
       }
@@ -211,7 +211,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       cartList.add(ProductsEntity(title: product.title,
           catTitle: "", sku: product.sku,
           desc: "", id: product.id,discountRate: 0,
-          imgPath: product.imgPath, price: product.price, discount: 0, stockStatus: true,
+          imgPath: product.imgPath, price: product.price, discount: product.discount, stockStatus: true,
           quantity: count == -1 ? 1 : count!,categoryList: const [],commentCount: 0,catID:product.catID));
     }
   }
@@ -223,7 +223,6 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   int minimumAmount = 0;
   double? couponValue;
   CouponModel? couponModel;
-
   getDiscountCoupon(ImplementCouponDiscountEvent event,emit)async {
     emit(CouponLoadingState());
     try{

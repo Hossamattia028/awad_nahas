@@ -14,7 +14,15 @@ class CartModel extends CartEntity {
     List<dynamic> list = [];
     if(jsonObject['cart']!=null&&jsonObject['cart'].toString()!="[]"){
       list = jsonObject['cart'].entries.map((entry) {
-        return CartModelProducts(productID: entry.value['product_id'],quantity: int.parse((entry.value['quantity']??1).toString()),price: double.parse(entry.value['line_total'].toString()));
+        return CartModelProducts(
+            productID: entry.value['product_id'],
+            quantity: int.parse((entry.value['quantity']??1).toString()),
+            price: double.parse(entry.value['line_total'].toString()),
+            discount: double.parse(entry.value['discount'].toString()),
+            title: entry.value['title'] ?? "",
+            imgPath: entry.value['imgPath'] ?? "",
+            sku: entry.value['sku'] ?? "",
+        );
       }).toList();
     }
     return CartModel(
@@ -33,7 +41,14 @@ class CartModelProducts {
   final int productID;
   final int quantity;
   final double price;
-  const CartModelProducts({required this.quantity,required this.productID,required this.price});
+  final double discount;
+  final String title;
+  final String imgPath;
+  final String sku;
+  const CartModelProducts({
+    required this.quantity,required this.productID,
+    required this.price,required this.discount,
+    required this.imgPath,required this.title,required this.sku});
 
   static List<CartModelProducts> cartListFromJson(String str) =>
       List<CartModelProducts>.from(
@@ -44,6 +59,10 @@ class CartModelProducts {
       productID: jsonObject['product_id'],
       quantity: int.parse((jsonObject['quantity']??1).toString()),
       price: double.parse(jsonObject['line_total'].toString()),
+      discount: double.parse(jsonObject['discount'].toString()),
+      imgPath: jsonObject['imgPath'] ?? "",
+      title: jsonObject['title'] ?? "",
+      sku: jsonObject['sku'] ?? "",
     );
   }
 }
