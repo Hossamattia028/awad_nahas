@@ -24,11 +24,11 @@ class AddNewLocationButton extends StatelessWidget {
         widget: CustomText(
           color: Colors.white,
           fontSize: AppStyle.small.sp,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w600,
           text: translate("map.add_location"),
         ),
         color: DMUtil.getRED(),
-        onPressed: ()=> Util.pushPage(const AddNewLocationScreen(), context),
+        onPressed: ()=> Util.pushPage(const AddNewLocationScreen(type: "local",), context),
       ),
     );
   }

@@ -45,8 +45,9 @@ class OrderAddress extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
                     child: Column(
                       children: [
-                        if(list.billingAddress!=null)LocationCardWidget(locationEntity: list.billingAddress!,currentLocation: bloc.currentCheckOutLocation==list.billingAddress,
-                          isAdd: bloc.checkIFAddressEmpty(list.billingAddress!),isOrderPage: true,),
+                        if(bloc.currentCheckOutLocation!=null)
+                        LocationCardWidget(locationEntity:bloc.currentCheckOutLocation!,currentLocation: true,
+                          isAdd: bloc.checkIFAddressEmpty(bloc.currentCheckOutLocation!),isOrderPage: true,),
                       ],
                     ),
                   )

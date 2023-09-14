@@ -116,10 +116,6 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
 
   _checkOut(BuildContext context,OrderBloc orderBloc){
-    if(LocationsBloc.get(context).billingAddress==null || LocationsBloc.get(context).billingAddress!.country==""){
-      SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
-      return;
-    }
     if(cartBloc.paymentWithCard == PaymentEnum.CASH){
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
       // _cash(orderBloc);
@@ -168,7 +164,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       ), context);
       debugPrint("res: $res");
       if(res=="successful"){
-        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
+        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context));
       }else{
         SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
       }
@@ -183,7 +179,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         onSucceeded:(val){
           debugPrint("success ${val.status}");
           // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
-          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
+          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context));
         },
         onFailed: (val){
           debugPrint("failed ${val.toString()}");
@@ -196,7 +192,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         onSucceeded:(val){
           debugPrint("success ${val.status}");
           // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
-          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
+          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context));
         },
         onFailed: (val){
           // debugPrint("failed ${val.toString()}");

@@ -24,6 +24,8 @@ class LocationEntity extends Equatable{
 
   @override
   List<Object?> get props => [id,phone];
+
+
 }
 
 class AddressEntity{

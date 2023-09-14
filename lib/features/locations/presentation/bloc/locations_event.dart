@@ -28,6 +28,12 @@ class AddLocationEvent extends LocationsEvent{
   const AddLocationEvent({required this.data});
 }
 
+class AddLocalLocationEvent extends LocationsEvent{
+  final Map<String,dynamic> data;
+  final bool? isUpdate ;
+  const AddLocalLocationEvent({required this.data,this.isUpdate});
+}
+
 class UpdateCurrentLocationEvent extends LocationsEvent{
   final LocationEntity location;
   const UpdateCurrentLocationEvent({required this.location});

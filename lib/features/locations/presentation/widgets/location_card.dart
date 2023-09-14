@@ -3,6 +3,7 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
+import 'package:awad_nahas/features/locations/presentation/widgets/circle_dots.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -29,15 +30,15 @@ class LocationCardWidget extends StatelessWidget {
         padding: isOrderPage ? EdgeInsets.zero: EdgeInsets.symmetric(vertical: 10.h, horizontal: 5.w),
         decoration: BoxDecoration(
           color: DMUtil.getWC(),
-          border: isOrderPage? Border.all(width: 0,color: Colors.transparent):Border.all(width: 1,color: currentLocation?DMUtil.getRED():DMUtil.getD2C()),
+          // border: isOrderPage? Border.all(width: 0,color: Colors.transparent):Border.all(width: 1,color: currentLocation?DMUtil.getRED():DMUtil.getD2C()),
           borderRadius: BorderRadius.circular(4),
             boxShadow: [
-              if(currentLocation&&isOrderPage==false)
+              if(isOrderPage==false)
               BoxShadow(
                 blurRadius: 1.0,
                 offset: const Offset(0.05, 0.05),
                 spreadRadius: 2.2,
-                color: DMUtil.getRED().withOpacity(0.3),
+                color: currentLocation? DMUtil.getRED().withOpacity(0.5) :DMUtil.getBackGround() ,
               )
             ]
         ),
@@ -45,15 +46,15 @@ class LocationCardWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // CircleDotsWidget(isEnabled: currentLocation ,),
-            Icon(Icons.location_on,color: DMUtil.getD2C(),),
+            CircleDotsWidget(isEnabled: currentLocation ,),
+            // Icon(Icons.location_on,color: DMUtil.getD2C(),),
             const SizedBox(width: 5,),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: 271.w,
+                  width: isOrderPage?270.w: 300.w,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +70,7 @@ class LocationCardWidget extends StatelessWidget {
                         onTap: () => Util.pushPage(AddNewLocationScreen(locationEntity: isAdd ? null : locationEntity,type: locationEntity.type,), context),
                         child: CustomText(
                           text: isAdd? translate("map.set_location") :translate("button.edit"),
-                          color: DMUtil.getRED(),
+                          color: DMUtil.getD2C(),
                           fontSize: AppStyle.average.sp,
                         ),
                       ),

@@ -3,5 +3,6 @@
 enum LocationEnum{
   Billing,
   Shipping,
+  LOCAL,
   OTHER
 }

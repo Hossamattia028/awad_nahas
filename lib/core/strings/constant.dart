@@ -19,7 +19,7 @@ class Constants {
   static const String lastVerificationCode = "lastVerificationCode";
 
 
-  static const String allLocationsList = "locations";
+  static const String allLocalLocationsList = "locations";
 
 
 }

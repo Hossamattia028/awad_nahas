@@ -1,8 +1,13 @@
 
+import 'dart:convert';
+
+import 'package:awad_nahas/core/strings/constant.dart';
+import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/locations/data/models/location_model.dart';
+import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:awad_nahas/features/locations/domain/use_cases/locations_usecase.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.dart';
@@ -18,6 +23,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
   AddressEntity? userLocationsList ;
   LocationEntity? billingAddress ;
   LocationEntity? shippingAddress ;
+  List<LocationEntity> localUserLocationsList = [];
 
 
   LocationEntity? currentCheckOutLocation;
@@ -42,6 +48,11 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
     on<AddLocationEvent>((event, emit) async{
       await addNewLocationsData(event, emit);
       await getUserLocationsData(event, emit);
+    });
+
+
+    on<AddLocalLocationEvent>((event, emit) {
+       addLocalLocation(event, emit);
     });
 
     on<UpdateLocationEvent>((event, emit) async{
@@ -76,12 +87,69 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
         if(userLocationsList!.billingAddress!=null)billingAddress = userLocationsList!.billingAddress;
         if(userLocationsList!.shippingAddress!=null)shippingAddress = userLocationsList!.shippingAddress;
         currentCheckOutLocation = null;
+        localUserLocationsList = _getLocalLocations();
         emit(const LocationsSuccessfullyState());
       });
     }catch(e){
       debugPrint("getUserLocationsData: $e");
       emit(const LocationsFailedState());
     }
+  }
+  
+  List<LocationEntity> _getLocalLocations(){
+    if(!SharedPref().containPreference(Constants.allLocalLocationsList))return [];
+    String data =  SharedPref().getPreferenceString(Constants.allLocalLocationsList);
+    List<dynamic> decodedList = json.decode(data);
+    List<LocationEntity> locationList = decodedList
+        .map((location) => LocationModel.fromJsonLocal(location,"local"))
+        .toList();
+    return locationList;
+  }
+  
+  addLocalLocation(AddLocalLocationEvent event,emit){
+    SharedPref().removePreference(Constants.allLocalLocationsList);
+    emit(const LocationsLoadingState());
+    if(event.isUpdate == true){
+      if(clearLocalLocation(setLocationData(event.data))){
+        localUserLocationsList.add(setLocationData(event.data));
+      }
+    }else{
+      localUserLocationsList.add(setLocationData(event.data));
+    }
+    String encodedList = json.encode(localUserLocationsList
+        .map((location) => LocationModel.toJsonLocal(location,"local"))
+        .toList());
+    SharedPref().setPreferencesString(Constants.allLocalLocationsList,encodedList);
+    localUserLocationsList = _getLocalLocations();
+    emit(const LocationsSuccessfullyState());
+  }
+
+  setLocationData(Map<String,dynamic> data){
+    String kind = "local";
+    return LocationModel(
+        address1: data['${kind}_address_1'] ?? "",
+        address2: data['${kind}_address_2'] ?? "",
+        country: data['${kind}_country'] ?? "",
+        phone: data['${kind}_phone'] ?? "",
+        id: int.parse(DateTime.now().millisecond.toString()+DateTime.now().minute.toString()),
+        type: data[kind] ?? "",
+        long: 0.0,
+        lat:  0.0,
+        state: data['${kind}_state'] ?? "",
+        firstName: data['${kind}_first_name'] ?? "",
+        lastName: data['${kind}_last_name'] ?? "",
+        email: data['${kind}_email'] ?? "",
+        postCode: data['${kind}_postcode'] ?? "",
+    );
+  }
+
+  bool clearLocalLocation(LocationEntity location){
+    int index = localUserLocationsList.indexWhere((element) => element.id==location.id || element.phone==location.phone);
+    if(index!=-1){
+      localUserLocationsList.removeAt(index);
+      return true;
+    }
+    return false;
   }
 
   addNewLocationsData(event,emit)async{

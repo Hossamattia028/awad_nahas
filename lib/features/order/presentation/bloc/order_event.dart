@@ -25,7 +25,8 @@ class FetchAllOrderEvent extends OrderEvent{
 class AddOrderEvent extends OrderEvent{
   final List<ProductsEntity> list;
   final double totalPrice;
-  const AddOrderEvent({required this.list,required this.totalPrice});
+  final BuildContext context;
+  const AddOrderEvent({required this.list,required this.totalPrice,required this.context});
 }
 
 class SetCurrentOrderEvent extends OrderEvent{

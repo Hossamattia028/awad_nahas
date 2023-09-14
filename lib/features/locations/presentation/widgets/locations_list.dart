@@ -20,6 +20,7 @@ class LocationsList extends StatelessWidget {
         builder: (ctx,state){
           var bloc = LocationsBloc.get(ctx);
           var list = bloc.userLocationsList;
+          var localList = bloc.localUserLocationsList;
           if(state is LocationsLoadingState)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
           // if(bloc.userLocationsList.isEmpty)return const LocationsEmpty();
           return SingleChildScrollView(
@@ -33,7 +34,21 @@ class LocationsList extends StatelessWidget {
                 if(list.billingAddress!=null)LocationCardWidget(locationEntity: list.billingAddress!,currentLocation: bloc.currentCheckOutLocation==list.billingAddress,
                     isAdd: bloc.checkIFAddressEmpty(list.billingAddress!)),
 
-                
+                if(localList.isNotEmpty)...[
+                  const SizedBox(height: 20,),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (ctx,index){
+                      var item  = localList[index];
+                      return LocationCardWidget(locationEntity: item,currentLocation: bloc.currentCheckOutLocation==item,
+                          isAdd: bloc.checkIFAddressEmpty(item));
+                    },
+                    separatorBuilder: (ctx,index)=> const SizedBox(height: 10,),
+                    itemCount: localList.length,
+                  ),
+                ],
+
               ],
             ),
           );

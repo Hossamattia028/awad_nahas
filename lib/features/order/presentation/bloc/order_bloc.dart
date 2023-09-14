@@ -1,5 +1,8 @@
 
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
+import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/order/data/models/confirm_order_data.dart';
 import 'package:awad_nahas/features/order/data/models/issue_model.dart';
 import 'package:awad_nahas/features/order/data/models/order_model.dart';
@@ -7,11 +10,13 @@ import 'package:awad_nahas/features/order/domain/use_cases/get_all_order_usecase
 import 'package:awad_nahas/features/order/domain/use_cases/update_order_usecase.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
+import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/features/order/domain/entities/order.dart';
 import 'package:awad_nahas/features/order/domain/use_cases/add_order_usecase.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 
 
@@ -118,7 +123,9 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
   addNewOrder(AddOrderEvent event,emit)async{
     emit(OrderLoadingState());
     try{
-      var res = await addOrderUseCase(data: collectOrderData(cartList:event.list,totalPrice: event.totalPrice));
+      LocationEntity? currentLoc  = checkCurrentLocationAndReturnIt(event.context);
+      if(currentLoc==null)return;
+      var res = await addOrderUseCase(data: collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc));
       res.fold((l) {
         emit(OrderErrorState(errors: l.toString()));
       },(data) {
@@ -176,11 +183,21 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
   }
 
 
+  LocationEntity? checkCurrentLocationAndReturnIt(BuildContext context){
+    var location = LocationsBloc.get(context).currentCheckOutLocation;
+    if(location != null){
+      return location;
+    }else{
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
+      return null;
+    }
+  }
+
   Map<String, dynamic>  collectOrderData({
     required List<ProductsEntity> cartList,
-    required double totalPrice
+    required double totalPrice,
+    required LocationEntity locationEntity,
   }){
-
     List<Map<String,dynamic>> list = [];
     for(var i in cartList){
       list.add({
@@ -200,6 +217,9 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       "net_total" : totalPrice.toString(),
       "returning_customer" : "0",
       "status" : "wc-processing",
+      "address":{
+        "",
+      },
       "items":list
     };
     return data;

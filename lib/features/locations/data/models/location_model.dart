@@ -55,6 +55,36 @@ class LocationModel extends LocationEntity{
     return data;
   }
 
+  static Map<String, dynamic> toJsonLocal(LocationEntity location,String type) {
+    return {
+      '${type}_address_1': location.address1,
+      '${type}_address_2': location.address2,
+      '${type}_country': location.country,
+      '${type}_phone': location.phone,
+      '${type}_email': location.email,
+      '${type}_state': location.state,
+      '${type}_postcode': location.postCode,
+    };
+  }
+
+  static LocationModel fromJsonLocal(Map<String, dynamic> jsonObject,type) {
+    print(jsonObject['${type}_address_1']);
+    return LocationModel(
+        id: jsonObject['id']??0,
+        address1: jsonObject['${type}_address_1'] ?? "",
+        address2:  jsonObject['${type}_address_2'] ?? "",
+        country:  jsonObject['${type}_country'] ?? "",
+        phone:  jsonObject['${type}_phone'] ?? "",
+        type:  type,
+        lat:  0.0,
+        long:  0.0,
+        state: jsonObject['${type}_state'] ?? "",
+        postCode: jsonObject['${type}_first_name'] ?? "",
+        firstName: jsonObject['${type}_last_name'] ?? "",
+        lastName:  jsonObject['${type}_email'] ?? "",
+        email:  jsonObject['${type}_postcode'] ?? "",
+    );
+  }
 }
 
 class AddressModel extends AddressEntity{

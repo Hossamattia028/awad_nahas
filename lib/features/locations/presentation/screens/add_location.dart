@@ -54,6 +54,8 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       locationEnum = LocationEnum.Billing;
     }else if(widget.type=="shipping"){
       locationEnum = LocationEnum.Shipping;
+    }else if(widget.type == "local"){
+      locationEnum = LocationEnum.LOCAL;
     }else{
       locationEnum = LocationEnum.OTHER;
     }
@@ -298,38 +300,39 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                       color: DMUtil.getRED(),
                       onPressed: () async {
                         var type = locationEnum == LocationEnum.Shipping? "shipping":"billing";
+                        if(locationEnum == LocationEnum.LOCAL) type = "local";
                         var phone = phoneTextEditingController.text.trim();
-                        if(flatNumberTextEditingController.text.trim().isNotEmpty&&buildingNumberTextEditingController.text.trim().isNotEmpty&&phone.isNotEmpty){
+                        if(flatNumberTextEditingController.text.trim().isNotEmpty&&buildingNumberTextEditingController.text.trim().isNotEmpty&&phone.isNotEmpty &&
+                            cityTextEditingController.text.trim().isNotEmpty && streetTextEditingController.text.trim().isNotEmpty &&
+                            postCodeNumberTextEditingController.text.trim().isNotEmpty){
+                          var data = {
+                            "${type}_phone": phone,
+                            "${type}_email": Util.getEmail(),
+                            "${type}_country": locationMapEntity!.country,
+                            "${type}_postcode": postCodeNumberTextEditingController.text.trim(),
+                            "${type}_state": locationMapEntity!.street,
+                            "${type}_address_2": streetTextEditingController.text.trim(),
+                            "${type}_address_1": cityTextEditingController.text.trim(),
+                            "${type}_last_name": Util.getName(),
+                            "${type}_first_name": Util.getName(),
+                          };
                           if(widget.locationEntity!=null){
-                            locationsBloc.add(UpdateLocationEvent(data: {
-                              // "id":widget.locationEntity!.id,
-                              type:{
-                               "${type}_phone": phone,
-                               "${type}_email": Util.getEmail(),
-                               "${type}_country": locationMapEntity!.country,
-                               "${type}_postcode": locationMapEntity!.postalCode,
-                               "${type}_state": locationMapEntity!.street,
-                               "${type}_address_2": locationMapEntity!.street,
-                               "${type}_address_1": locationMapEntity!.city,
-                               "${type}_last_name": Util.getName(),
-                               "${type}_first_name": Util.getName(),
-                             }
-                            }));
+                            if(widget.type == "local"){
+                              locationsBloc.add(AddLocalLocationEvent(data: data,isUpdate: true));
+                            }else{
+                              locationsBloc.add(UpdateLocationEvent(data: {
+                                type: data
+                              }));
+                            }
                           }else{
                             if(locationMapEntity==null)return SnackBarBuilder.showFeedBackMessage(context, translate("toast.select_location"), Colors.red);
-                            locationsBloc.add(AddLocationEvent(data: {
-                              type:{
-                                "${type}_phone": phone,
-                                "${type}_email": Util.getEmail(),
-                                "${type}_country": locationMapEntity!.country,
-                                "${type}_postcode": locationMapEntity!.postalCode,
-                                "${type}_state": locationMapEntity!.street,
-                                "${type}_address_2": locationMapEntity!.street,
-                                "${type}_address_1": locationMapEntity!.city,
-                                "${type}_last_name": Util.getName(),
-                                "${type}_first_name": Util.getName(),
-                              }
-                            }));
+                            if(widget.type == "local"){
+                              locationsBloc.add(AddLocalLocationEvent(data: data));
+                            }else{
+                              locationsBloc.add(AddLocationEvent(data: {
+                                type: data
+                              }));
+                            }
                           }
                         }else{
                           return SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
