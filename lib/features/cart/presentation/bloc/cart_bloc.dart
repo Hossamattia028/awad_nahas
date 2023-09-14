@@ -107,7 +107,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   List<ProductsEntity> cartList = [];
   getAllCart(emit)async{
     if(!Util.checkUser())return;
-    emit(CartLoadingState());
+    // emit(CartLoadingState());
     try{
       var res = await getAllCartListUseCase();
       res.fold((l) {
@@ -172,7 +172,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
 
 
   modifyCartProduct(ModifyCartProductEvent event,emit)async{
-    // emit(CartLoadingState());
+    if(event.count!=null) emit(CartLoadingState());
     if(event.product!=null) {
       ///update current count after added last chooser count
       currentCount = 1;
@@ -184,7 +184,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     }
     calcTotal();
     cartList = cartList;
-    emit(CartSuccessfullyState());
+    if(event.count==null)emit(CartSuccessfullyState());
     await Future.delayed(const Duration(seconds: 1));
     await addToCart(emit,event.remove);
     await Future.delayed(const Duration(seconds: 1));

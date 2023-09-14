@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/add_to_cart_bottom_sheet.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
@@ -81,11 +82,21 @@ class AddToCartButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<CartBloc,CartState>(
         listener: (ctx,state){
-          // if(state is AddToCartSuccessfullyState){
-          //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.cart_success"), Colors.green);
-          // }else if (state is RemoveCartSuccessfullyState){
-          //    SnackBarBuilder.showFeedBackMessage(context, translate("toast.cart_remove_success"), Colors.red);
-          // }
+          if(state is AddToCartSuccessfullyState){
+            showModalBottomSheet(
+              context: context,
+              backgroundColor: Colors.transparent,
+              shape:  const RoundedRectangleBorder(
+                borderRadius:  BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
+              ),
+              builder: (ctx){
+                return const CartSuccessBottomSheet();
+              },
+            );
+            // SnackBarBuilder.showFeedBackMessage(context, translate("toast.cart_success"), Colors.green);
+          }else if (state is RemoveCartSuccessfullyState){
+             SnackBarBuilder.showFeedBackMessage(context, translate("toast.cart_remove_success"), Colors.red);
+          }
         },
         child: BlocBuilder<CartBloc,CartState>(
           builder: (ctx,state){
@@ -175,44 +186,37 @@ class AddToCartButtonWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 10,),
-                      // state is CartLoadingState ? const CircularProgressIndicator(color: Colors.white,) :
+
                       Expanded(
                         child: CustomButton(
                           height: 40.h,
                           width: double.infinity,
-                          widget:Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          widget:  state is CartLoadingState ? const CircularProgressIndicator(color: Colors.white,) :    Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                              if(insideCartList)...[
+                                Row(
                                   children: [
-                                    if(insideCartList)...[
-                                      Row(
-                                        children: [
-                                          const Icon(CupertinoIcons.cart_badge_minus),
-                                          const SizedBox(width: 10,),
-                                          CustomText(
-                                            text: translate("cart.in_your_cart"),
-                                            color: Colors.white,
-                                            fontSize: AppStyle.small.sp,
-                                            fontWeight: FontWeight.w600,
-                                          ),
+                                    const Icon(CupertinoIcons.cart_badge_minus),
+                                    const SizedBox(width: 10,),
+                                    CustomText(
+                                      text: translate("cart.in_your_cart"),
+                                      color: Colors.white,
+                                      fontSize: AppStyle.small.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
 
-                                        ],
-                                      ),
-                                    ]else...[
-                                      CustomText(
-                                        text: translate("cart.add_to_cart").toUpperCase(),
-                                        color: Colors.white,
-                                        fontSize: AppStyle.small.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ],
                                   ],
                                 ),
-                              ),
+                              ]else...[
+                                CustomText(
+                                  text: translate("cart.add_to_cart").toUpperCase(),
+                                  color: Colors.white,
+                                  fontSize: AppStyle.small.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ],
                             ],
                           ),
                           color: DMUtil.getRED(),

@@ -49,7 +49,8 @@ class AppImages{
   static const String mieDark = "$icons/brands/mie_dark.svg";
   static const String smegDark = "$icons/brands/smeg_dark.svg";
 
-
+  //cart icons
+  static const String successIconGif = "$images/verified.gif";
   //order icons
   static const String assigned = "$icons/assigned.png";
   static const String delivered = "$icons/verified_black.png";

@@ -307,7 +307,8 @@
 		"place_order": "Place order",
 		"product": "product",
 		"why_wait": "what are you waiting for ? Start enjoying shopping nowً",
-		"in_your_cart": "In Your Cart"
+		"in_your_cart": "In Your Cart",
+		"view_cart": "View Cart"
 	},
 	"products": {
 		"vat_included": "( VAT Included )",
