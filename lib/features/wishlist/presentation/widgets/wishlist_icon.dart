@@ -25,14 +25,14 @@ class WishListIconWidget extends StatelessWidget {
     return BlocBuilder<WishlistBloc,WishlistState>(
       builder: (ctx,state){
         var bloc = WishlistBloc.get(ctx);
-        int index = bloc.wishlistList.indexWhere((element) => element.sku==item.sku);
+        int index = bloc.wishlistList.indexWhere((element) => element.id==item.id || element.imgPath==item.imgPath);
         bool isFav = false;
         if(index!=-1)isFav = true;
         return InkWell(
           onTap: (){
             if(Util.checkUser()){
               bloc.add(AddToWishlistEvent(product: item));
-              int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.sku==item.sku);
+              int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.id!=item.id && element.imgPath==item.imgPath);
               if(index!=-1)bloc.add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
             }else{
               SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), Colors.red);
@@ -77,8 +77,6 @@ class WishListNavIconWidget extends StatelessWidget {
 }
 
 
-
-
 class WishListButtonInCartScreen extends StatelessWidget {
   final ProductsEntity item;
   const WishListButtonInCartScreen({Key? key,required this.item}) : super(key: key);
@@ -88,7 +86,7 @@ class WishListButtonInCartScreen extends StatelessWidget {
     return  InkWell(
       onTap: (){
         WishlistBloc.get(context).add(AddToWishlistEvent(product: item));
-        int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.sku==item.sku);
+        int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.id!=item.id && element.imgPath==item.imgPath);
         if(index!=-1)WishlistBloc.get(context).add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
       },
       child: Container(
