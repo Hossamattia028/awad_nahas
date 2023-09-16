@@ -15,68 +15,77 @@ class PaymentSummaryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      color: DMUtil.getWC(),
-      shape: const RoundedRectangleBorder(
-          side: BorderSide(width: 1,color: Colors.white),
-          borderRadius: BorderRadius.all(Radius.circular(5))
-      ),
-      child: BlocBuilder<CartBloc,CartState>(
-        builder: (ctx,state){
-          var bloc = CartBloc.get(ctx);
-          var list = bloc.cartList;
-          if(list.isEmpty)return const SizedBox.shrink();
-          return Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                decoration: BoxDecoration(
-                    color: DMUtil.getWC(),
-                    borderRadius: const BorderRadius.all(Radius.circular(4))
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText(
-                      text: translate("cart.payment_summary"),
-                      color: DMUtil.getDC(),
-                      fontSize: AppStyle.average.sp,
-                    ),
-                    const Divider(height: 15,),
-                    OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost}${translate("store.sar")}",),
-                    const SizedBox(height: 10,),
-                    if(bloc.couponValue!=null&&bloc.couponModel!=null)...[
-                      OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue}${translate("store.sar")}",),
-                      const SizedBox(height: 10,),
+    return Container(
+      padding: const EdgeInsets.all(10),
+      color: Colors.transparent,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 10),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          border: Border.all(width: 0,color: DMUtil.getD2C().withOpacity(0.5)),
+          color: DMUtil.getWC(),
+        ),
+        child: BlocBuilder<CartBloc,CartState>(
+          builder: (ctx,state){
+            var bloc = CartBloc.get(ctx);
+            var list = bloc.cartList;
+            if(list.isEmpty)return const SizedBox.shrink();
+            return Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 5),
+                  decoration: BoxDecoration(
+                      color: DMUtil.getWC(),
+                      borderRadius: const BorderRadius.all(Radius.circular(4))
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        text: translate("cart.payment_summary"),
+                        color: DMUtil.getDC(),
+                        fontSize: AppStyle.average.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      const SizedBox(height: 20,),
+                      OrderRow(title: translate("cart.total_products_price") ,value:  "${bloc.totalPrice}${translate("store.sar")}",),
+                      const SizedBox(height: 15,),
+                      OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost}${translate("store.sar")}",),
+                      const Divider(),
+                      if(bloc.couponValue!=null&&bloc.couponModel!=null)...[
+                        OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue}${translate("store.sar")}",),
+                        const Divider(),
+                      ],
+                      const SizedBox(height: 15,),
+                      OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("store.sar")}",isTotal:true),
                     ],
-                    OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("store.sar")}",isTotal:true),
-                  ],
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
+        // child: Container(
+        //   width: double.infinity,
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       CustomText(
+        //         text: translate("cart.payment_summary"),
+        //         color: DMUtil.getDC(),
+        //         fontSize: AppStyle.average.sp,
+        //       ),
+        //       const SizedBox(height: 10,),
+        //       OrderRow(title: translate("cart.sub_total") ,value: "20 ${translate("store.sar")}",),
+        //       OrderRow(title: translate("cart.shipping_cost") ,value: "20 ${translate("store.sar")}",),
+        //       OrderRow(title: translate("cart.tax") ,value: "20 ${translate("store.sar")}",),
+        //       OrderRow(title: translate("cart.total_price") ,value: "220${translate("store.sar")}",isBig:true),
+        //     ],
+        //   ),
+        // ),
       ),
-      // child: Container(
-      //   width: double.infinity,
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: Column(
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: [
-      //       CustomText(
-      //         text: translate("cart.payment_summary"),
-      //         color: DMUtil.getDC(),
-      //         fontSize: AppStyle.average.sp,
-      //       ),
-      //       const SizedBox(height: 10,),
-      //       OrderRow(title: translate("cart.sub_total") ,value: "20 ${translate("store.sar")}",),
-      //       OrderRow(title: translate("cart.shipping_cost") ,value: "20 ${translate("store.sar")}",),
-      //       OrderRow(title: translate("cart.tax") ,value: "20 ${translate("store.sar")}",),
-      //       OrderRow(title: translate("cart.total_price") ,value: "220${translate("store.sar")}",isBig:true),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

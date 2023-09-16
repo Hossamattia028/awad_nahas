@@ -17,8 +17,9 @@ class CheckOutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: DMUtil.getWC(),
+      backgroundColor: DMUtil.getBackGround(),
       appBar: GlobalAppBar(
+        backGroundColor: DMUtil.getWC(),
         title: translate("cart.checkOut_title"),
         leadingIcon: const BackArrowButton(),
       ),
@@ -27,20 +28,20 @@ class CheckOutScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
         child: const CheckOutButton(),
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 5),
-        child: const Column(
+      body: const SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
           children: [
             OrderAddress(),
-            SizedBox(height: 5,),
+            SizedBox(height: 10,),
             DeliveryTypeWidget(),
-            SizedBox(height: 5,),
+            SizedBox(height: 10,),
             PayWithWidget(),
-            SizedBox(height: 5,),
+            SizedBox(height: 10,),
             PaymentSummaryWidget(),
-            SizedBox(height: 5,),
+            SizedBox(height: 10,),
             OrderNoteWidget(),
+            SizedBox(height: 20,),
           ],
         ),
       ),

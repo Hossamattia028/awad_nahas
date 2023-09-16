@@ -1,5 +1,7 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/locations/presentation/screens/my_locations.dart';
 import 'package:awad_nahas/features/locations/presentation/widgets/location_card.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -21,39 +23,56 @@ class OrderAddress extends StatelessWidget {
         var list = bloc.userLocationsList;
         if(state is LocationsLoadingState)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
         if(list==null)return const SizedBox.shrink();
-        return Column(
-          children: [
-            Row(
-              children: [
-                CustomText(
-                  text: translate("order.shipping_to"),
-                  fontSize: AppStyle.average.sp,
+        if(bloc.currentCheckOutLocation==null)return const SizedBox.shrink();
+        var location  = bloc.currentCheckOutLocation;
+        return InkWell(
+          onTap: ()=> Util.pushPage(const MyLocationsScreen(), context),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            color: DMUtil.getWC(),
+            child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  border: Border.all(width: 0,color: DMUtil.getD2C().withOpacity(0.5)),
+                  color: DMUtil.getWC(),
                 ),
-              ],
-            ),
-            Card(
-              elevation: 4,
-              color: DMUtil.getWC(),
-              shape: const RoundedRectangleBorder(
-                  side: BorderSide(width: 1,color: Colors.white),
-                  borderRadius: BorderRadius.all(Radius.circular(5))
-              ),
-              child: Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
-                    child: Column(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
                       children: [
-                        if(bloc.currentCheckOutLocation!=null)
-                        LocationCardWidget(locationEntity:bloc.currentCheckOutLocation!,currentLocation: true,
-                          isAdd: bloc.checkIFAddressEmpty(bloc.currentCheckOutLocation!),isOrderPage: true,),
+                        Icon(Icons.location_on_outlined,color: DMUtil.getD2C().withOpacity(0.5),),
+                        const SizedBox(width: 10,),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              text: location!.address1,
+                              fontSize: AppStyle.small.sp,
+                              color: DMUtil.getD2C(),
+                              isEllipsis: true,
+                            ),
+                            CustomText(
+                              text: location.address2,
+                              fontSize: AppStyle.small.sp,
+                              color: DMUtil.getD2C(),
+                              isEllipsis: true,
+                            ),
+                            CustomText(
+                              text: location.phone,
+                              fontSize: AppStyle.small.sp,
+                              color: DMUtil.getD2C(),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                  )
-              ),
-            ),
-          ],
+                    Icon(Icons.arrow_forward_ios_outlined,color: DMUtil.getD2C().withOpacity(0.5),size: 15.w,)
+                  ],
+                )
+            )
+          )
         );
       },
     );

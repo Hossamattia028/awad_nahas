@@ -22,25 +22,26 @@ class PayWithWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
+    return Container(
+      padding: const EdgeInsets.all(10),
       color: DMUtil.getWC(),
-      shape: const RoundedRectangleBorder(
-          side: BorderSide(width: 1,color: Colors.white),
-          borderRadius: BorderRadius.all(Radius.circular(5))
-      ),
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 10),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          border: Border.all(width: 0,color: DMUtil.getD2C().withOpacity(0.5)),
+          color: DMUtil.getWC(),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomText(
-              text: translate("cart.pay_with"),
-              color: DMUtil.getDC(),
-              fontSize: AppStyle.average.sp,
-            ),
-            const SizedBox(height: 10,),
+            // CustomText(
+            //   text: translate("cart.pay_with"),
+            //   color: DMUtil.getDC(),
+            //   fontSize: AppStyle.average.sp,
+            // ),
+            // const SizedBox(height: 10,),
 
             BlocBuilder<CartBloc,CartState>(
               builder: (ctx,state){

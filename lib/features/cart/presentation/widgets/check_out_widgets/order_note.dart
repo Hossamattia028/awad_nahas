@@ -12,31 +12,42 @@ class OrderNoteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController noteTextEditingController = TextEditingController();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 7,),
-        CustomText(
-          text: translate("cart.order_note"),
-          color: DMUtil.getDC(),
-          fontSize: AppStyle.average.sp,
+    return Container(
+      padding: const EdgeInsets.all(10),
+      color: DMUtil.getWC(),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          color: DMUtil.getWC(),
         ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomText(
+              text: translate("cart.order_note"),
+              color: DMUtil.getDC(),
+              fontSize: AppStyle.average.sp,
+            ),
 
-        CustomTextFromField(
-            hintText: "",
-            labelText: "",
-            height: 70,
-            maxLines: 10,
-            cursorColor: DMUtil.getRED(),
-            hasBorder: true,
-            smallPadding: true,
-            radius: 7,
-            textInputType: TextInputType.text,
-            textEditingController: noteTextEditingController,
-            validator: (){},
-            obscureText: false,
-            isLabelError: false),
-      ],
+            CustomTextFromField(
+                hintText: "",
+                labelText: "",
+                height: 80,
+                maxLines: 15,
+                cursorColor: DMUtil.getRED(),
+                hasBorder: true,
+                smallPadding: true,
+                radius: 7,
+                textInputType: TextInputType.text,
+                textEditingController: noteTextEditingController,
+                validator: (){},
+                obscureText: false,
+                isLabelError: false),
+          ],
+        ),
+      ),
     );
   }
 }

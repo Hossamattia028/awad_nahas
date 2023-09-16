@@ -26,110 +26,108 @@ class CartListWidget extends StatelessWidget {
         var bloc = CartBloc.get(ctx);
         var list = bloc.cartList;
         if(list.isEmpty)return const EmptyCartWidget();
-        return SizedBox(
-          height: 350.h,
-          child: ListView.separated(
-            padding: const EdgeInsets.only(bottom: 10,top: 15),
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (ctx,index){
-              var item = list[index];
-              return Container(
-                height: 190.h,
-                padding: const EdgeInsets.all(10),
-                decoration:  BoxDecoration(
-                  color: DMUtil.getWC(),
-                ),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          ImageWidget(imgUrl: item.imgPath,fit: BoxFit.fill,width: 100,height: 100,),
-                          const SizedBox(width: 10,),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 250.w,
-                                  child: SingleChildScrollView(
-                                    child: CustomText(
-                                      text: item.title,
-                                      color: DMUtil.getD2C(),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: AppStyle.average.sp-3,
-                                      maxLine: 3,
-                                      isEllipsis: true,
-                                    ),
+        return ListView.separated(
+          padding: const EdgeInsets.only(bottom: 10,top: 15),
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (ctx,index){
+            var item = list[index];
+            return Container(
+              height: 190.h,
+              padding: const EdgeInsets.all(10),
+              decoration:  BoxDecoration(
+                color: DMUtil.getWC(),
+              ),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        ImageWidget(imgUrl: item.imgPath,fit: BoxFit.fill,width: 100,height: 100,),
+                        const SizedBox(width: 10,),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 250.w,
+                                child: SingleChildScrollView(
+                                  child: CustomText(
+                                    text: item.title,
+                                    color: DMUtil.getD2C(),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: AppStyle.average.sp-3,
+                                    maxLine: 3,
+                                    isEllipsis: true,
                                   ),
                                 ),
-                                const SizedBox(height: 7,),
-                                ProductPriceWidget(productModel: item),
-                                const SizedBox(height: 12,),
-                                CustomText(
-                                  text: translate("cart.free_delivery"),
-                                  fontSize: AppStyle.small.sp,
-                                  color: DMUtil.getGreen(),
-                                ),
+                              ),
+                              const SizedBox(height: 7,),
+                              ProductPriceWidget(productModel: item),
+                              const SizedBox(height: 5,),
+                              CustomText(
+                                text: translate("cart.free_delivery"),
+                                fontSize: AppStyle.small.sp,
+                                fontWeight: FontWeight.w600,
+                                color: DMUtil.getGreen(),
+                              ),
 
-                              ],
-                            ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                              width: 90.w,
+                              height: 35.h,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                border: Border.all(width: 0,color: DMUtil.getD2C().withOpacity(0.5)),
+                                color: DMUtil.getWC(),
+                              ),
+                              child: SelectProductQuantityWidget(item: item,),
+                          ),
+                          const SizedBox(width: 5,),
+                          CustomButton(
+                              height: 35.h,
+                              width: 67.w,
+                              color: Colors.transparent,
+                              circular: 8,
+                              sideColor: DMUtil.getD2C().withOpacity(0.5),
+                              sideWidth: 0,
+                              onPressed: ()=> bloc.add(ModifyCartProductEvent(product: item, isAdd: false,context: context,remove: true)),
+                              widget: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(CupertinoIcons.delete,color: DMUtil.getD2C().withOpacity(0.6),size: 15.w,),
+                                  const SizedBox(width: 2,),
+                                  CustomText(
+                                    text: translate("button.remove"),
+                                    color: DMUtil.getD2C().withOpacity(0.6),
+                                    fontSize: AppStyle.small.sp-2,
+                                  ),
+                                ],
+                              )
                           ),
                         ],
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                                width: 90.w,
-                                height: 35.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                  border: Border.all(width: 0,color: DMUtil.getD2C().withOpacity(0.5)),
-                                  color: DMUtil.getWC(),
-                                ),
-                                child: SelectProductQuantityWidget(item: item,),
-                            ),
-                            const SizedBox(width: 5,),
-                            CustomButton(
-                                height: 35.h,
-                                width: 67.w,
-                                color: Colors.transparent,
-                                circular: 8,
-                                sideColor: DMUtil.getD2C().withOpacity(0.5),
-                                sideWidth: 0,
-                                onPressed: ()=> bloc.add(ModifyCartProductEvent(product: item, isAdd: false,context: context,remove: true)),
-                                widget: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(CupertinoIcons.delete,color: DMUtil.getD2C().withOpacity(0.6),size: 15.w,),
-                                    const SizedBox(width: 2,),
-                                    CustomText(
-                                      text: translate("button.remove"),
-                                      color: DMUtil.getD2C().withOpacity(0.6),
-                                      fontSize: AppStyle.small.sp-2,
-                                    ),
-                                  ],
-                                )
-                            ),
-                          ],
-                        ),
-                        WishListButtonInCartScreen(item: item),
+                      WishListButtonInCartScreen(item: item),
 
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (ctx,index)=> const SizedBox(height: 1,),
-            itemCount: list.length,
-          ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+          separatorBuilder: (ctx,index)=> const SizedBox(height: 10,),
+          itemCount: list.length,
         );
       },
     );
