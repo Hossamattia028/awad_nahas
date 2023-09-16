@@ -67,6 +67,7 @@ class OrderRow extends StatelessWidget {
               color: isTotal? DMUtil.getDC(): DMUtil.getD2C().withOpacity(0.8),
               fontSize: isBig?AppStyle.average.sp+2:AppStyle.average.sp-2,
               fontWeight: isTotal? FontWeight.w600:FontWeight.w400,
+              isEllipsis: true,
             ),
             if(isTotal)const VatIncludedWidget(),
           ],

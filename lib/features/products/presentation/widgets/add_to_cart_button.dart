@@ -242,12 +242,21 @@ class AddToCartButtonWidget extends StatelessWidget {
 class QtyCard extends StatelessWidget {
   final int val;
   final bool selected;
-  const QtyCard({Key? key,required this.val,required this.selected,}) : super(key: key);
+  final bool? isCart;
+  final ProductsEntity? item;
+  final CartBloc? bloc;
+  final bool? insideCartList;
+  const QtyCard({Key? key,required this.val,required this.selected,this.isCart=false,this.item,this.insideCartList,this.bloc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=> CartBloc.get(context).add(UpdateCountBeforeInsertInCart(value: val)),
+      onTap: (){
+        CartBloc.get(context).add(UpdateCountBeforeInsertInCart(value: val));
+        if(item!=null && insideCartList!=null && isCart==true && bloc != null){
+          CartBloc.get(context).addToCartInView(context: context, bloc: bloc,item: item, insideCartList: insideCartList!,val: val);
+        }
+      },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 6.h),
         margin: const EdgeInsets.symmetric(horizontal: 10,),

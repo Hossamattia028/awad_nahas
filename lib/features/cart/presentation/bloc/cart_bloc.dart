@@ -78,9 +78,11 @@ class CartBloc extends Bloc<CartEvent,CartState>{
 
   /// current count before add to cart (PRODUCT_DETAILS_PAGE)
   bool showCountWidget = false;
-  updateCurrentCountWidget(event,emit){
+  int currentCartProductModify = 0;
+  updateCurrentCountWidget(UpdateCountWidgetEvent event,emit){
     emit(CountWidgetLoadingState());
     showCountWidget = !showCountWidget;
+    if(event.productId!=null)currentCartProductModify = event.productId!;
     emit(CountSuccessfullyState());
   }
   int currentCount = 1;
@@ -310,12 +312,12 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     return products;
   }
 
-  addToCartInView({required BuildContext context,required var bloc,required var item,required bool insideCartList}){
+  addToCartInView({required BuildContext context,required var bloc,required var item,required bool insideCartList,int? val}){
     if(!Util.checkUser()){
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),isMarginBottom: true);
       return;
     }
-    bloc.add(ModifyCartProductEvent(product: item, context: context, isAdd: true,remove: insideCartList,count: currentCount));
+    bloc.add(ModifyCartProductEvent(product: item, context: context, isAdd: true,remove: insideCartList,count: val ?? currentCount));
   }
 
 }

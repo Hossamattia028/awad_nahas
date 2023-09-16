@@ -74,5 +74,6 @@ class UpdateCountBeforeInsertInCart extends CartEvent{
 }
 
 class UpdateCountWidgetEvent extends CartEvent{
-  const UpdateCountWidgetEvent();
+  final int? productId;
+  const UpdateCountWidgetEvent({this.productId});
 }

@@ -91,11 +91,11 @@ class WishListButtonInCartScreen extends StatelessWidget {
       },
       child: Container(
           width: 115.w,
-          height: 35.h,
+          height: 30.h,
           alignment: Alignment.center,
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            borderRadius: const BorderRadius.all(Radius.circular(6)),
             border: Border.all(width: 0,color: DMUtil.getD2C().withOpacity(0.5)),
             color: DMUtil.getWC(),
           ),

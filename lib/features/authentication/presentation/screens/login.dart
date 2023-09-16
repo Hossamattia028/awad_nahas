@@ -47,8 +47,8 @@ class LoginScreen extends StatelessWidget {
             if(state is LogInSuccessfullyState && state.response.isSuccess==true){
                 passTextEditingController.text = "";
                 Util.getAllUserAppData(context: context);
-                Util.pushPageAndRemoveRoutes(const RootScreen(), context);
                 SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.green);
+                Util.pushPageAndRemoveRoutes(const RootScreen(), context);
               }else{
                 SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.red);
               }
