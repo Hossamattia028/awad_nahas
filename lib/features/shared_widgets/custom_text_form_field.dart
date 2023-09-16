@@ -62,9 +62,12 @@ class CustomTextFromField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: DMUtil.getWC(),
       height: height?.h ?? 41.h,
       alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        color: DMUtil.getWC(),
+      ),
       child: TextFormField(
         autofocus: false,
         controller: textEditingController,

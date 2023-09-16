@@ -265,7 +265,8 @@
 		"empty": "it is empty here",
 		"fav_empty": "You don't have any favorites yet.",
 		"my_fav": "My Wishlist",
-		"no_wait": "what are you waiting for ? Start enjoying shopping nowً"
+		"no_wait": "what are you waiting for ? Start enjoying shopping nowً",
+		"add_to_fav": "Add to Favourite"
 	},
 	"payment": {
 		"tamra_txt": "pay with 4 payments ",
@@ -308,7 +309,8 @@
 		"product": "product",
 		"why_wait": "what are you waiting for ? Start enjoying shopping nowً",
 		"in_your_cart": "In Your Cart",
-		"view_cart": "View Cart"
+		"view_cart": "View Cart",
+		"free_delivery": "free delivery"
 	},
 	"products": {
 		"vat_included": "( VAT Included )",

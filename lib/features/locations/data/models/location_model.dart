@@ -1,4 +1,5 @@
 
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 
@@ -64,11 +65,12 @@ class LocationModel extends LocationEntity{
       '${type}_email': location.email,
       '${type}_state': location.state,
       '${type}_postcode': location.postCode,
+      '${type}_first_name': Util.getName(),
+      '${type}_last_name': Util.getName(),
     };
   }
 
   static LocationModel fromJsonLocal(Map<String, dynamic> jsonObject,type) {
-    print(jsonObject['${type}_address_1']);
     return LocationModel(
         id: jsonObject['id']??0,
         address1: jsonObject['${type}_address_1'] ?? "",

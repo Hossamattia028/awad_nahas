@@ -1,4 +1,8 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
+import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/select_product_quantity_widget.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
@@ -10,6 +14,7 @@ import 'package:awad_nahas/features/cart/presentation/widgets/empty_cart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 class CartListWidget extends StatelessWidget {
   const CartListWidget({Key? key}) : super(key: key);
@@ -22,74 +27,102 @@ class CartListWidget extends StatelessWidget {
         var list = bloc.cartList;
         if(list.isEmpty)return const EmptyCartWidget();
         return SizedBox(
-          height: 300.h,
+          height: 350.h,
           child: ListView.separated(
-            padding: const EdgeInsets.only(bottom: 10,top: 5),
+            padding: const EdgeInsets.only(bottom: 10,top: 15),
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (ctx,index){
               var item = list[index];
               return Container(
-                height: 125.h,
+                height: 190.h,
                 padding: const EdgeInsets.all(10),
                 decoration:  BoxDecoration(
                   color: DMUtil.getWC(),
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
                   children: [
-                    Card(
-                        color: DMUtil.getWC(),
-                        elevation: 4,
-                        shape: const RoundedRectangleBorder(
-                            side: BorderSide(width: 1,color: Colors.white)
-                        ),
-                        child: ImageWidget(imgUrl: item.imgPath,fit: BoxFit.contain,width: 60.w,)),
                     Expanded(
-                      child: Card(
-                        elevation: 3,
-                        color: DMUtil.getWC(),
-                        shape: const RoundedRectangleBorder(
-                            side: BorderSide(width: 1,color: Colors.white)
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: SizedBox(
-                                  width: 200.w,
-                                  height: 20.h,
+                      child: Row(
+                        children: [
+                          ImageWidget(imgUrl: item.imgPath,fit: BoxFit.fill,width: 100,height: 100,),
+                          const SizedBox(width: 10,),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 250.w,
                                   child: SingleChildScrollView(
                                     child: CustomText(
                                       text: item.title,
                                       color: DMUtil.getD2C(),
                                       fontWeight: FontWeight.w700,
                                       fontSize: AppStyle.average.sp-3,
-                                      maxLine: 5,
+                                      maxLine: 3,
                                       isEllipsis: true,
                                     ),
                                   ),
                                 ),
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SelectProductQuantityWidget(item: item,),
-                                  ProductPriceWidget(productModel: item),
-                                ],
-                              )
-                            ],
+                                const SizedBox(height: 7,),
+                                ProductPriceWidget(productModel: item),
+                                const SizedBox(height: 12,),
+                                CustomText(
+                                  text: translate("cart.free_delivery"),
+                                  fontSize: AppStyle.small.sp,
+                                  color: DMUtil.getGreen(),
+                                ),
+
+                              ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                                width: 90.w,
+                                height: 35.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                  border: Border.all(width: 0,color: DMUtil.getD2C().withOpacity(0.5)),
+                                  color: DMUtil.getWC(),
+                                ),
+                                child: SelectProductQuantityWidget(item: item,),
+                            ),
+                            const SizedBox(width: 5,),
+                            CustomButton(
+                                height: 35.h,
+                                width: 67.w,
+                                color: Colors.transparent,
+                                circular: 8,
+                                sideColor: DMUtil.getD2C().withOpacity(0.5),
+                                sideWidth: 0,
+                                onPressed: ()=> bloc.add(ModifyCartProductEvent(product: item, isAdd: false,context: context,remove: true)),
+                                widget: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(CupertinoIcons.delete,color: DMUtil.getD2C().withOpacity(0.6),size: 15.w,),
+                                    const SizedBox(width: 2,),
+                                    CustomText(
+                                      text: translate("button.remove"),
+                                      color: DMUtil.getD2C().withOpacity(0.6),
+                                      fontSize: AppStyle.small.sp-2,
+                                    ),
+                                  ],
+                                )
+                            ),
+                          ],
+                        ),
+                        WishListButtonInCartScreen(item: item),
 
-
+                      ],
+                    ),
                   ],
                 ),
               );
@@ -102,3 +135,6 @@ class CartListWidget extends StatelessWidget {
     );
   }
 }
+
+
+

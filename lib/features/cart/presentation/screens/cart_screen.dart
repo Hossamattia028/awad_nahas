@@ -31,7 +31,7 @@ class CartScreen extends StatelessWidget {
         title: BlocBuilder<CartBloc,CartState>(
           builder: (ctx,state){
             var bloc = CartBloc.get(ctx);
-            return CustomText(text:  "${translate("app_bar.cart")} (${bloc.cartList.length})" , fontSize: AppStyle.average.sp);
+            return CustomText(text:  "${translate("app_bar.cart")} (${bloc.cartList.length} ${bloc.cartList.length > 1 ? translate("store.items") : translate("store.item")})" , fontSize: AppStyle.average.sp);
           },
         ),
         backgroundColor: DMUtil.getWC(),
@@ -50,11 +50,13 @@ class CartScreen extends StatelessWidget {
                 CartPaymentOptions(),
                 SelectLocations(),
                 CartListWidget(),
-                CouponWidget(),
-                SizedBox(height: 10,),
-                OrderDetails(),
-                SizedBox(height: 10,),
                 CartRelatedProducts(),
+                SizedBox(height: 30,),
+                CouponWidget(),
+                SizedBox(height: 20,),
+                OrderDetails(),
+                SizedBox(height: 20,),
+
               ]else...const[
                 AccountNotAuth(),
               ],

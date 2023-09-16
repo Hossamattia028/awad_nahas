@@ -1,6 +1,7 @@
 
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/order/data/models/confirm_order_data.dart';
@@ -125,7 +126,8 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     try{
       LocationEntity? currentLoc  = checkCurrentLocationAndReturnIt(event.context);
       if(currentLoc==null)return;
-      var res = await addOrderUseCase(data: collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc));
+      var orderData = collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc);
+      var res = await addOrderUseCase(data: orderData);
       res.fold((l) {
         emit(OrderErrorState(errors: l.toString()));
       },(data) {
@@ -217,9 +219,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       "net_total" : totalPrice.toString(),
       "returning_customer" : "0",
       "status" : "wc-processing",
-      "address":{
-        "",
-      },
+      "address": LocationModel.toJsonLocal(locationEntity, "shipping"),
       "items":list
     };
     return data;

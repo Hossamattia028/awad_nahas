@@ -19,29 +19,28 @@ class OrderDetails extends StatelessWidget {
         var bloc = CartBloc.get(ctx);
         var list = bloc.cartList;
         if(list.isEmpty)return const SizedBox.shrink();
-        return Card(
-          color: DMUtil.getWC(),
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(6)),
+            border: Border.all(width: 0,color: DMUtil.getD2C()),
+            color: DMUtil.getWC(),
+          ),
+          margin: EdgeInsets.symmetric(horizontal: 10.w),
+          padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 12.h),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 15.h,),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(4))
-                ),
-                child: Column(
-                  children: [
 
-                    OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost}${translate("store.sar")}",),
-                    const Divider(),
-                    if(bloc.couponValue!=null&&bloc.couponModel!=null)...[
-                      OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue}${translate("store.sar")}",),
-                      const Divider(),
-                    ],
-                    OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("store.sar")}",isTotal:true),
-                  ],
-                ),
-              ),
+              OrderRow(title: translate("cart.total_products_price") ,value:  "${bloc.totalPrice}${translate("store.sar")}",),
+              const SizedBox(height: 15,),
+              OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost}${translate("store.sar")}",),
+              const Divider(),
+              if(bloc.couponValue!=null&&bloc.couponModel!=null)...[
+                OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue}${translate("store.sar")}",),
+                const Divider(),
+              ],
+              const SizedBox(height: 15,),
+              OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("store.sar")}",isTotal:true),
             ],
           ),
         );

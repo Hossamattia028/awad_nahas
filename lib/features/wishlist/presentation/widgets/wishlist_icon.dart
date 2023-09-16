@@ -17,27 +17,28 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class WishListIconWidget extends StatelessWidget {
   final ProductsEntity item ;
-  const WishListIconWidget({Key? key,required this.item}) : super(key: key);
+  final double iconSize;
+  const WishListIconWidget({Key? key,required this.item,this.iconSize = 23}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WishlistBloc,WishlistState>(
       builder: (ctx,state){
         var bloc = WishlistBloc.get(ctx);
-        int index = bloc.wishlistList.indexWhere((element) => element.id==item.id || element.imgPath==item.imgPath);
+        int index = bloc.wishlistList.indexWhere((element) => element.sku==item.sku);
         bool isFav = false;
         if(index!=-1)isFav = true;
         return InkWell(
           onTap: (){
             if(Util.checkUser()){
               bloc.add(AddToWishlistEvent(product: item));
-              int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.id!=item.id && element.imgPath==item.imgPath);
+              int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.sku==item.sku);
               if(index!=-1)bloc.add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
             }else{
               SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), Colors.red);
             }
           },
-          child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:DMUtil.getOpacity(),size: 23.w,),
+          child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:DMUtil.getOpacity(),size: iconSize.w,),
         );
       },
     );
@@ -71,6 +72,48 @@ class WishListNavIconWidget extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+
+
+
+class WishListButtonInCartScreen extends StatelessWidget {
+  final ProductsEntity item;
+  const WishListButtonInCartScreen({Key? key,required this.item}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  InkWell(
+      onTap: (){
+        WishlistBloc.get(context).add(AddToWishlistEvent(product: item));
+        int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.sku==item.sku);
+        if(index!=-1)WishlistBloc.get(context).add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
+      },
+      child: Container(
+          width: 115.w,
+          height: 35.h,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            border: Border.all(width: 0,color: DMUtil.getD2C().withOpacity(0.5)),
+            color: DMUtil.getWC(),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              WishListIconWidget(item: item,iconSize: 15,),
+              CustomText(
+                text: translate("wishlist.add_to_fav"),
+                fontSize: AppStyle.small.sp - 1,
+                color: DMUtil.getD2C().withOpacity(0.6),
+              ),
+            ],
+          )
+      ),
     );
   }
 }
