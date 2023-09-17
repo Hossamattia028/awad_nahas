@@ -18,7 +18,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 class WishListIconWidget extends StatelessWidget {
   final ProductsEntity item ;
   final double iconSize;
-  const WishListIconWidget({Key? key,required this.item,this.iconSize = 23}) : super(key: key);
+  final bool isMarginToast;
+  const WishListIconWidget({Key? key,required this.item,this.iconSize = 23,this.isMarginToast = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class WishListIconWidget extends StatelessWidget {
               int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.id!=item.id && element.imgPath==item.imgPath);
               if(index!=-1)bloc.add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
             }else{
-              SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), Colors.red);
+              SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), Colors.red,isMarginBottom: isMarginToast);
             }
           },
           child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:DMUtil.getOpacity(),size: iconSize.w,),

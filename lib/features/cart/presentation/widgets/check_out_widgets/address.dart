@@ -53,11 +53,14 @@ class OrderAddress extends StatelessWidget {
                               color: DMUtil.getD2C(),
                               isEllipsis: true,
                             ),
-                            CustomText(
-                              text: location.address2,
-                              fontSize: AppStyle.small.sp,
-                              color: DMUtil.getD2C(),
-                              isEllipsis: true,
+                            SizedBox(
+                              width: 240.w,
+                              child: CustomText(
+                                text: "${location.address2} ${location.state}",
+                                fontSize: AppStyle.small.sp,
+                                color: DMUtil.getD2C(),
+                                isEllipsis: true,
+                              ),
                             ),
                             CustomText(
                               text: location.phone,

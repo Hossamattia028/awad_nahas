@@ -51,14 +51,22 @@ class TamaraSmallCheckOutWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double val = price / 4;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10,),
-      child: Row(
+      padding: const EdgeInsets.symmetric(vertical: 5,),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          CustomText(
+            text: translate("payment.tamara") ,
+            fontSize: AppStyle.average.sp,
+            maxLine: 3,
+          ),
+          const SizedBox(height: 2,),
           SizedBox(
             width: 170.w,
             child: CustomText(
               text: "${translate("payment.tamra_txt")} $val ${translate("store.sar")} ${translate("payment.interest-free")}" ,
               fontSize: AppStyle.small.sp,
+              color: DMUtil.getD2C().withOpacity(0.7),
               maxLine: 3,
             ),
           ),

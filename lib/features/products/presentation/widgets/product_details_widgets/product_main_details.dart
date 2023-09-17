@@ -57,7 +57,7 @@ class ProductMainDetails extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0) + const EdgeInsets.only(top: 2),
-                      child: WishListIconWidget(item: item),
+                      child: WishListIconWidget(item: item,isMarginToast: true,),
                     ),
                   ),
 
