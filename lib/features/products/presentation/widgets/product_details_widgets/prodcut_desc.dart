@@ -18,12 +18,31 @@ class ProductDescriptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool checkTxtLength = txt.toString().length<500?false:true;
+    bool checkTxtLength = txt.toString().length<400?false:true;
     return BlocBuilder<ProductsBloc,ProductsState>(
       builder: (ctx,state){
         var bloc =  ProductsBloc.get(ctx);
         return Column(
           children: [
+            bloc.showFullContent?
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: HtmlWidget(
+                  '''
+                        $txt
+                        ''',
+                  customStylesBuilder: (element) {
+                    if (element.classes.contains('name')) {
+                      return {'color': 'red'};
+                    }
+                    return null;
+                  },
+                  textStyle: TextStyle(color: DMUtil.getD2C(),fontFamily: primaryFontReg,height: 1.5),
+                ),
+              ),
+            ):
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),

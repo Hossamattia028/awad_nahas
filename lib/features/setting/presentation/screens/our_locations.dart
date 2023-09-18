@@ -44,7 +44,7 @@ class OurLocationsScreen extends StatelessWidget {
                   if(item.address1.contains("ميلي"))title = "Miele Gallery";
                   if(item.address1.contains("معرض المدينة"))title = "Madina Road";
                 }
-                if(!title.contains("معرض")){
+                if(!title.contains("معرض") && Util.getLang()=="ar"){
                   title = "  معرض $title " ;
                 }
                 // var cl = "invalid";

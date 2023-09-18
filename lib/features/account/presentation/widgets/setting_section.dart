@@ -7,6 +7,7 @@ import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
+import 'package:awad_nahas/features/setting/presentation/screens/help_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -107,7 +108,7 @@ class SettingSectionWidget extends StatelessWidget {
           fontWeight: FontWeight.w600,
           fontSize: AppStyle.average.sp+2,
         ),
-        SettingLineOption(title: translate("drawer.help_center"),onTap: (){}),
+        SettingLineOption(title: translate("drawer.help_center"),onTap: ()=> Util.pushPage(const HelpCenterScreen(), context)),
 
       ],
     );

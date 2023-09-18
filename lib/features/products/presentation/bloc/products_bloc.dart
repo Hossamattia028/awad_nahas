@@ -96,7 +96,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     emit(const ProductsSuccessfullyState());
   }
 
-  double widgetSize = 500;
+  double widgetSize = 250;
   int index = 0;
   _changeWidgetSize(ChangeWidgetSizeEvent event,emit){
     emit(const ProductsLoadingState());

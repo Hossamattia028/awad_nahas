@@ -96,6 +96,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   labelText: translate("login.email"),
                   radius: 10,
                   textEditingController: emailTextEditingController,
+                  textInputType: TextInputType.emailAddress,
                   validator: () {},
                   prefixIcon: null,
                   cursorColor: kPrimary,
@@ -107,7 +108,8 @@ class _ContactScreenState extends State<ContactScreen> {
             const SizedBox(height: 20,),
             Row(
               children: [
-                SizedBox(width: 30.w, child: CustomText(text: "+966", fontSize: AppStyle.small.sp,)),
+                CustomText(text: "+966", fontSize: AppStyle.small.sp,),
+                const SizedBox(width: 5,),
                 Expanded(
                   // width: 280.w,
                   child: CustomTextFromField(
@@ -115,6 +117,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     labelText: translate("signup.phone"),
                     hasBorder: true,
                     smallPadding: true,
+                    textInputType: TextInputType.number,
                     cursorColor: DMUtil.getRED(),
                     radius: 10,
                     textEditingController: phoneTextEditingController,

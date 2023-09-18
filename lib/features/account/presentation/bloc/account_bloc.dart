@@ -110,7 +110,7 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
     if(!Util.checkUser())return;
     emit(FetchProfileDataState(response: AuthResponse(isLoad: true)));
     String resMsg = "";
-    // try{
+    try{
       var res = await getUserServiceUseCase();
       res.fold((l) {
         resMsg = l.toString();
@@ -121,10 +121,10 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
           await saveUserDate(AuthResponse(user: data,isSuccess: true,msg: resMsg));
         }
       });
-    // }catch(e){
-    //   emit(FetchProfileDataState(response: AuthResponse(msg: resMsg,isFailed: true)));
-    //   debugPrint("getProfileDataBlocError: $e");
-    // }
+    }catch(e){
+      emit(FetchProfileDataState(response: AuthResponse(msg: resMsg,isFailed: true)));
+      debugPrint("getProfileDataBlocError: $e");
+    }
   }
 
   saveUserDate(AuthResponse res)async{
@@ -163,7 +163,6 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
 
 
   /// notifications
-
   List<NotificationsEntity> notificationList = [];
   getAllNotifications(event,emit)async{
     if(!Util.checkUser())return;

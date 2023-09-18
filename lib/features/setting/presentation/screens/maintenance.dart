@@ -69,6 +69,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
               warrantyTextEditingController.text = "";
               img = null;
               SnackBarBuilder.showFeedBackMessage(context, translate("maintenance.success_msg"), DMUtil.getGreen());
+              setState(() {});
             }
           },
           child: BlocBuilder<RootBloc, RootState>(builder: (ctx, state) {
@@ -85,17 +86,13 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 fontSize: AppStyle.average.sp,
               ),
               onPressed: () {
-                if (firstNameTextEditingController.text.trim().isEmpty ||
-                    lastNameTextEditingController.text.trim().isEmpty ||
-                    phoneTextEditingController.text.trim().isEmpty ||
-                    complaintTextEditingController.text.trim().isEmpty ||
-                    productModuleTextEditingController.text.trim().isEmpty ||
-                    serialTextEditingController.text.trim().isEmpty ||
-                    warrantyTextEditingController.text.trim().isEmpty ||
-                    brandID == 1 ||
-                    img == null) {
-                  SnackBarBuilder.showFeedBackMessage(
-                      context, translate("toast.field_empty"), DMUtil.getRED());
+                if(validate()==false)return;
+                String phone = "+966${phoneTextEditingController.text.trim()}";
+                if(validatePhoneInput(phone, context) == false){
+                  return;
+                }
+                if(!emailTextEditingController.text.trim().contains("@")){
+                  SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), DMUtil.getRED());
                   return;
                 }
                 RootBloc.get(context).add(SendMaintenanceEvent(data: {
@@ -189,20 +186,51 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 fontSize: AppStyle.average.sp,
               ),
               const SizedBox(height: 5,),
+              Row(
+                children: [
+                  CustomText(text: "+966", fontSize: AppStyle.small.sp,),
+                  const SizedBox(width: 5,),
+                  Expanded(
+                    child: CustomTextFromField(
+                      hintText: "502441695",
+                      labelText: translate("signup.phone"),
+                      hasBorder: true,
+                      smallPadding: true,
+                      textInputType: TextInputType.number,
+                      cursorColor: DMUtil.getRED(),
+                      radius: 10,
+                      textEditingController: phoneTextEditingController,
+                      validator: () {},
+                      obscureText: false,
+                      isLabelError: false,
+                      borderColor: DMUtil.getDC(),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12,),
+              CustomText(
+                text: translate("signup.email"),
+                color: DMUtil.getDC(),
+                fontSize: AppStyle.average.sp,
+              ),
+              const SizedBox(height: 5,),
               CustomTextFromField(
-                hintText: translate("signup.phone"),
+                hintText: translate("signup.email"),
                 labelText: "",
                 hasBorder: true,
                 smallPadding: true,
                 cursorColor: DMUtil.getRED(),
                 radius: 10,
-                textEditingController: phoneTextEditingController,
+                textInputType: TextInputType.emailAddress,
+                textEditingController: emailTextEditingController,
                 validator: () {},
                 obscureText: false,
                 isLabelError: false,
                 borderColor: DMUtil.getDC(),
               ),
               const SizedBox(height: 12,),
+
               CustomText(
                 text: translate("maintenance.number_of_maintenance_device"),
                 color: DMUtil.getDC(),
@@ -393,5 +421,64 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
             ],
           )),
     );
+  }
+  bool validatePhoneInput(String phone,BuildContext context){
+    if(phone.isNotEmpty){
+      String? txt = Util.validatePhone(phone);
+      if(txt!=null){
+        SnackBarBuilder.showFeedBackMessage(context, txt, DMUtil.getRED());
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool validate(){
+    if (firstNameTextEditingController.text.trim().isEmpty ||
+        lastNameTextEditingController.text.trim().isEmpty ) {
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), DMUtil.getRED());
+      return false;
+    }
+    if (firstNameTextEditingController.text.trim().isEmpty) {
+      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("signup.first_name")}", DMUtil.getRED());
+      return false;
+    }
+    if (lastNameTextEditingController.text.trim().isEmpty) {
+      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("signup.last_name")}", DMUtil.getRED());
+      return false;
+    }
+    if (phoneTextEditingController.text.trim().isEmpty) {
+      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("signup.phone")}", DMUtil.getRED());
+      return false;
+    }
+    if (emailTextEditingController.text.trim().isEmpty) {
+      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("signup.email")}", DMUtil.getRED());
+      return false;
+    }
+    if (warrantyTextEditingController.text.trim().isEmpty) {
+      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("maintenance.warranty")}", DMUtil.getRED());
+      return false;
+    }
+    if(brandID==1){
+      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("store.brand")}", DMUtil.getRED());
+      return false;
+    }
+    if (serialTextEditingController.text.trim().isEmpty) {
+      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("maintenance.serial")}", DMUtil.getRED());
+      return false;
+    }
+    if (productModuleTextEditingController.text.trim().isEmpty) {
+      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("maintenance.product_module")}", DMUtil.getRED());
+      return false;
+    }
+    if (complaintTextEditingController.text.trim().isEmpty) {
+      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("maintenance.complaints")}", DMUtil.getRED());
+      return false;
+    }
+    if(img == null){
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.img_missing"), DMUtil.getRED());
+      return false;
+    }
+    return true;
   }
 }

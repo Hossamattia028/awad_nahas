@@ -18,10 +18,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   _checkInternet()async{
     if(!await Util.isConnected()){
       Util.pushPageAndRemoveRoutes(const NoConnectionScreen(), context);
+      return;
     }
   }
   @override

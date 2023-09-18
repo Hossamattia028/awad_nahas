@@ -23,7 +23,6 @@ class TamaraCheckout extends StatefulWidget {
 
   @override
   TamaraCheckoutState createState() => TamaraCheckoutState();
-
 }
 
 class TamaraCheckoutState extends State<TamaraCheckout> {

@@ -119,9 +119,13 @@ class Util{
 
 
   static Future<bool> isConnected () async{
-    final result = await InternetAddress.lookup('google.com');
-    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) return true;
-    return false;
+    try{
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) return true;
+      return false;
+    }catch(e){
+      return false;
+    }
   }
 
   static openUrl(String url)async{

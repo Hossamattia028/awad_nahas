@@ -65,7 +65,7 @@
 	},
 	"toast": {
 		"sure_to_submit": "Are you sure to submit ?",
-		"field_empty": "please enter all fields",
+		"field_empty": "Please enter all fields",
 		"wait": "please wait ..",
 		"login": "please log in first ",
 		"signup": " successfully log in ",

@@ -31,7 +31,7 @@ class ProductDetailPage extends StatefulWidget {
   State<ProductDetailPage> createState() => _ProductDetailPageState();
 }
 
-class _ProductDetailPageState extends State<ProductDetailPage>  {
+class _ProductDetailPageState extends State<ProductDetailPage> {
   String catListString = "";
   late ProductsBloc productsBloc;
   double currentPrice = 0.0;
@@ -79,40 +79,38 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
             textColor: Colors.white,
             leadingIcon: const BackArrowButton(color: Colors.white,),
           ),
-
           body: SingleChildScrollView(
-              controller: controller,
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  ProductMainDetails(item: widget.item),
+            controller: controller,
+            child: Column(
+              children: [
+                ProductMainDetails(item: widget.item),
 
-                  if(Util.checkUser() && currentPrice<=2000)...[
-                    const SizedBox(height: 15,),
-                    TamaraSmallProductWidget(price: currentPrice),
-                  ],
-                  const SizedBox(height: 20,),
-                  ProductDetailsDataRow(item: widget.item),
-
-
-                  if(widget.item.brandID!=null)...[
-                    const SizedBox(height: 25,),
-                    BlocBuilder<CategoriesBloc,CategoriesState>(
-                      builder: (ctx,state){
-                        var bloc = CategoriesBloc.get(ctx);
-                        int index = bloc.brandsList.indexWhere((element) => element.id==widget.item.brandID);
-                        if(index == -1) return const SizedBox.shrink();
-                        var brand = bloc.brandsList[index];
-                        return BrandProductsWidget(item:  widget.item,brandTitle: brand.title,);
-                      },
-                    ),
-                  ],
-
-                  const SizedBox(height: 25,),
-                  RelatedProductsWidget(item:  widget.item,),
-                  SizedBox(height: 170.h,),
+                if(Util.checkUser() && currentPrice<=2000)...[
+                  const SizedBox(height: 15,),
+                  TamaraSmallProductWidget(price: currentPrice),
                 ],
-              ),
+                const SizedBox(height: 20,),
+                ProductDetailsDataRow(item: widget.item),
+
+
+                if(widget.item.brandID!=null)...[
+                  const SizedBox(height: 25,),
+                  BlocBuilder<CategoriesBloc,CategoriesState>(
+                    builder: (ctx,state){
+                      var bloc = CategoriesBloc.get(ctx);
+                      int index = bloc.brandsList.indexWhere((element) => element.id==widget.item.brandID);
+                      if(index == -1) return const SizedBox.shrink();
+                      var brand = bloc.brandsList[index];
+                      return BrandProductsWidget(item:  widget.item,brandTitle: brand.title,);
+                    },
+                  ),
+                ],
+
+                const SizedBox(height: 25,),
+                RelatedProductsWidget(item:  widget.item,),
+                SizedBox(height: 170.h,),
+              ],
+            ),
           ),
         ),
         if(enableBTop==true)

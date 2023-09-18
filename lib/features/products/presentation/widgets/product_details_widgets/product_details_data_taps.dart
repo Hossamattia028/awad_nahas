@@ -45,47 +45,37 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
             var bloc = ProductsBloc.get(ctx);
             if(bloc.index==0 && bloc.showFullContent ==true){
               if(desc.length>490) bloc.widgetSize= 500;
-              if(desc.length>700) bloc.widgetSize= 800;
-              if(desc.length>1000) bloc.widgetSize= 1200;
-              if(desc.length>1400) bloc.widgetSize= 1490;
-              if(desc.length>1900) bloc.widgetSize= 1500;
-              if(desc.length>2900) bloc.widgetSize= 2000;
-              double height = double.tryParse(desc.toString().split('height="').last.split('"').first) != null ? double.parse(desc.toString().split('height="').last.split('"').first):10;
-              bloc.widgetSize = bloc.widgetSize + height / 5;
             }else{
-              bloc.widgetSize= 500;
+              bloc.widgetSize= 250;
             }
             return Container(
               color: DMUtil.getWC(),
-              padding: const EdgeInsets.symmetric(vertical: 10,),
-              height: bloc.widgetSize.h,
               child: Column(
                 children: <Widget>[
-                  TabBar(
-                    onTap: (index) => bloc.add(ChangeWidgetSizeEvent(height: index==0?bloc.widgetSize:500,index: index)),
-                    unselectedLabelColor: DMUtil.getDC(),
-                    indicatorColor: DMUtil.getPC(),
-                    labelColor: DMUtil.getPC(),
-                    // isScrollable: true,
-                    labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp,fontFamily: primaryFontReg,fontWeight: FontWeight.w600),
-                    tabs: <Widget>[
-                      Tab(text: translate("products.desc"),),
-                      Tab(text: translate("cart.attributes"),),
-                      Tab(text: translate("products.reviews"),),
-                    ],
-                  ),
-
-                  Expanded(
-                    child: TabBarView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: <Widget>[
-                        desc==""? const LoadingWidget(height: 30,): ProductDescriptionWidget(txt:  desc,),
-                        widget.item.attributesDes!=null ? ProductAttributes(txt: widget.item.attributesDes!) :const SizedBox.shrink(),
-                        const CommentList(),
-                        // const ShippingAndInstallmentWidget(),
+                  const SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                    child: TabBar(
+                      onTap: (index) => bloc.add(ChangeWidgetSizeEvent(height: index==0?bloc.widgetSize:250,index: index)),
+                      unselectedLabelColor: DMUtil.getDC(),
+                      indicatorColor: DMUtil.getPC(),
+                      labelColor: DMUtil.getPC(),
+                      // isScrollable: true,
+                      labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp,fontFamily: primaryFontReg,fontWeight: FontWeight.w600),
+                      tabs: <Widget>[
+                        Tab(text: translate("products.desc"),),
+                        Tab(text: translate("cart.attributes"),),
+                        Tab(text: translate("products.reviews"),),
                       ],
                     ),
                   ),
+                  const SizedBox(height: 10,),
+
+                  if(bloc.index==0)desc==""? const LoadingWidget(height: 30,): (bloc.showFullContent? ProductDescriptionWidget(txt:  desc,): SizedBox(height:bloc.widgetSize,child: ProductDescriptionWidget(txt:  desc,),)),
+                  if(bloc.index==1)widget.item.attributesDes!=null ? ProductAttributes(txt: widget.item.attributesDes!) :const SizedBox.shrink(),
+                  if(bloc.index==2)const CommentList(),
+
+                  const SizedBox(height: 10,),
                 ],
               ),
             );

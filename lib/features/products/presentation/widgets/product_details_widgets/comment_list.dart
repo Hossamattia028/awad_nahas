@@ -22,7 +22,12 @@ class CommentList extends StatelessWidget {
         if(bloc.currentProduct==null)return const SizedBox.shrink();
         var list = bloc.currentProduct!.reviewsList;
         if(state is ProductCommentsLoadingState)return  LoadingWidget(height: 50.h,);
-        if(list!.isEmpty)return const EmptyDataWidget();
+        if(list!.isEmpty) {
+          return const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: EmptyDataWidget(),
+        );
+        }
         return ListView.separated(
           itemCount: list.length,
           shrinkWrap: true,
