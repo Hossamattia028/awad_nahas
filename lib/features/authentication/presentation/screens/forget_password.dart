@@ -75,7 +75,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               const SizedBox(height: 20,),
               BlocBuilder<AuthBloc,AuthState>(
                 builder: (ctx,state){
-                  var bloc = AuthBloc.get(ctx);
+                  // var bloc = AuthBloc.get(ctx);
                   // FetchStates state = AuthBloc.get(context).states;
                   // if(state==FetchStates.LOADING)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
                   return MaterialButton(

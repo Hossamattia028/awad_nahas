@@ -86,7 +86,7 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
     if(!Util.checkUser())return;
     emit(UpdateProfileState(response: AuthResponse(isLoad:  true)));
     String resMsg = "";
-    // try{
+    try{
       var res = await updateUserServiceUseCase(userData: event.user);
       res.fold((l) {
         resMsg = l.toString();
@@ -99,10 +99,10 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
           resMsg = translate("toast.wrong");
         }
       });
-    // }catch(e){
-    //   emit(UpdateProfileState(response: AuthResponse(msg: resMsg,isFailed: true)));
-    //   debugPrint("updateProfile: $e");
-    // }
+    }catch(e){
+      emit(UpdateProfileState(response: AuthResponse(msg: resMsg,isFailed: true)));
+      debugPrint("updateProfile: $e");
+    }
   }
 
 
@@ -118,7 +118,7 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
         if(data.userId!=null){
           currentUser = data;
           emit(UpdateProfileState(response: AuthResponse(isSuccess:  true)));
-          await saveUserDate(AuthResponse(user: data,isSuccess: true));
+          await saveUserDate(AuthResponse(user: data,isSuccess: true,msg: resMsg));
         }
       });
     // }catch(e){

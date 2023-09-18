@@ -1,5 +1,5 @@
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_horizional_card.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/cat_list_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +31,8 @@ class RelatedProductsList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (ctx, index) {
               var item = list[index];
-              return ProductHorizontalCard(item: item, index: index, isSmall: true);
+              return ProductCardH(item: item,isMarginBottom: true);
+              // return ProductHorizontalCard(item: item, index: index, isSmall: true);
             },
             separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 10,),
           ),

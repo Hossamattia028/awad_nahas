@@ -119,7 +119,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>  {
           Material(
             color: Colors.transparent,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 130.h,),
+              padding: EdgeInsets.only(bottom: 142.h,),
               child: InkWell(
                 onTap: ()=> controller.animateTo(10, duration: const Duration(milliseconds: 1000), curve: Curves.linear),
                 child: const BackToTopWidget(),

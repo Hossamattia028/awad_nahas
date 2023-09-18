@@ -155,7 +155,7 @@ class AddToCartButtonWidget extends StatelessWidget {
                       InkWell(
                         onTap: ()=> bloc.add(const UpdateCountWidgetEvent()),
                         child: Container(
-                            height: 42.h,
+                            height: 43.h,
                             width: 50.w,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
@@ -163,7 +163,7 @@ class AddToCartButtonWidget extends StatelessWidget {
                                 border: Border.all(width: 1,color: DMUtil.getD2C().withOpacity(0.7))
                             ),
                             child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 2),
+                                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 1),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -173,11 +173,11 @@ class AddToCartButtonWidget extends StatelessWidget {
                                       color: DMUtil.getD2C(),
                                       fontSize: AppStyle.verySmall.sp ,
                                     ),
-                                    const SizedBox(height: 3,),
+                                    const SizedBox(height: 1,),
                                     CustomText(
                                       text: "$currentCount",
                                       color: DMUtil.getD2C(),
-                                      fontSize: AppStyle.average.sp,
+                                      fontSize: AppStyle.average.sp-1,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ],

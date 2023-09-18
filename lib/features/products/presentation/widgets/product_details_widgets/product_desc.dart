@@ -1,6 +1,5 @@
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/prodcut_desc.dart';
-import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 import 'package:flutter/material.dart';
 
 class ProductDescription extends StatelessWidget {

@@ -10,7 +10,7 @@ class SnackBarBuilder {
       SnackBar(
         content: Text(message),
         backgroundColor: color,
-        margin: isMarginBottom?EdgeInsets.only(bottom: 135.h):EdgeInsets.zero,
+        margin: isMarginBottom?EdgeInsets.only(bottom: 132.h):EdgeInsets.zero,
         behavior: addBehaviour ? SnackBarBehavior.floating : null,
         action: SnackBarAction(
             label: 'Dismiss',

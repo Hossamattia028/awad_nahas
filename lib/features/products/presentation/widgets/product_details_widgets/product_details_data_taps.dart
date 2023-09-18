@@ -70,8 +70,8 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
                     labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp,fontFamily: primaryFontReg,fontWeight: FontWeight.w600),
                     tabs: <Widget>[
                       Tab(text: translate("products.desc"),),
-                      Tab(text: translate("products.reviews"),),
                       Tab(text: translate("cart.attributes"),),
+                      Tab(text: translate("products.reviews"),),
                     ],
                   ),
 
@@ -80,8 +80,8 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
                       physics: const NeverScrollableScrollPhysics(),
                       children: <Widget>[
                         desc==""? const LoadingWidget(height: 30,): ProductDescriptionWidget(txt:  desc,),
-                        const CommentList(),
                         widget.item.attributesDes!=null ? ProductAttributes(txt: widget.item.attributesDes!) :const SizedBox.shrink(),
+                        const CommentList(),
                         // const ShippingAndInstallmentWidget(),
                       ],
                     ),

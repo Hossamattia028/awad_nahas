@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
+import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/vat_included.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
@@ -59,84 +60,7 @@ class CatProductsList extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 2.h,horizontal: 1),
                 itemBuilder: (BuildContext context, int index) {
                   var item = list[index];
-                  return InkWell(
-                    onTap: () => Util.pushPage(ProductDetailPage(item: item,), context),
-                    child: Container(
-                      padding: const EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                        color: DMUtil.getWC(),
-                        borderRadius: const BorderRadius.all(Radius.circular(10)),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 2.0, // soften the shadow
-                            spreadRadius: 0.7, //extend the shadow
-                            offset: Offset(
-                              0.01, // Move to right 10  horizontally
-                              0.01, // Move to bottom 10 Vertically
-                            ),
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 2,),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            width: 130.w,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                // const DiscountWidget(value: "-15%"),
-                                WishListIconWidget(item: item),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 5,),
-                          Expanded(
-                            child: ImageWidget(
-                              imgUrl: item.imgPath,
-                              fit: BoxFit.fill,
-                              width: 120,
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 7),
-                              decoration:  BoxDecoration(
-                                borderRadius: const BorderRadius.all(Radius.circular(15)),
-                                color: DMUtil.getWC(),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: 130.w,
-                                    height: 42.h,
-                                    child: CustomText(
-                                      text: item.title.toString(),
-                                      color: DMUtil.getDC(),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: AppStyle.large.sp-5,
-                                      isEllipsis: true,
-                                      maxLine: 2,
-                                    ),
-                                  ),
-                                  ProductPriceWidget(
-                                    productModel: item,
-                                    isRedPrice: true,
-                                    isBig: true,
-                                  ),
-                                  const VatIncludedWidget(),
-
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  return ProductCardH(item: item);
                 },
                 separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 10,),
               ),
@@ -148,3 +72,93 @@ class CatProductsList extends StatelessWidget {
     );
   }
 }
+
+
+class ProductCardH extends StatelessWidget {
+  final ProductsEntity item;
+  final bool isMarginBottom;
+  const ProductCardH({Key? key,required this.item,this.isMarginBottom = false}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => Util.pushPage(ProductDetailPage(item: item,), context),
+      child: Container(
+        padding: const EdgeInsets.all(3),
+        decoration: BoxDecoration(
+          color: DMUtil.getWC(),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 2.0, // soften the shadow
+              spreadRadius: 0.7, //extend the shadow
+              offset: Offset(
+                0.01, // Move to right 10  horizontally
+                0.01, // Move to bottom 10 Vertically
+              ),
+            )
+          ],
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 2,),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              width: 130.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  // const DiscountWidget(value: "-15%"),
+                  WishListIconWidget(item: item,isMarginToast: isMarginBottom,),
+                ],
+              ),
+            ),
+            const SizedBox(height: 5,),
+            Expanded(
+              child: ImageWidget(
+                imgUrl: item.imgPath,
+                fit: BoxFit.fill,
+                width: 120,
+              ),
+            ),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 7),
+                decoration:  BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
+                  color: DMUtil.getWC(),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 130.w,
+                      height: 42.h,
+                      child: CustomText(
+                        text: item.title.toString(),
+                        color: DMUtil.getDC(),
+                        fontWeight: FontWeight.w500,
+                        fontSize: AppStyle.large.sp-5,
+                        isEllipsis: true,
+                        maxLine: 2,
+                      ),
+                    ),
+                    ProductPriceWidget(
+                      productModel: item,
+                      isRedPrice: true,
+                      isBig: true,
+                    ),
+                    const VatIncludedWidget(),
+
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

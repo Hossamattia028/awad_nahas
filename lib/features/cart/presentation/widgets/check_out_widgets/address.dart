@@ -2,7 +2,6 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/locations/presentation/screens/my_locations.dart';
-import 'package:awad_nahas/features/locations/presentation/widgets/location_card.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 
 class OrderAddress extends StatelessWidget {
   const OrderAddress({Key? key}) : super(key: key);
@@ -50,7 +48,8 @@ class OrderAddress extends StatelessWidget {
                             CustomText(
                               text: location!.address1,
                               fontSize: AppStyle.small.sp,
-                              color: DMUtil.getD2C(),
+                              color: DMUtil.getD2C().withOpacity(0.8),
+                              fontWeight: FontWeight.w600,
                               isEllipsis: true,
                             ),
                             SizedBox(

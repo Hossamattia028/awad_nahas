@@ -41,7 +41,7 @@ class PayWithWidget extends StatelessWidget {
               var enablePayWithCard = bloc.applePay;
               return Column(
                 children: [
-                  if(!Platform.isIOS)...[
+                  if(Platform.isIOS)...[
                     const SizedBox(height: 5,),
                     InkWell(
                       onTap: ()=> bloc.add(const PaymentWithCardEvent(enableApplePay: true,paymentEnum: PaymentEnum.PAYFORT)),
