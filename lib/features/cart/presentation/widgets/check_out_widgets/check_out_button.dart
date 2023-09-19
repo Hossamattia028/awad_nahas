@@ -164,7 +164,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       ), context);
       debugPrint("res: $res");
       if(res=="successful"){
-        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context));
+        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard)));
       }else{
         SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
       }
@@ -179,7 +179,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         onSucceeded:(val){
           debugPrint("success ${val.status}");
           // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
-          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context));
+          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
         },
         onFailed: (val){
           debugPrint("failed ${val.toString()}");
@@ -192,7 +192,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         onSucceeded:(val){
           debugPrint("success ${val.status}");
           // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
-          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context));
+          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard)));
         },
         onFailed: (val){
           // debugPrint("failed ${val.toString()}");

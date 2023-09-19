@@ -1,5 +1,6 @@
 
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
+import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
@@ -126,7 +127,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     try{
       LocationEntity? currentLoc  = checkCurrentLocationAndReturnIt(event.context);
       if(currentLoc==null)return;
-      var orderData = collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc);
+      var orderData = collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc,payment: event.payment);
       var res = await addOrderUseCase(data: orderData);
       res.fold((l) {
         emit(OrderErrorState(errors: l.toString()));
@@ -199,6 +200,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     required List<ProductsEntity> cartList,
     required double totalPrice,
     required LocationEntity locationEntity,
+    required PaymentOption payment
   }){
     List<Map<String,dynamic>> list = [];
     for(var i in cartList){
@@ -220,7 +222,9 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       "returning_customer" : "0",
       "status" : "wc-processing",
       "address": LocationModel.toJsonLocal(locationEntity, "shipping"),
-      "items":list
+      "items":list,
+      "payment_method_title": payment.paymentEnum.name.toString(),
+      "payment_method": payment.isApplePay!=null&&payment.isApplePay==true?"aps_apple_pay":(payment.paymentEnum==PaymentEnum.TAMARA? "tamara-gateway-pay-in-3": "aps_cc")// aps_cc for credit or amazon_payment_services
     };
     return data;
   }

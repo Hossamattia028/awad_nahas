@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
+import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/features/order/data/models/confirm_order_data.dart';
 import 'package:awad_nahas/features/order/domain/entities/order.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
@@ -26,7 +27,14 @@ class AddOrderEvent extends OrderEvent{
   final List<ProductsEntity> list;
   final double totalPrice;
   final BuildContext context;
-  const AddOrderEvent({required this.list,required this.totalPrice,required this.context});
+  final PaymentOption payment;
+  const AddOrderEvent({required this.list,required this.totalPrice,required this.context,required this.payment});
+}
+
+class PaymentOption{
+  final PaymentEnum paymentEnum;
+  final bool? isApplePay;
+  const PaymentOption({required this.paymentEnum,this.isApplePay});
 }
 
 class SetCurrentOrderEvent extends OrderEvent{
