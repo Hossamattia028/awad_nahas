@@ -117,7 +117,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     labelText: translate("signup.phone"),
                     hasBorder: true,
                     smallPadding: true,
-                    textInputType: TextInputType.number,
+                    textInputType: TextInputType.phone,
                     cursorColor: DMUtil.getRED(),
                     radius: 10,
                     textEditingController: phoneTextEditingController,

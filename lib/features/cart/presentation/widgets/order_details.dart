@@ -76,6 +76,7 @@ class OrderRow extends StatelessWidget {
           text: value,
           color: value==translate("cart.free")  ? DMUtil.getRED() : DMUtil.getDC(),
           fontSize: isBig?AppStyle.average.sp+2:AppStyle.average.sp-2,
+          isEllipsis: true,
         ),
       ],
     );

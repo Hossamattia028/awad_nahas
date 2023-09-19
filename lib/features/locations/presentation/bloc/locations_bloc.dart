@@ -65,8 +65,6 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
       await getUserLocationsData(event, emit);
     });
 
-
-
   }
 
   updateCurrentCheckOutLocation(UpdateCurrentLocationEvent event,emit){
@@ -144,7 +142,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
   }
 
   bool clearLocalLocation(LocationEntity location){
-    int index = localUserLocationsList.indexWhere((element) => element.id==location.id || element.phone==location.phone);
+    int index = localUserLocationsList.indexWhere((element) => element.id==location.id);
     if(index!=-1){
       localUserLocationsList.removeAt(index);
       return true;

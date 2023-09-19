@@ -36,6 +36,17 @@ class CartListWidget extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               decoration:  BoxDecoration(
                 color: DMUtil.getWC(),
+                boxShadow: DMUtil.currentThemeIsDark()?  const [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 2.0, // soften the shadow
+                    spreadRadius: 0.7, //extend the shadow
+                    offset: Offset(
+                      0.01, // Move to right 10  horizontally
+                      0.01, // Move to bottom 10 Vertically
+                    ),
+                  )
+                ]:const [],
               ),
               child: Column(
                 children: [

@@ -17,8 +17,8 @@ class CartModel extends CartEntity {
         return CartModelProducts(
             productID: entry.value['product_id'],
             quantity: int.parse((entry.value['quantity']??1).toString()),
-            price: double.parse(entry.value['line_total'].toString()),
-            discount: double.parse(entry.value['discount'].toString()),
+            price: double.parse((entry.value['line_total']??"0").toString()),
+            discount: double.parse((entry.value['discount']??"0").toString()),
             title: entry.value['title'] ?? "",
             imgPath: entry.value['imgPath'] ?? "",
             sku: entry.value['sku'] ?? "",

@@ -1,6 +1,4 @@
-
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:awad_nahas/core/strings/enum/location_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +20,6 @@ import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-
 
 class AddNewLocationScreen extends StatefulWidget {
   final LocationEntity? locationEntity;

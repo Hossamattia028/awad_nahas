@@ -39,7 +39,17 @@ class LocationCardWidget extends StatelessWidget {
                 offset: const Offset(0.05, 0.05),
                 spreadRadius: 2.2,
                 color: currentLocation? DMUtil.getRED().withOpacity(0.5) :DMUtil.getBackGround() ,
-              )
+              ),
+              if(!currentLocation && DMUtil.currentThemeIsDark())
+                const BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 2.0, // soften the shadow
+                  spreadRadius: 0.7, //extend the shadow
+                  offset: Offset(
+                    0.01, // Move to right 10  horizontally
+                    0.01, // Move to bottom 10 Vertically
+                  ),
+                )
             ]
         ),
         child: Row(

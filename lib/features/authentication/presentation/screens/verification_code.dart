@@ -4,8 +4,11 @@ import 'dart:async';
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/sms_api.dart';
+import 'package:awad_nahas/features/account/presentation/screens/edit_profile_screen.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_event.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/reset_password.dart';
+import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
+import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +34,8 @@ class PinCodeVerificationScreen extends StatefulWidget {
   final Map<String,dynamic> data;
   final bool isRegister;
   final bool? isLogin;
-  const PinCodeVerificationScreen({Key? key,required this.data,required this.isRegister,this.isLogin = false}) : super(key: key);
+  final bool? isChangePhone;
+  const PinCodeVerificationScreen({Key? key,required this.data,this.isRegister = false,this.isLogin = false,this.isChangePhone}) : super(key: key);
 
   @override
   State<PinCodeVerificationScreen> createState() => _PinCodeVerificationScreenState();
@@ -41,17 +45,17 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   var onTapRecognizer = TapGestureRecognizer();
   TextEditingController textEditingController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
-
   late AuthBloc authBloc;
   bool hasError = false;
   String currentText = "";
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
-
   bool sendVerify = true;
+  late LocationsBloc locationsBloc;
 
   @override
   void initState() {
+    locationsBloc = LocationsBloc.get(context);
     authBloc = AuthBloc.get(context);
     onTapRecognizer = TapGestureRecognizer()..onTap = () {
         Navigator.pop(context);
@@ -220,6 +224,8 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                             bloc.add(RegisterEvent(user: widget.data));
                           }else if(widget.isLogin !=null && widget.isLogin == true){
                             bloc.add(LogInEvent(user: widget.data));
+                          }else if(widget.isChangePhone!=null && widget.isChangePhone == true){
+                            _updateBillingPhone();
                           }else{
                             Util.pushPage(ResetPassword(userLogin: widget.data['phone'] ??  widget.data['email'],), context);
                           }
@@ -281,5 +287,27 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
         ),
       ),
     );
+  }
+
+  _updateBillingPhone()async{
+    var data = {
+      "billing_phone": widget.data['phone'],
+      "billing_email": Util.getEmail(),
+      "billing_country": locationsBloc.billingAddress!.country,
+      "billing_postcode": locationsBloc.billingAddress!.postCode,
+      "billing_state": locationsBloc.billingAddress!.state,
+      "billing_address_2": locationsBloc.billingAddress!.address2,
+      "billing_address_1": locationsBloc.billingAddress!.address1,
+      "billing_last_name": Util.getName(),
+      "billing_first_name": Util.getName(),
+    };
+    locationsBloc.add(UpdateLocationEvent(data: {
+      "billing": data
+    }));
+    SnackBarBuilder.showFeedBackMessage(context, translate("toast.wait"), DMUtil.getGreen());
+    await Future.delayed(const Duration(seconds: 2));
+    Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+    Util.pushPage(const EditProfilePage(), context);
+    SnackBarBuilder.showFeedBackMessage(context, translate("toast.update_user_data"), DMUtil.getGreen());
   }
 }

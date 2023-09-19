@@ -17,11 +17,12 @@ class DeleteAccountWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Row(
             children: [
-              Icon(Icons.remove_circle_outline,color: DMUtil.getRED(),),
+              Icon(Icons.remove_circle_outline,color: DMUtil.getREdOPACITY(),),
               const SizedBox(width: 6,),
               CustomText(
                 text: translate("profile.delete_account"),
                 fontSize: AppStyle.average.sp - 1,
+                color: DMUtil.getD2C().withOpacity(0.6),
                 fontWeight: FontWeight.w700,
               ),
             ],
