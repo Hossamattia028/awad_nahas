@@ -49,16 +49,16 @@ class PaymentSummaryWidget extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                       const SizedBox(height: 20,),
-                      OrderRow(title: translate("cart.total_products_price") ,value:  "${bloc.totalPrice}${translate("store.sar")}",),
+                      OrderRow(title: translate("cart.total_products_price") ,value:  "${bloc.totalPrice} ${translate("store.sar")}",),
                       const SizedBox(height: 15,),
-                      OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost}${translate("store.sar")}",),
+                      OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost} ${translate("store.sar")}",),
                       const Divider(),
                       if(bloc.couponValue!=null&&bloc.couponModel!=null)...[
                         OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue}${translate("store.sar")}",),
                         const Divider(),
                       ],
                       const SizedBox(height: 15,),
-                      OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("store.sar")}",isTotal:true),
+                      OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice} ${translate("store.sar")}",isTotal:true),
                     ],
                   ),
                 ),
@@ -66,25 +66,6 @@ class PaymentSummaryWidget extends StatelessWidget {
             );
           },
         ),
-        // child: Container(
-        //   width: double.infinity,
-        //   padding: const EdgeInsets.all(8.0),
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       CustomText(
-        //         text: translate("cart.payment_summary"),
-        //         color: DMUtil.getDC(),
-        //         fontSize: AppStyle.average.sp,
-        //       ),
-        //       const SizedBox(height: 10,),
-        //       OrderRow(title: translate("cart.sub_total") ,value: "20 ${translate("store.sar")}",),
-        //       OrderRow(title: translate("cart.shipping_cost") ,value: "20 ${translate("store.sar")}",),
-        //       OrderRow(title: translate("cart.tax") ,value: "20 ${translate("store.sar")}",),
-        //       OrderRow(title: translate("cart.total_price") ,value: "220${translate("store.sar")}",isBig:true),
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }

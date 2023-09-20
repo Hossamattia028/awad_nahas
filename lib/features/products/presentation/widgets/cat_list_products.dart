@@ -146,7 +146,6 @@ class ProductCardH extends StatelessWidget {
                     ),
                     ProductPriceWidget(
                       productModel: item,
-                      isRedPrice: true,
                       isBig: true,
                     ),
                     const VatIncludedWidget(),

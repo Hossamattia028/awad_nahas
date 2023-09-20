@@ -11,8 +11,8 @@ class BackToTopWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 25.h,
-      width: 100.w,
+      height: 26.h,
+      width: 105.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -27,6 +27,7 @@ class BackToTopWidget extends StatelessWidget {
           CustomText(
             text: translate("products.back_to_top"),
             fontSize: AppStyle.small.sp - 2,
+            fontWeight: FontWeight.w600,
             color: DMUtil.getWC(),
           ),
         ],

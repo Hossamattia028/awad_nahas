@@ -59,8 +59,10 @@ class OrderRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText(
               text: title,
@@ -69,13 +71,17 @@ class OrderRow extends StatelessWidget {
               fontWeight: isTotal? FontWeight.w600:FontWeight.w400,
               isEllipsis: true,
             ),
-            if(isTotal)const VatIncludedWidget(),
+            if(isTotal)...[
+              const SizedBox(height: 5,),
+              const VatIncludedWidget(),
+            ]
           ],
         ),
         CustomText(
           text: value,
           color: value==translate("cart.free")  ? DMUtil.getRED() : DMUtil.getDC(),
           fontSize: isBig?AppStyle.average.sp+2:AppStyle.average.sp-2,
+          fontWeight: isTotal?FontWeight.w600:FontWeight.w500,
           isEllipsis: true,
         ),
       ],

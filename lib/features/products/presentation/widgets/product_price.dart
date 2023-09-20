@@ -9,9 +9,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 class ProductPriceWidget extends StatelessWidget {
   final ProductsEntity productModel;
   final bool isBig;
-  final bool isRedPrice;
-  const ProductPriceWidget({Key? key,required this.productModel,this.isBig=false,this.isRedPrice = false}) : super(key: key);
-  static double highPrice = 0 , lowPrice = 0;
+  const ProductPriceWidget({Key? key,required this.productModel,this.isBig=false}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(

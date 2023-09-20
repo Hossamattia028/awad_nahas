@@ -6,7 +6,7 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_price.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +91,7 @@ class ProductMainDetails extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ProductPriceWidget(productModel: item,isBig: true,),
+              ProductDetailsPrice(productModel: item,),
               BlocBuilder<CategoriesBloc,CategoriesState>(
                 builder: (ctx,state){
                   var bloc = CategoriesBloc.get(ctx);

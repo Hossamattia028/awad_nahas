@@ -28,10 +28,10 @@ class LocationsList extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
             child: Column(
               children: [
-                if(list!.shippingAddress!=null)LocationCardWidget(locationEntity: list.shippingAddress!,currentLocation: bloc.currentCheckOutLocation==list.shippingAddress,
+                if(list!.shippingAddress!=null)LocationCardWidget(locationEntity: list.shippingAddress!,currentLocation: bloc.currentCheckOutLocation?.id==list.shippingAddress?.id,
                     isAdd: bloc.checkIFAddressEmpty(list.shippingAddress!)),
                 const SizedBox(height: 20,),
-                if(list.billingAddress!=null)LocationCardWidget(locationEntity: list.billingAddress!,currentLocation: bloc.currentCheckOutLocation==list.billingAddress,
+                if(list.billingAddress!=null)LocationCardWidget(locationEntity: list.billingAddress!,currentLocation: bloc.currentCheckOutLocation?.id==list.billingAddress?.id,
                     isAdd: bloc.checkIFAddressEmpty(list.billingAddress!)),
 
                 if(localList.isNotEmpty)...[

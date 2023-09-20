@@ -76,15 +76,15 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                        text: "${cartBloc.totalPrice} ${translate("store.sar")}",
-                        fontSize: AppStyle.small.sp,
+                        text: "${cartBloc.cartList.length} ${cartBloc.cartList.length>1?translate("store.items"):translate("store.item")}",
+                        fontSize: AppStyle.average.sp,
                         color: DMUtil.getD2C().withOpacity(0.8),
                         fontWeight: FontWeight.w600,
                       ),
                       CustomText(
-                        text: "${cartBloc.cartList.length} ${cartBloc.cartList.length>1?translate("store.items"):translate("store.item")}",
-                        fontSize: AppStyle.small.sp,
-                        color: DMUtil.getD2C().withOpacity(0.8),
+                        text: "${cartBloc.totalPrice} ${translate("store.sar")}",
+                        fontSize: AppStyle.average.sp,
+                        color: DMUtil.getD2C(),
                         fontWeight: FontWeight.w600,
                       ),
                     ],

@@ -28,16 +28,41 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: DMUtil.getBackGround(),
       appBar: AppBar(
-        title: BlocBuilder<CartBloc,CartState>(
-          builder: (ctx,state){
-            var bloc = CartBloc.get(ctx);
-            return CustomText(text:  "${translate("app_bar.cart")} (${bloc.cartList.length} ${bloc.cartList.length > 1 ? translate("store.items") : translate("store.item")})" , fontSize: AppStyle.average.sp);
-          },
+        title: Row(
+          children: [
+            BlocBuilder<CartBloc,CartState>(
+              builder: (ctx,state){
+                var bloc = CartBloc.get(ctx);
+                return CustomText(
+                  text:  "${translate("app_bar.cart")} (${bloc.cartList.length} ${bloc.cartList.length > 1 ? translate("store.items") : translate("store.item")})" ,
+                  fontSize: AppStyle.average.sp,
+                  fontWeight: FontWeight.w600,
+                );
+              },
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                border: Border.all(width: 0,color: DMUtil.getD2C()),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.favorite_border,color: DMUtil.getOpacity(),),
+                  CustomText(
+                      text: translate("wishlist.my_fav"),
+                      fontSize: AppStyle.small.sp,
+                      fontWeight: FontWeight.w600,
+                  ),
+                  Icon(Icons.arrow_forward_ios_rounded,color: DMUtil.getOpacity(),)
+                ],
+              ),
+            ),
+          ],
         ),
         backgroundColor: DMUtil.getWC(),
         elevation: 0,
         toolbarHeight: AppStyle.appBarHeight.h,
-        centerTitle: true,
+        centerTitle: false,
       ),
       bottomNavigationBar: const CartBottomButton(),
       body: RefreshIndicator(

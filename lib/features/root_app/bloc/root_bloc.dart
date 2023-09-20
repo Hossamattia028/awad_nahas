@@ -105,13 +105,13 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     List<ProductsEntity> thisList  = [];
     try{
       var firstList = list.getRange(0, list.length~/2).toList();
-      thisList.addAll(firstList.where((element) => element.title.toString().toLowerCase().startsWith(word)).toList());
+      thisList.addAll(firstList.where((element) => element.title.toString().toLowerCase().startsWith(word) || element.sku.toString().toLowerCase().startsWith(word)).toList());
       productSearchList = thisList;
       enableSearch = true;
       emit(RootSuccessState());
       await Future.delayed(const Duration(seconds: 2),(){
         var secondList =  list.getRange(list.length~/2, list.length).toList();
-        thisList.addAll(secondList.where((element) => element.title.toString().toLowerCase().startsWith(word)).toList());
+        thisList.addAll(secondList.where((element) => element.title.toString().toLowerCase().startsWith(word) || element.sku.toString().toLowerCase().startsWith(word)).toList());
         productSearchList.addAll(thisList);
         emit(RootSuccessState());
       });
