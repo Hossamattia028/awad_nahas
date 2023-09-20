@@ -44,7 +44,7 @@ class ProductCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
 
-            ImageWidget(imgUrl: item.imgPath,width: 67.w,fit: BoxFit.contain,),
+            ImageWidget(imgUrl: item.imgPath,width: 70.w,fit: BoxFit.contain,),
 
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,10 +68,13 @@ class ProductCard extends StatelessWidget {
                     text: item.title.toString(),
                     color: DMUtil.getDC(),
                     fontSize: AppStyle.average.sp,
+                    fontWeight: FontWeight.w600,
+                    maxLine: 2,
+                    isEllipsis: true,
                   ),
                 ),
-                // const RateWidget(countRate: 300),
-                ProductPriceWidget(productModel: item,isBig:true),
+                const SizedBox(height: 5,),
+                ProductPriceWidget(productModel: item,isBig:false),
                 SizedBox(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,

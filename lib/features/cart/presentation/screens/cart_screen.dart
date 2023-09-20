@@ -2,11 +2,10 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/account/presentation/widgets/account_before_auth.dart';
-import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_payment_options.dart';
+import 'package:awad_nahas/features/cart/presentation/widgets/cart_screen_app_bar.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/releated_products_cart.dart';
 import 'package:awad_nahas/features/locations/presentation/widgets/select_location_drop_down.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
@@ -14,9 +13,8 @@ import 'package:awad_nahas/features/cart/presentation/widgets/cart_list.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/continue_shopping_check_out.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/coupon_widget.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/order_details.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_translate/flutter_translate.dart';
+
 
 
 
@@ -28,37 +26,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: DMUtil.getBackGround(),
       appBar: AppBar(
-        title: Row(
-          children: [
-            BlocBuilder<CartBloc,CartState>(
-              builder: (ctx,state){
-                var bloc = CartBloc.get(ctx);
-                return CustomText(
-                  text:  "${translate("app_bar.cart")} (${bloc.cartList.length} ${bloc.cartList.length > 1 ? translate("store.items") : translate("store.item")})" ,
-                  fontSize: AppStyle.average.sp,
-                  fontWeight: FontWeight.w600,
-                );
-              },
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                border: Border.all(width: 0,color: DMUtil.getD2C()),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.favorite_border,color: DMUtil.getOpacity(),),
-                  CustomText(
-                      text: translate("wishlist.my_fav"),
-                      fontSize: AppStyle.small.sp,
-                      fontWeight: FontWeight.w600,
-                  ),
-                  Icon(Icons.arrow_forward_ios_rounded,color: DMUtil.getOpacity(),)
-                ],
-              ),
-            ),
-          ],
-        ),
+        title: const CartAppBarWidget(),
         backgroundColor: DMUtil.getWC(),
         elevation: 0,
         toolbarHeight: AppStyle.appBarHeight.h,

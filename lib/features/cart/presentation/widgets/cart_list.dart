@@ -66,7 +66,7 @@ class CartListWidget extends StatelessWidget {
                                     text: item.title,
                                     color: DMUtil.getD2C(),
                                     fontWeight: FontWeight.w700,
-                                    fontSize: AppStyle.average.sp-3,
+                                    fontSize: AppStyle.average.sp-1,
                                     maxLine: 3,
                                     isEllipsis: true,
                                   ),

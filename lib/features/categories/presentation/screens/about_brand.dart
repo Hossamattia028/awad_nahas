@@ -37,25 +37,7 @@ class AboutBrand extends StatelessWidget {
               return null;
             },
             textStyle: TextStyle(fontFamily: primaryFontReg,color: DMUtil.getD2C()),
-          )
-          // CustomText(
-          //   text: itemBrand.title,
-          //   fontSize: AppStyle.small.sp,
-          //   maxLine: 15,
-          // ),
-          // SizedBox(
-          //   height: 150.h,
-          //   child: ListView.separated(
-          //     physics: const BouncingScrollPhysics(),
-          //     scrollDirection: Axis.horizontal,
-          //     itemBuilder: (ctx,index){
-          //       return Image.asset("assets/images/${index==1||index==3||index==7?"miele-2.png":"32447-large.png"}",width: 120.w,);
-          //     },
-          //     separatorBuilder: (ctx,state)=> const SizedBox(width: 10,),
-          //     itemCount: 5,
-          //   ),
-          // ),
-
+          ),
         ],
       ),
     );

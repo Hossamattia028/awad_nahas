@@ -76,7 +76,7 @@ class ProductsBrand extends StatelessWidget {
                       var item = productList[index];
                       if(productList.isEmpty)return CustomText(text: translate("products.empty"), fontSize: AppStyle.small.sp);
                       return SizedBox(
-                        height: 130.h,
+                        height: 125.h,
                         child: ProductCard(item: item),
                       );
                     },
