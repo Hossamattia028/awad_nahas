@@ -52,13 +52,13 @@ class UserAccountWidget extends StatelessWidget {
                   ],
                 )
               ),
-              const SizedBox(height: 6,),
+              const SizedBox(height: 2,),
 
              TextButton(
                  onPressed: ()=> Util.pushPage(const EditProfilePage(), context),
                  child: CustomText(
                    text: translate("profile.edit_info"),
-                   fontSize: AppStyle.small.sp,
+                   fontSize: AppStyle.small.sp-1,
                    color: DMUtil.getBlue(),
                    fontWeight: FontWeight.w600,
                  ),

@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -79,7 +78,7 @@ class MapScreenState extends State<MapScreen> {
         body: Stack(
           children: [
              GoogleMap(
-                    initialCameraPosition: CameraPosition(target: lastLocation ?? const LatLng(21.4504394, 38.8815082), zoom: 10),
+                    initialCameraPosition: CameraPosition(target: lastLocation ?? const LatLng(21.4504394, 38.8815082), zoom: 14),
                     onMapCreated: onMapCreated,
                     onCameraMove: _onCameraMoved,
                     onTap: _handleTap,
@@ -91,39 +90,48 @@ class MapScreenState extends State<MapScreen> {
                     zoomGesturesEnabled: true,
                     markers: Set<Marker>.of(markers.values),
                   ),
-            Container(
-              height: 50.h,
-              width: double.infinity,
-              color: DMUtil.getWC(),
-              padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w),
-              child: CustomTextFromField(
-                height: 10.h,
-                onChanged: (val){
 
-                },
-                onFieldSubmitted:(val){
-                },
-                hintText: translate("app_bar.search"),
-                labelText: "",
-                borderColor: DMUtil.getD2C(),
-                hintColor: DMUtil.getD2C(),
-                radius: 10,
-                textEditingController: searchTextEditingController,
-                cursorColor:  DMUtil.getRED(),
-                validator: () {},
-                prefixIcon: InkWell(
-                  // onTap: ()=> ProductsBloc.get(context).add(const EnableSearchEvent()),
-                  child: Icon(
-                    CupertinoIcons.search,
-                    color: DMUtil.getD2C(),
+
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    color: DMUtil.getWC(),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10,),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(Icons.location_on_outlined,size: AppStyle.large.w,color: DMUtil.getD2C().withOpacity(0.7),),
+                            const SizedBox(width: 5,),
+                            SizedBox(
+                              width: 275.w,
+                              child: CustomText(
+                                text: selectedAddress,
+                                fontSize: AppStyle.small.sp,
+                                fontWeight: FontWeight.w600,
+                                color: DMUtil.getD2C().withOpacity(0.7),
+                                maxLine: 2,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(height: 3,),
+                      const SizedBox(height: 5,),
+                    ],
                   ),
                 ),
-                smallPadding: true,
-                obscureText: false,
-                hasBorder: true,
-                isLabelError: false,
               ),
-            ),
+
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
@@ -132,7 +140,7 @@ class MapScreenState extends State<MapScreen> {
                       height: 45.h,
                       width: 250.w,
                       color: DMUtil.getRED(),
-                      circular: 15,
+                      circular: 6,
                       onPressed: () async{
                        if (lastLocation == null) return SnackBarBuilder.showFeedBackMessage(context, translate("toast.select_location"), Colors.red);
                        final data  = await Util.getAndSaveLocationDetails(lastLocation!);
@@ -141,33 +149,17 @@ class MapScreenState extends State<MapScreen> {
                            postalCode: data.postalCode.toString(),street: data.street.toString()
                        ));
                       },
-                      widget: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.location_on,
-                                size: 7.w,
-                              ),
-                              CustomText(
-                                text: selectedAddress,
-                                fontSize: AppStyle.verySmall.sp - 2,
-                                color: Colors.white,
-                              ),
-                            ],
-                          ),
-                          CustomText(
-                            text: translate("button.confirm"),
-                            fontSize: AppStyle.average.sp,
-                            color: Colors.white,
-                          ),
-                        ],
-                      )),
+                      widget: CustomText(
+                        text: translate("map.sure_location"),
+                        fontSize: AppStyle.average.sp  ,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                  ),
                 ),
               ),
+
+
           ],
         ));
   }

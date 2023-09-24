@@ -3,15 +3,10 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:awad_nahas/core/utils/sms_api.dart';
-import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
-import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
-import 'package:awad_nahas/features/authentication/presentation/screens/reset_password.dart';
-import 'package:awad_nahas/features/authentication/presentation/screens/verification_code.dart';
+import 'package:awad_nahas/features/account/presentation/screens/change_phone.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,6 +31,7 @@ class ChangePhoneSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10,),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -49,28 +45,19 @@ class ChangePhoneSection extends StatelessWidget {
                     text: "$userPHone - 966",
                     color: DMUtil.getDC(),
                     fontWeight: FontWeight.w600,
-                    fontSize: AppStyle.average.sp+3,
+                    fontSize: AppStyle.average.sp,
                   ),
-
                 ],
               ),
-              TextButton(
-                onPressed: ()async{
-                  String phone = "+966$userPHone";
-                  if(Util.validatePhoneInput(phone, context)==false) return;
-                  if(await SmsApi.sendOtp(provider:userPHone,isEmail: false)){
-                    Util.pushPage(PinCodeVerificationScreen(data: {
-                      'phone':userPHone,
-                    },isChangePhone: true,), context);
-                  }else{
-                    SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
-                  }
-                },
+
+              const SizedBox(height: 15,),
+              InkWell(
+                onTap: ()=> Util.pushPage(const ChangePhone(), context),
                 child: CustomText(
                   text: translate("profile.change_phone"),
                   color: DMUtil.getBlue(),
                   fontWeight: FontWeight.w600,
-                  fontSize: AppStyle.small.sp,
+                  fontSize: AppStyle.small.sp-1,
                 ),
               ),
             ],

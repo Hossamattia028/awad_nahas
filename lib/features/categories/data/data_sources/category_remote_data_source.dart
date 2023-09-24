@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/error/exception.dart';
@@ -61,6 +62,18 @@ class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
         return SliderModel.fromJson(model);
       }).toList();
       return sliders;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  static Future<String> getBrandDesc({required String id}) async{
+    id = id.replaceAll("-ar", "").replaceAll("-en", "").replaceAll("-en_US", "");
+    var response = await http.get(Uri.parse("https://demo.awadnahas.com/wp-json/inetwork/api/brand/$id?lang=${Util.getLang()=="ar"?"ar":"en_US"}"));
+    debugPrint("getBrandDesc ${response.body}");
+    if (response.statusCode == 200) {
+      final body = json.decode(response.body);
+      return body['description'];
     } else {
       throw ServerException();
     }

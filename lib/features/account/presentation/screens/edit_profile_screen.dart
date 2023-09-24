@@ -136,23 +136,34 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 children: [
                   Row(
                     children: [
-                      CustomText(
-                          text: "+966",
+                      Container(
+                        height: 50.h,
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 0,color: DMUtil.getD2C())
+                        ),
+                        alignment: Alignment.center,
+                        child: CustomText(
+                          text: " +966 ",
                           fontSize: AppStyle.small.sp,
+                        ),
                       ),
                       Expanded(
                         child: CustomTextFromField(
+                          height: 50,
                           hintText: "502441695",
-                          labelText: "",
-                          cursorColor: kPrimary,
-                          smallPadding: true,
-                          hasBorder: true,
-                          radius: 10,
-                          textInputType: TextInputType.phone,
+                          radius: 0,
                           textEditingController: phoneTextEditingController,
-                          validator: (){},
+                          validator: () {},
+                          hintColor: kSecondPrimary,
+                          textInputType: TextInputType.phone,
+                          prefixIcon: null,
+                          cursorColor: kPrimary,
                           obscureText: false,
                           isLabelError: false,
+                          hasBorder: true,
+                          borderWidth: 1,
+                          borderColor: DMUtil.getD2C(),
+                          labelText: "",
                         ),
                       ),
                     ],

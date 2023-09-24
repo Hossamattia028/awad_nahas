@@ -34,7 +34,9 @@ class AccountDataScreen extends StatelessWidget {
 
             const SizedBox(height: 10,),
             const SecureInfo(),
+
             const Divider(height: 1,),
+
             const ChangePhoneSection(),
 
 

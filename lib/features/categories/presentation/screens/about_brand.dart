@@ -1,18 +1,45 @@
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/categories/data/data_sources/category_remote_data_source.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
-class AboutBrand extends StatelessWidget {
+
+
+class AboutBrand extends StatefulWidget {
   final CategoriesEntity itemBrand;
   const AboutBrand({Key? key,required this.itemBrand}) : super(key: key);
 
   @override
+  State<AboutBrand> createState() => _AboutBrandState();
+}
+
+class _AboutBrandState extends State<AboutBrand> {
+
+  late CategoriesBloc categoriesBloc;
+  @override
+  void initState() {
+    categoriesBloc = CategoriesBloc.get(context);
+    _getDesc();
+    super.initState();
+  }
+
+  _getDesc()async {
+    categoriesBloc.desc = await CategoryRemoteDataSource.getBrandDesc(id: widget.itemBrand.slug.toString());
+    if(categoriesBloc.desc != ""){
+      if(mounted)setState(() {});
+    }
+    // String desc = widget.itemBrand.desc.split('<ul>').last.split('</ul>').first.toString();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    String desc = itemBrand.desc.split('<ul>').last.split('</ul>').first.toString();
     return SingleChildScrollView(
+      padding: const EdgeInsets.all(10),
       physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
@@ -26,9 +53,11 @@ class AboutBrand extends StatelessWidget {
           //     },
           //     data: desc )
 
+          categoriesBloc.desc.trim()==""?
+          CircularProgressIndicator(color: DMUtil.getRED(),):
           HtmlWidget(
             '''
-      $desc
+      ${categoriesBloc.desc}
       ''',
             customStylesBuilder: (element) {
               if (element.classes.contains('name')) {
@@ -38,6 +67,7 @@ class AboutBrand extends StatelessWidget {
             },
             textStyle: TextStyle(fontFamily: primaryFontReg,color: DMUtil.getD2C()),
           ),
+          const SizedBox(height: 100,),
         ],
       ),
     );

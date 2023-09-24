@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:awad_nahas/core/strings/enum/location_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/sms_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,6 +43,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
   late LocationsBloc locationsBloc;
   LocationMapEntity? locationMapEntity;
   LocationEnum locationEnum = LocationEnum.Billing;
+  String type = "";
 
   @override
   void didChangeDependencies() {
@@ -66,9 +68,25 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       cityTextEditingController.text =  widget.locationEntity!.address1;
       postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
       locationsBloc.add(UpdateCurrentLocationEvent(location: widget.locationEntity!));
+    }else{
+      _goToMap();
     }
     super.didChangeDependencies();
   }
+
+  _goToMap()async{
+    await Permission.location.request();
+    final res = await Util.pushPage(MapScreen(isSet: true, title: translate("map.select_on_map")), context);
+    if(res!=null){
+      setState(() {
+        locationMapEntity = res;
+      });
+      cityTextEditingController.text = locationMapEntity!.city;
+      streetTextEditingController.text = locationMapEntity!.street;
+      postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,85 +113,86 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: locationMapEntity!=null?190.h:160.h,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 0.5,color: kSecondPrimary)
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        color: kSecondPrimary,
-                        fontSize: AppStyle.small.sp,
-                        fontWeight: FontWeight.w700,
-                        text: translate("map.location_details"),
-                      ),
-                      const Divider(color: kSecondPrimary,),
-
+                CustomText(
+                  fontSize: AppStyle.small.sp,
+                  color: DMUtil.getD2C().withOpacity(0.5),
+                  fontWeight: FontWeight.w600,
+                  text: translate("map.location_details"),
+                ),
+                const SizedBox(height: 15,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if(locationMapEntity!=null)...[
+                      const SizedBox(height: 4,),
                       SizedBox(
-                        height: 110.h,
-                        child: Stack(
-                          alignment: Alignment.bottomRight,
-                          children: [
-                            const GoogleMap(
-                              initialCameraPosition: CameraPosition(target: LatLng(21.4504394, 38.8815082), zoom: 10),
-                              mapType: MapType.normal,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 4),
-                              child: CustomButton(
-                                height: 22.h,
-                                width: 70.w,
-                                sideWidth: 0.6,
-                                sideColor: DMUtil.getRED(),
-                                circular: 10,
-                                widget: CustomText(
-                                  text: locationMapEntity==null?translate("map.select_on_map"):translate("button.edit"),
-                                  color: DMUtil.getRED(),
-                                  fontSize: AppStyle.small.sp,
-                                ),
-                                color: DMUtil.getWC(),
-                                onPressed: ()async{
-                                  await Permission.location.request();
-                                  final res = await Util.pushPage(MapScreen(isSet: true, title: translate("map.select_on_map")), context);
-                                  if(res!=null){
-                                    setState(() {
-                                      locationMapEntity = res;
-                                    });
-                                    cityTextEditingController.text = locationMapEntity!.city;
-                                    streetTextEditingController.text = locationMapEntity!.street;
-                                    postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      if(locationMapEntity!=null)...[
-                        const SizedBox(height: 4,),
-                        CustomText(
+                        width: 220.w,
+                        child: CustomText(
                           text: locationMapEntity!.address,
-                          color: kText1,
-                          fontSize: AppStyle.verySmall.sp-1,
+                          color: DMUtil.getD2C().withOpacity(0.9),
+                          fontSize: AppStyle.average.sp,
+                          fontWeight: FontWeight.w600,
+                          maxLine: 2,
                           isEllipsis: true,
                         ),
-                      ],
+                      )
                     ],
-                  ),
+
+                    SizedBox(
+                      height: 70.h,
+                      width: 74.w,
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          const GoogleMap(
+                            initialCameraPosition: CameraPosition(target: LatLng(21.4504394, 38.8815082), zoom: 15),
+                            zoomControlsEnabled: false,
+                            mapType: MapType.normal,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2,vertical: 4),
+                            child: CustomButton(
+                              height: 22.h,
+                              width: 61.w,
+                              sideWidth: 0.6,
+                              sideColor: DMUtil.getRED(),
+                              circular: 10,
+                              widget: CustomText(
+                                text: locationMapEntity==null?translate("map.select_on_map"):translate("button.edit"),
+                                color: DMUtil.getRED(),
+                                fontSize: AppStyle.small.sp-1,
+                              ),
+                              color: DMUtil.getWC(),
+                              onPressed: ()async{
+                                await Permission.location.request();
+                                final res = await Util.pushPage(MapScreen(isSet: true, title: translate("map.select_on_map")), context);
+                                if(res!=null){
+                                  setState(() {
+                                    locationMapEntity = res;
+                                  });
+                                  cityTextEditingController.text = locationMapEntity!.city;
+                                  streetTextEditingController.text = locationMapEntity!.street;
+                                  postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
+                Divider(color: DMUtil.getD2C().withOpacity(0.6),),
                 const SizedBox(height: 10,),
                 CustomText(
                   text: translate("map.personal"),
-                  color: kSecondPrimary,
+                  color: DMUtil.getD2C().withOpacity(0.5),
+                  fontWeight: FontWeight.w600,
                   fontSize: AppStyle.small.sp,
                 ),
-                const Divider(color: kSecondPrimary,),
-                const SizedBox(height: 10,),
+                // const Divider(color: kSecondPrimary,),
+                const SizedBox(height: 20,),
                 CustomTextFromField(
                     hintText: "",
                     labelText: translate("map.town"),
@@ -251,18 +270,38 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                   ],
                 ),
                 const SizedBox(height: 15,),
-                CustomTextFromField(
-                    hintText: "",
-                    labelText: translate("profile.mobile"),
-                    onChanged: (val){},
-                    cursorColor: kPrimary,
-                    textInputType: TextInputType.number,
-                    hasBorder: true,
-                    radius: 4,
-                    textEditingController: phoneTextEditingController,
-                    validator: (){},
-                    obscureText: false,
-                    isLabelError: false),
+                Row(
+                  children: [
+                    Container(
+                      height: 50.h,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 0,color: DMUtil.getD2C())
+                      ),
+                      alignment: Alignment.center,
+                      child: CustomText(
+                        text: " +966 ",
+                        fontSize: AppStyle.small.sp,
+                      ),
+                    ),
+                    Expanded(
+                      child: CustomTextFromField(
+                          height: 50,
+                          hintText: "502441695",
+                          labelText: translate("profile.mobile"),
+                          onChanged: (val){},
+                          cursorColor: kPrimary,
+                          textInputType: TextInputType.number,
+                          hasBorder: true,
+                          radius: 1,
+                          textEditingController: phoneTextEditingController,
+                          validator: (){},
+                          obscureText: false,
+                          isLabelError: false
+                      ),
+                    ),
+                  ],
+                ),
+
                 const SizedBox(height: 15,),
                 CustomTextFromField(
                     hintText: "",
@@ -277,9 +316,66 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                     obscureText: false,
                     isLabelError: false),
 
+                const SizedBox(height: 15,),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: ()=> setState(() {
+                        type = "home";
+                      }),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(8)),
+                          border: Border.all(width: 0),
+                            color: type=="home"?DMUtil.getRED():DMUtil.getWC()
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.home_outlined,color: type=="home"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.7),size: AppStyle.average.w+1,),
+                            const SizedBox(width: 5,),
+                            CustomText(
+                              text: translate("map.home"),
+                              fontWeight: FontWeight.w600,
+                              color: type=="home"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.8),
+                              fontSize: AppStyle.small.sp,
+                            ),
+                          ],
+                        ),
+                      )
+                    ),
+                    const SizedBox(width: 12,),
+                    InkWell(
+                        onTap: ()=> setState(() {
+                          type = "work";
+                        }),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(8)),
+                              border: Border.all(width: 0),
+                            color: type=="work"?DMUtil.getRED():DMUtil.getWC()
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.work,color:type=="work"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.7),size: AppStyle.average.w+1,),
+                              const SizedBox(width: 5,),
+                              CustomText(
+                                text: translate("map.work"),
+                                fontWeight: FontWeight.w600,
+                                color: type=="work"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.8),
+                                fontSize: AppStyle.small.sp,
+                              ),
+                            ],
+                          ),
+                        )
+                    ),
+                  ],
+                ),
 
-
-                const SizedBox(height: 20,),
+                const SizedBox(height: 22,),
                 BlocBuilder<LocationsBloc,LocationsState>(
                   builder: (ctx, state){
                     bool isLoading = state is LocationsLoadingState;
@@ -301,6 +397,10 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                         if(flatNumberTextEditingController.text.trim().isNotEmpty&&buildingNumberTextEditingController.text.trim().isNotEmpty&&phone.isNotEmpty &&
                             cityTextEditingController.text.trim().isNotEmpty && streetTextEditingController.text.trim().isNotEmpty &&
                             postCodeNumberTextEditingController.text.trim().isNotEmpty){
+
+                          if(Util.validatePhoneInput("+966$phone", context)==false) return;
+
+
                           var data = {
                             "${type}_phone": phone,
                             "${type}_email": Util.getEmail(),

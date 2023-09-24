@@ -14,7 +14,7 @@
       "chat": " محادثة طلب رقم ",
       "hint_work_time": "10 صباحا الى 9مساء",
       "type_here": "اكتب هنا..",
-      "change_password_successfully": "تم تغير الباسورد بنجاح",
+      "change_password_successfully": "تم تغيير الباسورد بنجاح",
       "more_info": "معلومات اخري",
       "search": "ابحث عن .."
     },
@@ -44,7 +44,7 @@
       "ok": "تأكيد",
       "VERIFY": "تحقق",
       "save": "حفظ",
-      "change_language": "تغير اللغة",
+      "change_language": "تغيير اللغة",
       "send": "إرسال",
       "next": "التالي",
       "previous": "السابق",
@@ -60,7 +60,7 @@
       "submit": "تنفيذ",
       "edit": "تعديل",
       "remove": "حذف",
-      "change": "تغير"
+      "change": "تغيير"
     },
     "toast": {
       "sure_to_submit": "تأكيد تنفيذ العملية ؟",
@@ -144,7 +144,7 @@
       "forget_pass_": "نسيت كلمة المرور",
       "old_pass": " كلمة المرور القديمة ",
       "new_pass": " كلمة المرور الجديدة ",
-      "change_pass": " تغير كلمة المرور ",
+      "change_pass": " تغيير كلمة المرور ",
       "enter_new_password": "ادخل كلمة المرور الجديدة",
       "your_password": "كلمة المرور",
       "re_type_password": "اعد كتابة كلمه المرود",
@@ -261,6 +261,8 @@
     },
 
     "profile": {
+      "please_phone": "نرجو منك إدخال رقم جوالك وسنقوم بإرسال الرمز إليك",
+      "enter_main_phone": "ادخل رقم الجوال الاساسي",
       "we_ar_sad_for_leave": "نحن حزينون لمغادرتك،نتمني رؤيتك مجددآ!",
       "account_setting": "اعدادات الحساب",
       "welcome": "اهلاً بك \uD83D\uDC4B",
@@ -316,7 +318,7 @@
       "card_number": "رقم الكارد",
       "expiration_date": "تاريخ الانتهاء",
       "account_no": "رقم الحساب",
-      "change_phone": "تغير رقم الهاتف",
+      "change_phone": "تغيير رقم الهاتف",
       "edit_info": "تعديل المعلومات",
       "secure_info": "معلومات الأمان",
       "national_id": "رقم الهوية",
@@ -650,6 +652,7 @@
     },
 
     "map": {
+      "sure_location": "تأكيد الموقع",
       "sides": "الاتجاهات",
       "add_location": "إضافة عنوان جديد",
       "work": "العمل",

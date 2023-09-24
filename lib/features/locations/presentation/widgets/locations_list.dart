@@ -28,10 +28,13 @@ class LocationsList extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
             child: Column(
               children: [
-                if(list!.shippingAddress!=null)LocationCardWidget(locationEntity: list.shippingAddress!,currentLocation: bloc.currentCheckOutLocation?.id==list.shippingAddress?.id,
+                if(list!.shippingAddress!=null)LocationCardWidget(locationEntity: list.shippingAddress!,currentLocation: bloc.currentCheckOutLocation?.id==list.shippingAddress?.id
+                    && bloc.currentCheckOutLocation?.type=="shipping",
                     isAdd: bloc.checkIFAddressEmpty(list.shippingAddress!)),
                 const SizedBox(height: 20,),
-                if(list.billingAddress!=null)LocationCardWidget(locationEntity: list.billingAddress!,currentLocation: bloc.currentCheckOutLocation?.id==list.billingAddress?.id,
+
+                if(list.billingAddress!=null)LocationCardWidget(locationEntity: list.billingAddress!,currentLocation: bloc.currentCheckOutLocation?.id==list.billingAddress?.id
+                    && bloc.currentCheckOutLocation?.type=="billing",
                     isAdd: bloc.checkIFAddressEmpty(list.billingAddress!)),
 
                 if(localList.isNotEmpty)...[
@@ -41,7 +44,8 @@ class LocationsList extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (ctx,index){
                       var item  = localList[index];
-                      return LocationCardWidget(locationEntity: item,currentLocation: bloc.currentCheckOutLocation==item,
+                      return LocationCardWidget(locationEntity: item,currentLocation: bloc.currentCheckOutLocation!=null &&
+                          bloc.currentCheckOutLocation==item && bloc.currentCheckOutLocation?.type=="local",
                           isAdd: bloc.checkIFAddressEmpty(item));
                     },
                     separatorBuilder: (ctx,index)=> const SizedBox(height: 10,),

@@ -212,11 +212,13 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
 
 
 
+  String desc = "";
   /// brands section
   setCurrentBrand(ChangeCurrentBrand event,emit){
     emit(CategoriesInitialState());
     currentBrand = event.brandModel;
     currentBrandIndex = 0;
+    desc = "";
     emit(ChangeCurrentBrandSuccessState());
   }
 

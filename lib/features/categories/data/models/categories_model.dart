@@ -11,6 +11,7 @@ import 'package:awad_nahas/features/categories/domain/entities/categories_entity
 class CategoriesModel  extends CategoriesEntity{
   const CategoriesModel(
       {required super.id,
+      required super.slug,
         required  super.imgPath,
         required  super.title,
         required  super.desc,
@@ -26,6 +27,7 @@ class CategoriesModel  extends CategoriesEntity{
   static CategoriesModel fromJson(Map<String, dynamic> json) {
     return CategoriesModel(
       id: json['id'],
+      slug: json['slug']??"",
       title: json['name'],
       desc: json['desc']??"",
       imgPath: json['image'],
@@ -42,6 +44,7 @@ class CategoriesModel  extends CategoriesEntity{
   static CategoriesModel fromBrandJson(Map<String, dynamic> json) {
     return CategoriesModel(
       id: json['id'],
+      slug: json['slug']??"",
       title: json['name'],
       desc: json['desc']??"",
       imgPath: json['image'],
@@ -77,6 +80,7 @@ class CategoriesModel  extends CategoriesEntity{
 
   static CategoriesModel fromJsonProducts(Map<String, dynamic> json) {
     return CategoriesModel(
+      slug: json['slug']??"",
       id: json['term_id'],
       title: json['name'],
       desc: json['desc']??"",

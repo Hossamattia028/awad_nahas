@@ -462,6 +462,8 @@
 		"name": "Driver name"
 	},
 	"profile": {
+		"please_phone": "Please enter your mobile number and we will send the code to you",
+		"enter_main_phone": "Enter the main phone number",
 		"we_ar_sad_for_leave": "We are sad to see you leave, we hope to see you again!",
 		"account_setting": "Account Settings",
 		"welcome": "Welcome \uD83D\uDC4B",
@@ -647,6 +649,7 @@
 		"total_issues": "Total issues"
 	},
 	"map": {
+		"sure_location": "Submit Location",
 		"sides": "Directions",
 		"add_location": "Add new address",
 		"work": "Work",

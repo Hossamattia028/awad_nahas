@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class CategoriesEntity extends Equatable{
   final int id;
+  final String slug;
   final String iconPath;
   final String? darkIcon;
   final String? lightIcon;
@@ -17,6 +18,7 @@ class CategoriesEntity extends Equatable{
 
   const CategoriesEntity({required this.title,required this.desc,
     required this.id,
+    required this.slug,
     required this.imgPath,
     required this.iconPath,
     this.darkIcon,

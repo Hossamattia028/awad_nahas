@@ -40,13 +40,13 @@ class SecureInfo extends StatelessWidget {
             letterSpace: 2,
           ),
 
-          TextButton(
-            onPressed: ()=> Util.pushPage(const ResetPassword(userLogin: "",goToLogin: false,), context),
+          InkWell(
+            onTap: ()=> Util.pushPage(const ResetPassword(userLogin: "",goToLogin: false,), context),
             child: CustomText(
               text: translate("login.change_pass"),
               color: DMUtil.getBlue(),
               fontWeight: FontWeight.w600,
-              fontSize: AppStyle.small.sp,
+              fontSize: AppStyle.small.sp-1,
             ),
           ),
         ],
