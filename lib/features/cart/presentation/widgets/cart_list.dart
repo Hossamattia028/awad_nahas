@@ -32,7 +32,7 @@ class CartListWidget extends StatelessWidget {
           itemBuilder: (ctx,index){
             var item = list[index];
             return Container(
-              height: bloc.showCountWidget ? 220.h : 190.h,
+              height: bloc.showCountWidget ? 220.h : 170.h,
               padding: const EdgeInsets.all(10),
               decoration:  BoxDecoration(
                 color: DMUtil.getWC(),
@@ -50,44 +50,44 @@ class CartListWidget extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        ImageWidget(imgUrl: item.imgPath,fit: BoxFit.fill,width: 100,height: 100,),
-                        const SizedBox(width: 10,),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 250.w,
-                                child: SingleChildScrollView(
-                                  child: CustomText(
-                                    text: item.title,
-                                    color: DMUtil.getD2C(),
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: AppStyle.average.sp-1,
-                                    maxLine: 3,
-                                    isEllipsis: true,
-                                  ),
+                  Row(
+                    children: [
+                      ImageWidget(imgUrl: item.imgPath,fit: BoxFit.fill,width: 100,height: 80,),
+                      const SizedBox(width: 10,),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 5,),
+                            SizedBox(
+                              width: 250.w,
+                              child: SingleChildScrollView(
+                                child: CustomText(
+                                  text: item.title,
+                                  color: DMUtil.getD2C(),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: AppStyle.average.sp-1,
+                                  maxLine: 3,
+                                  isEllipsis: true,
                                 ),
                               ),
-                              const SizedBox(height: 7,),
-                              ProductPriceWidget(productModel: item),
-                              const SizedBox(height: 5,),
-                              CustomText(
-                                text: translate("cart.free_delivery"),
-                                fontSize: AppStyle.small.sp-2,
-                                fontWeight: FontWeight.w600,
-                                color: DMUtil.getGreen(),
-                              ),
+                            ),
+                            const SizedBox(height: 7,),
+                            ProductPriceWidget(productModel: item),
+                            const SizedBox(height: 5,),
+                            CustomText(
+                              text: translate("cart.free_delivery"),
+                              fontSize: AppStyle.small.sp-2,
+                              fontWeight: FontWeight.w600,
+                              color: DMUtil.getGreen(),
+                            ),
 
-                            ],
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                  const SizedBox(height: 20,),
                   Column(
                     children: [
                       Row(

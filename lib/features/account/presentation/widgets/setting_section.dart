@@ -26,90 +26,110 @@ class SettingSectionWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 5,),
-        CustomText(
-          text: translate("activity_setting.app_bar"),
-          color: DMUtil.getD2C(),
-          fontWeight: FontWeight.w600,
-          fontSize: AppStyle.average.sp+2,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
+          child: CustomText(
+            text: translate("activity_setting.app_bar"),
+            color: DMUtil.getD2C().withOpacity(0.6),
+            fontWeight: FontWeight.w600,
+            fontSize: AppStyle.average.sp,
+          ),
         ),
-        SettingLineOption(
-          title: translate("button.change_language"),
-          widget:  SizedBox(
-            height: 30.h,
-            width: 90.w,
-            child: DropdownButton(
-              isExpanded: true,
-              dropdownColor: DMUtil.getWC(),
-              alignment: Alignment.center,
-              underline: const SizedBox.shrink(),
-              style: TextStyle(color: DMUtil.getDC(), fontSize: 12.sp,),
-              hint: CustomText(
-                text: Util.getLang()=="ar"?"عربي":"English",
-                color: DMUtil.getDC(),
-                fontSize: AppStyle.average.sp,
+        Container(
+          color: DMUtil.getWC(),
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
+          child: Column(
+            children: [
+              SettingLineOption(
+                title: translate("button.change_language"),
+                widget:  SizedBox(
+                  height: 30.h,
+                  width: 90.w,
+                  child: DropdownButton(
+                    isExpanded: true,
+                    dropdownColor: DMUtil.getWC(),
+                    alignment: Alignment.center,
+                    underline: const SizedBox.shrink(),
+                    style: TextStyle(color: DMUtil.getDC(), fontSize: 12.sp,),
+                    hint: CustomText(
+                      text: Util.getLang()=="ar"?"عربي":"English",
+                      color: DMUtil.getDC(),
+                      fontSize: AppStyle.average.sp,
+                    ),
+                    onChanged:(val){
+                      if(val=="English"){
+                        Util.changeLang(ctx: context,lang: "en_US");
+                      }else{
+                        Util.changeLang(ctx: context,lang: "ar");
+                      }
+                    },
+                    icon: Icon(Icons.keyboard_arrow_down_outlined,color: DMUtil.getDC(),),
+                    items: items.map((e) => DropdownMenuItem(
+                      value: e,
+                      child: CustomText(
+                        text: e.toString(),
+                        color: DMUtil.getDC(),
+                        fontSize: AppStyle.average.sp,
+                      ),
+                    )).toList(),
+                    value: Util.getLang()=="ar"?"عربي":"English",
+                  ),
+                ),
               ),
-              onChanged:(val){
-                if(val=="English"){
-                  Util.changeLang(ctx: context,lang: "en_US");
-                }else{
-                  Util.changeLang(ctx: context,lang: "ar");
-                }
-              },
-              icon: Icon(Icons.keyboard_arrow_down_outlined,color: DMUtil.getDC(),),
-              items: items.map((e) => DropdownMenuItem(
-                value: e,
-                child: CustomText(
-                  text: e.toString(),
-                  color: DMUtil.getDC(),
-                  fontSize: AppStyle.average.sp,
+              SettingLineOption(
+                title: translate("profile.notification"),
+                widget: BlocBuilder<AccountBloc,AccountState>(
+                  builder: (ctx,state){
+                    var bloc = AccountBloc.get(ctx);
+                    var isEnabled = bloc.isEnabledNotification;
+                    return SizedBox(
+                      height: 25.h,
+                      child: Switch(
+                        value: isEnabled,
+                        activeColor: DMUtil.getRED(),
+                        onChanged: (val)=> bloc.add(const ChangeNotificationModeEvent()),
+                      ),
+                    );
+                  },
                 ),
-              )).toList(),
-              value: Util.getLang()=="ar"?"عربي":"English",
-            ),
-          ),
-        ),
-        SettingLineOption(
-          title: translate("profile.notification"),
-          widget: BlocBuilder<AccountBloc,AccountState>(
-            builder: (ctx,state){
-              var bloc = AccountBloc.get(ctx);
-              var isEnabled = bloc.isEnabledNotification;
-              return SizedBox(
-                height: 25.h,
-                child: Switch(
-                    value: isEnabled,
-                    activeColor: DMUtil.getRED(),
-                    onChanged: (val)=> bloc.add(const ChangeNotificationModeEvent()),
-                ),
-              );
-            },
-          ),
-        ),
+              ),
 
-        SettingLineOption(
-          title: translate("activity_setting.dark_mode"),
-          widget: SizedBox(
-            height: 25.h,
-            child: Switch(
-              value: DMUtil.currentThemeIsDark(),
-              activeColor: DMUtil.getRED(),
-              onChanged: (val){
-                SharedPref().setPreferencesString(Constants.userTheme, DMUtil.currentThemeIsDark()?"light":"dark");
-                RootBloc.get(context).add(const ChangeIndex(index: 4, title: ""));
-                Util.pushPageAndRemoveRoutes(const RootScreen(), context);
-              }),
+              SettingLineOption(
+                title: translate("activity_setting.dark_mode"),
+                widget: SizedBox(
+                  height: 25.h,
+                  child: Switch(
+                      value: DMUtil.currentThemeIsDark(),
+                      activeColor: DMUtil.getRED(),
+                      onChanged: (val){
+                        SharedPref().setPreferencesString(Constants.userTheme, DMUtil.currentThemeIsDark()?"light":"dark");
+                        RootBloc.get(context).add(const ChangeIndex(index: 4, title: ""));
+                        Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+                      }),
+                ),
+              ),
+
+            ],
           ),
         ),
 
         const SizedBox(height: 15,),
-        CustomText(
-          text: translate("drawer.help_center"),
-          color: DMUtil.getD2C(),
-          fontWeight: FontWeight.w600,
-          fontSize: AppStyle.average.sp+2,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
+          child: CustomText(
+            text: translate("drawer.help_center"),
+            color: DMUtil.getD2C().withOpacity(0.6),
+            fontWeight: FontWeight.w600,
+            fontSize: AppStyle.average.sp,
+          ),
         ),
-        SettingLineOption(title: translate("drawer.help_center"),onTap: ()=> Util.pushPage(const HelpCenterScreen(), context)),
-
+        Container(
+          color: DMUtil.getWC(),
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
+          child: SettingLineOption(title: translate("drawer.help_center"),onTap: ()=> Util.pushPage(const HelpCenterScreen(), context)),
+        )
       ],
     );
   }

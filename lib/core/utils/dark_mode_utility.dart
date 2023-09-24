@@ -77,5 +77,9 @@ class DMUtil{
     return currentThemeIsDark()?kDark:kBackGroundN;
   }
 
+  static Color getBlue(){
+    return currentThemeIsDark()?kWhite:kBackBlueColor;
+  }
+
 
 }

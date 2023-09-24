@@ -22,8 +22,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: DMUtil.getWC(),
+      backgroundColor: DMUtil.getBackGround(),
       appBar: GlobalAppBar(
+        backGroundColor: DMUtil.getWC(),
         title: !Util.checkUser()?"":translate("profile.my_account"),
         leadingIcon: DrawerIcon(ctx: context,color: DMUtil.getDC(),),
       ),
@@ -31,16 +32,13 @@ class ProfileScreen extends StatelessWidget {
         onRefresh: () => _buildRefresh(context),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(vertical: AppStyle.paddingFromTop.h,horizontal: AppStyle.paddingFromH.w - 4),
           child: Column(
             children:  [
-              const AccountAuthCard(),
+              const AccountAuthCardProfile(),
               const SizedBox(height: 13,),
 
               if(Util.checkUser())...[
                 const MyAccountSetting(),
-              ]else...[
-                SettingLineOption(title: translate("login.login"),onTap: ()=> Util.pushPage(const LoginScreen(), context),),
               ],
 
               const SizedBox(height: 10,),
@@ -49,11 +47,6 @@ class ProfileScreen extends StatelessWidget {
               if(Util.checkUser())...[
                 const SizedBox(height: 20,),
                 const SignOutWidget(),
-                if(!Platform.isIOS)...[
-                  const Divider(height: 40,),
-                  const SizedBox(height: 40,),
-                  const DeleteAccountWidget(),
-                ],
               ],
 
               const SizedBox(height: 100,),

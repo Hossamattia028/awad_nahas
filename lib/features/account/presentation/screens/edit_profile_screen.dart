@@ -104,7 +104,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 obscureText: false,
                 isLabelError: false,
               ),
-              const SizedBox(height: 12,),
+              const SizedBox(height: 15,),
               CustomText(
                 text: translate("profile.email"),
                 color: DMUtil.getDC(),
@@ -123,7 +123,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   validator: (){},
                   obscureText: false,
                   isLabelError: false),
-              const SizedBox(height: 12,),
+              const SizedBox(height: 15,),
 
               CustomText(
                 text: translate("profile.mobile"),
@@ -178,37 +178,37 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
               const SizedBox(height: 12,),
 
-              CustomText(
-                text: translate("signup.password"),
-                color: DMUtil.getDC(),
-                fontSize: AppStyle.average.sp,
-              ),
-              const SizedBox(width: 5,),
-              Stack(
-                alignment: Util.getLang()=="ar"?Alignment.centerLeft:Alignment.centerRight,
-                children: [
-                  CustomTextFromField(
-                    hintText: "************",
-                    labelText: "",
-                    cursorColor: kPrimary,
-                    hasBorder: true,
-                    radius: 10,
-                    smallPadding: true,
-                    textInputType: TextInputType.visiblePassword,
-                    textEditingController: passTextEditingController,
-                    validator: (){},
-                    obscureText: false,
-                    isLabelError: false,
-                  ),
-                  TextButton(
-                      onPressed: ()=> Util.pushPage(const ResetPassword(userLogin: "",goToLogin: false,), context),
-                      child: CustomText(
-                        text: translate("button.change"),
-                        fontSize: AppStyle.small.sp,
-                      ),
-                  ),
-                ],
-              ),
+              // CustomText(
+              //   text: translate("signup.password"),
+              //   color: DMUtil.getDC(),
+              //   fontSize: AppStyle.average.sp,
+              // ),
+              // const SizedBox(width: 5,),
+              // Stack(
+              //   alignment: Util.getLang()=="ar"?Alignment.centerLeft:Alignment.centerRight,
+              //   children: [
+              //     CustomTextFromField(
+              //       hintText: "************",
+              //       labelText: "",
+              //       cursorColor: kPrimary,
+              //       hasBorder: true,
+              //       radius: 10,
+              //       smallPadding: true,
+              //       textInputType: TextInputType.visiblePassword,
+              //       textEditingController: passTextEditingController,
+              //       validator: (){},
+              //       obscureText: false,
+              //       isLabelError: false,
+              //     ),
+              //     TextButton(
+              //         onPressed: ()=> Util.pushPage(const ResetPassword(userLogin: "",goToLogin: false,), context),
+              //         child: CustomText(
+              //           text: translate("button.change"),
+              //           fontSize: AppStyle.small.sp,
+              //         ),
+              //     ),
+              //   ],
+              // ),
 
               const SizedBox(height: 50,),
               BlocBuilder<AccountBloc,AccountState>(

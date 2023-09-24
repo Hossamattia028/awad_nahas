@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/account/presentation/screens/account_data.dart';
 import 'package:awad_nahas/features/locations/presentation/screens/my_locations.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
@@ -22,43 +23,58 @@ class MyAccountSetting extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomText(
-          text: translate("profile.my_account"),
-          color: DMUtil.getDC(),
-          fontWeight: FontWeight.w600,
-          fontSize: AppStyle.average.sp+3,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
+          child: CustomText(
+            text: translate("profile.my_account"),
+            color: DMUtil.getD2C().withOpacity(0.6),
+            fontWeight: FontWeight.w600,
+            fontSize: AppStyle.average.sp,
+          ),
         ),
 
-        SettingLineOption(title: translate("profile.orders"),onTap: ()=> Util.pushPage(const OrderScreen(), context),
-          widget: Row(
+        Container(
+          color: DMUtil.getWC(),
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
+          child: Column(
             children: [
-              BlocBuilder<OrderBloc,OrderState>(
-                builder: (ctx,state){
-                  var bloc = OrderBloc.get(ctx);
-                  var length = bloc.orderList.length;
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      if(length!=0)CircleAvatar(
-                        backgroundColor: DMUtil.getPC(),
-                        radius: 11.w,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 2),
-                          child: CustomText(text: "$length",fontSize: AppStyle.small.sp,color: Colors.white,),
-                        ),
-                      ),
-                      const SizedBox(width: 10,),
-                    ],
-                  );
-                },
-              ),
-              Icon(Icons.arrow_forward_ios,color: DMUtil.getDC(),size: 15.w),
+              SettingLineOption(title: translate("profile.orders"),onTap: ()=> Util.pushPage(const OrderScreen(), context),
+                widget: Row(
+                  children: [
+                    BlocBuilder<OrderBloc,OrderState>(
+                      builder: (ctx,state){
+                        var bloc = OrderBloc.get(ctx);
+                        var length = bloc.orderList.length;
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            if(length!=0)CircleAvatar(
+                              backgroundColor: DMUtil.getPC(),
+                              radius: 11.w,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 2),
+                                child: CustomText(text: "$length",fontSize: AppStyle.small.sp,color: Colors.white,),
+                              ),
+                            ),
+                            const SizedBox(width: 10,),
+                          ],
+                        );
+                      },
+                    ),
+                    Icon(Icons.arrow_forward_ios,color: DMUtil.getDC(),size: 15.w),
+                  ],
+                ),),
+              const Divider(),
+              SettingLineOption(title: translate("profile.wishlist"),onTap: ()=> Util.pushPage(const WishListScreen(), context),),
+              const Divider(),
+              SettingLineOption(title: translate("profile.addresses"),onTap: ()=> Util.pushPage(const MyLocationsScreen(), context),),
+              const Divider(),
+              SettingLineOption(title: translate("profile.profile"),onTap: ()=> Util.pushPage(const AccountDataScreen(), context),),
             ],
-          ),),
-        SettingLineOption(title: translate("profile.wishlist"),onTap: ()=> Util.pushPage(const WishListScreen(), context),),
-        SettingLineOption(title: translate("profile.addresses"),onTap: ()=> Util.pushPage(const MyLocationsScreen(), context),),
-        SettingLineOption(title: translate("profile.profile"),onTap: ()=> Util.pushPage(const EditProfilePage(), context),),
+          ),
+        )
       ],
     );
   }

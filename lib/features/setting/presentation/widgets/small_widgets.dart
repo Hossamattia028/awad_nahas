@@ -16,10 +16,10 @@ class SettingLineOption extends StatelessWidget {
     return GestureDetector(
       onTap: onTap??(){},
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10.h),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          border: Border.all(width: 0.6,color: DMUtil.getBCC())
+        margin: EdgeInsets.symmetric(vertical: 5.h),
+        decoration: const BoxDecoration(
+          borderRadius:  BorderRadius.all(Radius.circular(10)),
+          // border: Border.all(width: 0.6,color: DMUtil.getBCC())
         ),
         padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 8.h),
         child: Row(
@@ -27,8 +27,9 @@ class SettingLineOption extends StatelessWidget {
           children: [
             CustomText(
               text: title,
-              color: DMUtil.getDC(),
-              fontSize: AppStyle.average.sp+1,
+              color: DMUtil.getD2C().withOpacity(0.9),
+              fontSize: AppStyle.average.sp,
+              fontWeight: FontWeight.w600,
             ),
 
             widget ?? Icon(Icons.arrow_forward_ios,color: DMUtil.getDC(),size: 17.w),

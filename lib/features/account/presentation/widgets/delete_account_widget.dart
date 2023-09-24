@@ -13,20 +13,11 @@ class DeleteAccountWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: ()=> CustomDialogs.deleteAccount(context),
-      child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child: Row(
-            children: [
-              Icon(Icons.remove_circle_outline,color: DMUtil.getREdOPACITY(),),
-              const SizedBox(width: 6,),
-              CustomText(
-                text: translate("profile.delete_account"),
-                fontSize: AppStyle.average.sp - 1,
-                color: DMUtil.getD2C().withOpacity(0.6),
-                fontWeight: FontWeight.w700,
-              ),
-            ],
-          )
+      child: CustomText(
+        text: translate("profile.delete_my_account"),
+        fontSize: AppStyle.average.sp - 3,
+        color: DMUtil.getRED(),
+        fontWeight: FontWeight.w500,
       ),
     );
   }

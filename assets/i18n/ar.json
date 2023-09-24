@@ -261,6 +261,7 @@
     },
 
     "profile": {
+      "we_ar_sad_for_leave": "نحن حزينون لمغادرتك،نتمني رؤيتك مجددآ!",
       "account_setting": "اعدادات الحساب",
       "welcome": "اهلاً بك \uD83D\uDC4B",
       "offline": "غير متاح",
@@ -315,6 +316,9 @@
       "card_number": "رقم الكارد",
       "expiration_date": "تاريخ الانتهاء",
       "account_no": "رقم الحساب",
+      "change_phone": "تغير رقم الهاتف",
+      "edit_info": "تعديل المعلومات",
+      "secure_info": "معلومات الأمان",
       "national_id": "رقم الهوية",
       "verify_id": "تحقق الشخصية",
       "upload_id_passport": "اضف الهوية أو جواز السفر",
@@ -333,6 +337,7 @@
       "orders": "الطلبات",
       "recently_viewed": "مشاهد مؤخرا",
       "delete_account": "حذف الحساب",
+      "delete_my_account": "احذف حسابي",
       "attention": "تنبيه: سيزيل جميع بيانات الحساب",
       "sign_out": "تسجيل الخروج",
       "personal_photo": "التقط صوره شخصيه لك",

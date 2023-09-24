@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
@@ -15,6 +16,7 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dar
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
+import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -62,6 +64,16 @@ class Util{
     return null;
   }
 
+  static bool validatePhoneInput(String phone,BuildContext context){
+    if(phone.isNotEmpty){
+      String? txt = Util.validatePhone(phone);
+      if(txt!=null){
+        SnackBarBuilder.showFeedBackMessage(context, txt, DMUtil.getRED());
+        return false;
+      }
+    }
+    return true;
+  }
 
   static Future<bool> verifyCode(String otp) async{
     try{

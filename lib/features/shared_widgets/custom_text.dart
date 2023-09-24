@@ -12,6 +12,7 @@ class CustomText extends StatelessWidget {
   final bool? alignCenter;
   final bool? isEllipsis;
   final double? wordSpace;
+  final double? letterSpace;
   final int? maxLine;
   const CustomText({
     Key? key,
@@ -24,6 +25,7 @@ class CustomText extends StatelessWidget {
     this.alignCenter,
     this.isEllipsis = false,
     this.wordSpace = 0,
+    this.letterSpace = 0,
     this.maxLine ,
   }) : super(key: key);
 
@@ -37,6 +39,7 @@ class CustomText extends StatelessWidget {
         fontSize: fontSize,
         fontFamily: primaryFontReg,
         fontWeight: fontWeight ?? FontWeight.normal,
+        letterSpacing: letterSpace,
         wordSpacing: wordSpace
       ),
       overflow: isEllipsis==true?TextOverflow.ellipsis:null,

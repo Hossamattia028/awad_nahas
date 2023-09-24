@@ -22,13 +22,14 @@ class AccountAuthCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
+      color: DMUtil.getWC(),
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: BlocBuilder<AccountBloc, AccountState>(
         builder: (ctx, state) {
           var user = AccountBloc.get(ctx).currentUser;
           // if (user == null) return const SizedBox.shrink();
           return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               if(user == null)
               CircleAvatar(
@@ -63,6 +64,100 @@ class AccountAuthCard extends StatelessWidget {
                       color: DMUtil.getD2C(),
                       fontSize: AppStyle.average.sp+2,
                     ),
+
+                  if(user == null || Util.checkUser()==false)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: ()=> Util.pushPage(const LoginScreen(), context),
+                          child: CustomText(
+                            text:  translate("login.login"),
+                            color: DMUtil.getRED() ,
+                            fontSize: AppStyle.average.sp,
+                          ),
+                        ),
+                        CustomText(
+                          text:  "   /  ",
+                          color: DMUtil.getRED() ,
+                          fontSize: AppStyle.average.sp,
+                        ),
+                        InkWell(
+                          onTap: ()=> Util.pushPage(const RegisterScreen(), context),
+                          child: CustomText(
+                            text: translate("login.sing_up_now"),
+                            color: DMUtil.getRED(),
+                            fontSize: AppStyle.average.sp,
+                          ),
+                        ),
+                      ],
+                    )
+                ],
+              ),
+
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+
+class AccountAuthCardProfile extends StatelessWidget {
+  const AccountAuthCardProfile({Key? key,}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      color: DMUtil.getWC(),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      child: BlocBuilder<AccountBloc, AccountState>(
+        builder: (ctx, state) {
+          var user = AccountBloc.get(ctx).currentUser;
+          // if (user == null) return const SizedBox.shrink();
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              if(user == null)
+                CircleAvatar(
+                  radius: 20.h,
+                  backgroundColor: DMUtil.getBCC(),
+                  child: Icon(CupertinoIcons.person,color: DMUtil.getD2C(),),
+                ),
+              const SizedBox(width: 10,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      CustomText(
+                        text:translate("profile.welcome"),
+                        color: DMUtil.getD2C(),
+                        fontSize: AppStyle.average.sp,
+                      ),
+                      const SizedBox(height: 5,),
+
+                      if(user!=null && Util.checkUser())
+                        CustomText(
+                          text: user.userName.toString(),
+                          color: DMUtil.getD2C(),
+                          fontWeight: FontWeight.w600,
+                          fontSize: AppStyle.average.sp+2,
+                        ),
+                    ],
+                  ),
+                  if(user!=null && Util.checkUser())...[
+                    const SizedBox(height: 5,),
+                    CustomText(
+                      text: user.email.toString(),
+                      color: DMUtil.getD2C(),
+                      fontSize: AppStyle.small.sp+2,
+                    ),
+                  ],
+
 
                   if(user == null || Util.checkUser()==false)
                     Row(
