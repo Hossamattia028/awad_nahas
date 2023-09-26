@@ -27,6 +27,7 @@ class ChangePhoneSection extends StatelessWidget {
           var address = bloc.billingAddress;
           String userPHone = "";
           if(address!=null)userPHone = address.phone;
+          if(userPHone.startsWith("0"))userPHone = userPHone.substring(1).toString();
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

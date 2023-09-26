@@ -20,7 +20,7 @@ class CartPaymentOptions extends StatelessWidget {
               children: [
                 if(bloc.totalPrice<=2000 && bloc.totalPrice!=0)...[
                   const SizedBox(height: 5,),
-                  TamaraSmallProductWidget(price: bloc.totalPrice),
+                  TamaraSmallProductWidget(price: bloc.totalPrice,isSmall: true,),
                 ],
               ],
             ),

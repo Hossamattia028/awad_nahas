@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_qty_card.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
@@ -31,8 +32,9 @@ class CartListWidget extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           itemBuilder: (ctx,index){
             var item = list[index];
+            double height = bloc.showCountWidget ? 220.h : 170.h;
             return Container(
-              height: bloc.showCountWidget ? 220.h : 170.h,
+              height: Util.getLang()=="ar"?height:height+10,
               padding: const EdgeInsets.all(10),
               decoration:  BoxDecoration(
                 color: DMUtil.getWC(),
@@ -102,7 +104,7 @@ class CartListWidget extends StatelessWidget {
                                 onTap: ()=> bloc.add(ModifyCartProductEvent(product: item, isAdd: false,context: context,remove: true)),
                                 child: Container(
                                     height: 28.h,
-                                    width: 50.w,
+                                    width: 60.w,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(Radius.circular(6)),
                                       border: Border.all(width: 0,color: DMUtil.getD2C().withOpacity(0.5)),
@@ -113,7 +115,6 @@ class CartListWidget extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Icon(CupertinoIcons.delete,color: DMUtil.getD2C().withOpacity(0.6),size: 14.w,),
-
                                         CustomText(
                                           text: translate("button.remove"),
                                           color: DMUtil.getD2C().withOpacity(0.6),

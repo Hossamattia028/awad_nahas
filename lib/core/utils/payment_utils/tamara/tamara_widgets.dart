@@ -10,7 +10,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class TamaraSmallProductWidget extends StatelessWidget {
   final double price;
-  const TamaraSmallProductWidget({Key? key,required this.price}) : super(key: key);
+  final bool isSmall;
+  const TamaraSmallProductWidget({Key? key,required this.price,this.isSmall=false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class TamaraSmallProductWidget extends StatelessWidget {
           border: Border.all(width: 1,color: kTamaraColor),
           color: DMUtil.getWC()
       ),
-      margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 2.w,vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10,),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -30,8 +31,9 @@ class TamaraSmallProductWidget extends StatelessWidget {
             width: 220.w,
             child: CustomText(
               text: "${translate("payment.tamra_txt")} $val ${translate("store.sar")} ${translate("payment.interest-free")}" ,
-              fontSize: AppStyle.average.sp,
+              fontSize: isSmall ? AppStyle.small.sp - 2 : AppStyle.average.sp ,
               color: DMUtil.getD2C(),
+              fontWeight: isSmall?FontWeight.w600:FontWeight.w500,
               maxLine: 3,
             ),
           ),

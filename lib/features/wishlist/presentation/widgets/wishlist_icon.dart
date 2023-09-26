@@ -91,7 +91,7 @@ class WishListButtonInCartScreen extends StatelessWidget {
         if(index!=-1)WishlistBloc.get(context).add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
       },
       child: Container(
-          width: 115.w,
+          width: 118.w,
           height: 30.h,
           alignment: Alignment.center,
           padding: const EdgeInsets.all(4),

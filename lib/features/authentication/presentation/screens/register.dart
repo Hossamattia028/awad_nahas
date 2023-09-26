@@ -123,23 +123,41 @@ class RegisterScreen extends StatelessWidget {
                     return Column(
                       children: [
                         if(registerByPhone)...[
-                          CustomTextFromField(
-                            height: 50,
-                            hintText: translate("signup.phone"),
-                            radius: 10,
-                            textEditingController: phoneTextEditingController,
-                            validator: () {},
-                            hintColor: kSecondPrimary,
-                            textInputType: TextInputType.phone,
-                            prefixIcon: null,
-                            cursorColor: kPrimary,
-                            suffixIcon:  null,
-                            obscureText: false,
-                            isLabelError: false,
-                            hasBorder: true,
-                            borderWidth: 1,
-                            borderColor: DMUtil.getD2C(),
-                            labelText: '',
+                          Row(
+                            children: [
+                              Container(
+                                height: 50.h,
+                                // decoration: BoxDecoration(
+                                //     // borderRadius: BorderRadius.circular(10),
+                                //     // border: Border.all(width: 0,color: DMUtil.getD2C())
+                                // ),
+                                alignment: Alignment.center,
+                                child: CustomText(
+                                  text: " +966 ",
+                                  fontSize: AppStyle.small.sp,
+                                ),
+                              ),
+                              Expanded(
+                                child: CustomTextFromField(
+                                  height: 50,
+                                  hintText: "${translate("signup.phone")}: 502441695",
+                                  radius: 10,
+                                  textEditingController: phoneTextEditingController,
+                                  validator: () {},
+                                  hintColor: kSecondPrimary,
+                                  textInputType: TextInputType.phone,
+                                  prefixIcon: null,
+                                  cursorColor: kPrimary,
+                                  suffixIcon:  null,
+                                  obscureText: false,
+                                  isLabelError: false,
+                                  hasBorder: true,
+                                  borderWidth: 1,
+                                  borderColor: DMUtil.getD2C(),
+                                  labelText: '',
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 15,),
                         ],
