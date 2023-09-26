@@ -3,8 +3,8 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/categories/presentation/widgets/category_products_list.dart';
 import 'package:awad_nahas/features/categories/presentation/widgets/sub_categories.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/root_app/widgets/bottom_nav_bar.dart';
 import 'package:awad_nahas/features/search/presentation/screens/search_screen.dart';
 import 'package:awad_nahas/features/search/presentation/widgets/search_widget.dart';
@@ -33,12 +33,12 @@ class CategoryProductsScreen extends StatelessWidget {
 
 
                 const SubCategoriesHList(),
-               
 
 
-                BlocBuilder<RootBloc,RootState>(
+
+                BlocBuilder<ProductsBloc,ProductsState>(
                   builder: (ctx,state){
-                    var rootBloc = RootBloc.get(ctx);
+                    var rootBloc = ProductsBloc.get(ctx);
                     return  rootBloc.enableSearch?  const Expanded(child: SingleChildScrollView(physics: BouncingScrollPhysics(),child: SearchScreen())) :
                     CategoryProductsListWidget(catID: bloc.currentCategory!.id,subCatID: bloc.currentSubCategory==null?-1:bloc.currentSubCategory!.id,);
                   },

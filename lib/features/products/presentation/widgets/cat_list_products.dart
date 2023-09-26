@@ -18,7 +18,6 @@ import 'package:awad_nahas/features/products/presentation/screens/product_detail
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
-import 'package:awad_nahas/features/shared_widgets/view_all.dart';
 
 class CatProductsList extends StatelessWidget {
   final CategoriesEntity cat;

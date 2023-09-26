@@ -1,18 +1,12 @@
-import 'dart:io';
-import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/account/presentation/widgets/account_after_auth.dart';
-import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/root_app/widgets/drawer_icon.dart';
-import 'package:awad_nahas/features/setting/presentation/widgets/small_widgets.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:awad_nahas/features/account/presentation/widgets/delete_account_widget.dart';
 import 'package:awad_nahas/features/account/presentation/widgets/my_account_setting.dart';
 import 'package:awad_nahas/features/account/presentation/widgets/setting_section.dart';
 import 'package:awad_nahas/features/account/presentation/widgets/sign_out_widget.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 

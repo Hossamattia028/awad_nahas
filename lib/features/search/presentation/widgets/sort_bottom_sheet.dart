@@ -4,8 +4,6 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,7 +84,6 @@ class CheckBoxWidget extends StatelessWidget {
     return InkWell(
       onTap: (){
         ProductsBloc.get(context).add(ChangeSortEvent(sortEnum: sortType));
-        RootBloc.get(context).add(UpdateSearchProductList(sortEnum: sortType));
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),

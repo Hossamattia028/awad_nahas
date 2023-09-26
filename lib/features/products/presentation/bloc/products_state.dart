@@ -49,3 +49,7 @@ class FilterLoadingState extends ProductsState{
 class FilterSuccessfullyState extends ProductsState{
   const FilterSuccessfullyState();
 }
+
+class SearchFailedState extends ProductsState{
+  const SearchFailedState();
+}

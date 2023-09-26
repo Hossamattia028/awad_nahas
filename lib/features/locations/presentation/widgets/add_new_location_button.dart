@@ -3,7 +3,6 @@
 import 'dart:io';
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/features/locations/presentation/screens/set_and_get_coordinates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -12,7 +11,6 @@ import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/locations/presentation/screens/add_location.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class AddNewLocationButton extends StatelessWidget {
   const AddNewLocationButton({Key? key}) : super(key: key);

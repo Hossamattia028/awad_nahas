@@ -62,6 +62,18 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
         updateProducts(event,emit);
     });
 
+    /// search
+    on<EnableSearchEvent>((event, emit)async{
+      modifySearchAvailability(event,emit);
+    });
+
+    on<SearchEvent>((event, emit) async{
+      await searchProductsAndCategories(event,emit);
+    });
+
+    on<UpdateSearchProductList>((event, emit){
+      updateProductSearchList(event,emit);
+    });
     /// filter section
     on<ChangeSortEvent>((event, emit){
       changeSort(event,emit);
@@ -224,6 +236,99 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     }
   }
 
+  /// search section
+  List<ProductsEntity> productSearchList = [];
+  List<CategoriesEntity> categorySearchList = [];
+
+  bool enableSearch = false;
+  modifySearchAvailability(EnableSearchEvent event,emit){
+    emit(const FilterLoadingState());
+    if(event.enable!=null){
+      enableSearch = event.enable!;
+    }else{
+      enableSearch = !enableSearch;
+    }
+    if(event.productList!=null)productSearchList = event.productList!;
+    emit(const FilterSuccessfullyState());
+  }
+
+  searchProductsAndCategories(SearchEvent event,emit)async{
+    try{
+      emit(const FilterLoadingState());
+      if(event.word.toString().trim()==""){
+        enableSearch = false;
+        categorySearchList.clear();
+        productSearchList.clear();
+        emit(const FilterSuccessfullyState());
+        return;
+      }
+      categorySearchList = searchCategories(event.word,event.categoryList);
+      await searchProducts(event.word,event.productList,emit);
+      enableSearch = true;
+      emit(const FilterSuccessfullyState());
+    }catch(e){
+      emit(const SearchFailedState());
+      debugPrint("searchProductsAndCategories: $e");
+    }
+  }
+
+
+  List<CategoriesEntity> searchCategories(String word,List<CategoriesEntity> list){
+    try{
+      return list.where((element) => element.title.toString().toLowerCase().startsWith(word)).toList();
+    }catch(e){
+      debugPrint("searchProductsAndCategories: $e");
+      return [];
+    }
+  }
+
+
+  // WARNING
+  /// this function will be edit later
+  Future searchProducts(String word,List<ProductsEntity> list,emit)async{
+    List<ProductsEntity> thisList  = [];
+    try{
+      var firstList = list.getRange(0, list.length~/2).toList();
+      thisList.addAll(firstList.where((element) => element.title.toString().toLowerCase().startsWith(word) || element.sku.toString().toLowerCase().startsWith(word)).toList());
+      productSearchList = thisList;
+      enableSearch = true;
+      emit(const FilterSuccessfullyState());
+      await Future.delayed(const Duration(seconds: 2),(){
+        var secondList =  list.getRange(list.length~/2, list.length).toList();
+        thisList.addAll(secondList.where((element) => element.title.toString().toLowerCase().startsWith(word) || element.sku.toString().toLowerCase().startsWith(word)).toList());
+        productSearchList.addAll(thisList.toList());
+        productSearchList = [...{...productSearchList}];
+        emit(const FilterSuccessfullyState());
+      });
+    }catch(e){
+      debugPrint("searchProducts: $e");
+      return [];
+    }
+  }
+
+  updateProductSearchList(UpdateSearchProductList event,emit){
+    emit(const FilterLoadingState());
+    if(event.productList!=null)productSearchList = event.productList!;
+    if(event.sortEnum!=null)productSearchList = sortProducts(event.sortEnum!);
+    emit(const FilterSuccessfullyState());
+  }
+
+  // List<ProductsEntity> sortProducts(SortEnum sortType,List<ProductsEntity> list){
+  //   if(sortType == SortEnum.NEW){
+  //     list.sort((a, b) => DateTime.parse(b.date!).compareTo(DateTime.parse(a.date!)));
+  //   }else if(sortType == SortEnum.PRICE_HIGH_TO_LOW){
+  //     list.sort((a, b) => b.price.compareTo(a.price));
+  //   }else if(sortType == SortEnum.PRICE_LOW_TO_HIGH){
+  //     list.sort((a, b) => a.price.compareTo(b.price));
+  //   }else if(sortType == SortEnum.AVERAGE_RATE){
+  //     list.sort((a, b) => double.parse(b.averageRate.toString()).compareTo(double.parse(a.averageRate.toString())));
+  //   }else{
+  //     list = list;
+  //   }
+  //   return list;
+  // }
+
+
   /// filter & sort products section
   SortEnum currentSort = SortEnum.POPULAR;
   changeSort(ChangeSortEvent event,emit){
@@ -235,15 +340,15 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
   sortProducts(SortEnum sortType){
     if(sortType == SortEnum.NEW){
-      productsList.sort((a, b) => DateTime.parse(b.date!).compareTo(DateTime.parse(a.date!)));
+      productSearchList.sort((a, b) => DateTime.parse(b.date!).compareTo(DateTime.parse(a.date!)));
     }else if(sortType == SortEnum.PRICE_HIGH_TO_LOW){
-      productsList.sort((a, b) => b.price.compareTo(a.price));
+      productSearchList.sort((a, b) => b.price.compareTo(a.price));
     }else if(sortType == SortEnum.PRICE_LOW_TO_HIGH){
-      productsList.sort((a, b) => a.price.compareTo(b.price));
+      productSearchList.sort((a, b) => a.price.compareTo(b.price));
     }else if(sortType == SortEnum.AVERAGE_RATE){
-      productsList.sort((a, b) => double.parse(b.averageRate.toString()).compareTo(double.parse(a.averageRate.toString())));
+      productSearchList.sort((a, b) => double.parse(b.averageRate.toString()).compareTo(double.parse(a.averageRate.toString())));
     }else{
-      productsList = storedProductsList;
+      productSearchList = storedProductsList;
     }
   }
 
@@ -251,29 +356,29 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   FilterModel? filterModel;
   filterProducts(FilterProductEvent event,emit){
     emit(const FilterLoadingState());
-    productsList = storedProductsList;
-    productsList = filterByCurrentLang(productsList);
+    productSearchList = storedProductsList;
+    productSearchList = filterByCurrentLang(productSearchList);
     if(event.filterModel==null){
       filterModel = null;
-      textStartEditingController.text="";
-      textEndEditingController.text="";
+      textStartEditingController.text = "";
+      textEndEditingController.text = "";
       emit(const FilterSuccessfullyState());
       return;
     }
     filterModel = event.filterModel;
-    if(event.filterModel!.filterPrice!=null && (event.filterModel!.filterPrice?.end!=0.0 || event.filterModel!.filterPrice?.start!=0.0))productsList = filterPrice(event.filterModel!.filterPrice!);
-    if(event.filterModel!.isAvailable!=null && event.filterModel!.isAvailable==true)productsList = filterStock(productsList);
-    if(event.filterModel!.isDiscount!=null && event.filterModel!.isDiscount == true)productsList = filterIfHasDiscount(productsList);
-    if(event.filterModel!.brandID!=null && showBrandFilter == true)productsList = filterByBrandID(productsList,event.filterModel!.brandID!);
-    if(event.filterModel!.weight!=null && showWeightFilter == true)productsList = filterByWeight(productsList,event.filterModel!.weight!);
+    if(event.filterModel!.filterPrice!=null && (event.filterModel!.filterPrice?.end!=0.0 || event.filterModel!.filterPrice?.start!=0.0))productSearchList = filterPrice(event.filterModel!.filterPrice!);
+    if(event.filterModel!.isAvailable!=null && event.filterModel!.isAvailable==true)productSearchList = filterStock(productsList);
+    if(event.filterModel!.isDiscount!=null && event.filterModel!.isDiscount == true)productSearchList = filterIfHasDiscount(productsList);
+    if(event.filterModel!.brandID!=null && showBrandFilter == true)productSearchList = filterByBrandID(productSearchList,event.filterModel!.brandID!);
+    if(event.filterModel!.weight!=null && showWeightFilter == true)productSearchList = filterByWeight(productSearchList,event.filterModel!.weight!);
     emit(const FilterSuccessfullyState());
   }
 
   final TextEditingController textStartEditingController = TextEditingController();
   final TextEditingController textEndEditingController = TextEditingController();
   filterPrice(FilterPrice filterPrice){
-    productsList = productsList.where((element) => element.price<=filterPrice.end && element.price>=filterPrice.start).toList();
-    return productsList;
+    productSearchList = productSearchList.where((element) => element.price<=filterPrice.end && element.price>=filterPrice.start).toList();
+    return productSearchList;
   }
 
 

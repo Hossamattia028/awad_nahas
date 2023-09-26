@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/strings/enum/filter_enum.dart';
+import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,25 @@ class FetchOffersProductsEvent extends ProductsEvent{
   const FetchOffersProductsEvent({this.isPaginate = false});
 }
 
+class SearchEvent extends ProductsEvent {
+  final String word;
+  final List<CategoriesEntity> categoryList;
+  final List<ProductsEntity> productList;
+  const SearchEvent({required this.word,required this.categoryList,required this.productList});
+}
 
+class UpdateSearchProductList extends ProductsEvent {
+  final List<ProductsEntity>? productList;
+  final SortEnum? sortEnum;
+  const UpdateSearchProductList({this.productList,this.sortEnum});
+}
+
+
+class EnableSearchEvent extends ProductsEvent{
+  final List<ProductsEntity>? productList;
+  final bool? enable;
+  const EnableSearchEvent({this.productList,this.enable});
+}
 
 class FilterByCategoryEvent extends ProductsEvent{
   final int catID;

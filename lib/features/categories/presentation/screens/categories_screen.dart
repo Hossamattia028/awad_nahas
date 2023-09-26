@@ -1,7 +1,7 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/categories/presentation/widgets/vertical_categories_list.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/search/presentation/screens/search_screen.dart';
 import 'package:awad_nahas/features/search/presentation/widgets/search_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
@@ -24,9 +24,9 @@ class CategoriesScreen extends StatelessWidget {
           Padding(padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),child: const SearchWidget()),
 
 
-          BlocBuilder<RootBloc,RootState>(
+          BlocBuilder<ProductsBloc,ProductsState>(
             builder: (ctx,state){
-              var bloc = RootBloc.get(ctx);
+              var bloc = ProductsBloc.get(ctx);
               return  bloc.enableSearch? const SearchScreen() : const VerticalCategoriesList();
             },
           ),

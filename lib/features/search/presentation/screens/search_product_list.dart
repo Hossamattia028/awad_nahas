@@ -1,12 +1,11 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_card.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
@@ -16,12 +15,11 @@ class SearchProductList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RootBloc,RootState>(
+    return BlocBuilder<ProductsBloc,ProductsState>(
       builder: (ctx,state){
-        var bloc = RootBloc.get(ctx);
+        var bloc = ProductsBloc.get(ctx);
         if(bloc.productSearchList.isEmpty)return const SizedBox.shrink();
         var list = bloc.productSearchList;
-        list = ProductsBloc.get(context).filterByCurrentLang(list);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

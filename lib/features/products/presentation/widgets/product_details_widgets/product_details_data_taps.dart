@@ -26,6 +26,7 @@ class ProductDetailsDataRow extends StatefulWidget {
 class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
   String desc = "";
   _getDesc()async {
+    if(!mounted)return;
     desc = await ProductsRemoteDataSource.getProductDetails(id:  widget.item.id);
     if(desc != ""){
       if(mounted)setState(() {});

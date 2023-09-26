@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:awad_nahas/core/strings/enum/location_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/sms_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

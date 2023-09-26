@@ -6,7 +6,6 @@ import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
-import 'package:awad_nahas/features/root_app/widgets/drawer_icon.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
@@ -100,7 +99,7 @@ class ChangePhone extends StatelessWidget {
             const SizedBox(height: 40,),
             BlocBuilder<AccountBloc,AccountState>(
               builder:(ctx,state){
-                AccountBloc bloc = AccountBloc.get(ctx);
+                // AccountBloc bloc = AccountBloc.get(ctx);
                 // if(states==FetchStates.FAILED) return const Center(child: Text("an error occurred"),);
                 return Align(
                   child: CustomButton(

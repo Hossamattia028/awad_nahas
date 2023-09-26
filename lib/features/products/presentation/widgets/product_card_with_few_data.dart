@@ -32,7 +32,7 @@ class ProductCardFewData extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ImageWidget(imgUrl: item.imgPath,width: 80,fit: BoxFit.contain,),
+            ImageWidget(imgUrl: item.imgPath,width: 80,fit: BoxFit.contain,height: 100,),
             const SizedBox(width: 5,),
             Expanded(
               child: Row(
@@ -40,14 +40,15 @@ class ProductCardFewData extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: 100.w,
+                    width: 122.w,
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: CustomText(
                         text: item.title.toString(),
                         color: DMUtil.getDC(),
-                        fontSize: AppStyle.average.sp-1,
+                        fontSize: AppStyle.average.sp-2,
                         maxLine: 4,
+                        isEllipsis: true,
                       ),
                     ),
                   ),
@@ -82,7 +83,6 @@ class ProductCardFewData extends StatelessWidget {
                 ],
               ),
             ),
-
           ],
         ),
       ),

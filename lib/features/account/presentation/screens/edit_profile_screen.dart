@@ -9,7 +9,6 @@ import 'package:awad_nahas/core/utils/sms_api.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
-import 'package:awad_nahas/features/authentication/presentation/screens/reset_password.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/verification_code.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';

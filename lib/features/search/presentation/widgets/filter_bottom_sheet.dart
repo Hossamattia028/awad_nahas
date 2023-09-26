@@ -4,9 +4,6 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 import 'package:awad_nahas/features/search/presentation/widgets/brand_list_inside_filter.dart';
 import 'package:awad_nahas/features/search/presentation/widgets/weight_list_inside_filter.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
@@ -106,9 +103,9 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                      Row(
                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                        children: [
-                         BlocBuilder<RootBloc,RootState>(
+                         BlocBuilder<ProductsBloc,ProductsState>(
                            builder: (ctx,state){
-                             var rootBloc = RootBloc.get(ctx);
+                             var rootBloc = ProductsBloc.get(ctx);
                              return CustomButton(
                                height: 40.h,
                                width: 200.w,
@@ -141,8 +138,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                            ),
                            color: DMUtil.getWC(),
                            onPressed: (){
-                             bloc.add(const FilterProductEvent(filterModel: null));
-                             RootBloc.get(context).add(const EnableSearchEvent(enable: false));
+                             bloc..add(const FilterProductEvent(filterModel: null))..add(const EnableSearchEvent(enable: false));
                            },
                          ),
                      ],

@@ -31,8 +31,8 @@ class BottomNavBar extends StatelessWidget {
               Util.pushPageAndRemoveRoutes(const RootScreen(), context);
             }
             if(index==0){
-              bloc.add(const SearchEvent(word: '',categoryList: [],productList: []));
-              ProductsBloc.get(context).add(const FilterProductEvent(filterModel: null));
+              var bloc = ProductsBloc.get(context);
+              bloc..add(const SearchEvent(word: '',categoryList: [],productList: []))..add(const FilterProductEvent(filterModel: null));
             }
             bloc.add(ChangeIndex(index: index, title: ""));
           },

@@ -11,7 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:awad_nahas/features/account/presentation/screens/edit_profile_screen.dart';
 import 'package:awad_nahas/features/setting/presentation/widgets/small_widgets.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 

@@ -1,8 +1,7 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/search/presentation/screens/search_screen.dart';
 import 'package:awad_nahas/features/search/presentation/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
@@ -38,9 +37,9 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 6,),
             // const SelectLocations(),
 
-            BlocBuilder<RootBloc,RootState>(
+            BlocBuilder<ProductsBloc,ProductsState>(
               builder: (ctx,state){
-                var bloc = RootBloc.get(ctx);
+                var bloc = ProductsBloc.get(ctx);
                 return  bloc.enableSearch? const SearchScreen() : const HomeContentWidget();
               },
             ),

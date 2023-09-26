@@ -19,7 +19,6 @@ class HomeContentWidget extends StatelessWidget {
         const SliderWidget(),
 
         const HomeCategories(),
-        // OurBrandsScreen(),
 
         const SizedBox(height: 10,),
         const OurBrandsHome(),

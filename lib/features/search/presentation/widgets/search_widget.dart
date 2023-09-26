@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/filter_row.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,12 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 
 class SearchWidget extends StatelessWidget {
   final bool showDrawer;
@@ -41,9 +39,9 @@ class SearchWidget extends StatelessWidget {
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10))
               ),
-              child: BlocBuilder<RootBloc,RootState>(
+              child: BlocBuilder<ProductsBloc,ProductsState>(
                 builder: (ctx,state){
-                  var bloc = RootBloc.get(ctx);
+                  var bloc = ProductsBloc.get(ctx);
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
