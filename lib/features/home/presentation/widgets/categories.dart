@@ -18,7 +18,7 @@ class HomeCategories extends StatelessWidget {
         const SizedBox(height: 15,),
         ViewAllRow(title: translate("app_bar.shop_categories"), fn:()=> RootBloc.get(context).add(ChangeIndex(index: 1, title: translate("app_bar.shop_categories")))),
 
-        const SizedBox(height: 12,),
+        const SizedBox(height: 15,),
         HomeCategoriesList(viewAll: viewAll,),
 
 

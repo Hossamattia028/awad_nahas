@@ -16,8 +16,7 @@ class ProductDetailsPrice extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if(productModel.price>10000 )...[
-          // if(productModel.discount!=productModel.price && productModel.discount != 0 )...[
+          if(productModel.discount!=productModel.price && productModel.discount != 0 )...[
           Text.rich(
             TextSpan(
               text: productModel.discount.toString(),
@@ -51,7 +50,7 @@ class ProductDetailsPrice extends StatelessWidget {
           Text.rich(
               TextSpan(
                   text: productModel.price.toString(),
-                  style: TextStyle(color: DMUtil.getDC(),fontWeight: FontWeight.w600),
+                  style: TextStyle(color: DMUtil.getDC(),fontWeight: FontWeight.w600,fontSize: AppStyle.average.sp+2),
                   children: [
                     TextSpan(
                       text: translate("store.sar"),

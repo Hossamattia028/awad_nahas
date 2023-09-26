@@ -59,11 +59,7 @@ class SearchWidget extends StatelessWidget {
                                   categoryList: CategoriesBloc.get(context).categoriesList,productList: ProductsBloc.get(context).productsList));
                             }
                           },
-                          onFieldSubmitted:(val){
-                            bloc.add(SearchEvent(word: val.toString().trim().toLowerCase(),categoryList: CategoriesBloc.get(context).categoriesList,productList:ProductsBloc.get(context).productsList));
-                            // bloc.add(const ChangeIndex(index: 0, title: ""));
-                            // if(isPop)return Navigator.of(context).pop();
-                          },
+                          onFieldSubmitted:(val)=> bloc.add(SearchEvent(word: val.toString().trim().toLowerCase(),categoryList: CategoriesBloc.get(context).categoriesList,productList:ProductsBloc.get(context).productsList)),
                           hintText: translate("app_bar.search"),
                           labelText: "",
                           hintColor: kBackOpacity,

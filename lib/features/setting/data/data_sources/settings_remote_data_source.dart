@@ -68,7 +68,7 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
 
   static Future<List<LocationModel>> getOurLocations() async{
     var response = await http.get(Uri.parse(ApiUrl.OUR_LOCATIONS),headers: ApiUrl.headerAuth);
-    debugPrint("getOurLocations ${response.body}");
+    // debugPrint("getOurLocations ${response.body}");
     var decodedData = json.decode(response.body);
     if (response.statusCode == 200) {
       List<LocationModel> categories =
@@ -90,7 +90,7 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
 
   static Future<List<FaqsModel>> getOurFaqs() async{
     var response = await http.get(Uri.parse(ApiUrl.OUR_FAQS),headers: ApiUrl.headerAuth);
-    debugPrint("getOurFaqs ${response.body}");
+    // debugPrint("getOurFaqs ${response.body}");
     var decodedData = json.decode(response.body);
     if (response.statusCode == 200) {
       List<FaqsModel> faqs =
@@ -127,7 +127,7 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
     };
     var response = await http.post(Uri.parse(ApiUrl.MAINTENANCE),
         body: postData);
-    debugPrint("sendMaintenanceRequest: ${response.body}");
+    // debugPrint("sendMaintenanceRequest: ${response.body}");
     var decodedData = jsonDecode(response.body);
     if (response.statusCode == 200) {
       if(decodedData['success']==true){
@@ -145,7 +145,7 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
     request.files.add(multipartFile);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    debugPrint("sendMaintenanceRequestImage: $respStr");
+    // debugPrint("sendMaintenanceRequestImage: $respStr");
     if (response.statusCode == 200) {
     return json.decode(respStr)['data']['image_id'].toString();
     } else {
@@ -156,7 +156,7 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
   static Future<bool> sendContactUs(Map<String,dynamic> data) async{
     var response = await http.post(Uri.parse(ApiUrl.CONTACT),
         body: data);
-    debugPrint("sendContactUs: ${response.body}");
+    // debugPrint("sendContactUs: ${response.body}");
     var decodedData = jsonDecode(response.body);
     if (response.statusCode == 200) {
       if(decodedData['success']==true){

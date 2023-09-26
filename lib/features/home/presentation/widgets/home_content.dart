@@ -21,7 +21,10 @@ class HomeContentWidget extends StatelessWidget {
         const HomeCategories(),
         // OurBrandsScreen(),
 
-        const SizedBox(height: 5,),
+        const SizedBox(height: 10,),
+        const OurBrandsHome(),
+
+        const SizedBox(height: 10,),
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){
             var bloc = CategoriesBloc.get(ctx);
@@ -31,8 +34,7 @@ class HomeContentWidget extends StatelessWidget {
             return CatProductsList(cat: list.first,);
           },
         ),
-        const SizedBox(height: 10,),
-        const OurBrandsHome(),
+
 
         const SizedBox(height: 10,),
         const BannersSection(),

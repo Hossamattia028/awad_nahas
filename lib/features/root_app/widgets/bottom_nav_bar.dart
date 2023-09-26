@@ -3,6 +3,8 @@ import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_icon.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,10 @@ class BottomNavBar extends StatelessWidget {
           onTap: (index){
             if(isRoot == false){
               Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+            }
+            if(index==0){
+              bloc.add(const SearchEvent(word: '',categoryList: [],productList: []));
+              ProductsBloc.get(context).add(const FilterProductEvent(filterModel: null));
             }
             bloc.add(ChangeIndex(index: index, title: ""));
           },

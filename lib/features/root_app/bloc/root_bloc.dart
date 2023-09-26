@@ -70,18 +70,18 @@ class RootBloc extends Bloc<RootEvent, RootState> {
 
   searchProductsAndCategories(SearchEvent event,emit)async{
     try{
-    emit(RootLoadingState());
-    if(event.word.toString().trim()==""){
-      enableSearch = false;
-      categorySearchList.clear();
-      productSearchList.clear();
+      emit(RootLoadingState());
+      if(event.word.toString().trim()==""){
+        enableSearch = false;
+        categorySearchList.clear();
+        productSearchList.clear();
+        emit(RootSuccessState());
+        return;
+      }
+      categorySearchList = searchCategories(event.word,event.categoryList);
+      await searchProducts(event.word,event.productList,emit);
+      enableSearch = true;
       emit(RootSuccessState());
-      return;
-    }
-    categorySearchList = searchCategories(event.word,event.categoryList);
-    productSearchList = await searchProducts(event.word,event.productList,emit);
-    enableSearch = true;
-    emit(RootSuccessState());
     }catch(e){
       emit(RootErrorState(errors: e.toString()));
       debugPrint("searchProductsAndCategories: $e");
@@ -112,11 +112,12 @@ class RootBloc extends Bloc<RootEvent, RootState> {
       await Future.delayed(const Duration(seconds: 2),(){
         var secondList =  list.getRange(list.length~/2, list.length).toList();
         thisList.addAll(secondList.where((element) => element.title.toString().toLowerCase().startsWith(word) || element.sku.toString().toLowerCase().startsWith(word)).toList());
-        productSearchList.addAll(thisList);
+        productSearchList.addAll(thisList.toList());
+        productSearchList = [...{...productSearchList}];
         emit(RootSuccessState());
       });
     }catch(e){
-      debugPrint("searchProductsAndCategories: $e");
+      debugPrint("searchProducts: $e");
       return [];
     }
   }

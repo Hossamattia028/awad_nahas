@@ -31,7 +31,7 @@ class ProductMainDetails extends StatelessWidget {
             color: DMUtil.getD2C().withOpacity(0.9),
             fontWeight: FontWeight.w600 ,
             fontSize: AppStyle.large.sp-1,
-            maxLine: 2,
+            maxLine: 3,
           ),
           const SizedBox(height: 5,),
           Stack(
@@ -99,16 +99,59 @@ class ProductMainDetails extends StatelessWidget {
                   if(index == -1) return const SizedBox.shrink();
                   var brand = bloc.brandsList[index];
                   if(brand.iconPath.contains("svg")){
-                    return SvgPicture.network(brand.iconPath,width: 26.w,height: 35.h,);
+                    return SvgPicture.network(brand.iconPath,height: 32.h,);
                   }else{
-                    return Image.network(brand.imgPath);
+                    return Image.network(brand.imgPath,height: 32.h,);
                   }
                 },
               ),
             ],
           ),
+
+          const SizedBox(height: 12,),
+
+          ProductSku(item: item),
         ],
       ),
+    );
+  }
+}
+
+
+class ProductSku extends StatelessWidget {
+  final ProductsEntity item;
+  const ProductSku({Key? key,required this.item}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Row(
+      mainAxisAlignment:  MainAxisAlignment.end,
+      children: [
+        if(Util.getLang()!="ar")...[
+          CustomText(
+            text: "SKU:",
+            fontSize: AppStyle.average.sp,
+            fontWeight: FontWeight.w600,
+          ),
+          const SizedBox(width: 4,),
+        ],
+        CustomText(
+          text: item.sku,
+          fontSize: AppStyle.average.sp,
+          fontWeight: FontWeight.w600,
+          color: DMUtil.getD2C().withOpacity(0.8),
+        ),
+
+        if(Util.getLang()=="ar")...[
+          const SizedBox(width: 4,),
+          CustomText(
+            text: ":SKU",
+            fontSize: AppStyle.average.sp,
+            fontWeight: FontWeight.w600,
+          ),
+        ],
+
+      ],
     );
   }
 }

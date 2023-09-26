@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
+import 'package:awad_nahas/features/home/presentation/widgets/view_all.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/vat_included.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
@@ -36,21 +37,29 @@ class CatProductsList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomText(
-                  text: cat.title,
-                  color: DMUtil.getDC(),
-                  fontSize: AppStyle.large.sp,
-                ),
-                ViewAllWidget(fn: (){
-                  CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: cat));
-                  Util.pushPage(const CategoryProductsScreen(), context);
-                },),
-              ],
+            ViewAllRow(
+              title: cat.title,
+              fn: (){
+                CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: cat));
+                Util.pushPage(const CategoryProductsScreen(), context);
+              },
             ),
-            const SizedBox(height: 12,),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //
+            //     // CustomText(
+            //     //   text: cat.title,
+            //     //   color: DMUtil.getDC(),
+            //     //   fontSize: AppStyle.large.sp,
+            //     // ),
+            //     // ViewAllWidget(fn: (){
+            //     //   CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: cat));
+            //     //   Util.pushPage(const CategoryProductsScreen(), context);
+            //     // },),
+            //   ],
+            // ),
+            const SizedBox(height: 15,),
             SizedBox(
               height: Util.getLang()=="ar"? 257.h : 274.h ,
               child: ListView.separated(
@@ -124,7 +133,7 @@ class ProductCardH extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 7),
+                padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 3),
                 decoration:  BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
                   color: DMUtil.getWC(),

@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -13,13 +14,15 @@ class ViewAllWidget extends StatelessWidget {
     return InkWell(
       onTap: fn,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 2,),
-        // decoration: BoxDecoration(
-        //   border: Border.all(width: 1,color: kPrimary),
-        // ),
+        padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 5),
+        decoration: BoxDecoration(
+          border: Border.all(width: 1,color: DMUtil.getRED().withOpacity(0.4)),
+        ),
         child: CustomText(
           text: translate("home.view_all"),
-          fontSize: AppStyle.small.sp+3,
+          fontSize: AppStyle.small.sp-1,
+          fontWeight: FontWeight.w600,
+          color: DMUtil.getRED(),
         ),
       ),
     );

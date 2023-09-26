@@ -128,7 +128,7 @@ class SetNotification{
         onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
       );
     }catch(e){
-      debugPrint("$e");
+      debugPrint("setupFlutterNotifications: $e");
     }
   }
 

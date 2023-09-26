@@ -16,7 +16,8 @@ class ViewAllRow extends StatelessWidget {
       children: [
         CustomText(
           text: title,
-          fontSize: AppStyle.large.sp,
+          fontWeight: FontWeight.w600,
+          fontSize: AppStyle.large.sp-1,
         ),
         ViewAllWidget(fn: fn),
       ],

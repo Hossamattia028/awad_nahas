@@ -16,8 +16,7 @@ class ProductPriceWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if(productModel.price>10000 )...[
-        // if(productModel.discount!=productModel.price && productModel.discount != 0 )...[
+        if(productModel.discount!=productModel.price && productModel.discount != 0 )...[
           CustomText(
             text: "${productModel.price.toString()} ${translate("store.sar")}" ,
             fontSize: isBig ? AppStyle.average.sp: AppStyle.small.sp,
@@ -37,7 +36,6 @@ class ProductPriceWidget extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ],
-
 
       ],
     );
