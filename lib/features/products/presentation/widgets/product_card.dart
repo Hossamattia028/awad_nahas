@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_button.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/vat_included.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
@@ -53,9 +54,9 @@ class ProductCard extends StatelessWidget {
                   SizedBox(
                     width: 230.w,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // const DiscountWidget(value: "-15%"),
+                        DiscountWidget(item: item),
                         WishListIconWidget(item: item),
                       ],
                     ),

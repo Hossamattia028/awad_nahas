@@ -19,6 +19,9 @@ class FilterRow extends StatelessWidget {
           onTap: (){
             showModalBottomSheet(
               context: context,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              useSafeArea: true,
               backgroundColor: Colors.transparent,
               shape:  const RoundedRectangleBorder(
                 borderRadius:  BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
@@ -35,6 +38,9 @@ class FilterRow extends StatelessWidget {
           onTap: (){
             showModalBottomSheet(
               context: context,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              useSafeArea: true,
               backgroundColor: Colors.transparent,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))

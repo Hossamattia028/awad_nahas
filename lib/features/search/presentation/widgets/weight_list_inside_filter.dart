@@ -30,7 +30,8 @@ class WeightFilterList extends StatelessWidget {
                     isDiscount: fModel?.isDiscount ,
                     isAvailable: fModel?.isAvailable,
                     brandID: fModel?.brandID,
-                    weight: item == fModel?.weight ? null : item
+                    weight: item == fModel?.weight ? null : item,
+                    searchModel: fModel?.searchModel,
                 ))),
                 child: Container(
                   alignment: Alignment.center,

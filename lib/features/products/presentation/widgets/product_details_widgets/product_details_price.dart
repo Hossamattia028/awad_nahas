@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/styles/my_fonts.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,7 +41,7 @@ class ProductDetailsPrice extends StatelessWidget {
                   style: TextStyle(color: DMUtil.getOpacity(),fontWeight: FontWeight.w600,decoration: TextDecoration.lineThrough),
                   children: [
                     TextSpan(
-                      text: "  ${translate("store.offer")} ${productModel.price-productModel.discount} ",
+                      text: "  ${translate("store.offer")} ${Util.calcDiscountRate(oldPrice: productModel.price, newPrice: productModel.discount)}% ",
                       style: TextStyle(fontFamily: primaryFontReg,fontSize: AppStyle.small.sp,color: DMUtil.getGreen(),fontWeight: FontWeight.w600,decoration: TextDecoration.none),
                     ),
                   ]

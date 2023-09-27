@@ -4,6 +4,7 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_even
 import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/view_all.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/vat_included.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
@@ -113,11 +114,11 @@ class ProductCardH extends StatelessWidget {
             const SizedBox(height: 2,),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 5),
-              width: 130.w,
+              width: 134.w,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // const DiscountWidget(value: "-15%"),
+                  DiscountWidget(item: item),
                   WishListIconWidget(item: item,isMarginToast: isMarginBottom,),
                 ],
               ),

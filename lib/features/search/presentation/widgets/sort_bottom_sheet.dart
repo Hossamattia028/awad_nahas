@@ -16,7 +16,7 @@ class SortBottomSheetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 290.h,
+      height: 420.h,
       decoration: BoxDecoration(
           color: DMUtil.getWC(),
           borderRadius: const BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
@@ -45,29 +45,29 @@ class SortBottomSheetWidget extends StatelessWidget {
             ),
             const SizedBox(height: 10,),
 
-            BlocBuilder<ProductsBloc,ProductsState>(
-              builder: (ctx,state){
-                var bloc = ProductsBloc.get(ctx);
-                return Column(
-                  children: [
-                    CheckBoxWidget(title: translate("store.popularity"),enabled: bloc.currentSort == SortEnum.POPULAR,sortType: SortEnum.POPULAR,),
+                BlocBuilder<ProductsBloc,ProductsState>(
+                  builder: (ctx,state){
+                    var bloc = ProductsBloc.get(ctx);
+                    return Column(
+                      children: [
+                        CheckBoxWidget(title: translate("store.popularity"),enabled: bloc.currentSort == SortEnum.POPULAR,sortType: SortEnum.POPULAR,),
 
-                    CheckBoxWidget(title: translate("store.averageـrating"),enabled: bloc.currentSort == SortEnum.AVERAGE_RATE,sortType: SortEnum.AVERAGE_RATE,),
+                        CheckBoxWidget(title: translate("store.averageـrating"),enabled: bloc.currentSort == SortEnum.AVERAGE_RATE,sortType: SortEnum.AVERAGE_RATE,),
 
-                    CheckBoxWidget(title: translate("store.newness"),enabled: bloc.currentSort == SortEnum.NEW,sortType: SortEnum.NEW,),
+                        CheckBoxWidget(title: translate("store.newness"),enabled: bloc.currentSort == SortEnum.NEW,sortType: SortEnum.NEW,),
 
-                    CheckBoxWidget(title: translate("store.low_to_high"),enabled: bloc.currentSort == SortEnum.PRICE_LOW_TO_HIGH,sortType: SortEnum.PRICE_LOW_TO_HIGH,),
+                        CheckBoxWidget(title: translate("store.low_to_high"),enabled: bloc.currentSort == SortEnum.PRICE_LOW_TO_HIGH,sortType: SortEnum.PRICE_LOW_TO_HIGH,),
 
-                    CheckBoxWidget(title: translate("store.high_to_low"),enabled: bloc.currentSort == SortEnum.PRICE_HIGH_TO_LOW,sortType: SortEnum.PRICE_HIGH_TO_LOW,),
-                  ],
-                );
-              },
+                        CheckBoxWidget(title: translate("store.high_to_low"),enabled: bloc.currentSort == SortEnum.PRICE_HIGH_TO_LOW,sortType: SortEnum.PRICE_HIGH_TO_LOW,),
+                      ],
+                    );
+                  },
+                ),
+
+                const SizedBox(height: 10,),
+              ],
             ),
-
-            const SizedBox(height: 10,),
-          ],
-        ),
-      )
+          )
     );
   }
 }

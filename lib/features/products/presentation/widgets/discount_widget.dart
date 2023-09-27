@@ -1,27 +1,30 @@
 
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DiscountWidget extends StatelessWidget {
-  final String value;
-  const DiscountWidget({Key? key,required this.value}) : super(key: key);
+  final ProductsEntity item;
+  const DiscountWidget({Key? key,required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return item.discount!=item.price && item.discount != 0 ? Container(
       padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
       decoration: BoxDecoration(
           color: DMUtil.getRED(),
           borderRadius: const BorderRadius.all(Radius.circular(15))
       ),
       child: CustomText(
-        text: '-15%',
+        text: '-${Util.calcDiscountRate(oldPrice: item.price, newPrice: item.discount)}%',
         color: Colors.white,
-        fontSize: AppStyle.small.sp+2,
+        fontWeight: FontWeight.w600,
+        fontSize: AppStyle.small.sp,
       ),
-    );
+    ): const SizedBox.shrink();
   }
 }

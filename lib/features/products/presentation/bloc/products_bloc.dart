@@ -67,10 +67,6 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       modifySearchAvailability(event,emit);
     });
 
-    on<SearchEvent>((event, emit) async{
-      await searchProductsAndCategories(event,emit);
-    });
-
     on<UpdateSearchProductList>((event, emit){
       updateProductSearchList(event,emit);
     });
@@ -252,22 +248,19 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     emit(const FilterSuccessfullyState());
   }
 
-  searchProductsAndCategories(SearchEvent event,emit)async{
+  searchProductsAndCategories(SearchModel searchModel)async{
     try{
-      emit(const FilterLoadingState());
-      if(event.word.toString().trim()==""){
+      // productSearchList = productsList;
+      if(searchModel.word.toString().trim()==""){
         enableSearch = false;
         categorySearchList.clear();
         productSearchList.clear();
-        emit(const FilterSuccessfullyState());
         return;
       }
-      categorySearchList = searchCategories(event.word,event.categoryList);
-      await searchProducts(event.word,event.productList,emit);
+      if(searchModel.categoryList.isNotEmpty)categorySearchList = searchCategories(searchModel.word,searchModel.categoryList);
+      if(productsList.isNotEmpty)await searchProducts(searchModel.word,productsList);
       enableSearch = true;
-      emit(const FilterSuccessfullyState());
     }catch(e){
-      emit(const SearchFailedState());
       debugPrint("searchProductsAndCategories: $e");
     }
   }
@@ -285,20 +278,18 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
   // WARNING
   /// this function will be edit later
-  Future searchProducts(String word,List<ProductsEntity> list,emit)async{
+  Future searchProducts(String word,List<ProductsEntity> list)async{
     List<ProductsEntity> thisList  = [];
     try{
       var firstList = list.getRange(0, list.length~/2).toList();
       thisList.addAll(firstList.where((element) => element.title.toString().toLowerCase().startsWith(word) || element.sku.toString().toLowerCase().startsWith(word)).toList());
       productSearchList = thisList;
       enableSearch = true;
-      emit(const FilterSuccessfullyState());
       await Future.delayed(const Duration(seconds: 2),(){
         var secondList =  list.getRange(list.length~/2, list.length).toList();
         thisList.addAll(secondList.where((element) => element.title.toString().toLowerCase().startsWith(word) || element.sku.toString().toLowerCase().startsWith(word)).toList());
         productSearchList.addAll(thisList.toList());
         productSearchList = [...{...productSearchList}];
-        emit(const FilterSuccessfullyState());
       });
     }catch(e){
       debugPrint("searchProducts: $e");
@@ -312,22 +303,6 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     if(event.sortEnum!=null)productSearchList = sortProducts(event.sortEnum!);
     emit(const FilterSuccessfullyState());
   }
-
-  // List<ProductsEntity> sortProducts(SortEnum sortType,List<ProductsEntity> list){
-  //   if(sortType == SortEnum.NEW){
-  //     list.sort((a, b) => DateTime.parse(b.date!).compareTo(DateTime.parse(a.date!)));
-  //   }else if(sortType == SortEnum.PRICE_HIGH_TO_LOW){
-  //     list.sort((a, b) => b.price.compareTo(a.price));
-  //   }else if(sortType == SortEnum.PRICE_LOW_TO_HIGH){
-  //     list.sort((a, b) => a.price.compareTo(b.price));
-  //   }else if(sortType == SortEnum.AVERAGE_RATE){
-  //     list.sort((a, b) => double.parse(b.averageRate.toString()).compareTo(double.parse(a.averageRate.toString())));
-  //   }else{
-  //     list = list;
-  //   }
-  //   return list;
-  // }
-
 
   /// filter & sort products section
   SortEnum currentSort = SortEnum.POPULAR;
@@ -356,22 +331,28 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   FilterModel? filterModel;
   filterProducts(FilterProductEvent event,emit){
     emit(const FilterLoadingState());
-    productSearchList = storedProductsList;
-    productSearchList = filterByCurrentLang(productSearchList);
-    if(event.filterModel==null){
-      filterModel = null;
-      textStartEditingController.text = "";
-      textEndEditingController.text = "";
+    try{
+      productSearchList = filterByCurrentLang(storedProductsList);
+      if(event.filterModel==null){
+        filterModel  = null;
+        enableSearch = false;
+        textStartEditingController.text = "";
+        textEndEditingController.text = "";
+        emit(const FilterSuccessfullyState());
+        return;
+      }
+      filterModel = event.filterModel;
+      if(event.filterModel!.searchModel!=null)searchProductsAndCategories(event.filterModel!.searchModel!);
+      if(event.filterModel!.filterPrice!=null && (event.filterModel!.filterPrice?.end!=0.0 || event.filterModel!.filterPrice?.start!=0.0))productSearchList = filterPrice(event.filterModel!.filterPrice!);
+      if(event.filterModel!.isAvailable!=null && event.filterModel!.isAvailable==true)productSearchList = filterStock(productSearchList);
+      if(event.filterModel!.isDiscount!=null && event.filterModel!.isDiscount == true)productSearchList = filterIfHasDiscount(productSearchList);
+      if(event.filterModel!.brandID!=null && showBrandFilter == true)productSearchList = filterByBrandID(productSearchList,event.filterModel!.brandID!);
+      if(event.filterModel!.weight!=null && showWeightFilter == true)productSearchList = filterByWeight(productSearchList,event.filterModel!.weight!);
       emit(const FilterSuccessfullyState());
-      return;
+    }catch(e){
+      debugPrint("filterProducts: $e");
+      emit(const SearchFailedState());
     }
-    filterModel = event.filterModel;
-    if(event.filterModel!.filterPrice!=null && (event.filterModel!.filterPrice?.end!=0.0 || event.filterModel!.filterPrice?.start!=0.0))productSearchList = filterPrice(event.filterModel!.filterPrice!);
-    if(event.filterModel!.isAvailable!=null && event.filterModel!.isAvailable==true)productSearchList = filterStock(productsList);
-    if(event.filterModel!.isDiscount!=null && event.filterModel!.isDiscount == true)productSearchList = filterIfHasDiscount(productsList);
-    if(event.filterModel!.brandID!=null && showBrandFilter == true)productSearchList = filterByBrandID(productSearchList,event.filterModel!.brandID!);
-    if(event.filterModel!.weight!=null && showWeightFilter == true)productSearchList = filterByWeight(productSearchList,event.filterModel!.weight!);
-    emit(const FilterSuccessfullyState());
   }
 
   final TextEditingController textStartEditingController = TextEditingController();
@@ -422,3 +403,17 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
 }
 
+// List<ProductsEntity> sortProducts(SortEnum sortType,List<ProductsEntity> list){
+//   if(sortType == SortEnum.NEW){
+//     list.sort((a, b) => DateTime.parse(b.date!).compareTo(DateTime.parse(a.date!)));
+//   }else if(sortType == SortEnum.PRICE_HIGH_TO_LOW){
+//     list.sort((a, b) => b.price.compareTo(a.price));
+//   }else if(sortType == SortEnum.PRICE_LOW_TO_HIGH){
+//     list.sort((a, b) => a.price.compareTo(b.price));
+//   }else if(sortType == SortEnum.AVERAGE_RATE){
+//     list.sort((a, b) => double.parse(b.averageRate.toString()).compareTo(double.parse(a.averageRate.toString())));
+//   }else{
+//     list = list;
+//   }
+//   return list;
+// }

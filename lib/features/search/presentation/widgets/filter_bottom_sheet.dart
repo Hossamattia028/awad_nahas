@@ -20,7 +20,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 540.h,
+      height: 420.h,
       decoration: BoxDecoration(
           color: DMUtil.getWC(),
           borderRadius: const BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
@@ -60,7 +60,8 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                         isDiscount: fModel?.isDiscount ==null ?true:(fModel?.isDiscount==true?false:true),
                         isAvailable: fModel?.isAvailable,
                         weight: fModel?.weight,
-                        brandID: fModel?.brandID
+                        brandID: fModel?.brandID,
+                        searchModel: fModel?.searchModel,
                       ))),
                       child: CheckBoxWidget(
                         title: translate("store.on_sale"),
@@ -72,7 +73,8 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                            isDiscount: fModel?.isDiscount ,
                            isAvailable: fModel?.isAvailable ==null ?true:(fModel?.isAvailable==true?false:true),
                            weight: fModel?.weight,
-                           brandID: fModel?.brandID
+                           brandID: fModel?.brandID,
+                           searchModel: fModel?.searchModel,
                       ))),
                       child: CheckBoxWidget(
                          title: translate("store.in_of_stock"),
@@ -111,14 +113,14 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                                width: 200.w,
                                circular: 20,
                                widget:  CustomText(
-                                 text: "${translate("button.view")} ${bloc.productsList.length} ${translate("products.product")}",
+                                 text: "${translate("button.view")} ${bloc.productSearchList.length} ${translate("products.product")}",
                                  color: Colors.white,
                                  fontSize: AppStyle.average.sp,
                                ),
                                color: DMUtil.getRED(),
                                onPressed: (){
                                  Timer(const Duration(milliseconds: 200), () {
-                                   rootBloc.add(EnableSearchEvent(productList: bloc.productsList,enable: true));
+                                   rootBloc.add(EnableSearchEvent(productList: bloc.productSearchList,enable: true));
                                  });
                                  Navigator.of(context).pop();
                                },
@@ -270,7 +272,8 @@ class FromToRow extends StatelessWidget {
                           end: val.toString().isEmpty?0.0:double.parse(bloc.textEndEditingController.text.trim())),
                           isDiscount: fModel?.isDiscount ,
                           isAvailable: fModel?.isAvailable ,
-                          brandID: fModel?.brandID
+                          brandID: fModel?.brandID,
+                          searchModel: fModel?.searchModel
                       )));
                     },
                     textEditingController: bloc.textEndEditingController,

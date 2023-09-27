@@ -129,7 +129,6 @@ class Util{
   //   }
   // }
 
-
   static Future<bool> isConnected () async{
     try{
       final result = await InternetAddress.lookup('google.com');
@@ -193,6 +192,10 @@ class Util{
     } catch (e) {
       debugPrint("sendWhatsApp: $e");
     }
+  }
+
+  static calcDiscountRate({required double oldPrice,required double newPrice}){
+    return ((oldPrice - newPrice) / oldPrice * 100).toStringAsFixed(2);
   }
 
   static bool checkUser(){

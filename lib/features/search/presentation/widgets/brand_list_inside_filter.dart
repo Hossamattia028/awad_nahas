@@ -32,7 +32,8 @@ class BrandFilterList extends StatelessWidget {
                     isDiscount: fModel?.isDiscount ,
                     isAvailable: fModel?.isAvailable,
                     weight: fModel?.weight,
-                    brandID: item.id == fModel?.brandID ? null : item.id
+                    brandID: item.id == fModel?.brandID ? null : item.id,
+                    searchModel: fModel?.searchModel,
                 ))),
                 child: Container(
                   alignment: Alignment.center,

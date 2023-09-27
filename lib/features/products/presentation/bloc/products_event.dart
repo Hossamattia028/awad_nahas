@@ -28,13 +28,6 @@ class FetchOffersProductsEvent extends ProductsEvent{
   const FetchOffersProductsEvent({this.isPaginate = false});
 }
 
-class SearchEvent extends ProductsEvent {
-  final String word;
-  final List<CategoriesEntity> categoryList;
-  final List<ProductsEntity> productList;
-  const SearchEvent({required this.word,required this.categoryList,required this.productList});
-}
-
 class UpdateSearchProductList extends ProductsEvent {
   final List<ProductsEntity>? productList;
   final SortEnum? sortEnum;
@@ -111,11 +104,18 @@ class EnableWeightFilterEvent extends ProductsEvent{
 
 class FilterModel{
   final FilterPrice? filterPrice;
+  final SearchModel? searchModel;
   final bool? isDiscount;
   final bool? isAvailable;
   final double? weight;
   final int? brandID;
-  const FilterModel({this.filterPrice,this.isDiscount,this.isAvailable,this.weight,this.brandID});
+  const FilterModel({this.filterPrice,this.searchModel,this.isDiscount,this.isAvailable,this.weight,this.brandID});
+}
+
+class SearchModel{
+  final String word;
+  final List<CategoriesEntity> categoryList;
+  const SearchModel({required this.categoryList,required this.word});
 }
 class FilterPrice{
   final double start;
