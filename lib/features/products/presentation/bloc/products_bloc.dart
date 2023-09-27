@@ -123,6 +123,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   showCommentsFun(event,emit){
     emit(const ProductCommentsLoadingState());
     showComments = !showComments;
+    print(showComments.toString());
     emit(const ProductCommentsSuccessfullyState());
   }
 
