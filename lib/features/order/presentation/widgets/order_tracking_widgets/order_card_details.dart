@@ -17,15 +17,16 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 class OrderCardDetails extends StatelessWidget {
   final bool enableTracking;
   final Orders item;
-  const OrderCardDetails({Key? key,this.enableTracking = false,required this.item}) : super(key: key);
+  final bool isTrack;
+  const OrderCardDetails({Key? key,this.enableTracking = false,required this.item,this.isTrack = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        elevation: 5,
+        elevation: isTrack ? 0 : 5,
         color: DMUtil.getWC(),
         shape: RoundedRectangleBorder(
-            side: const BorderSide(width: 1,color: Colors.white),
+            side:isTrack? BorderSide.none : const BorderSide(width: 1,color: Colors.white),
             borderRadius: BorderRadius.circular(10)
         ),
         child: Padding(
@@ -40,6 +41,7 @@ class OrderCardDetails extends StatelessWidget {
                   CustomText(
                     text: "#${item.orderId}",
                     color: DMUtil.getD2C(),
+                    fontWeight: FontWeight.w600,
                     fontSize: AppStyle.small.sp,
                   ),
                   CustomText(
@@ -61,9 +63,9 @@ class OrderCardDetails extends StatelessWidget {
                       title: it.title, sku: "",catTitle: "", desc: "", id: it.id,
                       imgPath: "", price: it.price, discount: 0, discountRate: 0, stockStatus: true,
                       quantity: int.parse(it.qty), categoryList: const [], catID: 0, commentCount: 2);
-                  int ind = ProductsBloc.get(context).productsList.indexWhere((element) => element.id==product.id );
-                  if(ind!=-1) product = ProductsBloc.get(context).productsList[ind];
-                  return ProductCardFewData(item: product,qty: qty.toString(),);
+                  int ind = ProductsBloc.get(context).storedProductsList.indexWhere((element) => element.id==product.id );
+                  if(ind!=-1) product = ProductsBloc.get(context).storedProductsList[ind];
+                  return ProductCardFewData(item: product,qty: qty.toString(),isTrack: isTrack,);
                 },
                 separatorBuilder: (ctx,index) => const SizedBox(height: 5,),
                 itemCount: item.items!.length,

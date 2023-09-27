@@ -22,6 +22,10 @@ class OrderTrackingScreen extends StatelessWidget {
     ORDER_STATUS status  = OrderModel.getStatusViewCheck(item.status.toString());
     return Scaffold(
       backgroundColor: DMUtil.getWC(),
+      bottomNavigationBar: const Padding(
+        padding: EdgeInsets.all(10.0),
+        child: ContinueShoppingButton(navigateRoot: true,),
+      ),
       appBar: GlobalAppBar(
         title: translate("order.track_location"),
         leadingIcon: const BackArrowButton(),
@@ -32,7 +36,7 @@ class OrderTrackingScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            OrderCardDetails(item: item,),
+            OrderCardDetails(item: item,isTrack: true),
             const SizedBox(height: 10,),
 
             Container(
@@ -59,8 +63,7 @@ class OrderTrackingScreen extends StatelessWidget {
 
 
             const SizedBox(height: 30,),
-            const ContinueShoppingButton(),
-            const SizedBox(height: 10,),
+
           ],
         ),
       ),

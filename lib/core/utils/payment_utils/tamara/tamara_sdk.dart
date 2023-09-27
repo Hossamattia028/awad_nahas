@@ -1,7 +1,11 @@
 
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http ;
 
@@ -10,7 +14,7 @@ class TamaraSdk{
   static const tamaraApiToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2NvdW50SWQiOiI2ZDlmYmIyYi1jN2M0LTRiOTctOTRkMi01ZTU2MGRiY2M2OGQiLCJ0eXBlIjoibWVyY2hhbnQiLCJzYWx0IjoiNmE4MGE1MzRjZGQ2MmNlZWQ3MGYzMTZlYzIwYzAzMmEiLCJpYXQiOjE2NjYwODUyMjIsImlzcyI6IlRhbWFyYSJ9.LEp04JkR_wd0BOUOOthwpsiU4F-i8LDhGHWCt5dSmS4ieXkP1dWdUQSFZsDS4UTiYUmpqdQRIN5uVJnt6PH76BecPWoYOceT1Q9z6wvFHTev8JoS_IXZ7Op4dcg6YuBnBtD8H5Z3aNVI9TpPX5Ulgq8U6y0Na7RmHBdnYiO-K1cuHoSD8Uobp-h2GZOnyHg1PzsuklIoMIq-YIlLxcx7AehQ4jv7OWbj632rpg0-tcsSMCIpJZ9OH20uckQ0c1vZIKMJrRgIR26a0G7YFXM1FoZkngwQBYu2NsTtq1oBZURpQ6gqk8DtUU7hyJ0yrcAXL--I_RpHcalGnmcGMPwmmQ";
   static const baseUrl = "https://api-sandbox.tamara.co";
 
-  static Future<String?> checkOut({required Map<String,dynamic> data})async{
+  static Future<String?> checkOut({required Map<String,dynamic> data,required BuildContext context})async{
     try {
       var headers =  {
         "Authorization": "Bearer $tamaraApiToken",
@@ -37,7 +41,7 @@ class TamaraSdk{
           "email": Util.getEmail()==""?"guest@gmail.com":Util.getEmail(),
         },
         "billing_address": data['billing_address'],
-        "shipping_address": data['shipping_address'] ?? data['billing_address'],
+        "shipping_address": data['shipping_address'] ==null || data['shipping_address']['line1'].toString().trim()=="" ? data['billing_address'] : data['shipping_address'],
         if(data['discount']!=null)"discount": data['discount'],
         "tax_amount": {
           "amount": "100.00",
@@ -103,6 +107,7 @@ class TamaraSdk{
         var body = json.decode(response.body);
         return body['checkout_url'];
       } else {
+        SnackBarBuilder.showFeedBackMessage(context, jsonDecode(response.body)['errors'][0]['error_code'].toString().replaceAll("null", "error"), DMUtil.getRED());
         return null;
       }
     } catch (e) {

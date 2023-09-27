@@ -4,6 +4,8 @@ import 'package:awad_nahas/features/locations/presentation/screens/my_locations.
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
 import 'package:awad_nahas/features/order/presentation/screens/order_screen.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
+import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/wishlist/presentation/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,7 +68,7 @@ class MyAccountSetting extends StatelessWidget {
                   ],
                 ),),
               const Divider(),
-              SettingLineOption(title: translate("profile.wishlist"),onTap: ()=> Util.pushPage(const WishListScreen(), context),),
+              SettingLineOption(title: translate("profile.wishlist"),onTap: ()=> RootBloc.get(context).add(const ChangeIndex(index: 2, title: "")),),
               const Divider(),
               SettingLineOption(title: translate("profile.addresses"),onTap: ()=> Util.pushPage(const MyLocationsScreen(), context),),
               const Divider(),

@@ -89,6 +89,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   const SizedBox(height: 15,),
                   TamaraSmallProductWidget(price: currentPrice),
                 ],
+
                 const SizedBox(height: 20,),
                 ProductDetailsDataRow(item: widget.item),
 

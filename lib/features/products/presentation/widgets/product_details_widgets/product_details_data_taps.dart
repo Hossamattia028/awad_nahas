@@ -61,7 +61,8 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
                       unselectedLabelColor: DMUtil.getDC(),
                       indicatorColor: DMUtil.getPC(),
                       labelColor: DMUtil.getPC(),
-                      // isScrollable: true,
+                      isScrollable: true,
+                      labelPadding: EdgeInsets.symmetric(horizontal: 20.w),
                       labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+2,fontFamily: primaryFontReg,fontWeight: FontWeight.w600),
                       tabs: <Widget>[
                         Tab(text: translate("products.desc"),),

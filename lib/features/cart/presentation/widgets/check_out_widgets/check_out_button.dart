@@ -145,7 +145,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       if(billing!=null)"billing_address":LocationModel.toJson(billing),
       if(shipping!=null)"shipping_address":LocationModel.toJson(shipping),
       if(checkCoupon!=null)"discount": checkCoupon
-    });
+    },context: context);
     if(checkOutUrl!=null){
       final res = await Util.pushPage(TamaraCheckout(
         checkOutUrl,
@@ -195,7 +195,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
           orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard)));
         },
         onFailed: (val){
-          // debugPrint("failed ${val.toString()}");
+          debugPrint("failed ${val.toString()}");
           SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
         },
         onCancelled: (){

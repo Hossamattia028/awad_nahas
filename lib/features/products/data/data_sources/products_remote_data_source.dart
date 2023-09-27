@@ -55,12 +55,16 @@ class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
   }
 
   static Future<String> getProductDetails({required int id}) async {
-    var response = await http.get(Uri.parse("${ApiUrl.BASE_URL_ABN_PLUGIN}products/$id?lang=${Util.getLang()=="ar"?"ar":"en"}"));
-    debugPrint("getProductDetails ${response.body}");
-    if (response.statusCode == 200) {
-      final body = json.decode(response.body);
-      return body['description'];
-    } else {
+    try{
+      var response = await http.get(Uri.parse("${ApiUrl.BASE_URL_ABN_PLUGIN}products/$id?lang=${Util.getLang()=="ar"?"ar":"en"}"));
+      debugPrint("getProductDetails ${response.body}");
+      if (response.statusCode == 200) {
+        final body = json.decode(response.body);
+        return body['description'];
+      } else {
+        throw ServerException();
+      }
+    }catch(e){
       throw ServerException();
     }
   }
@@ -83,8 +87,10 @@ class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
 
   @override
   Future<bool> addProductComment({required Map<String,dynamic> data}) async {
-    var response = await client.post(Uri.parse(ApiUrl.COMMENTS_URL),body: jsonEncode(data),headers: ApiUrl.headerAuth);
-    // debugPrint("addProductComment ${response.body}");
+    var response = await client.post(Uri.parse(ApiUrl.COMMENTS_URL),
+        body: jsonEncode(data),
+        headers: ApiUrl.headerAuth);
+    debugPrint("addProductComment ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       if(body.toString().contains("done"))return true;

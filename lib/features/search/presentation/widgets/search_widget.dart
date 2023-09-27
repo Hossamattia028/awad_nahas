@@ -62,7 +62,7 @@ class SearchWidget extends StatelessWidget {
                                 filterPrice: bloc.filterModel?.filterPrice,
                                 brandID: bloc.filterModel?.brandID,
                                 weight: bloc.filterModel?.weight,
-                                searchModel: SearchModel(word: val.toString().trim().toLowerCase(),categoryList: CategoriesBloc.get(context).categoriesList,),
+                                searchModel: SearchModel(word: val.toString().trim().toLowerCase(),categoryList: CategoriesBloc.get(context).categoriesList,brandList: CategoriesBloc.get(context).brandsList),
                               ))),
                           hintText: translate("app_bar.search"),
                           labelText: "",

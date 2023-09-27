@@ -27,14 +27,15 @@ class OrderList extends StatelessWidget {
           // if(state is OrderLoadingState) return const Center(child: CircularProgressIndicator(),);
           return Scrollbar(
             child: ListView.separated(
-                padding: EdgeInsets.symmetric(vertical: 15.w, horizontal: 20.w),
+                padding: EdgeInsets.symmetric(vertical: 15.w, horizontal: 10.w),
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   var item = list[index];
                   return OrderCardDetails(enableTracking: true,item: item,);
                 },
                 separatorBuilder: (context, index) => const SizedBox(height: 15),
-                itemCount: list.length),
+                itemCount: list.length,
+            ),
           );
         },
       ),

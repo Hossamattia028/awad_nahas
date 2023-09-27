@@ -24,67 +24,59 @@ class CommentList extends StatelessWidget {
         if(state is ProductCommentsLoadingState)return  LoadingWidget(height: 50.h,);
         if(list!.isEmpty) {
           return const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: EmptyDataWidget(),
-        );
+            padding: EdgeInsets.all(8.0),
+            child: EmptyDataWidget(),
+          );
         }
         return ListView.separated(
           itemCount: list.length,
           shrinkWrap: true,
+          padding: const EdgeInsets.all(10),
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (ctx, index) {
             var item = list[index];
             return InkWell(
               child: SizedBox(
                 width: double.infinity,
-                child: Column(
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
+                        CircleAvatar(
+                          radius: 20.w,
+                          backgroundColor: kPrimary,
+                          child: Icon(
+                            CupertinoIcons.person_crop_circle,
+                            color: Colors.white,
+                            size: 30.w,
+                          ),
+                        ),
+                        const SizedBox(width: 10,),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CircleAvatar(
-                              radius: 20.w,
-                              backgroundColor: kPrimary,
-                              child: Icon(
-                                CupertinoIcons.person_crop_circle,
-                                color: Colors.white,
-                                size: 30.w,
-                              ),
-                            ),
-                            const SizedBox(width: 5,),
                             CustomText(
                               text: item.userName,
                               fontSize: AppStyle.small.sp,
                               color: kText1,
                             ),
+                            CustomText(
+                              text: item.commentContent,
+                              fontSize: AppStyle.small.sp-1,
+                              color: kSecondPrimary,
+                            ),
                           ],
-                        ),
-                        CustomText(
-                          text: Util.formatToDayFullMonthYear(DateTime.parse(item.date)),
-                          fontSize: AppStyle.small.sp,
-                          color: kText1,
                         ),
                       ],
                     ),
-
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 50.w,
-                        ),
-                        Flexible(
-                          child: CustomText(
-                            text: item.commentContent,
-                            fontSize: AppStyle.small.sp,
-                            color: kSecondPrimary,
-                          ),
-                        ),
-                      ],
-                    )
-
+                    CustomText(
+                      text: Util.formatToDayFullMonthYear(DateTime.parse(item.date)).toString().replaceAll("null", ""),
+                      fontSize: AppStyle.small.sp,
+                      color: kText1,
+                    ),
                   ],
                 ),
               ),

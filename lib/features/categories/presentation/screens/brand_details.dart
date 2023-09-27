@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
@@ -57,7 +58,11 @@ class BrandDetailsScreen extends StatelessWidget{
                                       Tab(child: InkWell(onTap:() {
                                         DefaultTabController.of(ctxB).animateTo(0);
                                         bloc.add(const ChangeBrandIndexEvent(index: 0));
-                                      },child: TabWidget(title: "${translate("store.products")} ${brand.title}",isSelected: bloc.currentBrandIndex==0,)),),
+                                      },child: TabWidget(
+                                        title: Util.getLang()=="ar"?
+                                        "${translate("store.products")} ${brand.title}" :
+                                        "${brand.title} ${translate("store.products")}",isSelected: bloc.currentBrandIndex==0,
+                                      )),),
                                       Tab(child: InkWell(onTap:() {
                                         DefaultTabController.of(ctxB).animateTo(1);
                                         bloc.add(const ChangeBrandIndexEvent(index: 1));

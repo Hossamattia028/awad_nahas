@@ -71,6 +71,8 @@ class AppImages{
   static const String searImg = "$images/sear_img.png";
 
 
+  static const String like = "$icons/like.png";
+
 
   static const String whats = "$icons/whatsapp.svg";
   static const String support = "$icons/call_center.svg";

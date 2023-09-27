@@ -115,7 +115,8 @@ class FilterModel{
 class SearchModel{
   final String word;
   final List<CategoriesEntity> categoryList;
-  const SearchModel({required this.categoryList,required this.word});
+  final List<CategoriesEntity> brandList;
+  const SearchModel({required this.categoryList,required this.word,required this.brandList});
 }
 class FilterPrice{
   final double start;

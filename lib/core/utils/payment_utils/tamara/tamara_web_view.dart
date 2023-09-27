@@ -51,9 +51,9 @@ class TamaraCheckoutState extends State<TamaraCheckout> {
           onPageFinished: (String url) {
             debugPrint("finished: $url");
             if(url.contains("successful")){
-              Navigator.of(context).pop("successful");
+              if(mounted)Navigator.of(context).pop("successful");
             }else if(url.contains("canceled")){
-              Navigator.of(context).pop("canceled");
+              if(mounted)Navigator.of(context).pop("canceled");
             }
           },
           onWebResourceError: (WebResourceError error) {
