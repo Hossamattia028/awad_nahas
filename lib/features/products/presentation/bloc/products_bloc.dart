@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/strings/enum/filter_enum.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
+import 'package:awad_nahas/features/products/data/models/product_comments.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/comment_usecase.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/products_usecase.dart';
@@ -55,7 +56,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     });
 
     on<FetchAllProductsEvent>((event, emit)async {
-          await getAllProducts(event,emit);
+      await getAllProducts(event,emit);
     });
 
     on<UpdateAllProductsEvent>((event, emit)async {
@@ -92,6 +93,11 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     });
 
 
+    on<UpdateProductCommentEvent>((event, emit){
+      updateRatingValue(event, emit);
+    });
+
+
   }
   static ProductsBloc get(BuildContext context) => BlocProvider.of(context);
 
@@ -120,35 +126,67 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     emit(const ProductCommentsSuccessfullyState());
   }
 
+  double ratingVal = 2.5;
+  updateRatingValue(UpdateProductCommentEvent event,emit){
+    emit(const UpdateRatingLoadingState());
+    ratingVal = event.value;
+    emit(const UpdateRatingLoadingState());
+  }
   addProductComment(AddProductCommentEvent event,emit)async{
-    if(currentProduct==null)return;
     emit(const ProductCommentsLoadingState());
-    // try{
+    try{
       var res = await addProductCommentUseCase(data: {
-        "comment_post_ID": currentProduct!.id.toString(),
-        "comment_author":Util.getUserID().toString(),
-        "comment_author_email":Util.getEmail(),
-        "comment_approved":"2",
-        "user_id":Util.getUserID(),
-        "comment_date":DateTime.now().toString(),
-        "comment_content":event.txt,
-        "comment_type":"2"
+        "product_id": event.productId,
+        "user_name": Util.getName().toString(),
+        "user_email": Util.getEmail(),
+        "user_id": Util.getUserID(),
+        "comment": event.txt,
+        "rating": double.parse(ratingVal.toString()).toInt(),
       });
       res.fold((l) {
         emit(const ProductCommentsFailedState());
       },(data) {
         if(data==true){
+          addNewCommentToProduct(event);
           emit(const ProductCommentsSuccessfullyState());
         }else{
           emit(const ProductCommentsFailedState());
         }
       });
-    // }catch(e){
-    //   debugPrint("getAllLatestProductsBlocError: $e");
-    //   emit(const ProductCommentsFailedState());
-    // }
+    }catch(e){
+      debugPrint("getAllLatestProductsBlocError: $e");
+      emit(const ProductCommentsFailedState());
+    }
   }
 
+  addNewCommentToProduct(AddProductCommentEvent event){
+    int index = storedProductsList.indexWhere((element) => element.id == event.productId);
+    if(index!=-1){
+      var item = storedProductsList[index];
+      var com = ProductComments(
+          productID: item.id,
+          rating: ratingVal,
+          commentContent: event.txt,
+          commentType: 'review',
+          userID: int.tryParse(Util.getUserID())!=null?int.parse(Util.getUserID()):0, date: DateTime.now().toString(), userName: Util.getName());
+      List<ProductComments> list = item.reviewsList ?? [];
+      list.add(com);
+      item = ProductsEntity(
+          title: item.title,
+          catTitle: item.catTitle,
+          desc: item.desc, id: item.id, sku: item.sku,
+          imgPath: item.imgPath, price: item.price,
+          discount: item.discount,
+          discountRate: item.discountRate,
+          stockStatus: item.stockStatus,
+          quantity: item.quantity,
+          categoryList: item.categoryList,
+          catID: item.catID,
+          commentCount: item.commentCount,
+          reviewsList: list
+      );
+    }
+  }
 
   updateCurrentProduct(UpdateCurrentProduct event,emit){
     emit(const ProductsLoadingState());

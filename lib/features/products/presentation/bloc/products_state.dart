@@ -28,6 +28,10 @@ class FilterByCategoryState extends ProductsState{
   const FilterByCategoryState();
 }
 
+class UpdateRatingLoadingState extends ProductsState{
+  const UpdateRatingLoadingState();
+}
+
 
 class ProductCommentsLoadingState extends ProductsState{
   const ProductCommentsLoadingState();

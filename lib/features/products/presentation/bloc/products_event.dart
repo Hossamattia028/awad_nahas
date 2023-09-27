@@ -68,13 +68,20 @@ class ShowCommentsEvent extends ProductsEvent{
   const ShowCommentsEvent();
 }
 
+
 class FetchProductCommentsEvent extends ProductsEvent{
   const FetchProductCommentsEvent();
 }
 
 class AddProductCommentEvent extends ProductsEvent{
   final String txt;
-  const AddProductCommentEvent({required this.txt,});
+  final int productId;
+  const AddProductCommentEvent({required this.txt,required this.productId});
+}
+
+class UpdateProductCommentEvent extends ProductsEvent{
+  final double value;
+  const UpdateProductCommentEvent({required this.value,});
 }
 
 

@@ -47,7 +47,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       }
     }
     productsBloc = ProductsBloc.get(context);
-    productsBloc..add(UpdateCurrentProduct(item: widget.item))..add(const ShowFullContentEvent(val: false));
+    productsBloc..add(UpdateCurrentProduct(item: widget.item))..add(const ShowFullContentEvent(val: false))..add(const ChangeWidgetSizeEvent(height: 250,index: 0));
     controller.addListener(() {
       if(controller.position.pixels>500){
         if(enableBTop!=true){

@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/order/presentation/widgets/thanks_order_dialog_widget.dart';
+import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/add_comments.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/features/account/presentation/widgets/delete_account.dart';
@@ -144,17 +145,18 @@ class CustomDialogs {
         });
   }
 
-  static addComment(BuildContext context) async {
+  static addComment(BuildContext context,ProductsEntity item) async {
     return await showDialog(
         context: context,
         barrierDismissible: true,
         builder: (BuildContext context) {
-          return const Dialog(
-              shape: RoundedRectangleBorder(
+          return  Dialog(
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25)),
               ),
               backgroundColor: Colors.transparent,
-              child: AddCommentsWidget());
+              child: AddCommentsWidget(item:item),
+          );
         });
   }
 

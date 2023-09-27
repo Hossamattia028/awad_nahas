@@ -1,7 +1,6 @@
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/rate_products_row.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
@@ -10,7 +9,6 @@ import 'package:awad_nahas/features/products/domain/entities/products_entity.dar
 import 'package:awad_nahas/features/products/presentation/screens/product_details_screen.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 
 
 class ProductCardFewData extends StatelessWidget {
@@ -38,7 +36,7 @@ class ProductCardFewData extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ImageWidget(imgUrl: item.imgPath,width: 80,fit: BoxFit.contain,height: 100,),
+                ImageWidget(imgUrl: item.imgPath,width: 74,fit: BoxFit.contain,height: 100,),
                 const SizedBox(width: 8,),
                 Expanded(
                   child: Row(
@@ -46,14 +44,14 @@ class ProductCardFewData extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 122.w,
+                        width: 135.w,
                         child: SingleChildScrollView(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 0),
                           child: CustomText(
                             text: item.title.toString(),
                             color: DMUtil.getDC(),
                             fontWeight: FontWeight.w600,
-                            fontSize: AppStyle.average.sp-4,
+                            fontSize: AppStyle.small.sp-3,
                             maxLine: 4,
                             isEllipsis: true,
                           ),
@@ -94,7 +92,7 @@ class ProductCardFewData extends StatelessWidget {
             ),
 
             if(isTrack)...[
-
+              RateProductsRow(item: item,),
             ],
           ],
         )

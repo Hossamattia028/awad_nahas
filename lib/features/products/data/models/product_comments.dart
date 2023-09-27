@@ -7,8 +7,10 @@ class ProductComments {
   final String date;
   final int userID;
   final String userName;
+  final double rating;
 
-  ProductComments({required this.productID,required this.commentContent,required this.commentType,required this.userID,required this.date,required this.userName});
+  ProductComments({required this.productID,required this.rating,required this.commentContent,required this.commentType,required this.userID,required this.date,required this.userName});
+
   static List<ProductComments> listModelFromJson(String str) =>
       List<ProductComments>.from(
           json.decode(str).map((x) => ProductComments.fromJson(x)));
@@ -22,6 +24,7 @@ class ProductComments {
       date: jsonObject['date']??DateTime.now(),
       userID: jsonObject['user_id']??0,
       userName: jsonObject['author']??"",
+      rating: double.tryParse(jsonObject['rating'].toString()) ?? 0.0,
     );
   }
 

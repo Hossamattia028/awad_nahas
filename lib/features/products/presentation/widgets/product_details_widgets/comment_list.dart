@@ -1,6 +1,9 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/shared_widgets/review.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
@@ -28,61 +31,84 @@ class CommentList extends StatelessWidget {
             child: EmptyDataWidget(),
           );
         }
-        return ListView.separated(
-          itemCount: list.length,
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(10),
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (ctx, index) {
-            var item = list[index];
-            return InkWell(
-              child: SizedBox(
-                width: double.infinity,
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+        return Column(
+          children: [
+            ListView.separated(
+              itemCount: list.length,
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(10),
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (ctx, index) {
+                var item = list[index];
+                return InkWell(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child:  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: 20.w,
-                          backgroundColor: kPrimary,
-                          child: Icon(
-                            CupertinoIcons.person_crop_circle,
-                            color: Colors.white,
-                            size: 30.w,
-                          ),
-                        ),
-                        const SizedBox(width: 10,),
-                        Column(
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomText(
-                              text: item.userName,
-                              fontSize: AppStyle.small.sp,
-                              color: kText1,
+                            CircleAvatar(
+                              radius: 20.w,
+                              backgroundColor: kPrimary,
+                              child: Icon(
+                                CupertinoIcons.person_crop_circle,
+                                color: Colors.white,
+                                size: 30.w,
+                              ),
                             ),
-                            CustomText(
-                              text: item.commentContent,
-                              fontSize: AppStyle.small.sp-1,
-                              color: kSecondPrimary,
+                            const SizedBox(width: 10,),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomText(
+                                  text: item.userName,
+                                  fontSize: AppStyle.small.sp,
+                                  color: kText1,
+                                ),
+                                RatingBar.builder(
+                                  initialRating: item.rating==0.0?1.0:item.rating,
+                                  minRating: 1,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemSize: 24.w,
+                                  itemBuilder: (context, _) =>  const Icon(
+                                    Icons.star,
+                                    color: Colors.amberAccent,
+                                  ),
+                                  onRatingUpdate: (rating) {},
+                                ),
+                                SizedBox(
+                                  width: 172.w,
+                                  child: CustomText(
+                                    text: item.commentContent,
+                                    fontSize: AppStyle.small.sp-1,
+                                    color: DMUtil.getD2C().withOpacity(0.7),
+                                    maxLine: 6,
+                                    isEllipsis: true,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
+                        CustomText(
+                          text: Util.formatToDayFullMonthYear(DateTime.parse(item.date)).toString().replaceAll("null", ""),
+                          fontSize: AppStyle.small.sp,
+                          color: kText1,
+                        ),
                       ],
                     ),
-                    CustomText(
-                      text: Util.formatToDayFullMonthYear(DateTime.parse(item.date)).toString().replaceAll("null", ""),
-                      fontSize: AppStyle.small.sp,
-                      color: kText1,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) => const Divider(),
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) => const Divider(height: 30,),
+            ),
+
+          ],
         );
       },
     );
