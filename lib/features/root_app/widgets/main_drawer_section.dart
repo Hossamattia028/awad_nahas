@@ -55,6 +55,7 @@ class MainDrawerSection extends StatelessWidget {
             Util.pushPage(const HelpCenterScreen(), context);
           },
         ),
+
         if(Util.checkUser())...[
           ItemLineDrawer(
             title: translate("drawer.maintaenance_request"),

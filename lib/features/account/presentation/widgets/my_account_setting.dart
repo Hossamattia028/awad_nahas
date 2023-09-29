@@ -6,7 +6,6 @@ import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
 import 'package:awad_nahas/features/order/presentation/screens/order_screen.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
-import 'package:awad_nahas/features/wishlist/presentation/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

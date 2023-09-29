@@ -75,11 +75,12 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
       decodedData.map<LocationModel>((categoryModel) {
         return LocationModel(
             address1: categoryModel['title']??"",
-            address2: categoryModel['address']??"",
-            country: categoryModel['country']??"",
+            address2: (categoryModel['address']??"").toString(),
+            country: (categoryModel['country']??"").toString(),
             hours: categoryModel['hours']??[],
             lat: double.parse(categoryModel['lat']??"0.0",),
-            long:double.parse(categoryModel['lng']??"0.0",), phone: categoryModel['phone'], state: '', id: 0, type: '', postCode: '', lastName: '', firstName: '', email: '',
+            long:double.parse(categoryModel['lng']??"0.0",),
+          phone: categoryModel['phone'], state: '', id: 0, type: '', postCode: '', lastName: '', firstName: '', email: '',
         );
       }).toList();
       return categories;

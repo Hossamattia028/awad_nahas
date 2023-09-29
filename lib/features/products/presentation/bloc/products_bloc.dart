@@ -123,7 +123,6 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   showCommentsFun(event,emit){
     emit(const ProductCommentsLoadingState());
     showComments = !showComments;
-    print(showComments.toString());
     emit(const ProductCommentsSuccessfullyState());
   }
 
@@ -236,8 +235,10 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       for(var cat in i.categoryList){
         if(cat.id == catId && subCatID==-1){
           list.add(i);
-        }else if(cat.id == catId || cat.id == subCatID){
-          list.add(i);
+        }else if(subCatID != -1){
+          if(cat.id == subCatID){
+            list.add(i);
+          }
         }
       }
     }

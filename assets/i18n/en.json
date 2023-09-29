@@ -19,6 +19,11 @@
 		"more_info": "More Info",
 		"search": "Search for ..."
 	},
+	"rate": {
+		"rate": "Rate the app",
+		"title": "What do you think about Our App?",
+		"leave_rating": "Please leave a rating"
+	},
 	"drawer": {
 		"menu": "Menu",
 		"our_company": "Our Company",

@@ -1,8 +1,6 @@
-import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/add_comments.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/like_icon.dart';
