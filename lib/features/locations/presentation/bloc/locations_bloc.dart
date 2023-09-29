@@ -138,6 +138,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
         lastName: data['${kind}_last_name'] ?? "",
         email: data['${kind}_email'] ?? "",
         postCode: data['${kind}_postcode'] ?? "",
+        locationType: data['location_type'] ?? "",
     );
   }
 

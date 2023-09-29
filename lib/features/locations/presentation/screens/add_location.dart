@@ -42,7 +42,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
   late LocationsBloc locationsBloc;
   LocationMapEntity? locationMapEntity;
   LocationEnum locationEnum = LocationEnum.Billing;
-  String type = "";
+  String locationType = "";
 
   @override
   void didChangeDependencies() {
@@ -320,24 +320,24 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                   children: [
                     InkWell(
                       onTap: ()=> setState(() {
-                        type = "home";
+                        locationType = "home";
                       }),
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(Radius.circular(8)),
                           border: Border.all(width: 0),
-                            color: type=="home"?DMUtil.getRED():DMUtil.getWC()
+                            color: locationType=="home"?DMUtil.getRED():DMUtil.getWC()
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.home_outlined,color: type=="home"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.7),size: AppStyle.average.w+1,),
+                            Icon(Icons.home_outlined,color: locationType=="home"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.7),size: AppStyle.average.w+1,),
                             const SizedBox(width: 5,),
                             CustomText(
                               text: translate("map.home"),
                               fontWeight: FontWeight.w600,
-                              color: type=="home"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.8),
+                              color: locationType=="home"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.8),
                               fontSize: AppStyle.small.sp,
                             ),
                           ],
@@ -347,24 +347,24 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                     const SizedBox(width: 12,),
                     InkWell(
                         onTap: ()=> setState(() {
-                          type = "work";
+                          locationType = "work";
                         }),
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
                           decoration: BoxDecoration(
                               borderRadius: const BorderRadius.all(Radius.circular(8)),
                               border: Border.all(width: 0),
-                            color: type=="work"?DMUtil.getRED():DMUtil.getWC()
+                            color: locationType=="work"?DMUtil.getRED():DMUtil.getWC()
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.work,color:type=="work"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.7),size: AppStyle.average.w+1,),
+                              Icon(Icons.work,color:locationType=="work"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.7),size: AppStyle.average.w+1,),
                               const SizedBox(width: 5,),
                               CustomText(
                                 text: translate("map.work"),
                                 fontWeight: FontWeight.w600,
-                                color: type=="work"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.8),
+                                color: locationType=="work"? DMUtil.getWC(): DMUtil.getD2C().withOpacity(0.8),
                                 fontSize: AppStyle.small.sp,
                               ),
                             ],
@@ -386,6 +386,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                       CustomText(
                         color: Colors.white,
                         fontSize: AppStyle.average.sp,
+                        fontWeight: FontWeight.w600,
                         text: translate("map.save_location"),
                       ),
                       color: DMUtil.getRED(),
@@ -410,6 +411,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                             "${type}_address_1": cityTextEditingController.text.trim(),
                             "${type}_last_name": Util.getName(),
                             "${type}_first_name": Util.getName(),
+                            "location_type" : locationType.toString()
                           };
                           if(widget.locationEntity!=null){
                             if(widget.type == "local"){

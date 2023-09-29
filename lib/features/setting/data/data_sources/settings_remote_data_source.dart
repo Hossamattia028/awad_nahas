@@ -81,6 +81,7 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
             lat: double.parse(categoryModel['lat']??"0.0",),
             long:double.parse(categoryModel['lng']??"0.0",),
           phone: categoryModel['phone'], state: '', id: 0, type: '', postCode: '', lastName: '', firstName: '', email: '',
+          locationType: "",
         );
       }).toList();
       return categories;

@@ -7,7 +7,9 @@ class LocationModel extends LocationEntity{
   const LocationModel({required super.address1,required super.address2,required super.phone,
     required super.state,required super.country,required super.id,required super.type,
     required super.lat,required super.long,required super.postCode,required super.lastName,required super.firstName,
-    required super.email,super.hours});
+    required super.email,super.hours,
+    required super.locationType
+  });
 
   // static List<LocationModel> locationListFromJson(String str) =>
   //     List<LocationModel>.from(
@@ -21,7 +23,7 @@ class LocationModel extends LocationEntity{
       address2:  (jsonObject['billing_address_2']??jsonObject['shipping_address_2']).toString().replaceAll("null", ""),
       country:  (jsonObject['billing_country']??jsonObject['shipping_country']).toString().replaceAll("null", ""),
       phone:  (jsonObject['billing_phone']??jsonObject['shipping_phone']).toString().replaceAll("null", ""),
-      type:  type,
+      type:  type.toString(),
       lat:  double.parse(jsonObject['latitude']??"0"),
       long:  double.parse(jsonObject['longitude'] ?? "0"),
       state: (jsonObject['billing_state']??jsonObject['shipping_state']).toString().replaceAll("null", ""),
@@ -29,7 +31,8 @@ class LocationModel extends LocationEntity{
       firstName: (jsonObject['billing_first_name']??jsonObject['shipping_first_name']).toString().replaceAll("null", ""),
       lastName:  (jsonObject['billing_last_name']??jsonObject['shipping_last_name']).toString().replaceAll("null", ""),
       email:  (jsonObject['billing_email']??jsonObject['shipping_email']).toString().replaceAll("null", ""),
-      hours: jsonObject['hours']??[]
+      hours: jsonObject['hours']??[],
+      locationType: type.toString(),
     );
   }
 
@@ -67,6 +70,7 @@ class LocationModel extends LocationEntity{
       '${type}_postcode': location.postCode,
       '${type}_first_name': Util.getName(),
       '${type}_last_name': Util.getName(),
+      'location_type': location.locationType ?? "",
     };
   }
 
@@ -85,6 +89,7 @@ class LocationModel extends LocationEntity{
         firstName: jsonObject['${type}_last_name'] ?? "",
         lastName:  jsonObject['${type}_email'] ?? "",
         email:  jsonObject['${type}_postcode'] ?? "",
+        locationType: jsonObject['location_type'] ?? "",
     );
   }
 }

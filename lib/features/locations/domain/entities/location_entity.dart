@@ -14,12 +14,14 @@ class LocationEntity extends Equatable{
   final String type;
   final double lat;
   final double long;
+  final String? locationType;
   final List<dynamic>? hours;
   const LocationEntity({required this.address1,required this.address2,required this.country,required this.phone,required this.id,
     required this.type,required this.long,required this.lat,
     required this.state,required this.firstName,required this.lastName,required this.email,
     required this.postCode,
-    this.hours
+    this.hours,
+    this.locationType,
   });
 
   @override

@@ -4,6 +4,7 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:awad_nahas/features/locations/presentation/widgets/circle_dots.dart';
+import 'package:awad_nahas/features/locations/presentation/widgets/location_type_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -69,12 +70,18 @@ class LocationCardWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomText(
-                        text:isAdd ? txt : locationEntity.address1,
-                        color: DMUtil.getDC(),
-                        fontWeight: FontWeight.w600,
-                        fontSize: AppStyle.average.sp-2,
-                        maxLine: 3,
+                      Row(
+                        children: [
+                          CustomText(
+                            text:isAdd ? txt : locationEntity.address1,
+                            color: DMUtil.getDC(),
+                            fontWeight: FontWeight.w600,
+                            fontSize: AppStyle.average.sp-2,
+                            maxLine: 3,
+                          ),
+                          if(locationEntity.locationType!=null && locationEntity.locationType!="")
+                            LocationTypeViewWidget(locationEntity: locationEntity),
+                        ],
                       ),
                       InkWell(
                         onTap: () => Util.pushPage(AddNewLocationScreen(locationEntity: isAdd ? null : locationEntity,type: locationEntity.type,), context),
