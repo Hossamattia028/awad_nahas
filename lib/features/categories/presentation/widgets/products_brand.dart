@@ -28,7 +28,14 @@ class ProductsBrand extends StatelessWidget {
         var productList = bloc.productsList;
         if(currentCat!=null)productList = bloc.filterByCategoryID(currentCat.id, -1);
         productList = bloc.brandProducts(itemBrand.id,list: productList);
-        return BlocBuilder<ProductsBloc, ProductsState>(
+        var subCatList  = [];
+        for(var i in list){
+          if(bloc.brandProducts(itemBrand.id,list: bloc.filterByCategoryID(i.id, -1)).isNotEmpty){
+            subCatList.add(i);
+          }
+        }
+        return subCatList.isEmpty ? const SizedBox.shrink():
+          BlocBuilder<ProductsBloc, ProductsState>(
           builder: (ctx, state) {
             return Column(
               children: [
@@ -38,9 +45,9 @@ class ProductsBrand extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: list.length,
+                    itemCount: subCatList.length,
                     itemBuilder: (ctx,index){
-                      var item = list[index];
+                      var item = subCatList[index];
                         return InkWell(
                           onTap: ()=> catBloc.add(ChangeCategoriesEvent(categoriesModel: item)),
                           child: Container(
@@ -54,6 +61,7 @@ class ProductsBrand extends StatelessWidget {
                     separatorBuilder: (ctx,index)=> const SizedBox(width: 10,),
                   ),
                 ),
+
                 productList.isEmpty? Padding(
                   padding: const EdgeInsets.only(top: 50),
                   child: Row(

@@ -45,7 +45,7 @@ class LocationsList extends StatelessWidget {
                     itemBuilder: (ctx,index){
                       var item  = localList[index];
                       return LocationCardWidget(locationEntity: item,currentLocation: bloc.currentCheckOutLocation!=null &&
-                          bloc.currentCheckOutLocation==item && bloc.currentCheckOutLocation?.type=="local",
+                          bloc.currentCheckOutLocation?.id==item.id && bloc.currentCheckOutLocation?.type=="local",
                           isAdd: bloc.checkIFAddressEmpty(item));
                     },
                     separatorBuilder: (ctx,index)=> const SizedBox(height: 10,),

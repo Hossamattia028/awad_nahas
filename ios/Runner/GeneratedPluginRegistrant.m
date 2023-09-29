@@ -30,12 +30,6 @@
 @import firebase_messaging;
 #endif
 
-#if __has_include(<flutter_amazonpaymentservices/FlutterAmazonpaymentservicesPlugin.h>)
-#import <flutter_amazonpaymentservices/FlutterAmazonpaymentservicesPlugin.h>
-#else
-@import flutter_amazonpaymentservices;
-#endif
-
 #if __has_include(<flutter_facebook_auth/FlutterFacebookAuthPlugin.h>)
 #import <flutter_facebook_auth/FlutterFacebookAuthPlugin.h>
 #else
@@ -145,7 +139,6 @@
   [FLTFirebaseAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseAuthPlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FLTFirebaseMessagingPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseMessagingPlugin"]];
-  [FlutterAmazonpaymentservicesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterAmazonpaymentservicesPlugin"]];
   [FlutterFacebookAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterFacebookAuthPlugin"]];
   [FlutterLocalNotificationsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterLocalNotificationsPlugin"]];
   [FlutterSecureStoragePlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterSecureStoragePlugin"]];

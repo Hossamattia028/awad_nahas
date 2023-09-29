@@ -14,13 +14,13 @@ class DiscountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return item.discount!=item.price && item.discount != 0 ? Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+      padding: const EdgeInsets.symmetric(horizontal: 10,) + const EdgeInsets.only(top: 1),
       decoration: BoxDecoration(
           color: DMUtil.getRED(),
           borderRadius: const BorderRadius.all(Radius.circular(15))
       ),
       child: CustomText(
-        text: '-${Util.calcDiscountRate(oldPrice: item.price, newPrice: item.discount)}%',
+        text: Util.getLang()=="ar"? '${Util.calcDiscountRate(oldPrice: item.price, newPrice: item.discount)}% -': '-${Util.calcDiscountRate(oldPrice: item.price, newPrice: item.discount)}%',
         color: Colors.white,
         fontWeight: FontWeight.w600,
         fontSize: AppStyle.small.sp,

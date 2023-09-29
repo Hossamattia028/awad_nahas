@@ -61,6 +61,7 @@ class LocationModel extends LocationEntity{
 
   static Map<String, dynamic> toJsonLocal(LocationEntity location,String type) {
     return {
+      "id":int.tryParse(location.id.toString())??(DateTime.now().millisecond),
       '${type}_address_1': location.address1,
       '${type}_address_2': location.address2,
       '${type}_country': location.country,

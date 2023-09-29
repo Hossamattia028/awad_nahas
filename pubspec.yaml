@@ -78,8 +78,8 @@ dependencies:
 
 
   #payment
-  amazon_payfort: ^0.0.8
-  flutter_amazonpaymentservices: ^0.0.7
+  amazon_payfort: ^1.0.0
+#  flutter_amazonpaymentservices: ^0.0.7
 
 
 dev_dependencies:

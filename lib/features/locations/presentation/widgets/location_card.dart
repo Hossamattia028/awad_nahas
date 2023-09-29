@@ -73,13 +73,16 @@ class LocationCardWidget extends StatelessWidget {
                       Row(
                         children: [
                           CustomText(
-                            text:isAdd ? txt : locationEntity.address1,
+                            text:isAdd ? txt : locationEntity.address1.toString(),
                             color: DMUtil.getDC(),
                             fontWeight: FontWeight.w600,
                             fontSize: AppStyle.average.sp-2,
                             maxLine: 3,
                           ),
-                          if(locationEntity.locationType!=null && locationEntity.locationType!="")
+                          if(locationEntity.locationType!=null &&
+                              locationEntity.locationType!="" &&
+                              locationEntity.type=="local"
+                          )
                             LocationTypeViewWidget(locationEntity: locationEntity),
                         ],
                       ),

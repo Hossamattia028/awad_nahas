@@ -129,7 +129,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
         address2: data['${kind}_address_2'] ?? "",
         country: data['${kind}_country'] ?? "",
         phone: data['${kind}_phone'] ?? "",
-        id: int.parse(DateTime.now().millisecond.toString()+DateTime.now().minute.toString()),
+        id: int.parse(DateTime.now().millisecond.toString()+DateTime.now().minute.toString()+DateTime.now().day.toString()),
         type: data[kind] ?? "",
         long: 0.0,
         lat:  0.0,
