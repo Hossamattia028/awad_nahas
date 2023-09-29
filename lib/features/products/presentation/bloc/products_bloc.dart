@@ -290,7 +290,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
         return;
       }
       filterModel = event.filterModel;
-      if(event.filterModel!.searchModel!=null)await searchProductsAndCategories(event.filterModel!.searchModel!,emit);
+      if(event.filterModel!.searchModel!=null && event.filterModel?.searchModel?.word!="")await searchProductsAndCategories(event.filterModel!.searchModel!,emit);
       if(event.filterModel!.filterPrice!=null && (event.filterModel!.filterPrice?.end!=0.0 || event.filterModel!.filterPrice?.start!=0.0))productSearchList = filterPrice(event.filterModel!.filterPrice!);
       if(event.filterModel!.isAvailable!=null && event.filterModel!.isAvailable==true)productSearchList = filterStock(productSearchList);
       if(event.filterModel!.isDiscount!=null && event.filterModel!.isDiscount == true)productSearchList = filterIfHasDiscount(productSearchList);
@@ -306,19 +306,22 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   final TextEditingController textStartEditingController = TextEditingController();
   final TextEditingController textEndEditingController = TextEditingController();
   filterPrice(FilterPrice filterPrice){
-    productSearchList = productSearchList.where((element) => element.price<=filterPrice.end && element.price>=filterPrice.start).toList();
+    debugPrint("filterPrice");
+    productSearchList = productSearchList.where((element) => element.discount<=filterPrice.end && element.discount>=filterPrice.start).toList();
     return productSearchList;
   }
 
 
   /// filter by stock if true is instock
   filterStock(List<ProductsEntity> products){
+    debugPrint("filterStock");
     products = products.where((element) => element.stockStatus==true).toList();
     return products;
   }
 
   /// filter if product has discount or not
   filterIfHasDiscount(List<ProductsEntity> products){
+    debugPrint("filterIfHasDiscount");
     products = products.where((element) => element.discount !=0 && element.discount!=element.price).toList();
     return products;
   }
@@ -332,8 +335,8 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
   /// filter by brand id
   filterByBrandID(List<ProductsEntity> products,int brandID){
-    products = products.where((element) => element.brandID == brandID).toList();
-    return products;
+    debugPrint("filterByBrandID");
+    return products.where((element) => element.brandID == brandID).toList();
   }
 
   bool showWeightFilter = false;
@@ -344,6 +347,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   }
   /// filter by weight
   filterByWeight(List<ProductsEntity> products,double weight){
+    debugPrint("filterByWeight");
     products = products.where((element) => element.attributes?.weight == weight).toList();
     return products;
   }
@@ -393,6 +397,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   // WARNING
   /// this function will be edit later
   Future searchProducts(String word,List<ProductsEntity> list,int brandID,emit)async{
+    debugPrint("searchProducts");
     List<ProductsEntity> thisList  = [];
     try{
       var firstList = list.getRange(0, list.length~/2).toList();
