@@ -36,22 +36,22 @@ class ProductCardFewData extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ImageWidget(imgUrl: item.imgPath,width: 74,fit: BoxFit.contain,height: 100,),
-                const SizedBox(width: 8,),
+                ImageWidget(imgUrl: item.imgPath,width: 74,fit: BoxFit.contain,height: 90,),
+                const SizedBox(width: 5,),
                 Expanded(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 135.w,
+                        width: 130.w,
                         child: SingleChildScrollView(
-                          padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 0),
+                          padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 0) +const EdgeInsets.only(top: 5),
                           child: CustomText(
                             text: item.title.toString(),
                             color: DMUtil.getDC(),
                             fontWeight: FontWeight.w600,
-                            fontSize: AppStyle.small.sp-3,
+                            fontSize: AppStyle.small.sp,
                             maxLine: 4,
                             isEllipsis: true,
                           ),
