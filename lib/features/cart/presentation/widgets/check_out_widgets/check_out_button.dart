@@ -44,7 +44,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   @override
   void initState() {
     cartBloc = CartBloc.get(context);
-    payFortController.init();
+    // payFortController.init();
     cartBloc.paymentWithCard == PaymentEnum.PAYFORT;
     super.initState();
   }
@@ -115,13 +115,12 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     );
   }
 
-  _checkOut(BuildContext context,OrderBloc orderBloc){
+  _checkOut(BuildContext context,OrderBloc orderBloc)async{
     if(cartBloc.paymentWithCard == PaymentEnum.CASH){
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
       // _cash(orderBloc);
     }else if(cartBloc.paymentWithCard == PaymentEnum.PAYFORT){
-      // payFortController.flutterAmazon();
-      _checkOutPayfort(context,orderBloc);
+      _checkOutAmazonPayfort(orderBloc);
     }else if(cartBloc.paymentWithCard == PaymentEnum.TAMARA){
       _checkOutTamra(context,orderBloc);
     }
@@ -172,37 +171,47 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
 
 
-  _checkOutPayfort(BuildContext context,OrderBloc orderBloc) async {
-    if(cartBloc.applePay){
-      await payFortController.paymentWithApplePay(
-        amount: cartBloc.totalPrice.toInt(),
-        onSucceeded:(val){
-          debugPrint("success ${val.status}");
-          // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
-          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
-        },
-        onFailed: (val){
-          debugPrint("failed ${val.toString()}");
-          SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
-        },
-      );
+  _checkOutAmazonPayfort(OrderBloc orderBloc)async{
+    final res = await payFortController.flutterAmazon(amount: cartBloc.totalPrice.toInt());
+    if(res==true){
+      orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard)));
     }else{
-      await payFortController.paymentWithCreditOrDebitCard(
-        amount: cartBloc.totalPrice.toInt(),
-        onSucceeded:(val){
-          debugPrint("success ${val.status}");
-          // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
-          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard)));
-        },
-        onFailed: (val){
-          debugPrint("failed ${val.toString()}");
-          SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
-        },
-        onCancelled: (){
-          debugPrint("canceled");
-          SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
-        },
-      );
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
     }
   }
+
+  // _checkOutPayfort(BuildContext context,OrderBloc orderBloc) async {
+  //   if(cartBloc.applePay){
+  //     await payFortController.paymentWithApplePay(
+  //       amount: cartBloc.totalPrice.toInt(),
+  //       onSucceeded:(val){
+  //         debugPrint("success ${val.status}");
+  //         // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
+  //         orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
+  //       },
+  //       onFailed: (val){
+  //         debugPrint("failed ${val.toString()}");
+  //         SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
+  //       },
+  //     );
+  //   }else{
+  //     await payFortController.paymentWithCreditOrDebitCard(
+  //       amount: cartBloc.totalPrice.toInt(),
+  //       onSucceeded:(val){
+  //         debugPrint("success ${val.status}");
+  //         // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
+  //         orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard)));
+  //       },
+  //       onFailed: (val){
+  //         debugPrint("failed ${val.toString()}");
+  //         SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
+  //       },
+  //       onCancelled: (){
+  //         debugPrint("canceled");
+  //         SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+  //       },
+  //     );
+  //   }
+  // }
+
 }

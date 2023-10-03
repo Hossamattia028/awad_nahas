@@ -44,11 +44,11 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
         child: BlocBuilder<ProductsBloc,ProductsState>(
           builder: (ctx,state){
             var bloc = ProductsBloc.get(ctx);
-            if(bloc.index==0 && bloc.showFullContent ==true){
-              if(desc.length>490) bloc.widgetSize= 500;
-            }else{
-              bloc.widgetSize= 220;
-            }
+            // if(bloc.index==0 && bloc.showFullContent ==true){
+            //   if(desc.length>490) bloc.widgetSize= 500;
+            // }else{
+            //   bloc.widgetSize= 220;
+            // }
             return Container(
               color: DMUtil.getWC(),
               child: Column(
@@ -73,7 +73,8 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
                   ),
                   const SizedBox(height: 10,),
 
-                  if(bloc.index==0)desc==""? const LoadingWidget(height: 30,): (bloc.showFullContent? ProductDescriptionWidget(txt:  desc,): SizedBox(height:bloc.widgetSize,child: ProductDescriptionWidget(txt:  desc,),)),
+                  if(bloc.index==0)desc==""? const LoadingWidget(height: 30,):ProductDescriptionWidget(txt:  desc,),
+                  // (bloc.showFullContent? ProductDescriptionWidget(txt:  desc,): SizedBox(height:bloc.widgetSize,child: ProductDescriptionWidget(txt:  desc,),)),
                   if(bloc.index==1)widget.item.attributesDes!=null ? ProductAttributes(txt: widget.item.attributesDes!) : const SizedBox.shrink(),
                   if(bloc.index==2)const CommentList(),
 

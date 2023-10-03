@@ -61,7 +61,7 @@ class CatProductsList extends StatelessWidget {
             // ),
             const SizedBox(height: 15,),
             SizedBox(
-              height: Util.getLang()=="ar"? 257.h : 274.h ,
+              height: Util.getLang()=="ar"? 250.h : 260.h ,
               child: ListView.separated(
                 itemCount: list.length,
                 physics: const BouncingScrollPhysics(),
@@ -127,13 +127,13 @@ class ProductCardH extends StatelessWidget {
             Expanded(
               child: ImageWidget(
                 imgUrl: item.imgPath,
-                fit: BoxFit.fill,
+                fit: BoxFit.contain,
                 width: 120,
               ),
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
                 decoration:  BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
                   color: DMUtil.getWC(),

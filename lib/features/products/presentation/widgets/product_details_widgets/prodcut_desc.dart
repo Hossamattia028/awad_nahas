@@ -18,13 +18,13 @@ class ProductDescriptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool checkTxtLength = txt.toString().length<400?false:true;
+    // bool checkTxtLength = txt.toString().length<400?false:true;
     return BlocBuilder<ProductsBloc,ProductsState>(
       builder: (ctx,state){
         var bloc =  ProductsBloc.get(ctx);
         return Column(
           children: [
-            bloc.showFullContent?
+            // bloc.showFullContent?
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: SingleChildScrollView(
@@ -42,49 +42,49 @@ class ProductDescriptionWidget extends StatelessWidget {
                   textStyle: TextStyle(color: DMUtil.getD2C(),fontFamily: primaryFontReg,height: 1.5),
                 ),
               ),
-            ):
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: HtmlWidget(
-                    '''
-                    $txt
-                    ''',
-                    customStylesBuilder: (element) {
-                      if (element.classes.contains('name')) {
-                        return {'color': 'red'};
-                      }
-                      return null;
-                    },
-                    textStyle: TextStyle(color: DMUtil.getD2C(),fontFamily: primaryFontReg,height: 1.5),
-                  ),
-                ),
-              ),
-            ),
+            )
+            //     : Expanded(
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(10.0),
+            //     child: SingleChildScrollView(
+            //       physics: const NeverScrollableScrollPhysics(),
+            //       child: HtmlWidget(
+            //         '''
+            //         $txt
+            //         ''',
+            //         customStylesBuilder: (element) {
+            //           if (element.classes.contains('name')) {
+            //             return {'color': 'red'};
+            //           }
+            //           return null;
+            //         },
+            //         textStyle: TextStyle(color: DMUtil.getD2C(),fontFamily: primaryFontReg,height: 1.5),
+            //       ),
+            //     ),
+            //   ),
+            // ),
 
-            Visibility(
-              visible: checkTxtLength,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                color: DMUtil.getWC(),
-                child: CustomButton(
-                  height: 35.h,
-                  width: double.infinity,
-                  widget: CustomText(
-                    text:  bloc.showFullContent==false? translate("store.show_more").toUpperCase() :translate("store.show_less").toUpperCase(),
-                    fontSize: AppStyle.small.sp,
-                    color: DMUtil.getRED(),
-                    fontWeight: FontWeight.w600,
-                  ),
-                  circular: 6,
-                  color: DMUtil.getWC(),
-                  sideColor: DMUtil.getRED(),
-                  onPressed: ()=> bloc.add(const ShowFullContentEvent()),
-                ),
-              ),
-            ),
+            // Visibility(
+            //   visible: checkTxtLength,
+            //   child: Container(
+            //     padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+            //     color: DMUtil.getWC(),
+            //     child: CustomButton(
+            //       height: 35.h,
+            //       width: double.infinity,
+            //       widget: CustomText(
+            //         text:  bloc.showFullContent==false? translate("store.show_more").toUpperCase() :translate("store.show_less").toUpperCase(),
+            //         fontSize: AppStyle.small.sp,
+            //         color: DMUtil.getRED(),
+            //         fontWeight: FontWeight.w600,
+            //       ),
+            //       circular: 6,
+            //       color: DMUtil.getWC(),
+            //       sideColor: DMUtil.getRED(),
+            //       onPressed: ()=> bloc.add(const ShowFullContentEvent()),
+            //     ),
+            //   ),
+            // ),
           ],
         );
       },
