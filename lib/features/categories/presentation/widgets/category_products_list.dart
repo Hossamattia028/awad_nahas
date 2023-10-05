@@ -35,7 +35,7 @@ class CategoryProductsListWidget extends StatelessWidget {
               ),
               itemBuilder: (BuildContext context, int index) {
                 var item = list[index];
-                return ProductHorizontalCard(item: item, index: index);
+                return ProductHorizontalCard(item: item, index: index,isMarginToast: false);
               },
             ),
           )

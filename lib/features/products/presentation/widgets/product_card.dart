@@ -57,7 +57,7 @@ class ProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         DiscountWidget(item: item),
-                        WishListIconWidget(item: item),
+                        WishListIconWidget(item: item,),
                       ],
                     ),
                   ),

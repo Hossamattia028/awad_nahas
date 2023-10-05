@@ -37,6 +37,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
     return PreferredSize(
         preferredSize: Size(double.infinity, AppStyle.appBarHeight.h),
         child: Container(
+          alignment: Alignment.center,
           padding: EdgeInsets.only(left: 10.w, right: 10.w, top: AppStyle.paddingFromTop.h),
           decoration: BoxDecoration(
             color: backGroundColor,

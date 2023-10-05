@@ -17,7 +17,8 @@ class ProductHorizontalCard extends StatelessWidget {
   final ProductsEntity item;
   final int index;
   final bool isSmall;
-  const ProductHorizontalCard({Key? key,required this.item,required this.index,this.isSmall = false}) : super(key: key);
+  final bool isMarginToast;
+  const ProductHorizontalCard({Key? key,required this.item,required this.index,this.isSmall = false,this.isMarginToast = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class ProductHorizontalCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     DiscountWidget(item: item),
-                    WishListIconWidget(item: item,isMarginToast: true),
+                    WishListIconWidget(item: item,isMarginToast: isMarginToast),
                   ],
                 ),
               ),
@@ -60,7 +61,7 @@ class ProductHorizontalCard extends StatelessWidget {
                 width: widTh.w,
                 child: AlignChildRow(
                   isStart: false,
-                  child: WishListIconWidget(item: item,isMarginToast: true),
+                  child: WishListIconWidget(item: item,isMarginToast: isMarginToast),
                 ),
               ),
             ],

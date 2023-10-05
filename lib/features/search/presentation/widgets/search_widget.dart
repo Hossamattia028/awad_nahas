@@ -71,9 +71,20 @@ class SearchWidget extends StatelessWidget {
                           textEditingController: searchTextEditingController,
                           cursorColor: kPrimary,
                           validator: () {},
-                          prefixIcon: Icon(
-                            CupertinoIcons.search,
-                            color: DMUtil.getDC(),
+                          prefixIcon: InkWell(
+                            onTap: ()=> bloc.add(FilterProductEvent(
+                                filterModel: FilterModel(
+                                  isDiscount: bloc.filterModel?.isDiscount,
+                                  isAvailable: bloc.filterModel?.isAvailable,
+                                  filterPrice: bloc.filterModel?.filterPrice,
+                                  brandID: bloc.filterModel?.brandID,
+                                  weight: bloc.filterModel?.weight,
+                                  searchModel: SearchModel(word: searchTextEditingController.text.toString().trim().toLowerCase(),categoryList: CategoriesBloc.get(context).categoriesList,brandList: CategoriesBloc.get(context).brandsList),
+                                ))),
+                            child: Icon(
+                              CupertinoIcons.search,
+                              color: DMUtil.getDC(),
+                            ),
                           ),
                           smallPadding: true,
                           obscureText: false,

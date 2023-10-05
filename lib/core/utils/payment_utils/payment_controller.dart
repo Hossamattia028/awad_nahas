@@ -66,6 +66,42 @@ class PayFortController{
   //   }
   // }
 
+
+  Future<bool> flutterAmazonApplePay({required int amount})async{
+    String? id = await FlutterAmazonpaymentservices.getUDID;
+    var token = await PayFortApi.generateTokenFromApi(id.toString());
+    var requestParam = {
+      "amount": amount * 100 ,
+      "command": "AUTHORIZATION",
+      "currency": "SAR",
+      "customer_email": Util.getEmail(),
+      "language": "en",
+      "merchant_reference": token,
+      "sdk_token": token,
+    };
+    try {
+      var result = await FlutterAmazonpaymentservices.validateApi(requestParam, EnvironmentType.sandbox,).onError((error, stackTrace) {
+        debugPrint(error.toString());
+        throw "error";
+      }).catchError((va){
+        debugPrint(va.toString());
+        return va;
+      }).whenComplete(() => debugPrint("comp"));
+      // debugPrint("res $result");
+      // var decodedData = jsonDecode(result.toString());
+      if(result['response_code'].toString().trim()=="02000" && result['response_message'].toString().toLowerCase()=="success"){
+        return true;
+      }else{
+        return false;
+      }
+    } on PlatformException catch (e)
+    {
+      debugPrint("Error ${e.message} details:${e.details}");
+      return false;
+    }
+  }
+
+
   Future<bool> flutterAmazon({required int amount})async{
     String? id = await FlutterAmazonpaymentservices.getUDID;
     var token = await PayFortApi.generateTokenFromApi(id.toString());
@@ -88,8 +124,7 @@ class PayFortController{
         debugPrint(va.toString());
         return va;
       }).whenComplete(() => debugPrint("comp"));
-      debugPrint("res $result");
-      debugPrint("res ${result['response_code']}");
+      // debugPrint("res $result");
       // var decodedData = jsonDecode(result.toString());
       if(result['response_code'].toString().trim()=="02000" && result['response_message'].toString().toLowerCase()=="success"){
         return true;

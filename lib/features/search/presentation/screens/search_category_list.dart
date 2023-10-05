@@ -19,7 +19,6 @@ class SearchCategoryList extends StatelessWidget {
     return BlocBuilder<ProductsBloc,ProductsState>(
       builder: (ctx,state){
         var bloc = ProductsBloc.get(ctx);
-        if(bloc.categorySearchList.isEmpty&&bloc.productSearchList.isEmpty)return CustomText(text: translate("search.no_result"), fontSize: AppStyle.small.sp);
         if(bloc.categorySearchList.isEmpty)return const SizedBox.shrink();
         var list = bloc.categorySearchList;
         list = CategoriesBloc.get(context).activateTransList(list);

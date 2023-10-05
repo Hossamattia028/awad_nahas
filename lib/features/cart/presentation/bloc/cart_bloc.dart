@@ -102,7 +102,11 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   changePaymentMethod(PaymentWithCardEvent event,emit){
     emit(PaymentLoadingState());
     paymentWithCard = event.paymentEnum;
-    if(event.enableApplePay!=null)applePay = event.enableApplePay!;
+    if(event.enableApplePay!=null){
+      applePay = event.enableApplePay!;
+    }else{
+      applePay = false;
+    }
     emit(PaymentSuccessfullyState());
   }
   int cartCount = 1;
