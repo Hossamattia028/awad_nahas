@@ -5,6 +5,7 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_card.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
@@ -37,6 +38,7 @@ class ProductsBrand extends StatelessWidget {
         return subCatList.isEmpty ? const SizedBox.shrink():
           BlocBuilder<ProductsBloc, ProductsState>(
           builder: (ctx, state) {
+            var productsBloc = ProductsBloc.get(ctx);
             return Column(
               children: [
                 SizedBox(
@@ -49,7 +51,11 @@ class ProductsBrand extends StatelessWidget {
                     itemBuilder: (ctx,index){
                       var item = subCatList[index];
                         return InkWell(
-                          onTap: ()=> catBloc.add(ChangeCategoriesEvent(categoriesModel: item)),
+                          onTap: (){
+                            catBloc.add(ChangeCategoriesEvent(categoriesModel: item));
+                            productsBloc.add(UpdateCurrentCatAndSubCat(catID: item.id));
+                          },
+                          // onTap: ()=> catBloc.add(ChangeCategoriesEvent(categoriesModel: item)),
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border(bottom: BorderSide(width: 1,color: currentCat?.id==item.id?DMUtil.getPC():Colors.transparent))

@@ -51,6 +51,7 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
             // }
             return Container(
               color: DMUtil.getWC(),
+              width: double.infinity,
               child: Column(
                 children: <Widget>[
                   const SizedBox(height: 10,),

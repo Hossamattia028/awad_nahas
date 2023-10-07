@@ -18,7 +18,8 @@ class WishListWidget extends StatelessWidget {
       builder: (ctx,state){
         var bloc = WishlistBloc.get(ctx);
         var list = bloc.wishlistList;
-        list = ProductsBloc.get(context).filterByCurrentLang(list);
+        var productBloc  = ProductsBloc.get(context);
+        list = productBloc.filterByCurrentLang(list);
         if(list.isEmpty)return const WishListEmpty();
         return ListView.separated(
           padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: AppStyle.paddingFromTop.h),

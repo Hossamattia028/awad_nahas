@@ -67,4 +67,20 @@ class PayFortApi {
     }
     return null;
   }
+
+  static Future<String?> generateTokenFromApiApplePay(
+      String deviceID) async {
+    var response = await post(
+      Uri.parse("${ApiUrl.BASE_URL}token_value_ios"),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        "deviceID":deviceID
+      }),
+    );
+    if (response.statusCode == 200) {
+      var decodedResponse = jsonDecode(response.body);
+      return decodedResponse['output'];
+    }
+    return null;
+  }
 }

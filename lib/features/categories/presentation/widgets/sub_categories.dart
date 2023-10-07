@@ -3,6 +3,8 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +31,13 @@ class SubCategoriesHList extends StatelessWidget {
               var item = list[index];
               bool isEnabled = item == bloc.currentSubCategory;
               return InkWell(
-                onTap: ()=> bloc.add(ChangeSubCategoriesEvent(categoriesModel: item)),
+                onTap: (){
+                  bloc.add(ChangeSubCategoriesEvent(categoriesModel: item));
+                  var productBloc = ProductsBloc.get(context);
+                  productBloc
+                    ..add(const FilterProductEvent(filterModel: null,))
+                    ..add(UpdateCurrentCatAndSubCat(catID: productBloc.currentFilterCat,subCatID: item.id));
+                },
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border(bottom: BorderSide(width: 1,color:  isEnabled ? DMUtil.getPC():Colors.transparent))

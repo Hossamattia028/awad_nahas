@@ -63,9 +63,6 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
       await getAllSliders(emit);
     });
 
-    on<FetchAnotherSliderAdsEvent>((event, emit)async{
-
-    });
 
     on<ChangeCurrentBrand>((event, emit) {
       setCurrentBrand(event, emit);

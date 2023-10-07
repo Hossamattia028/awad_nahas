@@ -1,15 +1,9 @@
-import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 class ProductDescriptionWidget extends StatelessWidget {
@@ -21,7 +15,7 @@ class ProductDescriptionWidget extends StatelessWidget {
     // bool checkTxtLength = txt.toString().length<400?false:true;
     return BlocBuilder<ProductsBloc,ProductsState>(
       builder: (ctx,state){
-        var bloc =  ProductsBloc.get(ctx);
+        // var bloc =  ProductsBloc.get(ctx);
         return Column(
           children: [
             // bloc.showFullContent?

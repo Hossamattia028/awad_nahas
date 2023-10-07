@@ -1,20 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
-// import 'package:amazon_payfort/amazon_payfort.dart';
-// import 'package:awad_nahas/core/utils/payment_utils/fort_constants.dart';
 import 'package:awad_nahas/core/utils/payment_utils/payfort_api.dart';
-import 'package:awad_nahas/core/utils/payment_utils/sdk_token_response.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_amazonpaymentservices/environment_type.dart';
 import 'package:flutter_amazonpaymentservices/flutter_amazonpaymentservices.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_amazonpaymentservices/environment_type.dart';
-import 'package:flutter_amazonpaymentservices/flutter_amazonpaymentservices.dart';
-import 'package:network_info_plus/network_info_plus.dart';
-import 'package:uuid/uuid.dart';
-
 
 class PayFortController{
 
@@ -67,9 +57,9 @@ class PayFortController{
   // }
 
 
-  Future<bool> flutterAmazonApplePay({required int amount})async{
+  Future<bool> flutterAmazonApplePay({required int amount,required dynamic appleData})async{
     String? id = await FlutterAmazonpaymentservices.getUDID;
-    var token = await PayFortApi.generateTokenFromApi(id.toString());
+    var token = await PayFortApi.generateTokenFromApiApplePay(id.toString());
     var requestParam = {
       "amount": amount * 100 ,
       "command": "AUTHORIZATION",
@@ -78,16 +68,30 @@ class PayFortController{
       "language": "en",
       "merchant_reference": token,
       "sdk_token": token,
+      "digital_wallet": "APPLE_PAY",
+      "apple_data": appleData['data'],
+      "apple_signature": appleData['signature'],
+      "apple_header":{
+        'apple_transactionId': appleData['header']['ephemeralPublicKey'],
+        'apple_ephemeralPublicKey': appleData['header']['publicKeyHash'],
+        'apple_publicKeyHash': appleData['header']['transactionId'],
+      },
+      "apple_paymentMethod":{
+        'apple_displayName': appleData['paymentMethod']['displayName'],
+        'apple_network': appleData['paymentMethod']['network'],
+        'apple_type': appleData['paymentMethod']['type'],
+      },
+      "signature": appleData['signature'],
     };
     try {
-      var result = await FlutterAmazonpaymentservices.validateApi(requestParam, EnvironmentType.sandbox,).onError((error, stackTrace) {
+      var result = await FlutterAmazonpaymentservices.normalPay(requestParam, EnvironmentType.sandbox,).onError((error, stackTrace) {
         debugPrint(error.toString());
         throw "error";
       }).catchError((va){
         debugPrint(va.toString());
         return va;
       }).whenComplete(() => debugPrint("comp"));
-      // debugPrint("res $result");
+      debugPrint("res $result");
       // var decodedData = jsonDecode(result.toString());
       if(result['response_code'].toString().trim()=="02000" && result['response_message'].toString().toLowerCase()=="success"){
         return true;
@@ -113,8 +117,6 @@ class PayFortController{
       "language": "en",
       "merchant_reference": token,//should be unique
       "sdk_token": token,
-      // "merchant_reference": id.toString(),
-      // "sdk_token": sdkTokenResponse?.sdkToken ?? '',
     };
     try {
       var result = await FlutterAmazonpaymentservices.normalPay(requestParam, EnvironmentType.sandbox,).onError((error, stackTrace) {
@@ -124,7 +126,7 @@ class PayFortController{
         debugPrint(va.toString());
         return va;
       }).whenComplete(() => debugPrint("comp"));
-      // debugPrint("res $result");
+      debugPrint("res $result");
       // var decodedData = jsonDecode(result.toString());
       if(result['response_code'].toString().trim()=="02000" && result['response_message'].toString().toLowerCase()=="success"){
         return true;

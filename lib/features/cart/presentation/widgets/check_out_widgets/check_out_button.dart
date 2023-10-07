@@ -48,7 +48,6 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   @override
   void initState() {
     cartBloc = CartBloc.get(context);
-    // payFortController.init();
     cartBloc.paymentWithCard == PaymentEnum.PAYFORT;
     paymentItems = [
       PaymentItem(
@@ -85,7 +84,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         builder: (ctx,state){
           var orderBloc = OrderBloc.get(ctx);
           return SizedBox(
-            height: 85.h,
+            height: 95.h,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -125,7 +124,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                               paymentItems: paymentItems,
                               style: ApplePayButtonStyle.black,
                               type: ApplePayButtonType.checkout,
-                              onPaymentResult: (val) => onApplePayResult(val,orderBloc),
+                              onPaymentResult: (val) async => await onApplePayResult(val,orderBloc),
                               loadingIndicator: const Center(
                                 child: CircularProgressIndicator(),
                               ),
@@ -161,15 +160,15 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     );
   }
 
-  onApplePayResult(paymentResult,OrderBloc orderBloc) {
+  onApplePayResult(paymentResult,OrderBloc orderBloc) async{
     debugPrint("result: ${paymentResult.toString()}");
     debugPrint(paymentResult['token']);
-    debugPrint(paymentResult['token']['signature']);
-    debugPrint(paymentResult['token']['header']);
-    debugPrint(paymentResult['token']['header']['transactionId']);
-    debugPrint(paymentResult['token']['data']);
-    debugPrint(paymentResult['paymentMethod']['network']);
-    // _checkOutApplePay(orderBloc);
+    // debugPrint(paymentResult['token']['signature']);
+    // debugPrint(paymentResult['token']['header']);
+    // debugPrint(paymentResult['token']['header']['transactionId']);
+    // debugPrint(paymentResult['token']['data']);
+    // debugPrint(paymentResult['paymentMethod']['network']);
+    await _checkOutApplePay(orderBloc,paymentResult);
 
   }
 
@@ -228,13 +227,13 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     }
   }
 
-  _checkOutApplePay(OrderBloc orderBloc)async{
-    // final res = await payFortController.flutterAmazon(amount: cartBloc.totalPrice.toInt());
-    // if(res==true){
+  _checkOutApplePay(OrderBloc orderBloc,dynamic appleData)async{
+    final res = await payFortController.flutterAmazonApplePay(amount: cartBloc.totalPrice.toInt(),appleData: appleData);
+    if(res==true){
       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
-    // }else{
-    //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
-    // }
+    }else{
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+    }
   }
 
   _checkOutAmazonPayfort(OrderBloc orderBloc)async{

@@ -84,6 +84,12 @@ class UpdateProductCommentEvent extends ProductsEvent{
   const UpdateProductCommentEvent({required this.value,});
 }
 
+class UpdateCurrentCatAndSubCat extends ProductsEvent{
+  final int? catID;
+  final int? subCatID;
+  const UpdateCurrentCatAndSubCat({this.catID,this.subCatID});
+}
+
 
 class ChangeWidgetSizeEvent extends ProductsEvent{
   final double height;

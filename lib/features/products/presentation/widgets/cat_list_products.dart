@@ -4,6 +4,7 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_even
 import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/view_all.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/vat_included.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
@@ -41,6 +42,7 @@ class CatProductsList extends StatelessWidget {
               title: cat.title,
               fn: (){
                 CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: cat));
+                bloc.add(UpdateCurrentCatAndSubCat(catID: cat.id));
                 Util.pushPage(const CategoryProductsScreen(), context);
               },
             ),

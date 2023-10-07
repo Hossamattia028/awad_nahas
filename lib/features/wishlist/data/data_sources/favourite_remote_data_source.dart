@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/features/products/data/models/product_small_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
@@ -22,7 +21,7 @@ class FavouriteRemoteDataSource extends FavouriteRemoteDataSourceImpl{
   @override
   Future<bool> addFavouriteItem({required Map<String,dynamic> data}) async{
     var response = await client.post(Uri.parse("${ApiUrl.ADD_TO_FAV}${Util.getUserID()}/${data['product_id']}"),headers: ApiUrl.headerAuth);
-    debugPrint("addFavouriteItem ${response.body}");
+    // debugPrint("addFavouriteItem ${response.body}");
     if (response.body.contains("true")) {
       final body = json.decode(response.body);
       return body.toString().contains("done") ? true : false;
@@ -34,7 +33,7 @@ class FavouriteRemoteDataSource extends FavouriteRemoteDataSourceImpl{
   @override
   Future<List<ProductModel>> fetchAllFavourites() async{
     var response = await client.get(Uri.parse("${ApiUrl.GET_ALL_FAV}${Util.getUserID()}"),headers: ApiUrl.headerAuth);
-    debugPrint("fetchAllFavourites ${response.body}");
+    // debugPrint("fetchAllFavourites ${response.body}");
     if (response.body.contains("true")) {
       final body = json.decode(response.body);
       if(body['data'].toString()=="[]")return [];
@@ -47,7 +46,7 @@ class FavouriteRemoteDataSource extends FavouriteRemoteDataSourceImpl{
   @override
   Future<bool> removeFavouriteItem({required Map<String,dynamic> data}) async{
     var response = await client.post(Uri.parse("${ApiUrl.ADD_TO_FAV}${Util.getUserID()}/${data['product_id']}"),headers: ApiUrl.headerAuth);
-    debugPrint("addFavouriteItem ${response.body}");
+    // debugPrint("addFavouriteItem ${response.body}");
     if (response.body.contains("true")) {
       final body = json.decode(response.body);
       return body.toString().contains("done") ? true : false;

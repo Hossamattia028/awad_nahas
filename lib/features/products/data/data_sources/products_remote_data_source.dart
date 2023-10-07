@@ -57,8 +57,7 @@ class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
   static Future<String> getProductDetails({required int id}) async {
     try{
       var response = await http.get(Uri.parse("${ApiUrl.BASE_URL_ABN_PLUGIN}products/$id?lang=${Util.getLang()=="ar"?"ar":"en"}"));
-      debugPrint("getProductDetails ${response.request?.url}");
-      debugPrint("getProductDetails ${response.body}");
+      // debugPrint("getProductDetails ${response.body}");
       if (response.statusCode == 200) {
         final body = json.decode(response.body);
         return body['description'];
@@ -91,7 +90,7 @@ class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
     var response = await client.post(Uri.parse(ApiUrl.COMMENTS_URL),
         body: jsonEncode(data),
         headers: ApiUrl.headerAuth);
-    debugPrint("addProductComment ${response.body}");
+    // debugPrint("addProductComment ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       return body['status'] ?? false;

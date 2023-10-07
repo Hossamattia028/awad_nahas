@@ -28,4 +28,15 @@ class ProductComments {
     );
   }
 
+  static Map<String, dynamic> toJsonLocal(ProductComments item) {
+    return {
+      "comment_post_ID":int.tryParse(item.productID.toString())??0,
+      'comment': item.commentContent.toString(),
+      'comment_agent': item.commentType.toString(),
+      'date': item.date.toString(),
+      'user_id': int.tryParse(item.userID.toString())??0,
+      'author': item.userName.toString(),
+      'rating': double.parse(item.rating.toString())
+    };
+  }
 }

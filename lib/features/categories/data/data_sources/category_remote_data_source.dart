@@ -69,8 +69,8 @@ class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
 
   static Future<String> getBrandDesc({required String id}) async{
     id = id.replaceAll("-ar", "").replaceAll("-en", "").replaceAll("-en_US", "");
-    var response = await http.get(Uri.parse("https://demo.awadnahas.com/wp-json/inetwork/api/brand/$id?lang=${Util.getLang()=="ar"?"ar":"en_US"}"));
-    debugPrint("getBrandDesc ${response.body}");
+    var response = await http.get(Uri.parse("${ApiUrl.BASE_URL_ABN_PLUGIN}brand/$id?lang=${Util.getLang()=="ar"?"ar":"en_US"}"));
+    // debugPrint("getBrandDesc ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       return body['description'];

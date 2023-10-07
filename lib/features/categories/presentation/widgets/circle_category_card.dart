@@ -1,5 +1,7 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/shared_widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
@@ -21,6 +23,7 @@ class CircleCategoryCard extends StatelessWidget {
     return InkWell(
       onTap: (){
         CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: item));
+        ProductsBloc.get(context).add(UpdateCurrentCatAndSubCat(catID: item.id));
         Util.pushPage(const CategoryProductsScreen(), context);
       },
       child: Column(
@@ -31,7 +34,7 @@ class CircleCategoryCard extends StatelessWidget {
           ]else if(!DMUtil.currentThemeIsDark() && item.lightIcon!=null && item.lightIcon.toString().trim()!="")...[
             SvgPicture.network(item.lightIcon!,height: 59.h,fit: BoxFit.contain,),
           ]else ...[
-            SvgIconWidget(iconUrl: item.iconPath),
+            SvgIconWidget(iconUrl: item.iconPath,),
           ],
 
           const SizedBox(height: 5,),

@@ -3,7 +3,9 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
+import 'package:awad_nahas/features/categories/presentation/screens/brand_details.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/images_slider.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/product_details_price.dart';
@@ -99,11 +101,21 @@ class ProductMainDetails extends StatelessWidget {
                   int index = bloc.brandsList.indexWhere((element) => element.id==item.brandID);
                   if(index == -1) return const SizedBox.shrink();
                   var brand = bloc.brandsList[index];
-                  if(brand.iconPath.contains("svg")){
-                    return SvgPicture.network(brand.iconPath,height: 32.h,);
-                  }else{
-                    return Image.network(brand.imgPath,height: 32.h,);
-                  }
+                  return InkWell(
+                    onTap: (){
+                      bloc.add(ChangeCurrentBrand(brandModel: brand));
+                      Util.pushPage(const BrandDetailsScreen(), context);
+                    },
+                    child: Stack(
+                      children: [
+                        if(brand.iconPath.contains("svg"))...[
+                          SvgPicture.network(brand.iconPath,height: 28.w,)
+                        ]else...[
+                          Image.network(brand.imgPath,height: 28.h,)
+                        ],
+                      ],
+                    ),
+                  );
                 },
               ),
             ],

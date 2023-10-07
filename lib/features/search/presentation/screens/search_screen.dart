@@ -39,6 +39,7 @@ class SearchScreen extends StatelessWidget {
             children:  [
               SearchCategoryList(),
               SearchProductList(),
+              SizedBox(height: 20,),
             ],
           );
         },

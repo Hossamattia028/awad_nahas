@@ -4,6 +4,7 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_stat
 import 'package:awad_nahas/features/categories/presentation/widgets/category_products_list.dart';
 import 'package:awad_nahas/features/categories/presentation/widgets/sub_categories.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/root_app/widgets/bottom_nav_bar.dart';
 import 'package:awad_nahas/features/search/presentation/screens/search_screen.dart';
@@ -27,7 +28,12 @@ class CategoryProductsScreen extends StatelessWidget {
             return Column(
               children: [
 
-                GlobalAppBar(title: bloc.currentCategory!.title.toString(),leadingIcon: const BackArrowButton()),
+                GlobalAppBar(title: bloc.currentCategory!.title.toString(),leadingIcon: BackArrowButton(
+                  fn: (){
+                    ProductsBloc.get(context).add(const UpdateCurrentCatAndSubCat(catID: null,subCatID: null));
+                    Navigator.of(context).pop();
+                  },
+                )),
                 const SearchWidget(showDrawer: false,),
 
 

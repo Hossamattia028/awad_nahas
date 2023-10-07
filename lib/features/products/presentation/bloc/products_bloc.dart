@@ -97,6 +97,10 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       updateRatingValue(event, emit);
     });
 
+    on<UpdateCurrentCatAndSubCat>((event, emit){
+      setCurrentFilterCategory(event, emit);
+    });
+
 
   }
   static ProductsBloc get(BuildContext context) => BlocProvider.of(context);
@@ -154,7 +158,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
         }
       });
     }catch(e){
-      debugPrint("getAllLatestProductsBlocError: $e");
+      debugPrint("addProductComment: $e");
       emit(const ProductCommentsFailedState());
     }
   }
@@ -204,7 +208,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
   getAllProducts(event,emit)async{
     emit(const ProductsFailedState());
-    try{
+    // try{
       var res = await getAllProductsUseCase(cat: "name");
       res.fold((l) {
         emit(const ProductsFailedState());
@@ -216,10 +220,10 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
           emit(const ProductsSuccessfullyState());
         }
       });
-    }catch(e){
-      debugPrint("getAllLatestProductsBlocError: $e");
-      emit(const ProductsFailedState());
-    }
+    // }catch(e){
+    //   debugPrint("getAllProducts: $e");
+    //   emit(const ProductsFailedState());
+    // }
   }
 
   updateProducts(event,emit){
@@ -229,9 +233,15 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   }
 
 
-  List<ProductsEntity> filterByCategoryID(int catId,int subCatID){
+  List<ProductsEntity> filterByCategoryID(int catId,int subCatID,{List<ProductsEntity>? productList}){
+    List<ProductsEntity> usedList = [];
+    if(productList!=null){
+      usedList = productList;
+    }else{
+      usedList = productsList;
+    }
     List<ProductsEntity> list = [];
-    for(var i in productsList){
+    for(var i in usedList){
       for(var cat in i.categoryList){
         if(cat.id == catId && subCatID==-1){
           list.add(i);
@@ -249,7 +259,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     List<ProductsEntity> list = [];
     for(var i in catList){
       for(var p in productsList){
-          if(p.categoryList.contains(i)){
+          if(p.categoryList.where((element) => element.id==i.id).toList().isNotEmpty){
              list.add(p);
           }
       }
@@ -296,11 +306,21 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       if(event.filterModel!.isDiscount!=null && event.filterModel!.isDiscount == true)productSearchList = filterIfHasDiscount(productSearchList);
       if(event.filterModel!.brandID!=null && showBrandFilter == true)productSearchList = filterByBrandID(productSearchList,event.filterModel!.brandID!);
       if(event.filterModel!.weight!=null && showWeightFilter == true)productSearchList = filterByWeight(productSearchList,event.filterModel!.weight!);
+      if(currentFilterCat!=null)productSearchList = filterByCategoryID(currentFilterCat!, currentFilterSubCat??-1,productList: productSearchList);
       emit(const FilterSuccessfullyState());
     }catch(e){
       debugPrint("filterProducts: $e");
       emit(const SearchFailedState());
     }
+  }
+
+  int? currentFilterCat;
+  int? currentFilterSubCat;
+  setCurrentFilterCategory(UpdateCurrentCatAndSubCat event,emit){
+    emit(const FilterLoadingState());
+    currentFilterCat=event.catID;
+    currentFilterSubCat=event.subCatID;
+    emit(const FilterSuccessfullyState());
   }
 
   final TextEditingController textStartEditingController = TextEditingController();
@@ -436,12 +456,16 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   sortProducts(SortEnum sortType){
     if(sortType == SortEnum.NEW){
       productSearchList.sort((a, b) => DateTime.parse(b.date!).compareTo(DateTime.parse(a.date!)));
+      productsList.sort((a, b) => DateTime.parse(b.date!).compareTo(DateTime.parse(a.date!)));
     }else if(sortType == SortEnum.PRICE_HIGH_TO_LOW){
       productSearchList.sort((a, b) => b.price.compareTo(a.price));
+      productsList.sort((a, b) => b.price.compareTo(a.price));
     }else if(sortType == SortEnum.PRICE_LOW_TO_HIGH){
       productSearchList.sort((a, b) => a.price.compareTo(b.price));
+      productsList.sort((a, b) => a.price.compareTo(b.price));
     }else if(sortType == SortEnum.AVERAGE_RATE){
       productSearchList.sort((a, b) => double.parse(b.averageRate.toString()).compareTo(double.parse(a.averageRate.toString())));
+      productsList.sort((a, b) => double.parse(b.averageRate.toString()).compareTo(double.parse(a.averageRate.toString())));
     }else{
       productSearchList = storedProductsList;
     }
