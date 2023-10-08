@@ -22,10 +22,11 @@ class SmallTapItem extends StatelessWidget {
         // if(user==null)return const SizedBox.shrink();
         return Tab(
           iconMargin: EdgeInsets.zero,
+          height: 35.w,
           child: Container(
             alignment: Alignment.center,
-            height: 40.h,
-            margin: const EdgeInsets.symmetric(horizontal: 5),
+            height: 35.w,
+            margin: const EdgeInsets.symmetric(horizontal: 5,),
             decoration: BoxDecoration(
               color: enable?DMUtil.getRED():DMUtil.getWC(),
               borderRadius: borderRadius,

@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/strings/app_images.dart';
+import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
@@ -9,6 +10,7 @@ import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
@@ -39,15 +41,15 @@ class BottomNavBar extends StatelessWidget {
           backgroundColor: DMUtil.getWC(),
           selectedItemColor: DMUtil.getRED(),
           unselectedItemColor: DMUtil.getDC(),
-          selectedLabelStyle: TextStyle(fontFamily: primaryFontReg,height: 1.4,),
-          unselectedLabelStyle: TextStyle(fontFamily: primaryFontReg,height: 1.4),
+          selectedLabelStyle: TextStyle(fontFamily: primaryFontReg,height: 1.5,fontSize: AppStyle.small.sp-1),
+          unselectedLabelStyle: TextStyle(fontFamily: primaryFontReg,height: 1.4,fontSize: AppStyle.small.sp-1),
           showUnselectedLabels: true,
           items: [
-            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.homeSelected, colorFilter: ColorFilter.mode(currentIndex==0?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),),label: translate("app_bar.home"),backgroundColor: DMUtil.getWC()),
-            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.categorySelected, colorFilter: ColorFilter.mode(currentIndex==1?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),),label: translate("app_bar.categories"),backgroundColor: DMUtil.getWC()),
-            BottomNavigationBarItem(icon: WishListNavIconWidget(selected: currentIndex==2) ,label: translate("wishlist.title"),backgroundColor: DMUtil.getWC()),
+            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.homeSelected, colorFilter: ColorFilter.mode(currentIndex==0?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),width: 17.w,),label: translate("app_bar.home"),backgroundColor: DMUtil.getWC()),
+            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.categorySelected, colorFilter: ColorFilter.mode(currentIndex==1?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),width: 18.w,),label: translate("app_bar.categories"),backgroundColor: DMUtil.getWC()),
+            BottomNavigationBarItem(icon: WishListNavIconWidget(selected: currentIndex==2) ,label: translate("wishlist.title"),backgroundColor: DMUtil.getWC(),),
             BottomNavigationBarItem(icon: CartNavIconWidget(selected: currentIndex==3),label: translate("app_bar.cart"),backgroundColor: DMUtil.getWC()),
-            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.accountSelected, colorFilter: ColorFilter.mode(currentIndex==4?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),) ,label: translate("profile.my_account"),backgroundColor: DMUtil.getWC()),
+            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.accountSelected, colorFilter: ColorFilter.mode(currentIndex==4?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),width: 18.w,) ,label: translate("profile.my_account"),backgroundColor: DMUtil.getWC()),
           ],
         );
       },

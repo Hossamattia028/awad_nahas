@@ -17,7 +17,7 @@ class HomeCategoriesList extends StatelessWidget {
         var list = bloc.categoriesList;
         list = bloc.activateTransList(list);
         return SizedBox(
-          height: 111.h,
+          height: 113.w,
           child: ListView.separated(
             itemCount: list.length,
             scrollDirection: Axis.horizontal,

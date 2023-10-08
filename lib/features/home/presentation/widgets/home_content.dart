@@ -20,7 +20,7 @@ class HomeContentWidget extends StatelessWidget {
 
         const HomeCategories(),
 
-        const SizedBox(height: 10,),
+        // const SizedBox(height: 5,),
         const OurBrandsHome(),
 
         const SizedBox(height: 10,),

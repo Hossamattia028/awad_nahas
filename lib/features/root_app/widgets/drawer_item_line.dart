@@ -36,7 +36,7 @@ class ItemLineDrawer extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: const Divider(height: 40,),
+            child: Divider(height: 35.w,),
           ),
 
 

@@ -198,7 +198,7 @@ class AddToCartButtonWidget extends StatelessWidget {
                               if(insideCartList)...[
                                 Row(
                                   children: [
-                                    const Icon(CupertinoIcons.cart_badge_minus),
+                                    Icon(CupertinoIcons.cart_badge_minus,size: 20.w,),
                                     const SizedBox(width: 10,),
                                     CustomText(
                                       text: translate("cart.in_your_cart"),

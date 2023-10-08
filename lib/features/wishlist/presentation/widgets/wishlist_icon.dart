@@ -5,7 +5,6 @@ import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
-import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_state.dart';
@@ -61,15 +60,15 @@ class WishListNavIconWidget extends StatelessWidget {
         return Stack(
           alignment: Alignment.topRight,
           children: [
-            Icon(selected?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: selected? DMUtil.getPC() : DMUtil.getDLight(),size: 23.w,),
+            Icon(selected?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: selected? DMUtil.getPC() : DMUtil.getDLight(),size: 20.w,),
             if(length!=0)CircleAvatar(
-              radius: 7.w,
+              radius: 6.2.w,
               backgroundColor: selected? DMUtil.getBCC() : DMUtil.getPC(),
               child: Padding(
                 padding: EdgeInsets.only(top: Util.getLang()=="ar"?2:0,bottom: Util.getLang()!="ar"?2:0),
-                child: CustomText(text: "$length",fontSize: AppStyle.small.sp-2,color: selected? DMUtil.getPC() : Colors.white,),
+                child: CustomText(text: "$length",fontSize: AppStyle.small.sp-2.1,color: selected? DMUtil.getPC() : Colors.white,),
               )
-            )
+            ),
           ],
         );
       },

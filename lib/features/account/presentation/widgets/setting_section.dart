@@ -64,7 +64,7 @@ class SettingSectionWidget extends StatelessWidget {
                         Util.changeLang(ctx: context,lang: "ar");
                       }
                     },
-                    icon: Icon(Icons.keyboard_arrow_down_outlined,color: DMUtil.getDC(),),
+                    icon: Icon(Icons.keyboard_arrow_down_outlined,color: DMUtil.getDC(),size: 23.w,),
                     items: items.map((e) => DropdownMenuItem(
                       value: e,
                       child: CustomText(

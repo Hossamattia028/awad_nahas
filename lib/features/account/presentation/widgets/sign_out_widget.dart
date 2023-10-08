@@ -17,7 +17,7 @@ class SignOutWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Row(
             children: [
-              Icon(Icons.logout,color: DMUtil.getD2C(),),
+              Icon(Icons.logout,color: DMUtil.getD2C(),size: 20.w,),
               const SizedBox(width: 10,),
               CustomText(
                 text: translate("activity_setting.sign_out"),

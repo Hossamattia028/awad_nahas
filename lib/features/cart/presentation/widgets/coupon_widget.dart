@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
@@ -37,10 +36,11 @@ class CouponWidget extends StatelessWidget {
           var bloc = CartBloc.get(ctx);
           if(bloc.cartList.isEmpty)return const SizedBox.shrink();
           return Container(
+            height: 30.w,
             color: Colors.transparent,
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: CustomTextFromField(
-              height: 40.h,
+              height: 40.w,
               smallPadding: true,
               hintText: translate("cart.coupon"),
               labelText: "",
@@ -55,9 +55,9 @@ class CouponWidget extends StatelessWidget {
               borderWidth: 0,
               radius: 6,
               suffixIcon: state is CouponLoadingState?
-              SizedBox(height: 25.h,width: 25.w,child: const CircularProgressIndicator(backgroundColor: kPrimary,)):
+              SizedBox(height: 25.h,width: 25.w,child: CircularProgressIndicator(backgroundColor: DMUtil.getRED(),)):
               Padding(
-                padding: EdgeInsets.only(top: 12.h),
+                padding: EdgeInsets.only(top: 7.h,) + const EdgeInsets.symmetric(horizontal: 4),
                 child: InkWell(
                   // height: 40.h,
                   // width: 100.w,

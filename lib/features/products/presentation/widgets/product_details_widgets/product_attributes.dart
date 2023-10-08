@@ -1,6 +1,8 @@
+import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 class ProductAttributes extends StatelessWidget {
@@ -10,7 +12,7 @@ class ProductAttributes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(10.w),
       child: HtmlWidget(
         '''
         $txt
@@ -21,7 +23,7 @@ class ProductAttributes extends StatelessWidget {
           }
           return null;
         },
-        textStyle: TextStyle(color: DMUtil.getD2C(),height: 2,fontFamily: primaryFontReg),
+        textStyle: TextStyle(color: DMUtil.getD2C(),height: 2,fontFamily: primaryFontReg,fontSize: AppStyle.small.sp),
       ),
     );
   }

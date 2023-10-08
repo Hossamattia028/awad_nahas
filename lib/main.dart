@@ -26,10 +26,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Future.wait([
+    Firebase.initializeApp(),
+    di.init(),
+    SharedPref().instantiatePreferences()
+  ]);
   NotificationsUtils.initialPushNotification();
-  await di.init();
-  await SharedPref().instantiatePreferences();
   var delegate = await LocalizationDelegate.create(
       fallbackLocale: 'en_US', supportedLocales: ['en_US', 'ar']);
   runApp(LocalizedApp(delegate, const MyApp()));

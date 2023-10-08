@@ -118,7 +118,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           Material(
             color: Colors.transparent,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 142.h,),
+              padding: EdgeInsets.only(bottom: 150.h,),
               child: InkWell(
                 onTap: ()=> controller.animateTo(10, duration: const Duration(milliseconds: 1000), curve: Curves.linear),
                 child: const BackToTopWidget(),
@@ -134,7 +134,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   var bloc =  CartBloc.get(ctx);
                   return SizedBox(
                     // duration: const Duration(milliseconds: 500),
-                    height: bloc.showCountWidget ? (Platform.isIOS?  190.h : 185.h) :(Platform.isIOS?  140.h : 125.h),
+                    height: bloc.showCountWidget ? (Platform.isIOS?  180.w : 175.w) :(Platform.isIOS?  150.w : 115.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.end,

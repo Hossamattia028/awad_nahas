@@ -87,7 +87,7 @@ class FullImageViewer extends StatelessWidget {
 
                   for(int i = 0 ; i<images.length; i++)...[
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 10,left: 10),
+                      padding: const EdgeInsets.only(bottom: 15,left: 10),
                       child: Icon(Icons.circle,color: bloc.currentSliderIndex == i? DMUtil.getRED():DMUtil.getD2C(),size: 11.w,),
                     ),
                   ],

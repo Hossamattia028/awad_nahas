@@ -30,10 +30,11 @@ class CategoryProductsScreen extends StatelessWidget {
 
                 GlobalAppBar(title: bloc.currentCategory!.title.toString(),leadingIcon: BackArrowButton(
                   fn: (){
-                    ProductsBloc.get(context).add(const UpdateCurrentCatAndSubCat(catID: null,subCatID: null));
+                    ProductsBloc.get(context)..add(const UpdateCurrentCatAndSubCat(catID: null,subCatID: null))..add(const FilterProductEvent(filterModel: null))..add(const EnableSearchEvent(enable: false));
                     Navigator.of(context).pop();
                   },
                 )),
+                const SizedBox(height: 10,),
                 const SearchWidget(showDrawer: false,),
 
 

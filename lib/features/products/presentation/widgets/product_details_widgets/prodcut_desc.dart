@@ -1,9 +1,11 @@
+import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 class ProductDescriptionWidget extends StatelessWidget {
@@ -20,7 +22,7 @@ class ProductDescriptionWidget extends StatelessWidget {
           children: [
             // bloc.showFullContent?
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0.w),
               child: SingleChildScrollView(
                 physics: const NeverScrollableScrollPhysics(),
                 child: HtmlWidget(
@@ -33,7 +35,7 @@ class ProductDescriptionWidget extends StatelessWidget {
                     }
                     return null;
                   },
-                  textStyle: TextStyle(color: DMUtil.getD2C(),fontFamily: primaryFontReg,height: 1.5),
+                  textStyle: TextStyle(color: DMUtil.getD2C(),fontFamily: primaryFontReg,height: 1.5,fontSize: AppStyle.small.sp),
                 ),
               ),
             )

@@ -10,6 +10,7 @@ import 'package:awad_nahas/features/setting/presentation/screens/maintenance.dar
 import 'package:awad_nahas/features/setting/presentation/screens/our_locations.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 
@@ -67,7 +68,7 @@ class MainDrawerSection extends StatelessWidget {
           ),
           ItemLineDrawer(
             title: translate("activity_setting.sign_out"),
-            icon: Icon(Icons.logout,size: 22,color: DMUtil.getD2C().withOpacity(0.7),),
+            icon: Icon(Icons.logout,size: 20.w,color: DMUtil.getD2C().withOpacity(0.7),),
             fn: (){
               Scaffold.of(ctx).closeEndDrawer();
               CustomDialogs.signOut(context);

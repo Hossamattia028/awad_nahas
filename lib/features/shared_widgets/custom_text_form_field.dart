@@ -62,7 +62,7 @@ class CustomTextFromField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height?.h ?? 41.h,
+      height: height?.h ?? 41.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
@@ -86,7 +86,7 @@ class CustomTextFromField extends StatelessWidget {
         decoration: InputDecoration(
           filled: filled,
           contentPadding: smallPadding==true?
-          const EdgeInsets.symmetric(vertical: 6,horizontal: 6):null,
+          EdgeInsets.symmetric(vertical: 6.w,horizontal: 6.w):null,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           focusedBorder:  OutlineInputBorder(
             borderSide: hasBorder==true?  BorderSide(color: borderColor ??DMUtil.getD2C(), width: borderWidth ?? 1.0): const BorderSide(color: Colors.white),

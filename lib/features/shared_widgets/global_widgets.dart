@@ -35,7 +35,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
-        preferredSize: Size(double.infinity, AppStyle.appBarHeight.h),
+        preferredSize: Size(double.infinity, AppStyle.appBarHeight.w),
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.only(left: 10.w, right: 10.w, top: AppStyle.paddingFromTop.h),
@@ -81,7 +81,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      Size.fromHeight(AppStyle.appBarHeight.h);
+      Size.fromHeight(AppStyle.appBarHeight.w);
 }
 
 

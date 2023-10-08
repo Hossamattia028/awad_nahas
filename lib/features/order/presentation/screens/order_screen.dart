@@ -45,8 +45,8 @@ class _OrderScreenState extends State<OrderScreen>  with TickerProviderStateMixi
         alignment: Alignment.topCenter,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(vertical: 15.w, horizontal: 20.w),
-            height: 40.h,
+            margin: EdgeInsets.symmetric(vertical: 6.w, horizontal: 20.w),
+            height: 37.w,
             decoration:  BoxDecoration(
                 color: DMUtil.getWC(),
                 borderRadius: const BorderRadius.horizontal(left: Radius.circular(20),right: Radius.circular(20))
@@ -72,7 +72,7 @@ class _OrderScreenState extends State<OrderScreen>  with TickerProviderStateMixi
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: AppStyle.paddingFromTop.h+30),
+            padding: EdgeInsets.only(top: AppStyle.paddingFromTop.w),
             child: BlocBuilder<OrderBloc,OrderState>(
               builder: (ctx,state){
                 return TabBarView(

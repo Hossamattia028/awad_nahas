@@ -12,10 +12,10 @@ class SvgIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       backgroundColor: DMUtil.getBCD(),
-      radius: 26.w,
+      radius: 27.w,
       child:iconUrl.contains("file:///")||iconUrl.isEmpty?
       Image.asset(AppImages.logo):
-      SvgPicture.network(iconUrl,height: 28.w,colorFilter: ColorFilter.mode(DMUtil.getBCIcon(), BlendMode.srcIn),),
+      SvgPicture.network(iconUrl,height: 29.w,colorFilter: ColorFilter.mode(DMUtil.getBCIcon(), BlendMode.srcIn),),
     );
   }
 }

@@ -15,22 +15,7 @@ class RateProductsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: (){
-          CustomDialogs.addComment(context, item);
-          // showModalBottomSheet(
-          //   context: context,
-          //   useRootNavigator: true,
-          //   isScrollControlled: true,
-          //   useSafeArea: true,
-          //   backgroundColor: Colors.transparent,
-          //   shape:  const RoundedRectangleBorder(
-          //     borderRadius:  BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
-          //   ),
-          //   builder: (ctx){
-          //     return AddCommentsWidget(item: item,);
-          //   },
-          // );
-        },
+        onTap: () => CustomDialogs.addComment(context, item),
         child: Container(
           decoration: BoxDecoration(
               border: Border.all(width: 1,color: DMUtil.getBackGround()),

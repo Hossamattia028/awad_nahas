@@ -54,7 +54,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
         leadingIcon: const BackArrowButton(),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(20.0),
         child: BlocListener<RootBloc, RootState>(
           listenWhen: (ctx,state)=> state is MaintenanceSuccessState,
           listener: (ctx,state) {
@@ -238,13 +238,13 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
               ),
               const SizedBox(height: 5,),
               DropdownButtonFormField(
-                icon: const Icon(Icons.keyboard_arrow_down),
+                icon: Icon(Icons.keyboard_arrow_down,size: 13.w,),
                 decoration: InputDecoration(
                   focusedBorder:border,
                   enabledBorder: border,
                   border: border,
                   hintText: translate("maintenance.number_of_maintenance_device"),
-                  hintStyle: TextStyle(fontSize: 15, color: DMUtil.getD2C()),
+                  hintStyle: TextStyle(fontSize: AppStyle.verySmall.sp+2, color: DMUtil.getD2C()),
                   isDense: true,
                 ),
                 items: <DropdownMenuItem<String>>[
@@ -291,13 +291,13 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 List<CategoriesEntity> list =
                     bloc.activateTransList(bloc.brandsList);
                 return DropdownButtonFormField(
-                  icon: const Icon(Icons.keyboard_arrow_down),
+                  icon: Icon(Icons.keyboard_arrow_down,size: 13.w,),
                   decoration: InputDecoration(
                     focusedBorder:border,
                     enabledBorder: border,
                     border: border,
                     hintText: translate("store.brand"),
-                    hintStyle: TextStyle(fontSize: 15, color: DMUtil.getD2C()),
+                    hintStyle: TextStyle(fontSize: AppStyle.verySmall.sp+2, color: DMUtil.getD2C()),
                     isDense: true,
                   ),
                   // value: deviceNumber,
@@ -390,7 +390,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                             color: Colors.white,
                             fontSize: AppStyle.average.sp,
                           ),
-                          const Icon(Icons.drive_folder_upload_outlined),
+                          Icon(Icons.drive_folder_upload_outlined,size: 20.w,),
                         ],
                       ),
                       color: DMUtil.getRED(),

@@ -44,7 +44,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: ()=> Navigator.of(context).pop(),
-                  child: Icon(Icons.close,color: DMUtil.getDC(),),
+                  child: Icon(Icons.close,color: DMUtil.getDC(),size: 19.w,),
                 ),
               ],
             ),
@@ -141,9 +141,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                              fontSize: AppStyle.average.sp,
                            ),
                            color: DMUtil.getWC(),
-                           onPressed: (){
-                             bloc..add(const FilterProductEvent(filterModel: null))..add(const EnableSearchEvent(enable: false));
-                           },
+                           onPressed: ()=> bloc..add(const FilterProductEvent(filterModel: null))..add(const EnableSearchEvent(enable: false)),
                          ),
                      ],
                    ),

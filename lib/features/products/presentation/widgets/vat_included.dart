@@ -11,12 +11,12 @@ class VatIncludedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 10.h,
-      width: 131.w,
+      height: 10.w,
+      width: 135.w,
       child: CustomText(
         text: translate("products.vat_included"),
         color: DMUtil.getOpacity(),
-        fontSize: AppStyle.verySmall.sp-1,
+        fontSize: AppStyle.verySmall.sp-1.3,
         maxLine: 2,
       ),
     );

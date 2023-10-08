@@ -23,7 +23,7 @@ class RelatedProductsList extends StatelessWidget {
           list = bloc.relatedProducts(item.categoryList);
         }
         return SizedBox(
-          height: 250.h,
+          height: 240.w,
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(2),
@@ -34,7 +34,7 @@ class RelatedProductsList extends StatelessWidget {
               return ProductCardH(item: item,isMarginBottom: true);
               // return ProductHorizontalCard(item: item, index: index, isSmall: true);
             },
-            separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 10,),
+            separatorBuilder: (BuildContext context, int index) => SizedBox(width: 6.w,),
           ),
         );
       },

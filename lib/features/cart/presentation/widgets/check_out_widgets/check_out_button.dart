@@ -161,8 +161,9 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
 
   onApplePayResult(paymentResult,OrderBloc orderBloc) async{
-    debugPrint("result: ${paymentResult.toString()}");
-    debugPrint(paymentResult['token']);
+    // debugPrint("result: ${paymentResult.toString()}");
+    // debugPrint(paymentResult['token']);
+    SnackBarBuilder.showFeedBackMessage(context, paymentResult['token'].toString(), DMUtil.getRED());
     // debugPrint(paymentResult['token']['signature']);
     // debugPrint(paymentResult['token']['header']);
     // debugPrint(paymentResult['token']['header']['transactionId']);

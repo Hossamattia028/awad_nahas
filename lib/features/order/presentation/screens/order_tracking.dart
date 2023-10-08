@@ -23,7 +23,7 @@ class OrderTrackingScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: DMUtil.getWC(),
       bottomNavigationBar: const Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(20.0),
         child: ContinueShoppingButton(navigateRoot: true,),
       ),
       appBar: GlobalAppBar(

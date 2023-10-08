@@ -23,7 +23,7 @@ class AddCommentsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 305.h,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         color: Colors.white,

@@ -63,7 +63,7 @@ class CatProductsList extends StatelessWidget {
             // ),
             const SizedBox(height: 15,),
             SizedBox(
-              height: Util.getLang()=="ar"? 250.h : 260.h ,
+              height: Util.getLang()=="ar"? 230.w : 250.w ,
               child: ListView.separated(
                 itemCount: list.length,
                 physics: const BouncingScrollPhysics(),
@@ -73,7 +73,7 @@ class CatProductsList extends StatelessWidget {
                   var item = list[index];
                   return ProductCardH(item: item);
                 },
-                separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 10,),
+                separatorBuilder: (BuildContext context, int index) => SizedBox(width: 6.w,),
               ),
             ),
             const SizedBox(height: 5,),
@@ -145,7 +145,7 @@ class ProductCardH extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 130.w,
-                      height: 42.h,
+                      height: 44.w,
                       child: CustomText(
                         text: item.title.toString(),
                         color: DMUtil.getDC(),

@@ -56,7 +56,8 @@ class MapScreenState extends State<MapScreen> {
         appBar: AppBar(
           backgroundColor: DMUtil.getWC(),
           elevation: 0,
-          iconTheme: IconThemeData(color: DMUtil.getDC()),
+          toolbarHeight: AppStyle.appBarHeight.w-10,
+          iconTheme: IconThemeData(color: DMUtil.getDC(),size: 20.w),
           centerTitle: true,
           title: CustomText(
             text: widget.title,

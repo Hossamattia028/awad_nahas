@@ -43,10 +43,10 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>  with TickerProvide
             Padding(
               padding: const EdgeInsets.only(top: 15),
               child: SizedBox(
-                height: 40.h,
+                height: 35.h,
                 child: TabBar(
                   controller: tabController,
-                  indicatorPadding: EdgeInsets.symmetric(horizontal: 10.w),
+                  indicatorPadding: EdgeInsets.symmetric(horizontal: 5.w,),
                   indicator: ShapeDecoration(
                       color: DMUtil.getRED(),
                       shape: const RoundedRectangleBorder(
@@ -60,7 +60,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>  with TickerProvide
                   labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+1,fontFamily: primaryFontReg,fontWeight: FontWeight.w600),
                   tabs: <Widget>[
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 30.w) + const EdgeInsets.only(top: 3),
+                      height: 35.h,
+                      padding: EdgeInsets.symmetric(horizontal: 30.w,) + const EdgeInsets.only(top: 3),
                       decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
                           border: Border.all(width: 1,color: DMUtil.getRED())
@@ -68,6 +69,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>  with TickerProvide
                       child: Tab(text: translate("drawer.faqs"),),
                     ),
                     Container(
+                      height: 35.h,
                       padding: EdgeInsets.symmetric(horizontal: 30.w) + const EdgeInsets.only(top: 3),
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(Radius.circular(10)),

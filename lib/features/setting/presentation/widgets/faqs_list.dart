@@ -46,7 +46,8 @@ class FaqsListWidget extends StatelessWidget {
                         child: ExpansionTile(
                           collapsedIconColor: DMUtil.getDC(),
                           iconColor: DMUtil.getRED(),
-                          title: SizedBox(
+                          title: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 6.w),
                             child: CustomText(
                                 text: smallItem.title.toString(),
                                 color: DMUtil.getDC(),
@@ -67,7 +68,7 @@ class FaqsListWidget extends StatelessWidget {
                         )
                       );
                     },
-                    separatorBuilder: (ctx,index) => const SizedBox(height: 10,),
+                    separatorBuilder: (ctx,index) => SizedBox(height: 10.w,),
                     itemCount: item.faqList!.length,
                 )
               ],

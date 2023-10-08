@@ -40,7 +40,7 @@ class SortBottomSheetWidget extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: ()=> Navigator.of(context).pop(),
-                  child: Icon(Icons.close,color: DMUtil.getDC(),),
+                  child: Icon(Icons.close,color: DMUtil.getDC(),size: 19.w,),
                 ),
               ],
             ),
