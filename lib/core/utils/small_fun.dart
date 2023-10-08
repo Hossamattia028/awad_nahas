@@ -86,23 +86,28 @@ class Util{
   }
 
   /// social auth
-  static GoogleSignIn googleSignIn = GoogleSignIn(
-    // Optional clientId
-/*     clientId:
-        '192805405686-9qe0bem69g0ph14u4coga9ibtj1v936i.apps.googleusercontent.com',*/
-    serverClientId: '192805405686-7roe5iammlfnaamj588png8io80aok7f.apps.googleusercontent.com',
-    scopes: <String>[
-      'profile',
-      'email',
-    ],
-  );
+//   static GoogleSignIn googleSignIn = GoogleSignIn(
+//     // Optional clientId
+// /*     clientId:
+//         '192805405686-9qe0bem69g0ph14u4coga9ibtj1v936i.apps.googleusercontent.com',*/
+//     serverClientId: '192805405686-7roe5iammlfnaamj588png8io80aok7f.apps.googleusercontent.com',
+//     scopes: <String>[
+//       'profile',
+//       'email',
+//     ],
+//   );
 
   static Future<String> googleSign()async{
-    final GoogleSignInAccount? googleData = await GoogleSignIn(scopes: ['profile', 'email']).signIn().catchError((e){return e;});
-    // GoogleSignInAccount? googleData =  await googleSignIn.signIn();
-    return googleData!=null ? googleData.email : '' ;
-    // final GoogleSignInAuthentication? googleAuth = await googleData?.authentication;
-    // "access_token": googleAuth?.accessToken,
+    try{
+      final GoogleSignInAccount? googleData = await GoogleSignIn(scopes: ['profile', 'email']).signIn().catchError((e){return e;});
+      // GoogleSignInAccount? googleData =  await googleSignIn.signIn();
+      // final GoogleSignInAuthentication? googleAuth = await googleData?.authentication;
+      // "access_token": googleAuth?.accessToken,
+      return googleData!=null ? googleData.email : '' ;
+    }catch(e){
+      debugPrint("googleSign: $e");
+      return e.toString();
+    }
   }
 
   static Future<String> facebookLogin() async {

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/strings/enum/social_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
@@ -39,13 +41,17 @@ class AuthWithSocial extends StatelessWidget {
             bloc.add(const EnablePhoneRegisterButtonEvent());
           }else if(socialEnum == SocialEnum.GOOGLE){
             String email = await Util.googleSign();
+            if(!email.contains("@")){
+              SnackBarBuilder.showFeedBackMessage(context, email, Colors.red);
+            }
             _socialLogin(bloc, email);
           }else if(socialEnum == SocialEnum.FACEBOOK){
             String email = await Util.facebookLogin();
-            // SnackBarBuilder.showFeedBackMessage(context, email, Colors.green);
+            if(!email.contains("@")){
+              SnackBarBuilder.showFeedBackMessage(context, email, Colors.red);
+            }
             _socialLogin(bloc, email);
           }
-
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),

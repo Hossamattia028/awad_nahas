@@ -31,6 +31,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children:  [
+            const SizedBox(height: 5,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -47,6 +48,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 5,),
             const FromToRow(),
             const SizedBox(height: 5,),
             BlocBuilder<ProductsBloc,ProductsState>(

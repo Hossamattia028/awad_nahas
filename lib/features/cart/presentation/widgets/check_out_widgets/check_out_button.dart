@@ -232,7 +232,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     if(res==true){
       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
     }else{
-      SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+      SnackBarBuilder.showFeedBackMessage(context, res.toString(), DMUtil.getRED());
     }
   }
 

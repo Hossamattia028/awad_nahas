@@ -27,6 +27,7 @@ class SortBottomSheetWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children:  [
+            const SizedBox(height: 5,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -43,9 +44,9 @@ class SortBottomSheetWidget extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(height: 15,),
 
-                BlocBuilder<ProductsBloc,ProductsState>(
+            BlocBuilder<ProductsBloc,ProductsState>(
                   builder: (ctx,state){
                     var bloc = ProductsBloc.get(ctx);
                     return Column(
@@ -64,10 +65,10 @@ class SortBottomSheetWidget extends StatelessWidget {
                   },
                 ),
 
-                const SizedBox(height: 10,),
-              ],
-            ),
-          )
+            const SizedBox(height: 10,),
+          ],
+        ),
+      )
     );
   }
 }

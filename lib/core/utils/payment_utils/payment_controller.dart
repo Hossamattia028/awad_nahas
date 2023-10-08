@@ -60,30 +60,30 @@ class PayFortController{
   Future<bool> flutterAmazonApplePay({required int amount,required dynamic appleData})async{
     String? id = await FlutterAmazonpaymentservices.getUDID;
     var token = await PayFortApi.generateTokenFromApiApplePay(id.toString());
-    var requestParam = {
-      "amount": amount * 100 ,
-      "command": "AUTHORIZATION",
-      "currency": "SAR",
-      "customer_email": Util.getEmail(),
-      "language": "en",
-      "merchant_reference": token,
-      "sdk_token": token,
-      "digital_wallet": "APPLE_PAY",
-      "apple_data": appleData['data'],
-      "apple_signature": appleData['signature'],
-      "apple_header":{
-        'apple_transactionId': appleData['header']['ephemeralPublicKey'],
-        'apple_ephemeralPublicKey': appleData['header']['publicKeyHash'],
-        'apple_publicKeyHash': appleData['header']['transactionId'],
-      },
-      "apple_paymentMethod":{
-        'apple_displayName': appleData['paymentMethod']['displayName'],
-        'apple_network': appleData['paymentMethod']['network'],
-        'apple_type': appleData['paymentMethod']['type'],
-      },
-      "signature": appleData['signature'],
-    };
     try {
+      var requestParam = {
+        "amount": amount * 100 ,
+        "command": "AUTHORIZATION",
+        "currency": "SAR",
+        "customer_email": Util.getEmail(),
+        "language": "en",
+        "merchant_reference": token,
+        "sdk_token": token,
+        "digital_wallet": "APPLE_PAY",
+        "apple_data": appleData['token']['data'],
+        "apple_signature": appleData['token']['signature'],
+        "apple_header":{
+          'apple_transactionId': appleData['token']['header']['ephemeralPublicKey'],
+          'apple_ephemeralPublicKey': appleData['token']['header']['publicKeyHash'],
+          'apple_publicKeyHash': appleData['token']['header']['transactionId'],
+        },
+        "apple_paymentMethod":{
+          'apple_displayName': appleData['paymentMethod']['displayName'],
+          'apple_network': appleData['paymentMethod']['network'],
+          'apple_type': appleData['paymentMethod']['type'],
+        },
+        "signature": appleData['token']['signature'],
+      };
       var result = await FlutterAmazonpaymentservices.normalPay(requestParam, EnvironmentType.sandbox,).onError((error, stackTrace) {
         debugPrint(error.toString());
         throw "error";
