@@ -18,7 +18,7 @@ class ProductComments {
 
   static ProductComments fromJson(Map<String, dynamic> jsonObject) {
     return ProductComments(
-      productID: int.parse(jsonObject['comment_post_ID'] ?? "0"),
+      productID: int.parse((jsonObject['comment_post_ID'] ?? "0").toString()),
       commentContent: jsonObject['comment']??"",
       commentType: jsonObject['comment_agent']??"",
       date: jsonObject['date']??DateTime.now(),

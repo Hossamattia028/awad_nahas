@@ -46,21 +46,6 @@ class CatProductsList extends StatelessWidget {
                 Util.pushPage(const CategoryProductsScreen(), context);
               },
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //
-            //     // CustomText(
-            //     //   text: cat.title,
-            //     //   color: DMUtil.getDC(),
-            //     //   fontSize: AppStyle.large.sp,
-            //     // ),
-            //     // ViewAllWidget(fn: (){
-            //     //   CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: cat));
-            //     //   Util.pushPage(const CategoryProductsScreen(), context);
-            //     // },),
-            //   ],
-            // ),
             const SizedBox(height: 15,),
             SizedBox(
               height: Util.getLang()=="ar"? 240.w : 260.w ,
@@ -135,7 +120,7 @@ class ProductCardH extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 3,vertical: 5),
+                padding: EdgeInsets.symmetric(horizontal: 3,vertical: 4.w),
                 decoration:  BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
                   color: DMUtil.getWC(),

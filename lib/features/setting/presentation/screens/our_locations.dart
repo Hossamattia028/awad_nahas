@@ -113,7 +113,7 @@ class OurLocationsScreen extends StatelessWidget {
                   ),
                 );
               },
-              separatorBuilder: (ctx,state)=> const SizedBox(height: 15,),
+              separatorBuilder: (ctx,state)=> SizedBox(height: 12.w,),
               itemCount: list.length,
           );
         },

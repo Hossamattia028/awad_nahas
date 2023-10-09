@@ -31,13 +31,13 @@ class AccountAuthCard extends StatelessWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              if(user == null)
+              if(user == null || Util.checkUser()==false)
               CircleAvatar(
-                radius: 20.h,
+                radius: 20.w,
                 backgroundColor: DMUtil.getBCC(),
-                child: Icon(CupertinoIcons.person,color: DMUtil.getD2C(),),
+                child: Icon(CupertinoIcons.person,color: DMUtil.getD2C(),size: 20.w,),
               ),
-              const SizedBox(width: 10,),
+              SizedBox(width: 10.w,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

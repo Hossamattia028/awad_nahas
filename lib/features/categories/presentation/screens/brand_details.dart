@@ -57,7 +57,7 @@ class BrandDetailsScreen extends StatelessWidget{
                                     labelStyle: TextStyle(color: DMUtil.getDC()),
                                     tabs: <Widget>[
                                       Tab(
-                                        height: 30.w,
+                                        height: 33.w,
                                         child: InkWell(
                                             onTap:() {
                                               DefaultTabController.of(ctxB).animateTo(0);
@@ -71,7 +71,7 @@ class BrandDetailsScreen extends StatelessWidget{
                                         ),
                                       ),
                                       Tab(
-                                        height: 30.w,
+                                        height: 33.w,
                                         child: InkWell(
                                           onTap:() {
                                             DefaultTabController.of(ctxB).animateTo(1);

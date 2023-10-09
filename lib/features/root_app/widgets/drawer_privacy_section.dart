@@ -26,7 +26,7 @@ class OurPrivacySection extends StatelessWidget {
             CustomText(text: translate("drawer.polices"), fontSize: AppStyle.average.sp,color: DMUtil.getDC(),fontWeight: FontWeight.w600,),
             InkWell(
               onTap: ()=> RootBloc.get(context).add(const ChangeDrawerViewEvent(drawerEnum: DrawerEnum.MAIN)),
-              child: const Icon(Icons.close),
+              child: Icon(Icons.close,size: 20.w,),
             ),
           ],
         ),

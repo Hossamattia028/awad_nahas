@@ -23,7 +23,8 @@ class MainDrawerSection extends StatelessWidget {
     return Column(
       children: [
         const AccountAuthCard(darkText: true,isDrawer: true,),
-        const SizedBox(height: 40,),
+        SizedBox(height: 25.w,),
+
         ItemLineDrawer(
           title: translate("drawer.our_company"),
           fn: (){
