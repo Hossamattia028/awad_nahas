@@ -35,7 +35,6 @@ class ProfileScreen extends StatelessWidget {
                 const MyAccountSetting(),
               ],
 
-              const SizedBox(height: 10,),
               const SettingSectionWidget(),
 
               if(Util.checkUser())...[

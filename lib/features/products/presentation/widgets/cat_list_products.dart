@@ -63,7 +63,7 @@ class CatProductsList extends StatelessWidget {
             // ),
             const SizedBox(height: 15,),
             SizedBox(
-              height: Util.getLang()=="ar"? 230.w : 250.w ,
+              height: Util.getLang()=="ar"? 240.w : 260.w ,
               child: ListView.separated(
                 itemCount: list.length,
                 physics: const BouncingScrollPhysics(),
@@ -130,7 +130,7 @@ class ProductCardH extends StatelessWidget {
               child: ImageWidget(
                 imgUrl: item.imgPath,
                 fit: BoxFit.contain,
-                width: 120,
+                width: 125,
               ),
             ),
             Expanded(
@@ -145,7 +145,7 @@ class ProductCardH extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 130.w,
-                      height: 44.w,
+                      height: 42.w,
                       child: CustomText(
                         text: item.title.toString(),
                         color: DMUtil.getDC(),

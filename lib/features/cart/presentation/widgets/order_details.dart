@@ -25,7 +25,7 @@ class OrderDetails extends StatelessWidget {
             border: Border.all(width: 0,color: DMUtil.getD2C()),
             color: DMUtil.getWC(),
           ),
-          margin: EdgeInsets.symmetric(horizontal: 10.w),
+          margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 8.w),
           padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 12.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

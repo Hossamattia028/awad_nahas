@@ -35,12 +35,10 @@ class CouponWidget extends StatelessWidget {
         builder: (ctx,state){
           var bloc = CartBloc.get(ctx);
           if(bloc.cartList.isEmpty)return const SizedBox.shrink();
-          return Container(
-            height: 30.w,
-            color: Colors.transparent,
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 14.w),
             child: CustomTextFromField(
-              height: 40.w,
+              height: 32,
               smallPadding: true,
               hintText: translate("cart.coupon"),
               labelText: "",
@@ -57,11 +55,8 @@ class CouponWidget extends StatelessWidget {
               suffixIcon: state is CouponLoadingState?
               SizedBox(height: 25.h,width: 25.w,child: CircularProgressIndicator(backgroundColor: DMUtil.getRED(),)):
               Padding(
-                padding: EdgeInsets.only(top: 7.h,) + const EdgeInsets.symmetric(horizontal: 4),
+                padding: EdgeInsets.only(top: 10.h,) + const EdgeInsets.symmetric(horizontal: 4),
                 child: InkWell(
-                  // height: 40.h,
-                  // width: 100.w,
-                  // circular: 10,
                   child: CustomText(
                     color: DMUtil.getRED(),
                     fontSize: AppStyle.small.sp,

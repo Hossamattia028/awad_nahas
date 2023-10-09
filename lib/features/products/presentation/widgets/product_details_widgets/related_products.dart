@@ -15,7 +15,8 @@ class RelatedProductsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: DMUtil.getWC(),
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      margin: EdgeInsets.symmetric(vertical: 8.w),
+      padding: EdgeInsets.symmetric(horizontal: 10.w,),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

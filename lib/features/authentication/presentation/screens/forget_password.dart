@@ -47,7 +47,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20,),
+              SizedBox(height: 20.w,),
               CustomText(
                 text: translate("login.email"),
                 color: DMUtil.getDC(),
@@ -72,7 +72,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   obscureText: false,
                   isLabelError: false),
 
-              const SizedBox(height: 20,),
+              SizedBox(height: 20.w,),
               BlocBuilder<AuthBloc,AuthState>(
                 builder: (ctx,state){
                   // var bloc = AuthBloc.get(ctx);

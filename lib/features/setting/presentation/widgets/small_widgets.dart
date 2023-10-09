@@ -16,7 +16,7 @@ class SettingLineOption extends StatelessWidget {
     return GestureDetector(
       onTap: onTap??(){},
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 5.h),
+        margin: EdgeInsets.symmetric(vertical: 5.w),
         decoration: const BoxDecoration(
           borderRadius:  BorderRadius.all(Radius.circular(10)),
           // border: Border.all(width: 0.6,color: DMUtil.getBCC())

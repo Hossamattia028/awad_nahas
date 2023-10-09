@@ -25,7 +25,7 @@ class SettingSectionWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 5,),
+        SizedBox(height: 8.w,),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
           child: CustomText(
@@ -37,7 +37,7 @@ class SettingSectionWidget extends StatelessWidget {
         ),
         Container(
           color: DMUtil.getWC(),
-          margin: const EdgeInsets.symmetric(vertical: 10),
+          margin:  EdgeInsets.symmetric(vertical: 8.w),
           padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
           child: Column(
             children: [
@@ -114,7 +114,7 @@ class SettingSectionWidget extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 15,),
+        SizedBox(height: 8.w,),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
           child: CustomText(
@@ -126,7 +126,7 @@ class SettingSectionWidget extends StatelessWidget {
         ),
         Container(
           color: DMUtil.getWC(),
-          margin: const EdgeInsets.symmetric(vertical: 10),
+          margin:  EdgeInsets.symmetric(vertical: 8.w),
           padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
           child: SettingLineOption(title: translate("drawer.help_center"),onTap: ()=> Util.pushPage(const HelpCenterScreen(), context)),
         )

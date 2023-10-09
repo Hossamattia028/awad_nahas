@@ -23,6 +23,7 @@ class MyAccountSetting extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: 8.w,),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
           child: CustomText(
@@ -35,7 +36,7 @@ class MyAccountSetting extends StatelessWidget {
 
         Container(
           color: DMUtil.getWC(),
-          margin: const EdgeInsets.symmetric(vertical: 10),
+          margin:  EdgeInsets.symmetric(vertical: 8.w),
           padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4),
           child: Column(
             children: [

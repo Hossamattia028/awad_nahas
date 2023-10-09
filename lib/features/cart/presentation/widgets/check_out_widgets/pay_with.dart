@@ -60,7 +60,7 @@ class PayWithWidget extends StatelessWidget {
                             ],
                           ),
 
-                          const Icon(Icons.apple),
+                          Icon(Icons.apple,size: 20.w,),
                         ],
                       ),
                     ),

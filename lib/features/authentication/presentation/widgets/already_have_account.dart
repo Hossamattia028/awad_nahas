@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
+import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
@@ -31,6 +32,8 @@ class AlreadyHaveAnAccountWidget extends StatelessWidget {
           ],
           style: TextStyle(
             color: DMUtil.getD2C(),
+            fontFamily: primaryFontReg,
+            fontSize: AppStyle.small.sp,
           ),
         ),
       ),

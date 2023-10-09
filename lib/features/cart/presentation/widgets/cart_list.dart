@@ -24,8 +24,8 @@ class CartListWidget extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           itemBuilder: (ctx,index){
             var item = list[index];
-            double height = (bloc.showCountWidget ? 140.h : 80.h) + 74.w;
-            height = Util.getLang()=="ar"?height:height+25.w;
+            double height = (bloc.showCountWidget ? 145.h : 85.h) + 79.w;
+            if(Util.getLang()!="ar")height+=25.w;
             return CartListCard(item: item, height: height);
           },
           separatorBuilder: (ctx,index)=> const SizedBox(height: 10,),

@@ -30,7 +30,7 @@ class AccountDataScreen extends StatelessWidget {
             const UserAccountWidget(),
 
 
-            const SizedBox(height: 10,),
+            SizedBox(height: 10.w,),
             const SecureInfo(),
 
             const Divider(height: 1,),
@@ -42,7 +42,7 @@ class AccountDataScreen extends StatelessWidget {
               Container(
                 color: DMUtil.getWC(),
                 width: double.infinity,
-                margin: const EdgeInsets.symmetric(vertical: 10),
+                margin: EdgeInsets.symmetric(vertical: 10.w),
                 padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4,vertical: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ class AccountDataScreen extends StatelessWidget {
                       fontSize: AppStyle.verySmall.sp,
                       color: DMUtil.getD2C().withOpacity(0.8),
                     ),
-                    const SizedBox(height: 12,),
+                    const SizedBox(height: 15,),
                     const DeleteAccountWidget(),
                   ],
                 ),

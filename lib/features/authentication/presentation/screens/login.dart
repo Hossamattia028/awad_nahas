@@ -61,8 +61,9 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: AppStyle.paddingFromTop.h,),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    AlignChildRow(child: BackArrowButton(),),
+                    BackArrowButton(),
                     SwitchLanguageWidget(),
                   ],
                 ),
@@ -78,7 +79,7 @@ class LoginScreen extends StatelessWidget {
                       fontFamily: primaryFontSemiBold,
                   ),
                 ),
-                const SizedBox(height: 10,),
+                SizedBox(height: 10.w,),
                 BlocBuilder<AuthBloc,AuthState>(
                   builder: (ctx,state){
                     var bloc = AuthBloc.get(ctx);
@@ -109,7 +110,10 @@ class LoginScreen extends StatelessWidget {
                             textInputType: TextInputType.phone,
                             prefixIcon: null,
                             cursorColor: kPrimary,
-                            suffixIcon:  Icon(Icons.phone,color: DMUtil.getD2C(),),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 7),
+                              child: Icon(Icons.phone,color: DMUtil.getD2C(),size: 20.w,),
+                            ),
                             obscureText: false,
                             isLabelError: false,
                             hasBorder: true,
@@ -129,7 +133,10 @@ class LoginScreen extends StatelessWidget {
                       textInputType: TextInputType.emailAddress,
                       prefixIcon: null,
                       cursorColor: kPrimary,
-                      suffixIcon:  Icon(Icons.email_outlined,color: DMUtil.getD2C(),),
+                      suffixIcon:  Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 7),
+                        child: Icon(Icons.email_outlined,color: DMUtil.getD2C(),size: 20.w,),
+                      ),
                       obscureText: false,
                       isLabelError: false,
                       hasBorder: true,
@@ -138,9 +145,7 @@ class LoginScreen extends StatelessWidget {
                       labelText: '',);
                   },
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20,),
                 BlocBuilder<AuthBloc,AuthState>(
                   builder: (ctx,state){
                     var bloc = AuthBloc.get(ctx);
@@ -162,18 +167,23 @@ class LoginScreen extends StatelessWidget {
                         validator: () {},
                         prefixIcon: null,
                         obscureText: !showPassword,
-                        suffixIcon: IconButton(
-                          onPressed: () => ctx.read<AuthBloc>().add(const ChangePasswordEvent()),
-                          icon: Icon(
-                            showPassword==true
-                                ? CupertinoIcons.eye
-                                : CupertinoIcons.eye_slash,
-                            color: DMUtil.getD2C(),
-                          ),
+                        suffixIcon: InkWell(
+                            onTap: () => ctx.read<AuthBloc>().add(const ChangePasswordEvent()),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 7),
+                              child: Icon(
+                                showPassword==true
+                                    ? CupertinoIcons.eye
+                                    : CupertinoIcons.eye_slash,
+                                color: DMUtil.getDC(),
+                                size: 20.w,
+                              ),
+                            )
                         ),
                         isLabelError: false);
                   },
                 ),
+                SizedBox(height: 6.w,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -189,7 +199,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20,),
+                SizedBox(height: 15.w,),
                 BlocBuilder<AuthBloc,AuthState>(
                   builder: (ctx,state){
                     var bloc = AuthBloc.get(ctx);
@@ -200,7 +210,8 @@ class LoginScreen extends StatelessWidget {
                         widget: CustomText(
                           text: translate("login.app_bar"),
                           color: Colors.white,
-                          fontSize: AppStyle.average.sp,
+                          fontSize: AppStyle.average.sp-1,
+                          fontWeight: FontWeight.w600,
                           fontFamily: primaryFontBold,
                           alignCenter: true,
                         ),
@@ -235,6 +246,7 @@ class LoginScreen extends StatelessWidget {
                 const AuthWithSocial(socialEnum: SocialEnum.PHONE),
                 const AuthWithSocial(socialEnum: SocialEnum.GOOGLE),
                 const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK),
+                const SizedBox(height: 10,),
                 const NotHaveAnAccountWidget(),
                 const SizedBox(height: 30,),
               ],

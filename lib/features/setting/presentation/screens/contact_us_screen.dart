@@ -242,6 +242,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
                 }
               },
+              height: 32.w,
               minWidth: double.infinity,
               color: DMUtil.getRED(),
               shape: RoundedRectangleBorder(

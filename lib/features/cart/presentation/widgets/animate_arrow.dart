@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AnimateArrowWidget extends StatelessWidget {
   const AnimateArrowWidget({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class AnimateArrowWidget extends StatelessWidget {
       child: Icon(
         Icons.arrow_forward,
         color: DMUtil.getRED(),
+        size: 18.w,
       ),
     ).animate(
           delay: 1.seconds,

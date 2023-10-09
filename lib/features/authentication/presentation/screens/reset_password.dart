@@ -79,7 +79,7 @@ class ResetPassword extends StatelessWidget {
                       fontFamily: primaryFontSemiBold,
                   ),
                 ),
-                const SizedBox(height: 10,),
+                SizedBox(height: 10.w,),
                 BlocBuilder<AuthBloc,AuthState>(
                   builder: (ctx,state){
                     var bloc = AuthBloc.get(ctx);

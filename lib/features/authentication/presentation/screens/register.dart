@@ -61,6 +61,7 @@ class RegisterScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       const BackArrowButton(),
+                      SizedBox(width: 10.w,),
                       CustomText(
                         text: translate("signup.signup"),
                         color: DMUtil.getDC(),
@@ -148,7 +149,10 @@ class RegisterScreen extends StatelessWidget {
                                   textInputType: TextInputType.phone,
                                   prefixIcon: null,
                                   cursorColor: kPrimary,
-                                  suffixIcon:  null,
+                                  suffixIcon: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 7),
+                                    child: Icon(Icons.phone,color: DMUtil.getD2C(),size: 20.w,),
+                                  ),
                                   obscureText: false,
                                   isLabelError: false,
                                   hasBorder: true,
@@ -171,7 +175,10 @@ class RegisterScreen extends StatelessWidget {
                           textInputType: TextInputType.emailAddress,
                           prefixIcon: null,
                           cursorColor: kPrimary,
-                          suffixIcon:  null,
+                          suffixIcon:  Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 7),
+                            child: Icon(Icons.email_outlined,color: DMUtil.getD2C(),size: 20.w,),
+                          ),
                           obscureText: false,
                           isLabelError: false,
                           hasBorder: true,
@@ -205,14 +212,18 @@ class RegisterScreen extends StatelessWidget {
                         validator: () {},
                         prefixIcon: null,
                         obscureText: !showPassword,
-                        suffixIcon: IconButton(
-                          onPressed: () => ctx.read<AuthBloc>().add(const ChangePasswordEvent()),
-                          icon: Icon(
-                            showPassword==true
-                                ? CupertinoIcons.eye
-                                : CupertinoIcons.eye_slash,
-                            color: DMUtil.getDC(),
-                          ),
+                        suffixIcon: InkWell(
+                          onTap: () => ctx.read<AuthBloc>().add(const ChangePasswordEvent()),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 7),
+                            child: Icon(
+                              showPassword==true
+                                  ? CupertinoIcons.eye
+                                  : CupertinoIcons.eye_slash,
+                              color: DMUtil.getDC(),
+                              size: 20.w,
+                            ),
+                          )
                         ),
                         isLabelError: false);
                   },
@@ -253,8 +264,8 @@ class RegisterScreen extends StatelessWidget {
                       CustomText(
                         text: translate("signup.signup"),
                         color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: AppStyle.average.sp,
+                        fontSize: AppStyle.average.sp-1,
+                        fontWeight: FontWeight.w600,
                       ),
                     );
                   },

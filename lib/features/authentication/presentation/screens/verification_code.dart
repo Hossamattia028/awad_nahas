@@ -149,8 +149,8 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                             borderWidth: 0,
                             shape: PinCodeFieldShape.box,
                             borderRadius: const BorderRadius.all(Radius.circular(5)),
-                            fieldHeight: 46,
-                            fieldWidth: 40,
+                            fieldHeight: 44.w,
+                            fieldWidth: 38.w,
                             activeColor:kSecondPrimary,
                             activeFillColor: kBackGround,
                             inactiveColor: Colors.white,
@@ -196,7 +196,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     fontSize: 12,
                     fontWeight: FontWeight.w400),
               ),
-              const SizedBox(height: 25,),
+              SizedBox(height: 25.w,),
               BlocListener<AuthBloc,AuthState>(
                 listener: (ctx,state){
                   var bloc = AuthBloc.get(ctx);
@@ -250,7 +250,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                   },
                 ),
               ),
-              const SizedBox(height: 16,),
+              SizedBox(height: 16.w,),
               InkWell(
                 onTap: ()async{
                   if(sendVerify==false)return;

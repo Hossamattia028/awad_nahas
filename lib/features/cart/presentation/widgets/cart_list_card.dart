@@ -25,7 +25,7 @@ class CartListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(8),
       decoration:  BoxDecoration(
         color: DMUtil.getWC(),
         boxShadow: DMUtil.currentThemeIsDark()?  const [

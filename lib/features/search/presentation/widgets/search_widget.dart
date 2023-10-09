@@ -92,7 +92,7 @@ class SearchWidget extends StatelessWidget {
                           isLabelError: false,
                         ),
                       ),
-                      SizedBox(width: 10.w,),
+                      SizedBox(width: 9.w,),
                       const FilterRow(),
                     ],
                   );

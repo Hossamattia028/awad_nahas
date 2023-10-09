@@ -43,11 +43,8 @@ class CartScreen extends StatelessWidget {
                 CartPaymentOptions(),
                 SelectLocations(),
                 CartListWidget(),
-                SizedBox(height: 40,),
                 CouponWidget(),
-                SizedBox(height: 20,),
                 OrderDetails(),
-                SizedBox(height: 20,),
                 CartRelatedProducts(),
                 SizedBox(height: 20,),
               ]else...const[
