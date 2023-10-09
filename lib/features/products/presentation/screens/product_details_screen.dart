@@ -49,13 +49,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     productsBloc = ProductsBloc.get(context);
     productsBloc..add(UpdateCurrentProduct(item: widget.item))..add(const ShowFullContentEvent(val: false))..add(const ChangeWidgetSizeEvent(height: 250,index: 0));
     controller.addListener(() {
-      if(controller.position.pixels>500){
+      if(controller.position.pixels>500.w){
         if(enableBTop!=true){
           setState(() {
             enableBTop = true;
           });
         }
-      }else if(controller.position.pixels<100){
+      }else if(controller.position.pixels<100.w){
         if(enableBTop!=false){
           setState(() {
             enableBTop = false;
@@ -107,7 +107,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                 ],
 
-                const SizedBox(height: 25,),
                 RelatedProductsWidget(item:  widget.item,),
                 SizedBox(height: 170.h,),
               ],

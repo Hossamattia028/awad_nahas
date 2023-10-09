@@ -52,7 +52,7 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                   SizedBox(
-                    width: 230.w,
+                    width: 240.w,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -87,7 +87,7 @@ class ProductCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 2,),
+                const SizedBox(height: 10,),
               ],
             ),
 

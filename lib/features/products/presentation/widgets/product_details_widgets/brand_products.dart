@@ -16,11 +16,12 @@ class BrandProductsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: DMUtil.getWC(),
+      margin: EdgeInsets.symmetric(vertical: 8.w),
       padding: EdgeInsets.symmetric(horizontal: 10.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 10,),
+          SizedBox(height: 10.w,),
           CustomText(
             text: "${translate("products.more_from")} $brandTitle",
             fontSize: AppStyle.average.sp+2,

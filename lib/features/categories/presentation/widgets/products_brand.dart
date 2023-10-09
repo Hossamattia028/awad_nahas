@@ -44,6 +44,7 @@ class ProductsBrand extends StatelessWidget {
                 SizedBox(
                   height: 47.h,
                   child: ListView.separated(
+                    shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
@@ -64,7 +65,7 @@ class ProductsBrand extends StatelessWidget {
                           ),
                         );
                     },
-                    separatorBuilder: (ctx,index)=> const SizedBox(width: 10,),
+                    separatorBuilder: (ctx,index)=> SizedBox(width: 8.w,),
                   ),
                 ),
 
@@ -85,16 +86,16 @@ class ProductsBrand extends StatelessWidget {
                     itemCount: productList.length,
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 2) + EdgeInsets.only(bottom: 85.h),
+                    padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 2) + EdgeInsets.only(bottom: 120.w),
                     itemBuilder: (BuildContext context, int index) {
                       var item = productList[index];
                       if(productList.isEmpty)return CustomText(text: translate("products.empty"), fontSize: AppStyle.small.sp);
                       return SizedBox(
-                        height: 125.h,
+                        height: 96.w,
                         child: ProductCard(item: item),
                       );
                     },
-                    separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10,),
+                    separatorBuilder: (BuildContext context, int index) => SizedBox(height: 7.w,),
                   ),
                 ),
 

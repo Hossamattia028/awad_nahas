@@ -30,14 +30,15 @@ class BrandDetailsScreen extends StatelessWidget{
           bottomNavigationBar: const BottomNavBar(isRoot: false,),
           appBar: GlobalAppBar(title: brand.title,leadingIcon: const BackArrowButton()),
           body: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
             child: Column(
               children: [
                 const SizedBox(height: 10,),
-                SvgPicture.network(brand.iconPath,width: double.infinity,height: 100.h,),
+                SvgPicture.network(brand.iconPath,width: double.infinity,height: 100.w,),
 
 
-                const SizedBox(height: 10,),
+                SizedBox(height: 10.w,),
                 DefaultTabController(
                     length: 2,
                     child: Builder(
@@ -46,7 +47,7 @@ class BrandDetailsScreen extends StatelessWidget{
                           builder: (ctx,state){
                             var bloc = CategoriesBloc.get(ctx);
                             return SizedBox(
-                              height: 520.h,
+                              height: 510.h,
                               child: Column(
                                 children: <Widget>[
                                   TabBar(
@@ -55,21 +56,36 @@ class BrandDetailsScreen extends StatelessWidget{
                                     indicatorColor: Colors.transparent,
                                     labelStyle: TextStyle(color: DMUtil.getDC()),
                                     tabs: <Widget>[
-                                      Tab(child: InkWell(onTap:() {
-                                        DefaultTabController.of(ctxB).animateTo(0);
-                                        bloc.add(const ChangeBrandIndexEvent(index: 0));
-                                      },child: TabWidget(
-                                        title: Util.getLang()=="ar"?
-                                        "${translate("store.products")} ${brand.title}" :
-                                        "${brand.title} ${translate("store.products")}",isSelected: bloc.currentBrandIndex==0,
-                                      )),),
-                                      Tab(child: InkWell(onTap:() {
-                                        DefaultTabController.of(ctxB).animateTo(1);
-                                        bloc.add(const ChangeBrandIndexEvent(index: 1));
-                                      },child: TabWidget(title: "${translate("brand.about")} ${brand.title}",isSelected: bloc.currentBrandIndex==1,)),),
+                                      Tab(
+                                        height: 30.w,
+                                        child: InkWell(
+                                            onTap:() {
+                                              DefaultTabController.of(ctxB).animateTo(0);
+                                              bloc.add(const ChangeBrandIndexEvent(index: 0));
+                                            },
+                                            child: TabWidget(
+                                              title: Util.getLang()=="ar"?
+                                              "${translate("store.products")} ${brand.title}" :
+                                              "${brand.title} ${translate("store.products")}",isSelected: bloc.currentBrandIndex==0,
+                                            )
+                                        ),
+                                      ),
+                                      Tab(
+                                        height: 30.w,
+                                        child: InkWell(
+                                          onTap:() {
+                                            DefaultTabController.of(ctxB).animateTo(1);
+                                            bloc.add(const ChangeBrandIndexEvent(index: 1));
+                                          },
+                                          child: TabWidget(
+                                            title: "${translate("brand.about")} ${brand.title}",
+                                            isSelected: bloc.currentBrandIndex==1,
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
-                                  const SizedBox(height: 5,),
+                                  SizedBox(height: 5.w,),
 
                                   Expanded(
                                     child: TabBarView(

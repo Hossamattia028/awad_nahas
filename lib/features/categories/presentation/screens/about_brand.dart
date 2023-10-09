@@ -1,9 +1,11 @@
+import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/categories/data/data_sources/category_remote_data_source.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
@@ -39,7 +41,7 @@ class _AboutBrandState extends State<AboutBrand> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(10.w),
       physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
@@ -65,9 +67,14 @@ class _AboutBrandState extends State<AboutBrand> {
               }
               return null;
             },
-            textStyle: TextStyle(fontFamily: primaryFontReg,color: DMUtil.getD2C()),
+            textStyle: TextStyle(
+                fontFamily: primaryFontReg,
+                color: DMUtil.getD2C(),
+                fontSize: AppStyle.small.sp,
+                height: 1.3
+            ),
           ),
-          const SizedBox(height: 100,),
+          SizedBox(height: 100.w,),
         ],
       ),
     );

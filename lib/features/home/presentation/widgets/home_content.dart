@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/main_slider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeContentWidget extends StatelessWidget {
   const HomeContentWidget({Key? key}) : super(key: key);
@@ -20,7 +21,6 @@ class HomeContentWidget extends StatelessWidget {
 
         const HomeCategories(),
 
-        // const SizedBox(height: 5,),
         const OurBrandsHome(),
 
         const SizedBox(height: 10,),
@@ -35,7 +35,6 @@ class HomeContentWidget extends StatelessWidget {
         ),
 
 
-        const SizedBox(height: 10,),
         const BannersSection(),
 
         const SizedBox(height: 10,),
@@ -49,7 +48,6 @@ class HomeContentWidget extends StatelessWidget {
           },
         ),
 
-        const SizedBox(height: 10,),
         const SingleBannerWidget(position: "third",),
 
         const SizedBox(height: 10,),
@@ -75,7 +73,9 @@ class HomeContentWidget extends StatelessWidget {
             return CatProductsList(cat: list[3],);
           },
         ),
+
         const SingleBannerWidget(position: "forth",),
+
         const SizedBox(height: 10,),
         BlocBuilder<CategoriesBloc,CategoriesState>(
           builder: (ctx,state){

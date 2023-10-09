@@ -1,5 +1,6 @@
 import 'package:awad_nahas/features/home/presentation/widgets/view_all.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/features/categories/presentation/widgets/home_categories_list.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
@@ -15,7 +16,7 @@ class HomeCategories extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const SizedBox(height: 15,),
+        SizedBox(height: 10.w,),
         ViewAllRow(title: translate("app_bar.shop_categories"), fn:()=> RootBloc.get(context).add(ChangeIndex(index: 1, title: translate("app_bar.shop_categories")))),
 
         const SizedBox(height: 15,),

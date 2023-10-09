@@ -42,7 +42,7 @@ class BrandListHome extends StatelessWidget {
                   child: SvgPicture.asset(DMUtil.currentThemeIsDark() ? item.darkIcon  : item.lightIcon,height: 39.h,fit: BoxFit.cover,width: 70.w,),
                 );
               },
-              separatorBuilder: (ctx,index)=> const SizedBox(width: 10,),
+              separatorBuilder: (ctx,index)=> SizedBox(width: 8.w,),
               itemCount: newSortList.length,
           ),
         );

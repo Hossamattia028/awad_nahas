@@ -37,7 +37,7 @@ class CatProductsList extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 10,),
+            SizedBox(height: 10.w,),
             ViewAllRow(
               title: cat.title,
               fn: (){
@@ -76,7 +76,7 @@ class CatProductsList extends StatelessWidget {
                 separatorBuilder: (BuildContext context, int index) => SizedBox(width: 6.w,),
               ),
             ),
-            const SizedBox(height: 5,),
+            SizedBox(height: 5.w,),
           ],
         );
       },

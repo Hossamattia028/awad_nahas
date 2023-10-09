@@ -1,3 +1,6 @@
+import 'package:awad_nahas/core/styles/app_style.dart';
+import 'package:awad_nahas/core/styles/my_fonts.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,13 +11,14 @@ class SnackBarBuilder {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Text(message,style: TextStyle(fontSize: AppStyle.small.sp-1,fontFamily: primaryFontReg),),
         backgroundColor: color,
         margin: isMarginBottom?EdgeInsets.only(bottom: 132.h):EdgeInsets.zero,
+        padding: EdgeInsets.all(4.w),
         behavior: addBehaviour ? SnackBarBehavior.floating : null,
         action: SnackBarAction(
             label: 'Dismiss',
-            textColor: Colors.white,
+            textColor: DMUtil.getWC(),
             onPressed: () => ScaffoldMessenger.of(context).clearSnackBars),
       ),
     );
