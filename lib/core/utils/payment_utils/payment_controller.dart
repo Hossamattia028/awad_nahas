@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:awad_nahas/core/utils/payment_utils/payfort_api.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/cupertino.dart';
@@ -57,18 +58,21 @@ class PayFortController{
   // }
 
 
-  Future<bool> flutterAmazonApplePay({required int amount,required dynamic appleData})async{
+  Future<String> flutterAmazonApplePay({required int amount,required dynamic appleData})async{
     String? id = await FlutterAmazonpaymentservices.getUDID;
     var token = await PayFortApi.generateTokenFromApiApplePay(id.toString());
     try {
+      if(appleData['token']==null||appleData['token']==""){
+        return "empty";
+      }
       var requestParam = {
-        "amount": amount * 100 ,
+        "amount": (amount * 100).toString() ,
         "command": "AUTHORIZATION",
         "currency": "SAR",
         "customer_email": Util.getEmail(),
         "language": "en",
-        "merchant_reference": token,
-        "sdk_token": token,
+        "merchant_reference": token.toString(),
+        "sdk_token": token.toString(),
         "digital_wallet": "APPLE_PAY",
         "apple_data": appleData['token']['data'],
         "apple_signature": appleData['token']['signature'],
@@ -94,14 +98,14 @@ class PayFortController{
       debugPrint("res $result");
       // var decodedData = jsonDecode(result.toString());
       if(result['response_code'].toString().trim()=="02000" && result['response_message'].toString().toLowerCase()=="success"){
-        return true;
+        return "true";
       }else{
-        return false;
+        return "false";
       }
     } on PlatformException catch (e)
     {
       debugPrint("Error ${e.message} details:${e.details}");
-      return false;
+      return e.toString();
     }
   }
 
@@ -109,8 +113,9 @@ class PayFortController{
   Future<bool> flutterAmazon({required int amount})async{
     String? id = await FlutterAmazonpaymentservices.getUDID;
     var token = await PayFortApi.generateTokenFromApi(id.toString());
+    var amountVal = Platform.isIOS ? (amount * 100).toString() : amount * 100;
     var requestParam = {
-      "amount": amount * 100 ,
+      "amount": amountVal ,
       "command": "AUTHORIZATION",
       "currency": "SAR",
       "customer_email": Util.getEmail(),

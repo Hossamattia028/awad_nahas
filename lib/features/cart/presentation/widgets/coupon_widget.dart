@@ -1,5 +1,6 @@
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,7 +56,7 @@ class CouponWidget extends StatelessWidget {
               suffixIcon: state is CouponLoadingState?
               SizedBox(height: 25.h,width: 25.w,child: CircularProgressIndicator(backgroundColor: DMUtil.getRED(),)):
               Padding(
-                padding: EdgeInsets.only(top: 10.h,) + const EdgeInsets.symmetric(horizontal: 4),
+                padding: EdgeInsets.only(top: Util.getLang()=="ar"?  10.h : 5.h,) + const EdgeInsets.symmetric(horizontal: 4),
                 child: InkWell(
                   child: CustomText(
                     color: DMUtil.getRED(),

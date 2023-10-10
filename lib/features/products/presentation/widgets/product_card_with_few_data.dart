@@ -44,7 +44,7 @@ class ProductCardFewData extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 130.w,
+                        width: 125.w,
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 0) +const EdgeInsets.only(top: 5),
                           child: CustomText(

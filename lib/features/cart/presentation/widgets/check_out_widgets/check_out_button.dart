@@ -24,6 +24,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -161,15 +162,21 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
 
   onApplePayResult(paymentResult,OrderBloc orderBloc) async{
+    FlutterClipboard.copy(paymentResult.toString()).then((value ) => print('copied')).onError((error, stackTrace) => debugPrint("$error"));
+
     // debugPrint("result: ${paymentResult.toString()}");
     // debugPrint(paymentResult['token']);
-    SnackBarBuilder.showFeedBackMessage(context, paymentResult['token'].toString(), DMUtil.getRED());
+    // SnackBarBuilder.showFeedBackMessage(context, paymentResult['token'].toString(), DMUtil.getRED());
+    // SnackBarBuilder.showFeedBackMessage(context, paymentResult.toString(), DMUtil.getRED());
+
     // debugPrint(paymentResult['token']['signature']);
     // debugPrint(paymentResult['token']['header']);
     // debugPrint(paymentResult['token']['header']['transactionId']);
     // debugPrint(paymentResult['token']['data']);
     // debugPrint(paymentResult['paymentMethod']['network']);
-    await _checkOutApplePay(orderBloc,paymentResult);
+    // Timer(const Duration(seconds: 1),()async{
+    //        await _checkOutApplePay(orderBloc,paymentResult);
+    // });
 
   }
 
@@ -230,10 +237,13 @@ class _CheckOutButtonState extends State<CheckOutButton> {
 
   _checkOutApplePay(OrderBloc orderBloc,dynamic appleData)async{
     final res = await payFortController.flutterAmazonApplePay(amount: cartBloc.totalPrice.toInt(),appleData: appleData);
-    if(res==true){
+    if(res=="true"){
       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
     }else{
-      SnackBarBuilder.showFeedBackMessage(context, res.toString(), DMUtil.getRED());
+      SnackBarBuilder.showFeedBackMessage(context, appleData.toString(), DMUtil.getRED());
+      Timer(Duration(seconds: 1), () {
+        SnackBarBuilder.showFeedBackMessage(context, res.toString(), DMUtil.getRED());
+      });
     }
   }
 

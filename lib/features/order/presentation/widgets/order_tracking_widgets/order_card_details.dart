@@ -54,6 +54,7 @@ class OrderCardDetails extends StatelessWidget {
               const SizedBox(height: 10,),
               if(item.items!=null && item.items!.isNotEmpty)
               ListView.separated(
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (ctx,index){
@@ -74,7 +75,7 @@ class OrderCardDetails extends StatelessWidget {
               if(enableTracking)...[
                 const SizedBox(height: 10,),
                 CustomButton(
-                  height: 30.h,
+                  height: 28.h,
                   width: 110.w,
                   circular: 14,
                   widget: CustomText(
@@ -85,6 +86,7 @@ class OrderCardDetails extends StatelessWidget {
                   color: DMUtil.getRED(),
                   onPressed: ()=>  Util.pushPage(OrderTrackingScreen(item: item,), context),
                 ),
+                const SizedBox(height: 5,),
               ],
 
             ],

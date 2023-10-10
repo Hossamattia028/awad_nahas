@@ -109,7 +109,11 @@ class ProductMainDetails extends StatelessWidget {
                     child: Stack(
                       children: [
                         if(brand.iconPath.contains("svg"))...[
-                          SvgPicture.network(brand.iconPath,height: 28.w,)
+                          if(DMUtil.currentThemeIsDark())...[
+                            SvgPicture.asset(brand.darkIcon.toString(),height: 28.w,)
+                          ]else...[
+                            SvgPicture.network(brand.iconPath,height: 28.w,)
+                          ],
                         ]else...[
                           Image.network(brand.imgPath,height: 28.h,)
                         ],

@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
@@ -91,7 +92,7 @@ class ProductsBrand extends StatelessWidget {
                       var item = productList[index];
                       if(productList.isEmpty)return CustomText(text: translate("products.empty"), fontSize: AppStyle.small.sp);
                       return SizedBox(
-                        height: 96.w,
+                        height:Util.getLang()=="ar"? 96.w : 121.w,
                         child: ProductCard(item: item),
                       );
                     },
