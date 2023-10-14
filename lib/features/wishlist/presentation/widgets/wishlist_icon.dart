@@ -31,14 +31,14 @@ class WishListIconWidget extends StatelessWidget {
         return InkWell(
           onTap: (){
             // if(Util.checkUser()){
-              bloc.add(AddToWishlistEvent(product: item));
-              int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.id!=item.id && element.imgPath==item.imgPath);
+            //   bloc.add(AddToWishlistEvent(product: item));
+              int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.id==item.id && element.imgPath==item.imgPath);
               if(index!=-1)bloc.add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
             // }else{
             //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), Colors.red,isMarginBottom: isMarginToast);
             // }
           },
-          child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:DMUtil.getOpacity(),size: iconSize.w,),
+          child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:DMUtil.getOpacity(),size: iconSize.h,),
         );
       },
     );
@@ -60,13 +60,13 @@ class WishListNavIconWidget extends StatelessWidget {
         return Stack(
           alignment: Alignment.topRight,
           children: [
-            Icon(selected?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: selected? DMUtil.getPC() : DMUtil.getDLight(),size: 20.w,),
+            Icon(selected?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: selected? DMUtil.getPC() : DMUtil.getDLight(),size: 20.h,),
             if(length!=0)CircleAvatar(
-              radius: 6.2.w,
+              radius: 6.2.h,
               backgroundColor: selected? DMUtil.getBCC() : DMUtil.getPC(),
               child: Padding(
                 padding: EdgeInsets.only(top: Util.getLang()=="ar"?2:0,bottom: Util.getLang()!="ar"?2:0),
-                child: CustomText(text: "$length",fontSize: AppStyle.small.sp-2.1,color: selected? DMUtil.getPC() : Colors.white,),
+                child: CustomText(text: "$length",fontSize: AppStyle.small.sp-3.w,color: selected? DMUtil.getPC() : Colors.white,),
               )
             ),
           ],
@@ -85,8 +85,8 @@ class WishListButtonInCartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return  InkWell(
       onTap: (){
-        WishlistBloc.get(context).add(AddToWishlistEvent(product: item));
-        int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.id!=item.id && element.imgPath==item.imgPath);
+        // WishlistBloc.get(context).add(AddToWishlistEvent(product: item));
+        int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.id==item.id && element.imgPath==item.imgPath);
         if(index!=-1)WishlistBloc.get(context).add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
       },
       child: Container(

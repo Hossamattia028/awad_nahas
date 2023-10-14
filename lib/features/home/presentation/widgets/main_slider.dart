@@ -27,7 +27,7 @@ class SliderWidget extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             children: [
               SizedBox(
-                height: height.h,
+                height: height.w ,
                 width: double.infinity,
                 child:  CarouselSlider.builder(
                   itemCount: list.length,

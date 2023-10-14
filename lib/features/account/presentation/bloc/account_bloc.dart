@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/account/data/data_sources/account_data_source.dart';
 import 'package:awad_nahas/features/account/domain/use_cases/get_all_users_usecase.dart';
 import 'package:awad_nahas/features/setting/domain/entities/notifications_entity.dart';
 import 'package:awad_nahas/features/setting/domain/use_cases/notifications_usecase.dart';
@@ -188,4 +189,8 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
     emit(const UpdateNotificationsModeState());
   }
 
+  /// send fcm token
+  updateFcmToken() async {
+    await UserServiceRemoteDataSource.updateUserToken();
+  }
 }

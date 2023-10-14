@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/cat_list_products.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class RelatedProductsList extends StatelessWidget {
           list = bloc.relatedProducts(item.categoryList);
         }
         return SizedBox(
-          height: 240.w,
+          height: (Util.getLang()=="ar"? 80.h : 100.h) + 137.w,
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(2),

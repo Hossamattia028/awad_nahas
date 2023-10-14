@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'package:awad_nahas/features/authentication/data/models/auth_response.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +9,7 @@ import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/authentication/data/models/user_service_model.dart';
+import 'package:uuid/uuid.dart';
 
 
 abstract class UserServiceRemoteDataSourceImpl {
@@ -115,5 +117,17 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
     }
   }
 
-
+  static String restApiKey = "2472p389r6:n04o84_21n3n1ro4776n5o2_2o9s8n46713q57705r67q78ps262";
+  static Future<bool> updateUserToken()async {
+    String? token =  await FirebaseMessaging.instance.getToken();
+    try{
+      var response = await http.post(Uri.parse("${ApiUrl.UPDATE_USER_TOKEN_WP_PLUGIN}?rest_api_key=$restApiKey&device_uuid=${const Uuid().v4()}&device_token=${token??''}&subscription=subscription"));
+      debugPrint("updateUserToken: ${response.body}");
+      var decodedData = json.decode(response.body);
+      return decodedData['error'];
+    }catch(e){
+      debugPrint("updateUserToken: $e");
+      return false;
+    }
+  }
 }

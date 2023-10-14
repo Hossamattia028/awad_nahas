@@ -40,6 +40,7 @@ import 'package:url_launcher/url_launcher.dart';
 class Util{
   // implemented this function after register and login
   static getAllUserAppData({required BuildContext context,bool isSplash=false}){
+    AccountBloc.get(context).updateFcmToken();
     AccountBloc.get(context).add(const FetchProfileDataEvent());
     WishlistBloc.get(context).add(const FetchAllWishlistEvent());
     CartBloc.get(context).add(const FetchAllCartEvent());

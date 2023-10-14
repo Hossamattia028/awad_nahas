@@ -17,5 +17,5 @@
 //   static const String applePayShaType = 'SHA-256';
 //   static const String applePayShaRequestPhrase = '50XSbUyH95XFTXLFrbhdrY](';
 //
-//   static const String applePayMerchantId = 'merchant.d.dooskarting.com';
+//   static const String applePayMerchantId = 'merchant.com.awadnahas.ios';
 // }

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class AppStyle {
   //Font Text Style
 
@@ -19,4 +21,9 @@ class AppStyle {
   static double paddingFromTop = Platform.isIOS?47:41;
   static const double paddingFromH = 11;
   static double paddingFromV = Platform.isIOS?42:24;
+
+
+  static double iconsSize = 10.h + 10.w;
+
+
 }

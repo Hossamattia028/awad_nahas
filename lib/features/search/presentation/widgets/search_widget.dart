@@ -27,7 +27,7 @@ class SearchWidget extends StatelessWidget {
         if(showDrawer)
         InkWell(
           onTap: ()=> Scaffold.of(context).openDrawer(),
-          child: SvgPicture.asset(AppImages.drawer,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn),width: 25.w,),
+          child: SvgPicture.asset(AppImages.drawer,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn),width: (10.h + 12.w),),
         ),
 
         const SizedBox(width: 10,),

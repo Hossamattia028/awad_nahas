@@ -30,6 +30,10 @@ class ApiUrl {
   static const String USER_NOTIFICATIONS = '${BASE_URL}user/notifications';
   static const String FETCH_ALL_USER_PROFILE = '${BASE_URL}users';
 
+  static const String UPDATE_USER_TOKEN = '${BASE_URL}update_token';
+  /// update token with wordpress plugin api
+  static const String UPDATE_USER_TOKEN_WP_PLUGIN = '$MAIN_DOMAIN/en/wp-json/fcm/pn/subscribe';
+
   static const String SEND_OTP = '${BASE_URL}send-otp';
 
 

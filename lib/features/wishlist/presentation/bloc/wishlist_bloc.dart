@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
-import 'package:awad_nahas/features/products/data/models/product_small_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
@@ -60,12 +59,12 @@ class WishlistBloc extends Bloc<WishlistEvent,WishlistState>{
     }
   }
 
-  List<ProductModel> _getLocalWishList(){
+  List<ProductsEntity> _getLocalWishList(){
     if(!SharedPref().containPreference(Constants.allLocalWishList))return [];
     String data =  SharedPref().getPreferenceString(Constants.allLocalWishList);
     List<dynamic> decodedList = json.decode(data);
-    List<ProductModel> list = decodedList
-        .map((product) => ProductModel.fromJsonLocal(product))
+    List<ProductsEntity> list = decodedList
+        .map((product) => ProductsEntity.fromJsonLocal(product))
         .toList();
     return list;
   }
@@ -98,7 +97,7 @@ class WishlistBloc extends Bloc<WishlistEvent,WishlistState>{
   updateWishList(List<ProductsEntity> list){
     SharedPref().removePreference(Constants.allLocalWishList);
     String encodedList = json.encode(list
-        .map((product) => ProductModel.toJsonLocal(product))
+        .map((product) => ProductsEntity.toJsonLocal(product))
         .toList());
     SharedPref().setPreferencesString(Constants.allLocalWishList,encodedList);
     wishlistList = _getLocalWishList();

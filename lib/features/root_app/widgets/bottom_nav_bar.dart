@@ -45,11 +45,11 @@ class BottomNavBar extends StatelessWidget {
           unselectedLabelStyle: TextStyle(fontFamily: primaryFontReg,height: 1.4,fontSize: AppStyle.small.sp-1),
           showUnselectedLabels: true,
           items: [
-            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.homeSelected, colorFilter: ColorFilter.mode(currentIndex==0?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),width: 17.w,),label: translate("app_bar.home"),backgroundColor: DMUtil.getWC()),
-            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.categorySelected, colorFilter: ColorFilter.mode(currentIndex==1?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),width: 18.w,),label: translate("app_bar.categories"),backgroundColor: DMUtil.getWC()),
+            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.homeSelected, colorFilter: ColorFilter.mode(currentIndex==0?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),width: 17.h,),label: translate("app_bar.home"),backgroundColor: DMUtil.getWC()),
+            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.categorySelected, colorFilter: ColorFilter.mode(currentIndex==1?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),width: 18.h,),label: translate("app_bar.categories"),backgroundColor: DMUtil.getWC()),
             BottomNavigationBarItem(icon: WishListNavIconWidget(selected: currentIndex==2) ,label: translate("wishlist.title"),backgroundColor: DMUtil.getWC(),),
             BottomNavigationBarItem(icon: CartNavIconWidget(selected: currentIndex==3),label: translate("app_bar.cart"),backgroundColor: DMUtil.getWC()),
-            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.accountSelected, colorFilter: ColorFilter.mode(currentIndex==4?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),width: 18.w,) ,label: translate("profile.my_account"),backgroundColor: DMUtil.getWC()),
+            BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.accountSelected, colorFilter: ColorFilter.mode(currentIndex==4?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),width: 18.h,) ,label: translate("profile.my_account"),backgroundColor: DMUtil.getWC()),
           ],
         );
       },

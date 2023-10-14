@@ -40,7 +40,9 @@ class NotificationsUtils{
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   await SetNotification.setupFlutterNotifications();
-  SetNotification.showFlutterNotification(message);
+  /// this line customized to comment for wordpress plugin only
+  // SetNotification.showFlutterNotification(message);
+
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   debugPrint('Handling a background message ${message.messageId}');

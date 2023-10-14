@@ -17,7 +17,7 @@ class HomeCategoriesList extends StatelessWidget {
         var list = bloc.categoriesList;
         list = bloc.activateTransList(list);
         return SizedBox(
-          height: 113.w,
+          height: 90.h + 13.w,
           child: ListView.separated(
             itemCount: list.length,
             scrollDirection: Axis.horizontal,
@@ -26,7 +26,7 @@ class HomeCategoriesList extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               var item = list[index];
               return CircleCategoryCard(item: item);
-            }, separatorBuilder: (BuildContext context, int index)=> const SizedBox(width: 20,),
+            }, separatorBuilder: (BuildContext context, int index)=> const SizedBox(width: 15,),
           ),
         );
       },

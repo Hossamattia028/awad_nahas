@@ -21,7 +21,7 @@ class SmallBannerWidget extends StatelessWidget {
         return InkWell(
           onTap: ()=> bloc.goSliderPath(slider, context),
           child: Container(
-            height: 145.h,
+            height: 55.h+80.w,
             width: 170.w,
             padding: const EdgeInsets.only(top: 40,left: 20,right: 20),
             decoration: BoxDecoration(

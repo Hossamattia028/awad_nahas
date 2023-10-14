@@ -80,65 +80,6 @@ class ProductModel extends ProductsEntity{
     return data;
   }
 
-
-
-  static ProductModel fromJsonLocal(Map<String, dynamic> jsonObject) {
-    List<String> list = [];
-    if(jsonObject['images']!=null && jsonObject['images'].toString()!="[]"){
-      for(var i in jsonObject['images']){
-        list.add(i.toString());
-      }
-    }
-    return ProductModel(
-      id: jsonObject['id'],
-      sku: jsonObject['sku'] ?? "",
-      title: jsonObject['title'],
-      catTitle: jsonObject['post_title']??"",
-      discount: double.parse((jsonObject['price'] ?? "0").toString()),
-      discountRate: double.parse((jsonObject['price'] ?? "0").toString()),
-      price: double.parse((jsonObject['regular_price'] ?? "0").toString()),
-      desc: jsonObject['desc'] ?? "",
-      attributesDes: jsonObject['attributes_des'] ?? "",
-      stockStatus:  jsonObject['stock_status'] == "instock",
-      imgPath: jsonObject['image']??"",
-      images: list,
-      commentCount: 1,
-      quantity: 1,
-      isArabic:jsonObject['is_arabic'],
-      categoryList: jsonObject['categories']!=null ? CategoriesModel.listModelFromJsonLocal(jsonObject['categories']):[],
-      catID: int.parse((jsonObject['cat_id']??"0").toString()),
-      brandID: int.parse((jsonObject['brand_id']??"0").toString()),
-      reviewsList: jsonObject['reviews']==null || jsonObject['reviews'].toString()=="[]" ? [] : ProductComments.listModelFromJson(jsonObject['reviews']),
-      date: jsonObject['date'] ?? "",
-      averageRate: jsonObject['average_rating'] ?? "0",
-      attributes: ProductAttributes.fromJson(jsonObject),
-    );
-  }
-  static Map<String, dynamic> toJsonLocal(ProductsEntity product) {
-    return {
-      "id":int.tryParse(product.id.toString()),
-      'sku': product.sku.toString(),
-      'title': product.title.toString(),
-      'post_title': product.catTitle,
-      'desc': product.desc.toString(),
-      'image': product.imgPath.toString(),
-      "images":product.images,
-      "is_arabic":product.isArabic,
-      'regular_price': double.parse(product.price.toString()),
-      'price': double.parse(product.discount.toString()),
-      'discount': double.parse(product.discount.toString()),
-      'average_rating':product.averageRate??"0",
-      'cat_id':product.catID,
-      'brand_id':product.brandID,
-      "attributes_des": product.attributesDes.toString(),
-      "categories": json.encode(product.categoryList
-          .map((item) => CategoriesModel.toJsonLocal(item))
-          .toList()),
-      "reviews":product.reviewsList==null || product.reviewsList!.isEmpty ? [] : json.encode(product.reviewsList
-          ?.map((item) => ProductComments.toJsonLocal(item))
-          .toList())
-    };
-  }
 }
 
 

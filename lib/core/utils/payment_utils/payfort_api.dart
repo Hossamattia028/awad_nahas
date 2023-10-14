@@ -4,16 +4,12 @@ import 'dart:convert';
 
 
 import 'package:awad_nahas/core/strings/api/api_url.dart';
-// import 'package:amazon_payfort/amazon_payfort.dart';
-// import 'package:awad_nahas/core/utils/payment_utils/fort_constants.dart';
-// import 'package:awad_nahas/core/utils/payment_utils/sdk_token_response.dart';
-
 import 'package:http/http.dart';
 
 
 class PayFortApi {
-  PayFortApi._();
-  //
+  // PayFortApi._();
+  // //
   // static Future<SdkTokenResponse?> generateSdkToken(
   //     SdkTokenRequest request) async {
   //   var response = await post(
@@ -68,7 +64,7 @@ class PayFortApi {
     return null;
   }
 
-  static Future<String?> generateTokenFromApiApplePay(
+  static Future<List<String>?> generateTokenFromApiApplePay(
       String deviceID) async {
     var response = await post(
       Uri.parse("${ApiUrl.BASE_URL}token_value_ios"),
@@ -79,7 +75,10 @@ class PayFortApi {
     );
     if (response.statusCode == 200) {
       var decodedResponse = jsonDecode(response.body);
-      return decodedResponse['output'];
+      return [
+        decodedResponse['output']['token'],
+        decodedResponse['output']['signature'],
+      ];
     }
     return null;
   }

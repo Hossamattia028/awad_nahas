@@ -51,7 +51,7 @@ class ProductCardFewData extends StatelessWidget {
                             text: item.title.toString(),
                             color: DMUtil.getDC(),
                             fontWeight: FontWeight.w600,
-                            fontSize: AppStyle.small.sp,
+                            fontSize: AppStyle.small.sp-2.w,
                             maxLine: 4,
                             isEllipsis: true,
                           ),

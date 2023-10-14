@@ -14,7 +14,7 @@ class DiscountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return item.discount!=item.price && item.discount != 0 ? Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10,) + const EdgeInsets.only(top: 1),
+      padding: const EdgeInsets.symmetric(horizontal: 10,) +  EdgeInsets.only(top:Util.getLang()=="ar"? 5: 1),
       decoration: BoxDecoration(
           color: DMUtil.getRED(),
           borderRadius: const BorderRadius.all(Radius.circular(15))
@@ -23,7 +23,7 @@ class DiscountWidget extends StatelessWidget {
         text: Util.getLang()=="ar"? '${Util.calcDiscountRate(oldPrice: item.price, newPrice: item.discount)}% -': '-${Util.calcDiscountRate(oldPrice: item.price, newPrice: item.discount)}%',
         color: Colors.white,
         fontWeight: FontWeight.w600,
-        fontSize: AppStyle.small.sp,
+        fontSize: AppStyle.small.sp-3.w,
       ),
     ): const SizedBox.shrink();
   }

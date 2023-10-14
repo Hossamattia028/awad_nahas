@@ -20,7 +20,7 @@ class VerticalBannerWidget extends StatelessWidget {
         return InkWell(
           onTap: ()=> bloc.goSliderPath(slider, context),
           child: Container(
-            height: 298.h,
+            height: 130.h+150.w,
             width: 170.w,
             padding: EdgeInsets.only(top: 140.h,left: 20,right: 20),
             decoration: BoxDecoration(

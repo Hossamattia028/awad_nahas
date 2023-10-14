@@ -79,7 +79,6 @@ class RootBloc extends Bloc<RootEvent, RootState> {
   }
 
   /// maintenance
-
   sendMaintenance(SendMaintenanceEvent event,emit)async{
     try{
       emit(MaintenanceLoadingState());

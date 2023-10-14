@@ -19,20 +19,20 @@ class ProductPriceWidget extends StatelessWidget {
         if(productModel.discount!=productModel.price && productModel.discount != 0 )...[
           CustomText(
             text: "${productModel.price.toString()} ${translate("store.sar")}" ,
-            fontSize: isBig ? AppStyle.average.sp -3: AppStyle.small.sp-3,
+            fontSize: (isBig ? AppStyle.average.sp -3: AppStyle.small.sp-3)-1.w,
             color: DMUtil.getRED(),
             textDecoration: TextDecoration.lineThrough,
             fontWeight: FontWeight.w500,
           ),
           CustomText(
             text: "${productModel.discount.toString()} ${translate("store.sar")}" ,
-            fontSize: isBig?AppStyle.average.sp+1:AppStyle.small.sp,
+            fontSize: (isBig?AppStyle.average.sp+1:AppStyle.small.sp)-1.w,
             fontWeight: FontWeight.w500,
           ),
         ]else...[
           CustomText(
             text: "${productModel.price.toString()} ${translate("store.sar")}" ,
-            fontSize: isBig?AppStyle.average.sp+1:AppStyle.small.sp,
+            fontSize: (isBig?AppStyle.average.sp+1:AppStyle.small.sp) - 1.w,
             fontWeight: FontWeight.w500,
           ),
         ],

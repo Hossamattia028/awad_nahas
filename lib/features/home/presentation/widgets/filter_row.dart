@@ -31,7 +31,7 @@ class FilterRow extends StatelessWidget {
               },
             );
           },
-          child: SvgPicture.asset(AppImages.sort,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn),width: 22.w,),
+          child: SvgPicture.asset(AppImages.sort,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn),width: (10.h + 12.w),),
         ),
         SizedBox(width: 4.w,),
         InkWell(
@@ -50,7 +50,7 @@ class FilterRow extends StatelessWidget {
               },
             );
           },
-          child: SvgPicture.asset(AppImages.filter,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn),width: 29.w,),
+          child: SvgPicture.asset(AppImages.filter,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn),width: (10.h + 16.w),),
         ),
 
 

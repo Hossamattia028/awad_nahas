@@ -30,9 +30,9 @@ class CircleCategoryCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if(DMUtil.currentThemeIsDark() && item.darkIcon!=null && item.darkIcon.toString().trim()!="")...[
-            SvgPicture.network(item.darkIcon!,height: 55.w,fit: BoxFit.contain,),
+            SvgPicture.network(item.darkIcon!,height: 50.h,fit: BoxFit.contain,),
           ]else if(!DMUtil.currentThemeIsDark() && item.lightIcon!=null && item.lightIcon.toString().trim()!="")...[
-            SvgPicture.network(item.lightIcon!,height: 55.w,fit: BoxFit.contain,),
+            SvgPicture.network(item.lightIcon!,height: 50.h,fit: BoxFit.contain,),
           ]else ...[
             SvgIconWidget(iconUrl: item.iconPath,),
           ],

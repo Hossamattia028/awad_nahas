@@ -75,7 +75,7 @@ class ProductMainDetails extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: Icon(Icons.share,color: DMUtil.getDC(),size: 20.w,),
+                          child: Icon(Icons.share,color: DMUtil.getDC(),size: 23.h,),
                         ),
                       ),
                     ),

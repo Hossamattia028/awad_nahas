@@ -48,7 +48,7 @@ class CatProductsList extends StatelessWidget {
             ),
             const SizedBox(height: 15,),
             SizedBox(
-              height: Util.getLang()=="ar"? 240.w : 260.w ,
+              height: (Util.getLang()=="ar"? 80.h : 100.h) + 125.w,
               child: ListView.separated(
                 itemCount: list.length,
                 physics: const BouncingScrollPhysics(),
@@ -101,7 +101,7 @@ class ProductCardH extends StatelessWidget {
             const SizedBox(height: 2,),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 5),
-              width: 134.w,
+              width: 120.w,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -115,7 +115,7 @@ class ProductCardH extends StatelessWidget {
               child: ImageWidget(
                 imgUrl: item.imgPath,
                 fit: BoxFit.contain,
-                width: 125,
+                width: 110,
               ),
             ),
             Expanded(
@@ -129,13 +129,13 @@ class ProductCardH extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 130.w,
-                      height: 42.w,
+                      width: 110.w,
+                      height: 36.w,
                       child: CustomText(
                         text: item.title.toString(),
                         color: DMUtil.getDC(),
                         fontWeight: FontWeight.w500,
-                        fontSize: AppStyle.large.sp-5,
+                        fontSize: AppStyle.large.sp-6.w,
                         isEllipsis: true,
                         maxLine: 2,
                       ),

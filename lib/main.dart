@@ -16,6 +16,7 @@ import 'package:awad_nahas/features/authentication/presentation/bloc/auth_bloc.d
 import 'package:awad_nahas/features/shared_widgets/error_widget.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -26,6 +27,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await Future.wait([
     Firebase.initializeApp(),
     di.init(),

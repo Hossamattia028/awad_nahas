@@ -59,7 +59,7 @@ class CategoryCard extends StatelessWidget {
             Expanded(
               child: CustomText(
                 text: item.title,
-                fontSize: AppStyle.large.sp,
+                fontSize: AppStyle.large.sp - 2.w,
                 alignCenter: true,
               ),
             ),
