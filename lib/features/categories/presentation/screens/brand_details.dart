@@ -35,7 +35,12 @@ class BrandDetailsScreen extends StatelessWidget{
             child: Column(
               children: [
                 const SizedBox(height: 10,),
-                SvgPicture.network(brand.iconPath,width: double.infinity,height: 100.w,),
+                if(DMUtil.currentThemeIsDark())...[
+                  SvgPicture.asset(brand.darkIcon.toString(),height: 100.w,fit: BoxFit.fill,)
+                ]else...[
+                  SvgPicture.network(brand.iconPath,width: double.infinity,height: 100.w,),
+                ],
+
 
 
                 SizedBox(height: 10.w,),

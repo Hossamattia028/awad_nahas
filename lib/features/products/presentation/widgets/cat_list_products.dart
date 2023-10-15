@@ -48,7 +48,7 @@ class CatProductsList extends StatelessWidget {
             ),
             const SizedBox(height: 15,),
             SizedBox(
-              height: (Util.getLang()=="ar"? 80.h : 100.h) + 125.w,
+              height: (Util.getLang()=="ar"? 94.h : 109.h) + 115.w,
               child: ListView.separated(
                 itemCount: list.length,
                 physics: const BouncingScrollPhysics(),
@@ -129,7 +129,7 @@ class ProductCardH extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 110.w,
+                      width: 95.w+30.h,
                       height: 36.w,
                       child: CustomText(
                         text: item.title.toString(),

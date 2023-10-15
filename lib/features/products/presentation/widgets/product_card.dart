@@ -52,7 +52,7 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                   SizedBox(
-                    width: 240.w,
+                    width: 238.w,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -68,7 +68,7 @@ class ProductCard extends StatelessWidget {
                   child: CustomText(
                     text: item.title.toString(),
                     color: DMUtil.getDC(),
-                    fontSize: AppStyle.average.sp-1,
+                    fontSize: AppStyle.average.sp-1.w,
                     fontWeight: FontWeight.w600,
                     maxLine: 2,
                     isEllipsis: true,

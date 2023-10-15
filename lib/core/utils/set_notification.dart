@@ -59,7 +59,15 @@ class SetNotification{
           ?.createNotificationChannel(channel);
 
       if (Platform.isIOS) {
-        await FirebaseMessaging.instance.requestPermission();
+        await FirebaseMessaging.instance.requestPermission(
+          alert: true,
+          announcement: false,
+          badge: true,
+          carPlay: false,
+          criticalAlert: false,
+          provisional: false,
+          sound: true,
+        );
       }
       await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
         alert: true,

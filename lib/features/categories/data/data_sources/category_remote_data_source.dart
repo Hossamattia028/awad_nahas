@@ -54,7 +54,7 @@ class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
   @override
   Future<List<SliderModel>> getAllSliders() async{
     var response = await client.get(Uri.parse(ApiUrl.SLIDERS_URL));
-    debugPrint("getAllSliders: ${response.body}");
+    // debugPrint("getAllSliders: ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       List<SliderModel> sliders =

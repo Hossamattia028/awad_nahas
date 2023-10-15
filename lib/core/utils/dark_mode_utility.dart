@@ -35,7 +35,7 @@ class DMUtil{
 
 
   static Color getGreen(){
-    return currentThemeIsDark() ? kWhite : const  Color(0xff007F2D);
+    return currentThemeIsDark() ? const  Color(0xff007F2D) : const  Color(0xff007F2D);
   }
 
   static Color getREdOPACITY(){

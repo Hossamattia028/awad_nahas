@@ -38,7 +38,7 @@ class ProductDetailsPrice extends StatelessWidget {
           Text.rich(
               TextSpan(
                   text: productModel.price.toString(),
-                  style: TextStyle(color: DMUtil.getOpacity(),fontWeight: FontWeight.w600,decoration: TextDecoration.lineThrough),
+                  style: TextStyle(color: DMUtil.getOpacity(),fontSize: AppStyle.small.sp,fontWeight: FontWeight.w600,decoration: TextDecoration.lineThrough),
                   children: [
                     TextSpan(
                       text: "  ${translate("store.offer")} ${Util.calcDiscountRate(oldPrice: productModel.price, newPrice: productModel.discount)}% ",

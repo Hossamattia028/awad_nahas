@@ -32,7 +32,7 @@ class ProductMainDetails extends StatelessWidget {
             text: item.title,
             color: DMUtil.getD2C().withOpacity(0.9),
             fontWeight: FontWeight.w600 ,
-            fontSize: AppStyle.large.sp-1,
+            fontSize: AppStyle.large.sp-2.w,
             maxLine: 3,
           ),
           const SizedBox(height: 5,),
@@ -112,7 +112,7 @@ class ProductMainDetails extends StatelessWidget {
                           if(DMUtil.currentThemeIsDark())...[
                             SvgPicture.asset(brand.darkIcon.toString(),height: 28.w,)
                           ]else...[
-                            SvgPicture.network(brand.iconPath,height: 28.w,)
+                            SvgPicture.network(brand.iconPath,height: 15.h+10.w,)
                           ],
                         ]else...[
                           Image.network(brand.imgPath,height: 28.h,)

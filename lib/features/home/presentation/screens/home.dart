@@ -40,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     NotificationsUtils.pushNotificationListener(context);
+
     if(!SharedPref().containPreference("rating")){
       rateMyApp.init().then((_){
         SharedPref().setPreferencesBoolean("rating", true);

@@ -19,7 +19,7 @@ class ProductPriceWidget extends StatelessWidget {
         if(productModel.discount!=productModel.price && productModel.discount != 0 )...[
           CustomText(
             text: "${productModel.price.toString()} ${translate("store.sar")}" ,
-            fontSize: (isBig ? AppStyle.average.sp -3: AppStyle.small.sp-3)-1.w,
+            fontSize: (isBig ? AppStyle.average.sp -3.w: AppStyle.small.sp-3)-1.w,
             color: DMUtil.getRED(),
             textDecoration: TextDecoration.lineThrough,
             fontWeight: FontWeight.w500,

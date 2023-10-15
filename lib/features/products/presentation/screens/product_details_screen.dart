@@ -113,39 +113,52 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
           ),
         ),
-        if(enableBTop==true)
-          Material(
-            color: Colors.transparent,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 90.h+90.w,),
-              child: InkWell(
-                onTap: ()=> controller.animateTo(10, duration: const Duration(milliseconds: 1000), curve: Curves.linear),
-                child: const BackToTopWidget(),
-              ),
-            ),
-          ),
+        // if(enableBTop==true)
+        //   Material(
+        //     color: Colors.transparent,
+        //     child: Padding(
+        //       padding: EdgeInsets.only(bottom: 90.h+90.w,),
+        //       child: InkWell(
+        //         onTap: ()=> controller.animateTo(10, duration: const Duration(milliseconds: 1000), curve: Curves.linear),
+        //         child: const BackToTopWidget(),
+        //       ),
+        //     ),
+        //   ),
         Material(
           color: Colors.transparent,
-          child: Stack(
-            children: [
-              BlocBuilder<CartBloc,CartState>(
-                builder: (ctx,state){
-                  var bloc =  CartBloc.get(ctx);
-                  return SizedBox(
-                    // duration: const Duration(milliseconds: 500),
-                    height: bloc.showCountWidget ? ((Platform.isIOS?  90.w : 75.w) + 90.h) : ((Platform.isIOS?  35.w : 15.w) + 85.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        AddToCartButtonWidget(item: widget.item,),
-                        const BottomNavBar(isRoot: false ),
-                      ],
+          child: SizedBox(
+
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if(enableBTop==true)
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 90.h+90.w,),
+                    child: InkWell(
+                      onTap: ()=> controller.animateTo(10, duration: const Duration(milliseconds: 1000), curve: Curves.linear),
+                      child: const BackToTopWidget(),
                     ),
-                  );
-                },
-              )
-            ],
+                  ),
+                BlocBuilder<CartBloc,CartState>(
+                  builder: (ctx,state){
+                    var bloc =  CartBloc.get(ctx);
+                    return SizedBox(
+                      // duration: const Duration(milliseconds: 500),
+                      height: bloc.showCountWidget ? ((Platform.isIOS?  91.w : 75.w) + 90.h) : ((Platform.isIOS?  35.w : 15.w) + 85.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          AddToCartButtonWidget(item: widget.item,),
+                          const BottomNavBar(isRoot: false ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           )
         ),
 

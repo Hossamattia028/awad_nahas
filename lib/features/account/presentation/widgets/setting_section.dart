@@ -70,7 +70,7 @@ class SettingSectionWidget extends StatelessWidget {
                       child: CustomText(
                         text: e.toString(),
                         color: DMUtil.getDC(),
-                        fontSize: AppStyle.average.sp,
+                        fontSize: AppStyle.average.sp-2.w,
                       ),
                     )).toList(),
                     value: Util.getLang()=="ar"?"عربي":"English",

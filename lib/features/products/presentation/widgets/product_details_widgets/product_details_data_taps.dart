@@ -49,6 +49,7 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
             // }else{
             //   bloc.widgetSize= 220;
             // }
+            double val = 30.h+10.w;
             return Container(
               color: DMUtil.getWC(),
               width: double.infinity,
@@ -56,19 +57,19 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
                 children: <Widget>[
                   const SizedBox(height: 10,),
                   SizedBox(
-                    height: 40.h,
+                    height: val,
                     child: TabBar(
                       onTap: (index) => bloc.add(ChangeWidgetSizeEvent(height: index==0?bloc.widgetSize:250,index: index)),
                       unselectedLabelColor: DMUtil.getDC(),
                       indicatorColor: DMUtil.getPC(),
                       labelColor: DMUtil.getPC(),
                       isScrollable: true,
-                      labelPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                      labelPadding: EdgeInsets.symmetric(horizontal: 20.w,),
                       labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+2,fontFamily: primaryFontReg,fontWeight: FontWeight.w600),
                       tabs: <Widget>[
-                        Tab(text: translate("products.desc"),),
-                        Tab(text: translate("cart.attributes"),),
-                        Tab(text: translate("products.reviews"),),
+                        Tab(text: translate("products.desc"),height: val,),
+                        Tab(text: translate("cart.attributes"),height: val,),
+                        Tab(text: translate("products.reviews"),height: val,),
                       ],
                     ),
                   ),

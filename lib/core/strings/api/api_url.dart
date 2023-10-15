@@ -11,10 +11,17 @@ class ApiUrl {
 
   // static const String BASE_URL = 'http://10.0.2.2:8000/api/';
 
-  static const String MAIN_DOMAIN = 'https://demo.awadnahas.com';
+  //new subdomain
+  static const String MAIN_DOMAIN = 'https://app.abnsandbox.com';
 
-  static const String BASE_URL = '$MAIN_DOMAIN/awadnahas/api/';
-  static const String STORAGE_URL = '$MAIN_DOMAIN/awadnahas/public/';
+  //old subdomain
+  // static const String MAIN_DOMAIN = 'https://demo.awadnahas.com';
+  //for old subdomain
+  // static const String BASE_URL = '$MAIN_DOMAIN/awadnahas/api/';
+  // static const String STORAGE_URL = '$MAIN_DOMAIN/awadnahas/public/';
+
+  static const String BASE_URL = '$MAIN_DOMAIN/api/';
+  static const String STORAGE_URL = '$MAIN_DOMAIN/public/';
 
   static const String BASE_URL_ABN_PLUGIN = '$MAIN_DOMAIN/wp-json/inetwork/api/';
 

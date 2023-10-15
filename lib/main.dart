@@ -36,7 +36,7 @@ void main() async{
     di.init(),
     SharedPref().instantiatePreferences()
   ]);
-  NotificationsUtils.initialPushNotification();
+  await NotificationsUtils.initialPushNotification();
   var delegate = await LocalizationDelegate.create(
       fallbackLocale: 'en_US', supportedLocales: ['en_US', 'ar']);
   runApp(LocalizedApp(delegate, const MyApp()));

@@ -39,7 +39,7 @@ class CircleCategoryCard extends StatelessWidget {
 
           const SizedBox(height: 5,),
           SizedBox(
-            height: 42.h,
+            height: 30.h+12.w,
             width: 60.w,
             child: CustomText(
               text: item.title.toString(),

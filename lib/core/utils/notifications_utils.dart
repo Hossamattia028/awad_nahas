@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -28,6 +29,8 @@ class NotificationsUtils{
       /// for android and ios versions
       FirebaseMessaging.onMessage.listen((event) {
         SetNotification.showFlutterNotification(RemoteMessage(notification: event.notification!));
+      }).onError((err){
+        debugPrint("FirebaseMessaging onMessage: $err");
       });
     }
   // }
@@ -41,9 +44,22 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   await SetNotification.setupFlutterNotifications();
   /// this line customized to comment for wordpress plugin only
-  // SetNotification.showFlutterNotification(message);
+  if(Platform.isIOS)SetNotification.showFlutterNotification(message);
 
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   debugPrint('Handling a background message ${message.messageId}');
 }
+
+// if #available(iOS 10.0, *) {
+// UNUserNotificationCenter.current().delegate = self
+// let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+// UNUserNotificationCenter.current().requestAuthorization(
+// options: authOptions,
+// completionHandler: {_, _ in })
+// } else {
+// let settings: UIUserNotificationSettings =
+// UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+// application.registerUserNotificationSettings(settings)
+// }
+// application.registerForRemoteNotifications()
