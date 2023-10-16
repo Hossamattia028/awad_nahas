@@ -166,21 +166,21 @@ class AddToCartButtonWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const SizedBox(height: 4,),
+                                const SizedBox(height: 5,),
                                 CustomText(
                                   text: translate("products.qty").toUpperCase(),
                                   color: DMUtil.getD2C(),
-                                  fontSize: AppStyle.verySmall.sp-1.w,
+                                  fontSize: AppStyle.verySmall.sp,
                                 ),
                                 Expanded(
                                   child: CustomText(
                                     text: "$currentCount",
                                     color: DMUtil.getD2C(),
-                                    fontSize: AppStyle.average.sp-1.w,
+                                    fontSize: AppStyle.large.sp,
                                     fontWeight: FontWeight.bold,
                                     alignCenter: true,
                                   ),
-                                )
+                                ),
                               ],
                             )
                         ),

@@ -92,7 +92,7 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
 
   static Future<List<FaqsModel>> getOurFaqs() async{
     var response = await http.get(Uri.parse(ApiUrl.OUR_FAQS),headers: ApiUrl.headerAuth);
-    debugPrint("getOurFaqs ${response.body}");
+    // debugPrint("getOurFaqs ${response.body}");
     var decodedData = json.decode(response.body);
     if (response.statusCode == 200) {
       List<FaqsModel> faqs =

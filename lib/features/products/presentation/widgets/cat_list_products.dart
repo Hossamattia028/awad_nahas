@@ -48,7 +48,7 @@ class CatProductsList extends StatelessWidget {
             ),
             const SizedBox(height: 15,),
             SizedBox(
-              height: (Util.getLang()=="ar"? 94.h : 109.h) + 115.w,
+              height: (Util.getLang()=="ar"? 95.h : 110.h) + 115.w,
               child: ListView.separated(
                 itemCount: list.length,
                 physics: const BouncingScrollPhysics(),

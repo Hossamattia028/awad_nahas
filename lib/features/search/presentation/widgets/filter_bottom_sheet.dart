@@ -193,8 +193,8 @@ class CheckBoxWidget extends StatelessWidget {
               ),
             ]else...[
               Container(
-                width: 24.w,
-                height: 27.h,
+                width: 20.w,
+                height: 20.w,
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(6)),
                     border: Border.all(width: 1.0,color: isEnabled?DMUtil.getPC(): DMUtil.getD2C()),

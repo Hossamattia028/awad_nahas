@@ -23,7 +23,7 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
   @override
   Future<List<OrderModel>> getAllOrder() async {
     var response = await client.get(Uri.parse(ApiUrl.FETCH_ALL_ORDERS), headers: ApiUrl.headerAuth);
-    debugPrint("getAllOrder: ${response.body}");
+    // debugPrint("getAllOrder: ${response.body}");
     final decodedData = json.decode(response.body);
     if (decodedData['status']) {
       List<OrderModel> orders = decodedData['data'].map<OrderModel>((orderModel) {
@@ -40,7 +40,7 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
     final response = await client.post(Uri.parse(ApiUrl.ADD_ORDER),
         body: json.encode(data),
         headers: ApiUrl.headerAuth);
-     debugPrint("addOrder: ${response.body}");
+     // debugPrint("addOrder: ${response.body}");
      var decodedData = jsonDecode(response.body);
     if (decodedData['status']==true) {
       SetNotification.showNotification(title: "", msg: translate("toast.order_send"));

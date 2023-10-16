@@ -113,52 +113,46 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
           ),
         ),
-        // if(enableBTop==true)
-        //   Material(
-        //     color: Colors.transparent,
-        //     child: Padding(
-        //       padding: EdgeInsets.only(bottom: 90.h+90.w,),
-        //       child: InkWell(
-        //         onTap: ()=> controller.animateTo(10, duration: const Duration(milliseconds: 1000), curve: Curves.linear),
-        //         child: const BackToTopWidget(),
-        //       ),
-        //     ),
-        //   ),
+        if(enableBTop==true)
+          Material(
+            color: Colors.transparent,
+            child: BlocBuilder<CartBloc,CartState>(
+              builder: (ctx,state){
+                var bloc =  CartBloc.get(ctx);
+                double val = 125.h + 10.w;
+                if(bloc.showCountWidget)val += 44.w;
+                return InkWell(
+                  onTap: ()=> controller.animateTo(10, duration: const Duration(milliseconds: 1000), curve: Curves.linear),
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: val,),
+                    child: const BackToTopWidget(),
+                  ),
+                );
+              },
+            )
+          ),
         Material(
           color: Colors.transparent,
-          child: SizedBox(
-
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if(enableBTop==true)
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 90.h+90.w,),
-                    child: InkWell(
-                      onTap: ()=> controller.animateTo(10, duration: const Duration(milliseconds: 1000), curve: Curves.linear),
-                      child: const BackToTopWidget(),
+          child: Stack(
+            children: [
+              BlocBuilder<CartBloc,CartState>(
+                builder: (ctx,state){
+                  var bloc =  CartBloc.get(ctx);
+                  return SizedBox(
+                    // duration: const Duration(milliseconds: 500),
+                    height: bloc.showCountWidget ? ((Platform.isIOS?  63.w : 65.w) + 110.h) : ((Platform.isIOS?  35.w : 15.w) + 85.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        AddToCartButtonWidget(item: widget.item,),
+                        const BottomNavBar(isRoot: false ),
+                      ],
                     ),
-                  ),
-                BlocBuilder<CartBloc,CartState>(
-                  builder: (ctx,state){
-                    var bloc =  CartBloc.get(ctx);
-                    return SizedBox(
-                      // duration: const Duration(milliseconds: 500),
-                      height: bloc.showCountWidget ? ((Platform.isIOS?  91.w : 75.w) + 90.h) : ((Platform.isIOS?  35.w : 15.w) + 85.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          AddToCartButtonWidget(item: widget.item,),
-                          const BottomNavBar(isRoot: false ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
+                  );
+                },
+              ),
+            ],
           )
         ),
 
