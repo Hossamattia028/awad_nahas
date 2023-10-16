@@ -117,7 +117,7 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
     }
   }
 
-  static String restApiKey = "2472p389r6:n04o84_21n3n1ro4776n5o2_2o9s8n46713q57705r67q78ps262";
+  static String restApiKey = "p6132252p6:6568p7nn915no_1n0q35rs5pq892qno_16230348n7ro2o296so197q474qq02nq";
   static Future<bool> updateUserToken()async {
     String? token =  await FirebaseMessaging.instance.getToken();
     try{
@@ -130,4 +130,5 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
       return false;
     }
   }
+
 }

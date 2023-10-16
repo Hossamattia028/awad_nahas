@@ -78,9 +78,9 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
             address2: (categoryModel['address']??"").toString(),
             country: (categoryModel['country']??"").toString(),
             hours: categoryModel['hours']??[],
-            lat: double.parse(categoryModel['lat']??"0.0",),
-            long:double.parse(categoryModel['lng']??"0.0",),
-          phone: categoryModel['phone'], state: '', id: 0, type: '', postCode: '', lastName: '', firstName: '', email: '',
+            lat: double.tryParse((categoryModel['lat']??"0.0").toString(),)??0,
+            long:double.tryParse((categoryModel['lng']??"0.0").toString(),)??0,
+          phone: categoryModel['phone'].toString(), state: '', id: 0, type: '', postCode: '', lastName: '', firstName: '', email: '',
           locationType: "",
         );
       }).toList();
@@ -92,7 +92,6 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
 
   static Future<List<FaqsModel>> getOurFaqs() async{
     var response = await http.get(Uri.parse(ApiUrl.OUR_FAQS),headers: ApiUrl.headerAuth);
-    debugPrint("getOurFaqs ${response.request?.url}");
     debugPrint("getOurFaqs ${response.body}");
     var decodedData = json.decode(response.body);
     if (response.statusCode == 200) {

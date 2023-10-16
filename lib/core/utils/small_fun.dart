@@ -100,7 +100,10 @@ class Util{
 
   static Future<String> googleSign()async{
     try{
-      final GoogleSignInAccount? googleData = await GoogleSignIn(scopes: ['profile', 'email']).signIn().catchError((e){return e;});
+      final GoogleSignInAccount? googleData = await GoogleSignIn(scopes: ['profile', 'email']).signIn().catchError((e){
+        debugPrint("googleSign: $e");
+        throw e;
+      });
       // GoogleSignInAccount? googleData =  await googleSignIn.signIn();
       // final GoogleSignInAuthentication? googleAuth = await googleData?.authentication;
       // "access_token": googleAuth?.accessToken,
@@ -112,17 +115,25 @@ class Util{
   }
 
   static Future<String> facebookLogin() async {
-    final LoginResult loginResult = await FacebookAuth.instance.login(permissions: ['email', 'public_profile']).catchError((e){return e;});
-    if(loginResult.accessToken==null)return "";
-    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-    var data = await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-    if(data.user==null)return "user not found";
-    String email =  data.user!.email.toString();
-    if (loginResult.status == LoginStatus.success) {
-      return email;
-      // _accessToken = result.accessToken!;
-    }else{
-      return translate("toast.oops");
+    try{
+      final LoginResult loginResult = await FacebookAuth.instance.login(permissions: ['email', 'public_profile']).catchError((e){
+        debugPrint("googleSign: $e");
+        throw e;
+      });
+      if(loginResult.accessToken==null)return "";
+      final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      var data = await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      if(data.user==null)return "user not found";
+      String email =  data.user!.email.toString();
+      if (loginResult.status == LoginStatus.success) {
+        return email;
+        // _accessToken = result.accessToken!;
+      }else{
+        return translate("toast.oops");
+      }
+    }catch(e){
+      debugPrint("facebookLogin: $e");
+      return e.toString();
     }
   }
 
