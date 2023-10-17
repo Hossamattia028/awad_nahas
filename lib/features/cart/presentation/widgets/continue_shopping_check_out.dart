@@ -47,8 +47,8 @@ class CartBottomButton extends StatelessWidget {
                       widget: state is OrderLoadingState
                           ? const CircularProgressIndicator(
                         color: Colors.white,
-                      )
-                          : Row(
+                      ):
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Expanded(

@@ -17,9 +17,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
   @override
   void initState() {
     const PlatformWebViewControllerCreationParams params  = PlatformWebViewControllerCreationParams();
-    final WebViewController controller = WebViewController.fromPlatformCreationParams(params );
-    // #enddocregion platform_features
-
+    final WebViewController controller = WebViewController.fromPlatformCreationParams(params);
     controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
@@ -29,7 +27,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
             debugPrint('WebView is loading (progress : $progress%)');
           },
           onPageStarted: (String url) {
-            // debugPrint('Page started loading: $url');
+            debugPrint('Page started loading: $url');
           },
           onPageFinished: (String url) {
             // debugPrint('Page finished loading: $url');
@@ -65,8 +63,6 @@ Page resource error:
         },
       )
       ..loadRequest(Uri.parse(widget.url));
-
-
 
     _controller = controller;
     super.initState();

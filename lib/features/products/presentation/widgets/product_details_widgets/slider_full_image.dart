@@ -54,7 +54,7 @@ class FullImageViewer extends StatelessWidget {
               Align(
                 alignment: Util.getLang()!="ar"? Alignment.topLeft:Alignment.topRight,
                 child: Padding(
-                  padding: EdgeInsets.all(25.0.h),
+                  padding: EdgeInsets.symmetric(vertical: 40.h,horizontal: 20.w),
                   child: BackArrowButton(color: DMUtil.getRED()),
                 ),
               ),

@@ -27,7 +27,7 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   Future<UserServiceModel> getUserData() async{
     var response = await client.get(Uri.parse(ApiUrl.USER_PROFILE_DATA),
         headers: ApiUrl.headerAuth);
-    debugPrint("getUserData: ${response.body}");
+    // debugPrint("getUserData: ${response.body}");
     var decodedData = json.decode(response.body);
     if (decodedData['status'] == true) {
       var body = json.decode(response.body);
@@ -118,13 +118,32 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   }
 
   static String restApiKey = "p6132252p6:6568p7nn915no_1n0q35rs5pq892qno_16230348n7ro2o296so197q474qq02nq";
-  static Future<bool> updateUserToken()async {
+  static Future<bool> updateUserTokenForPlugin()async {
     String? token =  await FirebaseMessaging.instance.getToken();
     try{
       var response = await http.post(Uri.parse("${ApiUrl.UPDATE_USER_TOKEN_WP_PLUGIN}?rest_api_key=$restApiKey&device_uuid=${const Uuid().v4()}&device_token=${token??''}&subscription=subscription"));
-      debugPrint("updateUserToken: ${response.body}");
+      // debugPrint("updateUserTokenForPlugin: ${response.body}");
       var decodedData = json.decode(response.body);
       return decodedData['error'];
+    }catch(e){
+      debugPrint("updateUserTokenForPlugin: $e");
+      return false;
+    }
+  }
+
+  static Future<bool> updateUserToken()async {
+    String? token =  await FirebaseMessaging.instance.getToken();
+    try{
+      var response = await http.post(
+        Uri.parse(ApiUrl.UPDATE_USER_TOKEN),
+        body: jsonEncode({
+          "user_id": Util.getUserID(),
+          "fcm_token":token ?? ""
+        })
+      );
+      // debugPrint("updateUserToken: ${response.body}");
+      var decodedData = json.decode(response.body);
+      return decodedData['status'];
     }catch(e){
       debugPrint("updateUserToken: $e");
       return false;

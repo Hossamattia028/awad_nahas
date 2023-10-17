@@ -3,6 +3,7 @@
 
 import 'dart:convert';
 
+import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
@@ -22,8 +23,8 @@ class TamaraSdk{
         'Content-Type': 'application/json; charset=UTF-8',
       };
       var orderData = {
-        "order_reference_id": "123456",
-        "order_number": "A123456",
+        "order_reference_id": Util.getMobile()==""?Util.getEmail():Util.getMobile(),
+        "order_number": Util.getMobile()==""?Util.getEmail():Util.getMobile(),
         "total_amount": {
           "amount": data['total_price'],
           "currency": "SAR"
@@ -44,7 +45,7 @@ class TamaraSdk{
         "shipping_address": data['shipping_address'] ==null || data['shipping_address']['line1'].toString().trim()=="" ? data['billing_address'] : data['shipping_address'],
         if(data['discount']!=null)"discount": data['discount'],
         "tax_amount": {
-          "amount": "100.00",
+          "amount": "0.00",
           "currency": "SAR"
         },
         "shipping_amount": {
@@ -52,13 +53,13 @@ class TamaraSdk{
           "currency": "SAR"
         },
         "merchant_url": {
-          "success": "https://example.com/checkout/success",
-          "failure": "https://example.com/checkout/failure",
-          "cancel": "https://example.com/checkout/cancel",
-          "notification": "https://example.com/payments/tamarapay"
+          "success": "${ApiUrl.MAIN_DOMAIN}/checkout/success",
+          "failure": "${ApiUrl.MAIN_DOMAIN}/checkout/failure",
+          "cancel": "${ApiUrl.MAIN_DOMAIN}/checkout/cancel",
+          "notification": "${ApiUrl.MAIN_DOMAIN}/payments/tamarapay"
         },
         "platform": "Magento",
-        "is_mobile": false,
+        "is_mobile": true,
         "risk_assessment": {
           "customer_age": 22,
           "customer_dob": "31-01-2000",

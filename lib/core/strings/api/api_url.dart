@@ -86,17 +86,17 @@ class ApiUrl {
   static const String coupon = '${BASE_URL}coupon';
 
 
-  static String SERVICES = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/services-mobile-ar/":"en/about-us/services-mobile/"}"';
-  static String ESTRAIGIATNA = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/strategy-mobile-ar/":"en/about-us/strategy-mobile/"}"';
-  static String OUR_BRANDS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/our-brands-mobile-ar/":"en/about-us/our-brands-mobile/"}"';
-  static String OUR_PROJECTS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/projects-mobile-ar/":"en/projects-mobile/"}"';
+  static String SERVICES = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/services-mobile-ar/":"en/about-us/services-mobile/"}';
+  static String ESTRAIGIATNA = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/strategy-mobile-ar/":"en/about-us/strategy-mobile/"}';
+  static String OUR_BRANDS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/our-brands-mobile-ar/":"en/about-us/our-brands-mobile/"}';
+  static String OUR_PROJECTS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/projects-mobile-ar/":"en/projects-mobile/"}';
 
-  static String PRIVACY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/privacy-policy-mobile-ar/":"en/policies/privacy-policy-mobile/"}"';
-  static String PAYMENT_GATEWAYS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/payment-method-mobile-ar/":"en/policies/payment-method-mobile/"}"';
-  static String TERMS_CONDITIONS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/terms-and-conditions-mobile-ar/":"en/policies/terms-and-conditions-mobile/"}"';
-  static String REPLACEMENT = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/arexchange-return-policy-mobile-ar/":"en/policies/exchange-return-policy-mobile/"}"';
-  static String ENSURE = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/warranty-certificate-ar/":"en/policies/mobile/"}"';
-  static String DELIVERY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/delivery-policy-mobile-ar/":"en/policies/delivery-policy-mobile/"}"';
+  static String PRIVACY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/privacy-policy-mobile-ar/":"en/policies/privacy-policy-mobile/"}';
+  static String PAYMENT_GATEWAYS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/payment-method-mobile-ar/":"en/policies/payment-method-mobile/"}';
+  static String TERMS_CONDITIONS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/terms-and-conditions-mobile-ar/":"en/policies/terms-and-conditions-mobile/"}';
+  static String REPLACEMENT = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/arexchange-return-policy-mobile-ar/":"en/policies/exchange-return-policy-mobile/"}';
+  static String ENSURE = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/warranty-certificate-ar/":"en/policies/mobile/"}';
+  static String DELIVERY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/delivery-policy-mobile-ar/":"en/policies/delivery-policy-mobile/"}';
 
 
   static updateSettingUrl(){
@@ -104,16 +104,16 @@ class ApiUrl {
     OUR_FAQS = '${BASE_URL_ABN_PLUGIN}faq?lang=${Util.getLang()=="ar"?"ar":"en_US"}';
     CONTACT = '${BASE_URL_ABN_PLUGIN}contact_us?lang=${Util.getLang()=="ar"?"ar":"en_US"}';
     MAINTENANCE = '${BASE_URL_ABN_PLUGIN}maintenance_request?lang=${Util.getLang()=="ar"?"ar":"en_US"}';
-    SERVICES = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/services-mobile-ar/":"en/about-us/services-mobile/"}"';
-    ESTRAIGIATNA = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/strategy-mobile-ar/":"en/about-us/strategy-mobile/"}"';
-    OUR_BRANDS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/our-brands-mobile-ar/":"en/about-us/our-brands-mobile/"}"';
-    OUR_PROJECTS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/projects-mobile-ar/":"en/projects-mobile/"}"';
+    SERVICES = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/services-mobile-ar/":"en/about-us/services-mobile/"}';
+    ESTRAIGIATNA = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/strategy-mobile-ar/":"en/about-us/strategy-mobile/"}';
+    OUR_BRANDS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/our-brands-mobile-ar/":"en/about-us/our-brands-mobile/"}';
+    OUR_PROJECTS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/projects-mobile-ar/":"en/projects-mobile/"}';
 
-    PRIVACY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/privacy-policy-mobile-ar/":"en/policies/privacy-policy-mobile/"}"';
-    PAYMENT_GATEWAYS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/payment-method-mobile-ar/":"en/policies/payment-method-mobile/"}"';
-    TERMS_CONDITIONS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/terms-and-conditions-mobile-ar/":"en/policies/terms-and-conditions-mobile/"}"';
-    REPLACEMENT = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/arexchange-return-policy-mobile-ar/":"en/policies/exchange-return-policy-mobile/"}"';
-    ENSURE = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/warranty-certificate-ar/":"en/policies/mobile/"}"';
-    DELIVERY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/delivery-policy-mobile-ar/":"en/policies/delivery-policy-mobile/"}"';
+    PRIVACY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/privacy-policy-mobile-ar/":"en/policies/privacy-policy-mobile/"}';
+    PAYMENT_GATEWAYS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/payment-method-mobile-ar/":"en/policies/payment-method-mobile/"}';
+    TERMS_CONDITIONS = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/terms-and-conditions-mobile-ar/":"en/policies/terms-and-conditions-mobile/"}';
+    REPLACEMENT = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/arexchange-return-policy-mobile-ar/":"en/policies/exchange-return-policy-mobile/"}';
+    ENSURE = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/warranty-certificate-ar/":"en/policies/mobile/"}';
+    DELIVERY = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/policies/delivery-policy-mobile-ar/":"en/policies/delivery-policy-mobile/"}';
   }
 }

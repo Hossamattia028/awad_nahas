@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:async';
+import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
@@ -195,11 +196,16 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   //   orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
   // }
 
-  //+966 50 844 3655
+  //+966 508443655
   //Checkout1!
   _checkOutTamra(BuildContext context,OrderBloc orderBloc) async {
-    LocationEntity? billing = LocationsBloc.get(context).billingAddress;
-    LocationEntity? shipping = LocationsBloc.get(context).shippingAddress;
+    var locationBloc = LocationsBloc.get(context);
+    LocationEntity? billing = locationBloc.billingAddress;
+    LocationEntity? shipping = locationBloc.shippingAddress;
+    if(billing?.address1==""&&shipping?.address1==""&&locationBloc.localUserLocationsList.isNotEmpty){
+      billing = locationBloc.localUserLocationsList.first;
+      shipping = locationBloc.localUserLocationsList.first;
+    }
     var bloc = ProductsBloc.get(context);
     List<ProductsEntity> list = bloc.productsList;
     final checkCoupon = cartBloc.prepareCouponTamara();
@@ -213,9 +219,9 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     if(checkOutUrl!=null){
       final res = await Util.pushPage(TamaraCheckout(
         checkOutUrl,
-        "https://demo.awadnahas.com/",
-        "https://demo.awadnahas.com/en/?pagename=tamara-payment-fail",
-        "https://demo.awadnahas.com/en/?pagename=tamara-payment-cancel",
+        ApiUrl.MAIN_DOMAIN,
+        "${ApiUrl.MAIN_DOMAIN}/en/?pagename=tamara-payment-fail",
+        "${ApiUrl.MAIN_DOMAIN}/en/?pagename=tamara-payment-cancel",
         onPaymentSuccess: () {
           debugPrint("onPaymentSuccess");
         },

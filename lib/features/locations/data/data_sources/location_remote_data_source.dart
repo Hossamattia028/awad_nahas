@@ -64,7 +64,7 @@ class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
   Future<AddressModel> fetchAllLocations() async{
     var response = await client.get(Uri.parse(ApiUrl.FETCH_ADDRESS),
         headers: ApiUrl.headerAuth);
-    debugPrint("fetchAllLocations: ${response.body}");
+    // debugPrint("fetchAllLocations: ${response.body}");
     var decodedData = json.decode(response.body.toString());
     if (response.statusCode == 200 && decodedData['status']) {
       return AddressModel.fromJson(decodedData);

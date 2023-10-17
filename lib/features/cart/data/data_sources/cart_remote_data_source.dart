@@ -39,7 +39,7 @@ class CartRemoteDataSource extends CartRemoteDataSourceImpl{
   @override
   Future<CartModel> fetchAllCartList() async{
     var response = await client.get(Uri.parse("${ApiUrl.GET_ALL_CART}${Util.getUserID()}"),headers: ApiUrl.headerAuth);
-    debugPrint("fetchAllCartList ${response.body}");
+    // debugPrint("fetchAllCartList ${response.body}");
     if (response.statusCode == 200) {
       final decodedData = json.decode(response.body);
       if(decodedData['status']){
