@@ -86,7 +86,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         builder: (ctx,state){
           var orderBloc = OrderBloc.get(ctx);
           return SizedBox(
-            height: 95.h,
+            height: 100.h,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [

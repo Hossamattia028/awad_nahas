@@ -27,10 +27,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void didChangeDependencies() {
     _checkInternet();
-    Util.getAllUserAppData(context: context,isSplash: true);
+    if(mounted)Util.getAllUserAppData(context: context,isSplash: true);
     Timer(const Duration(seconds: 4), () async{
       await NotificationsUtils.initialPushNotification();
-      Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+      if(mounted)Util.pushPageAndRemoveRoutes(const RootScreen(), context);
     });
     super.didChangeDependencies();
   }

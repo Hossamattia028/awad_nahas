@@ -4,7 +4,7 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
-import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/qt_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

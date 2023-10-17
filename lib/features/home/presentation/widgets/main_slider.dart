@@ -46,7 +46,8 @@ class SliderWidget extends StatelessWidget {
                           imgUrl: item.img,
                           fit: BoxFit.fill,
                           width: double.infinity,
-                        ));
+                        ),
+                    );
                   },
                 ),
               ),

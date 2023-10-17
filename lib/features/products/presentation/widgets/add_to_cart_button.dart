@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/add_to_cart_bottom_sheet.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/qt_widget.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
@@ -166,7 +167,7 @@ class AddToCartButtonWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const SizedBox(height: 5,),
+                                const SizedBox(height: 3,),
                                 CustomText(
                                   text: translate("products.qty").toUpperCase(),
                                   color: DMUtil.getD2C(),
@@ -176,7 +177,7 @@ class AddToCartButtonWidget extends StatelessWidget {
                                   child: CustomText(
                                     text: "$currentCount",
                                     color: DMUtil.getD2C(),
-                                    fontSize: AppStyle.large.sp,
+                                    fontSize: AppStyle.average.sp,
                                     fontWeight: FontWeight.bold,
                                     alignCenter: true,
                                   ),
@@ -234,43 +235,7 @@ class AddToCartButtonWidget extends StatelessWidget {
         )
     );
   }
-
-
 }
 
 
-class QtyCard extends StatelessWidget {
-  final int val;
-  final bool selected;
-  final bool? isCart;
-  final ProductsEntity? item;
-  final CartBloc? bloc;
-  final bool? insideCartList;
-  const QtyCard({Key? key,required this.val,required this.selected,this.isCart=false,this.item,this.insideCartList,this.bloc}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){
-        CartBloc.get(context).add(UpdateCountBeforeInsertInCart(value: val));
-        if(item!=null && insideCartList!=null && isCart==true && bloc != null){
-          CartBloc.get(context).addToCartInView(context: context, bloc: bloc,item: item, insideCartList: insideCartList!,val: val);
-        }
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 6.h),
-        margin: const EdgeInsets.symmetric(horizontal: 10,),
-        decoration: BoxDecoration(
-          border: Border.all(width: 1,color: selected ? DMUtil.getRED():DMUtil.getBackGround()),
-          borderRadius: const BorderRadius.all(Radius.circular(2))
-        ),
-        child: CustomText(
-          text: "$val",
-          color: DMUtil.getD2C(),
-          fontSize: AppStyle.small.sp,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-}

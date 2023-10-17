@@ -112,7 +112,7 @@ class ProductMainDetails extends StatelessWidget {
                           if(DMUtil.currentThemeIsDark())...[
                             SvgPicture.asset(brand.darkIcon.toString(),height: 28.w,)
                           ]else...[
-                            SvgPicture.network(brand.iconPath,height: 15.h+10.w,)
+                            SvgPicture.network(brand.iconPath,height: 18.h+10.w,)
                           ],
                         ]else...[
                           Image.network(brand.imgPath,height: 28.h,)
