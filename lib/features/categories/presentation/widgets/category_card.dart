@@ -6,6 +6,7 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/categories/presentation/screens/category_products.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -40,19 +41,15 @@ class CategoryCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-           Container(
-             height: 120.h,
-             width: 150.w,
-             decoration:  BoxDecoration(
-               borderRadius: Util.getLang()!="ar"? const BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10)):
-                  const BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10)),
-               image: DecorationImage(
-                 fit: BoxFit.fill,
-                 image: NetworkImage(item.imgPath)
-               )
-             ),
-           ),
 
+            ImageWidget(
+              imgUrl: item.imgPath,
+              fit: BoxFit.fill,
+              height: 120,
+              width: 150,
+              borderRadius: Util.getLang()!="ar"? const BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10)):
+              const BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10)),
+            ),
 
 
 

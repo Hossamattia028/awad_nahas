@@ -9,7 +9,8 @@ class ImageWidget extends StatelessWidget {
   final double width;
   final BoxFit fit;
   final String imgUrl;
-  const ImageWidget({Key? key,this.width=double.infinity,this.height=130,this.fit=BoxFit.fill,required this.imgUrl}) : super(key: key);
+  final BorderRadius? borderRadius;
+  const ImageWidget({Key? key,this.width=double.infinity,this.height=130,this.fit=BoxFit.fill,required this.imgUrl,this.borderRadius}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ImageWidget extends StatelessWidget {
           height: height.h,
           width: width.w,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: borderRadius ?? BorderRadius.circular(10),
             image: DecorationImage(
               image: imgProvider,
               fit: fit,
