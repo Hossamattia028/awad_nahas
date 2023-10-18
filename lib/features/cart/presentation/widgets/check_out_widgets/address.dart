@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 class OrderAddress extends StatelessWidget {
   const OrderAddress({Key? key}) : super(key: key);
@@ -42,32 +43,43 @@ class OrderAddress extends StatelessWidget {
                       children: [
                         Icon(Icons.location_on_outlined,color: DMUtil.getD2C().withOpacity(0.5),),
                         const SizedBox(width: 10,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText(
-                              text: location!.address1,
-                              fontSize: AppStyle.small.sp,
-                              color: DMUtil.getD2C().withOpacity(0.8),
-                              fontWeight: FontWeight.w600,
-                              isEllipsis: true,
-                            ),
-                            SizedBox(
-                              width: 240.w,
-                              child: CustomText(
-                                text: "${location.address2} ${location.state}",
+                        if(location!.address1.toString()==""&&location.address2.toString()=="")...[
+                          CustomText(
+                            text: translate("toast.location_mis"),
+                            fontSize: AppStyle.small.sp,
+                            color: DMUtil.getD2C().withOpacity(0.8),
+                            fontWeight: FontWeight.w600,
+                            isEllipsis: true,
+                          ),
+                        ]else...[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomText(
+                                text: location.address1,
                                 fontSize: AppStyle.small.sp,
-                                color: DMUtil.getD2C(),
+                                color: DMUtil.getD2C().withOpacity(0.8),
+                                fontWeight: FontWeight.w600,
                                 isEllipsis: true,
                               ),
-                            ),
-                            CustomText(
-                              text: location.phone,
-                              fontSize: AppStyle.small.sp,
-                              color: DMUtil.getD2C(),
-                            ),
-                          ],
-                        ),
+                              SizedBox(
+                                width: 240.w,
+                                child: CustomText(
+                                  text: "${location.address2} ${location.state}",
+                                  fontSize: AppStyle.small.sp,
+                                  color: DMUtil.getD2C(),
+                                  isEllipsis: true,
+                                ),
+                              ),
+                              CustomText(
+                                text: location.phone,
+                                fontSize: AppStyle.small.sp,
+                                color: DMUtil.getD2C(),
+                              ),
+                            ],
+                          ),
+                        ],
+
                       ],
                     ),
                     Icon(Icons.arrow_forward_ios_outlined,color: DMUtil.getD2C().withOpacity(0.5),size: 15.w,)
