@@ -78,8 +78,8 @@ class ProductCard extends StatelessWidget {
                 ProductPriceWidget(productModel: item,isBig:false),
                 SizedBox(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const VatIncludedWidget(),
                       if(enableCartBtn)
