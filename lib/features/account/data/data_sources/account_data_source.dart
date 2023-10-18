@@ -132,14 +132,14 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   }
 
   static Future<bool> updateUserToken()async {
+    if(!Util.checkUser())return false;
     String? token =  await FirebaseMessaging.instance.getToken();
     try{
-      var response = await http.post(
-        Uri.parse(ApiUrl.UPDATE_USER_TOKEN),
-        body: jsonEncode({
+      var response = await http.post(Uri.parse(ApiUrl.UPDATE_USER_TOKEN),
+        body: {
           "user_id": Util.getUserID(),
           "fcm_token":token ?? ""
-        })
+        }
       );
       // debugPrint("updateUserToken: ${response.body}");
       var decodedData = json.decode(response.body);
