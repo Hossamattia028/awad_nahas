@@ -82,4 +82,15 @@ class PayFortApi {
     }
     return null;
   }
+
+
+  static Future sendApiApplePay(var data) async {
+    var response = await post(
+      Uri.parse("https://sbpaymentservices.payfort.com/FortAPI/paymentApi"),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(data),
+    );
+    print("res: ${response.body.toString()}");
+    // var decodedResponse = jsonDecode(response.body);
+  }
 }

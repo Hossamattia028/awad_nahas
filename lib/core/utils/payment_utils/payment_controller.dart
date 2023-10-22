@@ -67,42 +67,31 @@ class PayFortController{
     List<String>? data = await PayFortApi.generateTokenFromApiApplePay(id.toString());
     try {
       var requestParam = {
-        "amount": (amount * 100).toString() ,
-        "command": "AUTHORIZATION",
-        "currency": "SAR",
-        "customer_email": Util.getEmail(),
-        "language": "en",
+        "digital_wallet":"APPLE_PAY",
+        "command":"AUTHORIZATION",
         "merchant_reference": data?.first.toString(),
-        "sdk_token": data?.first.toString(),
-        "digital_wallet": "APPLE_PAY",
-        "apple_data": "nIje+wQGTVVBgFqBxJoTk8Maig4D/KEuM/lC6IW7KGO7ydRs95KmLyQC58K4griC/mnAtAYXM/qMinDzpc6KxcFx0orSAaCYg0kGSbPDSsxnEVGMroqTQj/KSTYeooLPIWJudrWzTbNh6OZloI10fNN27AJur6nL5WFyxmUYMw7Ip+a8oWWNAjrfGISEFNJ3qs089zUNnRSQZSLwArwvXxoUwby+iCcUzNqcovn6auzKx8ajAth0LA8QWdfgGT45g5qu9YPos7BqfF70O+NgOLHKZ8Z3rtISpYvukz9ecUxBEA20uob8ZmQCCJAt6NHjv0gMqgEWbVtljE04c3RWULZJkB6htw3sgLvp2NjMjW2jmKVBb5Yv2lwrae0bM9ryJnpkMHgVw2gEyPuayGvk/rGFKyZGYT5WwIfVhIEodg==",
-        "apple_signature":"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",
+        "access_code":"7nelylVINMWX9iFt9rH5",
+        "merchant_identifier":"3b2f30d0",
+        "amount":"100",
+        "currency":"SAR",
+        "language":"en",
+        "customer_email":"test@merchantdomain.com",
+        "apple_data":"abcdefgh1234567KEuM/lC6IW7KGO7ydRs95KmLyQC58K4griC/mnAtAYXM/abcdefgh12345678xnEVGMroqTQj/==",
+        "apple_signature":"abcdefgh12345678AACggDCCA+abcdefgh12345678IVd+abcdefgh12345678B+g+abcdefgh12345678AO8T9hfo/NooRtvK+Sd48AiEAyAGWQH4jbioivj7Y/abcdefgh12345678AA==",
         "apple_header":{
-          "apple_transactionId":"ee0c2dafa3a5a96f489226e2be7d7b4687e2c9cabaf3dfd13738bef7bb81cd62",
-          "apple_ephemeralPublicKey":"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAETB1mCkKYTEcYDUMrEm04TVz4NWLX3qrYcoFbjQtn2Oji4t3guu+mX+7EReLtH1FzgX6U8PJzYwp/J4kDgFLnwQ==",
-          "apple_publicKeyHash":"YWEPi8j+nYJHD5C04PdGEFHam6mlIexZ8moIWNn6Pbo=="
+          "apple_transactionId":"abcdefgh12345678",
+          "apple_ephemeralPublicKey":"abcdefgh123456784t3guu+mX+abcdefgh12345678/J4kDgFLnwQ==",
+          "apple_publicKeyHash":"AAbbCC+abcdefgh12345678Pbo=="
         },
         "apple_paymentMethod":{
-          "apple_displayName":"Visa 0253",
+          "apple_displayName":"Visa 000",
           "apple_network":"Visa",
           "apple_type":"debit"
         },
         "signature": data?.last.toString(),
       };
-      var result = await FlutterAmazonpaymentservices.normalPay(requestParam, EnvironmentType.sandbox,).onError((error, stackTrace) {
-        debugPrint(error.toString());
-        throw "error";
-      }).catchError((va){
-        debugPrint(va.toString());
-        return va;
-      }).whenComplete(() => debugPrint("comp"));
-      debugPrint("res $result");
-      // var decodedData = jsonDecode(result.toString());
-      if(result['response_code'].toString().trim()=="02000" && result['response_message'].toString().toLowerCase()=="success"){
-        return "true";
-      }else{
-        return "false";
-      }
+      await PayFortApi.sendApiApplePay(requestParam);
+      return "re";
     } on PlatformException catch (e)
     {
       debugPrint("Error ${e.message} details:${e.details}");
