@@ -12,8 +12,13 @@ class ApiUrl {
   // static const String BASE_URL = 'http://10.0.2.2:8000/api/';
 
   //new subdomain
-  static const String SUB_MAIN_DOMAIN = 'https://app.abnsandbox.com';
-  static const String MAIN_DOMAIN = 'https://abnsandbox.com';
+  // static const String SUB_MAIN_DOMAIN = 'https://api.awadnahas.com';
+  static const String SUB_MAIN_DOMAIN = 'https://awadnahas.com/awadnahas';
+  static const String MAIN_DOMAIN = 'https://awadnahas.com';
+
+  // //new subdomain
+  // static const String SUB_MAIN_DOMAIN = 'https://app.abnsandbox.com';
+  // static const String MAIN_DOMAIN = 'https://abnsandbox.com';
 
   //old subdomain
   // static const String MAIN_DOMAIN = 'https://demo.awadnahas.com';

@@ -84,6 +84,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   }
 
   getAllSliders(emit)async{
+    if(mainSlider.isNotEmpty&&anotherSliders.isNotEmpty)return;
     emit(FetchSliderLoadingState());
     try{
      var res = await getAllSlidersUseCase();
@@ -151,6 +152,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
   }
 
   getAllBrands(emit)async{
+    if(brandsList.isNotEmpty)return;
     emit(const FetchCategoriesLoadingState());
     try{
       var res = await getAllBrandsUseCase();

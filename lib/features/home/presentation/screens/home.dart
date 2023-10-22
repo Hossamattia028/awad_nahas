@@ -128,9 +128,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future onRefresh(BuildContext context)async{
     ProductsBloc.get(context).add(const FetchAllProductsEvent());
-    // CategoriesBloc.get(context).add(const FetchMainSlidersEvent());
-    CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
-    CategoriesBloc.get(context).add(const FetchAllBrandsEvent());
+    CategoriesBloc.get(context)
+      ..add(const FetchMainSlidersEvent())
+      ..add(const FetchAllCategoriesEvent())
+      ..add(const FetchAllBrandsEvent());
   }
 }
 
