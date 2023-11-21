@@ -2,7 +2,7 @@
 
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/send_gmail.dart';
+import 'package:awad_nahas/core/utils/send_email.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -225,6 +225,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     loading = false;
                   });
                   if(res){
+                    SendGmail.sendEmailMessage(bodyMsg: translate("toast.contact"), userEmail: emailTextEditingController.text.trim(), subject: subject.toString());
                     emailTextEditingController.text = "";
                     firstNameTextEditingController.text = "";
                     lastNameTextEditingController.text = "";

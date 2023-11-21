@@ -17,6 +17,7 @@ class SuccessFullyAddToCart extends StatelessWidget {
     return BlocBuilder<CartBloc,CartState>(
       builder: (ctx,state){
         var bloc = CartBloc.get(ctx);
+        if(bloc.cartList.isEmpty)return const SizedBox.shrink();
         var item = bloc.cartList.last;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

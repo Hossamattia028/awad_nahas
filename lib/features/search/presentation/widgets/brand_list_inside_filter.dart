@@ -27,25 +27,35 @@ class BrandFilterList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (ctx,index){
               var item = list[index];
+              var selected = fModel?.brandID?.contains(item.id);
               return InkWell(
-                onTap: ()=> bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: fModel?.filterPrice,
+                onTap: (){
+                  if(fModel?.brandID!=null && selected == true){
+                    fModel?.brandID!.remove(item.id);
+                  }else if(fModel?.brandID!=null && selected == false){
+                    fModel?.brandID!.add(item.id);
+                  }
+                  bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: fModel?.filterPrice,
                     isDiscount: fModel?.isDiscount ,
                     isAvailable: fModel?.isAvailable,
                     weight: fModel?.weight,
-                    brandID: item.id == fModel?.brandID ? null : item.id,
+                    brandID: fModel?.brandID ?? [item.id],
+                    catID: fModel?.catID,
+                    color: fModel?.color,
                     searchModel: fModel?.searchModel,
-                ))),
+                  )));
+                },
                 child: Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 4),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    color: fModel?.brandID == item.id ? DMUtil.getPC() : Colors.transparent,
-                    border: Border.all(color: fModel?.brandID == item.id ? DMUtil.getPC() : DMUtil.getBCC())
+                    color: selected==true ? DMUtil.getPC() : Colors.transparent,
+                    border: Border.all(color: selected==true ? DMUtil.getPC() : DMUtil.getBCC())
                   ),
                   child: CustomText(
                     text: item.title,
-                    color: fModel?.brandID == item.id ?Colors.white:DMUtil.getD2C(),
+                    color: selected==true ?Colors.white:DMUtil.getD2C(),
                     fontSize: AppStyle.small.sp,
                   ),
                 ),

@@ -11,6 +11,7 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/locations/presentation/widgets/circle_dots.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:awad_nahas/features/shared_widgets/payfort_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -79,13 +80,13 @@ class PayWithWidget extends StatelessWidget {
                             CircleDotsWidget(isEnabled: !enablePayWithCard && bloc.paymentWithCard == PaymentEnum.PAYFORT,),
                             const SizedBox(width: 10,),
                             CustomText(
-                              text: translate("cart.debit_credit"),
+                              text: translate("payment.payfort-title"),
                               color: DMUtil.getD2C(),
-                              fontSize: AppStyle.average.sp,
+                              fontSize: AppStyle.average.sp-1,
                             ),
                           ],
                         ),
-                        Image.asset(AppImages.paymentRow,width: 60.w,),
+                        const PayfortCardsWidget(),
                       ],
                     ),
                   ),

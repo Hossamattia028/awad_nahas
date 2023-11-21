@@ -60,13 +60,18 @@ class WishlistBloc extends Bloc<WishlistEvent,WishlistState>{
   }
 
   List<ProductsEntity> _getLocalWishList(){
-    if(!SharedPref().containPreference(Constants.allLocalWishList))return [];
-    String data =  SharedPref().getPreferenceString(Constants.allLocalWishList);
-    List<dynamic> decodedList = json.decode(data);
-    List<ProductsEntity> list = decodedList
-        .map((product) => ProductsEntity.fromJsonLocal(product))
-        .toList();
-    return list;
+    try{
+      if(!SharedPref().containPreference(Constants.allLocalWishList))return [];
+      String data =  SharedPref().getPreferenceString(Constants.allLocalWishList);
+      List<dynamic> decodedList = json.decode(data);
+      List<ProductsEntity> list = decodedList
+          .map((product) => ProductsEntity.fromJsonLocal(product))
+          .toList();
+      return list;
+    }catch(e){
+      debugPrint("_getLocalWishList: $e");
+      return [];
+    }
   }
 
 

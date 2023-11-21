@@ -53,16 +53,17 @@ class RootBloc extends Bloc<RootEvent, RootState> {
 
   getAllSetting(event,emit)async{
     emit(RootLoadingState());
-    await getLocations();
-    await getFaqs();
+    await getFaqs(emit);
+    await getLocations(emit);
     emit(RootSuccessState());
   }
 
   /// our locations
   List<LocationModel> ourLocations = [];
-  getLocations()async{
+  getLocations(emit)async{
     try{
       ourLocations = await SettingsRemoteDataSource.getOurLocations();
+      emit(RootSuccessState());
     }catch(e){
       debugPrint("getLocationsRootBloc: $e");
     }
@@ -70,9 +71,10 @@ class RootBloc extends Bloc<RootEvent, RootState> {
 
   /// faqs
   List<FaqsModel> ourFaqs = [];
-  getFaqs()async{
+  getFaqs(emit)async{
     try{
       ourFaqs = await SettingsRemoteDataSource.getOurFaqs();
+      emit(RootSuccessState());
     }catch(e){
       debugPrint("getFaqsRootBloc: $e");
     }

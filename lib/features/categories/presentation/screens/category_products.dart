@@ -46,7 +46,7 @@ class CategoryProductsScreen extends StatelessWidget {
                 BlocBuilder<ProductsBloc,ProductsState>(
                   builder: (ctx,state){
                     var rootBloc = ProductsBloc.get(ctx);
-                    return  rootBloc.enableSearch?  const Expanded(child: SingleChildScrollView(physics: BouncingScrollPhysics(),child: SearchScreen())) :
+                    return  rootBloc.enableSearch?  const Expanded(child: SearchScreen(enableScroll:  true,)) :
                     CategoryProductsListWidget(catID: bloc.currentCategory!.id,subCatID: bloc.currentSubCategory==null?-1:bloc.currentSubCategory!.id,);
                   },
                 ),

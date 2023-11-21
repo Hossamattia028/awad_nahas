@@ -39,7 +39,7 @@ dependencies:
   equatable: ^2.0.5
   dartz: ^0.10.1
   get_it: ^7.2.0
-  http: ^0.13.5
+  http: ^1.1.0
   intl: ^0.18.0
   shared_preferences: ^2.0.15
   flutter_translate: ^4.0.4
@@ -48,7 +48,7 @@ dependencies:
   firebase_core: ^2.14.0
   firebase_messaging: ^14.2.1
   firebase_auth: ^4.6.3
-  flutter_facebook_auth: ^5.0.11
+  flutter_facebook_auth: ^6.0.2
   google_sign_in: ^5.3.1
   flutter_local_notifications: ^13.0.0
   google_maps_flutter: ^2.2.3

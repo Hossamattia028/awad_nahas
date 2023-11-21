@@ -43,14 +43,23 @@ class CartQtyCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 5,),
-                  Row(
-                    children: [
-                      QtyCard(val: 1, selected: currentCount==1,item: item,insideCartList: false,isCart: true,bloc: bloc,),
-                      QtyCard(val: 2, selected: currentCount==2,item: item,insideCartList: false,isCart: true,bloc: bloc,),
-                      QtyCard(val: 3, selected: currentCount==3,item: item,insideCartList: false,isCart: true,bloc: bloc,),
-                      QtyCard(val: 4, selected: currentCount==4,item: item,insideCartList: false,isCart: true,bloc: bloc,),
-                      QtyCard(val: 5, selected: currentCount==5,item: item,insideCartList: false,isCart: true,bloc: bloc,),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    child: Row(
+                      children: [
+                        QtyCard(val: 1, selected: currentCount==1,item: item,isCart: true,bloc: bloc,),
+                        QtyCard(val: 2, selected: currentCount==2,item: item,isCart: true,bloc: bloc,),
+                        QtyCard(val: 3, selected: currentCount==3,item: item,isCart: true,bloc: bloc,),
+                        QtyCard(val: 4, selected: currentCount==4,item: item,isCart: true,bloc: bloc,),
+                        QtyCard(val: 5, selected: currentCount==5,item: item,isCart: true,bloc: bloc,),
+                        QtyCard(val: 6, selected: currentCount==6,item: item,isCart: true,bloc: bloc,),
+                        QtyCard(val: 7, selected: currentCount==7,item: item,isCart: true,bloc: bloc,),
+                        QtyCard(val: 8, selected: currentCount==8,item: item,isCart: true,bloc: bloc,),
+                        QtyCard(val: 9, selected: currentCount==9,item: item,isCart: true,bloc: bloc,),
+                        QtyCard(val: 10, selected: currentCount==10,item: item,isCart: true,bloc: bloc,),
+                      ],
+                    ),
                   ),
 
                 ],

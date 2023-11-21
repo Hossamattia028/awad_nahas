@@ -5,7 +5,6 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/strings/constant.dart';
-import 'package:awad_nahas/core/utils/set_notification.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/features/authentication/data/models/auth_response.dart';
 import 'package:awad_nahas/features/authentication/data/models/user_service_model.dart';
@@ -45,7 +44,7 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
       final Map<String, dynamic> bodyData = json.decode(response.body);
       UserServiceModel user = UserServiceModel.fromJson(bodyData['user']);
       await saveLocalData(bodyData);
-      SetNotification.showNotification(title: "", msg: translate("toast.welcome"));
+      // SetNotification.showNotification(title: "", msg: translate("toast.welcome"));
       return AuthResponse(user: user,msg: translate("toast.signup"));
     }else{
       return AuthResponse(user: null,msg: translate("toast.oops"));
@@ -85,7 +84,7 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
       var decodedData = jsonDecode(res.body);
       if(decodedData['status']){
         await saveLocalData(decodedData);
-        SetNotification.showNotification(title: "", msg: translate("toast.welcome"));
+        // SetNotification.showNotification(title: "", msg: translate("toast.welcome"));
         return AuthResponse(user: UserServiceModel.fromJson(decodedData['user']),msg: translate("toast.signup"),isSuccess: true);
       }else if(decodedData.toString().contains("already")){
         return  AuthResponse(user: null,msg: translate("toast.user_exist"),isFailed: true);
@@ -121,7 +120,7 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
       final Map<String, dynamic> bodyData = json.decode(response.body);
       UserServiceModel user = UserServiceModel.fromJson(bodyData['user']);
       await saveLocalData(bodyData);
-      SetNotification.showNotification(title: "", msg: translate("toast.welcome"));
+      // SetNotification.showNotification(title: "", msg: translate("toast.welcome"));
       return AuthResponse(user: user,msg: translate("toast.signup"));
     }else{
       return AuthResponse(user: null,msg: translate("toast.oops"));

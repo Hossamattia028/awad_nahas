@@ -92,7 +92,7 @@ class ProductsBrand extends StatelessWidget {
                       var item = productList[index];
                       if(productList.isEmpty)return CustomText(text: translate("products.empty"), fontSize: AppStyle.small.sp);
                       return SizedBox(
-                        height:Util.getLang()=="ar"? 96.w : 121.w,
+                        height:Util.getLang()=="ar"? 103.w : 125.w,
                         child: ProductCard(item: item),
                       );
                     },

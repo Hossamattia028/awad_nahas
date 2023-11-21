@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/strings/enum/filter_enum.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/products/data/models/product_comments.dart';
+import 'package:awad_nahas/features/products/data/models/size_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/comment_usecase.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/products_usecase.dart';
@@ -9,7 +10,6 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_event.da
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 
 class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
@@ -84,6 +84,18 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       enableBrandFilter(event,emit);
     });
 
+    on<EnableCategoryFilterEvent>((event, emit){
+      enableCategoryFilter(event,emit);
+    });
+
+    on<EnableColorFilterEvent>((event, emit){
+      enableColorFilter(event,emit);
+    });
+
+    on<EnableSizeFilterEvent>((event, emit){
+      enableSizeFilter(event,emit);
+    });
+
     on<EnableWeightFilterEvent>((event, emit){
       enableWightFilter(event,emit);
     });
@@ -92,16 +104,21 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       showFullContentFn(event, emit);
     });
 
-
     on<UpdateProductCommentEvent>((event, emit){
       updateRatingValue(event, emit);
     });
 
     on<UpdateCurrentCatAndSubCat>((event, emit){
-      setCurrentFilterCategory(event, emit);
+      setCurrentCategory(event, emit);
     });
 
+    // on<UpdateCurrentCatAndSubCatFilterEvent>((event, emit){
+      // setCurrentFilterCategory(event, emit);
+    // });
 
+    on<UpdateFilterAttributesDataEvent>((event, emit){
+      updateFilterAttributes(event, emit);
+    });
   }
   static ProductsBloc get(BuildContext context) => BlocProvider.of(context);
 
@@ -200,30 +217,58 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
 
   List<double> weightList = [];
-  _calcWeight(List<ProductsEntity> productsList){
+  // _storeWeight(List<ProductsEntity> productsList){
+  //   if(weightList.isNotEmpty)return;
+  //   for(var i in productsList){
+  //     if(i.attributes!=null  && !weightList.contains(i.attributes?.weight))weightList.add(i.attributes!.weight);
+  //   }
+  // }
+
+  List<SizeModel> sizeList = [];
+  // _storeSize(){
+  //   if(sizeList.isNotEmpty)return;
+  //   for(var i in productsList){
+  //     var sizeModel = SizeModel(height: i.attributes!.height, width: i.attributes!.width);
+  //     if(i.attributes!=null  && !sizeList.contains(sizeModel))sizeList.add(sizeModel);
+  //   }
+  // }
+
+  List<String> colorList = [];
+  _storeColor(){
+    if(colorList.isNotEmpty)return;
     for(var i in productsList){
-      if(i.attributes!=null  && !weightList.contains(i.attributes?.weight))weightList.add(i.attributes!.weight);
+      if(i.attributes!=null  && !colorList.contains(i.attributes?.color))colorList.add(i.attributes!.color);
     }
   }
 
-  getAllProducts(event,emit)async{
-    emit(const ProductsFailedState());
-    // try{
-      var res = await getAllProductsUseCase(cat: "name");
+  updateFilterAttributes(event,emit){
+    /// set current category with null
+    currentCat = null;
+    currentSubCat = null;
+    _storeColor();
+    // _storeSize();
+  }
+
+
+  int allProductsCount = 300;
+  getAllProducts(FetchAllProductsEvent event,emit)async{
+    if(storedProductsList.length>300)return;
+    emit(const ProductsLoadingState());
+    try{
+      var res = await getAllProductsUseCase(parameter: event.page);
       res.fold((l) {
         emit(const ProductsFailedState());
       },(data) {
-        if(data.isNotEmpty){
-          storedProductsList = data;
+        if(data.products.isNotEmpty){
+          storedProductsList = data.products;
           productsList = filterByCurrentLang(storedProductsList);
-          _calcWeight(productsList);
           emit(const ProductsSuccessfullyState());
         }
       });
-    // }catch(e){
-    //   debugPrint("getAllProducts: $e");
-    //   emit(const ProductsFailedState());
-    // }
+    }catch(e){
+      debugPrint("getAllProducts: $e");
+      emit(const ProductsFailedState());
+    }
   }
 
   updateProducts(event,emit){
@@ -232,6 +277,15 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     emit(const ProductsSuccessfullyState());
   }
 
+
+  int? currentCat;
+  int? currentSubCat;
+  setCurrentCategory(UpdateCurrentCatAndSubCat event,emit){
+    emit(const FilterLoadingState());
+    currentCat=event.catID;
+    currentSubCat=event.subCatID;
+    emit(const FilterSuccessfullyState());
+  }
 
   List<ProductsEntity> filterByCategoryID(int catId,int subCatID,{List<ProductsEntity>? productList}){
     List<ProductsEntity> usedList = [];
@@ -259,9 +313,9 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     List<ProductsEntity> list = [];
     for(var i in catList){
       for(var p in productsList){
-          if(p.categoryList.where((element) => element.id==i.id).toList().isNotEmpty){
-             list.add(p);
-          }
+        if(p.categoryList.where((element) => element.id==i.id).toList().isNotEmpty){
+          list.add(p);
+        }
       }
     }
     return list;
@@ -304,9 +358,11 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       if(event.filterModel!.filterPrice!=null && (event.filterModel!.filterPrice?.end!=0.0 || event.filterModel!.filterPrice?.start!=0.0))productSearchList = filterPrice(event.filterModel!.filterPrice!);
       if(event.filterModel!.isAvailable!=null && event.filterModel!.isAvailable==true)productSearchList = filterStock(productSearchList);
       if(event.filterModel!.isDiscount!=null && event.filterModel!.isDiscount == true)productSearchList = filterIfHasDiscount(productSearchList);
-      if(event.filterModel!.brandID!=null && showBrandFilter == true)productSearchList = filterByBrandID(productSearchList,event.filterModel!.brandID!);
-      if(event.filterModel!.weight!=null && showWeightFilter == true)productSearchList = filterByWeight(productSearchList,event.filterModel!.weight!);
-      if(currentFilterCat!=null)productSearchList = filterByCategoryID(currentFilterCat!, currentFilterSubCat??-1,productList: productSearchList);
+      if(event.filterModel!.brandID!=null && showBrandFilter == true && event.filterModel!.brandID!.isNotEmpty)productSearchList = filterByBrandID(productSearchList,event.filterModel!.brandID!);
+      if(event.filterModel!.color!=null && showColorFilter == true && event.filterModel!.color!.isNotEmpty)productSearchList = filterByColor(productSearchList,event.filterModel!.color!);
+      if(event.filterModel!.catID!=null && showCategoryFilter == true && event.filterModel!.catID!.isNotEmpty) productSearchList = filterByCategoryList(productSearchList, event.filterModel!.catID!);
+      // if(event.filterModel!.weight!=null && showWeightFilter == true)productSearchList = filterByWeight(productSearchList,event.filterModel!.weight!);
+      if(currentCat!=null)productSearchList = filterByCategoryID(currentCat!, currentSubCat??-1,productList: productSearchList);
       emit(const FilterSuccessfullyState());
     }catch(e){
       debugPrint("filterProducts: $e");
@@ -314,12 +370,10 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     }
   }
 
-  int? currentFilterCat;
-  int? currentFilterSubCat;
-  setCurrentFilterCategory(UpdateCurrentCatAndSubCat event,emit){
+  bool showCategoryFilter = false;
+  enableCategoryFilter(event,emit){
     emit(const FilterLoadingState());
-    currentFilterCat=event.catID;
-    currentFilterSubCat=event.subCatID;
+    showCategoryFilter = !showCategoryFilter;
     emit(const FilterSuccessfullyState());
   }
 
@@ -332,7 +386,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   }
 
 
-  /// filter by stock if true is instock
+  /// filter by stock if true is in_stock
   filterStock(List<ProductsEntity> products){
     debugPrint("filterStock");
     products = products.where((element) => element.stockStatus==true).toList();
@@ -354,9 +408,19 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   }
 
   /// filter by brand id
-  filterByBrandID(List<ProductsEntity> products,int brandID){
+  filterByBrandID(List<ProductsEntity> products,List<int> brandIDList){
     debugPrint("filterByBrandID");
-    return products.where((element) => element.brandID == brandID).toList();
+    return products.where((element) => brandIDList.contains(element.brandID)).toList();
+  }
+
+  /// filter by brand id
+  filterByCategoryList(List<ProductsEntity> products,List<int> catList){
+    debugPrint("filterByCategoryList");
+    List<ProductsEntity> list = [];
+    for(var i in catList){
+      list.addAll(filterByCategoryID(i, -1, productList: products));
+    }
+    return list;
   }
 
   bool showWeightFilter = false;
@@ -369,6 +433,33 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   filterByWeight(List<ProductsEntity> products,double weight){
     debugPrint("filterByWeight");
     products = products.where((element) => element.attributes?.weight == weight).toList();
+    return products;
+  }
+
+
+  bool showColorFilter = false;
+  enableColorFilter(event,emit){
+    emit(const FilterLoadingState());
+    showColorFilter = !showColorFilter;
+    emit(const FilterSuccessfullyState());
+  }
+  /// filter by weight
+  filterByColor(List<ProductsEntity> products,List<String> colorList){
+    debugPrint("filterByColor");
+    products = products.where((element) => colorList.contains(element.attributes?.color.toString().trim())).toList();
+    return products;
+  }
+
+  bool showSizeFilter = false;
+  enableSizeFilter(event,emit){
+    emit(const FilterLoadingState());
+    showSizeFilter = !showSizeFilter;
+    emit(const FilterSuccessfullyState());
+  }
+  /// filter by weight
+  filterBySize(List<ProductsEntity> products,double height){
+    debugPrint("filterBySize");
+    products = products.where((element) => element.attributes?.height == height).toList();
     return products;
   }
 

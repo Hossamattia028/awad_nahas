@@ -49,7 +49,6 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   @override
   void initState() {
     cartBloc = CartBloc.get(context);
-    // payFortController.init();
     cartBloc.paymentWithCard == PaymentEnum.PAYFORT;
     paymentItems = [
       PaymentItem(
@@ -63,7 +62,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   var paymentItems = const [
     PaymentItem(
       label: 'Total',
-      amount: '99.99',
+      amount: '10.0',
       status: PaymentItemStatus.final_price,
     )
   ];
@@ -167,14 +166,12 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     // debugPrint(paymentResult['token']);
     // SnackBarBuilder.showFeedBackMessage(context, paymentResult['token'].toString(), DMUtil.getRED());
     // SnackBarBuilder.showFeedBackMessage(context, paymentResult.toString(), DMUtil.getRED());
-
     // debugPrint(paymentResult['token']['signature']);
     // debugPrint(paymentResult['token']['header']);
     // debugPrint(paymentResult['token']['header']['transactionId']);
     // debugPrint(paymentResult['token']['data']);
     // debugPrint(paymentResult['paymentMethod']['network']);
     await _checkOutApplePay(orderBloc,paymentResult);
-
   }
 
   _checkOut(BuildContext context,OrderBloc orderBloc)async{
@@ -182,11 +179,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
       // _cash(orderBloc);
     }else if(cartBloc.paymentWithCard == PaymentEnum.PAYFORT){
-      if(cartBloc.applePay==true){
-        _checkOutApplePay(orderBloc,"");
-      }else{
         _checkOutAmazonPayfort(orderBloc);
-      }
     }else if(cartBloc.paymentWithCard == PaymentEnum.TAMARA){
       _checkOutTamra(context,orderBloc);
     }
@@ -197,23 +190,24 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   // }
 
   //+966 508443655
+  // 502441695
   //Checkout1!
   _checkOutTamra(BuildContext context,OrderBloc orderBloc) async {
-    var locationBloc = LocationsBloc.get(context);
-    LocationEntity? billing = locationBloc.billingAddress;
-    LocationEntity? shipping = locationBloc.shippingAddress;
-    if(billing?.address1==""&&shipping?.address1==""&&locationBloc.localUserLocationsList.isNotEmpty){
-      billing = locationBloc.localUserLocationsList.first;
-      shipping = locationBloc.localUserLocationsList.first;
+    List<LocationEntity> locations = checkLocation(context);
+    if(locations.isEmpty){
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
+      return;
     }
+    var billing = locations.first;
+    var shipping = locations.last;
     var bloc = ProductsBloc.get(context);
     List<ProductsEntity> list = bloc.productsList;
     final checkCoupon = cartBloc.prepareCouponTamara();
     final checkOutUrl = await TamaraSdk.checkOut(data: {
       "total_price":cartBloc.totalPrice,
       "items":cartBloc.prepareProductsAsTamaraOrder(list),
-      if(billing!=null)"billing_address":LocationModel.toJson(billing),
-      if(shipping!=null)"shipping_address":LocationModel.toJson(shipping),
+      "billing_address":LocationModel.toJson(billing),
+      "shipping_address":LocationModel.toJson(shipping),
       if(checkCoupon!=null)"discount": checkCoupon
     },context: context);
     if(checkOutUrl!=null){
@@ -242,30 +236,28 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
 
   _checkOutApplePay(OrderBloc orderBloc,dynamic appleData)async{
+    List<LocationEntity> locations = checkLocation(context);
+    if(locations.isEmpty){
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
+      return;
+    }
     final res = await payFortController.flutterAmazonApplePay(amount: cartBloc.totalPrice.toInt(),appleData: appleData);
     if(res=="true"){
-      orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
+       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
     }else{
       SnackBarBuilder.showFeedBackMessage(context, appleData.toString(), DMUtil.getRED());
-      Timer(const Duration(seconds: 1), () {
+      Timer(const Duration(seconds: 2), () {
         SnackBarBuilder.showFeedBackMessage(context, res.toString(), DMUtil.getRED());
       });
     }
-    // await payFortController.paymentWithApplePay(
-    //   amount: cartBloc.totalPrice.toInt(),
-    //   onSucceeded:(val){
-    //     debugPrint("success ${val.status}");
-    //     // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
-    //     orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
-    //   },
-    //   onFailed: (val){
-    //     debugPrint("failed ${val.toString()}");
-    //     SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
-    //   },
-    // );
   }
 
   _checkOutAmazonPayfort(OrderBloc orderBloc)async{
+    List<LocationEntity> locations = checkLocation(context);
+    if(locations.isEmpty){
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
+      return;
+    }
     final res = await payFortController.flutterAmazon(amount: cartBloc.totalPrice.toInt());
     if(res==true){
       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard)));
@@ -275,43 +267,21 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
 
 
+  List<LocationEntity> checkLocation(BuildContext context){
+    var locationBloc = LocationsBloc.get(context);
+    LocationEntity? billing = locationBloc.billingAddress;
+    LocationEntity? shipping = locationBloc.shippingAddress;
+    if(billing?.address1==""&&shipping?.address1==""&&locationBloc.localUserLocationsList.isNotEmpty){
+      billing = locationBloc.localUserLocationsList.first;
+      shipping = locationBloc.localUserLocationsList.first;
+    }
+    if(billing!=null && billing.address1!="" && shipping != null &&shipping.address1!=""&&locationBloc.currentCheckOutLocation!=null){
+      return [
+        billing,
+        shipping
+      ];
+    }
+    return [];
+  }
 
 }
-
-
-
-
-
-// _checkOutPayfort(BuildContext context,OrderBloc orderBloc) async {
-//   if(cartBloc.applePay){
-//     await payFortController.paymentWithApplePay(
-//       amount: cartBloc.totalPrice.toInt(),
-//       onSucceeded:(val){
-//         debugPrint("success ${val.status}");
-//         // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
-//         orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
-//       },
-//       onFailed: (val){
-//         debugPrint("failed ${val.toString()}");
-//         SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
-//       },
-//     );
-//   }else{
-//     await payFortController.paymentWithCreditOrDebitCard(
-//       amount: cartBloc.totalPrice.toInt(),
-//       onSucceeded:(val){
-//         debugPrint("success ${val.status}");
-//         // SnackBarBuilder.showFeedBackMessage(context, "", DMUtil.getRED());
-//         orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard)));
-//       },
-//       onFailed: (val){
-//         debugPrint("failed ${val.toString()}");
-//         SnackBarBuilder.showFeedBackMessage(context, val.toString(), DMUtil.getRED());
-//       },
-//       onCancelled: (){
-//         debugPrint("canceled");
-//         SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
-//       },
-//     );
-//   }
-// }

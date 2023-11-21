@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/notifications_utils.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
@@ -21,6 +23,7 @@ import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -31,20 +34,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   RateMyApp rateMyApp = RateMyApp(
     preferencesPrefix: 'awadnahas',
-    minDays: 0, // Show rate popup on first day of install.
+    minDays: 2, // Show rate popup on first day of install.
     minLaunches: 5, // Show rate popup after 5 launches of app after minDays is passed.
     googlePlayIdentifier: 'com.awadnahas.awadnahas',
     appStoreIdentifier: 'com.awadnahas.ios',
   );
-
   @override
   void initState() {
     NotificationsUtils.pushNotificationListener(context);
 
-    if(!SharedPref().containPreference("rating")){
+    // if(!SharedPref().containPreference("rating")){
       rateMyApp.init().then((_){
         SharedPref().setPreferencesBoolean("rating", true);
-        // if(rateMyApp.shouldOpenDialog){ //conditions check if user already rated the app
+        if(rateMyApp.shouldOpenDialog){ //conditions check if user already rated the app
           rateMyApp.showStarRateDialog(
             context,
             title: translate("rate.title"),
@@ -87,12 +89,23 @@ class _HomeScreenState extends State<HomeScreen> {
             starRatingOptions: const StarRatingOptions(),
             onDismissed: () => rateMyApp.callEvent(RateMyAppEventType.laterButtonPressed),
           );
-        // }
+        }
       });
-    }
+    // }
     super.initState();
   }
 
+  late ProductsBloc productsBloc ;
+  @override
+  void didChangeDependencies() {
+    productsBloc = ProductsBloc.get(context);
+    Timer(const Duration(seconds: 1), () {
+      if(mounted){
+        productsBloc.add(const FetchAllProductsEvent(page: "2000",));
+      }
+    });
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
             SizedBox(height: AppStyle.paddingFromTop.h-10,),
             const LogoWidget(width: 140,height: 80,fit: BoxFit.contain,),
             const SizedBox(height: 10,),
@@ -127,11 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future onRefresh(BuildContext context)async{
-    ProductsBloc.get(context).add(const FetchAllProductsEvent());
-    CategoriesBloc.get(context)
-      ..add(const FetchMainSlidersEvent())
-      ..add(const FetchAllCategoriesEvent())
-      ..add(const FetchAllBrandsEvent());
+    CategoriesBloc.get(context).add(const FetchMainSlidersEvent());
   }
 }
 

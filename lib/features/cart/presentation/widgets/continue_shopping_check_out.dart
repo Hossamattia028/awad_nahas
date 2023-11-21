@@ -1,6 +1,8 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/screens/check_out_screen.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/animate_arrow.dart';
+import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -64,8 +66,14 @@ class CartBottomButton extends StatelessWidget {
                         ],
                       ),
                       color: DMUtil.getRED(),
-                      onPressed: () =>
-                          Util.pushPage(const CheckOutScreen(), context),
+                      onPressed: () {
+                        if(!Util.checkUser()){
+                          SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),);
+                          Util.pushPage(const LoginScreen(), context);
+                          return;
+                        }
+                        Util.pushPage(const CheckOutScreen(), context);
+                      },
                     ),
                     Positioned(
                       left: 1.w,

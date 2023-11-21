@@ -14,13 +14,14 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+  final bool enableScroll;
+  const SearchScreen({Key? key,this.enableScroll = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return  SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      physics: const NeverScrollableScrollPhysics(),
+      physics: enableScroll==true? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
       child: BlocBuilder<ProductsBloc,ProductsState>(
         builder: (ctx,state){
           var bloc = ProductsBloc.get(ctx);

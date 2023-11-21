@@ -1,5 +1,6 @@
 import 'package:awad_nahas/core/strings/enum/filter_enum.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
+import 'package:awad_nahas/features/products/data/models/size_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,8 @@ class UpdateAllProductsEvent extends ProductsEvent{
   const UpdateAllProductsEvent();
 }
 class FetchAllProductsEvent extends ProductsEvent{
-  const FetchAllProductsEvent();
+  final String page;
+  const FetchAllProductsEvent({this.page = "300",});
 }
 class FetchAllProductsDataEvent extends ProductsEvent{
   final BuildContext ctx;
@@ -91,6 +93,12 @@ class UpdateCurrentCatAndSubCat extends ProductsEvent{
 }
 
 
+class UpdateCurrentCatAndSubCatFilterEvent extends ProductsEvent{
+  final int? catID;
+  const UpdateCurrentCatAndSubCatFilterEvent({this.catID,});
+}
+
+
 class ChangeWidgetSizeEvent extends ProductsEvent{
   final double height;
   final int index;
@@ -111,6 +119,19 @@ class FilterProductEvent extends ProductsEvent{
 class EnableBrandFilterEvent extends ProductsEvent{
   const EnableBrandFilterEvent();
 }
+
+class EnableCategoryFilterEvent extends ProductsEvent{
+  const EnableCategoryFilterEvent();
+}
+
+class EnableColorFilterEvent extends ProductsEvent{
+  const EnableColorFilterEvent();
+}
+
+class EnableSizeFilterEvent extends ProductsEvent{
+  const EnableSizeFilterEvent();
+}
+
 class EnableWeightFilterEvent extends ProductsEvent{
   const EnableWeightFilterEvent();
 }
@@ -121,8 +142,17 @@ class FilterModel{
   final bool? isDiscount;
   final bool? isAvailable;
   final double? weight;
-  final int? brandID;
-  const FilterModel({this.filterPrice,this.searchModel,this.isDiscount,this.isAvailable,this.weight,this.brandID});
+  final List<int>? brandID;
+  final List<int>? catID;
+  final List<String>? color;
+  final SizeModel? sizeModel;
+  const FilterModel({
+    this.filterPrice,this.searchModel,
+    this.isDiscount,this.isAvailable,
+    this.weight,this.brandID ,
+    this.color,this.catID,
+    this.sizeModel
+  });
 }
 
 class SearchModel{
@@ -138,8 +168,13 @@ class FilterPrice{
 }
 
 
+
 class ShowFullContentEvent extends ProductsEvent{
   final bool? val;
   const ShowFullContentEvent({this.val});
+}
+
+class UpdateFilterAttributesDataEvent extends ProductsEvent{
+  const UpdateFilterAttributesDataEvent();
 }
 

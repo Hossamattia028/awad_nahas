@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
-
 import 'package:awad_nahas/core/utils/small_fun.dart';
+
 
 class ApiUrl {
   static Map<String,String> headerAuth =  {
@@ -9,22 +9,11 @@ class ApiUrl {
     // if(Util.checkUser())'Authorization': 'Bearer ${Util.getToken()}',
   };
 
-  // static const String BASE_URL = 'http://10.0.2.2:8000/api/';
-
-  //new subdomain
+  //production
   // static const String SUB_MAIN_DOMAIN = 'https://api.awadnahas.com';
   static const String SUB_MAIN_DOMAIN = 'https://awadnahas.com/awadnahas';
   static const String MAIN_DOMAIN = 'https://awadnahas.com';
 
-  // //new subdomain
-  // static const String SUB_MAIN_DOMAIN = 'https://app.abnsandbox.com';
-  // static const String MAIN_DOMAIN = 'https://abnsandbox.com';
-
-  //old subdomain
-  // static const String MAIN_DOMAIN = 'https://demo.awadnahas.com';
-  //for old subdomain
-  // static const String BASE_URL = '$MAIN_DOMAIN/awadnahas/api/';
-  // static const String STORAGE_URL = '$MAIN_DOMAIN/awadnahas/public/';
 
   static const String BASE_URL = '$SUB_MAIN_DOMAIN/api/';
   static const String STORAGE_URL = '$SUB_MAIN_DOMAIN/public/';
@@ -106,7 +95,7 @@ class ApiUrl {
 
   static updateSettingUrl(){
     OUR_LOCATIONS = '${BASE_URL_ABN_PLUGIN}branches?lang=${Util.getLang()=="ar"?"ar":"en_US"}';
-    OUR_FAQS = '${BASE_URL_ABN_PLUGIN}faq?lang=${Util.getLang()=="ar"?"ar":"en_US"}';
+    OUR_FAQS = '${BASE_URL_ABN_PLUGIN}faq?lang=${Util.getLang()=="ar"?"ar":"en"}';
     CONTACT = '${BASE_URL_ABN_PLUGIN}contact_us?lang=${Util.getLang()=="ar"?"ar":"en_US"}';
     MAINTENANCE = '${BASE_URL_ABN_PLUGIN}maintenance_request?lang=${Util.getLang()=="ar"?"ar":"en_US"}';
     SERVICES = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/services-mobile-ar/":"en/about-us/services-mobile/"}';

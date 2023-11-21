@@ -23,7 +23,7 @@ class CircleCategoryCard extends StatelessWidget {
     return InkWell(
       onTap: (){
         CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: item));
-        ProductsBloc.get(context).add(UpdateCurrentCatAndSubCat(catID: item.id));
+        ProductsBloc.get(context)..add(UpdateCurrentCatAndSubCat(catID: item.id))..add(const FilterProductEvent(filterModel: null))..add(const EnableSearchEvent(enable: false));
         Util.pushPage(const CategoryProductsScreen(), context);
       },
       child: Column(

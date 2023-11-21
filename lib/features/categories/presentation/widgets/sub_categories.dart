@@ -36,7 +36,7 @@ class SubCategoriesHList extends StatelessWidget {
                   var productBloc = ProductsBloc.get(context);
                   productBloc
                     ..add(const FilterProductEvent(filterModel: null,))
-                    ..add(UpdateCurrentCatAndSubCat(catID: productBloc.currentFilterCat,subCatID: item.id));
+                    ..add(UpdateCurrentCatAndSubCat(catID: productBloc.currentCat,subCatID: item.id));
                 },
                 child: Container(
                   decoration: BoxDecoration(

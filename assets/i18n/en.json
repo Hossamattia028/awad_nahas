@@ -119,7 +119,9 @@
 		"completed_order": "Order has been completed",
 		"wrong_payment": "Wrong process",
 		"no_internet_connection": "no internet connection!",
-		"location_mis": "Please select your order location"
+		"location_mis": "Please select your order location",
+		"contact": "Thank you for contacting us. We will contact you as soon as possible",
+		"order": "Your order has been received successfully. We will inform you of an update on the request status soon"
 	},
 	"search": {
 		"market": " Market's ",
@@ -274,6 +276,7 @@
 		"add_to_fav": "Add to Favourite"
 	},
 	"payment": {
+		"payfort-title": "mada debit card / Credit Cards",
 		"tamara": "Tamara",
 		"tamra_txt": "pay with 4 payments ",
 		"interest-free": "interest-free"
@@ -382,6 +385,8 @@
 		"size": "Size",
 		"weight": "Weight",
 		"color": "Color",
+		"height": "height",
+		"width": "width",
 		"brand": "Brand",
 		"filter": "Filter",
 		"on_sale": "On sale",

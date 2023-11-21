@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:awad_nahas/core/utils/send_email.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
@@ -43,6 +45,7 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
      // debugPrint("addOrder: ${response.body}");
      var decodedData = jsonDecode(response.body);
     if (decodedData['status']==true) {
+      if(Util.getEmail()!="")SendGmail.sendEmailMessage(bodyMsg: translate("toast.order"), userEmail: Util.getEmail().toString(), subject: translate("toast.order_send"));
       SetNotification.showNotification(title: "", msg: translate("toast.order_send"));
       return true;
     } else {

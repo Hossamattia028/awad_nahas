@@ -5,8 +5,9 @@ class ProductAttributes {
   final double width;
   final double length;
   final double weight;
+  final String color;
 
-  ProductAttributes({required this.height,required this.width,required this.length,required this.weight,});
+  ProductAttributes({required this.height,required this.width,required this.length,required this.weight,required this.color});
 
   static List<ProductAttributes> listModelFromJson(String str) =>
       List<ProductAttributes>.from(
@@ -19,6 +20,7 @@ class ProductAttributes {
       width: double.parse(jsonObject['width'] ?? "0"),
       length: double.parse(jsonObject['length'] ?? "0"),
       weight: double.parse(jsonObject['weight'] ?? "0"),
+      color: jsonObject['color'] ?? "",
     );
   }
 

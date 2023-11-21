@@ -48,7 +48,7 @@ class CatProductsList extends StatelessWidget {
             ),
             const SizedBox(height: 15,),
             SizedBox(
-              height: (Util.getLang()=="ar"? 95.h : 110.h) + 115.w,
+              height: (Util.getLang()=="ar"? 95.h : 112.h) + 119.w,
               child: ListView.separated(
                 itemCount: list.length,
                 physics: const BouncingScrollPhysics(),
@@ -56,7 +56,7 @@ class CatProductsList extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 2.h,horizontal: 1),
                 itemBuilder: (BuildContext context, int index) {
                   var item = list[index];
-                  return ProductCardH(item: item);
+                  return ProductCardH(item: item,cat: cat,);
                 },
                 separatorBuilder: (BuildContext context, int index) => SizedBox(width: 6.w,),
               ),
@@ -72,13 +72,17 @@ class CatProductsList extends StatelessWidget {
 
 class ProductCardH extends StatelessWidget {
   final ProductsEntity item;
+  final CategoriesEntity? cat;
   final bool isMarginBottom;
-  const ProductCardH({Key? key,required this.item,this.isMarginBottom = false}) : super(key: key);
+  const ProductCardH({Key? key,required this.item,required this.cat,this.isMarginBottom = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Util.pushPage(ProductDetailPage(item: item,), context),
+      onTap: () {
+        Util.pushPage(ProductDetailPage(item: item,), context);
+        if(cat!=null)CategoriesBloc.get(context).add(ChangeCategoriesEvent(categoriesModel: cat!));
+      },
       child: Container(
         padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(

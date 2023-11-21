@@ -23,8 +23,6 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'injection_container.dart' as di;
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-
-
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([

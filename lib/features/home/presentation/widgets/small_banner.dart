@@ -18,6 +18,7 @@ class SmallBannerWidget extends StatelessWidget {
         int index = list.indexWhere((element) => element.title.toLowerCase().contains(position));
         if(index==-1)return const SizedBox();
         SliderEntity slider = list[index];
+        if(slider.img.toString().trim()=="")return const SizedBox.shrink();
         return InkWell(
           onTap: ()=> bloc.goSliderPath(slider, context),
           child: Container(

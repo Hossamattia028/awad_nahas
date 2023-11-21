@@ -5,7 +5,8 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dar
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:awad_nahas/features/search/presentation/widgets/brand_list_inside_filter.dart';
-import 'package:awad_nahas/features/search/presentation/widgets/weight_list_inside_filter.dart';
+import 'package:awad_nahas/features/search/presentation/widgets/category_list_inside_filter.dart';
+import 'package:awad_nahas/features/search/presentation/widgets/color_list_inside_filter.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
@@ -20,7 +21,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 420.h,
+      height: 500.h,
       decoration: BoxDecoration(
           color: DMUtil.getWC(),
           borderRadius: const BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
@@ -64,6 +65,8 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                         weight: fModel?.weight,
                         brandID: fModel?.brandID,
                         searchModel: fModel?.searchModel,
+                        catID: fModel?.catID,
+                        color: fModel?.color,
                       ))),
                       child: CheckBoxWidget(
                         title: translate("store.on_sale"),
@@ -77,6 +80,8 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                            weight: fModel?.weight,
                            brandID: fModel?.brandID,
                            searchModel: fModel?.searchModel,
+                           catID: fModel?.catID,
+                           color: fModel?.color,
                       ))),
                       child: CheckBoxWidget(
                          title: translate("store.in_of_stock"),
@@ -85,26 +90,47 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                     ),
 
 
-                    CheckBoxWidget(title: translate("store.weight"),isEnabled: bloc.showWeightFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableWeightFilterEvent()),),
-                     if(bloc.showWeightFilter)... const[
-                       SizedBox(height: 5,),
-                       WeightFilterList(),
-                       SizedBox(height: 5,),
-                     ],
+                    // CheckBoxWidget(title: translate("store.weight"),isEnabled: bloc.showWeightFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableWeightFilterEvent()),),
+                    //  if(bloc.showWeightFilter)... const[
+                    //    SizedBox(height: 5,),
+                    //    WeightFilterList(),
+                    //    SizedBox(height: 5,),
+                    //  ],
 
                      // CheckBoxWidget(title: translate("store.size"),plus: true,),
                      // CheckBoxWidget(title: translate("store.color"),plus: true,),
 
                     CheckBoxWidget(title: translate("store.brand"),isEnabled: bloc.showBrandFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableBrandFilterEvent()),),
+                    if(bloc.showBrandFilter)...[
+                      const SizedBox(height: 5,),
+                      BrandFilterList(bloc: bloc),
+                      const SizedBox(height: 5,),
+                    ],
 
-                     if(bloc.showBrandFilter)...[
-                       const SizedBox(height: 5,),
-                       BrandFilterList(bloc: bloc),
-                       const SizedBox(height: 5,),
-                     ],
 
-                     const SizedBox(height: 10,),
-                     Row(
+                    CheckBoxWidget(title: translate("app_bar.categories"),isEnabled: bloc.showCategoryFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableCategoryFilterEvent()),),
+                    if(bloc.showCategoryFilter)...[
+                      const SizedBox(height: 5,),
+                      CategoryFilterList(bloc: bloc),
+                      const SizedBox(height: 5,),
+                    ],
+
+                    CheckBoxWidget(title: translate("store.color"),isEnabled: bloc.showColorFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableColorFilterEvent()),),
+                    if(bloc.showColorFilter)...const [
+                      SizedBox(height: 5,),
+                      ColorFilterList(),
+                      SizedBox(height: 5,),
+                    ],
+
+                    // CheckBoxWidget(title: translate("store.size"),isEnabled: bloc.showSizeFilter == true,plus: true,onTapPlusIcon: ()=> bloc.add(const EnableSizeFilterEvent()),),
+                    // if(bloc.showSizeFilter)...const[
+                    //   SizedBox(height: 5,),
+                    //   SizeFilterList(),
+                    //   SizedBox(height: 5,),
+                    // ],
+
+                    SizedBox(height: 12.w,),
+                    Row(
                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                        children: [
                          BlocBuilder<ProductsBloc,ProductsState>(

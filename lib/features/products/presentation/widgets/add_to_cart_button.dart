@@ -6,7 +6,6 @@ import 'package:awad_nahas/features/products/presentation/widgets/product_detail
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -102,7 +101,8 @@ class AddToCartButtonWidget extends StatelessWidget {
         child: BlocBuilder<CartBloc,CartState>(
           builder: (ctx,state){
             var bloc = CartBloc.get(ctx);
-            bool insideCartList = bloc.checkIFProductInsideCartList(item);
+            // bool insideCartList = bloc.checkIFProductInsideCartList(item);
+            var itemInCart = bloc.getProductInCart(item);
             int currentCount = bloc.currentCount;
             // if(insideCartList){
             //   var p = bloc.getProductInCart(item);
@@ -136,14 +136,23 @@ class AddToCartButtonWidget extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 5,),
-                        Row(
-                          children: [
-                            QtyCard(val: 1, selected: currentCount==1,),
-                            QtyCard(val: 2, selected: currentCount==2,),
-                            QtyCard(val: 3, selected: currentCount==3,),
-                            QtyCard(val: 4, selected: currentCount==4,),
-                            QtyCard(val: 5, selected: currentCount==5,),
-                          ],
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          child: Row(
+                            children: [
+                              QtyCard(val: 1, selected: currentCount==1,),
+                              QtyCard(val: 2, selected: currentCount==2,),
+                              QtyCard(val: 3, selected: currentCount==3,),
+                              QtyCard(val: 4, selected: currentCount==4,),
+                              QtyCard(val: 5, selected: currentCount==5,),
+                              QtyCard(val: 6, selected: currentCount==6,),
+                              QtyCard(val: 7, selected: currentCount==7,),
+                              QtyCard(val: 8, selected: currentCount==8,),
+                              QtyCard(val: 9, selected: currentCount==9,),
+                              QtyCard(val: 10, selected: currentCount==10,),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 10,),
                       ],
@@ -196,32 +205,32 @@ class AddToCartButtonWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              if(insideCartList)...[
-                                Row(
-                                  children: [
-                                    Icon(CupertinoIcons.cart_badge_minus,size: 20.w,),
-                                    const SizedBox(width: 10,),
-                                    CustomText(
-                                      text: translate("cart.in_your_cart"),
-                                      color: Colors.white,
-                                      fontSize: AppStyle.small.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-
-                                  ],
-                                ),
-                              ]else...[
+                              // if(insideCartList)...[
+                              //   Row(
+                              //     children: [
+                              //       Icon(CupertinoIcons.cart_badge_minus,size: 20.w,),
+                              //       const SizedBox(width: 10,),
+                              //       CustomText(
+                              //         text: translate("cart.in_your_cart"),
+                              //         color: Colors.white,
+                              //         fontSize: AppStyle.small.sp,
+                              //         fontWeight: FontWeight.w600,
+                              //       ),
+                              //
+                              //     ],
+                              //   ),
+                              // ]else...[
                                 CustomText(
                                   text: translate("cart.add_to_cart").toUpperCase(),
                                   color: Colors.white,
                                   fontSize: AppStyle.small.sp,
                                   fontWeight: FontWeight.w600,
                                 ),
-                              ],
+                              // ],
                             ],
                           ),
                           color: DMUtil.getRED(),
-                          onPressed: ()=> bloc.addToCartInView(context: context, bloc: bloc,item: item, insideCartList: insideCartList),
+                          onPressed: ()=> bloc.addToCartInView(context: context, bloc: bloc,item: item,val: itemInCart == null ? null:  (currentCount != 1 ? currentCount  : itemInCart.quantity + 1) ),
                         ),
                       ),
 

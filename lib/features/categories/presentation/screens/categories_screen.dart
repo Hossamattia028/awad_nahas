@@ -15,27 +15,25 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Column(
-        children: [
+    return Column(
+      children: [
 
-          GlobalAppBar(title: translate("app_bar.categories"),),
+        GlobalAppBar(title: translate("app_bar.categories"),),
 
-          Padding(padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),child: const SearchWidget()),
+        Padding(padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),child: const SearchWidget()),
 
 
-          BlocBuilder<ProductsBloc,ProductsState>(
-            builder: (ctx,state){
-              var bloc = ProductsBloc.get(ctx);
-              return  bloc.enableSearch? const SearchScreen() : const VerticalCategoriesList();
-            },
-          ),
-
+        BlocBuilder<ProductsBloc,ProductsState>(
+          builder: (ctx,state){
+            var bloc = ProductsBloc.get(ctx);
+            return  bloc.enableSearch? const Expanded(child: SearchScreen(enableScroll: true)) : const VerticalCategoriesList();
+          },
+        ),
 
 
 
-        ],
-      ),
+
+      ],
     );
   }
 }

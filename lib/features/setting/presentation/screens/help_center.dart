@@ -1,3 +1,4 @@
+
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
@@ -24,6 +25,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>  with TickerProvide
     tabController = TabController(vsync: this, length: 2);
     super.initState();
   }
+
   @override
   void dispose() {
     tabController.dispose();

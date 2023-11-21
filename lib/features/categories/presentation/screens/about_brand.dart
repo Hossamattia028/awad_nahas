@@ -34,18 +34,16 @@ class _AboutBrandState extends State<AboutBrand> {
     if(categoriesBloc.desc != ""){
       if(mounted)setState(() {});
     }
-    // String desc = widget.itemBrand.desc.split('<ul>').last.split('</ul>').first.toString();
   }
 
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(10.w),
+      padding: EdgeInsets.only(bottom: 10.w,right: 10.w,left: 10.w,top: 5),
       physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
-          const SizedBox(height: 10,),
           // Html(
           //     style: {
           //       'body': Style(

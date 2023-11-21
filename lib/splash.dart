@@ -9,7 +9,6 @@ import 'package:awad_nahas/core/utils/notifications_utils.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -34,6 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     super.didChangeDependencies();
   }
+
 
 
 

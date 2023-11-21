@@ -21,6 +21,7 @@ class Constants {
 
   static const String allLocalLocationsList = "locations";
   static const String allLocalWishList = "wishList";
+  static const String allLocalCartList = "cartList";
 
 
 }

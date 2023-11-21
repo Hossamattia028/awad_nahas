@@ -3,6 +3,7 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_widgets.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
@@ -47,6 +48,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       }
     }
     productsBloc = ProductsBloc.get(context);
+    CartBloc.get(context).add(const UpdateCountBeforeInsertInCart(value: 1));
     productsBloc..add(UpdateCurrentProduct(item: widget.item))..add(const ShowFullContentEvent(val: false))..add(const ChangeWidgetSizeEvent(height: 250,index: 0));
     controller.addListener(() {
       if(controller.position.pixels>500.w){

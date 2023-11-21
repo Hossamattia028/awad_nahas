@@ -1,10 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
+
+import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
-import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:awad_nahas/features/cart/presentation/bloc/generat_cart_post_func.dart';
-import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
+import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -112,30 +112,48 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   int cartCount = 1;
   List<ProductsEntity> cartList = [];
   getAllCart(emit)async{
-    if(!Util.checkUser())return;
-    // emit(CartLoadingState());
+    emit(CartLoadingState());
     try{
-      var res = await getAllCartListUseCase();
-      res.fold((l) {
-        emit(CartErrorState(errors: translate("toast.oops")));
-      },(data) {
-        cartList.clear();
-        for(var i in data.sessionValue){
-          cartList.add(ProductsEntity(title: i.title, catTitle: "",
-              desc: "", id: i.productID,  sku: i.sku,
-              imgPath: i.imgPath, price: i.price, discount: i.discount,discountRate: 0, stockStatus: true,
-              quantity: i.quantity,categoryList: const [],commentCount: 0,catID: 0));
-        }
-        cartList = cartList;
-        if(cartList.isNotEmpty) {
-        totalPrice = data.total;
-        total = totalPrice;
-      }
+      cartList = _getLocalCartList();
+      calcTotal();
       emit(CartSuccessfullyState());
-      });
+      // var res = await getAllCartListUseCase();
+      // res.fold((l) {
+      //   emit(CartErrorState(errors: translate("toast.oops")));
+      // },(data) {
+      //   cartList.clear();
+      //   for(var i in data.sessionValue){
+      //     cartList.add(ProductsEntity(title: i.title, catTitle: "",
+      //         desc: "", id: i.productID,  sku: i.sku,
+      //         imgPath: i.imgPath, price: i.price, discount: i.discount,discountRate: 0, stockStatus: true,
+      //         quantity: i.quantity,categoryList: const [],commentCount: 0,catID: 0));
+      //   }
+      //   cartList = cartList;
+      //   if(cartList.isNotEmpty) {
+      //   totalPrice = data.total;
+      //   total = totalPrice;
+      // }
+      // emit(CartSuccessfullyState());
+      // });
     }catch(e){
       debugPrint("getAllCartBloc: $e");
       emit(CartErrorState(errors: translate("toast.oops")));
+    }
+  }
+
+  /// get cart list [local]
+  List<ProductsEntity> _getLocalCartList(){
+    try{
+      if(!SharedPref().containPreference(Constants.allLocalCartList))return [];
+      String data =  SharedPref().getPreferenceString(Constants.allLocalCartList);
+      List<dynamic> decodedList = json.decode(data);
+      List<ProductsEntity> list = decodedList
+          .map((product) => ProductsEntity.fromJsonLocal(product))
+          .toList();
+      return list;
+    }catch(e){
+      debugPrint("_getLocalCartList: $e");
+      return [];
     }
   }
 
@@ -158,22 +176,44 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     }
     couponModel = null;couponValue = null;
     total = totalPrice;
+    totalPrice = double.tryParse(total.toStringAsFixed(2)) ?? total;
     return totalPrice.toStringAsFixed(2);
   }
 
-  addToCart(emit,bool isRemoveProduct)async{
-    var res = await addCartItemUseCase(data: GenerateCartJson.generate(productList: cartList,total: calcTotal().toString()));
-    res.fold((l) {
-      emit(CartErrorState(errors: translate("toast.oops")));
-    },(data) {
-      if(data){
-        if(isRemoveProduct){
-          emit(RemoveCartSuccessfullyState());
-        }else{
-          emit(AddToCartSuccessfullyState());
-        }
+  addToCart(emit,bool isRemoveProduct,)async{
+    updateCartList(emit,cartList,isRemoveProduct);
+    // var res = await addCartItemUseCase(data: GenerateCartJson.generate(productList: cartList,total: calcTotal().toString()));
+    // res.fold((l) {
+    //   emit(CartErrorState(errors: translate("toast.oops")));
+    // },(data) {
+    //   if(data){
+    //     if(isRemoveProduct){
+    //       emit(RemoveCartSuccessfullyState());
+    //     }else{
+    //       emit(AddToCartSuccessfullyState());
+    //     }
+    //   }
+    // });
+  }
+
+  /// add and update cart list [local]
+  updateCartList(emit,List<ProductsEntity> list,bool isRemoveProduct){
+    try{
+      SharedPref().removePreference(Constants.allLocalCartList);
+      String encodedList = json.encode(list
+          .map((product) => ProductsEntity.toJsonLocal(product))
+          .toList());
+      SharedPref().setPreferencesString(Constants.allLocalCartList,encodedList);
+      cartList = _getLocalCartList();
+      if(isRemoveProduct){
+        emit(RemoveCartSuccessfullyState());
+      }else{
+        emit(AddToCartSuccessfullyState());
       }
-    });
+    }catch(e){
+      debugPrint("updateCartList: $e");
+      emit(CartErrorState(errors: translate("toast.oops")));
+    }
   }
 
 
@@ -191,9 +231,8 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     calcTotal();
     cartList = cartList;
     if(event.count==null)emit(CartSuccessfullyState());
-    await Future.delayed(const Duration(seconds: 1));
+    // await Future.delayed(const Duration(seconds: 1));
     await addToCart(emit,event.remove);
-    await Future.delayed(const Duration(seconds: 1));
     await getAllCart(emit);
   }
 
@@ -205,7 +244,8 @@ class CartBloc extends Bloc<CartEvent,CartState>{
         cartList.removeAt(index);
       }else{
         var item = cartList[index];
-        int newQty = count == -1? (isAdd?item.quantity+1:(item.quantity==1?item.quantity:item.quantity-1)) : count!;
+        //(isAdd?item.quantity+1:(item.quantity==1?item.quantity:item.quantity-1))
+        int newQty = count!=null && count != -1? count : item.quantity+1;
         item = ProductsEntity(title: product.title,
             catTitle: "", sku: product.sku,
             desc: "", id: item.id,discountRate: 0,
@@ -254,17 +294,17 @@ class CartBloc extends Bloc<CartEvent,CartState>{
 
 
   removeToCartList(RemoveToCartEvent event,emit)async{
-    emit(CartLoadingState());
-    try{
-      var res = await removeCartItemUseCase(productID: event.product.id);
-      res.fold((l) {
-        emit(CartErrorState(errors: l.toString()));
-      },(data) {
-        emit(RemoveCartSuccessfullyState());
-      });
-    }catch(e){
-      emit(CartErrorState(errors: translate("toast.oops").toString()));
-    }
+    // emit(CartLoadingState());
+    // try{
+    //   var res = await removeCartItemUseCase(productID: event.product.id);
+    //   res.fold((l) {
+    //     emit(CartErrorState(errors: l.toString()));
+    //   },(data) {
+    //     emit(RemoveCartSuccessfullyState());
+    //   });
+    // }catch(e){
+    //   emit(CartErrorState(errors: translate("toast.oops").toString()));
+    // }
   }
 
   Map<String,dynamic>? prepareCouponTamara(){
@@ -316,12 +356,12 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     return products;
   }
 
-  addToCartInView({required BuildContext context,required var bloc,required var item,required bool insideCartList,int? val}){
-    if(!Util.checkUser()){
-      SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),isMarginBottom: true);
-      return;
-    }
-    bloc.add(ModifyCartProductEvent(product: item, context: context, isAdd: true,remove: insideCartList,count: val ?? currentCount));
+  addToCartInView({required BuildContext context,required var bloc,required var item,int? val}){
+    // if(!Util.checkUser()){
+    //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),isMarginBottom: true);
+    //   return;
+    // }
+    bloc.add(ModifyCartProductEvent(product: item, context: context, isAdd: true,count: val ?? currentCount));
   }
 
 }

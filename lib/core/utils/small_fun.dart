@@ -239,7 +239,7 @@ class Util{
     return SharedPref().getPreferenceString(Constants.token).toString().trim().replaceAll("null", "");
   }
   static String getUserID(){
-    return SharedPref().getPreferenceString(Constants.userId);
+    return SharedPref().getPreferenceString(Constants.userId).replaceAll("null", "0");
   }
   static String getCity(){
     return SharedPref().getPreferenceString(Constants.city).toString().trim().replaceAll("null", "");
@@ -248,20 +248,20 @@ class Util{
     return SharedPref().getPreferenceString(Constants.address).toString().trim().replaceAll("null", "");
   }
   static String getName(){
-    return SharedPref().getPreferenceString(Constants.name).toString().trim().replaceAll("null", "");
+    return SharedPref().getPreferenceString(Constants.name).toString().trim().replaceAll("null", "").trim();
   }
   static String getEmail(){
-    return SharedPref().getPreferenceString(Constants.email).toString().trim().replaceAll("null", "");
+    return SharedPref().getPreferenceString(Constants.email).toString().trim().replaceAll("null", "").trim();
   }
   static String getMobile(){
-    return SharedPref().getPreferenceString(Constants.mobile).toString().trim().replaceAll("null", "");
+    return SharedPref().getPreferenceString(Constants.mobile).toString().trim().replaceAll("null", "").trim();
   }
   static String getLang(){
     return SharedPref().getPreferenceString(Constants.userLang);
   }
 
   static String getUserLogin(){
-    return SharedPref().getPreferenceString(Constants.userLogin).toString().trim().replaceAll("null", "");
+    return SharedPref().getPreferenceString(Constants.userLogin).toString().trim().replaceAll("null", "").trim();
   }
 
   static double getLatitude(){

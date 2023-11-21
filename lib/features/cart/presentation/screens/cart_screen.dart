@@ -1,7 +1,5 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:awad_nahas/features/account/presentation/widgets/account_before_auth.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_payment_options.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_screen_app_bar.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/releated_products_cart.dart';
@@ -30,16 +28,17 @@ class CartScreen extends StatelessWidget {
         backgroundColor: DMUtil.getWC(),
         elevation: 0,
         toolbarHeight: AppStyle.appBarHeight.h,
+        iconTheme: IconThemeData(color: DMUtil.getD2C()),
         centerTitle: false,
       ),
       bottomNavigationBar: const CartBottomButton(),
       body: RefreshIndicator(
         onRefresh: () =>  _buildRefresh(context),
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+        child: const SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-              if(Util.checkUser())... const[
+              // if(Util.checkUser())... const[
                 CartPaymentOptions(),
                 SelectLocations(),
                 CartListWidget(),
@@ -47,9 +46,9 @@ class CartScreen extends StatelessWidget {
                 OrderDetails(),
                 CartRelatedProducts(),
                 SizedBox(height: 20,),
-              ]else...const[
-                AccountNotAuth(),
-              ],
+              // ]else...const[
+              //   AccountNotAuth(),
+              // ],
             ],
           ),
         ),

@@ -40,6 +40,7 @@ class ProductModel extends ProductsEntity{
         list.add(i.toString());
       }
     }
+    if(jsonObject['image']!=null)list.add(jsonObject['image']);
     return ProductModel(
       id: jsonObject['id'],
       sku: jsonObject['sku'] ?? "",

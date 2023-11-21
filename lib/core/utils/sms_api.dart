@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/strings/constant.dart';
-import 'package:awad_nahas/core/utils/send_gmail.dart';
+import 'package:awad_nahas/core/utils/send_email.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +14,7 @@ class SmsApi{
     if(isEmail){
       var otp = "${DateTime.now().millisecondsSinceEpoch.toString().substring(0,2)}${DateTime.now().millisecondsSinceEpoch.toString().substring(1,3)}";
       SharedPref().setPreferencesString(Constants.lastVerificationCode, otp);
-      return await SendGmail.sendEmailMessage("This is verification code : $otp  for AwadNahas App", provider, "Verification Otp");
+      return await SendGmail.sendEmailMessage(bodyMsg: "This is verification code : $otp  for AwadNahas App",userEmail: provider, subject: "Verification Otp", );
     }else{
       return await sendMobileOtp(phone: provider);
     }

@@ -1,6 +1,6 @@
+import 'package:awad_nahas/features/products/data/models/products_response_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:awad_nahas/core/error/failure.dart';
-import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/domain/repositories/products_repository.dart';
 
 class GetAllProductsUseCase {
@@ -8,8 +8,8 @@ class GetAllProductsUseCase {
 
   GetAllProductsUseCase({required this.productsRepository});
 
-  Future<Either<Failure, List<ProductsEntity>>> call({required String cat}) async {
-    return await productsRepository.getAllProducts(cat: cat);
+  Future<Either<Failure, ProductResponseModel>> call({required String parameter}) async {
+    return await productsRepository.getAllProducts(parameter: parameter);
   }
 }
 

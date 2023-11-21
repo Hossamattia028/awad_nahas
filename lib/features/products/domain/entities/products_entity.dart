@@ -78,7 +78,7 @@ class ProductsEntity extends Equatable{
       imgPath: jsonObject['image']??"",
       images: list,
       commentCount: 1,
-      quantity: 1,
+      quantity: jsonObject['quantity'] ?? 1,
       isArabic:jsonObject['is_arabic'],
       categoryList: jsonObject['categories']!=null ? CategoriesModel.listModelFromJsonLocal(jsonObject['categories']):[],
       catID: int.parse((jsonObject['cat_id']??"0").toString()),
@@ -105,6 +105,7 @@ class ProductsEntity extends Equatable{
       'average_rating':product.averageRate??"0",
       'cat_id':product.catID,
       'brand_id':product.brandID,
+      'quantity':product.quantity,
       "attributes_des": product.attributesDes.toString(),
       "categories": json.encode(product.categoryList
           .map((item) => CategoriesModel.toJsonLocal(item))

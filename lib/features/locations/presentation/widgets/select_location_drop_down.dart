@@ -29,7 +29,7 @@ class SelectLocations extends StatelessWidget {
             var location  = bloc.userLocationsList;
             if(location!=null&&location.shippingAddress!=null)list.add(location.shippingAddress!);
             if(location!=null&&location.billingAddress!=null)list.add(location.billingAddress!);
-            bloc.currentCheckOutLocation ??= list.first;
+            if(list.isNotEmpty)bloc.currentCheckOutLocation ??= list.first;
             if(list.isEmpty)return const SizedBox.shrink();
             return Container(
                 color: DMUtil.getWC(),
@@ -68,12 +68,15 @@ class SelectLocations extends StatelessWidget {
                                   color: DMUtil.getDC(),
                                   fontSize: AppStyle.small.sp-1,
                                 ),
-                                CustomText(
-                                  text: "${bloc.currentCheckOutLocation?.address1}",
-                                  color: DMUtil.getD2C(),
-                                  fontSize: AppStyle.small.sp,
-                                  fontWeight: FontWeight.w600,
-                                  isEllipsis: true,
+                                SizedBox(
+                                  width: 190.w,
+                                  child: CustomText(
+                                    text: "${bloc.currentCheckOutLocation?.address1}",
+                                    color: DMUtil.getD2C(),
+                                    fontSize: AppStyle.small.sp,
+                                    fontWeight: FontWeight.w600,
+                                    isEllipsis: true,
+                                  ),
                                 ),
                               ],
                             ),

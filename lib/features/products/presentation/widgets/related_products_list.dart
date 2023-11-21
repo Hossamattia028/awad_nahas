@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/cat_list_products.dart';
 import 'package:flutter/material.dart';
@@ -17,22 +18,28 @@ class RelatedProductsList extends StatelessWidget {
     return BlocBuilder<ProductsBloc,ProductsState>(
       builder: (ctx,state){
         var bloc =  ProductsBloc.get(ctx);
+        var cat = CategoriesBloc.get(context).currentCategory;
         var list = [];
         if(isBrand){
           list = bloc.brandProducts(item.brandID!);
         }else{
-          list = bloc.relatedProducts(item.categoryList);
+          if(cat!=null) {
+            list = bloc.filterByCategoryID(cat.id, -1);
+          }else{
+            list = bloc.relatedProducts(item.categoryList);
+          }
         }
+        if(list.isEmpty)return const SizedBox.shrink();
         return SizedBox(
           height: (Util.getLang()=="ar"? 94.h : 115.h) + 125.w,
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(2),
-            itemCount: list.length,
+            itemCount: list.length>20?20:list.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (ctx, index) {
               var item = list[index];
-              return ProductCardH(item: item,isMarginBottom: true);
+              return ProductCardH(item: item,isMarginBottom: true,cat: cat,);
               // return ProductHorizontalCard(item: item, index: index, isSmall: true);
             },
             separatorBuilder: (BuildContext context, int index) => SizedBox(width: 6.w,),

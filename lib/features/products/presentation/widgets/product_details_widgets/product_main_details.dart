@@ -67,7 +67,7 @@ class ProductMainDetails extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 5),
                     child: InkWell(
-                      onTap: ()=> Share.share('check the website ${ApiUrl.MAIN_DOMAIN}/', subject: item.title.toString()),
+                      onTap: ()=> Share.share('${ApiUrl.MAIN_DOMAIN}/product/${item.sku}', subject: item.title.toString()),
                       child: Card(
                         color: DMUtil.getWC(),
                         shape: const RoundedRectangleBorder(
