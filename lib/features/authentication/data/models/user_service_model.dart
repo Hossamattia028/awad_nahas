@@ -21,12 +21,22 @@ class UserServiceModel extends UserService {
       userName: fromJson['user_nicename'] ??  '',
       email: fromJson['user_email'],
       // image: getImage(fromJson['avatar']),
-      phoneNumber:fromJson['phone'] ?? '',
+      phoneNumber: setPhoneFromUserLogin(fromJson['user_login'])!=""? setPhoneFromUserLogin(fromJson['user_login']): ( fromJson['phone'] ?? ''),
       // countryCode: fromJson['country_code'] ?? '',
       // cityID: fromJson['city'] ?? '',
     );
   }
 
+  static setPhoneFromUserLogin(String userLogin){
+    if(userLogin.toString()!="" &&  !userLogin.toString().contains("@") && isNumeric(userLogin.toString().trim()) == true){
+      return userLogin.toString().trim();
+    }
+    return "";
+  }
+
+  static bool isNumeric(String s) {
+    return double.tryParse(s) != null;
+  }
 
 
   static String getImage(String? image){

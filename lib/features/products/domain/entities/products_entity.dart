@@ -15,6 +15,7 @@ class ProductsEntity extends Equatable{
   final String catTitle;
   final String desc;
   final String? attributesDes;
+  final double priceWithoutTax;
   final double price;
   final double discount;
   final double discountRate;
@@ -39,7 +40,9 @@ class ProductsEntity extends Equatable{
     required this.sku,
     required this.imgPath,
     this.images,
-    required this.price,required this.discount,
+    required this.priceWithoutTax,
+    required this.price,
+    required this.discount,
     required this.discountRate,
     required this.stockStatus,required this.quantity,
     required this.categoryList,
@@ -72,6 +75,7 @@ class ProductsEntity extends Equatable{
       discount: double.parse((jsonObject['price'] ?? "0").toString()),
       discountRate: double.parse((jsonObject['price'] ?? "0").toString()),
       price: double.parse((jsonObject['regular_price'] ?? "0").toString()),
+      priceWithoutTax: double.parse((jsonObject['price_without_tax'] ?? "0").toString()),
       desc: jsonObject['desc'] ?? "",
       attributesDes: jsonObject['attributes_des'] ?? "",
       stockStatus:  jsonObject['stock_status'] == "instock",
@@ -101,6 +105,7 @@ class ProductsEntity extends Equatable{
       "is_arabic":product.isArabic,
       'regular_price': double.parse(product.price.toString()),
       'price': double.parse(product.discount.toString()),
+      'price_without_tax': double.parse(product.priceWithoutTax.toString()),
       'discount': double.parse(product.discount.toString()),
       'average_rating':product.averageRate??"0",
       'cat_id':product.catID,

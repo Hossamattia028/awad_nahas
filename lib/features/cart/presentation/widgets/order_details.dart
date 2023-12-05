@@ -30,7 +30,9 @@ class OrderDetails extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              OrderRow(title: translate("cart.total_products_price") ,value:  "${bloc.totalPrice}${translate("store.sar")}",),
+              OrderRow(title: translate("cart.total_products_price") ,value:  "${bloc.totalProducts}${translate("store.sar")}",),
+              const SizedBox(height: 15,),
+              OrderRow(title: translate("cart.vat") ,value:  "${bloc.vatValue}${translate("store.sar")}",),
               const SizedBox(height: 15,),
               OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost}${translate("store.sar")}",),
               const Divider(),

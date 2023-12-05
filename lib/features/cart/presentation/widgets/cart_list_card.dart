@@ -73,7 +73,7 @@ class CartListCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 7,),
-                    ProductPriceWidget(productModel: item),
+                    ProductPriceWidget(productModel: item,isCart: true,),
                     const SizedBox(height: 5,),
                     CustomText(
                       text: translate("cart.free_delivery"),

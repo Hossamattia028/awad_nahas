@@ -10,7 +10,6 @@ import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart'
 import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/verification_code.dart';
-import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -38,18 +37,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController passTextEditingController = TextEditingController();
 
   late AccountBloc accountBloc;
-  late LocationsBloc locationsBloc;
 
   @override
   void didChangeDependencies() {
-    locationsBloc = LocationsBloc.get(context);
     accountBloc = AccountBloc.get(context);
     var user = accountBloc.currentUser;
     if(user!=null){
       firstNameTextEditingController.text = user.userName.toString().replaceAll("null", "");
       lastNameTextEditingController.text = user.userName.toString().replaceAll("null", "");
       emailTextEditingController.text = user.email.toString().replaceAll("null", "");
-      if(locationsBloc.billingAddress!=null)phoneTextEditingController.text = locationsBloc.billingAddress!.phone;
+      String userPHone = user.phoneNumber.toString();
+      if(userPHone.startsWith("0"))userPHone = userPHone.substring(1).toString();
+      phoneTextEditingController.text = userPHone;
     }
     super.didChangeDependencies();
   }
@@ -174,6 +173,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       if(await SmsApi.sendOtp(provider: phoneTextEditingController.text.trim(),isEmail: false)){
                         Util.pushPage(PinCodeVerificationScreen(data: {
                           'phone':phoneTextEditingController.text.trim(),
+                          "email":emailTextEditingController.text.trim(),
+                          "name":firstNameTextEditingController.text.trim(),
                         },isChangePhone: true,), context);
                       }else{
                         SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
@@ -224,6 +225,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               BlocBuilder<AccountBloc,AccountState>(
                 builder:(ctx,state){
                   AccountBloc bloc = AccountBloc.get(ctx);
+                  var userPhone = bloc.currentUser?.phoneNumber.toString().replaceAll("null", "");
                   // if(states==FetchStates.FAILED) return const Center(child: Text("an error occurred"),);
                   return Align(
                     child: CustomButton(
@@ -241,7 +243,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         onPressed: () async {
                           // if(emailTextEditingController.text.trim().isNotEmpty&&firstNameTextEditingController.text.trim().isNotEmpty&&){
                             bloc.add(UpdateProfileEvent(user: {
-                              "phone":phoneTextEditingController.text.trim(),
+                              "phone":userPhone,
                               "email":emailTextEditingController.text.trim(),
                               "name":firstNameTextEditingController.text.trim(),
                             }));

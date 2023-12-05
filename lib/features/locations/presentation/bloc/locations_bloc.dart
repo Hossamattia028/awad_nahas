@@ -65,6 +65,12 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
       await getUserLocationsData(event, emit);
     });
 
+    on<UpdateShippingCityEvent>((event, emit) {
+      updateShippingCity(event,emit);
+    });
+
+
+
   }
 
   updateCurrentCheckOutLocation(UpdateCurrentLocationEvent event,emit){
@@ -108,11 +114,11 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
     SharedPref().removePreference(Constants.allLocalLocationsList);
     emit(const LocationsLoadingState());
     if(event.isUpdate == true){
-      if(clearLocalLocation(setLocationData(event.data))){
-        localUserLocationsList.add(setLocationData(event.data));
+      if(clearLocalLocation(event.data['id'])){
+        localUserLocationsList.add(setLocationData(event.data,event.isUpdate == true));
       }
     }else{
-      localUserLocationsList.add(setLocationData(event.data));
+      localUserLocationsList.add(setLocationData(event.data,event.isUpdate == true));
     }
     String encodedList = json.encode(localUserLocationsList
         .map((location) => LocationModel.toJsonLocal(location,"local"))
@@ -122,7 +128,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
     emit(const LocationsSuccessfullyState());
   }
 
-  setLocationData(Map<String,dynamic> data){
+  setLocationData(Map<String,dynamic> data,bool isUpdate){
     String kind = "local";
     return LocationModel(
         address1: data['${kind}_address_1'] ?? "",
@@ -130,7 +136,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
         country: data['${kind}_country'] ?? "",
         phone: data['${kind}_phone'] ?? "",
         id: int.parse(DateTime.now().millisecond.toString()+DateTime.now().minute.toString()+DateTime.now().day.toString()),
-        type: data[kind] ?? "",
+        type: data[kind] ?? "local",
         long: 0.0,
         lat:  0.0,
         state: data['${kind}_state'] ?? "",
@@ -142,8 +148,8 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
     );
   }
 
-  bool clearLocalLocation(LocationEntity location){
-    int index = localUserLocationsList.indexWhere((element) => element.id==location.id);
+  bool clearLocalLocation(String locationID){
+    int index = localUserLocationsList.indexWhere((element) => element.id.toString()==locationID);
     if(index!=-1){
       localUserLocationsList.removeAt(index);
       return true;
@@ -151,10 +157,11 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
     return false;
   }
 
-  addNewLocationsData(event,emit)async{
+  addNewLocationsData(AddLocationEvent event,emit)async{
     try{
       emit(const LocationsLoadingState());
       var res = await addLocationUseCase(data: event.data);
+      updateLocationType(event.data);
       res.fold((l) {
         emit(const LocationsFailedState());
       },(res) {
@@ -171,10 +178,11 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
 
   }
 
-  updateLocationsData(event,emit)async{
+  updateLocationsData(UpdateLocationEvent event,emit)async{
     try{
       emit(const LocationsLoadingState());
       var res = await updateLocationUseCase(data: event.data);
+      updateLocationType(event.data);
       res.fold((l) {
         emit(const LocationsFailedState());
       },(res) {
@@ -188,6 +196,12 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
       debugPrint("updateLocationsData: $e");
       emit(const LocationsFailedState());
     }
+  }
+
+  updateLocationType(Map<String,dynamic> data){
+    if(data.toString().contains("local"))return;
+    String type = data.toString().contains("shipping")?"shipping":"billing";
+    SharedPref().setPreferencesString(type=="shipping"?Constants.shippingType:Constants.billingType, data[type]['location_type']);
   }
 
   removeLocationsData(event,emit)async{
@@ -214,6 +228,98 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
       return true;
     }
     return false;
+  }
+
+
+
+  /// shipping list
+  List<String> shippingListAr= [
+    'جدة',
+    'الطائف',
+    'مكة',
+    'بدر',
+    'المدينة المنورة',
+    'رابغ',
+    'ينبع',
+    'الرياض',
+    'القصيم',
+    'الرس',
+    'عنيزة',
+    'بريدة',
+    'الخرج',
+    'الزلفي',
+    'العمارية',
+    'البدائع',
+    'رياض الخبراء',
+    'الخبر',
+    'الظهران',
+    'الدمام',
+    'القطيف',
+    'الجبيل',
+    'الأحساء',
+    'سيهات',
+    'رأس تنورة',
+    'رأس الخير',
+    'الهفوف',
+    'الخفجي',
+    'الصفوة',
+    'سلوى',
+    'العزيزية',
+    'العوامية',
+    'المبرز',
+    'المجمعة',
+    'جازان',
+    'أبها',
+    'خميس مشيط',
+    'المزاحمية',
+  ];
+  List<String> shippingListEn= [
+    'Jeddah',
+    'Al-Taif',
+    'Makkah',
+    'Badr',
+    'ALMadina Al Monawara',
+    'Rabigh',
+    'Yanpu',
+    'Riyadh',
+    'Qassim',
+    'Alrass',
+    'Unaizah',
+    'Buraidah',
+    'Al Kharj',
+    'Zelfi',
+    'Alammariah',
+    'Al Badayea',
+    'Riyadh Alkhabra',
+    'AL Khobar',
+    'Dhahran',
+    'Dammam',
+    'Qatif',
+    'Jubail',
+    'Hasa',
+    'Saihat',
+    'Ras Tanura',
+    'Ras Alkher',
+    'Al Hofuf',
+    'Khafji',
+    'AlSafwa',
+    'Salwa',
+    'Al-Azizia',
+    'Awamiya',
+    'AlMobaraz',
+    'Al Majmaah',
+    'Jizan ',
+    'Abha',
+    'Khamis Mushait',
+    'Al-Muzahmiya',
+  ];
+
+  String currentShippingCity = "";
+  updateShippingCity(UpdateShippingCityEvent event,emit){
+    emit(const UpdateCurrentShippingLoadingState());
+    if(!shippingListEn.contains(event.city.trim()) && !shippingListAr.contains(event.city.trim()))return;
+    currentShippingCity = event.city;
+    emit(const UpdateCurrentShippingSuccessfullyState());
   }
 
 }

@@ -41,7 +41,7 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   @override
   Future<UserServiceModel> updateUserProfile({required Map<String, dynamic> userData}) async {
     var body = {
-      if(userData['name']!=null)'user_login': Util.getUserLogin(),
+      if(userData['user_login']!=null)'user_login': Util.getUserLogin(),
       if(userData['name']!=null)'user_nicename': userData['name']??'',
       if(userData['name']!=null)'display_name': userData['name']??'',
       if(userData['email']!=null)'user_email': userData['email'],
@@ -88,7 +88,7 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
       'password':data['password'],
     };
     var response = await client.post(Uri.parse(ApiUrl.UPDATE_USER_PASSWORD_PROFILE),body: body);
-    debugPrint("changePassword: ${response.body}");
+    // debugPrint("changePassword: ${response.body}");
     var decodedData = json.decode(response.body);
     if (response.statusCode == 200) {
       if(decodedData['status'] && decodedData['message'].toString().contains("Successfully")){
@@ -106,7 +106,7 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
     List<UserServiceModel> users = [];
     var response = await client.get(Uri.parse(ApiUrl.FETCH_ALL_USER_PROFILE),
         headers: ApiUrl.headerAuth);
-    debugPrint("getAllUsers: ${response.body}");
+    // debugPrint("getAllUsers: ${response.body}");
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
       for(var i in body['data']){

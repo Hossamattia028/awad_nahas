@@ -23,7 +23,7 @@ class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
   Future<bool> addNewLocation({required Map<String, dynamic> data}) async{
     var response = await client.post(Uri.parse(ApiUrl.ADD_NEW_ADDRESS),
         headers: ApiUrl.headerAuth,body: jsonEncode(data));
-    debugPrint("addNewLocation: ${response.body}");
+    // debugPrint("addNewLocation: ${response.body}");
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
       return body['status']??false;
@@ -36,7 +36,7 @@ class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
   Future<bool> removeLocation({required int addressId}) async {
     var response = await client.delete(Uri.parse("${ApiUrl.REMOVE_ADDRESS}$addressId"),
         headers: ApiUrl.headerAuth);
-    debugPrint("removeLocation: ${response.body}");
+    // debugPrint("removeLocation: ${response.body}");
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
       return body['message'].toString().contains("done")?true:false;
@@ -51,7 +51,7 @@ class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
     //     headers: ApiUrl.headerAuth,body: jsonEncode(data));
     var response = await client.post(Uri.parse(ApiUrl.ADD_NEW_ADDRESS),
         headers: ApiUrl.headerAuth,body: jsonEncode(data));
-    debugPrint("updateLocation: ${response.body}");
+    // debugPrint("updateLocation: ${response.body}");
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
       return body['message'].toString().contains("done")?true:false;

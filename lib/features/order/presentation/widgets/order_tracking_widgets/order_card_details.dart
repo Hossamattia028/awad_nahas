@@ -61,6 +61,7 @@ class OrderCardDetails extends StatelessWidget {
                   var it = item.items![index];
                   var qty = it.qty;
                   var product = ProductsEntity(
+                      priceWithoutTax: it.price,
                       title: it.title, sku: "",catTitle: "", desc: "", id: it.id,
                       imgPath: "", price: it.price, discount: 0, discountRate: 0, stockStatus: true,
                       quantity: int.parse(it.qty), categoryList: const [], catID: 0, commentCount: 2);

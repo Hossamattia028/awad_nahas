@@ -12,6 +12,7 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
+import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
@@ -66,6 +67,13 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       status: PaymentItemStatus.final_price,
     )
   ];
+  @override
+  void didChangeDependencies() {
+    if(mounted){
+      checkLocation(context);
+    }
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocListener<OrderBloc,OrderState>(
@@ -125,7 +133,14 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                               paymentItems: paymentItems,
                               style: ApplePayButtonStyle.black,
                               type: ApplePayButtonType.checkout,
-                              onPaymentResult: (val) async => await onApplePayResult(val,orderBloc),
+                              onPaymentResult: (val) async {
+                                List<LocationEntity> locations = checkLocation(context);
+                                if(locations.isEmpty){
+                                  SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
+                                  return;
+                                }
+                                await onApplePayResult(val,orderBloc);
+                              },
                               loadingIndicator: const Center(
                                 child: CircularProgressIndicator(),
                               ),
@@ -236,19 +251,11 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
 
   _checkOutApplePay(OrderBloc orderBloc,dynamic appleData)async{
-    List<LocationEntity> locations = checkLocation(context);
-    if(locations.isEmpty){
-      SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
-      return;
-    }
     final res = await payFortController.flutterAmazonApplePay(amount: cartBloc.totalPrice.toInt(),appleData: appleData);
     if(res=="true"){
        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
     }else{
-      SnackBarBuilder.showFeedBackMessage(context, appleData.toString(), DMUtil.getRED());
-      Timer(const Duration(seconds: 2), () {
-        SnackBarBuilder.showFeedBackMessage(context, res.toString(), DMUtil.getRED());
-      });
+      SnackBarBuilder.showFeedBackMessage(context, res.toString(), DMUtil.getRED());
     }
   }
 
@@ -271,17 +278,25 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     var locationBloc = LocationsBloc.get(context);
     LocationEntity? billing = locationBloc.billingAddress;
     LocationEntity? shipping = locationBloc.shippingAddress;
-    if(billing?.address1==""&&shipping?.address1==""&&locationBloc.localUserLocationsList.isNotEmpty){
-      billing = locationBloc.localUserLocationsList.first;
-      shipping = locationBloc.localUserLocationsList.first;
+    if(locationBloc.currentCheckOutLocation==null || locationBloc.currentCheckOutLocation!.address1==""){
+      if(billing!=null && billing.address1 != "")locationBloc.currentCheckOutLocation=billing;
+      if(shipping!=null && shipping.address1 != "")locationBloc.currentCheckOutLocation=shipping;
+      if(locationBloc.currentCheckOutLocation==null || locationBloc.currentCheckOutLocation!.address1=="" && locationBloc.localUserLocationsList.isNotEmpty){
+        locationBloc.currentCheckOutLocation = locationBloc.localUserLocationsList.first;
+      }
+      if(locationBloc.currentCheckOutLocation!=null && locationBloc.currentCheckOutLocation!.address1!=""){
+        locationBloc.add(UpdateCurrentLocationEvent(location: locationBloc.currentCheckOutLocation!));
+        if(billing==null || billing.address1=="")billing = locationBloc.currentCheckOutLocation;
+        if(shipping==null || shipping.address1=="")shipping = locationBloc.currentCheckOutLocation;
+      }
+    }else{
+      if(billing==null || billing.address1=="")billing = locationBloc.currentCheckOutLocation;
+      if(shipping==null || shipping.address1=="")shipping = locationBloc.currentCheckOutLocation;
     }
-    if(billing!=null && billing.address1!="" && shipping != null &&shipping.address1!=""&&locationBloc.currentCheckOutLocation!=null){
-      return [
-        billing,
-        shipping
-      ];
-    }
-    return [];
+    return [
+      if(billing!=null && billing.address1!="")billing,
+      if(shipping!=null && shipping.address1!="")shipping
+    ];
   }
 
 }

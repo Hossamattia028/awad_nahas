@@ -9,7 +9,7 @@ import 'package:flutter_amazonpaymentservices/flutter_amazonpaymentservices.dart
 
 class PayFortController{
 
-  Future<String> flutterAmazonApplePay({required int amount,required dynamic appleData})async{
+  Future<String> flutterAmazonApplePay({required int amount,required Map<String,dynamic> appleData})async{
     String? id = await FlutterAmazonpaymentservices.getUDID;
     List<String>? data = await PayFortApi.generateTokenFromApiApplePay(id.toString());
     try {
@@ -64,7 +64,7 @@ class PayFortController{
     };
     try {
       var result = await FlutterAmazonpaymentservices.normalPay(requestParam, EnvironmentType.production,);
-      debugPrint("res $result");
+      // debugPrint("res $result");
       if(result['response_code'].toString().trim()=="02000" || result['response_message'].toString().toLowerCase()=="success"){
         return true;
       }else{

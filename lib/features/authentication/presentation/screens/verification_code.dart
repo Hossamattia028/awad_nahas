@@ -1,14 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/sms_api.dart';
-import 'package:awad_nahas/features/account/presentation/screens/edit_profile_screen.dart';
+import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
+import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
+import 'package:awad_nahas/features/account/presentation/widgets/verify_user_button.dart';
 import 'package:awad_nahas/features/authentication/presentation/bloc/auth_event.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/reset_password.dart';
-import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
-import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,6 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 
 
 class PinCodeVerificationScreen extends StatefulWidget {
@@ -51,11 +49,9 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
   bool sendVerify = true;
-  late LocationsBloc locationsBloc;
 
   @override
   void initState() {
-    locationsBloc = LocationsBloc.get(context);
     authBloc = AuthBloc.get(context);
     onTapRecognizer = TapGestureRecognizer()..onTap = () {
         Navigator.pop(context);
@@ -104,7 +100,6 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
           padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
           child: Column(
             children: [
-
               SizedBox(height: AppStyle.paddingFromTop.h,),
 
               CustomText(
@@ -158,10 +153,8 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                             selectedFillColor:kBackGround,
                             disabledColor: Colors.white,
                           ),
-                          // cursorColor: Colors.black,
                           animationDuration: const Duration(milliseconds: 300),
                           textStyle: const TextStyle(fontSize: 20, height: 1.6),
-                          // backgroundColor: Colors.white,
                           enableActiveFill: true,
                           errorAnimationController: errorController,
                           controller: textEditingController,
@@ -173,17 +166,14 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                               blurRadius: 6,
                             )
                           ],
-                          onCompleted: (v) {
-                            debugPrint("Completed");
-                          },
+                          onCompleted: (v) {},
                           onChanged: (value) {
-                            debugPrint(value);
                             setState(() {
                               currentText = value;
                             });
                           },
                           beforeTextPaste: (text) {
-                            debugPrint("Allowing to paste $text");
+                            // debugPrint("Allowing to paste $text");
                             return true;
                           },
                         )),
@@ -197,59 +187,79 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     fontWeight: FontWeight.w400),
               ),
               SizedBox(height: 25.w,),
-              BlocListener<AuthBloc,AuthState>(
-                listener: (ctx,state){
-                  var bloc = AuthBloc.get(ctx);
-                  if(state is RegisterSuccessfullyState && state.response.isSuccess==true){
-                    Util.getAllUserAppData(context: context);
-                    SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.green);
-                    Util.pushPageAndRemoveRoutes(const RootScreen(), context);
-                  }else{
-                    SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.red);
+
+              if(widget.isChangePhone!=null && widget.isChangePhone == true)...[
+                VerifyUserButton(fn: ()async{
+                  var otp = textEditingController.text.trim();
+                  if(otp.isEmpty) {
+                    SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
+                    return;
                   }
-                },
-                listenWhen: (ctx,state) => state is RegisterSuccessfullyState  || state is RegisterFailedState,
-                child: BlocBuilder<AuthBloc,AuthState>(
-                  builder: (ctx,state){
+                  if(await Util.verifyCode(otp)) {
+                    AccountBloc.get(context).add(UpdateProfileEvent(user: {
+                      "phone":widget.data['phone'],
+                      "name":widget.data['name']??'',
+                      "email":widget.data['email']??'',
+                    }));
+                    // _updateBillingPhone();
+                  }else{
+                    SnackBarBuilder.showFeedBackMessage(context, translate("toast.verification_code"), Colors.red);
+                  }
+                })
+              ]else...[
+                BlocListener<AuthBloc,AuthState>(
+                  listener: (ctx,state){
                     var bloc = AuthBloc.get(ctx);
-                    return MaterialButton(
-                      onPressed: ()async{
-                        var otp = textEditingController.text.trim();
-                        if(otp.isEmpty) {
-                          SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
-                          return;
-                        }
-                        if(await Util.verifyCode(otp)) {
-                          if(widget.isRegister){
-                            bloc.add(RegisterEvent(user: widget.data));
-                          }else if(widget.isLogin !=null && widget.isLogin == true){
-                            bloc.add(LogInEvent(user: widget.data));
-                          }else if(widget.isChangePhone!=null && widget.isChangePhone == true){
-                            _updateBillingPhone();
-                          }else{
-                            Util.pushPage(ResetPassword(userLogin: widget.data['phone'] ??  widget.data['email'],), context);
-                          }
-                        }else{
-                          SnackBarBuilder.showFeedBackMessage(context, translate("toast.verification_code"), Colors.red);
-                        }
-                      },
-                      minWidth: double.infinity,
-                      height: 40.h,
-                      color: DMUtil.getRED(),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: state is RegisterLoadingState?
-                      const CircularProgressIndicator(color: Colors.white,):
-                      CustomText(
-                        text: translate("button.confirm"),
-                        color: Colors.white,
-                        fontSize: AppStyle.average.sp+2,
-                      ),
-                    );
+                    if(state is RegisterSuccessfullyState && state.response.isSuccess==true){
+                      Util.getAllUserAppData(context: context);
+                      SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.green);
+                      Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+                    }else{
+                      SnackBarBuilder.showFeedBackMessage(context, bloc.resMsg, Colors.red);
+                    }
                   },
+                  listenWhen: (ctx,state) => state is RegisterSuccessfullyState  || state is RegisterFailedState,
+                  child: BlocBuilder<AuthBloc,AuthState>(
+                    builder: (ctx,state){
+                      var bloc = AuthBloc.get(ctx);
+                      return MaterialButton(
+                        onPressed: ()async{
+                          var otp = textEditingController.text.trim();
+                          if(otp.isEmpty) {
+                            SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
+                            return;
+                          }
+                          if(await Util.verifyCode(otp)) {
+                            if(widget.isRegister){
+                              bloc.add(RegisterEvent(user: widget.data));
+                            }else if(widget.isLogin !=null && widget.isLogin == true){
+                              bloc.add(LogInEvent(user: widget.data));
+                            }else{
+                              Util.pushPage(ResetPassword(userLogin: widget.data['phone'] ??  widget.data['email'],), context);
+                            }
+                          }else{
+                            SnackBarBuilder.showFeedBackMessage(context, translate("toast.verification_code"), Colors.red);
+                          }
+                        },
+                        minWidth: double.infinity,
+                        height: 40.h,
+                        color: DMUtil.getRED(),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: state is RegisterLoadingState?
+                        const CircularProgressIndicator(color: Colors.white,):
+                        CustomText(
+                          text: translate("button.confirm"),
+                          color: Colors.white,
+                          fontSize: AppStyle.average.sp+2,
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
+              ],
+
               SizedBox(height: 16.w,),
               InkWell(
                 onTap: ()async{
@@ -289,25 +299,25 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
     );
   }
 
-  _updateBillingPhone()async{
-    var data = {
-      "billing_phone": widget.data['phone'],
-      "billing_email": Util.getEmail(),
-      "billing_country": locationsBloc.billingAddress!.country,
-      "billing_postcode": locationsBloc.billingAddress!.postCode,
-      "billing_state": locationsBloc.billingAddress!.state,
-      "billing_address_2": locationsBloc.billingAddress!.address2,
-      "billing_address_1": locationsBloc.billingAddress!.address1,
-      "billing_last_name": Util.getName(),
-      "billing_first_name": Util.getName(),
-    };
-    locationsBloc.add(UpdateLocationEvent(data: {
-      "billing": data
-    }));
-    SnackBarBuilder.showFeedBackMessage(context, translate("toast.wait"), DMUtil.getGreen());
-    await Future.delayed(const Duration(seconds: 2));
-    Util.pushPageAndRemoveRoutes(const RootScreen(), context);
-    Util.pushPage(const EditProfilePage(), context);
-    SnackBarBuilder.showFeedBackMessage(context, translate("toast.update_user_data"), DMUtil.getGreen());
-  }
+  // _updateBillingPhone()async{
+  //   var data = {
+  //     "billing_phone": widget.data['phone'],
+  //     "billing_email": Util.getEmail(),
+  //     "billing_country": locationsBloc.billingAddress!.country,
+  //     "billing_postcode": locationsBloc.billingAddress!.postCode,
+  //     "billing_state": locationsBloc.billingAddress!.state,
+  //     "billing_address_2": locationsBloc.billingAddress!.address2,
+  //     "billing_address_1": locationsBloc.billingAddress!.address1,
+  //     "billing_last_name": Util.getName(),
+  //     "billing_first_name": Util.getName(),
+  //   };
+  //   locationsBloc.add(UpdateLocationEvent(data: {
+  //     "billing": data
+  //   }));
+  //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.wait"), DMUtil.getGreen());
+  //   await Future.delayed(const Duration(seconds: 2));
+  //   Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+  //   Util.pushPage(const EditProfilePage(), context);
+  //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.update_user_data"), DMUtil.getGreen());
+  // }
 }

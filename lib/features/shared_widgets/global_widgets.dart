@@ -103,7 +103,7 @@ class BackArrowButton extends StatelessWidget {
           child: Icon(
             Icons.arrow_back_ios,
             color: color??DMUtil.getD2C(),
-            size: 23.w,
+            size: 25.w,
           ),
         )
       ),

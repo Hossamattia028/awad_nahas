@@ -40,18 +40,18 @@ import 'package:url_launcher/url_launcher.dart';
 class Util{
   // implemented this function after register and login
   static getAllUserAppData({required BuildContext context,bool isSplash=false}){
-    AccountBloc.get(context).updateFcmToken();
-    AccountBloc.get(context).add(const FetchProfileDataEvent());
-    WishlistBloc.get(context).add(const FetchAllWishlistEvent());
-    CartBloc.get(context).add(const FetchAllCartEvent());
-    LocationsBloc.get(context).add(const FetchUserLocationsEvent());
-    OrderBloc.get(context).add(const FetchAllOrderEvent());
     if(isSplash){
       ProductsBloc.get(context).add(const FetchAllProductsEvent());
       CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
       CategoriesBloc.get(context).add(const FetchAllBrandsEvent());
       RootBloc.get(context).add(const FetchSettingEvent());
     }
+    AccountBloc.get(context).updateFcmToken();
+    AccountBloc.get(context).add(const FetchProfileDataEvent());
+    WishlistBloc.get(context).add(const FetchAllWishlistEvent());
+    CartBloc.get(context).add(const FetchAllCartEvent());
+    LocationsBloc.get(context).add(const FetchUserLocationsEvent());
+    OrderBloc.get(context).add(const FetchAllOrderEvent());
   }
 
 
@@ -76,9 +76,11 @@ class Util{
     return true;
   }
 
+
   static Future<bool> verifyCode(String otp) async{
     try{
       var vC = SharedPref().getPreferenceString(Constants.lastVerificationCode);
+      // debugPrint("$vC $otp");
       return vC.trim() == otp.trim();
     }catch(e){
       debugPrint("verifyFirebaseCode: $e");
@@ -87,17 +89,6 @@ class Util{
   }
 
   /// social auth
-//   static GoogleSignIn googleSignIn = GoogleSignIn(
-//     // Optional clientId
-// /*     clientId:
-//         '192805405686-9qe0bem69g0ph14u4coga9ibtj1v936i.apps.googleusercontent.com',*/
-//     serverClientId: '192805405686-7roe5iammlfnaamj588png8io80aok7f.apps.googleusercontent.com',
-//     scopes: <String>[
-//       'profile',
-//       'email',
-//     ],
-//   );
-
   static Future<String> googleSign()async{
     try{
       final GoogleSignInAccount? googleData = await GoogleSignIn(scopes: ['profile', 'email']).signIn().catchError((e){

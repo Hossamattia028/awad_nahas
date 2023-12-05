@@ -3,6 +3,8 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_icon.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
@@ -32,10 +34,11 @@ class BottomNavBar extends StatelessWidget {
             if(isRoot == false){
               Util.pushPageAndRemoveRoutes(const RootScreen(), context);
             }
-            if(index==0){
-              ProductsBloc.get(context).add(const FilterProductEvent(filterModel: null));
-            }
             bloc.add(ChangeIndex(index: index, title: ""));
+            ProductsBloc.get(context).add(const FilterProductEvent(filterModel: null));
+            if(index==3){
+              CartBloc.get(context).add(const FetchAllCartEvent());
+            }
           },
           currentIndex: currentIndex,
           backgroundColor: DMUtil.getWC(),

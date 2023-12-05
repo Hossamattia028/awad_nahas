@@ -37,7 +37,7 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
       },
     );
     var decodedData = json.decode(response.body);
-    debugPrint("loginUser: ${response.body}");
+    // debugPrint("loginUser: ${response.body}");
     if(response.body.contains("Unauthorized")||response.body.contains("user not found")){
       return AuthResponse(user: null,msg: translate("toast.sign_wrong"));
     }else if(decodedData['status']){
@@ -70,21 +70,18 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
     try{
       var request = http.MultipartRequest('POST', Uri.parse(ApiUrl.REGISTER_URL));
       var headers = ApiUrl.headerAuth;
-      // String? token =  await Util.getCurrentUserPushToken();
-      request.fields['name'] = userData['name'];
-      if(userData['email'] != null)request.fields['user_login'] = userData['email'];
+      if(userData['name'] != null)request.fields['name'] = userData['name'];
+      if(userData['user_login'] != null)request.fields['user_login'] = userData['user_login'];
       if(userData['email'] != null)request.fields['email'] = userData['email'];
-      if(userData['phone'] != null)request.fields['user_login'] = userData['phone'];
-
+      if(userData['phone'] != null)request.fields['phone'] = userData['phone'];
       request.fields['password'] = userData['password'];
       request.headers.addAll(headers);
       var streamedResponse = await request.send();
       var res = await http.Response.fromStream(streamedResponse);
-      debugPrint("registerUser: ${res.body}");
+      // debugPrint("registerUser: ${res.body}");
       var decodedData = jsonDecode(res.body);
       if(decodedData['status']){
         await saveLocalData(decodedData);
-        // SetNotification.showNotification(title: "", msg: translate("toast.welcome"));
         return AuthResponse(user: UserServiceModel.fromJson(decodedData['user']),msg: translate("toast.signup"),isSuccess: true);
       }else if(decodedData.toString().contains("already")){
         return  AuthResponse(user: null,msg: translate("toast.user_exist"),isFailed: true);
@@ -113,7 +110,7 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
       },
     );
     var decodedData = json.decode(response.body);
-    debugPrint("socialAuthUser: ${response.body}");
+    // debugPrint("socialAuthUser: ${response.body}");
     if(response.body.contains("Unauthorized")||response.body.contains("user not found")){
       return AuthResponse(user: null,msg: translate("toast.sign_wrong"));
     }else if(decodedData['status']){

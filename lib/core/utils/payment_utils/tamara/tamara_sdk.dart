@@ -17,14 +17,22 @@ class TamaraSdk{
 
   static Future<String?> checkOut({required Map<String,dynamic> data,required BuildContext context})async{
     try {
+      if(data['shipping_address'] ==null || data['shipping_address']['line1'].toString().trim()=="" && data['billing_address']!=null){
+        data['shipping_address'] = data['billing_address'];
+      }
+      if(data['shipping_address']['last_name']==null||data['shipping_address']['last_name']=="")data['shipping_address']['last_name']=".";
+      if(data['billing_address'] ==null || data['billing_address']['line1'].toString().trim()=="" && data['shipping_address']!=null){
+        data['billing_address'] = data['shipping_address'];
+      }
+      if(data['billing_address']['last_name']==null||data['billing_address']['last_name']=="")data['billing_address']['last_name']=".";
       var headers =  {
         "Authorization": "Bearer $tamaraApiToken",
         'Accept': 'application/json',
         'Content-Type': 'application/json; charset=UTF-8',
       };
       var orderData = {
-        "order_reference_id": Util.getMobile()==""?Util.getEmail():Util.getMobile(),
-        "order_number": Util.getMobile()==""?Util.getEmail():Util.getMobile(),
+        "order_reference_id": "${DateTime.now().minute}${DateTime.now().millisecond}${DateTime.now().day}${Util.getUserID()}",
+        "order_number": "${DateTime.now().minute}${DateTime.now().millisecond}${DateTime.now().day}${Util.getUserID()}",
         "total_amount": {
           "amount": data['total_price'],
           "currency": "SAR"
@@ -38,11 +46,11 @@ class TamaraSdk{
         "consumer": {
           "first_name": Util.getName()==""?"guest":Util.getName(),
           "last_name": Util.getName()==""?"guest":Util.getName(),
-          "phone_number": Util.getMobile()==""?"502223333":Util.getMobile(),
+          "phone_number": Util.getMobile()==""?"502441695":Util.getMobile(),
           "email": Util.getEmail()==""?"guest@gmail.com":Util.getEmail(),
         },
         "billing_address": data['billing_address'],
-        "shipping_address": data['shipping_address'] ==null || data['shipping_address']['line1'].toString().trim()=="" ? data['billing_address'] : data['shipping_address'],
+        "shipping_address": data['shipping_address'] ,
         if(data['discount']!=null)"discount": data['discount'],
         "tax_amount": {
           "amount": "0.00",

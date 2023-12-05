@@ -42,33 +42,33 @@ class PayWithWidget extends StatelessWidget {
               var enablePayWithCard = bloc.applePay;
               return Column(
                 children: [
-                  if(Platform.isIOS)...[
-                    const SizedBox(height: 5,),
-                    InkWell(
-                      onTap: ()=> bloc.add(const PaymentWithCardEvent(enableApplePay: true,paymentEnum: PaymentEnum.PAYFORT)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              CircleDotsWidget(isEnabled: enablePayWithCard,),
-                              const SizedBox(width: 10,),
-                              CustomText(
-                                text: "Apple Pay",
-                                color: DMUtil.getDC(),
-                                fontSize: AppStyle.average.sp,
-                              ),
-                            ],
-                          ),
-
-                          Icon(Icons.apple,size: 20.w,),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 5,),
-                    const Divider(),
-                    const SizedBox(height: 10,),
-                  ],
+                  // if(Platform.isIOS)...[
+                  //   const SizedBox(height: 5,),
+                  //   InkWell(
+                  //     onTap: ()=> bloc.add(const PaymentWithCardEvent(enableApplePay: true,paymentEnum: PaymentEnum.PAYFORT)),
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         Row(
+                  //           children: [
+                  //             CircleDotsWidget(isEnabled: enablePayWithCard,),
+                  //             const SizedBox(width: 10,),
+                  //             CustomText(
+                  //               text: "Apple Pay",
+                  //               color: DMUtil.getDC(),
+                  //               fontSize: AppStyle.average.sp,
+                  //             ),
+                  //           ],
+                  //         ),
+                  //
+                  //         Icon(Icons.apple,size: 20.w,),
+                  //       ],
+                  //     ),
+                  //   ),
+                  //   const SizedBox(height: 5,),
+                  //   const Divider(),
+                  //   const SizedBox(height: 10,),
+                  // ],
 
                   InkWell(
                     onTap: ()=> bloc.add(const PaymentWithCardEvent(enableApplePay: false,paymentEnum: PaymentEnum.PAYFORT)),

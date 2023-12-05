@@ -3,6 +3,7 @@ import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 class SnackBarBuilder {
   static showFeedBackMessage(BuildContext context, String message, Color color,
@@ -17,7 +18,7 @@ class SnackBarBuilder {
         padding: EdgeInsets.all(4.w),
         behavior: addBehaviour ? SnackBarBehavior.floating : null,
         action: SnackBarAction(
-            label: 'Dismiss',
+            label: translate("toast.dismiss"),
             textColor: DMUtil.getWC(),
             onPressed: () => ScaffoldMessenger.of(context).clearSnackBars),
       ),

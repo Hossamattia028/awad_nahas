@@ -40,3 +40,10 @@ class UpdateCurrentLocationEvent extends LocationsEvent{
 }
 
 
+class UpdateShippingCityEvent extends LocationsEvent{
+  final String city;
+  const UpdateShippingCityEvent({required this.city});
+}
+
+
+

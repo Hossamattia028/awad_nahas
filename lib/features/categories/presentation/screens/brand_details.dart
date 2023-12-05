@@ -28,22 +28,21 @@ class BrandDetailsScreen extends StatelessWidget{
         return Scaffold(
           backgroundColor: DMUtil.getWC(),
           bottomNavigationBar: const BottomNavBar(isRoot: false,),
-          appBar: GlobalAppBar(title: brand.title,leadingIcon: const BackArrowButton()),
+          appBar: const GlobalAppBar(title: "",leadingIcon: BackArrowButton()),
           body: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
             child: Column(
               children: [
-                const SizedBox(height: 10,),
                 if(DMUtil.currentThemeIsDark())...[
-                  SvgPicture.asset(brand.darkIcon.toString(),height: 100.w,fit: BoxFit.fill,)
+                  SvgPicture.asset(brand.darkIcon.toString(),height: 80.w,fit: BoxFit.fill,)
                 ]else...[
-                  SvgPicture.network(brand.iconPath,width: double.infinity,height: 100.w,),
+                  SvgPicture.network(brand.iconPath,width: double.infinity,height: 80.w,),
                 ],
 
 
 
-                SizedBox(height: 10.w,),
+                SizedBox(height: 15.w,),
                 DefaultTabController(
                     length: 2,
                     child: Builder(

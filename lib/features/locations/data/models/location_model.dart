@@ -1,4 +1,6 @@
 
+import 'package:awad_nahas/core/strings/constant.dart';
+import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
@@ -32,8 +34,17 @@ class LocationModel extends LocationEntity{
       lastName:  (jsonObject['billing_last_name']??jsonObject['shipping_last_name']).toString().replaceAll("null", ""),
       email:  (jsonObject['billing_email']??jsonObject['shipping_email']).toString().replaceAll("null", ""),
       hours: jsonObject['hours']??[],
-      locationType: type.toString(),
+      locationType: getTypeForBillingAndShipping(type.toString()),
     );
+  }
+
+  static getTypeForBillingAndShipping(String type){
+    if(type=="shipping"){
+      return SharedPref().getPreferenceString(Constants.shippingType);
+    }else if(type=="billing"){
+      return SharedPref().getPreferenceString(Constants.billingType);
+    }
+    return type;
   }
 
   static String getLocationType(var type){
@@ -86,10 +97,10 @@ class LocationModel extends LocationEntity{
         lat:  0.0,
         long:  0.0,
         state: jsonObject['${type}_state'] ?? "",
-        postCode: jsonObject['${type}_first_name'] ?? "",
-        firstName: jsonObject['${type}_last_name'] ?? "",
-        lastName:  jsonObject['${type}_email'] ?? "",
-        email:  jsonObject['${type}_postcode'] ?? "",
+        postCode: jsonObject['${type}_postcode'] ?? "",
+        firstName: jsonObject['${type}_first_name'] ?? "",
+        lastName:  jsonObject['${type}_last_name'] ?? "",
+        email:  jsonObject['${type}_email'] ?? "",
         locationType: jsonObject['location_type'] ?? "",
     );
   }

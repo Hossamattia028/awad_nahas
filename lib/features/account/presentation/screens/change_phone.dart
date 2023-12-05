@@ -63,17 +63,6 @@ class ChangePhone extends StatelessWidget {
             const SizedBox(height: 30,),
             Row(
               children: [
-                Container(
-                  height: 50.h,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 0,color: DMUtil.getD2C())
-                  ),
-                  alignment: Alignment.center,
-                  child: CustomText(
-                    text: " +966 ",
-                    fontSize: AppStyle.small.sp,
-                  ),
-                ),
                 Expanded(
                   child: CustomTextFromField(
                     height: 50,
@@ -82,16 +71,28 @@ class ChangePhone extends StatelessWidget {
                     textEditingController: phoneTextEditingController,
                     validator: () {},
                     hintColor: kSecondPrimary,
+                    textAlign: Util.getLang()=="ar"?TextAlign.left:TextAlign.right,
                     textInputType: TextInputType.phone,
                     prefixIcon: null,
                     cursorColor: kPrimary,
-                    suffixIcon:  Icon(Icons.phone,color: DMUtil.getD2C(),),
+                    // suffixIcon:  Icon(Icons.phone,color: DMUtil.getD2C(),),
                     obscureText: false,
                     isLabelError: false,
                     hasBorder: true,
                     borderWidth: 1,
                     borderColor: DMUtil.getD2C(),
                     labelText: translate("signup.phone"),
+                  ),
+                ),
+                Container(
+                  height: 40.h,
+                  // decoration: BoxDecoration(
+                  //     border: Border.all(width: 0,color: DMUtil.getD2C())
+                  // ),
+                  alignment: Alignment.center,
+                  child: CustomText(
+                    text: " 966+ ",
+                    fontSize: AppStyle.small.sp,
                   ),
                 ),
               ],

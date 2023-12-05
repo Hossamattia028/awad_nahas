@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:awad_nahas/core/strings/enum/location_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/locations/presentation/widgets/shipping_list_drop_down.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,9 +36,6 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
   final TextEditingController phoneTextEditingController = TextEditingController();
   final TextEditingController cityTextEditingController = TextEditingController();
   final TextEditingController streetTextEditingController = TextEditingController();
-  final TextEditingController areaTextEditingController = TextEditingController();
-  final TextEditingController flatNumberTextEditingController = TextEditingController();
-  final TextEditingController buildingNumberTextEditingController = TextEditingController();
   final TextEditingController postCodeNumberTextEditingController = TextEditingController();
   late LocationsBloc locationsBloc;
   LocationMapEntity? locationMapEntity;
@@ -57,6 +55,8 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       locationEnum = LocationEnum.OTHER;
     }
     if(widget.locationEntity!=null){
+      locationsBloc.add(UpdateShippingCityEvent(city: widget.locationEntity!.address1.toString().trim()));
+      locationType = widget.locationEntity!.locationType.toString();
       locationMapEntity = LocationMapEntity(
           lat: widget.locationEntity!.lat, long: widget.locationEntity!.long,
           address: widget.locationEntity!.address2, city: widget.locationEntity!.address1,
@@ -192,22 +192,11 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                 ),
                 // const Divider(color: kSecondPrimary,),
                 const SizedBox(height: 20,),
+                const ShippingListWidget(),
+                const SizedBox(height: 20,),
                 CustomTextFromField(
                     hintText: "",
-                    labelText: translate("map.town"),
-                    onChanged: (val){},
-                    maxLines: 1,
-                    hasBorder: true,
-                    cursorColor: kPrimary,
-                    radius: 4,
-                    textEditingController: cityTextEditingController,
-                    validator: (){},
-                    obscureText: false,
-                    isLabelError: false),
-                const SizedBox(height: 15,),
-                CustomTextFromField(
-                    hintText: "",
-                    labelText: translate("map.street_number"),
+                    labelText: translate("profile.address"),
                     onChanged: (val){},
                     maxLines: 1,
                     hasBorder: true,
@@ -218,72 +207,12 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                     obscureText: false,
                     isLabelError: false),
                 const SizedBox(height: 15,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 100.w,
-                      child: CustomTextFromField(
-                          hintText: "",
-                          labelText: translate("map.block_number"),
-                          onChanged: (val){},
-                          maxLines: 1,
-                          hasBorder: true,
-                          cursorColor: kPrimary,
-                          radius: 4,
-                          textEditingController: areaTextEditingController,
-                          validator: (){},
-                          obscureText: false,
-                          isLabelError: false),
-                    ),
-                    SizedBox(
-                      width: 100.w,
-                      child: CustomTextFromField(
-                          hintText: "",
-                          labelText: translate("map.flat_number"),
-                          onChanged: (val){},
-                          maxLines: 1,
-                          hasBorder: true,
-                          cursorColor: kPrimary,
-                          radius: 4,
-                          textEditingController: flatNumberTextEditingController,
-                          validator: (){},
-                          obscureText: false,
-                          isLabelError: false),
-                    ),
-                    SizedBox(
-                      width: 100.w,
-                      child: CustomTextFromField(
-                          hintText: "",
-                          labelText: translate("map.building_name"),
-                          onChanged: (val){},
-                          maxLines: 1,
-                          hasBorder: true,
-                          cursorColor: kPrimary,
-                          radius: 4,
-                          textEditingController: buildingNumberTextEditingController,
-                          validator: (){},
-                          obscureText: false,
-                          isLabelError: false),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 15,),
+
                 Row(
                   children: [
-                    Container(
-                      height: 50.h,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 0,color: DMUtil.getD2C())
-                      ),
-                      alignment: Alignment.center,
-                      child: CustomText(
-                        text: " +966 ",
-                        fontSize: AppStyle.small.sp,
-                      ),
-                    ),
                     Expanded(
                       child: CustomTextFromField(
+                          textAlign: Util.getLang()=="ar"?TextAlign.left:TextAlign.right,
                           height: 50,
                           hintText: "502441695",
                           labelText: translate("profile.mobile"),
@@ -296,6 +225,17 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                           validator: (){},
                           obscureText: false,
                           isLabelError: false
+                      ),
+                    ),
+                    Container(
+                      height: 50.h,
+                      // decoration: BoxDecoration(
+                      //     border: Border.all(width: 0,color: DMUtil.getD2C())
+                      // ),
+                      alignment: Alignment.center,
+                      child: CustomText(
+                        text: " 966+ ",
+                        fontSize: AppStyle.small.sp,
                       ),
                     ),
                   ],
@@ -377,6 +317,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                 const SizedBox(height: 22,),
                 BlocBuilder<LocationsBloc,LocationsState>(
                   builder: (ctx, state){
+                    var bloc = LocationsBloc.get(ctx);
                     bool isLoading = state is LocationsLoadingState;
                     return CustomButton(
                       height: 42.h,
@@ -394,12 +335,12 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                         var type = locationEnum == LocationEnum.Shipping? "shipping":"billing";
                         if(locationEnum == LocationEnum.LOCAL) type = "local";
                         var phone = phoneTextEditingController.text.trim();
-                        if(flatNumberTextEditingController.text.trim().isNotEmpty&&buildingNumberTextEditingController.text.trim().isNotEmpty&&phone.isNotEmpty &&
-                            cityTextEditingController.text.trim().isNotEmpty && streetTextEditingController.text.trim().isNotEmpty &&
+                        //flatNumberTextEditingController.text.trim().isNotEmpty&&buildingNumberTextEditingController.text.trim().isNotEmpty&&phone.isNotEmpty &&
+                        //cityTextEditingController.text.trim().isNotEmpty &&
+                        if(bloc.currentShippingCity!=""&&streetTextEditingController.text.trim().isNotEmpty &&
                             postCodeNumberTextEditingController.text.trim().isNotEmpty){
 
                           if(Util.validatePhoneInput("+966$phone", context)==false) return;
-
 
                           var data = {
                             "${type}_phone": phone,
@@ -408,13 +349,15 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                             "${type}_postcode": postCodeNumberTextEditingController.text.trim(),
                             "${type}_state": locationMapEntity!.street,
                             "${type}_address_2": streetTextEditingController.text.trim(),
-                            "${type}_address_1": cityTextEditingController.text.trim(),
-                            "${type}_last_name": Util.getName(),
+                            "${type}_address_1": bloc.currentShippingCity.trim(),
+                            "${type}_last_name": ".",
                             "${type}_first_name": Util.getName(),
-                            "location_type" : locationType.toString()
+                            "location_type" : locationType.toString(),
+                            "type":type,
                           };
                           if(widget.locationEntity!=null){
                             if(widget.type == "local"){
+                              data['id'] = widget.locationEntity!.id.toString();
                               locationsBloc.add(AddLocalLocationEvent(data: data,isUpdate: true));
                             }else{
                               locationsBloc.add(UpdateLocationEvent(data: {
@@ -422,6 +365,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                               }));
                             }
                           }else{
+
                             if(locationMapEntity==null)return SnackBarBuilder.showFeedBackMessage(context, translate("toast.select_location"), Colors.red);
                             if(widget.type == "local"){
                               locationsBloc.add(AddLocalLocationEvent(data: data));
@@ -448,5 +392,74 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
     );
   }
 
-
 }
+
+
+// final TextEditingController areaTextEditingController = TextEditingController();
+// final TextEditingController flatNumberTextEditingController = TextEditingController();
+// final TextEditingController buildingNumberTextEditingController = TextEditingController();
+
+// CustomTextFromField(
+//     hintText: "",
+//     labelText: translate("map.town"),
+//     onChanged: (val){},
+//     maxLines: 1,
+//     hasBorder: true,
+//     cursorColor: kPrimary,
+//     radius: 4,
+//     textEditingController: cityTextEditingController,
+//     validator: (){},
+//     obscureText: false,
+//     isLabelError: false),
+
+// Row(
+//   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//   children: [
+//     SizedBox(
+//       width: 100.w,
+//       child: CustomTextFromField(
+//           hintText: "",
+//           labelText: translate("map.block_number"),
+//           onChanged: (val){},
+//           maxLines: 1,
+//           hasBorder: true,
+//           cursorColor: kPrimary,
+//           radius: 4,
+//           textEditingController: areaTextEditingController,
+//           validator: (){},
+//           obscureText: false,
+//           isLabelError: false),
+//     ),
+//     SizedBox(
+//       width: 100.w,
+//       child: CustomTextFromField(
+//           hintText: "",
+//           labelText: translate("map.flat_number"),
+//           onChanged: (val){},
+//           maxLines: 1,
+//           hasBorder: true,
+//           cursorColor: kPrimary,
+//           radius: 4,
+//           textEditingController: flatNumberTextEditingController,
+//           validator: (){},
+//           obscureText: false,
+//           isLabelError: false),
+//     ),
+//     SizedBox(
+//       width: 100.w,
+//       child: CustomTextFromField(
+//           hintText: "",
+//           labelText: translate("map.building_name"),
+//           onChanged: (val){},
+//           maxLines: 1,
+//           hasBorder: true,
+//           cursorColor: kPrimary,
+//           radius: 4,
+//           textEditingController: buildingNumberTextEditingController,
+//           validator: (){},
+//           obscureText: false,
+//           isLabelError: false),
+//     ),
+//   ],
+// ),
+// const SizedBox(height: 15,),

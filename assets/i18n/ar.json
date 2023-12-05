@@ -68,6 +68,7 @@
       "change": "تغيير"
     },
     "toast": {
+      "dismiss": "الغاء",
       "sure_to_submit": "تأكيد تنفيذ العملية ؟",
       "field_empty": "من فضلك قم بادخال جميع الحقول",
       "wait": "انتظر من فضلك",
@@ -527,6 +528,7 @@
       "interest-free": "بدون فوائد"
     },
     "cart": {
+      "vat": "ضريبة القيمة المضافة(15%)",
       "cart": "السلة",
       "checkOut_title": "إتمام عملية الشراء",
       "checkOut": "إتمام الشراء",
@@ -536,13 +538,13 @@
       "delivery_install": "التوصيل والتركيب",
       "payment_summary": "تفاصيل الطلبية",
       "order_note": "ملحوظة",
-      "total_products_price": "تكلفة المنتجات",
+      "total_products_price": "المجموع",
       "total_price": "المجموع الكلي",
       "total_after_discount": "المجموع بعد الخصم",
       "add_to_cart": "أضف الي السلة",
       "remove_from_cart": "حذف من السلة",
       "continue_shopping": "متابعة التسوق",
-      "shipping_cost": "تكلفة الشحن",
+      "shipping_cost": "الشحن",
       "free": "مَجاناً",
       "debit_credit": "بطاقة الخصم / الائتمان",
       "cash": "الدفع عند الاستلام",

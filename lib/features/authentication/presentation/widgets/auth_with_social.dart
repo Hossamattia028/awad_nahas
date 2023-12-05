@@ -54,7 +54,8 @@ class AuthWithSocial extends StatelessWidget {
           }
         },
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
           margin: EdgeInsets.symmetric(vertical: 6.w),
           decoration: BoxDecoration(
               color: DMUtil.getWC(),
@@ -118,7 +119,7 @@ class AuthWithSocial extends StatelessWidget {
   _socialLogin(var bloc,String email){
     bloc.add(SocialLoginEvent(user: {
       'email' : email,
-      'password': email
+      'password': "social"
     }));
   }
 }

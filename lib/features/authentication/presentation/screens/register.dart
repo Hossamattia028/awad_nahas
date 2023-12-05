@@ -117,78 +117,68 @@ class RegisterScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 15,),
-                BlocBuilder<AuthBloc,AuthState>(
-                  builder: (ctx,state){
-                    var bloc = AuthBloc.get(ctx);
-                    bool registerByPhone = bloc.registerByPhone;
-                    return Column(
-                      children: [
-                        if(registerByPhone)...[
-                          Row(
-                            children: [
-                              Container(
-                                height: 50.h,
-                                // decoration: BoxDecoration(
-                                //     // borderRadius: BorderRadius.circular(10),
-                                //     // border: Border.all(width: 0,color: DMUtil.getD2C())
-                                // ),
-                                alignment: Alignment.center,
-                                child: CustomText(
-                                  text: " +966 ",
-                                  fontSize: AppStyle.small.sp,
-                                ),
-                              ),
-                              Expanded(
-                                child: CustomTextFromField(
-                                  height: 50,
-                                  hintText: "${translate("signup.phone")}: 502441695",
-                                  radius: 10,
-                                  textEditingController: phoneTextEditingController,
-                                  validator: () {},
-                                  hintColor: kSecondPrimary,
-                                  textInputType: TextInputType.phone,
-                                  prefixIcon: null,
-                                  cursorColor: kPrimary,
-                                  suffixIcon: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                                    child: Icon(Icons.phone,color: DMUtil.getD2C(),size: 20.w,),
-                                  ),
-                                  obscureText: false,
-                                  isLabelError: false,
-                                  hasBorder: true,
-                                  borderWidth: 1,
-                                  borderColor: DMUtil.getD2C(),
-                                  labelText: '',
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 15,),
-                        ],
-                        CustomTextFromField(
-                          height: 50,
-                          hintText: translate("signup.email"),
-                          radius: 10,
-                          textEditingController: emailTextEditingController,
-                          validator: () {},
-                          hintColor: kSecondPrimary,
-                          textInputType: TextInputType.emailAddress,
-                          prefixIcon: null,
-                          cursorColor: kPrimary,
-                          suffixIcon:  Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 7),
-                            child: Icon(Icons.email_outlined,color: DMUtil.getD2C(),size: 20.w,),
-                          ),
-                          obscureText: false,
-                          isLabelError: false,
-                          hasBorder: true,
-                          borderWidth: 1,
-                          borderColor: DMUtil.getD2C(),
-                          labelText: '',
-                        )
-                      ],
-                    );
-                  },
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextFromField(
+                        textAlign: Util.getLang()=="ar"?TextAlign.left:TextAlign.right,
+                        height: 50,
+                        hintText: "${translate("signup.phone")} 502441695",
+                        radius: 10,
+                        textEditingController: phoneTextEditingController,
+                        validator: () {},
+                        hintColor: kSecondPrimary,
+                        textInputType: TextInputType.phone,
+                        prefixIcon: null,
+                        cursorColor: kPrimary,
+                        suffixIcon: null,
+                        // suffixIcon: Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 7),
+                        //   child: Icon(Icons.phone,color: DMUtil.getD2C(),size: 20.w,),
+                        // ),
+                        obscureText: false,
+                        isLabelError: false,
+                        hasBorder: true,
+                        borderWidth: 1,
+                        borderColor: DMUtil.getD2C(),
+                        labelText:"",
+                      ),
+                    ),
+                    Container(
+                      height: 50.h,
+                      // decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(10),
+                      //     border: Border.all(width: 0,color: DMUtil.getD2C())
+                      // ),
+                      alignment: Alignment.center,
+                      child: CustomText(
+                        text: " 966+ ",
+                        fontSize: AppStyle.small.sp,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15,),
+                CustomTextFromField(
+                  height: 50,
+                  hintText: translate("signup.email"),
+                  radius: 10,
+                  textEditingController: emailTextEditingController,
+                  validator: () {},
+                  hintColor: kSecondPrimary,
+                  textInputType: TextInputType.emailAddress,
+                  prefixIcon: null,
+                  cursorColor: kPrimary,
+                  suffixIcon:  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 7),
+                    child: Icon(Icons.email_outlined,color: DMUtil.getD2C(),size: 20.w,),
+                  ),
+                  obscureText: false,
+                  isLabelError: false,
+                  hasBorder: true,
+                  borderWidth: 1,
+                  borderColor: DMUtil.getD2C(),
+                  labelText: '',
                 ),
 
                 const SizedBox(height: 20,),
@@ -205,8 +195,8 @@ class RegisterScreen extends StatelessWidget {
                         hintText: translate("signup.password"),
                         radius: 10,
                         hintColor: kSecondPrimary,
-                        onChanged: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm(bloc.registerByPhone))),
-                        onFieldSubmitted: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm(bloc.registerByPhone))),
+                        // onChanged: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm(bloc.registerByPhone))),
+                        // onFieldSubmitted: (val)=> bloc.add(EnableAuthButtonEvent(enable: validateForm(bloc.registerByPhone))),
                         textEditingController: passwordTextEditingController,
                         cursorColor: kPrimary,
                         validator: () {},
@@ -225,7 +215,8 @@ class RegisterScreen extends StatelessWidget {
                             ),
                           )
                         ),
-                        isLabelError: false);
+                        isLabelError: false,
+                    );
                   },
                 ),
                 const SizedBox(
@@ -237,15 +228,17 @@ class RegisterScreen extends StatelessWidget {
                     var bloc = AuthBloc.get(ctx);
                     return MaterialButton(
                       onPressed: ()async{
+                        SnackBarBuilder.showFeedBackMessage(context, translate("toast.wait"), Colors.green);
                         var phone = "+966${phoneTextEditingController.text.trim()}";
                         var email = emailTextEditingController.text.trim();
-                        if(validatePhoneInput(bloc.registerByPhone, phone, context)==false) return;
-                        if(validateForm(bloc.registerByPhone) && await SmsApi.sendOtp(provider: bloc.registerByPhone?phone:email,isEmail: !bloc.registerByPhone)){
+                        if(validatePhoneInput(phone, context)==false) return;
+
+                        if(validateForm(context: context) && await SmsApi.sendOtp(provider: bloc.registerByPhone?phone:email,isEmail: !bloc.registerByPhone)){
                           Util.pushPage(PinCodeVerificationScreen(data: {
-                            if(!bloc.registerByPhone)'email':email,
+                            'email':email,
                             'name':"${firstNameTextEditingController.text.trim()} ${secondNameTextEditingController.text.trim()}",
-                            'user_login': bloc.registerByPhone? phone : email,
-                            if(bloc.registerByPhone)'phone':phone,
+                            'user_login': phoneTextEditingController.text.trim() ,
+                            'phone':phone,
                             'password':passwordTextEditingController.text.trim(),
                           },isRegister: true,), context);
                         }else{
@@ -271,7 +264,7 @@ class RegisterScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 15,),
-                const AuthWithSocial(socialEnum: SocialEnum.PHONE),
+                // const AuthWithSocial(socialEnum: SocialEnum.PHONE),
                 const AuthWithSocial(socialEnum: SocialEnum.GOOGLE),
                 const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK),
                 const SizedBox(height: 25,),
@@ -283,8 +276,8 @@ class RegisterScreen extends StatelessWidget {
         )
     );
   }
-  bool validatePhoneInput(bool registerByPhone,String phone,BuildContext context){
-    if(registerByPhone&&phone.isNotEmpty){
+  bool validatePhoneInput(String phone,BuildContext context){
+    if(phone.isNotEmpty){
       String? txt = Util.validatePhone(phone);
       if(txt!=null){
         SnackBarBuilder.showFeedBackMessage(context, txt, DMUtil.getRED());
@@ -294,17 +287,16 @@ class RegisterScreen extends StatelessWidget {
     return true;
   }
 
-  validateForm(bool checkPhone,{BuildContext? context}){
-    if(checkPhone&& phoneTextEditingController.text.isEmpty) return false;
-    if(!checkPhone) {
-      if(emailTextEditingController.text.isEmpty || !emailTextEditingController.text.contains("@")){
-        if(context!=null)SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), Colors.red);
-        return false;
-      }
+  validateForm({BuildContext? context}) {
+    if(emailTextEditingController.text.isNotEmpty && !emailTextEditingController.text.contains("@")){
+      if(context!=null)SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), Colors.red);
+      return false;
     }
-    if(
-     firstNameTextEditingController.text.isNotEmpty&&
-     secondNameTextEditingController.text.isNotEmpty&& passwordTextEditingController.text.isNotEmpty)return true;
-    return false;
+    if (phoneTextEditingController.text.isNotEmpty &&
+        emailTextEditingController.text.isNotEmpty &&
+        firstNameTextEditingController.text.isNotEmpty &&
+        secondNameTextEditingController.text.isNotEmpty &&
+        passwordTextEditingController.text.isNotEmpty) return true;
+
   }
 }

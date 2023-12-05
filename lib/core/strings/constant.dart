@@ -24,4 +24,8 @@ class Constants {
   static const String allLocalCartList = "cartList";
 
 
+  static const String billingType = "billingType";
+  static const String shippingType = "shippingType";
+
+
 }

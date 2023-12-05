@@ -3,9 +3,9 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
+import 'package:awad_nahas/features/account/presentation/bloc/account_state.dart';
 import 'package:awad_nahas/features/account/presentation/screens/change_phone.dart';
-import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
-import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,12 +21,12 @@ class ChangePhoneSection extends StatelessWidget {
       color: DMUtil.getWC(),
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w - 4,vertical: 10),
-      child:  BlocBuilder<LocationsBloc,LocationsState>(
+      child:  BlocBuilder<AccountBloc,AccountState>(
         builder: (ctx,state){
-          var bloc = LocationsBloc.get(ctx);
-          var address = bloc.billingAddress;
+          var bloc = AccountBloc.get(ctx);
+          var user = bloc.currentUser;
           String userPHone = "";
-          if(address!=null)userPHone = address.phone;
+          if(user!=null)userPHone = user.phoneNumber.toString();
           if(userPHone.startsWith("0"))userPHone = userPHone.substring(1).toString();
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

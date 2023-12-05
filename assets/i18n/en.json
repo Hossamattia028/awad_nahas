@@ -69,6 +69,7 @@
 		"change": "change"
 	},
 	"toast": {
+		"dismiss": "Dismiss",
 		"sure_to_submit": "Are you sure to submit ?",
 		"field_empty": "Please enter all fields",
 		"wait": "please wait ..",
@@ -282,6 +283,7 @@
 		"interest-free": "interest-free"
 	},
 	"cart": {
+		"vat": "VAT(15%)",
 		"cart": "Cart",
 		"checkOut_title": "Checkout",
 		"checkOut": "Proceed to buy",
@@ -293,11 +295,11 @@
 		"order_note": "Note",
 		"total_price": "Total Price",
 		"total_after_discount": "Total after discount",
-		"total_products_price": "Total Products Price",
+		"total_products_price": "Total",
 		"add_to_cart": "Add To Cart",
 		"remove_from_cart": "Remove From Cart",
 		"continue_shopping": "Continue Shopping",
-		"shipping_cost": "Shipping Cost",
+		"shipping_cost": "Shipping",
 		"free": "Free",
 		"debit_credit": "Debit/Credit Card",
 		"cash": "Cash On Delivery",

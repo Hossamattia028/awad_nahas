@@ -31,6 +31,8 @@ class CustomTextFromField extends StatelessWidget {
   Color? borderColor;
   double? borderWidth;
   double? height;
+  Alignment? alignment;
+  TextAlign? textAlign;
 
   CustomTextFromField({
     required this.hintText,
@@ -56,6 +58,8 @@ class CustomTextFromField extends StatelessWidget {
     this.borderWidth,
     this.borderColor,
     this.height,
+    this.alignment,
+    this.textAlign,
     Key? key,
   }) : super(key: key);
 
@@ -69,6 +73,7 @@ class CustomTextFromField extends StatelessWidget {
         color: DMUtil.getWC(),
       ),
       child: TextFormField(
+        textAlign: textAlign ?? TextAlign.start,
         autofocus: false,
         controller: textEditingController,
         maxLines: maxLines??1,

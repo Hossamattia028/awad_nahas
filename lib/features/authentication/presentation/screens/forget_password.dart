@@ -22,6 +22,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({Key? key}) : super(key: key);
   static final TextEditingController emailTextEditingController = TextEditingController();
+  static final TextEditingController phoneTextEditingController = TextEditingController();
   static final TextEditingController passTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -48,43 +49,98 @@ class ForgetPasswordScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20.w,),
-              CustomText(
-                text: translate("login.email"),
-                color: DMUtil.getDC(),
-                fontFamily: primaryFontSemiBold,
-                fontSize: AppStyle.average.sp,
+              BlocBuilder<AuthBloc,AuthState>(
+                builder: (ctx,state){
+                  var bloc = AuthBloc.get(ctx);
+                  bool registerByPhone = bloc.registerByPhone;
+                  return registerByPhone?
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextFromField(
+                          textAlign: Util.getLang()=="ar"?TextAlign.left:TextAlign.right,
+                          height: 50,
+                          hintText: "502441695",
+                          radius: 10,
+                          textEditingController: phoneTextEditingController,
+                          validator: () {},
+                          hintColor: kSecondPrimary,
+                          textInputType: TextInputType.phone,
+                          prefixIcon: null,
+                          cursorColor: kPrimary,
+                          suffixIcon: null,
+                          // suffixIcon: Padding(
+                          //   padding: const EdgeInsets.symmetric(horizontal: 7),
+                          //   child: Icon(Icons.phone,color: DMUtil.getD2C(),size: 20.w,),
+                          // ),
+                          obscureText: false,
+                          isLabelError: false,
+                          hasBorder: true,
+                          borderWidth: 1,
+                          borderColor: DMUtil.getD2C(),
+                          labelText: translate("signup.phone"),),
+                      ),
+                      Container(
+                        height: 50.h,
+                        // decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(10),
+                        //     border: Border.all(width: 0,color: DMUtil.getD2C())
+                        // ),
+                        alignment: Alignment.center,
+                        child: CustomText(
+                          text: " 966+ ",
+                          fontSize: AppStyle.small.sp,
+                        ),
+                      ),
+                    ],
+                  ):Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        text: translate("login.email"),
+                        color: DMUtil.getDC(),
+                        fontFamily: primaryFontSemiBold,
+                        fontSize: AppStyle.average.sp,
+                      ),
+                      CustomTextFromField(
+                          hasBorder: true,
+                          borderWidth: 1,
+                          borderColor: DMUtil.getD2C(),
+                          labelText: '',
+                          height: 50,
+                          radius: 10,
+                          hintText: translate("signup.email"),
+                          textEditingController: emailTextEditingController,
+                          validator: () {},
+                          hintColor: kSecondPrimary,
+                          textInputType: TextInputType.emailAddress,
+                          prefixIcon: null,
+                          cursorColor: kPrimary,
+                          suffixIcon:  null,
+                          obscureText: false,
+                          isLabelError: false),
+                    ],
+                  );
+                },
               ),
-              CustomTextFromField(
-                  hasBorder: true,
-                  borderWidth: 1,
-                  borderColor: DMUtil.getD2C(),
-                  labelText: '',
-                  height: 50,
-                  radius: 10,
-                  hintText: translate("signup.email"),
-                  textEditingController: emailTextEditingController,
-                  validator: () {},
-                  hintColor: kSecondPrimary,
-                  textInputType: TextInputType.emailAddress,
-                  prefixIcon: null,
-                  cursorColor: kPrimary,
-                  suffixIcon:  null,
-                  obscureText: false,
-                  isLabelError: false),
+
 
               SizedBox(height: 20.w,),
               BlocBuilder<AuthBloc,AuthState>(
                 builder: (ctx,state){
-                  // var bloc = AuthBloc.get(ctx);
+                  var bloc = AuthBloc.get(ctx);
                   // FetchStates state = AuthBloc.get(context).states;
                   // if(state==FetchStates.LOADING)return const Center(child: CircularProgressIndicator(color: kPrimary,),);
                   return MaterialButton(
                     onPressed: ()async{
                       String email = emailTextEditingController.text.trim();
-                      if(email.isNotEmpty){
-                        if(await SmsApi.sendOtp(provider: email,isEmail: true)){
+                      var phone = "+966${phoneTextEditingController.text.trim()}";
+                      if((email.isNotEmpty && bloc.registerByPhone==false) || (phone.isNotEmpty && bloc.registerByPhone==true)){
+                        if(await SmsApi.sendOtp(provider: bloc.registerByPhone? phone : email,isEmail: !bloc.registerByPhone)){
                               Util.pushPage(PinCodeVerificationScreen(data: {
-                                "email":email
+                                'user_login': bloc.registerByPhone? phoneTextEditingController.text.trim() : email,
+                                if(bloc.registerByPhone)"phone":phoneTextEditingController.text.trim(),
+                                if(!bloc.registerByPhone)"email":email,
                               },isRegister: false,), context);
                         }
                       }else{

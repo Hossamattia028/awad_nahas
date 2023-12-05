@@ -19,10 +19,9 @@ class PayFortApi {
         "deviceID":deviceID
       }),
     );
-    debugPrint("generateTokenFromApi: ${response.body}");
     if (response.statusCode == 200) {
       var decodedResponse = jsonDecode(response.body);
-      return decodedResponse['output']['sdk_token'];
+      return decodedResponse['output']['sdk_token'].toString();
     }
     return null;
   }

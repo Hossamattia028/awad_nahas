@@ -1,0 +1,72 @@
+import 'package:awad_nahas/core/styles/app_style.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class ColorFilterList extends StatelessWidget {
+  const ColorFilterList({Key? key,}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ProductsBloc,ProductsState>(
+      builder: (ctx,state){
+        var bloc = ProductsBloc.get(ctx);
+        var list = bloc.colorList;
+        var fModel = bloc.filterModel;
+        if(list.isEmpty)return const SizedBox.shrink();
+        return SizedBox(
+          height: 26.h,
+          child: ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (ctx,index){
+              var item = list[index];
+              var selected = fModel?.color?.contains(item);
+              return InkWell(
+                onTap: (){
+                  if(fModel?.color!=null && selected == true){
+                    fModel?.color!.remove(item);
+                  }else if(fModel?.color!=null && selected == false){
+                    fModel?.color!.add(item);
+                  }
+                  bloc.add(FilterProductEvent(filterModel: FilterModel(filterPrice: fModel?.filterPrice,
+                    isDiscount: fModel?.isDiscount ,
+                    isAvailable: fModel?.isAvailable,
+                    brandID: fModel?.brandID,
+                    weight: null,
+                    color: fModel?.color ?? [item],
+                    catID: fModel?.catID ,
+                    sizeModel: fModel?.sizeModel ,
+                    searchModel: fModel?.searchModel,
+                  )));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 4),
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(4)),
+                      color: selected==true  ? DMUtil.getPC() : Colors.transparent,
+                      border: Border.all(color: selected==true ? DMUtil.getPC() : DMUtil.getBCC())
+                  ),
+                  child: CustomText(
+                    text: item.toString(),
+                    color: selected==true ?Colors.white:DMUtil.getD2C(),
+                    fontSize: AppStyle.small.sp,
+                    alignCenter: true,
+                  ),
+                ),
+              );
+            },
+            separatorBuilder: (ctx,index)=> const SizedBox(width: 5,),
+            itemCount: list.length,
+          ),
+        );
+      },
+    );
+  }
+}

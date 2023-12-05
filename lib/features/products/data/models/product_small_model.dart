@@ -9,7 +9,9 @@ class ProductModel extends ProductsEntity{
   const ProductModel({
     required super.id,
     required super.sku,
-    required  super.title,required super.price,
+    required  super.title,
+    required super.priceWithoutTax,
+    required super.price,
     required super.imgPath,
     required super.images,
     required super.catTitle,
@@ -49,6 +51,7 @@ class ProductModel extends ProductsEntity{
       discount: double.parse((jsonObject['price'] ?? "0").toString()),
       discountRate: double.parse((jsonObject['price'] ?? "0").toString()),
       price: double.parse((jsonObject['regular_price'] ?? "0").toString()),
+      priceWithoutTax: double.parse((jsonObject['price_without_tax'] ?? "0").toString()),
       desc: jsonObject['desc'] ?? "",
       attributesDes: jsonObject['attributes_des'] ?? "",
       stockStatus:  jsonObject['stock_status'] == "instock",

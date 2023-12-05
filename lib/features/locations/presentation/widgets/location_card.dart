@@ -80,8 +80,7 @@ class LocationCardWidget extends StatelessWidget {
                             maxLine: 3,
                           ),
                           if(locationEntity.locationType!=null &&
-                              locationEntity.locationType!="" &&
-                              locationEntity.type=="local"
+                              locationEntity.locationType!=""&&isAdd==false
                           )
                             LocationTypeViewWidget(locationEntity: locationEntity),
                         ],
@@ -98,10 +97,10 @@ class LocationCardWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 7,),
-                if(locationEntity.address1.isNotEmpty)
+                if(locationEntity.address2.isNotEmpty)
                 SmallLineLocationData(
                   title: translate("profile.city"),
-                  value: locationEntity.address1,
+                  value: locationEntity.address2,
                 ),
                 const SizedBox(height: 5,),
                 if(locationEntity.phone.isNotEmpty)

@@ -87,20 +87,9 @@ class LoginScreen extends StatelessWidget {
                     return registerByPhone?
                     Row(
                       children: [
-                        Container(
-                          height: 50.h,
-                          // decoration: BoxDecoration(
-                          //     // borderRadius: BorderRadius.circular(10),
-                          //     // border: Border.all(width: 0,color: DMUtil.getD2C())
-                          // ),
-                          alignment: Alignment.center,
-                          child: CustomText(
-                            text: " +966 ",
-                            fontSize: AppStyle.small.sp,
-                          ),
-                        ),
                         Expanded(
                           child: CustomTextFromField(
+                            textAlign: Util.getLang()=="ar"?TextAlign.left:TextAlign.right,
                             height: 50,
                             hintText: "502441695",
                             radius: 10,
@@ -110,16 +99,29 @@ class LoginScreen extends StatelessWidget {
                             textInputType: TextInputType.phone,
                             prefixIcon: null,
                             cursorColor: kPrimary,
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 7),
-                              child: Icon(Icons.phone,color: DMUtil.getD2C(),size: 20.w,),
-                            ),
+                            suffixIcon: null,
+                            // suffixIcon: Padding(
+                            //   padding: const EdgeInsets.symmetric(horizontal: 7),
+                            //   child: Icon(Icons.phone,color: DMUtil.getD2C(),size: 20.w,),
+                            // ),
                             obscureText: false,
                             isLabelError: false,
                             hasBorder: true,
                             borderWidth: 1,
                             borderColor: DMUtil.getD2C(),
                             labelText: translate("signup.phone"),),
+                        ),
+                        Container(
+                          height: 50.h,
+                          // decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.circular(10),
+                          //     border: Border.all(width: 0,color: DMUtil.getD2C())
+                          // ),
+                          alignment: Alignment.center,
+                          child: CustomText(
+                            text: " 966+ ",
+                            fontSize: AppStyle.small.sp,
+                          ),
                         ),
                       ],
                     ):
@@ -222,14 +224,20 @@ class LoginScreen extends StatelessWidget {
                             if(validatePhoneInput(bloc.registerByPhone, phone, context)==false) return;
                             if(await SmsApi.sendOtp(provider: phone,isEmail: false)){
                               Util.pushPage(PinCodeVerificationScreen(data: {
-                                'user_login': phone,
-                                'phone':phone,
+                                'user_login': phoneTextEditingController.text.trim(),
+                                'phone':phoneTextEditingController.text.trim(),
                                 'password':"otp"
                               },isLogin: true,isRegister: false,), context);
                             }
                             return;
                           }
-                          if(validateForm(bloc.registerByPhone)){
+
+                          if(!emailTextEditingController.text.contains("@")){
+                            SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), Colors.red);
+                            return;
+                          }
+
+                          if(validateForm(bloc.registerByPhone,context: context)){
                             bloc.add(LogInEvent(user: {
                                 if(bloc.registerByPhone)'phone':phoneTextEditingController.text.trim(),
                                 if(!bloc.registerByPhone)'email':emailTextEditingController.text.trim(),
@@ -268,9 +276,9 @@ class LoginScreen extends StatelessWidget {
   }
 
 
-  validateForm(bool checkPhone){
+  validateForm(bool checkPhone,{BuildContext? context}){
     if(!checkPhone) {
-      if(emailTextEditingController.text.isEmpty || !emailTextEditingController.text.contains("@")){
+      if(emailTextEditingController.text.isEmpty){
         return false;
       }
     }else{

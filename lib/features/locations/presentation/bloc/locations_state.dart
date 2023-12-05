@@ -22,3 +22,12 @@ class LocationsFailedState extends LocationsState{
 class LocationsLoadingState extends LocationsState{
   const LocationsLoadingState();
 }
+
+
+
+class UpdateCurrentShippingLoadingState extends LocationsState{
+  const UpdateCurrentShippingLoadingState();
+}
+class UpdateCurrentShippingSuccessfullyState extends LocationsState{
+  const UpdateCurrentShippingSuccessfullyState();
+}

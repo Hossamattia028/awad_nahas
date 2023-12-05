@@ -2,6 +2,13 @@
 import 'package:awad_nahas/core/utils/small_fun.dart';
 
 
+// static const String BASE_URL = 'http://10.0.2.2:8000/api/';
+//production
+// static const String SUB_MAIN_DOMAIN = 'https://api.awadnahas.com';
+// static const String SUB_MAIN_DOMAIN = 'https://awadnahas.com/awadnahas';
+// static const String MAIN_DOMAIN = 'https://awadnahas.com';
+
+
 class ApiUrl {
   static Map<String,String> headerAuth =  {
     'Content-Type': 'application/json',
@@ -10,7 +17,6 @@ class ApiUrl {
   };
 
   //production
-  // static const String SUB_MAIN_DOMAIN = 'https://api.awadnahas.com';
   static const String SUB_MAIN_DOMAIN = 'https://awadnahas.com/awadnahas';
   static const String MAIN_DOMAIN = 'https://awadnahas.com';
 

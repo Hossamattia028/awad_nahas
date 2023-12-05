@@ -171,9 +171,12 @@ class CartBloc extends Bloc<CartEvent,CartState>{
 
   calcTotal(){
     totalPrice = 0;
+    totalProducts = 0;
     for(var i in cartList){
+      totalProducts = totalProducts + (i.priceWithoutTax * i.quantity);
       totalPrice = totalPrice + (i.price * i.quantity);
     }
+    vatValue = (totalProducts * 0.15).toDouble();
     couponModel = null;couponValue = null;
     total = totalPrice;
     totalPrice = double.tryParse(total.toStringAsFixed(2)) ?? total;
@@ -249,7 +252,9 @@ class CartBloc extends Bloc<CartEvent,CartState>{
         item = ProductsEntity(title: product.title,
             catTitle: "", sku: product.sku,
             desc: "", id: item.id,discountRate: 0,
-            imgPath: product.imgPath, price: product.price,discount: product.discount, stockStatus: true,
+            imgPath: product.imgPath,
+            price: product.price,priceWithoutTax: product.priceWithoutTax,
+            discount: product.discount, stockStatus: true,
             quantity: newQty,categoryList: const [],commentCount: 0,catID: item.catID);
         cartList[index] = item;
       }
@@ -257,15 +262,18 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       cartList.add(ProductsEntity(title: product.title,
           catTitle: "", sku: product.sku,
           desc: "", id: product.id,discountRate: 0,
+          priceWithoutTax: product.priceWithoutTax,
           imgPath: product.imgPath, price: product.price, discount: product.discount, stockStatus: true,
           quantity: count == -1 ? 1 : count!,categoryList: const [],commentCount: 0,catID:product.catID));
     }
   }
 
+  double totalProducts = 0;
   double totalPrice = 0;
   double total = 0;
   double subTotal = 120;
   int shippingCost = 0;
+  double vatValue = 0;
   int minimumAmount = 0;
   double? couponValue;
   CouponModel? couponModel;
