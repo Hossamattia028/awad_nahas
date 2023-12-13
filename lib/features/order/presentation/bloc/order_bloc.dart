@@ -127,7 +127,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     try{
       LocationEntity? currentLoc  = checkCurrentLocationAndReturnIt(event.context);
       if(currentLoc==null)return;
-      var orderData = collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc,payment: event.payment);
+      var orderData = collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc,payment: event.payment,apsData: event.apsData);
       var res = await addOrderUseCase(data: orderData);
       res.fold((l) {
         emit(OrderErrorState(errors: l.toString()));
@@ -200,14 +200,15 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     required List<ProductsEntity> cartList,
     required double totalPrice,
     required LocationEntity locationEntity,
-    required PaymentOption payment
+    required PaymentOption payment,
+    Map<String, dynamic>? apsData
   }){
     List<Map<String,dynamic>> list = [];
     for(var i in cartList){
       list.add({
         "product_id": i.id,
         "product_title" :i.title,
-        "product_sku" :  i.title,
+        "product_sku" :  i.sku,
         "qty": i.quantity,
         "price": i.price
       });
@@ -224,7 +225,8 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       "address": LocationModel.toJsonLocal(locationEntity, "shipping"),
       "items":list,
       "payment_method_title": payment.paymentEnum.name.toString(),
-      "payment_method": payment.isApplePay!=null&&payment.isApplePay==true?"aps_apple_pay":(payment.paymentEnum==PaymentEnum.TAMARA? "tamara-gateway-pay-in-3": "aps_cc")// aps_cc for credit or amazon_payment_services
+      "payment_method": payment.isApplePay!=null&&payment.isApplePay==true?"aps_apple_pay":(payment.paymentEnum==PaymentEnum.TAMARA? "tamara-gateway-pay-in-3": "aps_cc"),// aps_cc for credit or amazon_payment_services
+      if(payment.paymentEnum==PaymentEnum.PAYFORT)"aps_data": apsData,
     };
     return data;
   }

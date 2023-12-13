@@ -163,6 +163,10 @@
 		"phone_is_wrong": "Phone number must beginning with +9665"
 	},
 	"signup": {
+		"continue_with_email": "Register with email",
+		"continue_with_phone": "Register with Phone number",
+		"continue_with_facebook": "Register with Facebook",
+		"continue_with_google": "Register with Gmail",
 		"reset_password": "Reset Password",
 		"enter": "Enter ",
 		"confirm_email": "Confirm Your Email",

@@ -138,6 +138,7 @@
       "continue_with_phone": "تابع التسجيل برقم الجوال",
       "continue_with_facebook": "تابع التسجيل بالفيسبوك",
       "continue_with_google": "تابع التسجيل بجوجل",
+
       "toast_wait": "انتظر من فضلك",
       "app_bar": "تسجيل الدخول",
       "login": "دخول",
@@ -162,6 +163,10 @@
       "phone_is_wrong": "يجب ان يكون رقم الجوال يبدا ب 9665+"
     },
     "signup": {
+      "continue_with_email": "اشترك  بالبريد الالكتروني",
+      "continue_with_phone": "اشترك برقم الجوال",
+      "continue_with_facebook": "اشترك بحساب الفيسبوك",
+      "continue_with_google": "اشترك بحساب جوجل",
       "reset_password": "اعادة تعيين كلمة المرور",
       "enter": "ادخل ",
       "confirm_email": "تفعيل البريد الإلكتروني",
@@ -179,7 +184,7 @@
       "clear": "مسح",
       "toast_wait": "انتظر من فضلك",
       "app_bar": "مستخدم",
-      "signup": "التسجيل",
+      "signup": "انشاء حساب",
       "sign_now": "تسجيل",
       "visitor": "الدخول كزائر",
       "successefuly": "تم تسجيل الدخول بنجاح",

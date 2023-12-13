@@ -26,6 +26,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -250,12 +251,19 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     }
   }
 
-  _checkOutApplePay(OrderBloc orderBloc,dynamic appleData)async{
-    final res = await payFortController.flutterAmazonApplePay(amount: cartBloc.totalPrice.toInt(),appleData: appleData);
-    if(res=="true"){
-       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
-    }else{
-      SnackBarBuilder.showFeedBackMessage(context, res.toString(), DMUtil.getRED());
+  _checkOutApplePay(OrderBloc orderBloc,Map<String,dynamic> appleData)async{
+    try{
+      final res = await payFortController.flutterAmazonApplePay(amount: cartBloc.totalPrice.toInt(),appleData: appleData);
+      await FlutterClipboard.copy(res.toString());
+      if(res=="true"){
+        SnackBarBuilder.showFeedBackMessage(context, res.toString(), DMUtil.getRED());
+        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
+      }else{
+        SnackBarBuilder.showFeedBackMessage(context, res.toString(), DMUtil.getRED());
+      }
+    }catch(e){
+      await FlutterClipboard.copy(e.toString());
+      SnackBarBuilder.showFeedBackMessage(context, e.toString(), DMUtil.getRED());
     }
   }
 
@@ -266,8 +274,8 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       return;
     }
     final res = await payFortController.flutterAmazon(amount: cartBloc.totalPrice.toInt());
-    if(res==true){
-      orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard)));
+    if(res.check){
+       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),apsData: res.res));
     }else{
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
     }

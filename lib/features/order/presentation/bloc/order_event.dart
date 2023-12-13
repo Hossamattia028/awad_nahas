@@ -28,7 +28,8 @@ class AddOrderEvent extends OrderEvent{
   final double totalPrice;
   final BuildContext context;
   final PaymentOption payment;
-  const AddOrderEvent({required this.list,required this.totalPrice,required this.context,required this.payment});
+  final Map<String,dynamic>? apsData;
+  const AddOrderEvent({required this.list,required this.totalPrice,required this.context,required this.payment,this.apsData});
 }
 
 class PaymentOption{

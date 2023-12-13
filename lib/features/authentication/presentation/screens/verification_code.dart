@@ -198,8 +198,8 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                   if(await Util.verifyCode(otp)) {
                     AccountBloc.get(context).add(UpdateProfileEvent(user: {
                       "phone":widget.data['phone'],
-                      "name":widget.data['name']??'',
-                      "email":widget.data['email']??'',
+                      if(widget.data['name']!=null && widget.data['name']!="")"name":widget.data['name'],
+                      if(widget.data['email']!=null && widget.data['email']!="")"email":widget.data['email'],
                     }));
                     // _updateBillingPhone();
                   }else{

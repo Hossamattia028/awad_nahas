@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:awad_nahas/core/utils/payment_utils/payfort_api.dart';
+import 'package:awad_nahas/core/utils/payment_utils/payfort_response.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -48,7 +49,7 @@ class PayFortController{
   }
 
 
-  Future<bool> flutterAmazon({required int amount})async{
+  Future<PayfortResponse> flutterAmazon({required int amount})async{
     String? id = await FlutterAmazonpaymentservices.getUDID;
     var sdkToken = await PayFortApi.generateTokenFromApi(id.toString());
     var amountVal = Platform.isIOS ? (amount * 100).toString() : amount * 100;
@@ -66,16 +67,17 @@ class PayFortController{
       var result = await FlutterAmazonpaymentservices.normalPay(requestParam, EnvironmentType.production,);
       // debugPrint("res $result");
       if(result['response_code'].toString().trim()=="02000" || result['response_message'].toString().toLowerCase()=="success"){
-        return true;
+        return PayfortResponse(res: result.cast<String, dynamic>(), check: true);
       }else{
-        return false;
+        return PayfortResponse(res: result.cast<String, dynamic>(), check: false);
       }
     } on PlatformException catch (e)
     {
       debugPrint("Error ${e.message} details:${e.details}");
-      return false;
+      return PayfortResponse(res: null, check: false);
     }
   }
+
 
 
 }

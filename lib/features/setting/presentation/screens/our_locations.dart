@@ -53,9 +53,11 @@ class OurLocationsScreen extends StatelessWidget {
                 //     cl = closed[1];
                 // }
                 return Card(
-                  elevation: 2,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5))
+                  elevation: 4,
+                  color: DMUtil.getWC(),
+                  shape: RoundedRectangleBorder(
+                      side: DMUtil.currentThemeIsDark() ? const BorderSide(color: Colors.white) : BorderSide.none,
+                      borderRadius: const BorderRadius.all(Radius.circular(5))
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

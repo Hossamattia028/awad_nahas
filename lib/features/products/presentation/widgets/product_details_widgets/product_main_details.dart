@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/strings/api/api_url.dart';
+import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
@@ -110,7 +111,12 @@ class ProductMainDetails extends StatelessWidget {
                       children: [
                         if(brand.iconPath.contains("svg"))...[
                           if(DMUtil.currentThemeIsDark())...[
-                            SvgPicture.asset(brand.darkIcon.toString(),height: 28.w,)
+                            FadeInImage(
+                              placeholder: const AssetImage(AppImages.loadingGif),
+                              image: AssetImage(brand.darkIcon.toString()),
+                              height: 28.w,
+                            ),
+                            // SvgPicture.asset(brand.darkIcon.toString(),height: 28.w,)
                           ]else...[
                             SvgPicture.network(brand.iconPath,height: 18.h+10.w,)
                           ],

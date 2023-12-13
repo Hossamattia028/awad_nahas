@@ -18,7 +18,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class AuthWithSocial extends StatelessWidget {
   final SocialEnum socialEnum;
-  const AuthWithSocial({Key? key,required this.socialEnum}) : super(key: key);
+  final String kind;
+  const AuthWithSocial({Key? key,required this.socialEnum,required this.kind}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,13 +95,13 @@ class AuthWithSocial extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if(socialEnum==SocialEnum.FACEBOOK)CustomText(text: translate("login.continue_with_facebook"), fontSize: AppStyle.average.sp),
-                          if(socialEnum==SocialEnum.GOOGLE)CustomText(text: translate("login.continue_with_google"), fontSize: AppStyle.average.sp),
+                          if(socialEnum==SocialEnum.FACEBOOK)CustomText(text: translate("$kind.continue_with_facebook"), fontSize: AppStyle.average.sp),
+                          if(socialEnum==SocialEnum.GOOGLE)CustomText(text: translate("$kind.continue_with_google"), fontSize: AppStyle.average.sp),
 
                           if(!bloc.registerByPhone)...[
-                            if(socialEnum==SocialEnum.PHONE)CustomText(text: translate("login.continue_with_phone"), fontSize: AppStyle.average.sp),
+                            if(socialEnum==SocialEnum.PHONE)CustomText(text: translate("$kind.continue_with_phone"), fontSize: AppStyle.average.sp),
                           ]else ...[
-                            if(socialEnum==SocialEnum.PHONE)CustomText(text: translate("login.continue_with_email"), fontSize: AppStyle.average.sp),
+                            if(socialEnum==SocialEnum.PHONE)CustomText(text: translate("$kind.continue_with_email"), fontSize: AppStyle.average.sp),
                           ],
 
                         ],

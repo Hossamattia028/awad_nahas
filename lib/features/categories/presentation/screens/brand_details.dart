@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
@@ -35,7 +36,11 @@ class BrandDetailsScreen extends StatelessWidget{
             child: Column(
               children: [
                 if(DMUtil.currentThemeIsDark())...[
-                  SvgPicture.asset(brand.darkIcon.toString(),height: 80.w,fit: BoxFit.fill,)
+                  FadeInImage(
+                    placeholder: const AssetImage(AppImages.loadingGif),
+                    image: AssetImage(brand.darkIcon.toString()),
+                  ),
+                  // SvgPicture.asset(brand.darkIcon.toString(),height: 80.w,fit: BoxFit.fill,)
                 ]else...[
                   SvgPicture.network(brand.iconPath,width: double.infinity,height: 80.w,),
                 ],

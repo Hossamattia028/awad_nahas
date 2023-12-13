@@ -49,6 +49,22 @@ class AppImages{
   static const String mieDark = "$icons/brands/mie_dark.svg";
   static const String smegDark = "$icons/brands/smeg_dark.svg";
 
+
+  static const String aegPng = "$icons/brands/light/aeg.png";
+  static const String mielePng = "$icons/brands/light/miele.png";
+  static const String smegPng = "$icons/brands/light/smeg.png";
+  static const String libPng = "$icons/brands/light/lib.png";
+  static const String baumaticPng = "$icons/brands/light/baumatic.png";
+
+  static const String aegPngDark = "$icons/brands/dark/aeg.png";
+  static const String mielePngDark = "$icons/brands/dark/miele.png";
+  static const String smegPngDark = "$icons/brands/dark/smeg.png";
+  static const String libPngDark = "$icons/brands/dark/lib.png";
+  static const String baumaticPngDark = "$icons/brands/dark/baumatic.png";
+
+
+
+
   //cart icons
   static const String successIconGif = "$images/verified.gif";
   //order icons

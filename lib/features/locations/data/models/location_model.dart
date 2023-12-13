@@ -61,7 +61,7 @@ class LocationModel extends LocationEntity{
     data['first_name'] = location.firstName.toString();
     data['last_name'] = location.lastName.toString();
     data['line1'] = location.address1.toString();
-    data['line2'] = location.address2.toString();
+    data['line2'] = "${location.address1} ${location.address2} ".toString().replaceAll("null", "");
     data['region'] = "Saudi Arabia";
     data['postal_code'] = location.postCode.toString();
     data['city'] = country;
@@ -74,8 +74,8 @@ class LocationModel extends LocationEntity{
     return {
       "id":int.tryParse(location.id.toString())??(DateTime.now().millisecond),
       '${type}_address_1': location.address1,
-      '${type}_address_2': location.address2,
-      '${type}_country': location.country,
+      '${type}_address_2': "${location.address1} ${location.address2} ".toString().replaceAll("null", ""),
+      '${type}_country': location.country.toString().trim()=="null"?"Saudi Arabia":location.country,
       '${type}_phone': location.phone,
       '${type}_email': location.email,
       '${type}_state': location.state,

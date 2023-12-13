@@ -71,7 +71,7 @@ class SelectLocations extends StatelessWidget {
                                 SizedBox(
                                   width: 190.w,
                                   child: CustomText(
-                                    text: "${bloc.currentCheckOutLocation?.address1}",
+                                    text: "${bloc.currentCheckOutLocation?.address1} - ${bloc.currentCheckOutLocation?.address2}",
                                     color: DMUtil.getD2C(),
                                     fontSize: AppStyle.small.sp,
                                     fontWeight: FontWeight.w600,

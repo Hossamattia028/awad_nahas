@@ -91,20 +91,20 @@ class CategoriesModel  extends CategoriesEntity{
   }
 
   static String setLocalLightImage(String name){
-    if(name.startsWith("mi") || name.startsWith("م"))return AppImages.mie;
-    if(name.startsWith("sm") || name.startsWith("س"))return AppImages.smeg;
-    if(name.startsWith("lie") || name.startsWith("ل"))return AppImages.lieb;
-    if(name.startsWith("aeg") || name.startsWith("أ"))return AppImages.aeg;
-    if(name.startsWith("ba") || name.startsWith("باو"))return AppImages.baum;
+    if(name.startsWith("mi") || name.startsWith("م"))return AppImages.mielePng;
+    if(name.startsWith("sm") || name.startsWith("س"))return AppImages.smegPng;
+    if(name.startsWith("lie") || name.startsWith("ل"))return AppImages.libPng;
+    if(name.startsWith("aeg") || name.startsWith("أ"))return AppImages.aegPng;
+    if(name.startsWith("ba") || name.startsWith("باو"))return AppImages.baumaticPng;
     return AppImages.logo;
   }
 
   static String setLocalDarkImage(String name){
-    if(name.startsWith("mi") || name.startsWith("م"))return AppImages.mieDark;
-    if(name.startsWith("sm") || name.startsWith("س"))return AppImages.smegDark;
-    if(name.startsWith("lie") || name.startsWith("ل"))return AppImages.liebDark;
-    if(name.startsWith("aeg") || name.startsWith("أ"))return AppImages.aegDark;
-    if(name.startsWith("ba") || name.startsWith("باو"))return AppImages.baumDark;
+    if(name.startsWith("mi") || name.startsWith("م"))return AppImages.mielePngDark;
+    if(name.startsWith("sm") || name.startsWith("س"))return AppImages.smegPngDark;
+    if(name.startsWith("lie") || name.startsWith("ل"))return AppImages.libPngDark;
+    if(name.startsWith("aeg") || name.startsWith("أ"))return AppImages.aegPngDark;
+    if(name.startsWith("ba") || name.startsWith("باو"))return AppImages.baumaticPngDark;
     return AppImages.logo;
   }
 

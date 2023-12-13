@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
@@ -7,7 +8,6 @@ import 'package:awad_nahas/features/categories/presentation/screens/brand_detail
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class BrandListHome extends StatelessWidget {
   const BrandListHome({Key? key}) : super(key: key);
@@ -39,10 +39,15 @@ class BrandListHome extends StatelessWidget {
                     bloc.add(ChangeCurrentBrand(brandModel: item));
                     Util.pushPage(const BrandDetailsScreen(), context);
                   },
-                  child: SvgPicture.asset(DMUtil.currentThemeIsDark() ? item.darkIcon  : item.lightIcon,fit: BoxFit.contain,),
+                  child: FadeInImage(
+                      placeholder: const AssetImage(AppImages.loadingGif),
+                      image: AssetImage(DMUtil.currentThemeIsDark() ? item.darkIcon  : item.lightIcon),
+                  ),
+                  //Image.asset(DMUtil.currentThemeIsDark() ? item.darkIcon  : item.lightIcon,fit: BoxFit.contain,width: 90.w,height: 30.w,),
+                  // child: SvgPicture.asset(DMUtil.currentThemeIsDark() ? item.darkIcon  : item.lightIcon,fit: BoxFit.contain,),
                 );
               },
-              separatorBuilder: (ctx,index)=> SizedBox(width: 8.w,),
+              separatorBuilder: (ctx,index)=> SizedBox(width: 5.w,),
               itemCount: newSortList.length,
           ),
         );
