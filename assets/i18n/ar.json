@@ -138,7 +138,6 @@
       "continue_with_phone": "تابع التسجيل برقم الجوال",
       "continue_with_facebook": "تابع التسجيل بالفيسبوك",
       "continue_with_google": "تابع التسجيل بجوجل",
-
       "toast_wait": "انتظر من فضلك",
       "app_bar": "تسجيل الدخول",
       "login": "دخول",
@@ -571,7 +570,8 @@
       "why_wait": "ماذا تنتظر ؟ إبدء الإستمتاع بالتسوق حالاً",
       "in_your_cart": "المنتج مضاف لعربة التسوق",
       "view_cart": "عرض عربة التسوق",
-      "free_delivery": "توصيل مجاني ✓"
+      "free_delivery": "توصيل مجاني ✓",
+      "complete_payment": "إتمام الدفع"
     },
     "order": {
       "thanks_order": "نشكرك على ثقتك في الشراء من عوض بادي نحاس",

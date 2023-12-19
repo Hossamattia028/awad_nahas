@@ -308,7 +308,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
     'Awamiya',
     'AlMobaraz',
     'Al Majmaah',
-    'Jizan ',
+    'Jazan ',
     'Abha',
     'Khamis Mushait',
     'Al-Muzahmiya',

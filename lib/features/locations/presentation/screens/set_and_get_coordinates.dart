@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -64,26 +63,43 @@ class MapScreenState extends State<MapScreen> {
             fontSize: AppStyle.average.sp,
             color: DMUtil.getDC()
           ),
-
         ),
-        floatingActionButton: InkWell(
-          onTap: ()=> _setUserCurrentLocation(),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 80.h),
-            child: CircleAvatar(
-              backgroundColor: DMUtil.getRED(),
-              child: const Icon(CupertinoIcons.arrow_up_right),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+          color: DMUtil.getWC(),
+          width: double.infinity,
+          padding: EdgeInsets.all(10.w),
+          child: CustomButton(
+            height: 50.w,
+            width: 350.w,
+            color: DMUtil.getRED(),
+            circular: 6,
+            onPressed: () async{
+              if (lastLocation == null) return SnackBarBuilder.showFeedBackMessage(context, translate("toast.select_location"), Colors.red);
+              final data  = await Util.getAndSaveLocationDetails(lastLocation!);
+              String fullAddress = "${data.name}-${data.subLocality}-${data.locality}-${data.street}-${data.administrativeArea}-${data.subAdministrativeArea}".replaceAll("null", "").replaceAll("طريق بدون اسم", "");
+              Navigator.pop(context, LocationMapEntity(lat: lastLocation!.latitude,long: lastLocation!.longitude,city: data.locality.toString(),country: data.country.toString(),
+                  address: fullAddress,
+                  postalCode: data.postalCode.toString(),street: fullAddress
+              ));
+            },
+            widget: CustomText(
+              text: translate("map.sure_location"),
+              fontSize: AppStyle.average.sp  ,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
             ),
           ),
         ),
         body: Stack(
           children: [
              GoogleMap(
-                    initialCameraPosition: CameraPosition(target: lastLocation ?? const LatLng(21.4504394, 38.8815082), zoom: 14),
+                    initialCameraPosition: CameraPosition(target: lastLocation ?? const LatLng(21.4504394, 38.8815082), zoom: 16),
                     onMapCreated: onMapCreated,
                     onCameraMove: _onCameraMoved,
                     onTap: _handleTap,
                     myLocationEnabled: true,
+                    // myLocationButtonEnabled: false,
                     mapType: MapType.normal,
                     tiltGesturesEnabled: true,
                     compassEnabled: true,
@@ -133,32 +149,19 @@ class MapScreenState extends State<MapScreen> {
                 ),
               ),
 
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: CustomButton(
-                      height: 45.h,
-                      width: 250.w,
-                      color: DMUtil.getRED(),
-                      circular: 6,
-                      onPressed: () async{
-                       if (lastLocation == null) return SnackBarBuilder.showFeedBackMessage(context, translate("toast.select_location"), Colors.red);
-                       final data  = await Util.getAndSaveLocationDetails(lastLocation!);
-                       Navigator.pop(context, LocationMapEntity(lat: lastLocation!.latitude,long: lastLocation!.longitude,city: data.locality.toString(),country: data.country.toString(),
-                           address: "${data.country}-${data.subLocality}-${data.street}-${data.administrativeArea}".replaceAll("null", ""),
-                           postalCode: data.postalCode.toString(),street: data.street.toString()
-                       ));
-                      },
-                      widget: CustomText(
-                        text: translate("map.sure_location"),
-                        fontSize: AppStyle.average.sp  ,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                  ),
+            Positioned(
+              bottom: 80.w,
+              right: 10.w,
+              child: TextButton(
+                onPressed: ()=> _setUserCurrentLocation(),
+                style: TextButton.styleFrom(backgroundColor: DMUtil.getWC()),
+                child: CustomText(
+                  text: translate("map.locate_me"),
+                  fontSize: AppStyle.small.sp,
+                  color:  DMUtil.getPC() ,
                 ),
               ),
+            ),
 
 
           ],
@@ -201,9 +204,11 @@ class MapScreenState extends State<MapScreen> {
         ),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       );
-      setState(() {
-        markers[markerId] = marker;
-      });
+      if(mounted){
+        setState(() {
+          markers[markerId] = marker;
+        });
+      }
     } catch (e) {
       debugPrint("_setLocationOnMap: $e");
     }
@@ -216,8 +221,8 @@ class MapScreenState extends State<MapScreen> {
       Marker marker = Marker(
         markerId: MarkerId(point.toString()),
         position: point,
-        infoWindow: InfoWindow(
-          title: translate("cart.selected"),
+        infoWindow: const InfoWindow(
+          title: "",
         ),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       );
@@ -230,9 +235,10 @@ class MapScreenState extends State<MapScreen> {
         _checkIFUserLocation(await Util.getAndSaveLocationDetails(latLng), latLng);
       } else {
         final data  = await Util.getAndSaveLocationDetails(latLng);
-        Navigator.pop(context, LocationMapEntity(lat: point.latitude,long: point.longitude,country: data.country.toString(),
-            city: data.locality.toString(),address: "${data.country}-${data.subLocality}-${data.street}-${data.administrativeArea}".replaceAll("null", ""),
-          postalCode: data.postalCode.toString(),street: data.street.toString()
+        String fullAddress = "${data.name}-${data.subLocality}-${data.locality}-${data.street}-${data.administrativeArea}-${data.subAdministrativeArea}".replaceAll("null", "").replaceAll("طريق بدون اسم", "");
+        Navigator.pop(context, LocationMapEntity(lat: lastLocation!.latitude,long: lastLocation!.longitude,city: data.locality.toString(),country: data.country.toString(),
+            address: fullAddress,
+            postalCode: data.postalCode.toString(),street: fullAddress
         ));
       }
     } catch (e) {
@@ -257,7 +263,7 @@ class MapScreenState extends State<MapScreen> {
           double.parse(longitude.toString()));
     }
     if(mounted){
-      Timer(const Duration(milliseconds: 100), () async {
+      Timer(const Duration(milliseconds: 50), () async {
         mapController.animateCamera(CameraUpdate.newLatLngZoom(lastLocation!, 14));
         _checkIFUserLocation(await Util.getAndSaveLocationDetails(lastLocation!), lastLocation!);
       });
@@ -272,7 +278,7 @@ class MapScreenState extends State<MapScreen> {
       }
       if(mounted) {
         setState(() {
-          selectedAddress = "${data.country}-${data.subLocality}-${data.street}-${data.administrativeArea}".replaceAll("null", "");
+          selectedAddress = "${data.name}-${data.subLocality}-${data.locality}-${data.street}-${data.administrativeArea}-${data.subAdministrativeArea}".replaceAll("null", "").replaceAll("طريق بدون اسم", "");
         });
       }
       SharedPref().setPreferencesString(Constants.userLocationDetails, selectedAddress);

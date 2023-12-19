@@ -223,6 +223,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       "returning_customer" : "0",
       "status" : "wc-processing",
       "address": LocationModel.toJsonLocal(locationEntity, "shipping"),
+      "billing_address":LocationModel.toJsonLocal(locationEntity, "billing"),
       "items":list,
       "payment_method_title": payment.paymentEnum.name.toString(),
       "payment_method": payment.isApplePay!=null&&payment.isApplePay==true?"aps_apple_pay":(payment.paymentEnum==PaymentEnum.TAMARA? "tamara-gateway-pay-in-3": "aps_cc"),// aps_cc for credit or amazon_payment_services

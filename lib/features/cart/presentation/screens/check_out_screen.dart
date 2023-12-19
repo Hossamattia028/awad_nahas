@@ -2,7 +2,6 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/check_out_widgets/address.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/check_out_widgets/check_out_button.dart';
-import 'package:awad_nahas/features/cart/presentation/widgets/check_out_widgets/delivery_type.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/check_out_widgets/order_note.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/check_out_widgets/pay_with.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/check_out_widgets/payment_summary.dart';
@@ -33,8 +32,8 @@ class CheckOutScreen extends StatelessWidget {
         child: Column(
           children: [
             OrderAddress(),
-            SizedBox(height: 10,),
-            DeliveryTypeWidget(),
+            // SizedBox(height: 10,),
+            // DeliveryTypeWidget(),
             SizedBox(height: 10,),
             PayWithWidget(),
             SizedBox(height: 10,),

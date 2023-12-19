@@ -91,7 +91,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         }
       },
       child: BlocBuilder<OrderBloc,OrderState>(
-        builder: (ctx,state){
+        builder: (ctx,orderState){
           var orderBloc = OrderBloc.get(ctx);
           return SizedBox(
             height: 100.h,
@@ -120,6 +120,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                 ],
                 BlocBuilder<CartBloc,CartState>(
                   builder: (ctx,state){
+                    if(orderState is OrderLoadingState)return Center(child: CircularProgressIndicator(color: DMUtil.getPC(),),);
                     var cartBloc = CartBloc.get(ctx);
                     return Padding(
                       padding: const EdgeInsets.all(10),
@@ -154,7 +155,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                               widget: state is OrderLoadingState ?
                               const CircularProgressIndicator(color: Colors.white,):
                               CustomText(
-                                text: translate("cart.place_order"),
+                                text: translate("cart.complete_payment"),
                                 color: Colors.white,
                                 fontSize: AppStyle.average.sp,
                                 alignCenter: true,

@@ -36,6 +36,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
   final TextEditingController phoneTextEditingController = TextEditingController();
   final TextEditingController cityTextEditingController = TextEditingController();
   final TextEditingController streetTextEditingController = TextEditingController();
+  final TextEditingController streetMoreDetailsTextEditingController = TextEditingController();
   final TextEditingController postCodeNumberTextEditingController = TextEditingController();
   late LocationsBloc locationsBloc;
   LocationMapEntity? locationMapEntity;
@@ -64,6 +65,9 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       nameTextEditingController.text = Util.getName();
       phoneTextEditingController.text = widget.locationEntity!.phone;
       streetTextEditingController.text =  widget.locationEntity!.address2;
+      if(streetTextEditingController.text.toString().contains(",,")){
+        streetMoreDetailsTextEditingController.text = streetTextEditingController.text.split(",,").last.toString().trim();
+      }
       cityTextEditingController.text =  widget.locationEntity!.address1;
       postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
       locationsBloc.add(UpdateCurrentLocationEvent(location: widget.locationEntity!));
@@ -171,8 +175,20 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                                     locationMapEntity = res;
                                   });
                                   cityTextEditingController.text = locationMapEntity!.city;
-                                  streetTextEditingController.text = locationMapEntity!.street;
-                                  postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
+                                  streetTextEditingController.text = locationMapEntity!.address;
+                                  // postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
+                                  String city =  locationMapEntity!.city.toString().trim().toLowerCase();
+                                  int cityIndex = locationsBloc.shippingListAr.indexWhere((element) => element.trim().toLowerCase()==city);
+                                  if(cityIndex==-1){
+                                    cityIndex = locationsBloc.shippingListEn.indexWhere((element) => element.trim().toLowerCase()==city);
+                                  }
+                                  if(cityIndex!=-1){
+                                    if(Util.getLang()=="ar"){
+                                      locationsBloc.add(UpdateShippingCityEvent(city: locationsBloc.shippingListAr[cityIndex].toString().trim()));
+                                    }else{
+                                      locationsBloc.add(UpdateShippingCityEvent(city: locationsBloc.shippingListEn[cityIndex].toString().trim()));
+                                    }
+                                  }
                                 }
                               },
                             ),
@@ -195,14 +211,29 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                 const ShippingListWidget(),
                 const SizedBox(height: 20,),
                 CustomTextFromField(
+                    height: 64,
                     hintText: "",
                     labelText: translate("profile.address"),
                     onChanged: (val){},
-                    maxLines: 1,
+                    maxLines: 3,
                     hasBorder: true,
                     cursorColor: kPrimary,
                     radius: 4,
                     textEditingController: streetTextEditingController,
+                    validator: (){},
+                    obscureText: false,
+                    isLabelError: false),
+                const SizedBox(height: 10,),
+                CustomTextFromField(
+                    height: 50,
+                    hintText: "${translate("map.street_name")},${translate("map.area")},${translate("map.flat_number")}...",
+                    labelText:"",
+                    onChanged: (val){},
+                    maxLines: 3,
+                    hasBorder: true,
+                    cursorColor: kPrimary,
+                    radius: 4,
+                    textEditingController: streetMoreDetailsTextEditingController,
                     validator: (){},
                     obscureText: false,
                     isLabelError: false),
@@ -244,10 +275,10 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                 const SizedBox(height: 15,),
                 CustomTextFromField(
                     hintText: "",
-                    labelText: translate("map.post_code"),
+                    labelText: translate("map.national_address"),
                     onChanged: (val){},
                     cursorColor: kPrimary,
-                    textInputType: TextInputType.number,
+                    textInputType: TextInputType.text,
                     hasBorder: true,
                     radius: 4,
                     textEditingController: postCodeNumberTextEditingController,
@@ -339,6 +370,8 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                         //cityTextEditingController.text.trim().isNotEmpty &&
                         if(bloc.currentShippingCity!=""&&streetTextEditingController.text.trim().isNotEmpty &&
                             postCodeNumberTextEditingController.text.trim().isNotEmpty){
+
+                          streetTextEditingController.text = "${streetTextEditingController.text},,${streetMoreDetailsTextEditingController.text.trim()}";
 
                           if(Util.validatePhoneInput("+966$phone", context)==false) return;
 

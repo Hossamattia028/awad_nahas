@@ -20,6 +20,9 @@ class ApiUrl {
   static const String SUB_MAIN_DOMAIN = 'https://awadnahas.com/awadnahas';
   static const String MAIN_DOMAIN = 'https://awadnahas.com';
 
+  static const String CONSUMER_KEY = 'ck_75b4f45743c85a7775a844cac66f21a25301d3f7';
+  static const String CONSUMER_SECRET = 'cs_050b8da87bd87d9c5452cf36a3c589d4aabc123e';
+
 
   static const String BASE_URL = '$SUB_MAIN_DOMAIN/api/';
   static const String STORAGE_URL = '$SUB_MAIN_DOMAIN/public/';
