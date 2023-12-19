@@ -227,7 +227,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       "items":list,
       "payment_method_title": payment.paymentEnum.name.toString(),
       "payment_method": payment.isApplePay!=null&&payment.isApplePay==true?"aps_apple_pay":(payment.paymentEnum==PaymentEnum.TAMARA? "tamara-gateway-pay-in-3": "aps_cc"),// aps_cc for credit or amazon_payment_services
-      if(payment.paymentEnum==PaymentEnum.PAYFORT)"aps_data": apsData,
+      if(payment.paymentEnum==PaymentEnum.PAYFORT)"aps_data": '{amount: 114800, response_code: 14000, card_number: 400555******0001, payment_option: VISA, expiry_date: 2502, customer_ip: 197.43.77.88, eci: ECOMMERCE, language: en, fort_id: 169996200013333123, command: PURCHASE, response_message: Success, sdk_token: 9df5aae788df4081844f65779984230d, authorization_code: 199955, merchant_reference: 9df5aae788df4081844f65779984230d, customer_email: hossamattiadarpproduction@gmail.com, token_name: a4fa29f7d8d849a6a5123120dc162e45, currency: SAR, status: 14}',
     };
     return data;
   }
