@@ -276,7 +276,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     }
     final res = await payFortController.flutterAmazon(amount: cartBloc.totalPrice.toInt());
     if(res.check){
-       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),apsData: {}));
+       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),apsData: res.res));
     }else{
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
     }
