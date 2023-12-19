@@ -671,6 +671,8 @@
     },
 
     "map": {
+      "national_address": "العنوان الوطني",
+      "locate_me": "حدد موقعي",
       "sure_location": "تأكيد الموقع",
       "sides": "الاتجاهات",
       "add_location": "إضافة عنوان جديد",

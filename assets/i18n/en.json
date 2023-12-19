@@ -668,6 +668,8 @@
 		"total_issues": "Total issues"
 	},
 	"map": {
+		"national_address": "National address",
+		"locate_me": "Locate me",
 		"sure_location": "Submit Location",
 		"sides": "Directions",
 		"add_location": "Add new address",

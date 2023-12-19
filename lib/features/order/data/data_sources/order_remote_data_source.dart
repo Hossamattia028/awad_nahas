@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/error/exception.dart';
@@ -40,7 +39,7 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
     final response = await client.post(Uri.parse(ApiUrl.ADD_ORDER),
         body: json.encode(data),
         headers: ApiUrl.headerAuth);
-     debugPrint("addOrder: ${response.body}");
+     // debugPrint("addOrder: ${response.body}");
      var decodedData = jsonDecode(response.body);
     if (decodedData['status']==true) {
       // if(Util.getEmail()!="")SendGmail.sendEmailMessage(bodyMsg: translate("toast.order"), userEmail: Util.getEmail().toString(), subject: translate("toast.order_send"));
@@ -64,7 +63,7 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
     request.headers.addAll(headers);
     var streamedResponse = await request.send();
     var res = await http.Response.fromStream(streamedResponse);
-     debugPrint("updateOrder: ${res.body}");
+     // debugPrint("updateOrder: ${res.body}");
     if (res.body.toString().contains("true")) {
       // SetNotification.showNotification(title: "", msg: translate("toast.update_user_data"));
       return true;
