@@ -54,6 +54,8 @@ class ApiUrl {
   static const String UPDATE_ADDRESS = '${BASE_URL}user/address'; //user/address/{{addressID}}
   static const String REMOVE_ADDRESS = '${BASE_URL}user/address/'; //user/address/{{addressID}}
 
+  static const String MODIFY_LOCAL_ADDRESS = '${BASE_URL}user/modify/local_addresses';
+  static const String FETCH_ALL_LOCAL_ADDRESS = '${BASE_URL}user/local_addresses';
 
   static const String PRODUCTS_URL = '${BASE_URL}products';
   static const String COMMENTS_URL = '${BASE_URL}reviews';

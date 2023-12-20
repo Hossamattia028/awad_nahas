@@ -65,9 +65,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       nameTextEditingController.text = Util.getName();
       phoneTextEditingController.text = widget.locationEntity!.phone;
       streetTextEditingController.text =  widget.locationEntity!.address2;
-      if(streetTextEditingController.text.toString().contains(",,")){
-        streetMoreDetailsTextEditingController.text = streetTextEditingController.text.split(",,").last.toString().trim();
-      }
+      _updateStreet();
       cityTextEditingController.text =  widget.locationEntity!.address1;
       postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
       locationsBloc.add(UpdateCurrentLocationEvent(location: widget.locationEntity!));
@@ -86,7 +84,14 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       });
       cityTextEditingController.text = locationMapEntity!.city;
       streetTextEditingController.text = locationMapEntity!.street;
-      postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
+      // postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
+    }
+  }
+
+  _updateStreet(){
+    if(streetTextEditingController.text.toString().contains(",,")){
+      streetMoreDetailsTextEditingController.text = streetTextEditingController.text.split(",,").last.toString().trim();
+      streetTextEditingController.text = streetTextEditingController.text.split(",,").first.toString().trim();
     }
   }
 
@@ -100,14 +105,15 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       ),
       body: BlocListener<LocationsBloc,LocationsState>(
         listenWhen: (ctx, state){
-          return state is LocationsSuccessfullyState;
+          return state is AddLocationSuccessfullyState || state is LocationsFailedState;
         },
         listener:  (ctx, state){
-          if(state is LocationsSuccessfullyState){
+          if(state is AddLocationSuccessfullyState){
             SnackBarBuilder.showFeedBackMessage(context, translate("toast.update_user_data"), Colors.green);
             Navigator.pop(context);
           }
           if(state is LocationsFailedState)SnackBarBuilder.showFeedBackMessage(context, translate("toast.oops"), Colors.red);
+          _updateStreet();
         },
         child: Scrollbar(
           child: SingleChildScrollView(

@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
@@ -13,9 +15,9 @@ class LocationModel extends LocationEntity{
     required super.locationType
   });
 
-  // static List<LocationModel> locationListFromJson(String str) =>
-  //     List<LocationModel>.from(
-  //         json.decode(str).map((x) => LocationModel.fromJson(x)));
+  static List<LocationModel> localLocationListFromJson(String str) =>
+      List<LocationModel>.from(
+          json.decode(str).map((x) => LocationModel.fromJsonLocal(x,'local')));
 
 
   static LocationModel fromJson(Map<String, dynamic> jsonObject,type) {

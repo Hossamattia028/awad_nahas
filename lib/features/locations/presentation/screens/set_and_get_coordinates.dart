@@ -64,108 +64,113 @@ class MapScreenState extends State<MapScreen> {
             color: DMUtil.getDC()
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Container(
-          color: DMUtil.getWC(),
-          width: double.infinity,
-          padding: EdgeInsets.all(10.w),
-          child: CustomButton(
-            height: 50.w,
-            width: 350.w,
-            color: DMUtil.getRED(),
-            circular: 6,
-            onPressed: () async{
-              if (lastLocation == null) return SnackBarBuilder.showFeedBackMessage(context, translate("toast.select_location"), Colors.red);
-              final data  = await Util.getAndSaveLocationDetails(lastLocation!);
-              String fullAddress = "${data.name}-${data.subLocality}-${data.locality}-${data.street}-${data.administrativeArea}-${data.subAdministrativeArea}".replaceAll("null", "").replaceAll("طريق بدون اسم", "");
-              Navigator.pop(context, LocationMapEntity(lat: lastLocation!.latitude,long: lastLocation!.longitude,city: data.locality.toString(),country: data.country.toString(),
-                  address: fullAddress,
-                  postalCode: data.postalCode.toString(),street: fullAddress
-              ));
-            },
-            widget: CustomText(
-              text: translate("map.sure_location"),
-              fontSize: AppStyle.average.sp  ,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
-          ),
-        ),
-        body: Stack(
+        body: Column(
           children: [
-             GoogleMap(
-                    initialCameraPosition: CameraPosition(target: lastLocation ?? const LatLng(21.4504394, 38.8815082), zoom: 16),
-                    onMapCreated: onMapCreated,
-                    onCameraMove: _onCameraMoved,
-                    onTap: _handleTap,
-                    myLocationEnabled: true,
-                    // myLocationButtonEnabled: false,
-                    mapType: MapType.normal,
-                    tiltGesturesEnabled: true,
-                    compassEnabled: true,
-                    scrollGesturesEnabled: true,
-                    zoomGesturesEnabled: true,
-                    markers: Set<Marker>.of(markers.values),
-                  ),
+            Expanded(
+                child: Stack(
+                  children: [
+                    GoogleMap(
+                      initialCameraPosition: CameraPosition(target: lastLocation ?? const LatLng(21.4504394, 38.8815082), zoom: 16),
+                      onMapCreated: onMapCreated,
+                      onCameraMove: _onCameraMoved,
+                      onTap: _handleTap,
+                      myLocationEnabled: true,
+                      // myLocationButtonEnabled: false,
+                      mapType: MapType.normal,
+                      tiltGesturesEnabled: true,
+                      compassEnabled: true,
+                      scrollGesturesEnabled: true,
+                      zoomGesturesEnabled: true,
+                      markers: Set<Marker>.of(markers.values),
+                    ),
 
 
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  margin: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
-                  height: 60.h,
-                  decoration: BoxDecoration(
-                    color: DMUtil.getWC(),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 10,),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        margin: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,vertical: 10),
+                        height: 60.h,
+                        decoration: BoxDecoration(
+                          color: DMUtil.getWC(),
+                        ),
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(Icons.location_on_outlined,size: AppStyle.large.w,color: DMUtil.getD2C().withOpacity(0.7),),
-                            const SizedBox(width: 5,),
-                            SizedBox(
-                              width: 275.w,
-                              child: CustomText(
-                                text: selectedAddress,
-                                fontSize: AppStyle.small.sp,
-                                fontWeight: FontWeight.w600,
-                                color: DMUtil.getD2C().withOpacity(0.7),
-                                maxLine: 2,
+                            const SizedBox(height: 10,),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(Icons.location_on_outlined,size: AppStyle.large.w,color: DMUtil.getD2C().withOpacity(0.7),),
+                                  const SizedBox(width: 5,),
+                                  SizedBox(
+                                    width: 275.w,
+                                    child: CustomText(
+                                      text: selectedAddress,
+                                      fontSize: AppStyle.small.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: DMUtil.getD2C().withOpacity(0.7),
+                                      maxLine: 2,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
+                            const Divider(height: 3,),
+                            const SizedBox(height: 5,),
                           ],
                         ),
                       ),
-                      const Divider(height: 3,),
-                      const SizedBox(height: 5,),
-                    ],
-                  ),
-                ),
-              ),
+                    ),
 
-            Positioned(
-              bottom: 80.w,
-              right: 10.w,
-              child: TextButton(
-                onPressed: ()=> _setUserCurrentLocation(),
-                style: TextButton.styleFrom(backgroundColor: DMUtil.getWC()),
-                child: CustomText(
-                  text: translate("map.locate_me"),
-                  fontSize: AppStyle.small.sp,
-                  color:  DMUtil.getPC() ,
+                    Positioned(
+                      bottom: 70.w,
+                      right: 10.w,
+                      child: TextButton(
+                        onPressed: ()=> _setUserCurrentLocation(),
+                        style: TextButton.styleFrom(backgroundColor: DMUtil.getWC()),
+                        child: CustomText(
+                          text: translate("map.locate_me"),
+                          fontSize: AppStyle.average.sp,
+                          color:  DMUtil.getPC() ,
+                        ),
+                      ),
+                    ),
+
+
+                  ],
+                ),
+            ),
+            Container(
+              color: DMUtil.getWC(),
+              width: double.infinity,
+              padding: EdgeInsets.all(20.w),
+              child: CustomButton(
+                height: 50.w,
+                width: 350.w,
+                color: DMUtil.getRED(),
+                circular: 6,
+                onPressed: () async{
+                  if (lastLocation == null) return SnackBarBuilder.showFeedBackMessage(context, translate("toast.select_location"), Colors.red);
+                  final data  = await Util.getAndSaveLocationDetails(lastLocation!);
+                  String fullAddress = "${data.name}-${data.subLocality}-${data.locality}-${data.street}-${data.administrativeArea}-${data.subAdministrativeArea}".replaceAll("null", "").replaceAll("طريق بدون اسم", "");
+                  Navigator.pop(context, LocationMapEntity(lat: lastLocation!.latitude,long: lastLocation!.longitude,city: data.locality.toString(),country: data.country.toString(),
+                      address: fullAddress,
+                      postalCode: data.postalCode.toString(),street: fullAddress
+                  ));
+                },
+                widget: CustomText(
+                  text: translate("map.sure_location"),
+                  fontSize: AppStyle.average.sp  ,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
                 ),
               ),
             ),
-
-
           ],
-        ));
+        ),);
   }
 
   _setUp() {
@@ -263,8 +268,10 @@ class MapScreenState extends State<MapScreen> {
           double.parse(longitude.toString()));
     }
     if(mounted){
-      Timer(const Duration(milliseconds: 50), () async {
-        mapController.animateCamera(CameraUpdate.newLatLngZoom(lastLocation!, 14));
+      Timer(const Duration(milliseconds: 70), () async {
+        if(_controller.isCompleted){
+          mapController.animateCamera(CameraUpdate.newLatLngZoom(lastLocation!, 14));
+        }
         _checkIFUserLocation(await Util.getAndSaveLocationDetails(lastLocation!), lastLocation!);
       });
     }

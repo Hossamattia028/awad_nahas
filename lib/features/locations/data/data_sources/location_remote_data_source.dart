@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
@@ -18,6 +19,36 @@ abstract class LocationRemoteDataSourceImpl{
 class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
   final http.Client client;
   LocationRemoteDataSource({required this.client});
+
+
+  /// modify local address to backend side
+  static Future<bool> modifyLocalLocation({required Map<String, dynamic> data}) async{
+    try{
+      var response = await http.post(Uri.parse(ApiUrl.MODIFY_LOCAL_ADDRESS),
+          headers: ApiUrl.headerAuth,body: jsonEncode(data));
+      // debugPrint("modifyLocalLocation: ${response.body}");
+      if (response.statusCode == 200) {
+        var body = json.decode(response.body);
+        return body['status']??false;
+      } else {
+        return false;
+      }
+    }catch(e){
+      return false;
+    }
+  }
+
+  static Future<List<LocationModel>> fetchAllLocalLocations() async{
+    var response = await http.get(Uri.parse("${ApiUrl.FETCH_ALL_LOCAL_ADDRESS}/${Util.getUserID()}"),
+        headers: ApiUrl.headerAuth);
+    // debugPrint("fetchAllLocalLocations: ${response.body}");
+    var decodedData = json.decode(response.body);
+    if (response.statusCode == 200 && decodedData['status']) {
+      return LocationModel.localLocationListFromJson(jsonEncode(decodedData['data']));
+    } else {
+      throw ServerException();
+    }
+  }
 
   @override
   Future<bool> addNewLocation({required Map<String, dynamic> data}) async{
@@ -54,7 +85,7 @@ class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
     // debugPrint("updateLocation: ${response.body}");
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
-      return body['message'].toString().contains("done")?true:false;
+      return body['message'].toString().contains("done") || body['status'] ==true?true:false;
     } else {
       throw ServerException();
     }
