@@ -217,7 +217,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                 const ShippingListWidget(),
                 const SizedBox(height: 20,),
                 CustomTextFromField(
-                    height: 64,
+                    height: 70,
                     hintText: "",
                     labelText: translate("profile.address"),
                     onChanged: (val){},
@@ -231,7 +231,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                     isLabelError: false),
                 const SizedBox(height: 10,),
                 CustomTextFromField(
-                    height: 50,
+                    height: 57,
                     hintText: "${translate("map.street_name")},${translate("map.area")},${translate("map.flat_number")}...",
                     labelText:"",
                     onChanged: (val){},
