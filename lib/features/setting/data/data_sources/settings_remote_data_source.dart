@@ -76,6 +76,7 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
         return LocationModel(
             address1: categoryModel['title']??"",
             address2: (categoryModel['address']??"").toString(),
+            city: (categoryModel['address']??"").toString(),
             country: (categoryModel['country']??"").toString(),
             hours: categoryModel['hours']??[],
             lat: double.tryParse((categoryModel['lat']??"0.0").toString(),)??0,

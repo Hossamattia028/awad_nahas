@@ -47,7 +47,8 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
       SetNotification.showNotification(title: "", msg: translate("toast.order_send"));
       return true;
     } else {
-      throw ServerException();
+      return false;
+      // throw ServerException();
     }
   }
 

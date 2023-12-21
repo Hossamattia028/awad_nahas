@@ -8,7 +8,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 
 class LocationModel extends LocationEntity{
-  const LocationModel({required super.address1,required super.address2,required super.phone,
+  const LocationModel({required super.address1,required super.address2,required super.city,required super.phone,
     required super.state,required super.country,required super.id,required super.type,
     required super.lat,required super.long,required super.postCode,required super.lastName,required super.firstName,
     required super.email,super.hours,
@@ -25,6 +25,7 @@ class LocationModel extends LocationEntity{
       id: jsonObject['id']??0,
       address1: (jsonObject['billing_address_1']??jsonObject['shipping_address_1']).toString().replaceAll("null", ""),
       address2:  (jsonObject['billing_address_2']??jsonObject['shipping_address_2']).toString().replaceAll("null", ""),
+      city:  (jsonObject['billing_city']??jsonObject['shipping_city']).toString().replaceAll("null", ""),
       country:  (jsonObject['billing_country']??jsonObject['shipping_country']).toString().replaceAll("null", ""),
       phone:  (jsonObject['billing_phone']??jsonObject['shipping_phone']).toString().replaceAll("null", ""),
       type:  type.toString(),
@@ -66,7 +67,8 @@ class LocationModel extends LocationEntity{
     data['line2'] = "${location.address1} ${location.address2} ".toString().replaceAll("null", "");
     data['region'] = "Saudi Arabia";
     data['postal_code'] = location.postCode.toString();
-    data['city'] = country;
+    data['city'] = location.city.toString();
+    data['country'] = location.country.toString();
     data['country_code'] = "SA";
     data['phone_number'] = location.phone.toString();
     return data;
@@ -77,6 +79,7 @@ class LocationModel extends LocationEntity{
       "id":int.tryParse(location.id.toString())??(DateTime.now().millisecond),
       '${type}_address_1': location.address1.toString().replaceAll("null", ""),
       '${type}_address_2': location.address2.toString().replaceAll("null", ""),
+      '${type}_city': location.city.toString().replaceAll("null", ""),
       '${type}_country': location.country.toString().trim()=="null"?"Saudi Arabia":location.country,
       '${type}_phone': location.phone,
       '${type}_email': location.email,
@@ -95,6 +98,7 @@ class LocationModel extends LocationEntity{
         address2:  jsonObject['${type}_address_2'] ?? "",
         country:  jsonObject['${type}_country'] ?? "",
         phone:  jsonObject['${type}_phone'] ?? "",
+        city: jsonObject['${type}_city'] ?? "",
         type:  type,
         lat:  0.0,
         long:  0.0,

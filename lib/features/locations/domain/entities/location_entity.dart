@@ -4,6 +4,7 @@ class LocationEntity extends Equatable{
   final int id;
   final String address1;
   final String address2;
+  final String city;
   final String country;
   final String phone;
   final String firstName;
@@ -16,7 +17,7 @@ class LocationEntity extends Equatable{
   final double long;
   final String? locationType;
   final List<dynamic>? hours;
-  const LocationEntity({required this.address1,required this.address2,required this.country,required this.phone,required this.id,
+  const LocationEntity({required this.address1,required this.city,required this.address2,required this.country,required this.phone,required this.id,
     required this.type,required this.long,required this.lat,
     required this.state,required this.firstName,required this.lastName,required this.email,
     required this.postCode,

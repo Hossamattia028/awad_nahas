@@ -55,17 +55,20 @@ class OrderAddress extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CustomText(
-                                text: location.address1,
-                                fontSize: AppStyle.small.sp,
-                                color: DMUtil.getD2C().withOpacity(0.8),
-                                fontWeight: FontWeight.w600,
-                                isEllipsis: true,
+                              SizedBox(
+                                width: 120.w,
+                                child: CustomText(
+                                  text: location.address2,
+                                  fontSize: AppStyle.small.sp,
+                                  color: DMUtil.getD2C().withOpacity(0.8),
+                                  fontWeight: FontWeight.w600,
+                                  isEllipsis: true,
+                                ),
                               ),
                               SizedBox(
                                 width: 240.w,
                                 child: CustomText(
-                                  text: "${location.address2} ${location.state}",
+                                  text: "${location.address1} ${location.state}",
                                   fontSize: AppStyle.small.sp,
                                   color: DMUtil.getD2C(),
                                   isEllipsis: true,

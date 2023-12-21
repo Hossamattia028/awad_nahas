@@ -56,17 +56,17 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       locationEnum = LocationEnum.OTHER;
     }
     if(widget.locationEntity!=null){
-      locationsBloc.add(UpdateShippingCityEvent(city: widget.locationEntity!.address1.toString().trim()));
+      locationsBloc.add(UpdateShippingCityEvent(city: widget.locationEntity!.address2.toString().trim()));
       locationType = widget.locationEntity!.locationType.toString();
       locationMapEntity = LocationMapEntity(
           lat: widget.locationEntity!.lat, long: widget.locationEntity!.long,
-          address: widget.locationEntity!.address2, city: widget.locationEntity!.address1,
+          address: widget.locationEntity!.address1, city: widget.locationEntity!.address2,
           country: widget.locationEntity!.country,postalCode: widget.locationEntity!.postCode.toString(),street: widget.locationEntity!.state.toString());
       nameTextEditingController.text = Util.getName();
       phoneTextEditingController.text = widget.locationEntity!.phone;
-      streetTextEditingController.text =  widget.locationEntity!.address2;
+      streetTextEditingController.text =  widget.locationEntity!.address1;
       _updateStreet();
-      cityTextEditingController.text =  widget.locationEntity!.address1;
+      cityTextEditingController.text =  widget.locationEntity!.address2;
       postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
       locationsBloc.add(UpdateCurrentLocationEvent(location: widget.locationEntity!));
     }else{
@@ -280,7 +280,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
 
                 const SizedBox(height: 15,),
                 CustomTextFromField(
-                    hintText: "",
+                    hintText: "JDBA3230",
                     labelText: translate("map.national_address"),
                     onChanged: (val){},
                     cursorColor: kPrimary,
@@ -387,8 +387,9 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                             "${type}_country": locationMapEntity!.country,
                             "${type}_postcode": postCodeNumberTextEditingController.text.trim(),
                             "${type}_state": locationMapEntity!.street,
-                            "${type}_address_2": streetTextEditingController.text.trim(),
-                            "${type}_address_1": bloc.currentShippingCity.trim(),
+                            "${type}_address_2": bloc.currentShippingCity.trim(),
+                            "${type}_city": bloc.currentShippingCity.trim(),
+                            "${type}_address_1": streetTextEditingController.text.trim() ,
                             "${type}_last_name": ".",
                             "${type}_first_name": Util.getName(),
                             "location_type" : locationType.toString(),

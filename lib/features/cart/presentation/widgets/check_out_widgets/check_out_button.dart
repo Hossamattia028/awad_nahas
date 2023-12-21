@@ -78,7 +78,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<OrderBloc,OrderState>(
-      listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState,
+      listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState || state is OrderErrorState,
       listener: (ctx,state)async{
         if(state is AssignOrderSuccessfullyState){
           cartBloc.add(ModifyCartProductEvent(product: null, isAdd: false, context: context));
@@ -88,6 +88,9 @@ class _CheckOutButtonState extends State<CheckOutButton> {
           RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
           Util.pushPageAndRemoveRoutes(const RootScreen(), context);
           Util.pushPage(const OrderScreen(), context);
+        }
+        if(state is OrderErrorState){
+          SnackBarBuilder.showFeedBackMessage(context, translate("toast.oops"), Colors.red);
         }
       },
       child: BlocBuilder<OrderBloc,OrderState>(

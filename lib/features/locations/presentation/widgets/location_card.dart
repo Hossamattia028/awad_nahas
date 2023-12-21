@@ -72,12 +72,16 @@ class LocationCardWidget extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          CustomText(
-                            text:isAdd ? txt : locationEntity.address1.toString(),
-                            color: DMUtil.getDC(),
-                            fontWeight: FontWeight.w600,
-                            fontSize: AppStyle.average.sp-2,
-                            maxLine: 3,
+                          SizedBox(
+                            width: 120.w,
+                            child: CustomText(
+                              text:isAdd ? txt : locationEntity.address2.toString(),
+                              color: DMUtil.getDC(),
+                              fontWeight: FontWeight.w600,
+                              fontSize: AppStyle.average.sp-2,
+                              maxLine: 1,
+                              isEllipsis: true,
+                            ),
                           ),
                           if(locationEntity.locationType!=null &&
                               locationEntity.locationType!=""&&isAdd==false
@@ -97,10 +101,10 @@ class LocationCardWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 7,),
-                if(locationEntity.address2.isNotEmpty)
+                if(locationEntity.address1.isNotEmpty)
                 SmallLineLocationData(
-                  title: translate("profile.city"),
-                  value: locationEntity.address2,
+                  title: translate("profile.address"),
+                  value: locationEntity.address1,
                 ),
                 const SizedBox(height: 5,),
                 if(locationEntity.phone.isNotEmpty)
