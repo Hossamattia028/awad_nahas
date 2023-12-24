@@ -90,7 +90,7 @@ class PayWithWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 10,),
                   const Divider(),
-                  if(bloc.totalPrice<=2000)...[
+                  if(bloc.totalPrice<=bloc.tamaraMax)...[
                     const SizedBox(height: 5,),
                     InkWell(
                         onTap: ()=> bloc.add(const PaymentWithCardEvent(enableApplePay: false,paymentEnum: PaymentEnum.TAMARA)),

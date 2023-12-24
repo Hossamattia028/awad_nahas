@@ -87,7 +87,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               children: [
                 ProductMainDetails(item: widget.item),
 
-                if(Util.checkUser() && currentPrice<=2000)...[
+                if(Util.checkUser() && currentPrice<=CartBloc.get(context).tamaraMax)...[
                   const SizedBox(height: 15,),
                   TamaraSmallProductWidget(price: currentPrice),
                 ],

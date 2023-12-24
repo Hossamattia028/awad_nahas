@@ -17,6 +17,7 @@ class SnackBarBuilder {
         margin: isMarginBottom?EdgeInsets.only(bottom: 132.h):EdgeInsets.zero,
         padding: EdgeInsets.all(4.w),
         behavior: addBehaviour ? SnackBarBehavior.floating : null,
+        duration: const Duration(milliseconds: 1000),
         action: SnackBarAction(
             label: translate("toast.dismiss"),
             textColor: DMUtil.getWC(),

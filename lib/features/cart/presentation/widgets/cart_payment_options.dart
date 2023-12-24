@@ -18,7 +18,7 @@ class CartPaymentOptions extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w),
             child: Column(
               children: [
-                if(bloc.totalPrice<=2000 && bloc.totalPrice!=0)...[
+                if(bloc.totalPrice<=bloc.tamaraMax && bloc.totalPrice!=0)...[
                   const SizedBox(height: 5,),
                   TamaraSmallProductWidget(price: bloc.totalPrice,isSmall: true,),
                 ],

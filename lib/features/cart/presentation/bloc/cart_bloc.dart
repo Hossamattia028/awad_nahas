@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
+import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_sdk.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,6 +42,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     });
     on<FetchAllCartEvent>((event, emit) async{
       await getAllCart(emit);
+      await getTamaraMAxAmount(emit);
     });
     on<AddToCartEvent>((event, emit) async{
       // await addToCartList(event,emit);
@@ -76,6 +78,14 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   static CartBloc get(BuildContext context) => BlocProvider.of(context);
 
 
+  double tamaraMax = 5000;
+  getTamaraMAxAmount(emit)async{
+    emit(CartSuccessfullyState());
+    tamaraMax = await TamaraSdk.getTamaraAmountLimit();
+    emit(CartSuccessfullyState());
+  }
+
+
   /// current count before add to cart (PRODUCT_DETAILS_PAGE)
   bool showCountWidget = false;
   int currentCartProductModify = 0;
@@ -109,6 +119,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     }
     emit(PaymentSuccessfullyState());
   }
+
   int cartCount = 1;
   List<ProductsEntity> cartList = [];
   getAllCart(emit)async{

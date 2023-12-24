@@ -21,10 +21,12 @@ class TamaraSdk{
         data['shipping_address'] = data['billing_address'];
       }
       if(data['shipping_address']['last_name']==null||data['shipping_address']['last_name']=="")data['shipping_address']['last_name']=".";
+      if(data['shipping_address']['city']==null||data['shipping_address']['city']=="")data['shipping_address']['city']=data['shipping_address']['line2'];
       if(data['billing_address'] ==null || data['billing_address']['line1'].toString().trim()=="" && data['shipping_address']!=null){
         data['billing_address'] = data['shipping_address'];
       }
       if(data['billing_address']['last_name']==null||data['billing_address']['last_name']=="")data['billing_address']['last_name']=".";
+      if(data['billing_address']['city']==null||data['billing_address']['city']=="")data['billing_address']['city']=data['billing_address']['line2'];
       var headers =  {
         "Authorization": "Bearer $tamaraApiToken",
         'Accept': 'application/json',
@@ -240,4 +242,30 @@ class TamaraSdk{
       return false;
     }
   }
+
+
+  static Future<double> getTamaraAmountLimit()async{
+    try {
+      var headers =  {
+        "Authorization": "Bearer $tamaraApiToken",
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      };
+      var response = await http.get(Uri.parse("$baseUrl/checkout/payment-types?country=sa"),
+        headers: headers,
+      );
+      // debugPrint("getTamaraAmountLimit: ${response.body}");
+      if (response.statusCode == 200) {
+        var body = json.decode(response.body);
+        return double.parse(body[0]['max_limit']['amount'].toString());
+      } else {
+        return 5000;
+      }
+    } catch (e) {
+      debugPrint("retrievePayment: $e");
+      return 5000;
+    }
+  }
+
+
 }
