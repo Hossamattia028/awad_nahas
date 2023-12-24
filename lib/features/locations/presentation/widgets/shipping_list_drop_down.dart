@@ -11,7 +11,8 @@ import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.d
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.dart';
 
 class ShippingListWidget extends StatelessWidget {
-  const ShippingListWidget({Key? key}) : super(key: key);
+  final bool isMaintenance;
+  const ShippingListWidget({Key? key,this.isMaintenance = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +25,9 @@ class ShippingListWidget extends StatelessWidget {
         return Container(
           height: 40.w,
           decoration: BoxDecoration(
+            border: isMaintenance? Border.all(width: 1,color: DMUtil.getOpacity()) : null,
             borderRadius: const BorderRadius.all(Radius.circular(6)),
-            color: DMUtil.getBackGround(),
+            color: isMaintenance? DMUtil.getWC() : DMUtil.getBackGround(),
             boxShadow: DMUtil.currentThemeIsDark()?  const [
               BoxShadow(
                 color: Colors.grey,

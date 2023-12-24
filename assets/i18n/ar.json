@@ -265,11 +265,12 @@
       "warranty": "ضمان",
       "product_type": "نوع المنتج",
       "Device_completed_2_years": "تم اكتمال عامين للجهاز من تاريخ الشراء",
-      "serial": "مسلسل المنتج",
-      "product_module": "وحدة المنتج",
+      "serial": "الرقم التسلسلي إذا وجد (Serial Number)",
+      "product_module": "رقم الموديل اذا وجد (SKU)",
       "complaints":"تفاصيل الشكوي",
       "upload_image": "اضافة صورة",
-      "success_msg": "تم ارسال الطلب بنجاح"
+      "success_msg": "تم ارسال الطلب بنجاح",
+      "is_under_warranty": "هل المنتج تحت الضمان"
     },
 
     "profile": {
@@ -388,6 +389,7 @@
       "deliver_enj": "كن معنا واستمتع بتوصيل وجباتنا"
     },
     "store": {
+      "product_cat": "فئة المنتج",
       "products": "منتجات",
       "popularity": "شعبية",
       "averageـrating": "متوسط تقييم",

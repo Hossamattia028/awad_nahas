@@ -265,11 +265,12 @@
 		"warranty": "Warranty",
 		"product_type": "Product Type",
 		"Device_completed_2_years": "Device completed 2 years from purchase date",
-		"serial": "Product serial",
-		"product_module": "Product model",
+		"serial": "Serial Number",
+		"product_module": "SKU",
 		"complaints":"Complaints",
 		"upload_image": "Upload Image",
-		"success_msg": "Successfully sent your request"
+		"success_msg": "Successfully sent your request",
+		"is_under_warranty": "Is the product under warranty?"
 	},
 
 	"wishlist": {
@@ -382,6 +383,7 @@
 		"fam_kitchen": "Do you want to be known and your kitchen to be famous?"
 	},
 	"store": {
+		"product_cat": "Product Category",
 		"products": "Products",
 		"popularity": "Popularity",
 		"averageـrating": "Average rating",
