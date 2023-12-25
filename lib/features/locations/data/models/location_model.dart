@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 
@@ -75,11 +76,13 @@ class LocationModel extends LocationEntity{
   }
 
   static Map<String, dynamic> toJsonLocal(LocationEntity location,String type) {
+    var address1 = location.address1.toString().characters.length>=50?location.address1.toString().substring(0,50):location.address1.toString().replaceAll("null", "");
+    var address2 = location.address2.toString().characters.length>=50?location.address2.toString().substring(0,50):location.address2.toString().replaceAll("null", "");
     return {
       "id":int.tryParse(location.id.toString())??(DateTime.now().millisecond),
-      '${type}_address_1': location.address1.toString().replaceAll("null", ""),
-      '${type}_address_2': location.address2.toString().replaceAll("null", ""),
-      '${type}_city': location.city.toString().replaceAll("null", ""),
+      '${type}_address_1': address1,
+      '${type}_address_2': address2,
+      '${type}_city': location.city.toString()==""? location.address2.toString().replaceAll("null", ""):  location.city.toString().replaceAll("null", ""),
       '${type}_country': location.country.toString().trim()=="null"?"Saudi Arabia":location.country,
       '${type}_phone': location.phone,
       '${type}_email': location.email,
