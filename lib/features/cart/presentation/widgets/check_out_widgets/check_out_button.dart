@@ -277,12 +277,12 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
       return;
     }
-    // final res = await payFortController.flutterAmazon(amount: cartBloc.totalPrice.toInt());
-    // if(res.check){
-       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),apsData: {}));
-    // }else{
-    //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
-    // }
+    final res = await payFortController.flutterAmazon(amount: cartBloc.totalPrice.toInt());
+    if(res.check){
+       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),apsData: res.res));
+    }else{
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+    }
   }
 
 
