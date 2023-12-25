@@ -41,6 +41,7 @@ class ShippingListWidget extends StatelessWidget {
             ]:const [],
           ),
           child: DropdownButton(
+            menuMaxHeight: 270.w,
             isExpanded: true,
             padding: EdgeInsets.zero,
             dropdownColor: DMUtil.getWC(),

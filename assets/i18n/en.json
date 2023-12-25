@@ -89,7 +89,7 @@
 		"payment_approve_details": " Waiting for subscription pay to approve your account ",
 		"finish_order": " Order Received ? ",
 		"pass_incorrect": " The password is wrong ",
-		"sign_wrong": "Authentication Failed!",
+		"sign_wrong": "User not found, please register first and try again.",
 		"user_already_exist": "Phone already register!",
 		"resend_verification_code": "  successfully resend verification code  ",
 		"email_invalid": "Email invalid!",

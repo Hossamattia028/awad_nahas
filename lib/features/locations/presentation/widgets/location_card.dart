@@ -75,7 +75,7 @@ class LocationCardWidget extends StatelessWidget {
                           SizedBox(
                             width: 120.w,
                             child: CustomText(
-                              text:isAdd ? txt : locationEntity.address2.toString(),
+                              text:isAdd ? txt : (locationEntity.city.toString()==""?locationEntity.address2:locationEntity.city),
                               color: DMUtil.getDC(),
                               fontWeight: FontWeight.w600,
                               fontSize: AppStyle.average.sp-2,

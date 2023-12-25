@@ -58,7 +58,7 @@ class OrderAddress extends StatelessWidget {
                               SizedBox(
                                 width: 120.w,
                                 child: CustomText(
-                                  text: location.address2,
+                                  text: (location.city.toString()==""?location.address2:location.city),
                                   fontSize: AppStyle.small.sp,
                                   color: DMUtil.getD2C().withOpacity(0.8),
                                   fontWeight: FontWeight.w600,

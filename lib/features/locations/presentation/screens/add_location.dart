@@ -34,7 +34,6 @@ class AddNewLocationScreen extends StatefulWidget {
 class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
   final TextEditingController nameTextEditingController = TextEditingController();
   final TextEditingController phoneTextEditingController = TextEditingController();
-  final TextEditingController cityTextEditingController = TextEditingController();
   final TextEditingController streetTextEditingController = TextEditingController();
   final TextEditingController streetMoreDetailsTextEditingController = TextEditingController();
   final TextEditingController postCodeNumberTextEditingController = TextEditingController();
@@ -56,17 +55,17 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       locationEnum = LocationEnum.OTHER;
     }
     if(widget.locationEntity!=null){
-      locationsBloc.add(UpdateShippingCityEvent(city: widget.locationEntity!.address2.toString().trim()));
+      locationsBloc.add(UpdateShippingCityEvent(city: widget.locationEntity!.city.toString().trim()));
       locationType = widget.locationEntity!.locationType.toString();
       locationMapEntity = LocationMapEntity(
           lat: widget.locationEntity!.lat, long: widget.locationEntity!.long,
-          address: widget.locationEntity!.address1, city: widget.locationEntity!.address2,
-          country: widget.locationEntity!.country,postalCode: widget.locationEntity!.postCode.toString(),street: widget.locationEntity!.state.toString());
+          address: widget.locationEntity!.address1, city: widget.locationEntity!.city,
+          country: widget.locationEntity!.country,postalCode: widget.locationEntity!.postCode.toString(),
+          street: widget.locationEntity!.state.toString(),);
       nameTextEditingController.text = Util.getName();
       phoneTextEditingController.text = widget.locationEntity!.phone;
       streetTextEditingController.text =  widget.locationEntity!.address1;
-      _updateStreet();
-      cityTextEditingController.text =  widget.locationEntity!.address2;
+      streetMoreDetailsTextEditingController.text =  widget.locationEntity!.address2;
       postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
       locationsBloc.add(UpdateCurrentLocationEvent(location: widget.locationEntity!));
     }else{
@@ -82,16 +81,8 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
       setState(() {
         locationMapEntity = res;
       });
-      cityTextEditingController.text = locationMapEntity!.city;
       streetTextEditingController.text = locationMapEntity!.street;
       // postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
-    }
-  }
-
-  _updateStreet(){
-    if(streetTextEditingController.text.toString().contains(",,")){
-      streetMoreDetailsTextEditingController.text = streetTextEditingController.text.split(",,").last.toString().trim();
-      streetTextEditingController.text = streetTextEditingController.text.split(",,").first.toString().trim();
     }
   }
 
@@ -113,7 +104,6 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
             Navigator.pop(context);
           }
           if(state is LocationsFailedState)SnackBarBuilder.showFeedBackMessage(context, translate("toast.oops"), Colors.red);
-          _updateStreet();
         },
         child: Scrollbar(
           child: SingleChildScrollView(
@@ -180,7 +170,6 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                                   setState(() {
                                     locationMapEntity = res;
                                   });
-                                  cityTextEditingController.text = locationMapEntity!.city;
                                   streetTextEditingController.text = locationMapEntity!.address;
                                   // postCodeNumberTextEditingController.text = locationMapEntity!.postalCode;
                                   String city =  locationMapEntity!.city.toString().trim().toLowerCase();
@@ -377,7 +366,12 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                         if(bloc.currentShippingCity!=""&&streetTextEditingController.text.trim().isNotEmpty &&
                             postCodeNumberTextEditingController.text.trim().isNotEmpty){
 
-                          streetTextEditingController.text = "${streetTextEditingController.text},,${streetMoreDetailsTextEditingController.text.trim()}";
+                          if(streetTextEditingController.text.trim().characters.length>50){
+                            streetTextEditingController.text = streetTextEditingController.text.substring(0,50);
+                          }
+                          if(streetMoreDetailsTextEditingController.text.trim().characters.length>50){
+                            streetMoreDetailsTextEditingController.text = streetMoreDetailsTextEditingController.text.substring(0,50);
+                          }
 
                           if(Util.validatePhoneInput("+966$phone", context)==false) return;
 
@@ -387,7 +381,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                             "${type}_country": locationMapEntity!.country,
                             "${type}_postcode": postCodeNumberTextEditingController.text.trim(),
                             "${type}_state": locationMapEntity!.street,
-                            "${type}_address_2": bloc.currentShippingCity.trim(),
+                            "${type}_address_2": streetMoreDetailsTextEditingController.text.trim(),
                             "${type}_city": bloc.currentShippingCity.trim(),
                             "${type}_address_1": streetTextEditingController.text.trim() ,
                             "${type}_last_name": ".",

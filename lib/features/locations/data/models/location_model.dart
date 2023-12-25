@@ -60,15 +60,15 @@ class LocationModel extends LocationEntity{
 
   static Map<String, dynamic> toJson(LocationEntity location) {
     final Map<String, dynamic> data = <String, dynamic>{};
-    var country = location.country.toString().trim()==""?"SA":location.country.toString();
+    var country = location.country.toString().trim()==""?"Saudi Arabia":location.country.toString();
     data['first_name'] = location.firstName.toString();
     data['last_name'] = location.lastName.toString();
     data['line1'] = location.address1.toString();
     data['line2'] = "${location.address1} ${location.address2} ".toString().replaceAll("null", "");
     data['region'] = "Saudi Arabia";
     data['postal_code'] = location.postCode.toString();
-    data['city'] = location.city.toString();
-    data['country'] = location.country.toString();
+    data['city'] = location.city.toString()==""?location.address2.toString() : location.city.toString();
+    data['country'] = country;
     data['country_code'] = "SA";
     data['phone_number'] = location.phone.toString();
     return data;

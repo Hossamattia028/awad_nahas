@@ -21,7 +21,6 @@ class SmsApi{
     try{
       if(isEmail==true){
         var otp = getRandom();
-        print(otp);
         SharedPref().setPreferencesString(Constants.lastVerificationCode, otp);
         return await SendGmail.sendEmailMessage(bodyMsg: "This is verification code : $otp  for AwadNahas App",userEmail: provider, subject: "Verification Otp", );
       }else{
