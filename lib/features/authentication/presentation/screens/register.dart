@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:awad_nahas/core/strings/enum/social_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
@@ -267,6 +269,7 @@ class RegisterScreen extends StatelessWidget {
                 // const AuthWithSocial(socialEnum: SocialEnum.PHONE),
                 const AuthWithSocial(socialEnum: SocialEnum.GOOGLE,kind: "signup",),
                 const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK,kind: "signup",),
+                if(Platform.isIOS)const AuthWithSocial(socialEnum: SocialEnum.APPLE,kind: "signup",),
                 const SizedBox(height: 25,),
                 const AlreadyHaveAnAccountWidget(),
                 const SizedBox(height: 30,),

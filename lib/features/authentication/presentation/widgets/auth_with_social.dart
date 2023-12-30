@@ -44,12 +44,21 @@ class AuthWithSocial extends StatelessWidget {
             String email = await Util.googleSign();
             if(!email.contains("@")){
               SnackBarBuilder.showFeedBackMessage(context, email, Colors.red);
+              return;
             }
             _socialLogin(bloc, email);
           }else if(socialEnum == SocialEnum.FACEBOOK){
             String email = await Util.facebookLogin();
             if(!email.contains("@")){
               SnackBarBuilder.showFeedBackMessage(context, email, Colors.red);
+              return;
+            }
+            _socialLogin(bloc, email);
+          }else if(socialEnum == SocialEnum.APPLE){
+            String email = await Util.signInWithApple();
+            if(!email.contains("@")){
+              SnackBarBuilder.showFeedBackMessage(context, email, Colors.red);
+              return;
             }
             _socialLogin(bloc, email);
           }
@@ -77,6 +86,7 @@ class AuthWithSocial extends StatelessWidget {
                         children: [
                           if(socialEnum==SocialEnum.FACEBOOK)Image.asset(AppImages.facebook,width: 20.w,height: 22.h,fit: BoxFit.contain,),
                           if(socialEnum==SocialEnum.GOOGLE)Image.asset(AppImages.google,width: 20.w,height: 22.h,fit: BoxFit.contain,),
+                          if(socialEnum==SocialEnum.APPLE)Image.asset(AppImages.apple,width: 20.w,height: 22.h,fit: BoxFit.contain,),
 
                           if(!bloc.registerByPhone)...[
                             if(socialEnum==SocialEnum.PHONE)Image.asset(AppImages.phone,width: 20.w,height: 22.h,fit: BoxFit.contain,),
@@ -97,6 +107,7 @@ class AuthWithSocial extends StatelessWidget {
                         children: [
                           if(socialEnum==SocialEnum.FACEBOOK)CustomText(text: translate("$kind.continue_with_facebook"), fontSize: AppStyle.average.sp),
                           if(socialEnum==SocialEnum.GOOGLE)CustomText(text: translate("$kind.continue_with_google"), fontSize: AppStyle.average.sp),
+                          if(socialEnum==SocialEnum.APPLE)CustomText(text: translate("$kind.continue_with_apple"), fontSize: AppStyle.average.sp),
 
                           if(!bloc.registerByPhone)...[
                             if(socialEnum==SocialEnum.PHONE)CustomText(text: translate("$kind.continue_with_phone"), fontSize: AppStyle.average.sp),

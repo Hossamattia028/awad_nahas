@@ -47,6 +47,7 @@ class BottomNavBar extends StatelessWidget {
           selectedLabelStyle: TextStyle(fontFamily: primaryFontReg,height: 1.5,fontSize: AppStyle.small.sp-1),
           unselectedLabelStyle: TextStyle(fontFamily: primaryFontReg,height: 1.4,fontSize: AppStyle.small.sp-1),
           showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.homeSelected, colorFilter: ColorFilter.mode(currentIndex==0?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),width: 17.h,),label: translate("app_bar.home"),backgroundColor: DMUtil.getWC()),
             BottomNavigationBarItem(icon: SvgPicture.asset(AppImages.categorySelected, colorFilter: ColorFilter.mode(currentIndex==1?DMUtil.getRED():DMUtil.getD2C(), BlendMode.srcIn),width: 18.h,),label: translate("app_bar.categories"),backgroundColor: DMUtil.getWC()),

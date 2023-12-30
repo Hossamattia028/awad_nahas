@@ -22,6 +22,7 @@ class AppImages{
   static const String phone = "$icons/phone.png";
   static const String facebook = "$icons/facebook.png";
   static const String google = "$icons/google.png";
+  static const String apple = "$icons/apple.jpg";
 
   //home icons
   static const String delivery = "$icons/truck.png";

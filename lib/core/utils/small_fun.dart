@@ -34,6 +34,10 @@ import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_bloc.dart';
 import 'package:awad_nahas/features/account/presentation/bloc/account_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'dart:math';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -136,6 +140,50 @@ class Util{
   //     return null;
   //   }
   // }
+
+  static String generateNonce([int length = 32]) {
+    const charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
+  }
+
+  /// Returns the sha256 hash of [input] in hex notation.
+  static String sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+
+  static Future<String> signInWithApple() async {
+    try{
+      final rawNonce = generateNonce();
+      final nonce = sha256ofString(rawNonce);
+      // Request credential for the currently signed in Apple account.
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce,
+      );
+      try{
+        // Create an `OAuthCredential` from the credential returned by Apple.
+        final oauthCredential = OAuthProvider("apple.com").credential(
+          idToken: appleCredential.identityToken,
+          rawNonce: rawNonce,
+        );
+        await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+      }catch(e){
+        debugPrint("signInWithApple $e");
+        return appleCredential.email??'';
+      }
+      return appleCredential.email??'';
+    }catch(e){
+      return translate("toast.oops");
+    }
+  }
 
   static Future<bool> isConnected () async{
     try{

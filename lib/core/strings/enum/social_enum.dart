@@ -4,4 +4,5 @@ enum SocialEnum{
   PHONE,
   FACEBOOK,
   GOOGLE,
+  APPLE,
 }

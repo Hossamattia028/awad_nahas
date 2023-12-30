@@ -4,13 +4,9 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
-	<key>com.apple.developer.in-app-payments</key>
+	<key>com.apple.developer.applesignin</key>
 	<array>
-		<string>merchant.bbgf</string>
-		<string>merchant.com.awadnahas.demo</string>
-		<string>merchant.com.awadnahas.demo.test</string>
-		<string>merchant.com.awadnahas.ios</string>
-		<string>merchant.com.demo.awadnahas.test2</string>
+		<string>Default</string>
 	</array>
 </dict>
 </plist>

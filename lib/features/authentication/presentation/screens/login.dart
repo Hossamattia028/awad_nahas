@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:awad_nahas/core/strings/enum/social_enum.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
@@ -254,6 +256,7 @@ class LoginScreen extends StatelessWidget {
                 const AuthWithSocial(socialEnum: SocialEnum.PHONE,kind: "login",),
                 const AuthWithSocial(socialEnum: SocialEnum.GOOGLE,kind: "login",),
                 const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK,kind: "login",),
+                if(Platform.isIOS)const AuthWithSocial(socialEnum: SocialEnum.APPLE,kind: "login",),
                 const SizedBox(height: 10,),
                 const NotHaveAnAccountWidget(),
                 const SizedBox(height: 30,),
