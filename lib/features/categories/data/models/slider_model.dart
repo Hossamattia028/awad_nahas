@@ -7,6 +7,7 @@ class SliderModel extends SliderEntity{
     required super.kind,
     required super.type,
     required super.typeID,
+    required super.orderNumber,
     required super.img,
     required super.images,required super.id});
 
@@ -17,6 +18,7 @@ class SliderModel extends SliderEntity{
       img: jsonObject['img'] ?? "",
       type: jsonObject['type'] ?? "",
       typeID: jsonObject['type_id'] ?? "",
+      orderNumber: jsonObject['order_number'] ?? 0,
       kind: jsonObject['kind'] ?? "",
       images: const [],
     );

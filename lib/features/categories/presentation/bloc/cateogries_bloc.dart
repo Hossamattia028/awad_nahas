@@ -92,6 +92,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent,CategoriesState>{
        emit(FetchSliderFailedState());
      },(data) {
        mainSlider = data.where((element) => element.kind == "slider").toList();
+       mainSlider.sort((a, b) => a.orderNumber.compareTo(b.orderNumber));
        anotherSliders = data.where((element) => element.kind != "slider").toList();
        emit(FetchSliderSuccessfullyState());
      });

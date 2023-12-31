@@ -8,14 +8,17 @@ class SliderEntity extends Equatable{
   final String kind;
   final String type;
   final String typeID;
+  final int orderNumber;
   final List<PhotoModel> images;
   const SliderEntity({required this.title,
     required this.img,
     required this.kind,
     required this.type,
     required this.typeID,
+    required this.orderNumber,
     required this.images,
-    required this.id});
+    required this.id,
+  });
 
   @override
   List<Object?> get props => [id, title,images];
