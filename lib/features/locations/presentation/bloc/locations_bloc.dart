@@ -71,6 +71,31 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
 
   }
 
+  List<LocationEntity> checkLocation(BuildContext context){
+    if(!Util.checkUser())return [];
+    LocationEntity? billing = billingAddress;
+    LocationEntity? shipping = shippingAddress;
+    if(currentCheckOutLocation==null || currentCheckOutLocation!.address1==""){
+      if(billing!=null && billing.address1 != "")currentCheckOutLocation=billing;
+      if(shipping!=null && shipping.address1 != "")currentCheckOutLocation=shipping;
+      if(currentCheckOutLocation==null || currentCheckOutLocation!.address1=="" && localUserLocationsList.isNotEmpty){
+        currentCheckOutLocation = localUserLocationsList.first;
+      }
+      if(currentCheckOutLocation!=null && currentCheckOutLocation!.address1!=""){
+        add(UpdateCurrentLocationEvent(location: currentCheckOutLocation!));
+        if(billing==null || billing.address1=="")billing = currentCheckOutLocation;
+        if(shipping==null || shipping.address1=="")shipping = currentCheckOutLocation;
+      }
+    }else{
+      if(billing==null || billing.address1=="")billing = currentCheckOutLocation;
+      if(shipping==null || shipping.address1=="")shipping = currentCheckOutLocation;
+    }
+    return [
+      if(billing!=null && billing.address1!="")billing,
+      if(shipping!=null && shipping.address1!="")shipping
+    ];
+  }
+
   updateCurrentCheckOutLocation(UpdateCurrentLocationEvent event,emit){
     emit(const LocationsLoadingState());
     currentCheckOutLocation = event.location;
@@ -250,6 +275,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
   }
 
   fetchLocalAddress(emit)async{
+    if(!Util.checkUser())return;
     try{
       localUserLocationsList =  await LocationRemoteDataSource.fetchAllLocalLocations();
       emit(const LocationsSuccessfullyState());

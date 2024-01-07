@@ -127,7 +127,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     try{
       LocationEntity? currentLoc  = checkCurrentLocationAndReturnIt(event.context);
       if(currentLoc==null)return;
-      var orderData = collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc,payment: event.payment,apsData: event.apsData);
+      var orderData = collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc,payment: event.payment,apsData: event.apsData,amWalTransactionId: event.amWalTransactionId);
       var res = await addOrderUseCase(data: orderData);
       res.fold((l) {
         emit(OrderErrorState(errors: l.toString()));
@@ -201,7 +201,8 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     required double totalPrice,
     required LocationEntity locationEntity,
     required PaymentOption payment,
-    Map<String, dynamic>? apsData
+    Map<String, dynamic>? apsData,
+    String? amWalTransactionId
   }){
     List<Map<String,dynamic>> list = [];
     for(var i in cartList){
@@ -225,13 +226,27 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       "address": LocationModel.toJsonLocal(locationEntity, "shipping"),
       "billing_address":LocationModel.toJsonLocal(locationEntity, "billing"),
       "items":list,
-      "payment_method_title": payment.paymentEnum.name.toString(),
-      "payment_method": payment.isApplePay!=null&&payment.isApplePay==true?"aps_apple_pay":(payment.paymentEnum==PaymentEnum.TAMARA? "tamara-gateway-pay-in-3": "aps_cc"),// aps_cc for credit or amazon_payment_services
+      "payment_method_title": payment.paymentEnum==PaymentEnum.AMWAL?"Quick Checkout":payment.paymentEnum.name.toString(),
+      "payment_method": payment.isApplePay!=null&&payment.isApplePay==true?"aps_apple_pay":_paymentMethod(payment.paymentEnum),// aps_cc for credit or amazon_payment_services
       if(payment.paymentEnum==PaymentEnum.PAYFORT)"aps_data": apsData,
+      if(payment.paymentEnum==PaymentEnum.AMWAL)"amwal_transaction_id": amWalTransactionId,
     };
     return data;
   }
 
+
+  _paymentMethod(PaymentEnum payment){
+    switch(payment){
+      case PaymentEnum.PAYFORT:
+        return "aps_cc";
+      case PaymentEnum.CASH:
+        return "cash";
+      case PaymentEnum.TAMARA:
+        return "tamara-gateway-pay-in-3";
+      case PaymentEnum.AMWAL:
+        return "amwalcheckout";
+    }
+  }
 
 
   List<IssueModel> issueList = [

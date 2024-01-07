@@ -17,6 +17,7 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_event.da
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
+import 'package:awad_nahas/features/shared_widgets/update_app.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dart';
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_event.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -195,10 +196,23 @@ class Util{
     }
   }
 
-  static openUrl(String url)async{
-    await canLaunchUrl(Uri.parse(url))==true?
-    await launchUrl(Uri.parse(url)):debugPrint("error when openGmsUrl");
+  static goToStore()async {
+    if(Platform.isIOS){
+      return await openUrl("https://apps.apple.com/eg/app/awad-badi-nahas/id1664429753",externalApp: true);
+    }else{
+      return await openUrl("https://play.google.com/store/apps/details?id=com.awadnahas.awadnahas",externalApp: true);
+    }
   }
+
+  static openUrl(String url,{bool externalApp=false})async{
+    try{
+      await canLaunchUrl(Uri.parse(url),)==true?
+      await launchUrl(Uri.parse(url),mode: externalApp?LaunchMode.externalApplication:LaunchMode.platformDefault):debugPrint("error when openGmsUrl");
+    }catch(e){
+      debugPrint("openUrl: $e");
+    }
+  }
+
   static String? encodeQueryParameters(Map<String, String> params) {
     return params.entries
         .map((MapEntry<String, String> e) =>
@@ -258,7 +272,7 @@ class Util{
     return SharedPref.preferences.containPreference(Constants.userId);
   }
 
-  static void changeLang({required BuildContext ctx,bool isLogin =false,required String lang}){
+  static void changeLang({required BuildContext ctx,bool isLogin =false,required String lang,bool isUpdate = false}){
     // String lng = getLang()=="ar"?"en_US":"ar";
     String lng = lang;
     changeLocale(ctx,lng);
@@ -269,6 +283,8 @@ class Util{
     ProductsBloc.get(ctx).add(const UpdateAllProductsEvent());
     if(isLogin){
       Util.pushPageAndRemoveRoutes(const LoginScreen(),ctx);
+    }else if(isUpdate){
+      Util.pushPageAndRemoveRoutes(const UpdateAppScreen(),ctx);
     }else{
       Util.pushPageAndRemoveRoutes(const RootScreen(),ctx);
     }

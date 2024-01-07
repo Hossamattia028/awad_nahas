@@ -27,7 +27,7 @@
 const String defaultApplePay = '''{
   "provider": "apple_pay",
   "data": {
-    "merchantIdentifier": "merchant.com.awadnahas.ios",
+    "merchantIdentifier": "merchant.com.awadnahas.ioss",
     "displayName": "AwadNahas",
     "merchantCapabilities": ["3DS", "debit", "credit"],
     "supportedNetworks": ["amex", "visa", "discover", "masterCard"],

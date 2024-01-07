@@ -50,16 +50,3 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // make sure you call `initializeApp` before using other Firebase services.
   debugPrint('Handling a background message ${message.messageId}');
 }
-
-// if #available(iOS 10.0, *) {
-// UNUserNotificationCenter.current().delegate = self
-// let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-// UNUserNotificationCenter.current().requestAuthorization(
-// options: authOptions,
-// completionHandler: {_, _ in })
-// } else {
-// let settings: UIUserNotificationSettings =
-// UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-// application.registerUserNotificationSettings(settings)
-// }
-// application.registerForRemoteNotifications()

@@ -16,7 +16,10 @@
       "type_here": "اكتب هنا..",
       "change_password_successfully": "تم تغيير الباسورد بنجاح",
       "more_info": "معلومات اخري",
-      "search": "ابحث عن .."
+      "search": "ابحث عن ..",
+      "update_app": "تحديث التطبيق",
+      "new_version_from": "يوجد نسخة جديدة من Awad Nahas",
+      "update_to_enjoy": "قم بتحديث التطبيق للاستمتاع باحدث نسخه"
     },
     "rate": {
       "rate": "تقييم التطبيق",
@@ -260,7 +263,9 @@
       "pm": "مساء",
       "from": "من",
       "to": "الي",
-      "closed_friday": "مغلق الجمعة"
+      "closed_friday": "مغلق الجمعة",
+      "all_days": "جميع الايام",
+      "time_on_friday": "بإستثناء الجمعة"
     },
     "maintenance": {
       "number_of_maintenance_device": "عدد الأجهزة التي تمت صيانتها",
@@ -533,7 +538,8 @@
       "payfort-title": "بطاقة مدى البنكية / بطاقة ائتمان",
       "tamara": "تمارا",
       "tamra_txt": "ادفع علي 4 دفعات",
-      "interest-free": "بدون فوائد"
+      "interest-free": "بدون فوائد",
+      "quick_checkout": "شراء سريع"
     },
     "cart": {
       "vat": "ضريبة القيمة المضافة(15%)",

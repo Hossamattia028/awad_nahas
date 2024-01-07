@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:math' as math;
 
+
 class SmsApi{
 
   static getRandom(){
@@ -34,7 +35,6 @@ class SmsApi{
 
   static Future<bool> sendMobileOtp({required String phone})async{
     var otp = getRandom();
-    print(otp);
     var response = await http.post(Uri.parse(ApiUrl.SEND_OTP),
       headers: {
         "Content-Type": "application/json",

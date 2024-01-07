@@ -16,13 +16,16 @@ class ApiUrl {
     // if(Util.checkUser())'Authorization': 'Bearer ${Util.getToken()}',
   };
 
-  //production
-  static const String SUB_MAIN_DOMAIN = 'https://awadnahas.com/awadnahas';
-  static const String MAIN_DOMAIN = 'https://awadnahas.com';
 
-  static const String CONSUMER_KEY = 'ck_75b4f45743c85a7775a844cac66f21a25301d3f7';
-  static const String CONSUMER_SECRET = 'cs_050b8da87bd87d9c5452cf36a3c589d4aabc123e';
+  // //new subdomain
+  // static const String SUB_MAIN_DOMAIN = 'https://abnsandbox.com/awadnahas';
+  //https://test.superstore.digital/
+  static const String SUB_MAIN_DOMAIN = 'https://app.abnsandbox.com';
+  static const String MAIN_DOMAIN = 'https://abnsandbox.com';
 
+
+  static const String CONSUMER_KEY = 'ck_5c9fbbe5e7100bf87b929ec6f5c4f2c9326f8e39';
+  static const String CONSUMER_SECRET = 'cs_ec05f5345f48c8f975eff2b7d74b63a5a46ace45';
 
   static const String BASE_URL = '$SUB_MAIN_DOMAIN/api/';
   static const String STORAGE_URL = '$SUB_MAIN_DOMAIN/public/';
@@ -56,6 +59,7 @@ class ApiUrl {
 
   static const String MODIFY_LOCAL_ADDRESS = '${BASE_URL}user/modify/local_addresses';
   static const String FETCH_ALL_LOCAL_ADDRESS = '${BASE_URL}user/local_addresses';
+
 
   static const String PRODUCTS_URL = '${BASE_URL}products';
   static const String COMMENTS_URL = '${BASE_URL}reviews';

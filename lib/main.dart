@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/utils/notifications_utils.dart';
+import 'package:awad_nahas/core/utils/payment_utils/amwal/proccess.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
@@ -21,6 +22,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:upgrader/upgrader.dart';
 import 'injection_container.dart' as di;
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -33,8 +35,10 @@ void main() async{
   await Future.wait([
     Firebase.initializeApp(),
     di.init(),
-    SharedPref().instantiatePreferences()
+    SharedPref().instantiatePreferences(),
+    Upgrader.clearSavedSettings()
   ]);
+  AmWalPlugin.initialize();
   await NotificationsUtils.initialPushNotification();
   var delegate = await LocalizationDelegate.create(
       fallbackLocale: 'en_US', supportedLocales: ['en_US', 'ar']);
@@ -82,7 +86,7 @@ class MyApp extends StatelessWidget {
               };
               return widget!;
             },
-            title: 'AwadNahas',
+            title: 'Awad Nahas',
             home: isTheme==true?  const RootScreen(): const SplashScreen(),
           ),
         ),

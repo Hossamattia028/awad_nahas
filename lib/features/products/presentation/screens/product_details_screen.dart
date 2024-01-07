@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/payment_utils/amwal/ui/amwal_widgets.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_widgets.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
+import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/add_to_cart_button.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/back_to_top.dart';
@@ -41,6 +43,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   @override
   void didChangeDependencies() {
+    LocationsBloc.get(context).checkLocation(context);
     currentPrice = widget.item.price!=widget.item.discount&&widget.item.discount!=0?widget.item.discount:widget.item.price;
     if(widget.item.categoryList.isNotEmpty){
       for(var i in widget.item.categoryList){
@@ -121,7 +124,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             child: BlocBuilder<CartBloc,CartState>(
               builder: (ctx,state){
                 var bloc =  CartBloc.get(ctx);
-                double val = 125.h + 10.w;
+                double val = 125.h + 22.w;
                 if(bloc.showCountWidget)val += 44.w;
                 return InkWell(
                   onTap: ()=> controller.animateTo(10, duration: const Duration(milliseconds: 1000), curve: Curves.linear),
@@ -135,27 +138,26 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
         Material(
           color: Colors.transparent,
-          child: Stack(
-            children: [
-              BlocBuilder<CartBloc,CartState>(
-                builder: (ctx,state){
-                  var bloc =  CartBloc.get(ctx);
-                  return SizedBox(
-                    // duration: const Duration(milliseconds: 500),
-                    height: bloc.showCountWidget ? ((Platform.isIOS?  63.w : 65.w) + 110.h) : ((Platform.isIOS?  35.w : 15.w) + 85.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        AddToCartButtonWidget(item: widget.item,),
-                        const BottomNavBar(isRoot: false ),
-                      ],
+          child: BlocBuilder<CartBloc,CartState>(
+            builder: (ctx,state){
+              var bloc =  CartBloc.get(ctx);
+              return SizedBox(
+                height: bloc.showCountWidget ? ((Platform.isIOS?  86.w : 88.w) + 125.h) : ((Platform.isIOS?  58.w : 38.w) + 100.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                      child: QuickCheckOutButton(amount: widget.item.price, list: [widget.item],isListen: true,),
                     ),
-                  );
-                },
-              ),
-            ],
-          )
+                    AddToCartButtonWidget(item: widget.item,),
+                    const BottomNavBar(isRoot: false ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
 
       ],

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "540112321778-ntvr2so2ajs972bp9hojga857fedcphr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.awadnahas.awadnahas",
+            "certificate_hash": "245ad141dde2b4308befa402c2f303fd1374a69a"
+          }
+        },
+        {
           "client_id": "540112321778-onjq1cnsafvsu3lgihu2tgh4hf20u38i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -22,7 +30,7 @@
           }
         },
         {
-          "client_id": "540112321778-sbtogat1183b86boqer1k8k9tc0kanu9.apps.googleusercontent.com",
+          "client_id": "540112321778-luugg47d31h95a16cegkk5k08itkgh2b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,8 +43,67 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "540112321778-sbtogat1183b86boqer1k8k9tc0kanu9.apps.googleusercontent.com",
+              "client_id": "540112321778-luugg47d31h95a16cegkk5k08itkgh2b.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "540112321778-lbuvfvtrc81k0kvpp71flg1d98eptj7q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.awadnahas.awadnahas"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540112321778:android:6a9d4deaa186ff0d18e46b",
+        "android_client_info": {
+          "package_name": "com.awadnahas.awadnahas_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540112321778-41rbjt0g3pf10amnj2ov987ienrqnvod.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.awadnahas.awadnahas_test",
+            "certificate_hash": "82c988c5ac5d00f29cc4a3e6f96ea5903e1a56c1"
+          }
+        },
+        {
+          "client_id": "540112321778-4lpgm0f5mbn5vke5abvk0p5lr7plncsi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.awadnahas.awadnahas_test",
+            "certificate_hash": "245ad141dde2b4308befa402c2f303fd1374a69a"
+          }
+        },
+        {
+          "client_id": "540112321778-luugg47d31h95a16cegkk5k08itkgh2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQR3pucWV88qLIUYSokbTZlPv7S4WlAMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540112321778-luugg47d31h95a16cegkk5k08itkgh2b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "540112321778-lbuvfvtrc81k0kvpp71flg1d98eptj7q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.awadnahas.awadnahas"
+              }
             }
           ]
         }

@@ -10,37 +10,49 @@ import 'package:flutter_amazonpaymentservices/flutter_amazonpaymentservices.dart
 
 class PayFortController{
 
-  Future<String> flutterAmazonApplePay({required int amount,required Map<String,dynamic> appleData})async{
-    String? id = await FlutterAmazonpaymentservices.getUDID;
-    List<String>? data = await PayFortApi.generateTokenFromApiApplePay(id.toString());
+  Future<String> flutterAmazonApplePay({required int amount,required  Map<String,dynamic> appleData})async{
     try {
-      var requestParam = {
-        "digital_wallet":"APPLE_PAY",
-        "command":"PURCHASE",
-        "merchant_reference": data?.first.toString(),
-        "sdk_token": data?.first.toString(),
-        "amount":"1000",
-        "currency":"SAR",
-        "language":"en",
-        "customer_email":"test@merchantdomain.com",
-        "phone_number":"966533021223",
-        "apple_data":"abcdefgh1234567KEuM/lC6IW7KGO7ydRs95KmLyQC58K4griC/mnAtAYXM/abcdefgh12345678xnEVGMroqTQj/==",
-        "apple_signature":"abcdefgh12345678AACggDCCA+abcdefgh12345678IVd+abcdefgh12345678B+g+abcdefgh12345678AO8T9hfo/NooRtvK+Sd48AiEAyAGWQH4jbioivj7Y/abcdefgh12345678AA==",
+      String? id = await FlutterAmazonpaymentservices.getUDID;
+      var merchantRef = await PayFortApi.generateTokenFromApi(id.toString());
+      String appleTransactionId =  appleData['token']['header']['transactionId'].toString();
+      String appleEphemeralPublicKey =  appleData['token']['header']['ephemeralPublicKey'].toString();
+      String applePublicKeyHash =  appleData['token']['header']['publicKeyHash'].toString();
+      String appleDisplayName = appleData['paymentMethod']['displayName'].toString();
+      String appleNetwork = appleData['paymentMethod']['network'].toString();
+      String appleType =  appleData['paymentMethod']['type'].toString();
+      var data = {
+        "access_code": "7nelylVINMWX9iFt9rH5",
+        "amount":"10",
+        "apple_data": appleData['token']['data'],
         "apple_header":{
-          "apple_transactionId":"abcdefgh12345678",
-          "apple_ephemeralPublicKey":"abcdefgh123456784t3guu+mX+abcdefgh12345678/J4kDgFLnwQ==",
-          "apple_publicKeyHash":"AAbbCC+abcdefgh12345678Pbo=="
+          "apple_transactionId": appleTransactionId,
+          "apple_ephemeralPublicKey": appleEphemeralPublicKey,
+          "apple_publicKeyHash": applePublicKeyHash
         },
         "apple_paymentMethod":{
-          "apple_displayName":"Visa 000",
-          "apple_network":"Visa",
-          "apple_type":"debit"
+          "apple_displayName": appleDisplayName,
+          "apple_network": appleNetwork,
+          "apple_type": appleType // no numeric : credit
         },
-        "apple_version": "",
-        "signature": data?.last.toString(),
+        "apple_signature": appleData['token']['signature'],
+        "command": "PURCHASE",
+        "currency":"SAR",
+        "customer_email":"test@merchantdomain.com",
+        "customer_name": "test",
+        "digital_wallet": "APPLE_PAY",
+        "language": "en",
+        "merchant_identifier": "3b2f30d0",
+        "merchant_reference": merchantRef
       };
-      await PayFortApi.sendApiApplePay(requestParam);
-      return "re";
+      // // "customer_ip":"192.0.0.0",
+      // // "apple_version": "",
+      String signature = 'access_code=${data['access_code']}amount=${data['amount']}apple_data=${data['apple_data']}apple_header={apple_transactionId=$appleTransactionId, apple_ephemeralPublicKey=$appleEphemeralPublicKey, apple_publicKeyHash=$applePublicKeyHash}apple_paymentMethod={apple_displayName=$appleDisplayName, apple_network=$appleNetwork, apple_type=$appleType}apple_signature=${data['apple_signature']}command=${data['command']}currency=${data['currency']}customer_email=${data['customer_email']}customer_name=${data['customer_name']}digital_wallet=${data['digital_wallet']}language=${data['language']}merchant_identifier=${data['merchant_identifier']}merchant_reference=${data['merchant_reference']}';
+      /// will replace with production keys
+      data['signature'] = '50XSbUyH95XFTXLFrbhdrY](${signature.toString().trim()}50XSbUyH95XFTXLFrbhdrY](';
+      var sign = await PayFortApi.generateTokenFromApiApplePay({'d':data['signature']});
+      data['signature'] = sign.toString();
+      final res = await PayFortApi.sendApiApplePay(data);
+      return res;
     } on PlatformException catch (e)
     {
       debugPrint("Error ${e.message} details:${e.details}");
@@ -64,7 +76,7 @@ class PayFortController{
       "sdk_token": sdkToken,
     };
     try {
-      var result = await FlutterAmazonpaymentservices.normalPay(requestParam, EnvironmentType.production,);
+      var result = await FlutterAmazonpaymentservices.normalPay(requestParam, EnvironmentType.sandbox,);
       // debugPrint("res $result");
       if(result['response_code'].toString().trim()=="02000" || result['response_message'].toString().toLowerCase()=="success"){
         return PayfortResponse(res: result.cast<String, dynamic>(), check: true);
@@ -77,7 +89,6 @@ class PayFortController{
       return PayfortResponse(res: null, check: false);
     }
   }
-
 
 
 }

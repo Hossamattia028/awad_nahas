@@ -47,11 +47,6 @@ class OurLocationsScreen extends StatelessWidget {
                 if(!title.contains("معرض") && Util.getLang()=="ar"){
                   title = "  معرض $title " ;
                 }
-                // var cl = "invalid";
-                // if (item.hours != null) {
-                //   var closed = (item.hours!.last).split(',');
-                //     cl = closed[1];
-                // }
                 return Card(
                   elevation: 4,
                   color: DMUtil.getWC(),
@@ -78,18 +73,25 @@ class OurLocationsScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomText(
-                                  text: "${translate("activity_setting.from")} 9 ${translate("activity_setting.am")} ${translate("activity_setting.to")} 11 ${translate("activity_setting.pm")}",
+                                  text: "${translate("activity_setting.all_days")} ${translate("activity_setting.from")} 9 ${translate("activity_setting.am")} ${translate("activity_setting.to")} 11 ${translate("activity_setting.pm")}",
                                   color: DMUtil.getD2C(),
-                                  fontSize: AppStyle.small.sp,
+                                  fontSize: AppStyle.small.sp ,
                                 ),
-                                if(item.address1.contains("الخبر")||item.address1.contains("elhob"))...[
-                                  const SizedBox(height: 4,),
-                                  CustomText(
-                                      text: "${translate("activity_setting.closed_friday")} *",
-                                      color: DMUtil.getRED(),
-                                      fontSize: AppStyle.small.sp
-                                  ),
-                                ],
+                                const SizedBox(height: 5,),
+                                Row(
+                                  children: [
+                                    CustomText(
+                                        text: "${translate("activity_setting.time_on_friday")} ",
+                                        color: DMUtil.getRED(),
+                                        fontSize: AppStyle.small.sp-1
+                                    ),
+                                    CustomText(
+                                        text: " ${translate("activity_setting.from")} 3 ${translate("activity_setting.pm")} ${translate("activity_setting.to")} 11 ${translate("activity_setting.pm")}",
+                                        color: DMUtil.getD2C(),
+                                        fontSize: AppStyle.small.sp-1
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                             AlignChildRow(

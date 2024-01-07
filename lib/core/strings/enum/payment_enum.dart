@@ -3,5 +3,6 @@
 enum PaymentEnum{
   CASH,
   PAYFORT,
-  TAMARA
+  TAMARA,
+  AMWAL,
 }

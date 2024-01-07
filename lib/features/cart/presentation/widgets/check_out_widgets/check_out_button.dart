@@ -4,6 +4,7 @@ import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/payment_utils/amwal/ui/amwal_widgets.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_web_view.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -12,7 +13,6 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
-import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
@@ -46,10 +46,12 @@ class CheckOutButton extends StatefulWidget {
 class _CheckOutButtonState extends State<CheckOutButton> {
   PayFortController payFortController =  PayFortController();
   late CartBloc cartBloc;
+  late LocationsBloc locationsBloc;
 
   @override
   void initState() {
     cartBloc = CartBloc.get(context);
+    locationsBloc = LocationsBloc.get(context);
     cartBloc.paymentWithCard == PaymentEnum.PAYFORT;
     paymentItems = [
       PaymentItem(
@@ -70,7 +72,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   @override
   void didChangeDependencies() {
     if(mounted){
-      checkLocation(context);
+      locationsBloc.checkLocation(context);
     }
     super.didChangeDependencies();
   }
@@ -96,7 +98,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         builder: (ctx,orderState){
           var orderBloc = OrderBloc.get(ctx);
           return SizedBox(
-            height: 100.h,
+            height: 125.h,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -120,12 +122,14 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                   ),
                   const SizedBox(height: 10,),
                 ],
+                QuickCheckOutButton(amount: cartBloc.totalPrice, list: cartBloc.cartList,height: 35,),
+                const SizedBox(height: 5,),
                 BlocBuilder<CartBloc,CartState>(
                   builder: (ctx,state){
                     if(orderState is OrderLoadingState)return Center(child: CircularProgressIndicator(color: DMUtil.getPC(),),);
                     var cartBloc = CartBloc.get(ctx);
                     return Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(0),
                       child: Stack(
                         children: [
                           if(cartBloc.applePay)...[
@@ -138,7 +142,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                               style: ApplePayButtonStyle.black,
                               type: ApplePayButtonType.checkout,
                               onPaymentResult: (val) async {
-                                List<LocationEntity> locations = checkLocation(context);
+                                List<LocationEntity> locations = locationsBloc.checkLocation(context);
                                 if(locations.isEmpty){
                                   SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
                                   return;
@@ -212,7 +216,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   // 502441695
   //Checkout1!
   _checkOutTamra(BuildContext context,OrderBloc orderBloc) async {
-    List<LocationEntity> locations = checkLocation(context);
+    List<LocationEntity> locations = locationsBloc.checkLocation(context);
     if(locations.isEmpty){
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
       return;
@@ -269,7 +273,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
 
   _checkOutAmazonPayfort(OrderBloc orderBloc)async{
-    List<LocationEntity> locations = checkLocation(context);
+    List<LocationEntity> locations = locationsBloc.checkLocation(context);
     if(locations.isEmpty){
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
       return;
@@ -283,29 +287,6 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
 
 
-  List<LocationEntity> checkLocation(BuildContext context){
-    var locationBloc = LocationsBloc.get(context);
-    LocationEntity? billing = locationBloc.billingAddress;
-    LocationEntity? shipping = locationBloc.shippingAddress;
-    if(locationBloc.currentCheckOutLocation==null || locationBloc.currentCheckOutLocation!.address1==""){
-      if(billing!=null && billing.address1 != "")locationBloc.currentCheckOutLocation=billing;
-      if(shipping!=null && shipping.address1 != "")locationBloc.currentCheckOutLocation=shipping;
-      if(locationBloc.currentCheckOutLocation==null || locationBloc.currentCheckOutLocation!.address1=="" && locationBloc.localUserLocationsList.isNotEmpty){
-        locationBloc.currentCheckOutLocation = locationBloc.localUserLocationsList.first;
-      }
-      if(locationBloc.currentCheckOutLocation!=null && locationBloc.currentCheckOutLocation!.address1!=""){
-        locationBloc.add(UpdateCurrentLocationEvent(location: locationBloc.currentCheckOutLocation!));
-        if(billing==null || billing.address1=="")billing = locationBloc.currentCheckOutLocation;
-        if(shipping==null || shipping.address1=="")shipping = locationBloc.currentCheckOutLocation;
-      }
-    }else{
-      if(billing==null || billing.address1=="")billing = locationBloc.currentCheckOutLocation;
-      if(shipping==null || shipping.address1=="")shipping = locationBloc.currentCheckOutLocation;
-    }
-    return [
-      if(billing!=null && billing.address1!="")billing,
-      if(shipping!=null && shipping.address1!="")shipping
-    ];
-  }
+
 
 }

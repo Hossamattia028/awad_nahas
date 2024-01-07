@@ -6,7 +6,9 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SwitchLanguageWidget extends StatelessWidget {
-  const SwitchLanguageWidget({Key? key}) : super(key: key);
+  final bool isLogin;
+  final bool isUpdate;
+  const SwitchLanguageWidget({Key? key,this.isLogin = true,this.isUpdate = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class SwitchLanguageWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         TextButton(
-          onPressed: ()=> Util.changeLang(ctx: context,isLogin: true,lang: "ar"),
+          onPressed: ()=> Util.changeLang(ctx: context,isLogin: isLogin,lang: "ar",isUpdate: isUpdate),
           child: CustomText(
             text: "عربي",
             fontSize: AppStyle.average.sp,
@@ -22,7 +24,7 @@ class SwitchLanguageWidget extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: ()=> Util.changeLang(ctx: context,isLogin: true,lang: "en_US"),
+          onPressed: ()=> Util.changeLang(ctx: context,isLogin: isLogin,lang: "en_US",isUpdate: isUpdate),
           child: CustomText(
             text: "English",
             fontSize: AppStyle.average.sp,

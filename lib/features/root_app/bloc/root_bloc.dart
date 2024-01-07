@@ -62,12 +62,28 @@ class RootBloc extends Bloc<RootEvent, RootState> {
   List<LocationModel> ourLocations = [];
   getLocations(emit)async{
     try{
-      ourLocations = await SettingsRemoteDataSource.getOurLocations();
+      ourLocations.clear();
+      List<LocationModel> list = await SettingsRemoteDataSource.getOurLocations();
+      _checkInsideListAndSave(list, "jeddah");
+      _checkInsideListAndSave(list, "riyadh");
+      _checkInsideListAndSave(list, "al khobar");
+      _checkInsideListAndSave(list, "other_city");
       emit(RootSuccessState());
     }catch(e){
       debugPrint("getLocationsRootBloc: $e");
     }
   }
+
+  _checkInsideListAndSave(List<LocationModel> list,String city){
+    for(var i in list){
+      if(i.city.toLowerCase()==city){
+        ourLocations.add(i);
+      }else if(city == "other_city" && ourLocations.contains(i) == false){
+        ourLocations.add(i);
+      }
+    }
+  }
+
 
   /// faqs
   List<FaqsModel> ourFaqs = [];

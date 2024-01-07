@@ -17,7 +17,10 @@
 		"type_here": "type here...",
 		"change_password_successfully": "Password Changed Successfully",
 		"more_info": "More Info",
-		"search": "Search for ..."
+		"search": "Search for ...",
+		"update_app": "Upgrade the app",
+		"new_version_from": "There is a new version of Awad Nahas",
+		"update_to_enjoy": "Update the application to enjoy the latest version"
 	},
 	"rate": {
 		"rate": "Rate the app",
@@ -260,7 +263,9 @@
 		"pm": "PM",
 		"from": "from",
 		"to": "to",
-		"closed_friday": "closed friday"
+		"closed_friday": "closed friday",
+		"all_days": "All days",
+		"time_on_friday": "without friday"
 	},
 	"maintenance": {
 		"number_of_maintenance_device": "Number of maintained devices",
@@ -287,7 +292,8 @@
 		"payfort-title": "mada debit card / Credit Cards",
 		"tamara": "Tamara",
 		"tamra_txt": "pay with 4 payments ",
-		"interest-free": "interest-free"
+		"interest-free": "interest-free",
+		"quick_checkout": "Quick CheckOut"
 	},
 	"cart": {
 		"vat": "VAT(15%)",

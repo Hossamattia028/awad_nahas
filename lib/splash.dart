@@ -3,11 +3,13 @@
 
 import 'dart:async';
 import 'package:awad_nahas/features/shared_widgets/no_connection.dart';
+import 'package:awad_nahas/features/shared_widgets/update_app.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/utils/notifications_utils.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
+import 'package:upgrader/upgrader.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -29,6 +31,10 @@ class _SplashScreenState extends State<SplashScreen> {
     if(mounted)Util.getAllUserAppData(context: context,isSplash: true);
     Timer(const Duration(seconds: 4), () async{
       await NotificationsUtils.initialPushNotification();
+      await Upgrader.sharedInstance.initialize();
+      if(Upgrader.sharedInstance.isUpdateAvailable()){
+        if(mounted) return Util.pushPageAndRemoveRoutes(const UpdateAppScreen(), context);
+      }
       if(mounted)Util.pushPageAndRemoveRoutes(const RootScreen(), context);
     });
     super.didChangeDependencies();
