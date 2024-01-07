@@ -1,0 +1,107 @@
+import 'package:awad_nahas/core/styles/app_style.dart';
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/cart/presentation/widgets/animate_arrow.dart';
+import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
+import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
+import 'package:awad_nahas/features/shared_widgets/switch_language.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_translate/flutter_translate.dart';
+import 'package:upgrader/upgrader.dart';
+
+
+
+class UpdateAppScreen extends StatefulWidget {
+  const UpdateAppScreen({super.key});
+
+  @override
+  State<UpdateAppScreen> createState() => _UpdateAppScreenState();
+}
+
+class _UpdateAppScreenState extends State<UpdateAppScreen> {
+  @override
+  void initState() {
+    if(Upgrader.sharedInstance.isUpdateAvailable()==false){
+      if(mounted) Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+    }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: DMUtil.getWC(),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w,),
+        child:  Column(
+          children: [
+            SizedBox(height: AppStyle.paddingFromTop.h,),
+            const SwitchLanguageWidget(isLogin: false,isUpdate: true,),
+            const SizedBox(height: 40,),
+
+
+            const SizedBox(height: 40,),
+            Card(
+                elevation: 15,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      const LogoWidget(width: 200,fit: BoxFit.contain,height: 170,),
+                      CustomText(
+                        text: translate("app_bar.new_version_from"),
+                        color: DMUtil.getDC(),
+                        fontSize: AppStyle.average.sp-1,
+                        fontWeight: FontWeight.w600,
+                        alignCenter: true,
+                      ),
+                      const SizedBox(height: 10,),
+                      CustomText(
+                        text: "${translate("app_bar.update_to_enjoy")} (${Upgrader.sharedInstance.currentAppStoreVersion()})",
+                        color: DMUtil.getD2C(),
+                        fontSize: AppStyle.small.sp,
+                        maxLine: 2,
+                        alignCenter: true,
+                      ),
+                      const SizedBox(height: 40,),
+
+                      CustomButton(
+                        height: 45.h,
+                        width: double.infinity,
+                        widget: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: CustomText(
+                                text: translate("app_bar.update_app"),
+                                color: Colors.white,
+                                fontSize: AppStyle.average.sp-1,
+                                fontWeight: FontWeight.w600,
+                                alignCenter: true,
+                              ),
+                            ),
+                            const AnimateArrowWidget(),
+                          ],
+                        ),
+                        color: DMUtil.getRED(),
+                        onPressed: () => Util.goToStore(),
+                      ),
+                    ],
+                  ),
+                )
+            ),
+            const SizedBox(height: 10,),
+
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,35 @@
+import 'package:amwal_pay/amwal_pay.dart';
+import 'package:awad_nahas/core/utils/payment_utils/amwal/amwal_response.dart';
+import 'package:awad_nahas/core/utils/payment_utils/amwal/constants.dart';
+import 'package:flutter/cupertino.dart';
+
+class AmWalPlugin {
+  static AmwalPay? amWalPay;
+
+
+  static initialize(){
+    amWalPay = AmwalPayBuilder(AmWalConstants.merchantIdentifier)
+        .countryCode('+966').refId("1230").orderId("1230")
+        .build();
+  }
+
+
+  static Future<AmWalResponse> pay(double amount)async{
+    try{
+      String? paymentResult = await amWalPay!.start(amount);
+      debugPrint("AmWalPlugin pay ${paymentResult.toString()}");
+      if(paymentResult.toString().toLowerCase().contains("canceled")){
+        return AmWalResponse(msg: "msg", success: false,canceled: true);
+      }else{
+        return AmWalResponse(msg: "msg", success: true,transactionId: paymentResult.toString());
+      }
+    }catch(e){
+      debugPrint("AmWalPlugin payError: $e");
+      return AmWalResponse(msg: "msg", success: false);
+    }
+  }
+
+
+}
+
+
