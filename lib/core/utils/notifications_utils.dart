@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class NotificationsUtils{
   }
 
 
-  static void pushNotificationListener(BuildContext context)async{
+  static void pushNotificationListener(var productBloc,var catBloc)async{
     // if(await isHuawei()){
     //   /// just for huawei version
     //   huawei_push.Push.onMessageReceivedStream.listen(
@@ -29,6 +30,11 @@ class NotificationsUtils{
       /// for android and ios versions
       FirebaseMessaging.onMessage.listen((event) {
         SetNotification.showFlutterNotification(RemoteMessage(notification: event.notification!));
+        if(event.notification!=null && (event.notification!.body.toString().contains("updated") || event.notification!.body.toString().contains("Products")
+            || event.notification!.body.toString().contains("التحديث") || event.notification!.body.toString().contains("المنتجات") )){
+          productBloc.add(const FetchAllProductsEvent(urgentUpdate: true,page: "2000"));
+          catBloc.add(const FetchMainSlidersEvent());
+        }
       }).onError((err){
         debugPrint("FirebaseMessaging onMessage: $err");
       });

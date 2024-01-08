@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:async';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/notifications_utils.dart';
@@ -13,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
-import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_event.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/home_content.dart';
 import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
 import 'package:rate_my_app/rate_my_app.dart';
@@ -36,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   );
   @override
   void initState() {
-    NotificationsUtils.pushNotificationListener(context);
+    NotificationsUtils.pushNotificationListener(ProductsBloc.get(context),CategoriesBloc.get(context));
     // if(!SharedPref().containPreference("rating")){
     //   rateMyApp.init().then((_){
     //     SharedPref().setPreferencesBoolean("rating", true);
@@ -135,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future onRefresh(BuildContext context)async{
-    CategoriesBloc.get(context).add(const FetchMainSlidersEvent());
+    // CategoriesBloc.get(context).add(const FetchMainSlidersEvent());
   }
 }
 

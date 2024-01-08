@@ -15,7 +15,8 @@ class UpdateAllProductsEvent extends ProductsEvent{
 }
 class FetchAllProductsEvent extends ProductsEvent{
   final String page;
-  const FetchAllProductsEvent({this.page = "300",});
+  final bool urgentUpdate;
+  const FetchAllProductsEvent({this.page = "300",this.urgentUpdate =false});
 }
 class FetchAllProductsDataEvent extends ProductsEvent{
   final BuildContext ctx;

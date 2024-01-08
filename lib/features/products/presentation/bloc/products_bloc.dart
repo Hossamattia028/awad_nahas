@@ -254,7 +254,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
 
   int allProductsCount = 300;
   getAllProducts(FetchAllProductsEvent event,emit)async{
-    if(storedProductsList.length>300)return;
+    if(storedProductsList.length>300 && event.urgentUpdate==false)return;
     emit(const ProductsLoadingState());
     try{
       var res = await getAllProductsUseCase(parameter: event.page);
