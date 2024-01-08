@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-import 'dart:io';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/notifications_utils.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
@@ -18,7 +17,6 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_even
 import 'package:awad_nahas/features/home/presentation/widgets/home_content.dart';
 import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
 import 'package:rate_my_app/rate_my_app.dart';
-import 'package:upgrader/upgrader.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -105,35 +103,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return UpgradeAlert(
-      upgrader: Upgrader(dialogStyle: Platform.isIOS? UpgradeDialogStyle.cupertino : UpgradeDialogStyle.material,),
-      child: RefreshIndicator(
-        onRefresh: ()=> onRefresh(context),
-        color: DMUtil.getRED(),
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.sp,),
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+    return RefreshIndicator(
+      onRefresh: ()=> onRefresh(context),
+      color: DMUtil.getRED(),
+      child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.sp,),
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
 
-              SizedBox(height: AppStyle.paddingFromTop.h-10,),
-              const LogoWidget(width: 140,height: 80,fit: BoxFit.contain,),
-              const SizedBox(height: 10,),
-              const SearchWidget(),
-              SizedBox(height: 6.w,),
-              // const SelectLocations(),
+            SizedBox(height: AppStyle.paddingFromTop.h-10,),
+            const LogoWidget(width: 140,height: 80,fit: BoxFit.contain,),
+            const SizedBox(height: 10,),
+            const SearchWidget(),
+            SizedBox(height: 6.w,),
+            // const SelectLocations(),
 
-              BlocBuilder<ProductsBloc,ProductsState>(
-                builder: (ctx,state){
-                  var bloc = ProductsBloc.get(ctx);
-                  return  bloc.enableSearch? const SearchScreen() : const HomeContentWidget();
-                },
-              ),
-              const SizedBox(height: 10,),
-            ],
-          ),
+            BlocBuilder<ProductsBloc,ProductsState>(
+              builder: (ctx,state){
+                var bloc = ProductsBloc.get(ctx);
+                return  bloc.enableSearch? const SearchScreen() : const HomeContentWidget();
+              },
+            ),
+            const SizedBox(height: 10,),
+          ],
         ),
       ),
     );
