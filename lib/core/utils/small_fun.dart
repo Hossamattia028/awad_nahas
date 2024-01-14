@@ -376,7 +376,7 @@ class Util{
   //location util
   static Future<Placemark> getAndSaveLocationDetails(LatLng latLng)async{
     try{
-      List<Placemark> places = await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+      List<Placemark> places = await placemarkFromCoordinates(latLng.latitude, latLng.longitude,localeIdentifier: Util.getLang()=="ar"?"ar":"en_US");
       Placemark place = places[0];
       return place;
     }catch(e){

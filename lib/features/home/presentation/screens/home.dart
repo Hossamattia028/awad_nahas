@@ -91,10 +91,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
     productsBloc = ProductsBloc.get(context);
-    Timer(const Duration(seconds: 0), () {
+    Timer(const Duration(seconds: 1), () {
       if(mounted){
         productsBloc.add(const FetchAllProductsEvent(page: "2000",));
       }
+    });
+
+    Timer.periodic(const Duration(seconds: 2), (timer) {
+      productsBloc.add(const UpdateProductsStateEvent());
     });
     super.didChangeDependencies();
   }

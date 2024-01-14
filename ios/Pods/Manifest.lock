@@ -1,8 +1,8 @@
 PODS:
   - amwal_pay (0.0.1):
-    - AmwalPayment (~> 1.0.12)
+    - AmwalPayment (~> 1.1.0)
     - Flutter
-  - AmwalPayment (1.0.12)
+  - AmwalPayment (1.1.0)
   - AppAuth (1.6.2):
     - AppAuth/Core (= 1.6.2)
     - AppAuth/ExternalUserAgent (= 1.6.2)
@@ -165,7 +165,7 @@ PODS:
     - FlutterMacOS
   - pay_ios (0.0.1):
     - Flutter
-  - PayFortSDK (3.1.0)
+  - PayFortSDK (3.2.0)
   - permission_handler_apple (9.1.1):
     - Flutter
   - PromisesObjC (2.3.1)
@@ -309,8 +309,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
-  amwal_pay: d6cb606c44e18143bfd293a884f582f0bc25deea
-  AmwalPayment: 82ec40db5de58691b0a8ae93c79554ddb89cd03a
+  amwal_pay: 0bc33c3ee26a8b3c731613b1906abb47bef6bd77
+  AmwalPayment: 3bf5fdcf008574fe9c5a2ce8b6707d6d03a1da0e
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
   FBAEMKit: af2972f39bb0f3f7c45998f435b007833c32ffb2
@@ -353,7 +353,7 @@ SPEC CHECKSUMS:
   package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
   pay_ios: 8c7beb9c61d885f3f51b61f75f8793023fc8843a
-  PayFortSDK: a33a8488859d7666b3709f347ebb990697e1d110
+  PayFortSDK: 92d7df56734bd520241250ebc9b93987782b33b9
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265

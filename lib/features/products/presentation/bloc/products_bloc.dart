@@ -63,6 +63,10 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
         updateProducts(event,emit);
     });
 
+    on<UpdateProductsStateEvent>((event, emit)async {
+        updateProductsState(event,emit);
+    });
+
     /// search
     on<EnableSearchEvent>((event, emit)async{
       modifySearchAvailability(event,emit);
@@ -271,6 +275,15 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
       debugPrint("getAllProducts: $e");
       emit(const ProductsFailedState());
     }
+  }
+
+  bool updated = false;
+  updateProductsState(event,emit){
+    if(updated == true || storedProductsList.length<300)return;
+    emit(const ProductsLoadingState());
+    productsList = productsList;
+    updated = true;
+    emit(const ProductsSuccessfullyState());
   }
 
   updateProducts(event,emit){

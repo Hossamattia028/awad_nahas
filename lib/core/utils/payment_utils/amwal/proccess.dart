@@ -1,6 +1,7 @@
 import 'package:amwal_pay/amwal_pay.dart';
 import 'package:awad_nahas/core/utils/payment_utils/amwal/amwal_response.dart';
 import 'package:awad_nahas/core/utils/payment_utils/amwal/constants.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/cupertino.dart';
 
 class AmWalPlugin {
@@ -9,7 +10,7 @@ class AmWalPlugin {
 
   static initialize(){
     amWalPay = AmwalPayBuilder(AmWalConstants.merchantIdentifier)
-        .countryCode('+966').refId("1230").orderId("1230")
+        .countryCode('+966').refId("1230").orderId("1230").language(Util.getLang()=="ar"?AmwalPayLanguage.Arabic:AmwalPayLanguage.English)
         .build();
   }
 
