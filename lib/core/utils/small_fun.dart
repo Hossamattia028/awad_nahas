@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/payment_utils/amwal/proccess.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
@@ -273,14 +274,10 @@ class Util{
   }
 
   static void changeLang({required BuildContext ctx,bool isLogin =false,required String lang,bool isUpdate = false}){
-    // String lng = getLang()=="ar"?"en_US":"ar";
     String lng = lang;
     changeLocale(ctx,lng);
     SharedPref.preferences.setPreferencesString(Constants.userLang,lng);
-    Fonts.update();
-    ApiUrl.updateSettingUrl();
-    RootBloc.get(ctx).add(const FetchSettingEvent());
-    ProductsBloc.get(ctx).add(const UpdateAllProductsEvent());
+    updateAppDataAfterChangeLang(ctx);
     if(isLogin){
       Util.pushPageAndRemoveRoutes(const LoginScreen(),ctx);
     }else if(isUpdate){
@@ -288,6 +285,14 @@ class Util{
     }else{
       Util.pushPageAndRemoveRoutes(const RootScreen(),ctx);
     }
+  }
+
+  static updateAppDataAfterChangeLang(ctx){
+    Fonts.update();
+    ApiUrl.updateSettingUrl();
+    RootBloc.get(ctx).add(const FetchSettingEvent());
+    ProductsBloc.get(ctx).add(const UpdateAllProductsEvent());
+    AmWalPlugin.initialize();
   }
 
   static String getToken(){
