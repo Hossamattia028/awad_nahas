@@ -75,13 +75,18 @@ class RootBloc extends Bloc<RootEvent, RootState> {
   }
 
   _checkInsideListAndSave(List<LocationModel> list,String city){
-    for(var i in list){
-      if(i.city.toLowerCase()==city){
-        ourLocations.add(i);
-      }else if(city == "other_city" && ourLocations.contains(i) == false){
-        ourLocations.add(i);
-      }
+    if(city=="other_city"){
+      var customizeList = list.where((s) => !s.city.toLowerCase().contains("jeddah") && !s.city.toLowerCase().contains("riyadh") && !s.city.toLowerCase().contains("al khobar")).toList();
+      customizeList.sort((a,b)=> _checkOutletChr(a).toString().compareTo(_checkOutletChr(b).toString()));
+      ourLocations.addAll(customizeList);
+    }else{
+      var customizeList = list.where((s) => s.city.toLowerCase().contains(city)).toList();
+      customizeList.sort((a,b)=> _checkOutletChr(a).toString().compareTo(_checkOutletChr(b).toString()));
+      ourLocations.addAll(customizeList);
     }
+  }
+  bool _checkOutletChr(LocationModel item){
+    return item.address1.contains("أوتليت")||item.address1.toLowerCase().contains("outlet");
   }
 
 
