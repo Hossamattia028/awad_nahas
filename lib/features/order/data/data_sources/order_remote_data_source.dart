@@ -43,7 +43,6 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
      debugPrint("addOrder: ${response.body}");
      var decodedData = jsonDecode(response.body);
     if (decodedData['status']==true) {
-      // if(Util.getEmail()!="")SendGmail.sendEmailMessage(bodyMsg: translate("toast.order"), userEmail: Util.getEmail().toString(), subject: translate("toast.order_send"));
       SetNotification.showNotification(title: "", msg: translate("toast.order_send"));
       return true;
     } else {

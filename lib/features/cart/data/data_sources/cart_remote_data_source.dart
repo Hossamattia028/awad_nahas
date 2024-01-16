@@ -23,7 +23,7 @@ class CartRemoteDataSource extends CartRemoteDataSourceImpl{
   @override
   Future<bool> addCartItem({required Map<String,dynamic> data}) async{
     var response = await client.post(Uri.parse("${ApiUrl.ADD_TO_CART}${Util.getUserID()}"),body: jsonEncode(data),headers: ApiUrl.headerAuth);
-    debugPrint("addOrUpdateCartItem ${response.body}");
+    // debugPrint("addOrUpdateCartItem ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       if(body['status']){

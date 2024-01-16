@@ -6,6 +6,7 @@ import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/order/data/models/confirm_order_data.dart';
+import 'package:awad_nahas/features/order/data/models/coupon_model.dart';
 import 'package:awad_nahas/features/order/data/models/issue_model.dart';
 import 'package:awad_nahas/features/order/data/models/order_model.dart';
 import 'package:awad_nahas/features/order/domain/use_cases/get_all_order_usecase.dart';
@@ -127,7 +128,8 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     try{
       LocationEntity? currentLoc  = checkCurrentLocationAndReturnIt(event.context);
       if(currentLoc==null)return;
-      var orderData = collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc,payment: event.payment,apsData: event.apsData,amWalTransactionId: event.amWalTransactionId);
+      var orderData = collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc,payment: event.payment,
+          apsData: event.apsData,amWalTransactionId: event.amWalTransactionId,couponModel: event.couponModel);
       var res = await addOrderUseCase(data: orderData);
       res.fold((l) {
         emit(OrderErrorState(errors: l.toString()));
@@ -153,7 +155,6 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
 
   updateOrder(UpdateOrderEvent event,emit)async{
     emit(OrderLoadingState());
-    // try{
     var res = await updateOrderUseCase(data: event.data,fileR: event.file);
     res.fold((l) {
       emit(OrderErrorState(errors: l.toString()));
@@ -164,10 +165,6 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
         emit(const OrderErrorState(errors: "error when add order"));
       }
     });
-    // }catch(e){
-    //   debugPrint("updateOrderError: $e");
-    //   emit(OrderErrorState(errors: e.toString()));
-    // }
   }
 
   cancelOrder(CancelOrderEvent event,emit)async{
@@ -202,7 +199,8 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     required LocationEntity locationEntity,
     required PaymentOption payment,
     Map<String, dynamic>? apsData,
-    String? amWalTransactionId
+    String? amWalTransactionId,
+    CouponModel? couponModel,
   }){
     List<Map<String,dynamic>> list = [];
     for(var i in cartList){
@@ -230,6 +228,8 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       "payment_method": payment.isApplePay!=null&&payment.isApplePay==true?"aps_apple_pay":_paymentMethod(payment.paymentEnum),// aps_cc for credit or amazon_payment_services
       if(payment.paymentEnum==PaymentEnum.PAYFORT)"aps_data": apsData,
       if(payment.paymentEnum==PaymentEnum.AMWAL)"amwal_transaction_id": amWalTransactionId,
+      if(couponModel!=null)"coupon":couponModel.code,
+      if(couponModel!=null)"coupon_amount":couponModel.amount,
     };
     return data;
   }

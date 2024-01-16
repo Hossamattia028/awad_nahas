@@ -296,7 +296,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
         emit(CartErrorState(errors: translate("toast.oops")));
       },(data) {
         couponModel= data;
-        if(couponModel!=null && couponModel!.amount !=null && couponModel!.amount!=0 && couponModel!.code!=""){
+        if(checkCouponValue(couponModel)){
           totalPrice = total;
           couponValue = couponModel!.amount!.toDouble();
           totalPrice = totalPrice - couponModel!.amount!.toDouble();
@@ -309,6 +309,10 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       debugPrint("getDiscountCouponBloc: $e");
       emit(CartErrorState(errors: translate("toast.oops")));
     }
+  }
+
+  bool checkCouponValue(CouponModel? couponModel){
+    return couponModel!=null && couponModel.amount !=null && couponModel.amount!=0 && couponModel.code!="";
   }
 
 

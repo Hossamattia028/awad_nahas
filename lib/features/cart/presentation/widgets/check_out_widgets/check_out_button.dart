@@ -251,7 +251,8 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       ), context);
       debugPrint("res: $res");
       if(res=="successful"){
-        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard)));
+        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),
+            couponModel: cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel));
       }else{
         SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
       }
@@ -280,7 +281,9 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     }
     final res = await payFortController.flutterAmazon(amount: cartBloc.totalPrice.toInt());
     if(res.check){
-       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),apsData: res.res));
+       orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,
+           payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),apsData: res.res,
+           couponModel: cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel));
     }else{
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
     }

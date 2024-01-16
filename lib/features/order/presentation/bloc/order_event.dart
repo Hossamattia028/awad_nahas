@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/features/order/data/models/confirm_order_data.dart';
+import 'package:awad_nahas/features/order/data/models/coupon_model.dart';
 import 'package:awad_nahas/features/order/domain/entities/order.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,8 @@ class AddOrderEvent extends OrderEvent{
   final PaymentOption payment;
   final Map<String,dynamic>? apsData;
   final String? amWalTransactionId;
-  const AddOrderEvent({required this.list,required this.totalPrice,required this.context,required this.payment,this.apsData,this.amWalTransactionId});
+  final CouponModel? couponModel;
+  const AddOrderEvent({required this.list,required this.totalPrice,required this.context,required this.payment,this.apsData,this.amWalTransactionId,this.couponModel});
 }
 
 class PaymentOption{

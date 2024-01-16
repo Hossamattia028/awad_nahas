@@ -54,7 +54,7 @@ class CouponWidget extends StatelessWidget {
               borderWidth: 0,
               radius: 6,
               suffixIcon: state is CouponLoadingState?
-              SizedBox(height: 25.h,width: 25.w,child: CircularProgressIndicator(backgroundColor: DMUtil.getRED(),)):
+              Padding(padding: EdgeInsets.symmetric(horizontal: 5.w,vertical: 2.w),child: CircularProgressIndicator(backgroundColor: DMUtil.getRED(),)):
               Padding(
                 padding: EdgeInsets.only(top: Util.getLang()=="ar"?  10.h : 5.h,) + const EdgeInsets.symmetric(horizontal: 4),
                 child: InkWell(
