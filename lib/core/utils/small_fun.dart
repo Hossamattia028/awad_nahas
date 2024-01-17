@@ -162,7 +162,6 @@ class Util{
     try{
       final rawNonce = generateNonce();
       final nonce = sha256ofString(rawNonce);
-      // Request credential for the currently signed in Apple account.
       final appleCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
@@ -171,7 +170,6 @@ class Util{
         nonce: nonce,
       );
       try{
-        // Create an `OAuthCredential` from the credential returned by Apple.
         final oauthCredential = OAuthProvider("apple.com").credential(
           idToken: appleCredential.identityToken,
           rawNonce: rawNonce,
