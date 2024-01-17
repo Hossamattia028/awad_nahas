@@ -7,7 +7,6 @@ import 'package:awad_nahas/features/locations/domain/entities/location_entity.da
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/order/data/models/confirm_order_data.dart';
 import 'package:awad_nahas/features/order/data/models/coupon_model.dart';
-import 'package:awad_nahas/features/order/data/models/issue_model.dart';
 import 'package:awad_nahas/features/order/data/models/order_model.dart';
 import 'package:awad_nahas/features/order/domain/use_cases/get_all_order_usecase.dart';
 import 'package:awad_nahas/features/order/domain/use_cases/update_order_usecase.dart';
@@ -68,20 +67,8 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     on<UpdateConfirmedOrder>((event, emit) {
       updateFile(event,emit);
     });
-
-    on<FilterOrderByDate>((event, emit) {
-      filterOrderByDate(event,emit);
-    });
-
-
   }
   static OrderBloc get(BuildContext context) => BlocProvider.of(context);
-
-  filterOrderByDate(FilterOrderByDate event, emit){
-    emit(OrderLoadingState());
-
-    emit(OrderSuccessfullyState());
-  }
 
 
   ORDER_STATUS currentOrdersType = ORDER_STATUS.PENDING;
@@ -247,12 +234,5 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
         return "amwalcheckout";
     }
   }
-
-
-  List<IssueModel> issueList = [
-    IssueModel(id: 0, txt: "first issue"),
-    IssueModel(id: 1, txt: "second  issue"),
-  ];
-
 
 }

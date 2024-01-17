@@ -72,10 +72,6 @@ class UpdateConfirmedOrder extends OrderEvent{
 }
 
 
-class FilterOrderByDate extends OrderEvent{
-  final DateTime? dateTime;
-  const FilterOrderByDate({required this.dateTime,});
-}
 
 
 
