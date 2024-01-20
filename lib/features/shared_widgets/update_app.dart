@@ -46,6 +46,7 @@ class _UpdateAppScreenState extends State<UpdateAppScreen> {
 
             const SizedBox(height: 40,),
             Card(
+              color: DMUtil.getWC(),
                 elevation: 15,
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))

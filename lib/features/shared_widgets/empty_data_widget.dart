@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -11,7 +12,7 @@ class EmptyDataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CustomText(text: txt ?? translate("toast.empty"), color: Colors.black38, fontSize: AppStyle.small.sp),
+      child: CustomText(text: txt ?? translate("toast.empty"), color: DMUtil.getD2C(), fontSize: AppStyle.small.sp),
     );
   }
 }

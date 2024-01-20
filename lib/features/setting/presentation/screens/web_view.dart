@@ -1,3 +1,4 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -73,6 +74,7 @@ Page resource error:
     return Scaffold(
       appBar: GlobalAppBar(
         title: widget.title,
+        backGroundColor: DMUtil.getWC(),
         leadingIcon: const BackArrowButton(),
       ),
       body: WebViewWidget(controller: _controller),

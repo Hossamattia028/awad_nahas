@@ -50,7 +50,7 @@ class SmallWidget extends StatelessWidget {
         ),
         child: Row(
           children: [
-            SvgPicture.asset(img,height: 24.w,),
+            SvgPicture.asset(img,height: 24.w,colorFilter: ColorFilter.mode(DMUtil.getD2C(), BlendMode.srcIn) ,),
             const SizedBox(width: 12,),
             CustomText(
               text: title,

@@ -99,7 +99,7 @@ class OurLocationsScreen extends StatelessWidget {
                               child: CustomButton(
                                 circular: 10,
                                 height: 30.h,
-                                width: 100.w,
+                                width: 95.w,
                                 widget: CustomText(
                                   text: translate("map.sides"),
                                   color: Colors.white,
