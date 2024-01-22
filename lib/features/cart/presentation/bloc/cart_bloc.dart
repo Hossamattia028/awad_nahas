@@ -245,7 +245,6 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     calcTotal();
     cartList = cartList;
     if(event.count==null)emit(CartSuccessfullyState());
-    // await Future.delayed(const Duration(seconds: 1));
     await addToCart(emit,event.remove);
     await getAllCart(emit);
   }
@@ -258,7 +257,6 @@ class CartBloc extends Bloc<CartEvent,CartState>{
         cartList.removeAt(index);
       }else{
         var item = cartList[index];
-        //(isAdd?item.quantity+1:(item.quantity==1?item.quantity:item.quantity-1))
         int newQty = count!=null && count != -1? count : item.quantity+1;
         item = ProductsEntity(title: product.title,
             catTitle: "", sku: product.sku,
@@ -302,6 +300,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
           totalPrice = totalPrice - couponModel!.amount!.toDouble();
           emit(CouponSuccessfullyState());
         }else{
+          calcTotal();
           emit(CartErrorState(errors: translate("cart.couponـwrong")));
         }
       });
