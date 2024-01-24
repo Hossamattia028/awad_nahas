@@ -24,7 +24,7 @@ void main() {
       when(mockProductsRepository.getAllProducts(parameter: "100")).thenAnswer((realInvocation) async => const Right(res));
 
       // act
-      final result = await getAllProductsUseCase.call(parameter: "100");
+      final result = await getAllProductsUseCase(parameter: "100");
 
       // assert
       expect(result, isNotNull);

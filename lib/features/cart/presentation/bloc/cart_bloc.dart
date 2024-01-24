@@ -295,9 +295,14 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       },(data) {
         couponModel= data;
         if(checkCouponValue(couponModel)){
-          totalPrice = total;
-          couponValue = couponModel!.amount!.toDouble();
-          totalPrice = totalPrice - couponModel!.amount!.toDouble();
+          if(couponModel?.isPercent==true){
+            double c = couponModel!.amount! / 100;
+            totalPrice = totalPrice - (double.parse(totalPrice.toString()) * c);
+          }else{
+            totalPrice = total;
+            couponValue = couponModel!.amount!.toDouble();
+            totalPrice = totalPrice - couponModel!.amount!.toDouble();
+          }
           emit(CouponSuccessfullyState());
         }else{
           calcTotal();

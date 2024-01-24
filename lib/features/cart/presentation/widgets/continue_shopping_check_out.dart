@@ -100,7 +100,7 @@ class CartBottomButton extends StatelessWidget {
                       left: 1.w,
                       bottom: 87.h,
                       child: CustomText(
-                        text: "${cartBloc.totalPrice} ${translate("store.sar")}",
+                        text: "${cartBloc.totalPrice.toStringAsFixed(2)} ${translate("store.sar")}",
                         fontSize: AppStyle.average.sp,
                         color: DMUtil.getD2C(),
                         fontWeight: FontWeight.w600,

@@ -113,7 +113,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                         fontWeight: FontWeight.w600,
                       ),
                       CustomText(
-                        text: "${cartBloc.totalPrice} ${translate("store.sar")}",
+                        text: "${cartBloc.totalPrice.toStringAsFixed(2)} ${translate("store.sar")}",
                         fontSize: AppStyle.average.sp,
                         color: DMUtil.getD2C(),
                         fontWeight: FontWeight.w600,

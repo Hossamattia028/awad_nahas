@@ -27,7 +27,6 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
       if(userData['phone']!=null)'user_login': userData['phone'],
       if(userData['email']!=null)'user_login': userData['email'],
       'password': userData['password'],
-      // 'device_token': await Util.getCurrentUserPushToken()
     };
     var response = await client.post(
       Uri.parse(ApiUrl.LOGIN_URL),
@@ -38,7 +37,9 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
     );
     var decodedData = json.decode(response.body);
     // debugPrint("loginUser: ${response.body}");
-    if(response.body.contains("Unauthorized")||response.body.contains("user not found")){
+    if(response.body.contains("Unauthorized")){
+      return AuthResponse(user: null,msg: translate("toast.pass_incorrect"));
+    }else if(response.body.contains("user not found")){
       return AuthResponse(user: null,msg: translate("toast.sign_wrong"));
     }else if(decodedData['status']){
       final Map<String, dynamic> bodyData = json.decode(response.body);

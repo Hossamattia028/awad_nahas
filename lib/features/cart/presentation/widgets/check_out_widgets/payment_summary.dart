@@ -60,7 +60,7 @@ class PaymentSummaryWidget extends StatelessWidget {
                         const Divider(),
                       ],
                       const SizedBox(height: 15,),
-                      OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice} ${translate("store.sar")}",isTotal:true),
+                      OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice.toStringAsFixed(2)} ${translate("store.sar")}",isTotal:true),
                     ],
                   ),
                 ),

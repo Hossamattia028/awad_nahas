@@ -75,7 +75,7 @@ class CartRemoteDataSource extends CartRemoteDataSourceImpl{
             total: 0,
             code: body['coupon']['code'].toString(),
             amount: int.parse(body['coupon']['amount'].toString()),
-            isPercent: false);
+            isPercent: body['coupon']['is_percent']??false);
       }else{
         return CouponModel(total: 0,code: "",amount: 0,isPercent: false);
       }

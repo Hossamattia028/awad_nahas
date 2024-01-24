@@ -92,7 +92,7 @@ class QuickCheckOutButton extends StatelessWidget {
                 SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
                 return;
               }
-              final res = await AmWalPlugin.pay(amount);
+              final res = await AmWalPlugin.pay(1);
               if(res.success){
                 orderBloc.add(AddOrderEvent(list: list, totalPrice: amount, context: context, payment: const PaymentOption(paymentEnum: PaymentEnum.AMWAL,isApplePay: false),amWalTransactionId: res.transactionId.toString()));
               }else{

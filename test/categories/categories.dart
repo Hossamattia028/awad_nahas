@@ -3,8 +3,8 @@ import 'package:awad_nahas/features/categories/domain/use_cases/get_all_categori
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-
 import 'test_helper.mocks.dart';
+
 
 
 
@@ -27,7 +27,7 @@ void main() {
       when(mockCategoriesRepository.getAllCategories()).thenAnswer((realInvocation) async => Right(res));
 
       // act
-      final result = await getAllCategoryUseCase.call();
+      final result = await getAllCategoryUseCase();
 
       // assert
       expect(result, isNotNull);
