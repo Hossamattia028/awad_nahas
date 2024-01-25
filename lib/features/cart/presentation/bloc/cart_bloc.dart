@@ -180,18 +180,29 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     return null;
   }
 
-  calcTotal(){
+  calcTotal({bool setCouponNull = false}){
+    if(setCouponNull) {
+      couponModel = null;
+      couponValue = null;
+    }
     totalPrice = 0;
     totalProducts = 0;
     for(var i in cartList){
       totalProducts = totalProducts + (i.priceWithoutTax * i.quantity);
-      totalPrice = totalPrice + (i.price * i.quantity);
+    }
+    if(couponModel!=null&&couponModel!.amount!=null) {
+      if(couponModel!.isPercent==true){
+        double c = couponModel!.amount! / 100;
+        totalProducts = totalProducts - (double.parse(totalProducts.toString()) * c);
+      }else{
+        totalProducts = totalProducts - couponModel!.amount!;
+      }
     }
     vatValue = (totalProducts * 0.15).toDouble();
-    couponModel = null;couponValue = null;
+    totalPrice = totalProducts + vatValue;
     total = totalPrice;
     totalPrice = double.tryParse(total.toStringAsFixed(2)) ?? total;
-    return totalPrice.toStringAsFixed(2);
+    return totalPrice.toStringAsFixed(3);
   }
 
   addToCart(emit,bool isRemoveProduct,)async{
@@ -242,7 +253,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       //remove all cart when create new order
       cartList.clear();
     }
-    calcTotal();
+    calcTotal(setCouponNull: true);
     cartList = cartList;
     if(event.count==null)emit(CartSuccessfullyState());
     await addToCart(emit,event.remove);
@@ -295,17 +306,11 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       },(data) {
         couponModel= data;
         if(checkCouponValue(couponModel)){
-          if(couponModel?.isPercent==true){
-            double c = couponModel!.amount! / 100;
-            totalPrice = totalPrice - (double.parse(totalPrice.toString()) * c);
-          }else{
-            totalPrice = total;
-            couponValue = couponModel!.amount!.toDouble();
-            totalPrice = totalPrice - couponModel!.amount!.toDouble();
-          }
+          couponValue = couponModel!.amount!.toDouble();
+          calcTotal(setCouponNull: false);
           emit(CouponSuccessfullyState());
         }else{
-          calcTotal();
+          calcTotal(setCouponNull: true);
           emit(CartErrorState(errors: translate("cart.couponـwrong")));
         }
       });
