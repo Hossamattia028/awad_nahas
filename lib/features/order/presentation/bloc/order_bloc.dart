@@ -116,7 +116,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       LocationEntity? currentLoc  = checkCurrentLocationAndReturnIt(event.context);
       if(currentLoc==null)return;
       var orderData = collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc,payment: event.payment,
-          apsData: event.apsData,amWalTransactionId: event.amWalTransactionId,couponModel: event.couponModel);
+          apsData: event.apsData,amWalTransactionId: event.amWalTransactionId,couponModel: event.couponModel,couponVal: event.couponVal,taxTotal: event.taxTotal);
       var res = await addOrderUseCase(data: orderData);
       res.fold((l) {
         emit(OrderErrorState(errors: l.toString()));
@@ -188,6 +188,8 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     Map<String, dynamic>? apsData,
     String? amWalTransactionId,
     CouponModel? couponModel,
+    double? couponVal,
+    double? taxTotal
   }){
     List<Map<String,dynamic>> list = [];
     for(var i in cartList){
@@ -196,14 +198,15 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
         "product_title" :i.title,
         "product_sku" :  i.sku,
         "qty": i.quantity,
-        "price": i.price
+        "price": i.price,
+        "net_price":i.priceWithoutTax,
       });
     }
     var data = {
       "parent_id": "0",
       "num_items_sold" : list.length.toString(),
       "total_sales" : totalPrice.toString(),
-      "tax_total": "0",
+      "tax_total": taxTotal.toString(),
       "shipping_total" : "0",
       "net_total" : totalPrice.toString(),
       "returning_customer" : "0",
@@ -216,7 +219,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       if(payment.paymentEnum==PaymentEnum.PAYFORT)"aps_data": apsData,
       if(payment.paymentEnum==PaymentEnum.AMWAL)"amwal_transaction_id": amWalTransactionId,
       if(couponModel!=null)"coupon":couponModel.code,
-      if(couponModel!=null)"coupon_amount":couponModel.amount,
+      if(couponModel!=null)"coupon_amount":couponVal,
     };
     return data;
   }

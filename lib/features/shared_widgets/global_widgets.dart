@@ -96,8 +96,6 @@ class BackArrowButton extends StatelessWidget {
     return Ink(
       child: InkWell(
         onTap: fn??()=> Navigator.of(context).pop(),
-        // alignment: alignment??(Util.getLang()=="ar"?Alignment.centerRight:Alignment.centerLeft),
-        // padding: EdgeInsets.only(right: 3.w, left: 3.w,top: 0),
         child: Padding(
           padding: EdgeInsets.only(right: 3.w, left: 3.w,top: 0),
           child: Icon(

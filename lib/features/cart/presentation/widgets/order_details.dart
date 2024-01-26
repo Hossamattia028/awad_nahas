@@ -37,7 +37,7 @@ class OrderDetails extends StatelessWidget {
               OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost}${translate("store.sar")}",),
               const Divider(),
               if(bloc.couponValue!=null&&bloc.couponModel!=null)...[
-                OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue} ${bloc.couponModel?.isPercent ==true ? '%' : translate("store.sar")}",),
+                OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue} ${translate("store.sar")}",),
                 const Divider(),
               ],
               const SizedBox(height: 15,),

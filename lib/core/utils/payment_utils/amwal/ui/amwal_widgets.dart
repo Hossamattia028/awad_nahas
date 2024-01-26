@@ -5,6 +5,7 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/payment_utils/amwal/proccess.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/locations/presentation/screens/my_locations.dart';
@@ -60,44 +61,54 @@ class QuickCheckOutButton extends StatelessWidget {
         builder: (ctx,state){
           var orderBloc = OrderBloc.get(ctx);
           if(state is OrderLoadingState && isListen == true)return Center(child: CircularProgressIndicator(color: DMUtil.getDC(),),);
-          return CustomButton(
-            color: DMUtil.getDC(),
-            width: width,
-            height: height.w,
-            circular: 1,
-            widget: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.payment,size: 15.w,color: DMUtil.getWC(),),
-                const SizedBox(width: 10,),
-                const Text("|"),
-                const SizedBox(width: 10,),
-                CustomText(
-                  text: translate("payment.quick_checkout"),
-                  fontSize: AppStyle.small.sp,
-                  fontWeight: FontWeight.w600,
-                  color: DMUtil.getWC(),
+          return BlocBuilder<CartBloc,CartState>(
+            builder: (ctx,cartState){
+              var cartBloc = CartBloc.get(ctx);
+              return CustomButton(
+                color: DMUtil.getDC(),
+                width: width,
+                height: height.w,
+                circular: 1,
+                widget: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.payment,size: 15.w,color: DMUtil.getWC(),),
+                    const SizedBox(width: 10,),
+                    const Text("|"),
+                    const SizedBox(width: 10,),
+                    CustomText(
+                      text: translate("payment.quick_checkout"),
+                      fontSize: AppStyle.small.sp,
+                      fontWeight: FontWeight.w600,
+                      color: DMUtil.getWC(),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            onPressed: ()async{
-              if(!Util.checkUser()){
-                SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),);
-                Util.pushPage(const LoginScreen(), context);
-                return;
-              }
-              List<LocationEntity> locations = LocationsBloc.get(context).checkLocation(context);
-              if(locations.isEmpty){
-                Util.pushPage(const MyLocationsScreen(), context);
-                SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
-                return;
-              }
-              final res = await AmWalPlugin.pay(1);
-              if(res.success){
-                orderBloc.add(AddOrderEvent(list: list, totalPrice: amount, context: context, payment: const PaymentOption(paymentEnum: PaymentEnum.AMWAL,isApplePay: false),amWalTransactionId: res.transactionId.toString()));
-              }else{
-                SnackBarBuilder.showFeedBackMessage(context, res.msg, Colors.red);
-              }
+                onPressed: ()async{
+                  if(!Util.checkUser()){
+                    SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),);
+                    Util.pushPage(const LoginScreen(), context);
+                    return;
+                  }
+                  List<LocationEntity> locations = LocationsBloc.get(context).checkLocation(context);
+                  if(locations.isEmpty){
+                    Util.pushPage(const MyLocationsScreen(), context);
+                    SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
+                    return;
+                  }
+                  final res = await AmWalPlugin.pay(1);
+                  if(res.success){
+                    orderBloc.add(AddOrderEvent(list: list, totalPrice: amount, context: context,
+                        payment: const PaymentOption(paymentEnum: PaymentEnum.AMWAL,isApplePay: false),
+                        amWalTransactionId: res.transactionId.toString(),
+                        couponModel: cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,couponVal: cartBloc.couponValue??0,
+                        taxTotal: cartBloc.vatValue
+                    ));
+                  }else{
+                    SnackBarBuilder.showFeedBackMessage(context, res.msg, Colors.red);
+                  }
+                },
+              );
             },
           );
         },

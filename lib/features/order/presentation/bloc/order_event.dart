@@ -14,12 +14,6 @@ abstract class OrderEvent{
   const OrderEvent();
 }
 
-
-// class ChangeTapControllersEvent extends OrderEvent{
-//   final TabController tabController;
-//   const ChangeTapControllersEvent({required this.tabController});
-// }
-
 class FetchAllOrderEvent extends OrderEvent{
   const FetchAllOrderEvent();
 }
@@ -32,7 +26,10 @@ class AddOrderEvent extends OrderEvent{
   final Map<String,dynamic>? apsData;
   final String? amWalTransactionId;
   final CouponModel? couponModel;
-  const AddOrderEvent({required this.list,required this.totalPrice,required this.context,required this.payment,this.apsData,this.amWalTransactionId,this.couponModel});
+  final double couponVal;
+  final double? taxTotal;
+  const AddOrderEvent({required this.list,required this.totalPrice,required this.context,
+    required this.payment,this.apsData,this.amWalTransactionId,this.couponModel,this.couponVal = 0,this.taxTotal});
 }
 
 class PaymentOption{

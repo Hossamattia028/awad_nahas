@@ -193,12 +193,15 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     if(couponModel!=null&&couponModel!.amount!=null) {
       if(couponModel!.isPercent==true){
         double c = couponModel!.amount! / 100;
-        totalProducts = totalProducts - (double.parse(totalProducts.toString()) * c);
+        couponValue = double.parse(totalProducts.toString()) * c;
+        totalProducts = totalProducts - couponValue!;
       }else{
+        couponValue = couponModel!.amount!.toDouble();
         totalProducts = totalProducts - couponModel!.amount!;
       }
     }
-    vatValue = (totalProducts * 0.15).toDouble();
+    double valV = (totalProducts * 0.15).toDouble();
+    vatValue = double.tryParse(valV.toStringAsFixed(2)) ?? valV;
     totalPrice = totalProducts + vatValue;
     total = totalPrice;
     totalPrice = double.tryParse(total.toStringAsFixed(2)) ?? total;
@@ -306,7 +309,6 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       },(data) {
         couponModel= data;
         if(checkCouponValue(couponModel)){
-          couponValue = couponModel!.amount!.toDouble();
           calcTotal(setCouponNull: false);
           emit(CouponSuccessfullyState());
         }else{
