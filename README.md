@@ -1,4 +1,4 @@
-# Awad Nahas E-commerce App
+# Awad Badi Nahas Trading Co. LTd.
 
 ![Awad Nahas Logo](https://firebasestorage.googleapis.com/v0/b/awad-nahas-2ecd0.appspot.com/o/launcher_icon.png?alt=media&token=6fa83a08-d4cd-413c-a5f7-f6948a425087)
 
