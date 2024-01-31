@@ -62,7 +62,6 @@ class _ContactScreenState extends State<ContactScreen> {
                     labelText: translate("signup.first_name"),
                     hasBorder: true,
                     smallPadding: true,
-                    cursorColor: kPrimary,
                     radius: 10,
                     textEditingController: firstNameTextEditingController,
                     validator: () {},
@@ -78,7 +77,6 @@ class _ContactScreenState extends State<ContactScreen> {
                     labelText: translate("signup.last_name"),
                     hasBorder: true,
                     smallPadding: true,
-                    cursorColor: kPrimary,
                     radius: 10,
                     textEditingController: lastNameTextEditingController,
                     validator: () {},
@@ -99,7 +97,6 @@ class _ContactScreenState extends State<ContactScreen> {
                   textInputType: TextInputType.emailAddress,
                   validator: () {},
                   prefixIcon: null,
-                  cursorColor: kPrimary,
                   hasBorder: true,
                   suffixIcon: const SizedBox(),
                   obscureText: false,
@@ -164,7 +161,6 @@ class _ContactScreenState extends State<ContactScreen> {
                 textEditingController: subjectTextEditingController,
                 validator: () {},
                 prefixIcon: null,
-                cursorColor: kPrimary,
                 hasBorder: true,
                 suffixIcon: const SizedBox(),
                 obscureText: false,
@@ -180,7 +176,6 @@ class _ContactScreenState extends State<ContactScreen> {
                   textEditingController: contentTextEditingController,
                   validator: () {},
                   prefixIcon: null,
-                  cursorColor: kPrimary,
                   hasBorder: true,
                   suffixIcon: const SizedBox(),
                   obscureText: false,
@@ -277,21 +272,45 @@ class _ContactScreenState extends State<ContactScreen> {
   }
 
   List<DropdownMenuItem<String>> dropDownMenu = [];
-  String subject = translate("activity_setting.feedback");
+  String subject = translate("activity_setting.inquire_and_complaint");
   List<DropdownMenuItem<String>> getDropDownMenu() {
     List<DropdownMenuItem<String>> itemsMarketKind = [];
     itemsMarketKind.add(DropdownMenuItem(
-      value: translate("activity_setting.feedback"),
+      value: translate("activity_setting.inquire_and_complaint"),
       child: CustomText(
-        text: translate("activity_setting.feedback"),
+        text: translate("activity_setting.inquire_and_complaint"),
         fontSize: 12.sp,
         color: Colors.black,
       ),
     ));
     itemsMarketKind.add(DropdownMenuItem(
-      value: translate("activity_setting.suggestion"),
+      value: translate("activity_setting.service_request"),
       child: CustomText(
-        text: translate("activity_setting.suggestion"),
+        text: translate("activity_setting.service_request"),
+        fontSize: 12.sp,
+        color: Colors.black,
+      ),
+    ));
+    itemsMarketKind.add(DropdownMenuItem(
+      value: translate("activity_setting.sales"),
+      child: CustomText(
+        text: translate("activity_setting.sales"),
+        fontSize: 12.sp,
+        color: Colors.black,
+      ),
+    ));
+    itemsMarketKind.add(DropdownMenuItem(
+      value: translate("activity_setting.become_a_partner"),
+      child: CustomText(
+        text: translate("activity_setting.become_a_partner"),
+        fontSize: 12.sp,
+        color: Colors.black,
+      ),
+    ));
+    itemsMarketKind.add(DropdownMenuItem(
+      value: translate("activity_setting.project_s"),
+      child: CustomText(
+        text: translate("activity_setting.project_s"),
         fontSize: 12.sp,
         color: Colors.black,
       ),

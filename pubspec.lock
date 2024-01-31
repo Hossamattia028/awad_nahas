@@ -21,10 +21,10 @@ packages:
     dependency: "direct main"
     description:
       name: amwal_pay
-      sha256: a8123a263f65155af018c97f0b906a5e094bbce273793296d26b67eb8a326978
+      sha256: a0c63f7ede5b1a592ead74798aeeca8142fbed79958b92ab0d9d6b1d460e9207
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.2"
+    version: "0.3.3"
   analyzer:
     dependency: transitive
     description:

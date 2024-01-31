@@ -101,7 +101,8 @@ class QuickCheckOutButton extends StatelessWidget {
                     orderBloc.add(AddOrderEvent(list: list, totalPrice: amount, context: context,
                         payment: const PaymentOption(paymentEnum: PaymentEnum.AMWAL,isApplePay: false),
                         amWalTransactionId: res.transactionId.toString(),
-                        couponModel: cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,couponVal: cartBloc.couponValue??0,
+                        couponModel: cartBloc.couponModel ==null || cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
+                        couponVal: cartBloc.couponValue??0,
                         taxTotal: cartBloc.vatValue
                     ));
                   }else{
