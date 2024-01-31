@@ -1,6 +1,6 @@
 # Awad Nahas E-commerce App
 
-![Awad Nahas Logo](logo-url)
+!https://firebasestorage.googleapis.com/v0/b/awad-nahas-2ecd0.appspot.com/o/launcher_icon.png?alt=media&token=6fa83a08-d4cd-413c-a5f7-f6948a425087 
 
 ## About Awad Nahas App
 
@@ -23,7 +23,7 @@ Awad Nahas is a state-of-the-art e-commerce application designed using Flutter v
 ### Installation
 
 1. Clone the repository to your local machine using `git clone https://github.com/Hossamattia028/awad-nahas-app.git`
-2. Navigate to the project directory `cd awad-nahas-app`
+2. Navigate to the project directory `cd awad_nahas_production`
 3. Run `flutter pub get` to install all the dependencies.
 4. Start the app by `flutter run`
 
@@ -33,13 +33,8 @@ To ensure the reliability of the app, we have integrated unit tests following Cl
 
 ```sh
 flutter test
-Contributing
-We welcome contributions to the Awad Nahas app. Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
-
-License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
 
 Contact
 For any queries or feedback regarding the Awad Nahas app, please reach out to us at [app@awadnahas.com].
 
-<sub>Awad Nahas © [current year]. All Rights Reserved.</sub>
+Awad Nahas © [2024]. All Rights Reserved.
