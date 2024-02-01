@@ -23,7 +23,7 @@ Awad Nahas is a state-of-the-art e-commerce application designed using Flutter v
 
 ### Installation
 
-1. Clone the repository to your local machine using `git clone https://github.com/Hossamattia028/awad-nahas-app.git`
+1. Clone the repository to your local machine using `git clone https://github.com/Hossamattia028/awad_nahas.git`
 2. Navigate to the project directory `cd awad_nahas_production`
 3. Run `flutter pub get` to install all the dependencies.
 4. Start the app by `flutter run`
