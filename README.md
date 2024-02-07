@@ -14,19 +14,6 @@ Awad Nahas is a state-of-the-art e-commerce application designed using Flutter v
 - Cross-platform compatibility thanks to Flutter v.3
 - Easy to navigate UI/UX
 
-
-## Release Versions
-
-### Android (1.0.9) - Ios (1.0.2)
-- Update pop up dialog to force user update last app version
-- Order our locations by city 
-- Fixed taxes number issue on Cart Screen
-
-### Android (1.0.13) - Ios (1.0.4)
-- Customize coupon for mobile or website && Add Coupons only for mobile users
-- Update products with notification from backend (dashboard)
-
-
 ## Getting Started
 
 ### Prerequisites
