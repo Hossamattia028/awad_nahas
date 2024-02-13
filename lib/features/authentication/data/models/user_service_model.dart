@@ -20,10 +20,7 @@ class UserServiceModel extends UserService {
       userLogin: fromJson['user_login'] ??  '',
       userName: fromJson['user_nicename'] ??  '',
       email: fromJson['user_email'],
-      // image: getImage(fromJson['avatar']),
       phoneNumber: setPhoneFromUserLogin(fromJson['user_login'])!=""? setPhoneFromUserLogin(fromJson['user_login']): ( fromJson['phone'] ?? ''),
-      // countryCode: fromJson['country_code'] ?? '',
-      // cityID: fromJson['city'] ?? '',
     );
   }
 
@@ -43,6 +40,8 @@ class UserServiceModel extends UserService {
     if(image==null||image==""||image=="uploads/all/")return "";
     return ApiUrl.STORAGE_URL + image;
   }
+
+  Map<String,dynamic> toJson() =>  {"ID": userId};
 }
 
 

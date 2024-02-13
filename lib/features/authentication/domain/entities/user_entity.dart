@@ -43,7 +43,6 @@ class UserService extends Equatable {
   });
 
   @override
-  List<Object?> get props =>
-      [userId, userName, email, area, address, countryCode];
+  List<Object?> get props => [userId];
 }
 
