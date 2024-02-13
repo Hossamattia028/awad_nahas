@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:awad_nahas/core/error/failure.dart';
@@ -9,7 +8,7 @@ class UpdateOrderUseCase {
 
   UpdateOrderUseCase({required this.orderRepository});
 
-  Future<Either<Failure, bool>> call({required Map<String,dynamic> data,File? fileR}) async {
-    return await orderRepository.updateOrder(data: data,fileR: fileR);
+  Future<Either<Failure, bool>> call({required Map<String,dynamic> data}) async {
+    return await orderRepository.updateOrder(data: data);
   }
 }

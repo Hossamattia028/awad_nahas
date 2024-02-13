@@ -7,7 +7,6 @@ import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
@@ -220,7 +219,16 @@ class _ContactScreenState extends State<ContactScreen> {
                     loading = false;
                   });
                   if(res){
-                    SendGmail.sendEmailMessage(bodyMsg: translate("toast.contact"), userEmail: emailTextEditingController.text.trim(), subject: subject.toString());
+                    var title = "${subject.toString()} \n ${subjectTextEditingController.text.trim()}";
+                    Map<String,dynamic> data= {
+                      "name":" ${firstNameTextEditingController.text.trim()}  ${lastNameTextEditingController.text.trim()}",
+                      "email":emailTextEditingController.text.trim(),
+                      "phone":phone,
+                      "department":subject,
+                      "subject":subjectTextEditingController.text.trim(),
+                      "message":contentTextEditingController.text.trim()
+                    };
+                    SendGmail.sendEmailMessage(bodyMsg: _generateForm(data),userMsg: translate("toast.contact"),userEmail: emailTextEditingController.text.trim(), subject: title.toString());
                     emailTextEditingController.text = "";
                     firstNameTextEditingController.text = "";
                     lastNameTextEditingController.text = "";
@@ -316,6 +324,87 @@ class _ContactScreenState extends State<ContactScreen> {
       ),
     ));
     return itemsMarketKind;
+  }
+
+  _generateForm(Map<String,dynamic> data){
+    return ''' 
+      <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Form</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+          }
+          .container {
+            width: 50%;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          }
+       
+          label {
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 8px;
+          }
+        
+          textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            height: 150px;
+          }
+          input[type="text"]:disabled, input[type="email"]:disabled, textarea:disabled {
+            background-color: #f4f4f4;
+            color: #555;
+          }
+          input{
+            width: 60%;
+            height: 10%;
+            font-size:15px;
+            margin-bottom:20px;
+          }
+        </style>
+        </head>
+        <body>
+        
+        <div class="container">
+          <form>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" value="${data['name']}" disabled >
+            <br/>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email"  value="${data['email']}" disabled >
+         <br/>
+            <label for="phone">Phone/Mobile</label>
+            <input type="text" id="phone" name="phone" value="${data['phone']}" disabled >
+         <br/>
+            <label for="department">Department</label>
+            <input type="text" id="department" name="department" value="${data['department']}" disabled >
+         <br/>
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" value="${data['subject']}" disabled >
+         <br/>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" disabled>${data['message']}.</textarea>
+          </form>
+        </div>
+        
+        <h2 style="text-align: center;">©Awad Badi Nahas Trading Co. Ltd.</h2>
+        
+        </body>
+        </html>
+    ''';
   }
 }
 

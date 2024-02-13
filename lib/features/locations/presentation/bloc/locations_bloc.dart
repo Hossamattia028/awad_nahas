@@ -78,7 +78,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
     if(currentCheckOutLocation==null || currentCheckOutLocation!.address1==""){
       if(billing!=null && billing.address1 != "")currentCheckOutLocation=billing;
       if(shipping!=null && shipping.address1 != "")currentCheckOutLocation=shipping;
-      if(currentCheckOutLocation==null || currentCheckOutLocation!.address1=="" && localUserLocationsList.isNotEmpty){
+      if((currentCheckOutLocation==null || currentCheckOutLocation!.address1=="") &&  localUserLocationsList.isNotEmpty){
         currentCheckOutLocation = localUserLocationsList.first;
       }
       if(currentCheckOutLocation!=null && currentCheckOutLocation!.address1!=""){

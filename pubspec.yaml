@@ -84,7 +84,7 @@ dependencies:
 #  amazon_payfort: ^1.0.0
   flutter_amazonpaymentservices: ^0.0.7
   pay: ^1.1.2
-  amwal_pay: ^0.3.4
+  amwal_pay: ^0.4.0
 
 
 dependency_overrides:

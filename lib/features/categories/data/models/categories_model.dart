@@ -134,4 +134,9 @@ class CategoriesModel  extends CategoriesEntity{
       List<CategoriesModel>.from(
           json.decode(str).map((x) => CategoriesModel.fromJsonProducts(x)));
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = id;
+    return data;
+  }
 }

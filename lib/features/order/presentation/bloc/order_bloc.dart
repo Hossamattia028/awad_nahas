@@ -1,11 +1,14 @@
 
+import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/shared_pref.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
-import 'package:awad_nahas/features/order/data/models/confirm_order_data.dart';
+import 'package:awad_nahas/features/order/data/data_sources/order_remote_data_source.dart';
 import 'package:awad_nahas/features/order/data/models/coupon_model.dart';
 import 'package:awad_nahas/features/order/data/models/order_model.dart';
 import 'package:awad_nahas/features/order/domain/use_cases/get_all_order_usecase.dart';
@@ -37,36 +40,18 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
 }) : super(OrderInitialState()) {
 
     on<FetchAllOrderEvent>((event, emit) async{
-       await getAllOrder(emit);
-       // await getAllDriversOrders(emit);
+       await getAllOrder(false,emit);
     });
 
     on<AddOrderEvent>((event, emit) async{
       await addNewOrder(event,emit);
-      await getAllOrder(emit);
-    });
-
-    on<UpdateOrderEvent>((event, emit) async{
-      await updateOrder(event,emit);
-      await getAllOrder(emit);
-    });
-
-    on<CancelOrderEvent>((event, emit) async{
-      await cancelOrder(event,emit);
-      await getAllOrder(emit);
+      await getAllOrder(event.orderStatus==WCStatusKey.wc_processing,emit);
     });
 
     on<ChangeCurrentOrdersEvent>((event, emit) {
       changeOrdersType(event,emit);
     });
 
-    on<SetCurrentOrderEvent>((event, emit) {
-      setCurrentOrder(event,emit);
-    });
-
-    on<UpdateConfirmedOrder>((event, emit) {
-      updateFile(event,emit);
-    });
   }
   static OrderBloc get(BuildContext context) => BlocProvider.of(context);
 
@@ -84,47 +69,40 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     return orderList.where((element) => OrderModel.getStatusViewCheck(element.status.toString()) == currentOrdersType).toList();
   }
 
-  getAllOrder(emit)async{
-    emit(OrderLoadingState());
+  getAllOrder(bool orderProcessing,emit)async{
+    if(orderProcessing)emit(OrderLoadingState());
     try{
       var res = await getAllOrderUseCase();
       res.fold((l) {
+        debugPrint("getAllOrder: $l");
         emit(OrderErrorState(errors: l.toString()));
       },(data) {
         orderList = data.reversed.toList();
         emit(OrderSuccessfullyState());
       });
     }catch(e){
+      debugPrint("getAllOrder: $e");
       emit(OrderErrorState(errors: e.toString()));
     }
   }
 
-
-  Orders? currentOrder;
-  setCurrentOrder(SetCurrentOrderEvent event,emit){
-    if(event.order==null)return;
-    emit(OrderLoadingState());
-    currentOrder = event.order;
-    confirmOrderData = null;
-    emit(OrderSuccessfullyState());
-  }
-
-
   addNewOrder(AddOrderEvent event,emit)async{
-    emit(OrderLoadingState());
+    if(event.orderStatus == WCStatusKey.wc_processing)emit(OrderLoadingState());
     try{
       LocationEntity? currentLoc  = checkCurrentLocationAndReturnIt(event.context);
       if(currentLoc==null)return;
       var orderData = collectOrderData(cartList:event.list,totalPrice: event.totalPrice,locationEntity: currentLoc,payment: event.payment,
-          apsData: event.apsData,amWalTransactionId: event.amWalTransactionId,couponModel: event.couponModel,couponVal: event.couponVal,taxTotal: event.taxTotal);
+          apsData: event.apsData,amWalTransactionId: event.amWalTransactionId,couponModel: event.couponModel,
+          couponVal: event.couponVal,taxTotal: event.taxTotal,
+          orderStatus:  event.orderStatus
+      );
       var res = await addOrderUseCase(data: orderData);
       res.fold((l) {
+        debugPrint("addNewOrder: $l");
         emit(OrderErrorState(errors: l.toString()));
       },(data) {
-        if(data){
+        if(data && event.orderStatus == WCStatusKey.wc_processing){
           emit(AssignOrderSuccessfullyState());
-        }else{
-          emit(const OrderErrorState(errors: "error when add order"));
         }
       });
     }catch(e){
@@ -133,21 +111,21 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     }
   }
 
-  ConfirmOrderData? confirmOrderData;
-  updateFile(UpdateConfirmedOrder event,emit){
-    emit(OrderLoadingState());
-    confirmOrderData = event.confirmOrderData;
-    emit(OrderSuccessfullyState());
-  }
+  // ConfirmOrderData? confirmOrderData;
+  // updateFile(UpdateConfirmedOrder event,emit){
+  //   emit(OrderLoadingState());
+  //   confirmOrderData = event.confirmOrderData;
+  //   emit(OrderSuccessfullyState());
+  // }
 
   updateOrder(UpdateOrderEvent event,emit)async{
     emit(OrderLoadingState());
-    var res = await updateOrderUseCase(data: event.data,fileR: event.file);
+    var res = await updateOrderUseCase(data: event.data,);
     res.fold((l) {
       emit(OrderErrorState(errors: l.toString()));
     },(data) {
-      if(data){
-        emit(ConfirmOrderSuccessfullyState());
+      if(data && event.data['status'] == WCStatusKey.wc_processing){
+        emit(AssignOrderSuccessfullyState());
       }else{
         emit(const OrderErrorState(errors: "error when add order"));
       }
@@ -189,7 +167,8 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     String? amWalTransactionId,
     CouponModel? couponModel,
     double? couponVal,
-    double? taxTotal
+    double? taxTotal,
+    String? orderStatus
   }){
     List<Map<String,dynamic>> list = [];
     for(var i in cartList){
@@ -210,7 +189,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       "shipping_total" : "0",
       "net_total" : totalPrice.toString(),
       "returning_customer" : "0",
-      "status" : "wc-processing",
+      "status" : orderStatus ?? "wc-pending",
       "address": LocationModel.toJsonLocal(locationEntity, "shipping"),
       "billing_address":LocationModel.toJsonLocal(locationEntity, "billing"),
       "items":list,
@@ -237,5 +216,22 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
         return "amwalcheckout";
     }
   }
+
+  /// save order as pending before payment process
+  setPendingOrder(OrderBloc orderBloc,CartBloc cartBloc,BuildContext context,PaymentOption paymentOption){
+    orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice, context: context,
+        payment: paymentOption,
+        couponModel: cartBloc.couponModel ==null || cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
+        couponVal: cartBloc.couponValue??0,
+        taxTotal: cartBloc.vatValue,
+        orderStatus: WCStatusKey.wc_pending
+    ));
+  }
+
+  ///track order while user pay
+  trackOrder(Map<String,dynamic> data) async{
+    await OrderRemoteDataSource.trackOrder(data: data);
+  }
+
 
 }

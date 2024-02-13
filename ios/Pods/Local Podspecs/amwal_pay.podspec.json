@@ -1,0 +1,33 @@
+{
+  "name": "amwal_pay",
+  "version": "0.0.1",
+  "summary": "Amwal Pay flutter project.",
+  "description": "A new Flutter plugin project.",
+  "homepage": "https://www.amwal.tech/",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Amwal Tech": "dev@amwal.tech"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "public_header_files": "Classes/**/*.h",
+  "dependencies": {
+    "Flutter": [
+
+    ],
+    "AmwalPayment": [
+      "~> 1.1.1"
+    ]
+  },
+  "platforms": {
+    "ios": "15.0"
+  },
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES",
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "i386"
+  }
+}

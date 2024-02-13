@@ -28,4 +28,6 @@ class Constants {
   static const String shippingType = "shippingType";
 
 
+  static const String pendingOrder = "pendingOrder";
+
 }

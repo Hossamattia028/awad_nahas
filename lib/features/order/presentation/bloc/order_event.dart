@@ -1,11 +1,8 @@
 
-import 'dart:io';
 
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
-import 'package:awad_nahas/features/order/data/models/confirm_order_data.dart';
 import 'package:awad_nahas/features/order/data/models/coupon_model.dart';
-import 'package:awad_nahas/features/order/domain/entities/order.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -28,8 +25,12 @@ class AddOrderEvent extends OrderEvent{
   final CouponModel? couponModel;
   final double couponVal;
   final double? taxTotal;
+  final String orderStatus;
   const AddOrderEvent({required this.list,required this.totalPrice,required this.context,
-    required this.payment,this.apsData,this.amWalTransactionId,this.couponModel,this.couponVal = 0,this.taxTotal});
+    required this.payment,this.apsData,this.amWalTransactionId,this.couponModel,
+    this.couponVal = 0,this.taxTotal,
+    required this.orderStatus
+  });
 }
 
 class PaymentOption{
@@ -38,10 +39,10 @@ class PaymentOption{
   const PaymentOption({required this.paymentEnum,this.isApplePay});
 }
 
-class SetCurrentOrderEvent extends OrderEvent{
-  final Orders? order;
-  const SetCurrentOrderEvent({required this.order});
-}
+// class SetCurrentOrderEvent extends OrderEvent{
+//   final Orders? order;
+//   const SetCurrentOrderEvent({required this.order});
+// }
 
 
 class CancelOrderEvent extends OrderEvent{
@@ -59,16 +60,15 @@ class ChangeCurrentOrdersEvent extends OrderEvent{
 
 class UpdateOrderEvent extends OrderEvent{
   final Map<String,dynamic> data;
-  final File? file;
-  const UpdateOrderEvent({required this.data,required this.file});
+  const UpdateOrderEvent({required this.data,});
 }
 
-class UpdateConfirmedOrder extends OrderEvent{
-  final ConfirmOrderData confirmOrderData;
-  const UpdateConfirmedOrder({required this.confirmOrderData});
-}
-
-
+// class UpdateConfirmedOrder extends OrderEvent{
+//   final ConfirmOrderData confirmOrderData;
+//   const UpdateConfirmedOrder({required this.confirmOrderData});
+// }
+//
+//
 
 
 

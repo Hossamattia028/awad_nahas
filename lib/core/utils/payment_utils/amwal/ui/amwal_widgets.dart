@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
@@ -96,17 +97,20 @@ class QuickCheckOutButton extends StatelessWidget {
                     SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
                     return;
                   }
-                  final res = await AmWalPlugin.pay(1);
+                  _setPendingOrder(orderBloc, cartBloc, context);
+                  final res = await AmWalPlugin.pay(amount);
                   if(res.success){
                     orderBloc.add(AddOrderEvent(list: list, totalPrice: amount, context: context,
                         payment: const PaymentOption(paymentEnum: PaymentEnum.AMWAL,isApplePay: false),
                         amWalTransactionId: res.transactionId.toString(),
                         couponModel: cartBloc.couponModel ==null || cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
                         couponVal: cartBloc.couponValue??0,
-                        taxTotal: cartBloc.vatValue
+                        taxTotal: cartBloc.vatValue,
+                        orderStatus: WCStatusKey.wc_processing
                     ));
                   }else{
                     SnackBarBuilder.showFeedBackMessage(context, res.msg, Colors.red);
+                    orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payQuickCheckOut: ${res.msg},${res.transactionId},${res.canceled==true?"canceled":(res.success==true?"success":"failed")}<br/>orderData: ${list.toList().toString()}<br/>total: $amount"});
                   }
                 },
               );
@@ -115,5 +119,18 @@ class QuickCheckOutButton extends StatelessWidget {
         },
       ),
     );
+  }
+
+
+  /// save order as pending before payment process
+  _setPendingOrder(OrderBloc orderBloc,CartBloc cartBloc,BuildContext context){
+    orderBloc.add(AddOrderEvent(list: list, totalPrice: amount, context: context,
+        payment: const PaymentOption(paymentEnum: PaymentEnum.AMWAL,isApplePay: false),
+        amWalTransactionId: "",
+        couponModel: cartBloc.couponModel ==null || cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
+        couponVal: cartBloc.couponValue??0,
+        taxTotal: cartBloc.vatValue,
+        orderStatus: WCStatusKey.wc_pending
+    ));
   }
 }

@@ -1,0 +1,84 @@
+{
+  "id": 15432,
+  "title": "Smeg 50's Style Retro Aesthetic 2 Slice Toaster, Pastel Green",
+  "attributes_des": "<ul>\r\n \t<li>Smeg 50’s style retro aesthetic 2 slice toaster.</li>\r\n \t<li>Stainless steel body.</li>\r\n \t<li>Extra wide slots.</li>\r\n \t<li>Self-centering racks.</li>\r\n \t<li>6 Browning levels.</li>\r\n \t<li>Functions: reheat, defrost, cancel, bagel.</li>\r\n \t<li>Removable stainless steel crumb tray.</li>\r\n \t<li>Built-in cord wrap.</li>\r\n \t<li>Anti-slip feet.</li>\r\n</ul>",
+  "price_without_tax": "799.00",
+  "price": "918.85",
+  "regular_price": "918.85",
+  "parent": 0,
+  "brand_id": 265,
+  "color": "Pastel green",
+  "stock_status": "instock",
+  "reviews": [],
+  "categories": [
+    {
+      "term_id": 265,
+      "name": "Smeg",
+      "slug": "smeg",
+      "term_group": 0
+    },
+    {
+      "term_id": 272,
+      "name": "Smeg",
+      "slug": "smeg",
+      "term_group": 0
+    },
+    {
+      "term_id": 281,
+      "name": "Pastel green",
+      "slug": "pastel-green",
+      "term_group": 0
+    },
+    {
+      "term_id": 340,
+      "name": "Small Appliances",
+      "slug": "small-appliances",
+      "term_group": 0
+    },
+    {
+      "term_id": 345,
+      "name": "Toaster",
+      "slug": "toaster",
+      "term_group": 0
+    },
+    {
+      "term_id": 346,
+      "name": "simple",
+      "slug": "simple",
+      "term_group": 0
+    },
+    {
+      "term_id": 404,
+      "name": "Optional",
+      "slug": "optional",
+      "term_group": 0
+    },
+    {
+      "term_id": 503,
+      "name": "50's style",
+      "slug": "50s-style",
+      "term_group": 0
+    },
+    {
+      "term_id": 614,
+      "name": "Toaster",
+      "slug": "toaster",
+      "term_group": 0
+    }
+  ],
+  "is_arabic": false,
+  "author": 1,
+  "image": "https://awadnahas.com/wp-content/uploads/2020/09/Smeg-TSF01PGUK-01.jpg",
+  "date": "2020-09-10 12:49:33",
+  "images": [
+    "https://awadnahas.com/wp-content/uploads/2020/09/Smeg-TSF01PGUK-02.jpg",
+    "https://awadnahas.com/wp-content/uploads/2020/09/Smeg-TSF01PGUK-03.jpg",
+    "https://awadnahas.com/wp-content/uploads/2020/09/Smeg-TSF01PGUK-04.jpg"
+  ],
+  "average_rating": "0",
+  "sku": "TSF01PGUK",
+  "height": "25",
+  "width": "37",
+  "length": "23",
+  "weight": "3.7"
+}

@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
-
+import 'package:awad_nahas/core/strings/constant.dart';
+import 'package:awad_nahas/core/strings/enum/order_enum.dart';
+import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +14,7 @@ import 'package:awad_nahas/features/order/data/models/order_model.dart';
 abstract class OrderRemoteDataSourceImpl {
   Future<List<OrderModel>> getAllOrder();
   Future<bool> addOrder({required Map<String,dynamic> data});
-  Future<bool> updateOrder({required Map<String,dynamic> data,File? fileR});
+  Future<bool> updateOrder({required Map<String,dynamic> data});
   Future<bool> cancelOrder({required int orderId});
 }
 
@@ -37,36 +38,38 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
 
   @override
   Future<bool> addOrder({required Map<String,dynamic> data}) async {
+    String? orderID = SharedPref().getPreferenceString(Constants.pendingOrder);
+    if(orderID!="")data['order_id']=orderID;
+    print(SharedPref().getPreferenceString(Constants.pendingOrder).toString());
     final response = await client.post(Uri.parse(ApiUrl.ADD_ORDER),
         body: json.encode(data),
         headers: ApiUrl.headerAuth);
-     debugPrint("addOrder: ${response.body}");
+     // debugPrint("addOrder: ${response.body} ${data['status']}");
      var decodedData = jsonDecode(response.body);
     if (decodedData['status']==true) {
-      SetNotification.showNotification(title: "", msg: translate("toast.order_send"));
+      if(decodedData['order_id']!=null)SharedPref().setPreferencesString(Constants.pendingOrder, decodedData['order_id'].toString().trim());
+      if(data['status']==WCStatusKey.wc_processing){
+        SharedPref().removePreference(Constants.pendingOrder);
+        SetNotification.showNotification(title: "", msg: translate("toast.order_send"));
+      }
       return true;
     } else {
       return false;
-      // throw ServerException();
     }
   }
 
   @override
-  Future<bool> updateOrder({required Map<String,dynamic> data,File? fileR}) async {
-    var request = http.MultipartRequest('POST', Uri.parse(ApiUrl.STORAGE_URL));
+  Future<bool> updateOrder({required Map<String,dynamic> data}) async {
+    String? orderID = SharedPref().getPreferenceString(Constants.pendingOrder);
+    if(orderID=="")return false;
+    var request = http.MultipartRequest('POST', Uri.parse("${ApiUrl.UPDATE_ORDER_STATUS}/$orderID/${data['status']}"));
     var headers = ApiUrl.headerAuth;
-    if(data['delivery_status']!=null)request.fields['delivery_status'] = data['delivery_status'].toString();
-    if(data['order_id']!=null)request.fields['order_id'] = data['order_id'].toString();
-    if(fileR!=null){
-      var file = await http.MultipartFile.fromPath('attachment_confirmed_file', fileR.path);
-      request.files.add(file);
-    }
     request.headers.addAll(headers);
     var streamedResponse = await request.send();
     var res = await http.Response.fromStream(streamedResponse);
      debugPrint("updateOrder: ${res.body}");
-    if (res.body.toString().contains("true")) {
-      // SetNotification.showNotification(title: "", msg: translate("toast.update_user_data"));
+    var decodedData = jsonDecode(res.body);
+    if (decodedData['status']) {
       return true;
     } else {
       throw ServerException();
@@ -87,5 +90,18 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
   }
 
 
-
+  static Future<bool> trackOrder({required Map<String,dynamic> data}) async {
+    var request = http.MultipartRequest('POST', Uri.parse(ApiUrl.TRACK_ORDER));
+    var headers = ApiUrl.headerAuth;
+    request.headers.addAll(headers);
+    if(data['order_data']!=null)request.fields['order_data'] = data['order_data'];
+    var streamedResponse = await request.send();
+    var res = await http.Response.fromStream(streamedResponse);
+    // debugPrint("trackOrder: ${res.body}");
+    if (res.body.toString().toLowerCase().contains("successfully")) {
+      return true;
+    } else {
+      throw ServerException();
+    }
+  }
 }

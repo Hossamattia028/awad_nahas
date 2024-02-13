@@ -92,7 +92,9 @@ class ApiUrl {
   static const String ADD_ORDER = '${BASE_URL}orders';
   static const String FETCH_ALL_ORDERS = '${BASE_URL}orders';
   static const String CANCEL_ORDER = '${BASE_URL}orders';
+  static const String UPDATE_ORDER_STATUS = '${BASE_URL}orders/update/status';//orders/update/status/{orderId}/{status}
   static const String coupon = '${BASE_URL}coupon';
+  static const String TRACK_ORDER = '${BASE_URL}order_process_tracking';
 
 
   static String SERVICES = '$MAIN_DOMAIN/${Util.getLang()=="ar"?"ar/about-us/services-mobile-ar/":"en/about-us/services-mobile/"}';

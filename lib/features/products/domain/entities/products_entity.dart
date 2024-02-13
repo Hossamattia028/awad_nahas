@@ -58,7 +58,7 @@ class ProductsEntity extends Equatable{
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id,title];
+  List<Object?> get props => [id,sku];
 
   static ProductsEntity fromJsonLocal(Map<String, dynamic> jsonObject) {
     List<String> list = [];

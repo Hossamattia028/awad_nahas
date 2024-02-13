@@ -80,7 +80,7 @@ class CustomTextFromField extends StatelessWidget {
         validator: (value) => validator(value),
         obscureText: obscureText,
         enabled: enabled??true,
-        cursorColor: cursorColor ?? Colors.white,
+        cursorColor: cursorColor ?? DMUtil.getD2C(),
         keyboardType: textInputType ?? TextInputType.text,
         onChanged: (val) =>onChanged==null?debugPrint(""):onChanged!(val),
         onFieldSubmitted: (val) =>onFieldSubmitted==null?debugPrint(""):onFieldSubmitted!(val),

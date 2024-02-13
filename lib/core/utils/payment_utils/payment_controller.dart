@@ -79,14 +79,14 @@ class PayFortController{
       var result = await FlutterAmazonpaymentservices.normalPay(requestParam, EnvironmentType.sandbox,);
       // debugPrint("res $result");
       if(result['response_code'].toString().trim()=="02000" || result['response_message'].toString().toLowerCase()=="success"){
-        return PayfortResponse(res: result.cast<String, dynamic>(), check: true);
+        return PayfortResponse(res: result.cast<String, dynamic>(), check: true,msg: "${result['response_message'] ?? ""}");
       }else{
-        return PayfortResponse(res: result.cast<String, dynamic>(), check: false);
+        return PayfortResponse(res: result.cast<String, dynamic>(), check: false,msg: "${result['response_message'] ?? ""}");
       }
     } on PlatformException catch (e)
     {
       debugPrint("Error ${e.message} details:${e.details}");
-      return PayfortResponse(res: null, check: false);
+      return PayfortResponse(res: null, check: false,msg: "Error ${e.message} details:${e.details}");
     }
   }
 

@@ -113,7 +113,7 @@ class TamaraSdk{
         body: jsonEncode(orderData),
         headers: headers,
       );
-      debugPrint("checkOutRequest: ${response.body}");
+      // debugPrint("checkOutRequest: ${response.body}");
       if (response.statusCode == 200) {
         var body = json.decode(response.body);
         return body['checkout_url'];

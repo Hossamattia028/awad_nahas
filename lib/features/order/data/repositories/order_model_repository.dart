@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:dartz/dartz.dart';
 import 'package:awad_nahas/core/error/exception.dart';
@@ -26,19 +26,6 @@ class OrderModelRepository implements OrderRepository {
     }
   }
 
-  // @override
-  // Future<Either<Failure, List<Orders>>> getAllDriversOrders() async {
-  //   if (await networkInfo.isConnected()) {
-  //     try {
-  //       return Right(await orderRemoteDataSource.getAllDriversOrders());
-  //     } on ServerException {
-  //       return Left(ServerFailure());
-  //     }
-  //   } else {
-  //     return Left(OfflineFailure());
-  //   }
-  // }
-
   @override
   Future<Either<Failure, bool>> addOrder({required Map<String,dynamic> data}) async{
     if (await networkInfo.isConnected()) {
@@ -53,10 +40,10 @@ class OrderModelRepository implements OrderRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> updateOrder({required Map<String,dynamic> data,File? fileR}) async{
+  Future<Either<Failure, bool>> updateOrder({required Map<String,dynamic> data}) async{
     if (await networkInfo.isConnected()) {
       try {
-        return Right(await orderRemoteDataSource.updateOrder(data: data,fileR: fileR));
+        return Right(await orderRemoteDataSource.updateOrder(data: data,));
       } on ServerException {
         return Left(ServerFailure());
       }

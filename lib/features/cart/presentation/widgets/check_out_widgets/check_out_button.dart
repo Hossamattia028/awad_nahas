@@ -1,11 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:async';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
+import 'package:awad_nahas/core/strings/constant.dart';
+import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/payment_utils/amwal/ui/amwal_widgets.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_web_view.dart';
+import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
@@ -30,8 +33,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:pay/pay.dart';
-import 'package:awad_nahas/core/utils/payment_utils/apple_pay/payment_configurations.dart'  as payment_configurations;
 import 'package:awad_nahas/core/utils/payment_utils/payment_controller.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_sdk.dart';
 
@@ -53,22 +54,8 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     cartBloc = CartBloc.get(context);
     locationsBloc = LocationsBloc.get(context);
     cartBloc.paymentWithCard == PaymentEnum.PAYFORT;
-    paymentItems = [
-      PaymentItem(
-        label: translate("cart.total_price"),
-        amount: cartBloc.totalPrice.toString(),
-        status: PaymentItemStatus.final_price,
-      )
-    ];
     super.initState();
   }
-  var paymentItems = const [
-    PaymentItem(
-      label: 'Total',
-      amount: '10.0',
-      status: PaymentItemStatus.final_price,
-    )
-  ];
   @override
   void didChangeDependencies() {
     if(mounted){
@@ -127,52 +114,22 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                 BlocBuilder<CartBloc,CartState>(
                   builder: (ctx,state){
                     if(orderState is OrderLoadingState)return Center(child: CircularProgressIndicator(color: DMUtil.getPC(),),);
-                    var cartBloc = CartBloc.get(ctx);
-                    return Padding(
-                      padding: const EdgeInsets.all(0),
-                      child: Stack(
-                        children: [
-                          if(cartBloc.applePay)...[
-                            ApplePayButton(
-                              height: 45.h,
-                              width: double.infinity,
-                              paymentConfiguration: PaymentConfiguration.fromJsonString(
-                                  payment_configurations.defaultApplePay),
-                              paymentItems: paymentItems,
-                              style: ApplePayButtonStyle.black,
-                              type: ApplePayButtonType.checkout,
-                              onPaymentResult: (val) async {
-                                List<LocationEntity> locations = locationsBloc.checkLocation(context);
-                                if(locations.isEmpty){
-                                  SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
-                                  return;
-                                }
-                                await onApplePayResult(val,orderBloc);
-                              },
-                              loadingIndicator: const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            ),
-                          ]else...[
-                            CustomButton(
-                              height: 45.h,
-                              width: double.infinity,
-                              circular: 10,
-                              widget: state is OrderLoadingState ?
-                              const CircularProgressIndicator(color: Colors.white,):
-                              CustomText(
-                                text: translate("cart.complete_payment"),
-                                color: Colors.white,
-                                fontSize: AppStyle.average.sp,
-                                alignCenter: true,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              color: DMUtil.getRED(),
-                              onPressed: () async => await _checkOut(context,orderBloc),
-                            ),
-                          ],
-                        ],
+                    // var cartBloc = CartBloc.get(ctx);
+                    return CustomButton(
+                      height: 45.h,
+                      width: double.infinity,
+                      circular: 10,
+                      widget: state is OrderLoadingState ?
+                      const CircularProgressIndicator(color: Colors.white,):
+                      CustomText(
+                        text: translate("cart.complete_payment"),
+                        color: Colors.white,
+                        fontSize: AppStyle.average.sp,
+                        alignCenter: true,
+                        fontWeight: FontWeight.w600,
                       ),
+                      color: DMUtil.getRED(),
+                      onPressed: () async => await _checkOut(context,orderBloc),
                     );
                   },
                 ),
@@ -184,33 +141,15 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     );
   }
 
-  onApplePayResult(paymentResult,OrderBloc orderBloc) async{
-    // debugPrint("result: ${paymentResult.toString()}");
-    // debugPrint(paymentResult['token']);
-    // SnackBarBuilder.showFeedBackMessage(context, paymentResult['token'].toString(), DMUtil.getRED());
-    // SnackBarBuilder.showFeedBackMessage(context, paymentResult.toString(), DMUtil.getRED());
-    // debugPrint(paymentResult['token']['signature']);
-    // debugPrint(paymentResult['token']['header']);
-    // debugPrint(paymentResult['token']['header']['transactionId']);
-    // debugPrint(paymentResult['token']['data']);
-    // debugPrint(paymentResult['paymentMethod']['network']);
-    await _checkOutApplePay(orderBloc,paymentResult);
-  }
-
   _checkOut(BuildContext context,OrderBloc orderBloc)async{
     if(cartBloc.paymentWithCard == PaymentEnum.CASH){
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
-      // _cash(orderBloc);
     }else if(cartBloc.paymentWithCard == PaymentEnum.PAYFORT){
         _checkOutAmazonPayfort(orderBloc);
     }else if(cartBloc.paymentWithCard == PaymentEnum.TAMARA){
       _checkOutTamra(context,orderBloc);
     }
   }
-
-  // _cash(var orderBloc)async{
-  //   orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice));
-  // }
 
   //+966 508443655
   // 502441695
@@ -233,6 +172,9 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       "shipping_address":LocationModel.toJson(shipping),
       if(checkCoupon!=null)"discount": checkCoupon
     },context: context);
+
+    orderBloc.setPendingOrder(orderBloc,cartBloc,context,PaymentOption(paymentEnum: cartBloc.paymentWithCard));
+
     if(checkOutUrl!=null){
       final res = await Util.pushPage(TamaraCheckout(
         checkOutUrl,
@@ -249,28 +191,18 @@ class _CheckOutButtonState extends State<CheckOutButton> {
           debugPrint("onPaymentCanceled");
         },
       ), context);
-      debugPrint("res: $res");
-      if(res=="successful"){
+      // debugPrint("res: $res");
+      if(res.toString().trim().toLowerCase()=="successful"){
+        print(SharedPref().getPreferenceString(Constants.pendingOrder).toString());
         orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),
             couponModel: cartBloc.couponModel==null || cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
-            couponVal:  cartBloc.couponValue??0,taxTotal: cartBloc.vatValue),);
+            couponVal:  cartBloc.couponValue??0,taxTotal: cartBloc.vatValue,
+            orderStatus: WCStatusKey.wc_processing,
+        ));
       }else{
         SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+        orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payTamara: ${res.toString().trim()=="null"?"back_or_failed":res}<br/>orderData: ${cartBloc.cartList.toList().toString()}<br/>total: ${cartBloc.totalPrice}"});
       }
-    }
-  }
-
-  _checkOutApplePay(OrderBloc orderBloc,Map<String,dynamic> appleData)async{
-    try{
-      final res = await payFortController.flutterAmazonApplePay(amount: cartBloc.totalPrice.toInt(),appleData: appleData);
-      if(res=="true"){
-        SnackBarBuilder.showFeedBackMessage(context, res.toString(), DMUtil.getRED());
-        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard,isApplePay: true)));
-      }else{
-        SnackBarBuilder.showFeedBackMessage(context, res.toString(), DMUtil.getRED());
-      }
-    }catch(e){
-      SnackBarBuilder.showFeedBackMessage(context, e.toString(), DMUtil.getRED());
     }
   }
 
@@ -280,15 +212,20 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
       return;
     }
+
+    orderBloc.setPendingOrder(orderBloc,cartBloc,context,PaymentOption(paymentEnum: cartBloc.paymentWithCard));
+
     final res = await payFortController.flutterAmazon(amount: cartBloc.totalPrice.toInt());
     if(res.check && res.res != null){
        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,
            payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),apsData: res.res,
            couponModel: cartBloc.couponModel==null ||  cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
-           couponVal:  cartBloc.couponValue??0,taxTotal: cartBloc.vatValue));
+           couponVal:  cartBloc.couponValue??0,taxTotal: cartBloc.vatValue,
+           orderStatus: WCStatusKey.wc_processing
+       ));
     }else{
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+      orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payPayfort: ${res.msg}<br/>orderData: ${cartBloc.cartList.toList().toString()}<br/>total: ${cartBloc.totalPrice}"});
     }
   }
-
 }

@@ -10,7 +10,7 @@ class AmWalPlugin {
 
 
   static initialize(){
-    amWalPay = AmwalPayBuilder(AmWalConstants.merchantIdentifierProduction)
+    amWalPay = AmwalPayBuilder(AmWalConstants.merchantIdentifierSandBox)
         .countryCode('+966').refId("1230").orderId("1230").language(Util.getLang()=="ar"?AmwalPayLanguage.Arabic:AmwalPayLanguage.English)
         .build();
   }
@@ -18,7 +18,8 @@ class AmWalPlugin {
 
   static Future<AmWalResponse> pay(double amount)async{
     try{
-      String? paymentResult = await amWalPay!.start(1);
+      if(amWalPay==null)initialize();
+      String? paymentResult = await amWalPay!.start(amount);
       debugPrint("AmWalPlugin pay ${paymentResult.toString()}");
       if(paymentResult.toString().toLowerCase().contains("canceled")){
         return AmWalResponse(msg: translate("toast.wrong_payment"), success: false,canceled: true);
