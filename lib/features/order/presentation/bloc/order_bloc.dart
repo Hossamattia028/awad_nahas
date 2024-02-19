@@ -1,9 +1,6 @@
-
-import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
@@ -30,7 +27,6 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
 
   AddOrderUseCase addOrderUseCase;
   GetAllOrderUseCase getAllOrderUseCase;
-  // GetAllDriversOrdersUseCase getAllDriversOrdersUseCase;
   UpdateOrderUseCase updateOrderUseCase;
 
   OrderBloc({
@@ -51,7 +47,6 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     on<ChangeCurrentOrdersEvent>((event, emit) {
       changeOrdersType(event,emit);
     });
-
   }
   static OrderBloc get(BuildContext context) => BlocProvider.of(context);
 
@@ -110,13 +105,6 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
       emit(OrderErrorState(errors: e.toString()));
     }
   }
-
-  // ConfirmOrderData? confirmOrderData;
-  // updateFile(UpdateConfirmedOrder event,emit){
-  //   emit(OrderLoadingState());
-  //   confirmOrderData = event.confirmOrderData;
-  //   emit(OrderSuccessfullyState());
-  // }
 
   updateOrder(UpdateOrderEvent event,emit)async{
     emit(OrderLoadingState());

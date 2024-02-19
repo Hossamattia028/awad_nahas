@@ -40,12 +40,12 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
   Future<bool> addOrder({required Map<String,dynamic> data}) async {
     String? orderID = SharedPref().getPreferenceString(Constants.pendingOrder);
     if(orderID!="")data['order_id']=orderID;
-    print(SharedPref().getPreferenceString(Constants.pendingOrder).toString());
+    data['is_update']="true";
     final response = await client.post(Uri.parse(ApiUrl.ADD_ORDER),
         body: json.encode(data),
         headers: ApiUrl.headerAuth);
-     // debugPrint("addOrder: ${response.body} ${data['status']}");
-     var decodedData = jsonDecode(response.body);
+    // debugPrint("addOrder: ${response.body} ${data.values.toString()} ${data['status'].toString()}");
+    var decodedData = jsonDecode(response.body);
     if (decodedData['status']==true) {
       if(decodedData['order_id']!=null)SharedPref().setPreferencesString(Constants.pendingOrder, decodedData['order_id'].toString().trim());
       if(data['status']==WCStatusKey.wc_processing){

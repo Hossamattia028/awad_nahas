@@ -1,14 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:async';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
-import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/payment_utils/amwal/ui/amwal_widgets.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_web_view.dart';
-import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
@@ -193,7 +191,6 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       ), context);
       // debugPrint("res: $res");
       if(res.toString().trim().toLowerCase()=="successful"){
-        print(SharedPref().getPreferenceString(Constants.pendingOrder).toString());
         orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),
             couponModel: cartBloc.couponModel==null || cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
             couponVal:  cartBloc.couponValue??0,taxTotal: cartBloc.vatValue,

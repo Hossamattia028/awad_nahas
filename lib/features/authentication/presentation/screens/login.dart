@@ -102,10 +102,6 @@ class LoginScreen extends StatelessWidget {
                             prefixIcon: null,
                             cursorColor: kPrimary,
                             suffixIcon: null,
-                            // suffixIcon: Padding(
-                            //   padding: const EdgeInsets.symmetric(horizontal: 7),
-                            //   child: Icon(Icons.phone,color: DMUtil.getD2C(),size: 20.w,),
-                            // ),
                             obscureText: false,
                             isLabelError: false,
                             hasBorder: true,
