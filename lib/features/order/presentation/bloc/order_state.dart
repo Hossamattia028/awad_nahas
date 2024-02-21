@@ -22,6 +22,10 @@ class OrderErrorState extends OrderState {
 }
 
 
-class ConfirmOrderSuccessfullyState extends OrderState {}
+class SendPendingOrderSuccessfullyState extends OrderState {
+  final String orderID;
+  const SendPendingOrderSuccessfullyState({required this.orderID});
+}
 
 class AssignOrderSuccessfullyState extends OrderState {}
+

@@ -1,5 +1,6 @@
 
 
+import 'package:awad_nahas/features/order/data/models/order_response.dart';
 import 'package:dartz/dartz.dart';
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/network/network.dart';
@@ -27,7 +28,7 @@ class OrderModelRepository implements OrderRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> addOrder({required Map<String,dynamic> data}) async{
+  Future<Either<Failure, OrderResponse>> addOrder({required Map<String,dynamic> data}) async{
     if (await networkInfo.isConnected()) {
       try {
         return Right(await orderRemoteDataSource.addOrder(data: data));

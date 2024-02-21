@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/core/utils/sms_api.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http ;
@@ -33,8 +34,8 @@ class TamaraSdk{
         'Content-Type': 'application/json; charset=UTF-8',
       };
       var orderData = {
-        "order_reference_id": "${DateTime.now().minute}${DateTime.now().millisecond}${DateTime.now().day}${Util.getUserID()}",
-        "order_number": "${DateTime.now().minute}${DateTime.now().millisecond}${DateTime.now().day}${Util.getUserID()}",
+        "order_reference_id": data['order_id']??SmsApi.getRandom().toString(),
+        "order_number": data['order_id']??SmsApi.getRandom().toString(),
         "total_amount": {
           "amount": data['total_price'],
           "currency": "SAR"

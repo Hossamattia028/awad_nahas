@@ -113,6 +113,34 @@ class LocationModel extends LocationEntity{
         locationType: jsonObject['location_type'] ?? "",
     );
   }
+
+  /// for [unit_testing]
+  static LocationModel fromJsonTesting(Map<String, dynamic> jsonObject,type) {
+    return LocationModel(
+      id: jsonObject['id']??0,
+      address1: (jsonObject['billing_address_1']??jsonObject['shipping_address_1']).toString().replaceAll("null", ""),
+      address2:  (jsonObject['billing_address_2']??jsonObject['shipping_address_2']).toString().replaceAll("null", ""),
+      city:  (jsonObject['billing_city']??jsonObject['shipping_city']).toString().replaceAll("null", ""),
+      country:  (jsonObject['billing_country']??jsonObject['shipping_country']).toString().replaceAll("null", ""),
+      phone:  (jsonObject['billing_phone']??jsonObject['shipping_phone']).toString().replaceAll("null", ""),
+      type:  type.toString(),
+      lat:  double.parse(jsonObject['latitude']??"0"),
+      long:  double.parse(jsonObject['longitude'] ?? "0"),
+      state: (jsonObject['billing_state']??jsonObject['shipping_state']).toString().replaceAll("null", ""),
+      postCode: (jsonObject['billing_postcode']??jsonObject['shipping_postcode']).toString().replaceAll("null", ""),
+      firstName: (jsonObject['billing_first_name']??jsonObject['shipping_first_name']).toString().replaceAll("null", ""),
+      lastName:  (jsonObject['billing_last_name']??jsonObject['shipping_last_name']).toString().replaceAll("null", ""),
+      email:  (jsonObject['billing_email']??jsonObject['shipping_email']).toString().replaceAll("null", ""),
+      hours: jsonObject['hours']??[],
+      locationType: type.toString(),
+    );
+  }
+  Map<String, dynamic> toJSon() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = id;
+    return data;
+  }
+
 }
 
 class AddressModel extends AddressEntity{

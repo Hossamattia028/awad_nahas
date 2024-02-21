@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
+import 'package:awad_nahas/features/order/data/models/order_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +14,7 @@ import 'package:awad_nahas/features/order/data/models/order_model.dart';
 
 abstract class OrderRemoteDataSourceImpl {
   Future<List<OrderModel>> getAllOrder();
-  Future<bool> addOrder({required Map<String,dynamic> data});
+  Future<OrderResponse> addOrder({required Map<String,dynamic> data});
   Future<bool> updateOrder({required Map<String,dynamic> data});
   Future<bool> cancelOrder({required int orderId});
 }
@@ -37,7 +38,7 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
   }
 
   @override
-  Future<bool> addOrder({required Map<String,dynamic> data}) async {
+  Future<OrderResponse> addOrder({required Map<String,dynamic> data}) async {
     String? orderID = SharedPref().getPreferenceString(Constants.pendingOrder);
     if(orderID!="")data['order_id']=orderID;
     data['is_update']="true";
@@ -52,9 +53,9 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
         SharedPref().removePreference(Constants.pendingOrder);
         SetNotification.showNotification(title: "", msg: translate("toast.order_send"));
       }
-      return true;
+      return OrderResponse(state: true, msg: data['message'], orderID: decodedData['order_id'].toString());
     } else {
-      return false;
+      return OrderResponse(state: false, msg: data['message'], orderID: "-1");
     }
   }
 

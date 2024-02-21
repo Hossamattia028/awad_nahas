@@ -64,8 +64,9 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<OrderBloc,OrderState>(
-      listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState || state is OrderErrorState,
+      listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState || state is SendPendingOrderSuccessfullyState || state is OrderErrorState,
       listener: (ctx,state)async{
+        var orderBloc = OrderBloc.get(ctx);
         if(state is AssignOrderSuccessfullyState){
           cartBloc.add(ModifyCartProductEvent(product: null, isAdd: false, context: context));
           CustomDialogs.thanksOrder(context);
@@ -75,6 +76,18 @@ class _CheckOutButtonState extends State<CheckOutButton> {
           Util.pushPageAndRemoveRoutes(const RootScreen(), context);
           Util.pushPage(const OrderScreen(), context);
         }
+
+        /// pay after the order set as pending
+        if(state is SendPendingOrderSuccessfullyState){
+          if(cartBloc.paymentWithCard == PaymentEnum.CASH){
+            SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+          }else if(cartBloc.paymentWithCard == PaymentEnum.PAYFORT){
+            _checkOutAmazonPayfort(orderBloc,state.orderID);
+          }else if(cartBloc.paymentWithCard == PaymentEnum.TAMARA){
+            _checkOutTamra(context,orderBloc,state.orderID);
+          }
+        }
+
         if(state is OrderErrorState){
           SnackBarBuilder.showFeedBackMessage(context, translate("toast.oops"), Colors.red);
         }
@@ -112,7 +125,6 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                 BlocBuilder<CartBloc,CartState>(
                   builder: (ctx,state){
                     if(orderState is OrderLoadingState)return Center(child: CircularProgressIndicator(color: DMUtil.getPC(),),);
-                    // var cartBloc = CartBloc.get(ctx);
                     return CustomButton(
                       height: 45.h,
                       width: double.infinity,
@@ -140,19 +152,13 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   }
 
   _checkOut(BuildContext context,OrderBloc orderBloc)async{
-    if(cartBloc.paymentWithCard == PaymentEnum.CASH){
-      SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
-    }else if(cartBloc.paymentWithCard == PaymentEnum.PAYFORT){
-        _checkOutAmazonPayfort(orderBloc);
-    }else if(cartBloc.paymentWithCard == PaymentEnum.TAMARA){
-      _checkOutTamra(context,orderBloc);
-    }
+    orderBloc.setPendingOrder(orderBloc,cartBloc,context,PaymentOption(paymentEnum: cartBloc.paymentWithCard));
   }
 
   //+966 508443655
   // 502441695
   //Checkout1!
-  _checkOutTamra(BuildContext context,OrderBloc orderBloc) async {
+  _checkOutTamra(BuildContext context,OrderBloc orderBloc,String orderID) async {
     List<LocationEntity> locations = locationsBloc.checkLocation(context);
     if(locations.isEmpty){
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
@@ -171,48 +177,41 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       if(checkCoupon!=null)"discount": checkCoupon
     },context: context);
 
-    orderBloc.setPendingOrder(orderBloc,cartBloc,context,PaymentOption(paymentEnum: cartBloc.paymentWithCard));
-
     if(checkOutUrl!=null){
-      final res = await Util.pushPage(TamaraCheckout(
+      await Util.pushPage(TamaraCheckout(
         checkOutUrl,
         ApiUrl.MAIN_DOMAIN,
         "${ApiUrl.MAIN_DOMAIN}/en/?pagename=tamara-payment-fail",
         "${ApiUrl.MAIN_DOMAIN}/en/?pagename=tamara-payment-cancel",
         onPaymentSuccess: () {
-          debugPrint("onPaymentSuccess");
-        },
-        onPaymentFailed: () {
-          debugPrint("onPaymentFailed");
-        },
-        onPaymentCanceled: () {
-          debugPrint("onPaymentCanceled");
-        },
-      ), context);
-      // debugPrint("res: $res");
-      if(res.toString().trim().toLowerCase()=="successful"){
-        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),
+          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),
             couponModel: cartBloc.couponModel==null || cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
             couponVal:  cartBloc.couponValue??0,taxTotal: cartBloc.vatValue,
             orderStatus: WCStatusKey.wc_processing,
-        ));
-      }else{
-        SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
-        orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payTamara: ${res.toString().trim()=="null"?"back_or_failed":res}<br/>orderData: ${cartBloc.cartList.toList().toString()}<br/>total: ${cartBloc.totalPrice}"});
-      }
+          ));
+          debugPrint("onPaymentSuccess");
+        },
+        onPaymentFailed: () {
+          SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+          orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payTamara: onPaymentFailed<br/>orderData: ${cartBloc.cartList.toList().toString()}<br/>total: ${cartBloc.totalPrice}"});
+          debugPrint("onPaymentFailed");
+        },
+        onPaymentCanceled: () {
+          SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+          orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payTamara: onPaymentCanceled<br/>orderData: ${cartBloc.cartList.toList().toString()}<br/>total: ${cartBloc.totalPrice}"});
+          debugPrint("onPaymentCanceled");
+        },
+      ), context);
     }
   }
 
-  _checkOutAmazonPayfort(OrderBloc orderBloc)async{
+  _checkOutAmazonPayfort(OrderBloc orderBloc,String orderID)async{
     List<LocationEntity> locations = locationsBloc.checkLocation(context);
     if(locations.isEmpty){
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
       return;
     }
-
-    orderBloc.setPendingOrder(orderBloc,cartBloc,context,PaymentOption(paymentEnum: cartBloc.paymentWithCard));
-
-    final res = await payFortController.flutterAmazon(amount: cartBloc.totalPrice.toInt());
+    final res = await payFortController.flutterAmazon(amount: cartBloc.totalPrice.toInt(),orderID: orderID);
     if(res.check && res.res != null){
        orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,
            payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),apsData: res.res,

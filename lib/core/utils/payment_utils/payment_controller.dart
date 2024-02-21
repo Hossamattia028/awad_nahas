@@ -61,7 +61,7 @@ class PayFortController{
   }
 
 
-  Future<PayfortResponse> flutterAmazon({required int amount})async{
+  Future<PayfortResponse> flutterAmazon({required int amount,required String orderID})async{
     String? id = await FlutterAmazonpaymentservices.getUDID;
     var sdkToken = await PayFortApi.generateTokenFromApi(id.toString());
     var amountVal = Platform.isIOS ? (amount * 100).toString() : amount * 100;
@@ -72,7 +72,7 @@ class PayFortController{
       "customer_email": Util.getEmail(),
       // "customer_ip": customerIp,
       "language": "en",
-      "merchant_reference": sdkToken,//should be unique
+      "merchant_reference": orderID,//should be unique
       "sdk_token": sdkToken,
     };
     try {

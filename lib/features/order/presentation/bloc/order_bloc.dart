@@ -96,8 +96,12 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
         debugPrint("addNewOrder: $l");
         emit(OrderErrorState(errors: l.toString()));
       },(data) {
-        if(data && event.orderStatus == WCStatusKey.wc_processing){
+        if(data.state == true && event.orderStatus == WCStatusKey.wc_processing){
           emit(AssignOrderSuccessfullyState());
+        }else if(data.state == true && event.orderStatus == WCStatusKey.wc_pending){
+          emit(SendPendingOrderSuccessfullyState(orderID: data.orderID.toString()));
+        }else{
+          emit(OrderErrorState(errors: translate("toast.oops")));
         }
       });
     }catch(e){
