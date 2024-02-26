@@ -30,7 +30,7 @@ class _AboutBrandState extends State<AboutBrand> {
   }
 
   _getDesc()async {
-    categoriesBloc.desc = await CategoryRemoteDataSource.getBrandDesc(id: widget.itemBrand.slug.toString());
+    categoriesBloc.desc = await CategoryRemoteDataSourceImpl.getBrandDesc(id: widget.itemBrand.slug.toString());
     if(categoriesBloc.desc != ""){
       if(mounted)setState(() {});
     }

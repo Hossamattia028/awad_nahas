@@ -7,7 +7,7 @@ import 'package:awad_nahas/features/locations/data/data_sources/location_remote_
 import 'package:awad_nahas/features/locations/domain/repositories/location_repository.dart';
 
 class LocationsModelRepository implements LocationsRepository {
-  final LocationRemoteDataSourceImpl locationRemoteDataSource;
+  final LocationRemoteDataSource locationRemoteDataSource;
   final NetworkInfo networkInfo;
 
   LocationsModelRepository(

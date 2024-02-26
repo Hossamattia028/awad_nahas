@@ -20,7 +20,7 @@ void main(){
     productsModelRepository = ProductsModelRepository(productsRemoteDataSource: mockProductsRemoteDataSource, networkInfo: mockNetworkInfo);
   });
 
-  const  responseModel = ProductResponseModel(products: [], productsCount: 300);///300 is pagination value
+  const  responseModel = ProductResponseModel(products: [], productsCount: 300);
   test("products model repository", () async {
     // Arrange
     when(mockProductsRemoteDataSource.getAllProducts(parameter: "300"))

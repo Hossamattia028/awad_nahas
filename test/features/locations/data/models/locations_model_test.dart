@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:awad_nahas/features/categories/data/models/categories_model.dart';
-import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:flutter_test/flutter_test.dart';

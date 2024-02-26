@@ -130,7 +130,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => RemoveLocationUseCase(locationsRepository: sl()));
 
   sl.registerLazySingleton<LocationsRepository>(() => LocationsModelRepository(networkInfo: sl(), locationRemoteDataSource: sl()));
-  sl.registerLazySingleton<LocationRemoteDataSourceImpl>(() => LocationRemoteDataSource(client: sl()));
+  sl.registerLazySingleton<LocationRemoteDataSource>(() => LocationRemoteDataSourceImpl(client: sl()));
 
 
   /// categories bloc and classes initial
@@ -139,7 +139,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetAllBrandsUseCase(categoryRepository: sl()));
   sl.registerLazySingleton(() => GetAllSlidersUseCase(categoryRepository: sl()));
   sl.registerLazySingleton<CategoryRepository>(() => CategoryModelRepository(networkInfo: sl(), categoryRemoteDataSource: sl()));
-  sl.registerLazySingleton<CategoryRemoteDataSourceImpl>(() => CategoryRemoteDataSource(client: sl()));
+  sl.registerLazySingleton<CategoryRemoteDataSource>(() => CategoryRemoteDataSourceImpl(client: sl()));
 
 
   /// products bloc and classes initial

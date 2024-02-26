@@ -3,7 +3,7 @@ import 'package:awad_nahas/features/categories/domain/use_cases/get_all_categori
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'test_helper.mocks.dart';
+import '../../mockito_data/test_helper.mocks.dart';
 
 
 

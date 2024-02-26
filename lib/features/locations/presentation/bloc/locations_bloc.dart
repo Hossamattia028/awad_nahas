@@ -235,39 +235,10 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
     }
   }
 
-  // setLocationData(Map<String,dynamic> data,bool isUpdate){
-  //   String kind = "local";
-  //   return LocationModel(
-  //     address1: data['${kind}_address_1'] ?? "",
-  //     address2: data['${kind}_address_2'] ?? "",
-  //     country: data['${kind}_country'] ?? "",
-  //     phone: data['${kind}_phone'] ?? "",
-  //     id: int.parse(DateTime.now().millisecond.toString()+DateTime.now().minute.toString()+DateTime.now().day.toString()),
-  //     type: data[kind] ?? "local",
-  //     long: 0.0,
-  //     lat:  0.0,
-  //     state: data['${kind}_state'] ?? "",
-  //     firstName: data['${kind}_first_name'] ?? "",
-  //     lastName: data['${kind}_last_name'] ?? "",
-  //     email: data['${kind}_email'] ?? "",
-  //     postCode: data['${kind}_postcode'] ?? "",
-  //     locationType: data['location_type'] ?? "",
-  //   );
-  // }
-
-  // bool clearLocalLocation(String locationID){
-  //   int index = localUserLocationsList.indexWhere((element) => element.id.toString()==locationID);
-  //   if(index!=-1){
-  //     localUserLocationsList.removeAt(index);
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   /// modify local address
   modifyLocalAddress(Map<String,dynamic> data)async{
     try{
-      return await LocationRemoteDataSource.modifyLocalLocation(data: {'user_id':Util.getUserID(),'address':data});
+      return await LocationRemoteDataSourceImpl.modifyLocalLocation(data: {'user_id':Util.getUserID(),'address':data});
     }catch(e){
       debugPrint("modifyLocalAddressBloc: $e");
       return false;
@@ -277,7 +248,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
   fetchLocalAddress(emit)async{
     if(!Util.checkUser())return;
     try{
-      localUserLocationsList =  await LocationRemoteDataSource.fetchAllLocalLocations();
+      localUserLocationsList =  await LocationRemoteDataSourceImpl.fetchAllLocalLocations();
       emit(const LocationsSuccessfullyState());
     }catch(e){
       emit(const LocationsFailedState());

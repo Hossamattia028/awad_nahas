@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 
 
-abstract class LocationRemoteDataSourceImpl{
+abstract class LocationRemoteDataSource{
   Future<bool> addNewLocation({required Map<String,dynamic> data});
   Future<bool> removeLocation({required int addressId});
   Future<bool> updateLocation({required Map<String,dynamic> data});
@@ -16,9 +16,9 @@ abstract class LocationRemoteDataSourceImpl{
 }
 
 
-class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
+class LocationRemoteDataSourceImpl extends LocationRemoteDataSource{
   final http.Client client;
-  LocationRemoteDataSource({required this.client});
+  LocationRemoteDataSourceImpl({required this.client});
 
 
   /// modify local address to backend side
@@ -94,7 +94,8 @@ class LocationRemoteDataSource extends LocationRemoteDataSourceImpl{
   @override
   Future<AddressModel> fetchAllLocations() async{
     var response = await client.get(Uri.parse(ApiUrl.FETCH_ADDRESS),
-        headers: ApiUrl.headerAuth);
+        );
+    //headers: ApiUrl.headerAuth
     // debugPrint("fetchAllLocations: ${response.body}");
     var decodedData = json.decode(response.body.toString());
     if (response.statusCode == 200 && decodedData['status']) {

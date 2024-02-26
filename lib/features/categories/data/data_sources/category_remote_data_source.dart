@@ -7,15 +7,15 @@ import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/features/categories/data/models/categories_model.dart';
 import 'package:awad_nahas/features/categories/data/models/slider_model.dart';
 
-abstract class CategoryRemoteDataSourceImpl {
+abstract class CategoryRemoteDataSource {
   Future<List<CategoriesModel>> getAllCategory();
   Future<List<CategoriesModel>> getAllBrands();
   Future<List<SliderModel>> getAllSliders();
 }
 
-class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
+class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
   final http.Client client;
-  CategoryRemoteDataSource({required this.client});
+  CategoryRemoteDataSourceImpl({required this.client});
   @override
   Future<List<CategoriesModel>> getAllCategory() async {
     var response = await client.get(Uri.parse(ApiUrl.CATEGORIES_URL));
@@ -27,7 +27,6 @@ class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
         return CategoriesModel.fromJson(categoryModel);
       }).toList();
       return categories;
-      // return categories.where((element) => (!element.imgPath.toString().contains("{s:")) && element.imgPath.toString().trim()!="").toList();
     } else {
       throw ServerException();
     }
@@ -44,7 +43,6 @@ class CategoryRemoteDataSource implements CategoryRemoteDataSourceImpl {
         return CategoriesModel.fromBrandJson(categoryModel);
       }).toList();
       return categories;
-      // return categories.where((element) => (!element.imgPath.toString().contains("{s:")) && element.imgPath.toString().trim()!="").toList();
     } else {
       throw ServerException();
     }

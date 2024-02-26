@@ -9,7 +9,7 @@ import 'package:awad_nahas/features/categories/domain/entities/slider_entity.dar
 import 'package:awad_nahas/features/categories/domain/repositories/category_repository.dart';
 
 class CategoryModelRepository implements CategoryRepository {
-  final CategoryRemoteDataSourceImpl categoryRemoteDataSource;
+  final CategoryRemoteDataSource categoryRemoteDataSource;
   final NetworkInfo networkInfo;
   CategoryModelRepository(
       {required this.categoryRemoteDataSource, required this.networkInfo});
