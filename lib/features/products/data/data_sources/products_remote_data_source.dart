@@ -8,19 +8,19 @@ import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 
-abstract class ProductsRemoteDataSourceImpl {
+abstract class ProductsRemoteDataSource {
   Future<ProductResponseModel> getAllProducts({required String parameter});
   Future<List<ProductComments>> getAllProductComments({required Map<String,dynamic> data});
   Future<bool> addProductComment({required Map<String,dynamic> data});
 }
 
-class ProductsRemoteDataSource implements ProductsRemoteDataSourceImpl {
+class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
   final http.Client client;
-  ProductsRemoteDataSource({required this.client});
+  ProductsRemoteDataSourceImpl({required this.client});
 
   @override
   Future<ProductResponseModel> getAllProducts({required String parameter}) async {
-    var response = await client.get(Uri.parse("${ApiUrl.PRODUCTS_URL}/$parameter"));
+    var response = await client.get(Uri.parse("${ApiUrl.PRODUCTS_URL}/$parameter"),);
     // debugPrint("getAllProducts ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);

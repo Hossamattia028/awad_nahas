@@ -45,7 +45,7 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
     final response = await client.post(Uri.parse(ApiUrl.ADD_ORDER),
         body: json.encode(data),
         headers: ApiUrl.headerAuth);
-    // debugPrint("addOrder: ${response.body} ${data.values.toString()} ${data['status'].toString()}");
+    debugPrint("addOrder: ${response.body} ${data.values.toString()} ${data['status'].toString()}");
     var decodedData = jsonDecode(response.body);
     if (decodedData['status']==true) {
       if(decodedData['order_id']!=null)SharedPref().setPreferencesString(Constants.pendingOrder, decodedData['order_id'].toString().trim());

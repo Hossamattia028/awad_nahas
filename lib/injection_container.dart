@@ -148,8 +148,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetAllProductCommentsUseCase(productsRepository: sl()));
   sl.registerLazySingleton(() => AddProductCommentUseCase(productsRepository: sl()));
 
-  sl.registerLazySingleton<ProductsRepository>(() => ProductsModelRepository(networkInfo: sl(), productsRemoteDataSourceImpl: sl()));
-  sl.registerLazySingleton<ProductsRemoteDataSourceImpl>(() => ProductsRemoteDataSource(client: sl()));
+  sl.registerLazySingleton<ProductsRepository>(() => ProductsModelRepository(networkInfo: sl(), productsRemoteDataSource: sl()));
+  sl.registerLazySingleton<ProductsRemoteDataSource>(() => ProductsRemoteDataSourceImpl(client: sl()));
 
 
   /// favourite module

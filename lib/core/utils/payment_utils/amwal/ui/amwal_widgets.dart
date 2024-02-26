@@ -40,31 +40,49 @@ class QuickCheckOutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<OrderBloc,OrderState>(
-      listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState || state is OrderErrorState,
-      listener: (ctx,state)async{
-        if(isListen){
-          if(state is AssignOrderSuccessfullyState){
-            CartBloc.get(context).add(ModifyCartProductEvent(product: null, isAdd: false, context: context));
-            CustomDialogs.thanksOrder(context);
-            await Future.delayed(const Duration(seconds: 2));
-            Navigator.of(context).pop();
-            RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
-            Util.pushPageAndRemoveRoutes(const RootScreen(), context);
-            Util.pushPage(const OrderScreen(), context);
-          }
-          if(state is OrderErrorState){
-            SnackBarBuilder.showFeedBackMessage(context, translate("toast.oops"), Colors.red);
-          }
-        }
-      },
-      child: BlocBuilder<OrderBloc,OrderState>(
-        builder: (ctx,state){
-          var orderBloc = OrderBloc.get(ctx);
-          if(state is OrderLoadingState && isListen == true)return Center(child: CircularProgressIndicator(color: DMUtil.getDC(),),);
-          return BlocBuilder<CartBloc,CartState>(
-            builder: (ctx,cartState){
-              var cartBloc = CartBloc.get(ctx);
+    return BlocBuilder<CartBloc,CartState>(
+      builder: (ctx,cartState){
+        var cartBloc = CartBloc.get(ctx);
+        return BlocListener<OrderBloc,OrderState>(
+          listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState || state is SendPendingOrderSuccessfullyState || state is OrderErrorState,
+          listener: (ctx,state)async{
+            var orderBloc = OrderBloc.get(ctx);
+            if(isListen){
+              if(state is AssignOrderSuccessfullyState){
+                CartBloc.get(context).add(ModifyCartProductEvent(product: null, isAdd: false, context: context));
+                CustomDialogs.thanksOrder(context);
+                await Future.delayed(const Duration(seconds: 2));
+                Navigator.of(context).pop();
+                RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
+                Util.pushPageAndRemoveRoutes(const RootScreen(), context);
+                Util.pushPage(const OrderScreen(), context);
+              }
+              if(state is OrderErrorState){
+                SnackBarBuilder.showFeedBackMessage(context, translate("toast.oops"), Colors.red);
+              }
+            }
+            /// pay after the order set as pending
+            if(state is SendPendingOrderSuccessfullyState){
+              final res = await AmWalPlugin.pay(amount,state.orderID);
+              if(res.success){
+                orderBloc.add(AddOrderEvent(list: list, totalPrice: amount, context: context,
+                    payment: const PaymentOption(paymentEnum: PaymentEnum.AMWAL,isApplePay: false),
+                    amWalTransactionId: res.transactionId.toString(),
+                    couponModel: cartBloc.couponModel ==null || cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
+                    couponVal: cartBloc.couponValue??0,
+                    taxTotal: cartBloc.vatValue,
+                    orderStatus: WCStatusKey.wc_processing
+                ));
+              }else{
+                SnackBarBuilder.showFeedBackMessage(context, res.msg, Colors.red);
+                orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payQuickCheckOut: ${res.msg},${res.transactionId},${res.canceled==true?"canceled":(res.success==true?"success":"failed")}<br/>orderData: ${list.toList().toString()}<br/>total: $amount"});
+              }
+            }
+          },
+          child: BlocBuilder<OrderBloc,OrderState>(
+            builder: (ctx,state){
+              var orderBloc = OrderBloc.get(ctx);
+              if(state is OrderLoadingState && isListen == true)return Center(child: CircularProgressIndicator(color: DMUtil.getDC(),),);
               return CustomButton(
                 color: DMUtil.getDC(),
                 width: width,
@@ -98,26 +116,12 @@ class QuickCheckOutButton extends StatelessWidget {
                     return;
                   }
                   _setPendingOrder(orderBloc, cartBloc, context);
-                  final res = await AmWalPlugin.pay(amount);
-                  if(res.success){
-                    orderBloc.add(AddOrderEvent(list: list, totalPrice: amount, context: context,
-                        payment: const PaymentOption(paymentEnum: PaymentEnum.AMWAL,isApplePay: false),
-                        amWalTransactionId: res.transactionId.toString(),
-                        couponModel: cartBloc.couponModel ==null || cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
-                        couponVal: cartBloc.couponValue??0,
-                        taxTotal: cartBloc.vatValue,
-                        orderStatus: WCStatusKey.wc_processing
-                    ));
-                  }else{
-                    SnackBarBuilder.showFeedBackMessage(context, res.msg, Colors.red);
-                    orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payQuickCheckOut: ${res.msg},${res.transactionId},${res.canceled==true?"canceled":(res.success==true?"success":"failed")}<br/>orderData: ${list.toList().toString()}<br/>total: $amount"});
-                  }
                 },
               );
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
