@@ -27,7 +27,7 @@ class LocationModel extends LocationEntity{
       address1: (jsonObject['billing_address_1']??jsonObject['shipping_address_1']).toString().replaceAll("null", ""),
       address2:  (jsonObject['billing_address_2']??jsonObject['shipping_address_2']).toString().replaceAll("null", ""),
       city:  (jsonObject['billing_city']??jsonObject['shipping_city']).toString().replaceAll("null", ""),
-      country:  (jsonObject['billing_country']??jsonObject['shipping_country']).toString().replaceAll("null", ""),
+      country:  "SA",
       phone:  (jsonObject['billing_phone']??jsonObject['shipping_phone']).toString().replaceAll("null", ""),
       type:  type.toString(),
       lat:  double.parse(jsonObject['latitude']??"0"),
@@ -61,15 +61,14 @@ class LocationModel extends LocationEntity{
 
   static Map<String, dynamic> toJson(LocationEntity location) {
     final Map<String, dynamic> data = <String, dynamic>{};
-    var country = location.country.toString().trim()==""?"Saudi Arabia":location.country.toString();
     data['first_name'] = location.firstName.toString();
     data['last_name'] = location.lastName.toString();
     data['line1'] = location.address1.toString();
     data['line2'] = "${location.address1} ${location.address2} ".toString().replaceAll("null", "");
-    data['region'] = "Saudi Arabia";
+    data['region'] = "SA";
     data['postal_code'] = location.postCode.toString();
     data['city'] = location.city.toString()==""?location.address2.toString() : location.city.toString();
-    data['country'] = country;
+    data['country'] = "SA";
     data['country_code'] = "SA";
     data['phone_number'] = location.phone.toString();
     return data;
@@ -83,7 +82,7 @@ class LocationModel extends LocationEntity{
       '${type}_address_1': address1,
       '${type}_address_2': address2,
       '${type}_city': location.city.toString()==""? location.address2.toString().replaceAll("null", ""):  location.city.toString().replaceAll("null", ""),
-      '${type}_country': location.country.toString().trim()=="null"?"Saudi Arabia":location.country,
+      '${type}_country': "SA",
       '${type}_phone': location.phone,
       '${type}_email': location.email,
       '${type}_state': location.state,
@@ -99,7 +98,7 @@ class LocationModel extends LocationEntity{
         id: jsonObject['id']??0,
         address1: jsonObject['${type}_address_1'] ?? "",
         address2:  jsonObject['${type}_address_2'] ?? "",
-        country:  jsonObject['${type}_country'] ?? "",
+        country:  "SA",
         phone:  jsonObject['${type}_phone'] ?? "",
         city: jsonObject['${type}_city'] ?? "",
         type:  type,
@@ -121,7 +120,7 @@ class LocationModel extends LocationEntity{
       address1: (jsonObject['billing_address_1']??jsonObject['shipping_address_1']).toString().replaceAll("null", ""),
       address2:  (jsonObject['billing_address_2']??jsonObject['shipping_address_2']).toString().replaceAll("null", ""),
       city:  (jsonObject['billing_city']??jsonObject['shipping_city']).toString().replaceAll("null", ""),
-      country:  (jsonObject['billing_country']??jsonObject['shipping_country']).toString().replaceAll("null", ""),
+      country:  "SA",
       phone:  (jsonObject['billing_phone']??jsonObject['shipping_phone']).toString().replaceAll("null", ""),
       type:  type.toString(),
       lat:  double.parse(jsonObject['latitude']??"0"),
@@ -135,6 +134,7 @@ class LocationModel extends LocationEntity{
       locationType: type.toString(),
     );
   }
+
   Map<String, dynamic> toJSon() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['ID'] = id;
@@ -145,10 +145,6 @@ class LocationModel extends LocationEntity{
 
 class AddressModel extends AddressEntity{
   const AddressModel({required super.shippingAddress, required super.billingAddress});
-
-  // static List<dynamic> listFromJson(String str) =>
-  //     List<AddressModel>.from(
-  //         json.decode(str).map((x) => AddressModel.fromJson(x)));
 
   static AddressModel fromJson(Map<String, dynamic> jsonObject) {
     return AddressModel(
