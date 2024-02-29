@@ -22,7 +22,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:upgrader/upgrader.dart';
-import 'injection_container.dart' as di;
+import 'injection_container_import.dart' as di;
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async{
