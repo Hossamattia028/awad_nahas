@@ -361,8 +361,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                         var type = locationEnum == LocationEnum.Shipping? "shipping":"billing";
                         if(locationEnum == LocationEnum.LOCAL) type = "local";
                         var phone = phoneTextEditingController.text.trim();
-                        //flatNumberTextEditingController.text.trim().isNotEmpty&&buildingNumberTextEditingController.text.trim().isNotEmpty&&phone.isNotEmpty &&
-                        //cityTextEditingController.text.trim().isNotEmpty &&
+
                         if(bloc.currentShippingCity!=""&&streetTextEditingController.text.trim().isNotEmpty &&
                             postCodeNumberTextEditingController.text.trim().isNotEmpty){
 
@@ -378,13 +377,13 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                           var data = {
                             "${type}_phone": phone,
                             "${type}_email": Util.getEmail(),
-                            "${type}_country": locationMapEntity!.country,
+                            "${type}_country": "SA",
                             "${type}_postcode": postCodeNumberTextEditingController.text.trim(),
-                            "${type}_state": locationMapEntity!.street,
+                            "${type}_state": "SA",
                             "${type}_address_2": streetMoreDetailsTextEditingController.text.trim(),
                             "${type}_city": bloc.currentShippingCity.trim(),
                             "${type}_address_1": streetTextEditingController.text.trim() ,
-                            "${type}_last_name": ".",
+                            "${type}_last_name": " ",
                             "${type}_first_name": Util.getName(),
                             "location_type" : locationType.toString(),
                             "type":type,
@@ -399,7 +398,6 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                               }));
                             }
                           }else{
-
                             if(locationMapEntity==null)return SnackBarBuilder.showFeedBackMessage(context, translate("toast.select_location"), Colors.red);
                             if(widget.type == "local"){
                               locationsBloc.add(AddLocalLocationEvent(data: data));
