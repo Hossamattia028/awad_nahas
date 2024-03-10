@@ -6,10 +6,10 @@ class UserServiceModel extends UserService {
   const UserServiceModel({
     required super.userId,
     required super.userLogin,
-    required super.userName,
+    required super.firstName,
+    required super.lastName,
     required super.email,
     required super.phoneNumber,
-    // required super.image,
     super.cityID,
 
   });
@@ -18,7 +18,8 @@ class UserServiceModel extends UserService {
     return UserServiceModel(
       userId: fromJson['ID']??Util.getUserID(),
       userLogin: fromJson['user_login'] ??  '',
-      userName: fromJson['user_nicename'] ??  '',
+      firstName: fromJson['first_name'] ??  fromJson['user_nicename'],
+      lastName: fromJson['last_name'] ??  '',
       email: fromJson['user_email'],
       phoneNumber: setPhoneFromUserLogin(fromJson['user_login'])!=""? setPhoneFromUserLogin(fromJson['user_login']): ( fromJson['phone'] ?? ''),
     );

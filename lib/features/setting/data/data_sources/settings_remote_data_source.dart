@@ -44,25 +44,21 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
 
   @override
   Future<List<AboutUsModel>> getAboutUsData() {
-    // TODO: implement getAboutUsData
     throw UnimplementedError();
   }
 
   @override
   Future<List<PrivacyModel>> getPrivacyData() {
-    // TODO: implement getPrivacyData
     throw UnimplementedError();
   }
 
   @override
   Future<List<RefundPolicyModel>> getRefundPolicyData() {
-    // TODO: implement getRefundPolicyData
     throw UnimplementedError();
   }
 
   @override
   Future<List<TermsModel>> getTermsData() {
-    // TODO: implement getTermsData
     throw UnimplementedError();
   }
 

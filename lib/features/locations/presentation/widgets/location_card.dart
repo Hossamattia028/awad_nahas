@@ -73,12 +73,12 @@ class LocationCardWidget extends StatelessWidget {
                       Row(
                         children: [
                           SizedBox(
-                            width: 120.w,
+                            width: 140.w,
                             child: CustomText(
                               text:isAdd ? txt : (locationEntity.city.toString()==""?locationEntity.address2:locationEntity.city),
                               color: DMUtil.getDC(),
                               fontWeight: FontWeight.w600,
-                              fontSize: AppStyle.average.sp-2,
+                              fontSize: AppStyle.small.sp,
                               maxLine: 1,
                               isEllipsis: true,
                             ),
@@ -94,7 +94,7 @@ class LocationCardWidget extends StatelessWidget {
                         child: CustomText(
                           text: isAdd? translate("map.set_location") :translate("button.edit"),
                           color: DMUtil.getD2C(),
-                          fontSize: AppStyle.average.sp,
+                          fontSize: AppStyle.small.sp+1,
                         ),
                       ),
                     ],

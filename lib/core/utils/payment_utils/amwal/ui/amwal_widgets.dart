@@ -24,8 +24,6 @@ import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
 import 'package:awad_nahas/features/order/presentation/screens/order_screen.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
-import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,8 +33,9 @@ class QuickCheckOutButton extends StatelessWidget {
   final double height;
   final double amount;
   final List<ProductsEntity> list;
-  final bool isListen;
-  const QuickCheckOutButton({super.key,this.height = 32,this.width = double.infinity,required this.amount,required this.list,this.isListen=false,});
+  final bool? amWalListen;
+  final BuildContext? ctX;
+  const QuickCheckOutButton({super.key,this.height = 32,this.width = double.infinity,required this.amount,required this.list,required this.amWalListen,this.ctX});
 
   @override
   Widget build(BuildContext context) {
@@ -44,26 +43,22 @@ class QuickCheckOutButton extends StatelessWidget {
       builder: (ctx,cartState){
         var cartBloc = CartBloc.get(ctx);
         return BlocListener<OrderBloc,OrderState>(
-          listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState || state is SendPendingOrderSuccessfullyState || state is OrderErrorState,
+          listenWhen: (ctx,state)=>  state is SendPendingOrderSuccessfullyState || state is AssignOrderSuccessfullyState  || state is OrderErrorState,
           listener: (ctx,state)async{
             var orderBloc = OrderBloc.get(ctx);
-            if(isListen){
-              if(state is AssignOrderSuccessfullyState){
-                CartBloc.get(context).add(ModifyCartProductEvent(product: null, isAdd: false, context: context));
-                CustomDialogs.thanksOrder(context);
-                await Future.delayed(const Duration(seconds: 2));
-                Navigator.of(context).pop();
-                RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
-                Util.pushPageAndRemoveRoutes(const RootScreen(), context);
-                Util.pushPage(const OrderScreen(), context);
-              }
-              if(state is OrderErrorState){
-                SnackBarBuilder.showFeedBackMessage(context, translate("toast.oops"), Colors.red);
-              }
+            if(state is AssignOrderSuccessfullyState && state.payment.paymentEnum == PaymentEnum.AMWAL){
+              CartBloc.get(context).add(ModifyCartProductEvent(product: null, isAdd: false, context: context));
+              CustomDialogs.thanksOrder(context);
+              await Future.delayed(const Duration(seconds: 2));
+              Util.pushPageAndRemoveRoutes(const RootScreen(), ctX ?? context);
+              Util.pushPage(const OrderScreen(), ctX ?? context);
             }
-            /// pay after the order set as pending
-            if(state is SendPendingOrderSuccessfullyState){
+
+            // /// pay after the order set as pending
+            if(state is SendPendingOrderSuccessfullyState && state.payment.paymentEnum == PaymentEnum.AMWAL){
+              if(AmWalPlugin.amwalInProcess())return;
               final res = await AmWalPlugin.pay(amount,state.orderID);
+              AmWalPlugin.amwalInProcess();
               if(res.success){
                 orderBloc.add(AddOrderEvent(list: list, totalPrice: amount, context: context,
                     payment: const PaymentOption(paymentEnum: PaymentEnum.AMWAL,isApplePay: false),
@@ -78,11 +73,15 @@ class QuickCheckOutButton extends StatelessWidget {
                 orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payQuickCheckOut: ${res.msg},${res.transactionId},${res.canceled==true?"canceled":(res.success==true?"success":"failed")}<br/>orderData: ${list.toList().toString()}<br/>total: $amount"});
               }
             }
+
+            if(state is OrderErrorState){
+              SnackBarBuilder.showFeedBackMessage(context, translate("toast.oops"), Colors.red);
+            }
           },
           child: BlocBuilder<OrderBloc,OrderState>(
             builder: (ctx,state){
               var orderBloc = OrderBloc.get(ctx);
-              if(state is OrderLoadingState && isListen == true)return Center(child: CircularProgressIndicator(color: DMUtil.getDC(),),);
+              if(state is OrderLoadingState && amWalListen == true)return Center(child: CircularProgressIndicator(color: DMUtil.getDC(),),);
               return CustomButton(
                 color: DMUtil.getDC(),
                 width: width,

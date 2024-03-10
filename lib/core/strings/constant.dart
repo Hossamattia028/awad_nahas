@@ -5,7 +5,8 @@ class Constants {
   static const String userId = "userId";
   static const String userLogin = "user_login";
   static const String email = "email";
-  static const String name = "name";
+  static const String firstName = "first_name";
+  static const String lastName = "last_name";
   static const String mobile = "mobile";
   static const String city = "city";
   static const String address = "address";

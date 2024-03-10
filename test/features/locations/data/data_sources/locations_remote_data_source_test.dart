@@ -1,5 +1,3 @@
-
-import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/features/locations/data/data_sources/location_remote_data_source.dart';
 import 'package:awad_nahas/features/products/data/models/products_response_model.dart';

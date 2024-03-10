@@ -39,12 +39,6 @@ class PaymentOption{
   const PaymentOption({required this.paymentEnum,this.isApplePay});
 }
 
-// class SetCurrentOrderEvent extends OrderEvent{
-//   final Orders? order;
-//   const SetCurrentOrderEvent({required this.order});
-// }
-
-
 class CancelOrderEvent extends OrderEvent{
   final int id;
   const CancelOrderEvent({required this.id});
@@ -63,12 +57,6 @@ class UpdateOrderEvent extends OrderEvent{
   const UpdateOrderEvent({required this.data,});
 }
 
-// class UpdateConfirmedOrder extends OrderEvent{
-//   final ConfirmOrderData confirmOrderData;
-//   const UpdateConfirmedOrder({required this.confirmOrderData});
-// }
-//
-//
 
 
 

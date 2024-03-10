@@ -13,6 +13,5 @@ class NotificationsEntity extends Equatable{
   const NotificationsEntity({required this.id,required this.userID,required this.title,required this.content,required this.type,required this.orderID,required this.orderWpID,required this.date});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id, userID];
 }

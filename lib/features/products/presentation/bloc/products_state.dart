@@ -1,59 +1,56 @@
-
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-abstract class ProductsState{
+abstract class ProductsState extends Equatable {
   const ProductsState();
+
+  @override
+  List<Object?> get props => [];
 }
-
-
 
 class ProductsInitialState extends ProductsState {}
 
-
-class ProductsLoadingState extends ProductsState{
+class ProductsLoadingState extends ProductsState {
   const ProductsLoadingState();
 }
 
-class ProductsSuccessfullyState extends ProductsState{
+class ProductsSuccessfullyState extends ProductsState {
   const ProductsSuccessfullyState();
 }
 
-class ProductsFailedState extends ProductsState{
+class ProductsFailedState extends ProductsState {
   const ProductsFailedState();
 }
 
-
-class FilterByCategoryState extends ProductsState{
+class FilterByCategoryState extends ProductsState {
   const FilterByCategoryState();
 }
 
-class UpdateRatingLoadingState extends ProductsState{
+class UpdateRatingLoadingState extends ProductsState {
   const UpdateRatingLoadingState();
 }
 
-
-class ProductCommentsLoadingState extends ProductsState{
+class ProductCommentsLoadingState extends ProductsState {
   const ProductCommentsLoadingState();
 }
 
-class ProductCommentsSuccessfullyState extends ProductsState{
+class ProductCommentsSuccessfullyState extends ProductsState {
   const ProductCommentsSuccessfullyState();
 }
 
-class ProductCommentsFailedState extends ProductsState{
+class ProductCommentsFailedState extends ProductsState {
   const ProductCommentsFailedState();
 }
 
-
-class FilterLoadingState extends ProductsState{
+class FilterLoadingState extends ProductsState {
   const FilterLoadingState();
 }
 
-class FilterSuccessfullyState extends ProductsState{
+class FilterSuccessfullyState extends ProductsState {
   const FilterSuccessfullyState();
 }
 
-class SearchFailedState extends ProductsState{
+class SearchFailedState extends ProductsState {
   const SearchFailedState();
 }

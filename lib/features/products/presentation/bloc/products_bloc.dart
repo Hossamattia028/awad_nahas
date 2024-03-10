@@ -162,7 +162,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     try{
       var res = await addProductCommentUseCase(data: {
         "product_id": event.productId,
-        "user_name": Util.getName().toString(),
+        "user_name": Util.getFullName(),
         "user_email": Util.getEmail(),
         "user_id": Util.getUserID(),
         "comment": event.txt,
@@ -193,7 +193,7 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
           rating: ratingVal,
           commentContent: event.txt,
           commentType: 'review',
-          userID: int.tryParse(Util.getUserID())!=null?int.parse(Util.getUserID()):0, date: DateTime.now().toString(), userName: Util.getName());
+          userID: int.tryParse(Util.getUserID())!=null?int.parse(Util.getUserID()):0, date: DateTime.now().toString(), userName: Util.getFullName());
       List<ProductComments> list = item.reviewsList ?? [];
       list.add(com);
       item = ProductsEntity(

@@ -7,9 +7,6 @@ abstract class CartEvent{
   const CartEvent();
 }
 
-
-
-
 class FetchAllCartEvent extends CartEvent{
   const FetchAllCartEvent();
 }

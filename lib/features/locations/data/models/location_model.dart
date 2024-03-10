@@ -61,8 +61,8 @@ class LocationModel extends LocationEntity{
 
   static Map<String, dynamic> toJson(LocationEntity location) {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['first_name'] = location.firstName.toString();
-    data['last_name'] = location.lastName.toString();
+    data['first_name'] = Util.getFirstName();
+    data['last_name'] = Util.getLastName();
     data['line1'] = location.address1.toString();
     data['line2'] = "${location.address1} ${location.address2} ".toString().replaceAll("null", "");
     data['region'] = "SA";
@@ -87,8 +87,8 @@ class LocationModel extends LocationEntity{
       '${type}_email': location.email,
       '${type}_state': location.state,
       '${type}_postcode': location.postCode,
-      '${type}_first_name': Util.getName(),
-      '${type}_last_name': "",
+      '${type}_first_name': Util.getFirstName(),
+      '${type}_last_name': Util.getLastName(),
       'location_type': location.locationType ?? "",
     };
   }

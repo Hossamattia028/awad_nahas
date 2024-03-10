@@ -27,7 +27,6 @@ class CategoriesEntity extends Equatable{
     required this.isArabic,required this.parentID,required this.productsCount});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id];
 
 

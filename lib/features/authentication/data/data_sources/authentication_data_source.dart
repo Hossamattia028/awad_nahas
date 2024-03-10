@@ -71,7 +71,8 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
     try{
       var request = http.MultipartRequest('POST', Uri.parse(ApiUrl.REGISTER_URL));
       var headers = ApiUrl.headerAuth;
-      if(userData['name'] != null)request.fields['name'] = userData['name'];
+      if(userData['first_name'] != null)request.fields['first_name'] = userData['first_name'];
+      if(userData['last_name'] != null)request.fields['last_name'] = userData['last_name'];
       if(userData['user_login'] != null)request.fields['user_login'] = userData['user_login'];
       if(userData['email'] != null)request.fields['email'] = userData['email'];
       if(userData['phone'] != null)request.fields['phone'] = userData['phone'];
@@ -101,7 +102,6 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
       'email': userData['email'],
       'name':userData['email'].toString().split("@").first.toString().replaceAll("null", ""),
       'password': userData['password'],
-      // 'device_token': await Util.getCurrentUserPushToken()
     };
     var response = await client.post(
       Uri.parse(ApiUrl.SOCIAL_AUTH_URL),

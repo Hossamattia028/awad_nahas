@@ -1,0 +1,15 @@
+
+
+ 								
+6-sunday : activate products & edit category translation 
+
+7-monday : activate cart (add-delete-view)
+
+     
+8-Tuesday : activate search for products and filter by sub categories
+
+
+9-Wednesday : activate wishlist & create design for (help center & contact )
+                  		             	
+
+10-Thursday: activate address section 		  	 							

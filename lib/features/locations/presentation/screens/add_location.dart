@@ -32,7 +32,6 @@ class AddNewLocationScreen extends StatefulWidget {
 }
 
 class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
-  final TextEditingController nameTextEditingController = TextEditingController();
   final TextEditingController phoneTextEditingController = TextEditingController();
   final TextEditingController streetTextEditingController = TextEditingController();
   final TextEditingController streetMoreDetailsTextEditingController = TextEditingController();
@@ -62,7 +61,6 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
           address: widget.locationEntity!.address1, city: widget.locationEntity!.city,
           country: widget.locationEntity!.country,postalCode: widget.locationEntity!.postCode.toString(),
           street: widget.locationEntity!.state.toString(),);
-      nameTextEditingController.text = Util.getName();
       phoneTextEditingController.text = widget.locationEntity!.phone;
       streetTextEditingController.text =  widget.locationEntity!.address1;
       streetMoreDetailsTextEditingController.text =  widget.locationEntity!.address2;
@@ -383,8 +381,8 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                             "${type}_address_2": streetMoreDetailsTextEditingController.text.trim(),
                             "${type}_city": bloc.currentShippingCity.trim(),
                             "${type}_address_1": streetTextEditingController.text.trim() ,
-                            "${type}_last_name": " ",
-                            "${type}_first_name": Util.getName(),
+                            "${type}_last_name": Util.getLastName(),
+                            "${type}_first_name": Util.getFirstName(),
                             "location_type" : locationType.toString(),
                             "type":type,
                           };

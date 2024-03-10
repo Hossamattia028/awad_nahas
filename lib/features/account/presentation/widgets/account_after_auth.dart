@@ -48,19 +48,9 @@ class AccountAuthCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 5,),
 
-                  // if(isDrawer && user == null)
-                  // InkWell(
-                  //   onTap: ()=> user==null? Util.pushPage(const LoginScreen(), context):debugPrint("exist user"),
-                  //   child: CustomText(
-                  //     text: user == null? translate("drawer.join_us"):user.userName.toString(),
-                  //     color: user == null? DMUtil.getRED() : DMUtil.getD2C(),
-                  //     fontSize: AppStyle.average.sp,
-                  //   ),
-                  // ),
-
                   if(user!=null && Util.checkUser())
                     CustomText(
-                      text: user.userName.toString(),
+                      text: user.firstName.toString(),
                       color: DMUtil.getD2C(),
                       fontSize: AppStyle.average.sp+2,
                     ),
@@ -142,7 +132,7 @@ class AccountAuthCardProfile extends StatelessWidget {
 
                       if(user!=null && Util.checkUser())
                         CustomText(
-                          text: user.userName.toString(),
+                          text: user.firstName.toString(),
                           color: DMUtil.getD2C(),
                           fontWeight: FontWeight.w600,
                           fontSize: AppStyle.average.sp+2,

@@ -64,10 +64,10 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<OrderBloc,OrderState>(
-      listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState || state is SendPendingOrderSuccessfullyState || state is OrderErrorState,
+      listenWhen: (ctx,state) => state is SendPendingOrderSuccessfullyState || state is AssignOrderSuccessfullyState || state is OrderErrorState ,
       listener: (ctx,state)async{
         var orderBloc = OrderBloc.get(ctx);
-        if(state is AssignOrderSuccessfullyState){
+        if(state is AssignOrderSuccessfullyState && state.payment.paymentEnum != PaymentEnum.AMWAL){
           cartBloc.add(ModifyCartProductEvent(product: null, isAdd: false, context: context));
           CustomDialogs.thanksOrder(context);
           await Future.delayed(const Duration(seconds: 2));
@@ -78,7 +78,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         }
 
         /// pay after the order set as pending
-        if(state is SendPendingOrderSuccessfullyState){
+        if(state is SendPendingOrderSuccessfullyState && state.payment.paymentEnum != PaymentEnum.AMWAL){
           if(cartBloc.paymentWithCard == PaymentEnum.CASH){
             SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
           }else if(cartBloc.paymentWithCard == PaymentEnum.PAYFORT){
@@ -120,7 +120,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                   ),
                   const SizedBox(height: 10,),
                 ],
-                QuickCheckOutButton(amount: cartBloc.totalPrice, list: cartBloc.cartList,height: 35,),
+                QuickCheckOutButton(amount: cartBloc.totalPrice, list: cartBloc.cartList,height: 35,amWalListen: false,),
                 const SizedBox(height: 5,),
                 BlocBuilder<CartBloc,CartState>(
                   builder: (ctx,state){

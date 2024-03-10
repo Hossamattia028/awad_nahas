@@ -14,8 +14,6 @@ import 'package:awad_nahas/features/cart/presentation/widgets/order_details.dart
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
-
-
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
 

@@ -238,7 +238,8 @@ class RegisterScreen extends StatelessWidget {
                         if(validateForm(context: context) && await SmsApi.sendOtp(provider: bloc.registerByPhone?phone:email,isEmail: !bloc.registerByPhone)){
                           Util.pushPage(PinCodeVerificationScreen(data: {
                             'email':email,
-                            'name':"${firstNameTextEditingController.text.trim()} ${secondNameTextEditingController.text.trim()}",
+                            'first_name':firstNameTextEditingController.text.trim(),
+                            'last_name': secondNameTextEditingController.text.trim(),
                             'user_login': phoneTextEditingController.text.trim() ,
                             'phone':phone,
                             'password':passwordTextEditingController.text.trim(),

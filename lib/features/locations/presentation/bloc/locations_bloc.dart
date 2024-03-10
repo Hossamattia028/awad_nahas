@@ -190,7 +190,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
   }
 
   bool checkIFAddressEmpty(LocationEntity item){
-    if(item.phone.isEmpty&&item.country.isEmpty&&item.phone.isEmpty){
+    if(item.phone.isEmpty&&item.address1.isEmpty&&item.city.isEmpty){
       return true;
     }
     return false;

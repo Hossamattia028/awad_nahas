@@ -9,7 +9,7 @@ import '../../../../fixtures/fixture_reader.dart';
 
 
 void main(){
-  const tUser =  UserServiceModel(userId: 3518, userLogin: "userLogin", userName: "userName", email: "email", phoneNumber: "phoneNumber");
+  const tUser =  UserServiceModel(userId: 3518, userLogin: "userLogin", firstName: "first name",lastName: "last name ", email: "email", phoneNumber: "phoneNumber");
 
   test("should be a subclass of UserService", () async{
       expect(tUser, isA<UserService>());

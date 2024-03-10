@@ -10,7 +10,6 @@ class TransactionEntity extends Equatable{
   const TransactionEntity({required this.id,required this.userID,required this.providerID,required this.title,required this.transDetails});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id,userID,providerID];
 
 }

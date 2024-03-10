@@ -6,7 +6,7 @@ import 'package:awad_nahas/features/products/domain/repositories/products_reposi
 class GetAllProductCommentsUseCase {
   final ProductsRepository productsRepository;
 
-  GetAllProductCommentsUseCase({required this.productsRepository});
+  const GetAllProductCommentsUseCase({required this.productsRepository});
 
   Future<Either<Failure, List<ProductComments>>> call({required Map<String,dynamic> data}) async {
     return await productsRepository.getAllProductComments(data: data);
@@ -17,7 +17,7 @@ class GetAllProductCommentsUseCase {
 class AddProductCommentUseCase {
   final ProductsRepository productsRepository;
 
-  AddProductCommentUseCase({required this.productsRepository});
+  const AddProductCommentUseCase({required this.productsRepository});
 
   Future<Either<Failure, bool>> call({required Map<String,dynamic> data}) async {
     return await productsRepository.addProductComment(data: data);

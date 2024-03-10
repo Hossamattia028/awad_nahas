@@ -47,6 +47,7 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
     on<ChangeCurrentOrdersEvent>((event, emit) {
       changeOrdersType(event,emit);
     });
+
   }
   static OrderBloc get(BuildContext context) => BlocProvider.of(context);
 
@@ -97,9 +98,9 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
         emit(OrderErrorState(errors: l.toString()));
       },(data) {
         if(data.state == true && event.orderStatus == WCStatusKey.wc_processing){
-          emit(AssignOrderSuccessfullyState());
+          emit(AssignOrderSuccessfullyState(payment: event.payment));
         }else if(data.state == true && event.orderStatus == WCStatusKey.wc_pending){
-          emit(SendPendingOrderSuccessfullyState(orderID: data.orderID.toString()));
+          emit(SendPendingOrderSuccessfullyState(orderID: data.orderID.toString(),payment: event.payment));
         }else{
           emit(OrderErrorState(errors: translate("toast.oops")));
         }
@@ -111,17 +112,17 @@ class OrderBloc extends Bloc<OrderEvent,OrderState>{
   }
 
   updateOrder(UpdateOrderEvent event,emit)async{
-    emit(OrderLoadingState());
-    var res = await updateOrderUseCase(data: event.data,);
-    res.fold((l) {
-      emit(OrderErrorState(errors: l.toString()));
-    },(data) {
-      if(data && event.data['status'] == WCStatusKey.wc_processing){
-        emit(AssignOrderSuccessfullyState());
-      }else{
-        emit(const OrderErrorState(errors: "error when add order"));
-      }
-    });
+    // emit(OrderLoadingState());
+    // var res = await updateOrderUseCase(data: event.data,);
+    // res.fold((l) {
+    //   emit(OrderErrorState(errors: l.toString()));
+    // },(data) {
+    //   if(data && event.data['status'] == WCStatusKey.wc_processing){
+    //     // emit(AssignOrderSuccessfullyState(payment: event.d));
+    //   }else{
+    //     emit(const OrderErrorState(errors: "error when add order"));
+    //   }
+    // });
   }
 
   cancelOrder(CancelOrderEvent event,emit)async{

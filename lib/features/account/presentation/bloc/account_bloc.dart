@@ -134,8 +134,8 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
     await SharedPref().setPreferencesString(Constants.userLogin, res.user!.userLogin.toString());
     await SharedPref().setPreferencesString(Constants.email, res.user!.email.toString());
     await SharedPref().setPreferencesString(Constants.mobile, res.user!.phoneNumber.toString());
-    await SharedPref().setPreferencesString(Constants.name, res.user!.userName.toString());
-    // await SharedPref().setPreferencesString(Constants.city, res.user!.cityID.toString());
+    await SharedPref().setPreferencesString(Constants.firstName, res.user!.firstName.toString());
+    await SharedPref().setPreferencesString(Constants.lastName, res.user!.lastName.toString());
   }
 
 

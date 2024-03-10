@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
-
 import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_sdk.dart';
@@ -15,22 +13,32 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/order/data/models/coupon_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 
+
+
+
 class CartBloc extends Bloc<CartEvent,CartState>{
-  AddCartItemUseCase addCartItemUseCase;
-  GetAllCartListUseCase getAllCartListUseCase;
-  RemoveCartItemUseCase removeCartItemUseCase;
-  ApplyCouponUseCase applyCouponUseCase;
+  
+  CartState get initialState => const CartInitialState();
+
+  Stream<CartState> mapEventToState(CartEvent event) async* {
+    yield const CartInitialState();
+  }
+
   int currentCategoryIndex = 0;
   PaymentEnum paymentWithCard = PaymentEnum.PAYFORT;
   bool applePay = false;
   bool deliveryAndInstallment = false;
 
+  AddCartItemUseCase addCartItemUseCase;
+  GetAllCartListUseCase getAllCartListUseCase;
+  RemoveCartItemUseCase removeCartItemUseCase;
+  ApplyCouponUseCase applyCouponUseCase;  
   CartBloc({
     required this.getAllCartListUseCase,
     required this.addCartItemUseCase,
     required this.removeCartItemUseCase,
     required this.applyCouponUseCase,
-  }) : super(CartInitialState()) {
+  }) : super(const CartInitialState()) {
     on<ImplementCouponDiscountEvent>((event, emit)async {
       await getDiscountCoupon(event,emit);
     });
@@ -54,9 +62,9 @@ class CartBloc extends Bloc<CartEvent,CartState>{
 
     on<UpdateCountEvent>((event, emit) {
       if(event.value == 0)return;
-      emit(CartLoadingState());
+      emit(const CartLoadingState());
       cartCount = event.value;
-      emit(CartSuccessfullyState());
+      emit(const CartSuccessfullyState());
     });
 
     on<DeliveryWithInstallmentEvent>((event,emit){
@@ -80,9 +88,9 @@ class CartBloc extends Bloc<CartEvent,CartState>{
 
   double tamaraMax = 5000;
   getTamaraMAxAmount(emit)async{
-    emit(CartSuccessfullyState());
+    emit(const CartSuccessfullyState());
     tamaraMax = await TamaraSdk.getTamaraAmountLimit();
-    emit(CartSuccessfullyState());
+    emit(const CartSuccessfullyState());
   }
 
 
@@ -123,11 +131,11 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   int cartCount = 1;
   List<ProductsEntity> cartList = [];
   getAllCart(emit)async{
-    emit(CartLoadingState());
+    emit(const CartLoadingState());
     try{
       cartList = _getLocalCartList();
       calcTotal();
-      emit(CartSuccessfullyState());
+      emit(const CartSuccessfullyState());
       // var res = await getAllCartListUseCase();
       // res.fold((l) {
       //   emit(CartErrorState(errors: translate("toast.oops")));
@@ -246,7 +254,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
 
 
   modifyCartProduct(ModifyCartProductEvent event,emit)async{
-    if(event.count!=null) emit(CartLoadingState());
+    if(event.count!=null) emit(const CartLoadingState());
     if(event.product!=null) {
       ///update current count after added last chooser count
       currentCount = 1;
@@ -258,7 +266,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     }
     calcTotal(setCouponNull: true);
     cartList = cartList;
-    if(event.count==null)emit(CartSuccessfullyState());
+    if(event.count==null)emit(const CartSuccessfullyState());
     await addToCart(emit,event.remove);
     await getAllCart(emit);
   }
@@ -301,7 +309,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   double? couponValue;
   CouponModel? couponModel;
   getDiscountCoupon(ImplementCouponDiscountEvent event,emit)async {
-    emit(CouponLoadingState());
+    emit(const CouponLoadingState());
     try{
       var res = await applyCouponUseCase(dataSet: {'code':event.couponTxt.trim()});
       res.fold((l) {
@@ -310,7 +318,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
         couponModel= data;
         if(checkCouponValue(couponModel)){
           calcTotal(setCouponNull: false);
-          emit(CouponSuccessfullyState());
+          emit(const CouponSuccessfullyState());
         }else{
           calcTotal(setCouponNull: true);
           emit(CartErrorState(errors: translate("cart.couponـwrong")));

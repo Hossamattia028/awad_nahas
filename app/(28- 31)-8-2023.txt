@@ -1,0 +1,15 @@
+
+
+ 								
+
+
+28-monday : finish all comments in design and add more categories in home page 
+
+     
+29-Tuesday : filter in all app and activate the top (main) slider
+
+
+30-Wednesday : sliders for products and categories + show order page completed after create order (and add the last order details in dashboard )
+                  		             	
+
+31-Thursday: activate all drawer menu section (maintenance and help center) 		  	 							

@@ -42,28 +42,26 @@ class UserServiceRemoteDataSource implements UserServiceRemoteDataSourceImpl {
   Future<UserServiceModel> updateUserProfile({required Map<String, dynamic> userData}) async {
     var body = {
       if(userData['user_login']!=null)'user_login': Util.getUserLogin(),
-      if(userData['name']!=null)'user_nicename': userData['name']??'',
-      if(userData['name']!=null)'display_name': userData['name']??'',
+      if(userData['first_name']!=null)'first_name': userData['first_name']??'',
+      if(userData['last_name']!=null)'last_name': userData['last_name']??'',
       if(userData['email']!=null)'user_email': userData['email'],
       if(userData['phone']!=null)'phone': userData['phone'],
     };
-    // if(userData['image']!=null)await updateImg(imgPath: userData['image']);
     var response = await client.post(Uri.parse(ApiUrl.UPDATE_USER_PROFILE),
         body: json.encode(body),
         headers: ApiUrl.headerAuth);
-    debugPrint("updateUserProfile: ${response.body}");
+    // debugPrint("updateUserProfile: ${response.body}");
     var decodedData = jsonDecode(response.body);
     if(decodedData['status']==true){
       return UserServiceModel.fromJson(decodedData['user']);
     }else{
-      return const UserServiceModel(userId: 0,userLogin: '',userName: '',email: '',phoneNumber: "",);
+      return const UserServiceModel(userId: 0,userLogin: '',firstName: '',email: '',lastName: '',phoneNumber: "",);
     }
   }
 
   static Future<bool> updateImg({required String imgPath})async{
     try{
-      String url = "${ApiUrl.UPDATE_USER_PROFILE}${Util.getUserID()}/profile";
-      var request = http.MultipartRequest('POST', Uri.parse(url));
+      var request = http.MultipartRequest('POST', Uri.parse("${ApiUrl.UPDATE_USER_PROFILE}${Util.getUserID()}/profile"));
       var headers = ApiUrl.headerAuth;
       var file = await http.MultipartFile.fromPath('avatar', imgPath);
       request.files.add(file);

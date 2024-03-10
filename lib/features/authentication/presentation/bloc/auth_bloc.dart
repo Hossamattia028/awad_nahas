@@ -168,7 +168,8 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     await SharedPref.preferences.setPreferencesString(Constants.userId, res.user!.userId.toString());
     await SharedPref.preferences.setPreferencesString(Constants.userLogin, res.user!.userLogin.toString());
     await SharedPref.preferences.setPreferencesString(Constants.email, res.user!.email.toString());
-    await SharedPref.preferences.setPreferencesString(Constants.name, res.user!.userName.toString());
+    await SharedPref.preferences.setPreferencesString(Constants.firstName, res.user!.firstName.toString());
+    await SharedPref().setPreferencesString(Constants.lastName, res.user!.lastName.toString());
     await SharedPref.preferences.setPreferencesString(Constants.mobile, res.user!.phoneNumber.toString());
     await SharedPref.preferences.setPreferencesString(Constants.city, res.user!.countryCode.toString());
     await SharedPref.preferences.setPreferencesString(Constants.address, res.user!.address.toString());

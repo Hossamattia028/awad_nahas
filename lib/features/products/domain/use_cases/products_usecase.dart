@@ -6,7 +6,7 @@ import 'package:awad_nahas/features/products/domain/repositories/products_reposi
 class GetAllProductsUseCase {
   final ProductsRepository productsRepository;
 
-  GetAllProductsUseCase({required this.productsRepository});
+  const GetAllProductsUseCase({required this.productsRepository});
 
   Future<Either<Failure, ProductResponseModel>> call({required String parameter}) async {
     return await productsRepository.getAllProducts(parameter: parameter);

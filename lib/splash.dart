@@ -1,6 +1,4 @@
-
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:async';
 import 'package:awad_nahas/features/shared_widgets/no_connection.dart';
 import 'package:awad_nahas/features/shared_widgets/update_app.dart';
@@ -53,7 +51,6 @@ class _SplashScreenState extends State<SplashScreen> {
           fit: BoxFit.fill
         )
       ),
-      // child: Image.asset(AppImages.logo,width: 200.w,),
     );
   }
 }

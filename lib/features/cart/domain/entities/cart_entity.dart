@@ -12,6 +12,5 @@ class CartEntity extends Equatable{
   const CartEntity({required this.id,required this.sessionID,required this.sessionValue,required this.total,this.cartSerialize});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id,];
 }

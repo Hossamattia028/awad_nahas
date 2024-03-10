@@ -25,4 +25,3 @@ class SnackBarBuilder {
     );
   }
 }
-//translate("toast.dismiss")

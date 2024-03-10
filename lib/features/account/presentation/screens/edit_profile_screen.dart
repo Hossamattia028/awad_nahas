@@ -43,8 +43,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
     accountBloc = AccountBloc.get(context);
     var user = accountBloc.currentUser;
     if(user!=null){
-      firstNameTextEditingController.text = user.userName.toString().replaceAll("null", "");
-      lastNameTextEditingController.text = user.userName.toString().replaceAll("null", "");
+      firstNameTextEditingController.text = user.firstName.toString().replaceAll("null", "");
+      lastNameTextEditingController.text = user.lastName.toString().replaceAll("null", "");
       emailTextEditingController.text = user.email.toString().replaceAll("null", "");
       String userPHone = user.phoneNumber.toString();
       if(userPHone.startsWith("0"))userPHone = userPHone.substring(1).toString();
@@ -90,17 +90,48 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 fontSize: AppStyle.average.sp,
               ),
               const SizedBox(width: 5,),
-              CustomTextFromField(
-                hintText: translate("signup.first_name"),
-                labelText: "",
-                hasBorder: true,
-                smallPadding: true,
-                cursorColor: kPrimary,
-                radius: 10,
-                textEditingController: firstNameTextEditingController,
-                validator: (){},
-                obscureText: false,
-                isLabelError: false,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: 50.h,
+                    width: 160.w,
+                    child: CustomTextFromField(
+                        hintText: translate("signup.first_name"),
+                        labelText: "",
+                        radius: 10,
+                        hasBorder: true,
+                        borderWidth: 1,
+                        borderColor: DMUtil.getD2C(),
+                        hintColor: kSecondPrimary,
+                        textEditingController: firstNameTextEditingController,
+                        validator: () {},
+                        prefixIcon: null,
+                        cursorColor: kPrimary,
+                        suffixIcon: const SizedBox(),
+                        obscureText: false,
+                        isLabelError: false),
+                  ),
+                  SizedBox(
+                    height: 50.h,
+                    width: 160.w,
+                    child: CustomTextFromField(
+                        hintText: translate("signup.last_name"),
+                        labelText: "",
+                        radius: 10,
+                        hasBorder: true,
+                        borderWidth: 1,
+                        borderColor: DMUtil.getD2C(),
+                        hintColor: kSecondPrimary,
+                        textEditingController: lastNameTextEditingController,
+                        validator: () {},
+                        prefixIcon: null,
+                        cursorColor: kPrimary,
+                        suffixIcon: const SizedBox(),
+                        obscureText: false,
+                        isLabelError: false),
+                  ),
+                ],
               ),
               const SizedBox(height: 15,),
               CustomText(
@@ -174,7 +205,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         Util.pushPage(PinCodeVerificationScreen(data: {
                           'phone':phoneTextEditingController.text.trim(),
                           "email":emailTextEditingController.text.trim(),
-                          "name":firstNameTextEditingController.text.trim(),
+                          "first_name":firstNameTextEditingController.text.trim(),
+                          "last_name":lastNameTextEditingController.text.trim(),
                         },isChangePhone: true,), context);
                       }else{
                         SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);
@@ -189,37 +221,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
               const SizedBox(height: 12,),
 
-              // CustomText(
-              //   text: translate("signup.password"),
-              //   color: DMUtil.getDC(),
-              //   fontSize: AppStyle.average.sp,
-              // ),
-              // const SizedBox(width: 5,),
-              // Stack(
-              //   alignment: Util.getLang()=="ar"?Alignment.centerLeft:Alignment.centerRight,
-              //   children: [
-              //     CustomTextFromField(
-              //       hintText: "************",
-              //       labelText: "",
-              //       cursorColor: kPrimary,
-              //       hasBorder: true,
-              //       radius: 10,
-              //       smallPadding: true,
-              //       textInputType: TextInputType.visiblePassword,
-              //       textEditingController: passTextEditingController,
-              //       validator: (){},
-              //       obscureText: false,
-              //       isLabelError: false,
-              //     ),
-              //     TextButton(
-              //         onPressed: ()=> Util.pushPage(const ResetPassword(userLogin: "",goToLogin: false,), context),
-              //         child: CustomText(
-              //           text: translate("button.change"),
-              //           fontSize: AppStyle.small.sp,
-              //         ),
-              //     ),
-              //   ],
-              // ),
 
               const SizedBox(height: 50,),
               BlocBuilder<AccountBloc,AccountState>(
@@ -245,7 +246,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             bloc.add(UpdateProfileEvent(user: {
                               "phone":userPhone,
                               "email":emailTextEditingController.text.trim(),
-                              "name":firstNameTextEditingController.text.trim(),
+                              "first_name":firstNameTextEditingController.text.trim(),
+                              "last_name":lastNameTextEditingController.text.trim(),
                             }));
                           // }else{
                           //   return SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), Colors.red);

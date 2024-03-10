@@ -17,7 +17,6 @@ class SettingsModelRepository extends SettingsRepository{
 
   @override
   Future<Either<Failure, List<AboutUs>>> getAboutUsData() async{
-    // TODO: implement getAboutUsData
     throw UnimplementedError();
   }
 
@@ -36,19 +35,17 @@ class SettingsModelRepository extends SettingsRepository{
 
   @override
   Future<Either<Failure, List<Privacy>>> getPrivacyData() async{
-    // TODO: implement getPrivacyData
     throw UnimplementedError();
   }
 
   @override
   Future<Either<Failure, List<RefundPolicy>>> getRefundPolicyData() async{
-    // TODO: implement getRefundPolicyData
+
     throw UnimplementedError();
   }
 
   @override
   Future<Either<Failure, List<Terms>>> getTermsData() async{
-    // TODO: implement getTermsData
     throw UnimplementedError();
   }
 

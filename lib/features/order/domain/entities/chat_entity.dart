@@ -5,7 +5,6 @@ class MessageEntity extends Equatable{
   const MessageEntity({this.text, this.senderID,this.senderName,this.receiverID,this.receiverName, this.uploadID});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [uploadID];
 
 }

@@ -5,8 +5,6 @@ import 'package:awad_nahas/core/utils/payment_utils/amwal/ui/amwal_widgets.dart'
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/screens/check_out_screen.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/animate_arrow.dart';
-import 'package:awad_nahas/features/order/presentation/screens/order_screen.dart';
-import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +13,6 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
-import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
@@ -35,92 +32,77 @@ class CartBottomButton extends StatelessWidget {
           height: 120.h,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(color: DMUtil.getWC(), borderRadius: BorderRadius.circular(5)),
-          child: BlocListener<OrderBloc, OrderState>(
-            listenWhen: (ctx,state)=> state is AssignOrderSuccessfullyState || state is OrderErrorState,
-            listener: (ctx,state)async{
-              if(state is AssignOrderSuccessfullyState){
-                CartBloc.get(context).add(ModifyCartProductEvent(product: null, isAdd: false, context: context));
-                CustomDialogs.thanksOrder(context);
-                await Future.delayed(const Duration(seconds: 2));
-                Navigator.of(context).pop();
-                Util.pushPage(const OrderScreen(), context);
-              }
-              if(state is OrderErrorState){
-                SnackBarBuilder.showFeedBackMessage(context, translate("toast.oops"), Colors.red);
-              }
-            },
-            child: BlocBuilder<OrderBloc, OrderState>(
-              builder: (ctx, state) {
-                return Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        QuickCheckOutButton(amount: cartBloc.totalPrice, list: cartBloc.cartList,),
-                        const SizedBox(height: 5,),
-                        CustomButton(
-                          height: 40.h,
-                          width: double.infinity,
-                          circular: 10,
-                          widget: state is OrderLoadingState
-                              ? const CircularProgressIndicator(
-                            color: Colors.white,
-                          ):
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Expanded(
-                                child: CustomText(
-                                  text: translate("cart.checkOut"),
-                                  color: Colors.white,
-                                  fontSize: AppStyle.average.sp + 1,
-                                  alignCenter: true,
-                                  fontWeight: FontWeight.w600,
-                                ),
+          child: BlocBuilder<OrderBloc, OrderState>(
+            builder: (ctx, state) {
+              return Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      QuickCheckOutButton(amount: cartBloc.totalPrice, list: cartBloc.cartList,amWalListen: false,ctX: context,),
+                      const SizedBox(height: 5,),
+                      CustomButton(
+                        height: 40.h,
+                        width: double.infinity,
+                        circular: 10,
+                        widget: state is OrderLoadingState
+                            ? const CircularProgressIndicator(
+                          color: Colors.white,
+                        ):
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Expanded(
+                              child: CustomText(
+                                text: translate("cart.checkOut"),
+                                color: Colors.white,
+                                fontSize: AppStyle.average.sp + 1,
+                                alignCenter: true,
+                                fontWeight: FontWeight.w600,
                               ),
-                              const AnimateArrowWidget(),
-                            ],
-                          ),
-                          color: DMUtil.getRED(),
-                          onPressed: () {
-                            if(!Util.checkUser()){
-                              SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),);
-                              Util.pushPage(const LoginScreen(), context);
-                              return;
-                            }
-                            Util.pushPage(const CheckOutScreen(), context);
-                          },
+                            ),
+                            const AnimateArrowWidget(),
+                          ],
                         ),
-                      ],
-                    ),
+                        color: DMUtil.getRED(),
+                        onPressed: () {
+                          if(!Util.checkUser()){
+                            SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),);
+                            Util.pushPage(const LoginScreen(), context);
+                            return;
+                          }
+                          Util.pushPage(const CheckOutScreen(), context);
+                        },
+                      ),
+                    ],
+                  ),
 
-                    Positioned(
-                      left: 1.w,
-                      bottom: 87.h,
-                      child: CustomText(
-                        text: "${cartBloc.totalPrice.toStringAsFixed(2)} ${translate("store.sar")}",
-                        fontSize: AppStyle.average.sp,
-                        color: DMUtil.getD2C(),
-                        fontWeight: FontWeight.w600,
-                      ),
+                  Positioned(
+                    left: 1.w,
+                    bottom: 87.h,
+                    child: CustomText(
+                      text: "${cartBloc.totalPrice.toStringAsFixed(2)} ${translate("store.sar")}",
+                      fontSize: AppStyle.average.sp,
+                      color: DMUtil.getD2C(),
+                      fontWeight: FontWeight.w600,
                     ),
-                    Positioned(
-                      right: 1.w,
-                      bottom: 87.h,
-                      child: CustomText(
-                        text:
-                        "${cartBloc.cartList.length} ${cartBloc.cartList.length > 1 ? translate("store.items") : translate("store.item")}",
-                        fontSize: AppStyle.average.sp,
-                        color: DMUtil.getD2C().withOpacity(0.8),
-                        fontWeight: FontWeight.w600,
-                      ),
+                  ),
+                  Positioned(
+                    right: 1.w,
+                    bottom: 87.h,
+                    child: CustomText(
+                      text:
+                      "${cartBloc.cartList.length} ${cartBloc.cartList.length > 1 ? translate("store.items") : translate("store.item")}",
+                      fontSize: AppStyle.average.sp,
+                      color: DMUtil.getD2C().withOpacity(0.8),
+                      fontWeight: FontWeight.w600,
                     ),
-                  ],
-                );
-              },
-            ),
+                  ),
+                ],
+              );
+            },
           ),
         );
       },

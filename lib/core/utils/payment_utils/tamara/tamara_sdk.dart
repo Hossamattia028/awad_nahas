@@ -47,8 +47,8 @@ class TamaraSdk{
         "locale": "en_US",
         "items": data['items'],
         "consumer": {
-          "first_name": Util.getName()==""?"guest":Util.getName(),
-          "last_name": Util.getName()==""?"guest":Util.getName(),
+          "first_name": Util.getFirstName()==""?"guest":Util.getFirstName(),
+          "last_name": Util.getLastName()==""?"guest":Util.getLastName(),
           "phone_number": Util.getMobile()==""?"502441695":Util.getMobile(),
           "email": Util.getEmail()==""?"guest@gmail.com":Util.getEmail(),
         },

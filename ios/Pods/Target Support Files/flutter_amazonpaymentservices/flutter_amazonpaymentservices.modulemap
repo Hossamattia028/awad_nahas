@@ -1,0 +1,6 @@
+framework module flutter_amazonpaymentservices {
+  umbrella header "flutter_amazonpaymentservices-umbrella.h"
+
+  export *
+  module * { export * }
+}

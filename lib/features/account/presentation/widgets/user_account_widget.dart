@@ -36,7 +36,7 @@ class UserAccountWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: user.userName.toString(),
+                      text: user.firstName.toString(),
                       color: DMUtil.getD2C(),
                       fontWeight: FontWeight.w600,
                       fontSize: AppStyle.average.sp + 2,

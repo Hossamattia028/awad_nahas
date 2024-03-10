@@ -148,8 +148,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-                      child: QuickCheckOutButton(amount: widget.item.price, list: [widget.item],isListen: true,),
+                        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                        child: QuickCheckOutButton(amount: widget.item.price, list: [widget.item],amWalListen: true,),
                     ),
                     AddToCartButtonWidget(item: widget.item,),
                     const BottomNavBar(isRoot: false ),

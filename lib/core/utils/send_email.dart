@@ -11,7 +11,7 @@ class SendGmail{
   /// this function use now for verification code only
   static Future<bool> sendEmailMessage({required String bodyMsg,required String userMsg,required String userEmail,required String subject}) async{
     try{
-      final response = await http.post(Uri.parse("${ApiUrl.BASE_URL}send-email-edit"),
+       await http.post(Uri.parse("${ApiUrl.BASE_URL}send-email-edit"),
           body: {
             "email":userEmail,
             "admin_message":bodyMsg,

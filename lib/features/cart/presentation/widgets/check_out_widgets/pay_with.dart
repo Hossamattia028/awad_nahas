@@ -27,13 +27,6 @@ class PayWithWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // CustomText(
-          //   text: translate("cart.pay_with"),
-          //   color: DMUtil.getDC(),
-          //   fontSize: AppStyle.average.sp,
-          // ),
-          // const SizedBox(height: 10,),
-
           BlocBuilder<CartBloc,CartState>(
             builder: (ctx,state){
               var bloc = CartBloc.get(ctx);

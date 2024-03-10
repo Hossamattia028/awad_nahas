@@ -88,47 +88,6 @@ class SelectLocations extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // child: DropdownButton(
-                    //   isExpanded: true,
-                    //   padding: EdgeInsets.zero,
-                    //   dropdownColor: DMUtil.getWC(),
-                    //   alignment: Alignment.center,
-                    //   onTap: ()=> Util.pushPage(const MyLocationsScreen(), context),
-                    //   underline: const SizedBox.shrink(),
-                    //   style: TextStyle(color: DMUtil.getDC(), fontSize: AppStyle.small.sp,fontFamily: primaryFontReg),
-                    //   hint: Row(
-                    //     children: [
-                    //       const SizedBox(width: 10,),
-                    //       Icon(Icons.location_on_outlined,color: DMUtil.getD2C().withOpacity(0.7),size: AppStyle.average.w,),
-                    //       const SizedBox(width: 5,),
-                    //       CustomText(
-                    //         text: "${translate("store.deliver_to")} ${bloc.currentCheckOutLocation?.address1}",
-                    //         color: DMUtil.getDC(),
-                    //         fontSize: AppStyle.small.sp,
-                    //         isEllipsis: true,
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   onChanged: (val)=> Util.pushPage(const MyLocationsScreen(), context),
-                    //   icon: Icon(Icons.keyboard_arrow_down_outlined,color: DMUtil.getDC(),),
-                    //   items: list.map((e) => DropdownMenuItem(
-                    //     value: e,
-                    //     child: Row(
-                    //       children: [
-                    //         const SizedBox(width: 10,),
-                    //         Icon(Icons.location_on_outlined,color: DMUtil.getD2C().withOpacity(0.7),size: AppStyle.average.w,),
-                    //         const SizedBox(width: 5,),
-                    //         CustomText(
-                    //           text: "${translate("store.deliver_to")} ${bloc.currentCheckOutLocation?.address1}",
-                    //           color: DMUtil.getDC(),
-                    //           fontSize: AppStyle.small.sp,
-                    //           isEllipsis: true,
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   )).toList(),
-                    //   value: bloc.currentCheckOutLocation,
-                    // ),
                   ),
                 )
             );

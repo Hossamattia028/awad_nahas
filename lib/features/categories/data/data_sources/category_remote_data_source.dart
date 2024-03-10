@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:awad_nahas/core/utils/small_fun.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
@@ -48,15 +47,15 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
     }
   }
 
-
   @override
-  Future<List<SliderModel>> getAllSliders() async{
-    var response = await client.get(Uri.parse(ApiUrl.SLIDERS_URL),);
+  Future<List<SliderModel>> getAllSliders() async {
+    var response = await client.get(
+      Uri.parse(ApiUrl.SLIDERS_URL),
+    );
     // debugPrint("getAllSliders: ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
-      List<SliderModel> sliders =
-      body['data'].map<SliderModel>((model) {
+      List<SliderModel> sliders = body['data'].map<SliderModel>((model) {
         return SliderModel.fromJson(model);
       }).toList();
       return sliders;
@@ -65,9 +64,11 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
     }
   }
 
-  static Future<String> getBrandDesc({required String id}) async{
-    id = id.replaceAll("-ar", "").replaceAll("-en", "").replaceAll("-en_US", "");
-    var response = await http.get(Uri.parse("${ApiUrl.BASE_URL_ABN_PLUGIN}brand/$id?lang=${Util.getLang()=="ar"?"ar":"en_US"}"));
+  static Future<String> getBrandDesc({required String id}) async {
+    id =
+        id.replaceAll("-ar", "").replaceAll("-en", "").replaceAll("-en_US", "");
+    var response = await http.get(Uri.parse(
+        "${ApiUrl.BASE_URL_ABN_PLUGIN}brand/$id?lang=${Util.getLang() == "ar" ? "ar" : "en_US"}"));
     // debugPrint("getBrandDesc ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
@@ -76,6 +77,4 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
       throw ServerException();
     }
   }
-
-
 }

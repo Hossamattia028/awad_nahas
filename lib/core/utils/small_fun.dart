@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
@@ -133,15 +132,6 @@ class Util{
       return e.toString();
     }
   }
-
-  // static Future<AccessToken?> _checkIfIsLogged() async {
-  //   final accessToken = await FacebookAuth.instance.accessToken;
-  //   if (accessToken != null) {
-  //     return accessToken;
-  //   } else {
-  //     return null;
-  //   }
-  // }
 
   static String generateNonce([int length = 32]) {
     const charset =
@@ -305,8 +295,14 @@ class Util{
   static String getAddress(){
     return SharedPref().getPreferenceString(Constants.address).toString().trim().replaceAll("null", "");
   }
-  static String getName(){
-    return SharedPref().getPreferenceString(Constants.name).toString().trim().replaceAll("null", "").trim();
+  static String getFullName(){
+    return "${getFirstName()} ${getLastName()}";
+  }
+  static String getFirstName(){
+    return SharedPref().getPreferenceString(Constants.firstName).toString().trim().replaceAll("null", "").trim();
+  }
+  static String getLastName(){
+    return SharedPref().getPreferenceString(Constants.lastName).toString().trim().replaceAll("null", "").trim();
   }
   static String getEmail(){
     return SharedPref().getPreferenceString(Constants.email).toString().trim().replaceAll("null", "").trim();
