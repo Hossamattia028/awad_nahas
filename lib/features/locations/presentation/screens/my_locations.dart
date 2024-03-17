@@ -7,7 +7,7 @@ import 'package:awad_nahas/features/locations/presentation/widgets/locations_lis
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 
 class MyLocationsScreen extends StatelessWidget {
-  const MyLocationsScreen({Key? key}) : super(key: key);
+  const MyLocationsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

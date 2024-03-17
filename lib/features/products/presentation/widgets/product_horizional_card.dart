@@ -18,7 +18,7 @@ class ProductHorizontalCard extends StatelessWidget {
   final int index;
   final bool isSmall;
   final bool isMarginToast;
-  const ProductHorizontalCard({Key? key,required this.item,required this.index,this.isSmall = false,this.isMarginToast = true}) : super(key: key);
+  const ProductHorizontalCard({super.key,required this.item,required this.index,this.isSmall = false,this.isMarginToast = true});
 
   @override
   Widget build(BuildContext context) {

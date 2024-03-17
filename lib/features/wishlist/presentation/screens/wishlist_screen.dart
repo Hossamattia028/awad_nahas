@@ -8,7 +8,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class WishListScreen extends StatelessWidget {
   final bool includeBackButton ;
-  const WishListScreen({Key? key,this.includeBackButton = true}) : super(key: key);
+  const WishListScreen({super.key,this.includeBackButton = true});
 
   @override
   Widget build(BuildContext context) {

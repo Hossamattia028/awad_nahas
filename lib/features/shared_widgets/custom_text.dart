@@ -15,7 +15,7 @@ class CustomText extends StatelessWidget {
   final double? letterSpace;
   final int? maxLine;
   const CustomText({
-    Key? key,
+    super.key,
     required this.text,
     this.color,
     required this.fontSize,
@@ -27,7 +27,7 @@ class CustomText extends StatelessWidget {
     this.wordSpace = 0,
     this.letterSpace = 0,
     this.maxLine ,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

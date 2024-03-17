@@ -13,8 +13,8 @@ class TamaraCheckout extends StatefulWidget {
   final String cancelUrl;
 
 
-  const TamaraCheckout(this.checkoutUrl, this.successUrl, this.failUrl, this.cancelUrl, {Key? key,
-    this.onPaymentSuccess, this.onPaymentFailed, this.onPaymentCanceled}) : super(key: key);
+  const TamaraCheckout(this.checkoutUrl, this.successUrl, this.failUrl, this.cancelUrl, {super.key,
+    this.onPaymentSuccess, this.onPaymentFailed, this.onPaymentCanceled});
 
   final void Function()? onPaymentSuccess;
   final void Function()? onPaymentFailed;

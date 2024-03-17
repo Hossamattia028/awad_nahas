@@ -21,7 +21,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? textColor;
   final Color backGroundColor;
   const GlobalAppBar({
-    Key? key,
+    super.key,
     this.title,
     this.icon,
     this.leadingIcon,
@@ -29,8 +29,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.whiteLogo = false,
     this.backGroundColor = Colors.transparent,
     this.textColor
-  })
-      : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +88,7 @@ class BackArrowButton extends StatelessWidget {
   final VoidCallback? fn;
   final Color? color;
   final Alignment? alignment;
-  const BackArrowButton({Key? key,this.fn,this.alignment,this.color,}) : super(key: key);
+  const BackArrowButton({super.key,this.fn,this.alignment,this.color,});
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +110,7 @@ class BackArrowButton extends StatelessWidget {
 
 
 class OrderIcon extends StatelessWidget {
-  const OrderIcon({Key? key}) : super(key: key);
+  const OrderIcon({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +146,7 @@ class OrderIcon extends StatelessWidget {
 
 
 class NotificationIcon extends StatelessWidget {
-  const NotificationIcon({Key? key}) : super(key: key);
+  const NotificationIcon({super.key});
 
   @override
   Widget build(BuildContext context) {

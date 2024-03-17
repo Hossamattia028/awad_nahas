@@ -11,7 +11,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class OurCompanySection extends StatelessWidget {
   final BuildContext ctx;
-  const OurCompanySection({Key? key,required this.ctx}) : super(key: key);
+  const OurCompanySection({super.key,required this.ctx});
 
   @override
   Widget build(BuildContext context) {

@@ -17,7 +17,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class BrandDetailsScreen extends StatelessWidget{
-  const BrandDetailsScreen({Key? key}) : super(key: key);
+  const BrandDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +129,7 @@ class BrandDetailsScreen extends StatelessWidget{
 class TabWidget extends StatelessWidget {
   final String title;
   final bool isSelected;
-  const TabWidget({Key? key,required this.title,required this.isSelected}) : super(key: key);
+  const TabWidget({super.key,required this.title,required this.isSelected});
 
   @override
   Widget build(BuildContext context) {

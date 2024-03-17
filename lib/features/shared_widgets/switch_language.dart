@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SwitchLanguageWidget extends StatelessWidget {
   final bool isLogin;
   final bool isUpdate;
-  const SwitchLanguageWidget({Key? key,this.isLogin = true,this.isUpdate = false}) : super(key: key);
+  const SwitchLanguageWidget({super.key,this.isLogin = true,this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {

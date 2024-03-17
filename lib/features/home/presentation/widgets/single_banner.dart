@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SingleBannerWidget extends StatelessWidget {
   final String position;
-  const SingleBannerWidget({Key? key,required this.position}) : super(key: key);
+  const SingleBannerWidget({super.key,required this.position});
 
   @override
   Widget build(BuildContext context) {

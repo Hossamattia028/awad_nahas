@@ -18,7 +18,7 @@ class WishListIconWidget extends StatelessWidget {
   final ProductsEntity item ;
   final double iconSize;
   final bool isMarginToast;
-  const WishListIconWidget({Key? key,required this.item,this.iconSize = 23,this.isMarginToast = false}) : super(key: key);
+  const WishListIconWidget({super.key,required this.item,this.iconSize = 23,this.isMarginToast = false});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class WishListIconWidget extends StatelessWidget {
 
 class WishListNavIconWidget extends StatelessWidget {
   final bool selected;
-  const WishListNavIconWidget({Key? key,required this.selected}) : super(key: key);
+  const WishListNavIconWidget({super.key,required this.selected});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class WishListNavIconWidget extends StatelessWidget {
 
 class WishListButtonInCartScreen extends StatelessWidget {
   final ProductsEntity item;
-  const WishListButtonInCartScreen({Key? key,required this.item}) : super(key: key);
+  const WishListButtonInCartScreen({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {

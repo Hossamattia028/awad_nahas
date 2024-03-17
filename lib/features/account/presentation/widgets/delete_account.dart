@@ -14,7 +14,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class DeleteAccount extends StatelessWidget {
-  const DeleteAccount({Key? key}) : super(key: key);
+  const DeleteAccount({super.key});
 
   @override
   Widget build(BuildContext context) {

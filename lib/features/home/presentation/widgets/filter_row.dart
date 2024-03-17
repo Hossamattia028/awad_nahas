@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FilterRow extends StatelessWidget {
-  const FilterRow({Key? key}) : super(key: key);
+  const FilterRow({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class SelectProductQuantityWidget extends StatelessWidget {
   final ProductsEntity item;
-  const SelectProductQuantityWidget({Key? key,required this.item}) : super(key: key);
+  const SelectProductQuantityWidget({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {

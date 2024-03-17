@@ -7,8 +7,8 @@ class SmallRowHomeWidget extends StatelessWidget {
   final String title,desc;
   final Icon? iconButton;
   final VoidCallback fn;
-  const SmallRowHomeWidget({Key? key,this.imgPath,required this.fn,
-    required this.title,required this.desc,this.iconButton}) : super(key: key);
+  const SmallRowHomeWidget({super.key,this.imgPath,required this.fn,
+    required this.title,required this.desc,this.iconButton});
 
   @override
   Widget build(BuildContext context) {

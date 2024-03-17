@@ -8,7 +8,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class AssignedImageWidget extends StatelessWidget {
   final bool isSmall;
-  const AssignedImageWidget({Key? key,this.isSmall = false}) : super(key: key);
+  const AssignedImageWidget({super.key,this.isSmall = false});
 
   @override
   Widget build(BuildContext context) {

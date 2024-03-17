@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class WhyAwaNahWidget extends StatelessWidget {
-  const WhyAwaNahWidget({Key? key}) : super(key: key);
+  const WhyAwaNahWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

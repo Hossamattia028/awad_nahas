@@ -15,7 +15,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 
 class LatestProductsList extends StatelessWidget {
-  const LatestProductsList({Key? key}) : super(key: key);
+  const LatestProductsList({super.key});
 
   @override
   Widget build(BuildContext context) {

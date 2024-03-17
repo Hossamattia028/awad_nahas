@@ -10,7 +10,7 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_stat
 import 'package:awad_nahas/features/home/presentation/widgets/main_slider.dart';
 
 class HomeContentWidget extends StatelessWidget {
-  const HomeContentWidget({Key? key}) : super(key: key);
+  const HomeContentWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -15,7 +15,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 
 class MostPopularProductsList extends StatelessWidget {
-  const MostPopularProductsList({Key? key}) : super(key: key);
+  const MostPopularProductsList({super.key});
 
   @override
   Widget build(BuildContext context) {

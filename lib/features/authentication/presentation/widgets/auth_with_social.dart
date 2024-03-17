@@ -19,7 +19,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 class AuthWithSocial extends StatelessWidget {
   final SocialEnum socialEnum;
   final String kind;
-  const AuthWithSocial({Key? key,required this.socialEnum,required this.kind}) : super(key: key);
+  const AuthWithSocial({super.key,required this.socialEnum,required this.kind});
 
   @override
   Widget build(BuildContext context) {

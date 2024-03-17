@@ -10,7 +10,7 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class OrderDetails extends StatelessWidget {
-  const OrderDetails({Key? key}) : super(key: key);
+  const OrderDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class OrderRow extends StatelessWidget {
   final String value;
   final bool isBig;
   final bool isTotal ;
-  const OrderRow({Key? key,required this.title,required this.value,this.isBig=false,this.isTotal=false}) : super(key: key);
+  const OrderRow({super.key,required this.title,required this.value,this.isBig=false,this.isTotal=false});
 
   @override
   Widget build(BuildContext context) {

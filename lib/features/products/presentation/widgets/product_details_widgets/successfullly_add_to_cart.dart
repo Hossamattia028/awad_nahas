@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class SuccessFullyAddToCart extends StatelessWidget {
-  const SuccessFullyAddToCart({Key? key}) : super(key: key);
+  const SuccessFullyAddToCart({super.key});
 
   @override
   Widget build(BuildContext context) {

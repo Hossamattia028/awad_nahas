@@ -17,7 +17,7 @@ class ProductCardFewData extends StatelessWidget {
   final bool showPrice;
   final bool isElevation;
   final bool isTrack;
-  const ProductCardFewData({Key? key,required this.item,this.showPrice = true,this.isElevation=true,this.qty = "0",this.isTrack = false}) : super(key: key);
+  const ProductCardFewData({super.key,required this.item,this.showPrice = true,this.isElevation=true,this.qty = "0",this.isTrack = false});
 
   @override
   Widget build(BuildContext context) {

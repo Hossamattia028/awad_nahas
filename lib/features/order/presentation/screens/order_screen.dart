@@ -14,7 +14,7 @@ import 'package:awad_nahas/features/order/presentation/widgets/small_order_widge
 
 
 class OrderScreen extends StatefulWidget {
-  const OrderScreen({Key? key}) : super(key: key);
+  const OrderScreen({super.key});
 
   @override
   State<OrderScreen> createState() => _OrderScreenState();

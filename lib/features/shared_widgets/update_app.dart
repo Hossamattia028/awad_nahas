@@ -65,7 +65,7 @@ class _UpdateAppScreenState extends State<UpdateAppScreen> {
                       ),
                       const SizedBox(height: 10,),
                       CustomText(
-                        text: "${translate("app_bar.update_to_enjoy")} (${Upgrader.sharedInstance.currentAppStoreVersion()})",
+                        text: "${translate("app_bar.update_to_enjoy")} (${Upgrader.sharedInstance.currentAppStoreVersion.toString()})",
                         color: DMUtil.getD2C(),
                         fontSize: AppStyle.small.sp,
                         maxLine: 2,

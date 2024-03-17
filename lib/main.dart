@@ -47,7 +47,7 @@ void main() async{
 
 class MyApp extends StatelessWidget {
   final bool? isTheme;
-  const MyApp({Key? key,this.isTheme}) : super(key: key);
+  const MyApp({super.key,this.isTheme});
 
   @override
   Widget build(BuildContext context) {

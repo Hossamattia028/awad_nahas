@@ -7,7 +7,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class ViewAllWidget extends StatelessWidget {
   final VoidCallback fn;
-  const ViewAllWidget({Key? key,required this.fn}) : super(key: key);
+  const ViewAllWidget({super.key,required this.fn});
 
   @override
   Widget build(BuildContext context) {

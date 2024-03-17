@@ -34,7 +34,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
   static final TextEditingController emailTextEditingController = TextEditingController();
   static final TextEditingController phoneTextEditingController = TextEditingController();
   static final TextEditingController passTextEditingController = TextEditingController();

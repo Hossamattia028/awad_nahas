@@ -21,12 +21,12 @@ class MapScreen extends StatefulWidget {
   final String? longitude, latitude;
   final bool isSet;
   const MapScreen({
-    Key? key,
+    super.key,
     this.longitude,
     this.latitude,
     required this.isSet,
     required this.title,
-  }) : super(key: key);
+  });
   @override
   State<StatefulWidget> createState() {
     return MapScreenState();

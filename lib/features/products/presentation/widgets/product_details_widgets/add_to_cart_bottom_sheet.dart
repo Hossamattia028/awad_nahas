@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartSuccessBottomSheet extends StatelessWidget {
-  const CartSuccessBottomSheet({Key? key}) : super(key: key);
+  const CartSuccessBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {

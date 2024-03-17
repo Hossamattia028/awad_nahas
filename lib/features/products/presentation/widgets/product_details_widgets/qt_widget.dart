@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class ProductQuantityWidget extends StatelessWidget {
-  const ProductQuantityWidget({Key? key}) : super(key: key);
+  const ProductQuantityWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,7 @@ class QtyCard extends StatelessWidget {
   final bool? isCart;
   final ProductsEntity? item;
   final CartBloc? bloc;
-  const QtyCard({Key? key,required this.val,required this.selected,this.isCart=false,this.item,this.bloc}) : super(key: key);
+  const QtyCard({super.key,required this.val,required this.selected,this.isCart=false,this.item,this.bloc});
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SmallTapItem extends StatelessWidget {
   final String title;
   final bool enable;
-  const SmallTapItem({Key? key,required this.title,required this.enable}) : super(key: key);
+  const SmallTapItem({super.key,required this.title,required this.enable});
 
   @override
   Widget build(BuildContext context) {

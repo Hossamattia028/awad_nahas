@@ -33,7 +33,7 @@ class PinCodeVerificationScreen extends StatefulWidget {
   final bool isRegister;
   final bool? isLogin;
   final bool? isChangePhone;
-  const PinCodeVerificationScreen({Key? key,required this.data,this.isRegister = false,this.isLogin = false,this.isChangePhone}) : super(key: key);
+  const PinCodeVerificationScreen({super.key,required this.data,this.isRegister = false,this.isLogin = false,this.isChangePhone});
 
   @override
   State<PinCodeVerificationScreen> createState() => _PinCodeVerificationScreenState();

@@ -11,7 +11,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 
 class SearchProductList extends StatelessWidget {
-  const SearchProductList({Key? key}) : super(key: key);
+  const SearchProductList({super.key});
 
   @override
   Widget build(BuildContext context) {

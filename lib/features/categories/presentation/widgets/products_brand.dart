@@ -17,7 +17,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class ProductsBrand extends StatelessWidget {
   final CategoriesEntity itemBrand;
-  const ProductsBrand({Key? key,required this.itemBrand}) : super(key: key);
+  const ProductsBrand({super.key,required this.itemBrand});
 
   @override
   Widget build(BuildContext context) {

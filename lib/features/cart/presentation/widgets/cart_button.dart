@@ -14,7 +14,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class CartButtonWidget extends StatelessWidget {
   final ProductsEntity item;
-  const CartButtonWidget({Key? key,required this.item}) : super(key: key);
+  const CartButtonWidget({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {

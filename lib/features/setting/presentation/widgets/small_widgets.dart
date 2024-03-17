@@ -9,7 +9,7 @@ class SettingLineOption extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
   final Widget? widget;
-  const SettingLineOption({Key? key,required this.title,this.onTap,this.widget}) : super(key: key);
+  const SettingLineOption({super.key,required this.title,this.onTap,this.widget});
 
   @override
   Widget build(BuildContext context) {

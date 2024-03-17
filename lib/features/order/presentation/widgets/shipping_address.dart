@@ -10,7 +10,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 
 class ShippingAddress extends StatelessWidget {
-  const ShippingAddress({Key? key}) : super(key: key);
+  const ShippingAddress({super.key});
 
   static final TextEditingController cityTextEditingController = TextEditingController();
   static final TextEditingController addressTextEditingController = TextEditingController();

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/strings/app_images.dart';
 
 class LoadingShimmerProducts extends StatelessWidget {
-  const LoadingShimmerProducts({Key? key}) : super(key: key);
+  const LoadingShimmerProducts({super.key});
 
   @override
   Widget build(BuildContext context) {

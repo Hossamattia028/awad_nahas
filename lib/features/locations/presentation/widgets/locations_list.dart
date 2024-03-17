@@ -9,7 +9,7 @@ import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.
 import 'package:awad_nahas/features/locations/presentation/widgets/location_card.dart';
 
 class LocationsList extends StatelessWidget {
-  const LocationsList({Key? key}) : super(key: key);
+  const LocationsList({super.key});
 
   @override
   Widget build(BuildContext context) {

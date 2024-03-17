@@ -21,7 +21,7 @@ import 'package:awad_nahas/features/root_app/bloc/root_state.dart';
 
 class BottomNavBar extends StatelessWidget {
   final bool isRoot;
-  const BottomNavBar({Key? key,this.isRoot = true}) : super(key: key);
+  const BottomNavBar({super.key,this.isRoot = true});
 
   @override
   Widget build(BuildContext context) {

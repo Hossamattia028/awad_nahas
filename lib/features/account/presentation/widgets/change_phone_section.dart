@@ -13,7 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class ChangePhoneSection extends StatelessWidget {
-  const ChangePhoneSection({Key? key}) : super(key: key);
+  const ChangePhoneSection({super.key});
 
   @override
   Widget build(BuildContext context) {

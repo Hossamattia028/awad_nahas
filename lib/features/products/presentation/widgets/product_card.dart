@@ -17,7 +17,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 class ProductCard extends StatelessWidget {
   final ProductsEntity item;
   final bool enableCartBtn;
-  const ProductCard({Key? key,required this.item,this.enableCartBtn= false}) : super(key: key);
+  const ProductCard({super.key,required this.item,this.enableCartBtn= false});
 
   @override
   Widget build(BuildContext context) {

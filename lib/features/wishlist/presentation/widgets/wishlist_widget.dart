@@ -10,7 +10,7 @@ import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_bloc.dar
 import 'package:awad_nahas/features/wishlist/presentation/bloc/wishlist_state.dart';
 
 class WishListWidget extends StatelessWidget {
-  const WishListWidget({Key? key}) : super(key: key);
+  const WishListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -60,8 +60,8 @@ class CustomTextFromField extends StatelessWidget {
     this.height,
     this.alignment,
     this.textAlign,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

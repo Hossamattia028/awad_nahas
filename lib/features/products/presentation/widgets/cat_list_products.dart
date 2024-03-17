@@ -23,7 +23,7 @@ import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 
 class CatProductsList extends StatelessWidget {
   final CategoriesEntity cat;
-  const CatProductsList({Key? key, required this.cat}) : super(key: key);
+  const CatProductsList({super.key, required this.cat});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class ProductCardH extends StatelessWidget {
   final ProductsEntity item;
   final CategoriesEntity? cat;
   final bool isMarginBottom;
-  const ProductCardH({Key? key,required this.item,required this.cat,this.isMarginBottom = false}) : super(key: key);
+  const ProductCardH({super.key,required this.item,required this.cat,this.isMarginBottom = false});
 
   @override
   Widget build(BuildContext context) {

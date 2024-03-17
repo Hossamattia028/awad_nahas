@@ -13,7 +13,7 @@ import 'package:photo_view/photo_view_gallery.dart';
 
 class FullImageViewer extends StatelessWidget {
   final List<String> images;
-  const FullImageViewer({Key? key,required this.images}) : super(key: key);
+  const FullImageViewer({super.key,required this.images});
 
   @override
   Widget build(BuildContext context) {

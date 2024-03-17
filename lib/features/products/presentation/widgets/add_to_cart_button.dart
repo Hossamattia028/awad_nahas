@@ -18,7 +18,7 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 
 class AddToCartButton extends StatelessWidget {
   final ProductsEntity item;
-  const AddToCartButton({Key? key,required this.item}) : super(key: key);
+  const AddToCartButton({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class AddToCartButton extends StatelessWidget {
 
 class AddToCartButtonWidget extends StatelessWidget {
   final ProductsEntity item;
-  const AddToCartButtonWidget({Key? key,required this.item}) : super(key: key);
+  const AddToCartButtonWidget({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {

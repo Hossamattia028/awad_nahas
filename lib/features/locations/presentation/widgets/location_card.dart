@@ -19,8 +19,7 @@ class LocationCardWidget extends StatelessWidget {
   final bool currentLocation;
   final bool isAdd;
   final bool isOrderPage;
-  const LocationCardWidget({Key? key, required this.locationEntity,required this.currentLocation,this.isAdd = false,this.isOrderPage = false})
-      : super(key: key);
+  const LocationCardWidget({super.key, required this.locationEntity,required this.currentLocation,this.isAdd = false,this.isOrderPage = false});
 
   @override
   Widget build(BuildContext context) {
@@ -127,10 +126,9 @@ class SmallLineLocationData extends StatelessWidget {
   final String value;
   final bool smallCard;
   const SmallLineLocationData(
-      {Key? key, this.title,
+      {super.key, this.title,
       required this.value,
-      this.smallCard = false})
-      : super(key: key);
+      this.smallCard = false});
 
   @override
   Widget build(BuildContext context) {

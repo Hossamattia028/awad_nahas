@@ -15,7 +15,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class SearchScreen extends StatelessWidget {
   final bool enableScroll;
-  const SearchScreen({Key? key,this.enableScroll = false}) : super(key: key);
+  const SearchScreen({super.key,this.enableScroll = false});
 
   @override
   Widget build(BuildContext context) {

@@ -46,8 +46,8 @@ class CustomTextFromFieldAuth extends StatelessWidget {
     this.textInputType,
     this.filled = false,
     this.enabled,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class CancelOrderWidget extends StatelessWidget {
-  const CancelOrderWidget({Key? key}) : super(key: key);
+  const CancelOrderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

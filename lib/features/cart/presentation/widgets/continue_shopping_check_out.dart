@@ -20,7 +20,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class CartBottomButton extends StatelessWidget {
-  const CartBottomButton({Key? key,}) : super(key: key);
+  const CartBottomButton({super.key,});
 
   @override
   Widget build(BuildContext context) {

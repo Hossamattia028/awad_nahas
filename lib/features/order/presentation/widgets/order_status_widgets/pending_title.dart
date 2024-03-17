@@ -7,7 +7,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class PendingTitleWidget extends StatelessWidget {
   final bool isSmall;
-  const PendingTitleWidget({Key? key,this.isSmall = false}) : super(key: key);
+  const PendingTitleWidget({super.key,this.isSmall = false});
 
   @override
   Widget build(BuildContext context) {

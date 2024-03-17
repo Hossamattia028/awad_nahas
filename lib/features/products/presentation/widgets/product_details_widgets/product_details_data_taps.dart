@@ -17,7 +17,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class ProductDetailsDataRow extends StatefulWidget {
   final ProductsEntity item;
-  const ProductDetailsDataRow({Key? key,required this.item}) : super(key: key);
+  const ProductDetailsDataRow({super.key,required this.item});
 
   @override
   State<ProductDetailsDataRow> createState() => _ProductDetailsDataRowState();

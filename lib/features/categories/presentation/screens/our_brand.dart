@@ -13,7 +13,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 
 class OurBrandsScreen extends StatelessWidget {
-  const OurBrandsScreen({Key? key}) : super(key: key);
+  const OurBrandsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 
 class BannersSection extends StatelessWidget {
-  const BannersSection({Key? key}) : super(key: key);
+  const BannersSection({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -14,7 +14,7 @@ import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.d
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.dart';
 
 class SelectLocations extends StatelessWidget {
-  const SelectLocations({Key? key}) : super(key: key);
+  const SelectLocations({super.key});
 
   @override
   Widget build(BuildContext context) {

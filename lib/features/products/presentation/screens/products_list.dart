@@ -11,7 +11,7 @@ import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 class ProductListScreen extends StatelessWidget {
   final String catID;
   final int? subCatID;
-  const ProductListScreen({Key? key,required this.catID,required this.subCatID}) : super(key: key);
+  const ProductListScreen({super.key,required this.catID,required this.subCatID});
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class ProductDetailsPrice extends StatelessWidget {
   final ProductsEntity productModel;
-  const ProductDetailsPrice({Key? key,required this.productModel,}) : super(key: key);
+  const ProductDetailsPrice({super.key,required this.productModel,});
 
   @override
   Widget build(BuildContext context) {

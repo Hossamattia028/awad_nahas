@@ -20,7 +20,7 @@ import 'package:share_plus/share_plus.dart';
 
 class ProductMainDetails extends StatelessWidget {
   final ProductsEntity item;
-  const ProductMainDetails({Key? key,required this.item}) : super(key: key);
+  const ProductMainDetails({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +143,7 @@ class ProductMainDetails extends StatelessWidget {
 
 class ProductSku extends StatelessWidget {
   final ProductsEntity item;
-  const ProductSku({Key? key,required this.item}) : super(key: key);
+  const ProductSku({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {

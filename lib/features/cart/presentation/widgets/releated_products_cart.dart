@@ -7,7 +7,7 @@ import 'package:awad_nahas/features/cart/presentation/widgets/empty_cart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartRelatedProducts extends StatelessWidget {
-  const CartRelatedProducts({Key? key}) : super(key: key);
+  const CartRelatedProducts({super.key});
 
   @override
   Widget build(BuildContext context) {

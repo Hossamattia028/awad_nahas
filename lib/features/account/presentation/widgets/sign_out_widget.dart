@@ -7,7 +7,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_dialogs.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class SignOutWidget extends StatelessWidget {
-  const SignOutWidget({Key? key}) : super(key: key);
+  const SignOutWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

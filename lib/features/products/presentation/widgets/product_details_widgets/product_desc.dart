@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ProductDescription extends StatelessWidget {
   final ProductsEntity item;
-  const ProductDescription({Key? key,required this.item}) : super(key: key);
+  const ProductDescription({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {

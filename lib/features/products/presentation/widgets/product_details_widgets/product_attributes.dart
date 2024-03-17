@@ -7,7 +7,7 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 
 class ProductAttributes extends StatelessWidget {
   final String txt;
-  const ProductAttributes({Key? key,required this.txt}) : super(key: key);
+  const ProductAttributes({super.key,required this.txt});
 
   @override
   Widget build(BuildContext context) {

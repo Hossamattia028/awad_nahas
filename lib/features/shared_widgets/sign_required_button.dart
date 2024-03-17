@@ -10,7 +10,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 
 class SignRequiredButtons extends StatelessWidget {
-  const SignRequiredButtons({Key? key}) : super(key: key);
+  const SignRequiredButtons({super.key});
 
   @override
   Widget build(BuildContext context) {

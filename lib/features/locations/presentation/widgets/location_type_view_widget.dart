@@ -9,7 +9,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class LocationTypeViewWidget extends StatelessWidget {
   final LocationEntity locationEntity;
-  const LocationTypeViewWidget({Key? key,required this.locationEntity}) : super(key: key);
+  const LocationTypeViewWidget({super.key,required this.locationEntity});
 
   @override
   Widget build(BuildContext context) {

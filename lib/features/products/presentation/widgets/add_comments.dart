@@ -17,7 +17,7 @@ import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 
 class AddCommentsWidget extends StatelessWidget {
   final ProductsEntity item;
-  const AddCommentsWidget({Key? key,required this.item}) : super(key: key);
+  const AddCommentsWidget({super.key,required this.item});
   static final TextEditingController commentTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {

@@ -16,7 +16,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class MainDrawerSection extends StatelessWidget {
   final BuildContext ctx;
-  const MainDrawerSection({Key? key,required this.ctx}) : super(key: key);
+  const MainDrawerSection({super.key,required this.ctx});
 
   @override
   Widget build(BuildContext context) {

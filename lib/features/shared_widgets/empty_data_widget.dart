@@ -7,7 +7,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class EmptyDataWidget extends StatelessWidget {
   final String? txt;
-  const EmptyDataWidget({Key? key,this.txt}) : super(key: key);
+  const EmptyDataWidget({super.key,this.txt});
 
   @override
   Widget build(BuildContext context) {

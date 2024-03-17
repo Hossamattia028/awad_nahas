@@ -16,7 +16,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CircleCategoryCard extends StatelessWidget {
   final CategoriesEntity item;
-  const CircleCategoryCard({Key? key,required this.item}) : super(key: key);
+  const CircleCategoryCard({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {

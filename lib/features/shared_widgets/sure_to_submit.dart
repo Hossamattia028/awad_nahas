@@ -8,7 +8,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class SureToSubmitWidget extends StatelessWidget {
-  const SureToSubmitWidget({Key? key}) : super(key: key);
+  const SureToSubmitWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

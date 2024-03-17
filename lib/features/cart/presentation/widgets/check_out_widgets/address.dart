@@ -12,7 +12,7 @@ import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.
 import 'package:flutter_translate/flutter_translate.dart';
 
 class OrderAddress extends StatelessWidget {
-  const OrderAddress({Key? key}) : super(key: key);
+  const OrderAddress({super.key});
 
   @override
   Widget build(BuildContext context) {

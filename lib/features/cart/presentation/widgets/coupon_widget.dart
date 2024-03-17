@@ -13,7 +13,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text_form_field.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 
 class CouponWidget extends StatelessWidget {
-  const CouponWidget({Key? key}) : super(key: key);
+  const CouponWidget({super.key});
   static final TextEditingController couponTextEditingController =
       TextEditingController();
 
@@ -75,7 +75,6 @@ class CouponWidget extends StatelessWidget {
                               ? translate("cart.active_coupon")
                               : translate("button.update"),
                         ),
-                        // color: DMUtil.getRED(),
                         onTap: () {
                           if (couponTextEditingController.text
                               .trim()
@@ -98,17 +97,3 @@ class CouponWidget extends StatelessWidget {
   }
 }
 
-class CouponTest extends StatelessWidget {
-  const CouponTest({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<CartBloc, CartState>(
-      builder: (ctx, state) {
-        var bloc = CartBloc.get(ctx);
-        if (bloc.cartList.isEmpty) return const SizedBox.shrink();
-        return const Text("go");
-      },
-    );
-  }
-}

@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DiscountWidget extends StatelessWidget {
   final ProductsEntity item;
-  const DiscountWidget({Key? key,required this.item}) : super(key: key);
+  const DiscountWidget({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {

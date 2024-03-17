@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class SecureInfo extends StatelessWidget {
-  const SecureInfo({Key? key}) : super(key: key);
+  const SecureInfo({super.key});
 
   @override
   Widget build(BuildContext context) {

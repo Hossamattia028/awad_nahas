@@ -5,7 +5,7 @@ import 'package:awad_nahas/core/strings/app_images.dart';
 class LoadingWidget extends StatelessWidget {
   final double? height;
   final double? width;
-  const LoadingWidget({Key? key,this.height,this.width}) : super(key: key);
+  const LoadingWidget({super.key,this.height,this.width});
 
   @override
   Widget build(BuildContext context) {

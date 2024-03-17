@@ -38,7 +38,6 @@ class AmWalPlugin {
       TransactionStatus? paymentResult = await amWalPay!.start(amount);
       switch (paymentResult.type) {
         case TransactionStatusType.success:
-        // Cast to specific class to access the transaction ID or other relevant info.
           debugPrint('Transaction Success with ID: ${(paymentResult as TransactionSuccess).transactionId}');
           return AmWalResponse(msg: "", success: true,transactionId: paymentResult.transactionId);
         case TransactionStatusType.failure:

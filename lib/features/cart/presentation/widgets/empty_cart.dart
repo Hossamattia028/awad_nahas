@@ -7,7 +7,7 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class EmptyCartWidget extends StatelessWidget {
-  const EmptyCartWidget({Key? key}) : super(key: key);
+  const EmptyCartWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

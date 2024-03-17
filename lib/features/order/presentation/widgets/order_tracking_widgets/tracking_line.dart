@@ -10,7 +10,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class TrackingLineWidget extends StatelessWidget {
   final ORDER_STATUS status ;
-  const TrackingLineWidget({Key? key,required this.status}) : super(key: key);
+  const TrackingLineWidget({super.key,required this.status});
 
   @override
   Widget build(BuildContext context) {

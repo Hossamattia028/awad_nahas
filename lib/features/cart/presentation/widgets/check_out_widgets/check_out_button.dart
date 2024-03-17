@@ -36,7 +36,7 @@ import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_sdk.dart';
 
 
 class CheckOutButton extends StatefulWidget {
-  const CheckOutButton({Key? key}) : super(key: key);
+  const CheckOutButton({super.key});
 
   @override
   State<CheckOutButton> createState() => _CheckOutButtonState();

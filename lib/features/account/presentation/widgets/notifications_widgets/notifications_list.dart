@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationsList extends StatelessWidget {
-  const NotificationsList({Key? key}) : super(key: key);
+  const NotificationsList({super.key});
 
   @override
   Widget build(BuildContext context) {

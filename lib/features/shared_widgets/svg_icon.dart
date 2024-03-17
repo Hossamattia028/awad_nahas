@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SvgIconWidget extends StatelessWidget {
   final String iconUrl;
-  const SvgIconWidget({Key? key,required this.iconUrl}) : super(key: key);
+  const SvgIconWidget({super.key,required this.iconUrl});
 
   @override
   Widget build(BuildContext context) {

@@ -13,7 +13,7 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 
 class AboutBrand extends StatefulWidget {
   final CategoriesEntity itemBrand;
-  const AboutBrand({Key? key,required this.itemBrand}) : super(key: key);
+  const AboutBrand({super.key,required this.itemBrand});
 
   @override
   State<AboutBrand> createState() => _AboutBrandState();

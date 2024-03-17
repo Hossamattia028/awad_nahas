@@ -20,7 +20,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 
 class ForgetPasswordScreen extends StatelessWidget {
-  const ForgetPasswordScreen({Key? key}) : super(key: key);
+  const ForgetPasswordScreen({super.key});
   static final TextEditingController emailTextEditingController = TextEditingController();
   static final TextEditingController phoneTextEditingController = TextEditingController();
   static final TextEditingController passTextEditingController = TextEditingController();

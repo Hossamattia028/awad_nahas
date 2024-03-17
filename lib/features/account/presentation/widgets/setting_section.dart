@@ -18,7 +18,7 @@ import 'package:awad_nahas/features/setting/presentation/widgets/small_widgets.d
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class SettingSectionWidget extends StatelessWidget {
-  const SettingSectionWidget({Key? key}) : super(key: key);
+  const SettingSectionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

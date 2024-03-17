@@ -9,7 +9,7 @@ import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 
 class HomeCategories extends StatelessWidget {
   final bool viewAll;
-  const HomeCategories({Key? key,this.viewAll=false}) : super(key: key);
+  const HomeCategories({super.key,this.viewAll=false});
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -14,7 +14,7 @@ import 'package:awad_nahas/features/root_app/widgets/bottom_nav_bar.dart';
 
 
 class RootScreen extends StatelessWidget {
-  const RootScreen({Key? key,}) : super(key: key);
+  const RootScreen({super.key,});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RootBloc, RootState>(

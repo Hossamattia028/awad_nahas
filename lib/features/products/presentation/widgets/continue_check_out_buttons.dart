@@ -13,7 +13,7 @@ import 'package:awad_nahas/features/root_app/screens/root_screen.dart';
 
 class ContinueShoppingAndCheckOut extends StatelessWidget {
   final BuildContext ctxDialog;
-  const ContinueShoppingAndCheckOut({Key? key,required this.ctxDialog}) : super(key: key);
+  const ContinueShoppingAndCheckOut({super.key,required this.ctxDialog});
 
   @override
   Widget build(BuildContext context) {

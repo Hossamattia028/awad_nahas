@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SmallBannerWidget extends StatelessWidget {
   final String position;
-  const SmallBannerWidget({Key? key,required this.position}) : super(key: key);
+  const SmallBannerWidget({super.key,required this.position});
 
   @override
   Widget build(BuildContext context) {

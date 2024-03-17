@@ -26,7 +26,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 class ResetPassword extends StatelessWidget {
   final String userLogin;
   final bool goToLogin;
-  const ResetPassword({Key? key,required this.userLogin,this.goToLogin = true}) : super(key: key);
+  const ResetPassword({super.key,required this.userLogin,this.goToLogin = true});
   static final TextEditingController passTextEditingController = TextEditingController();
   static final TextEditingController passEnsureTextEditingController = TextEditingController();
   @override

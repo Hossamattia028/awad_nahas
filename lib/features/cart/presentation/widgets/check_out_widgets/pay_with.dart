@@ -17,7 +17,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 
 class PayWithWidget extends StatelessWidget {
-  const PayWithWidget({Key? key}) : super(key: key);
+  const PayWithWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

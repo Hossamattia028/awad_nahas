@@ -24,7 +24,7 @@ import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MaintenanceScreen extends StatefulWidget {
-  const MaintenanceScreen({Key? key}) : super(key: key);
+  const MaintenanceScreen({super.key});
 
   @override
   State<MaintenanceScreen> createState() => _MaintenanceScreenState();

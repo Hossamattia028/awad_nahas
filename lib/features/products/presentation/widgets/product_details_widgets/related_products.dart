@@ -9,7 +9,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class RelatedProductsWidget extends StatelessWidget {
   final ProductsEntity item;
-  const RelatedProductsWidget({Key? key,required this.item}) : super(key: key);
+  const RelatedProductsWidget({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {

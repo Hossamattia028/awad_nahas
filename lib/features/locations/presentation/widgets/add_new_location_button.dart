@@ -13,7 +13,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_button.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class AddNewLocationButton extends StatelessWidget {
-  const AddNewLocationButton({Key? key}) : super(key: key);
+  const AddNewLocationButton({super.key});
 
   @override
   Widget build(BuildContext context) {

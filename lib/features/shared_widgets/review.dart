@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ReviewsWidget extends StatelessWidget {
   final int amount;
   final Color color;
-  const ReviewsWidget({Key? key,required this.amount,required this.color}) : super(key: key);
+  const ReviewsWidget({super.key,required this.amount,required this.color});
 
   @override
   Widget build(BuildContext context) {

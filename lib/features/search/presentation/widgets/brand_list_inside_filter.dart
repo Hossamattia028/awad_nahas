@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BrandFilterList extends StatelessWidget {
   final ProductsBloc bloc;
-  const BrandFilterList({Key? key,required this.bloc}) : super(key: key);
+  const BrandFilterList({super.key,required this.bloc});
 
   @override
   Widget build(BuildContext context) {

@@ -25,7 +25,7 @@ import 'package:permission_handler/permission_handler.dart';
 class AddNewLocationScreen extends StatefulWidget {
   final LocationEntity? locationEntity;
   final String? type;
-  const AddNewLocationScreen({Key? key,this.locationEntity,this.type="shipping"}) : super(key: key);
+  const AddNewLocationScreen({super.key,this.locationEntity,this.type="shipping"});
 
   @override
   State<AddNewLocationScreen> createState() => _AddNewLocationScreenState();

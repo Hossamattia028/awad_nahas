@@ -15,7 +15,7 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 
 class OrderTrackingScreen extends StatelessWidget {
   final Orders item;
-  const OrderTrackingScreen({Key? key,required this.item}) : super(key: key);
+  const OrderTrackingScreen({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class OrderTrackingScreen extends StatelessWidget {
 
 
 class SmallRowDots extends StatelessWidget {
-  const SmallRowDots({Key? key}) : super(key: key);
+  const SmallRowDots({super.key});
 
   @override
   Widget build(BuildContext context) {

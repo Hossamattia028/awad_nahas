@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationIcon extends StatelessWidget {
-  const NotificationIcon({Key? key}) : super(key: key);
+  const NotificationIcon({super.key});
 
   @override
   Widget build(BuildContext context) {

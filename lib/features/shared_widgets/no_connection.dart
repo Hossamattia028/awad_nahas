@@ -7,7 +7,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class NoConnectionScreen extends StatelessWidget {
-  const NoConnectionScreen({Key? key}) : super(key: key);
+  const NoConnectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

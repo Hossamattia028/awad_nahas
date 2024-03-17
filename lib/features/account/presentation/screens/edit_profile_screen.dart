@@ -23,7 +23,7 @@ import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({Key? key}) : super(key: key);
+  const EditProfilePage({super.key});
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();

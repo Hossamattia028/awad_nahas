@@ -12,7 +12,7 @@ import 'package:awad_nahas/features/locations/presentation/screens/add_location.
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class LocationSectionWidget extends StatelessWidget {
-  const LocationSectionWidget({Key? key}) : super(key: key);
+  const LocationSectionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

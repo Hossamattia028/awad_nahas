@@ -11,7 +11,7 @@ import 'package:awad_nahas/features/products/presentation/screens/products_list.
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class AllCategoriesList extends StatelessWidget {
-  const AllCategoriesList({Key? key}) : super(key: key);
+  const AllCategoriesList({super.key});
 
   @override
   Widget build(BuildContext context) {

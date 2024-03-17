@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class OurBrandsHome extends StatelessWidget {
-  const OurBrandsHome({Key? key}) : super(key: key);
+  const OurBrandsHome({super.key});
 
   @override
   Widget build(BuildContext context) {

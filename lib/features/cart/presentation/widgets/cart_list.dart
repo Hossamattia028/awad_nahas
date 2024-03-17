@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class CartListWidget extends StatelessWidget {
-  const CartListWidget({Key? key}) : super(key: key);
+  const CartListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

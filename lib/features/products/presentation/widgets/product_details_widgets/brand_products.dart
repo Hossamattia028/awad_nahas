@@ -10,7 +10,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 class BrandProductsWidget extends StatelessWidget {
   final ProductsEntity item;
   final String brandTitle;
-  const BrandProductsWidget({Key? key,required this.item,this.brandTitle = ""}) : super(key: key);
+  const BrandProductsWidget({super.key,required this.item,this.brandTitle = ""});
 
   @override
   Widget build(BuildContext context) {

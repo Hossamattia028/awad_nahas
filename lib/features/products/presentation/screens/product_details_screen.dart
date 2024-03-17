@@ -28,7 +28,7 @@ import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final ProductsEntity item;
-  const ProductDetailPage({Key? key,required this.item}): super(key: key);
+  const ProductDetailPage({super.key,required this.item});
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();

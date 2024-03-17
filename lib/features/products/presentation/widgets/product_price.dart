@@ -10,7 +10,7 @@ class ProductPriceWidget extends StatelessWidget {
   final ProductsEntity productModel;
   final bool isBig;
   final bool isCart;
-  const ProductPriceWidget({Key? key,required this.productModel,this.isBig=false,this.isCart =false}) : super(key: key);
+  const ProductPriceWidget({super.key,required this.productModel,this.isBig=false,this.isCart =false});
 
   @override
   Widget build(BuildContext context) {

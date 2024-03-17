@@ -10,7 +10,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 class DeliveredImageWidget extends StatelessWidget {
   final bool isSmall;
   final String? img;
-  const DeliveredImageWidget({Key? key,this.isSmall = false,this.img}) : super(key: key);
+  const DeliveredImageWidget({super.key,this.isSmall = false,this.img});
 
   @override
   Widget build(BuildContext context) {

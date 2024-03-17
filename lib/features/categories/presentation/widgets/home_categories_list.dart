@@ -7,7 +7,7 @@ import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_stat
 
 class HomeCategoriesList extends StatelessWidget {
   final bool viewAll;
-  const HomeCategoriesList({Key? key,this.viewAll = false}) : super(key: key);
+  const HomeCategoriesList({super.key,this.viewAll = false});
 
   @override
   Widget build(BuildContext context) {

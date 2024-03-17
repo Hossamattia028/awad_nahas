@@ -13,7 +13,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class CartQtyCard extends StatelessWidget {
   final ProductsEntity item;
-  const CartQtyCard({Key? key,required this.item}) : super(key: key);
+  const CartQtyCard({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class CartQtyCard extends StatelessWidget {
 
 class IconQtyCart extends StatelessWidget {
   final ProductsEntity item;
-  const IconQtyCart({Key? key,required this.item}) : super(key: key);
+  const IconQtyCart({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {

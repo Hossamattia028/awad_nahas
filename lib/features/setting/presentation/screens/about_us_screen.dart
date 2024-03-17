@@ -6,7 +6,7 @@ import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 
 class AboutUsScreen extends StatelessWidget {
   final String title;
-  const AboutUsScreen({Key? key, required this.title}) : super(key: key);
+  const AboutUsScreen({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

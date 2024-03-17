@@ -12,7 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CartNavIconWidget extends StatelessWidget {
   final bool selected;
-  const CartNavIconWidget({Key? key,required this.selected}) : super(key: key);
+  const CartNavIconWidget({super.key,required this.selected});
 
   @override
   Widget build(BuildContext context) {

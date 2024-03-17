@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class ThanksOrderWidget extends StatelessWidget {
-  const ThanksOrderWidget({Key? key}) : super(key: key);
+  const ThanksOrderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

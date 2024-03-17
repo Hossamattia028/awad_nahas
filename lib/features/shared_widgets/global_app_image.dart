@@ -10,7 +10,7 @@ class ImageWidget extends StatelessWidget {
   final BoxFit fit;
   final String imgUrl;
   final BorderRadius? borderRadius;
-  const ImageWidget({Key? key,this.width=double.infinity,this.height=130,this.fit=BoxFit.fill,required this.imgUrl,this.borderRadius}) : super(key: key);
+  const ImageWidget({super.key,this.width=double.infinity,this.height=130,this.fit=BoxFit.fill,required this.imgUrl,this.borderRadius});
 
   @override
   Widget build(BuildContext context) {

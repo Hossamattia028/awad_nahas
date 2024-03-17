@@ -14,7 +14,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class ContinueShoppingButton extends StatelessWidget {
   final bool navigateRoot;
-  const ContinueShoppingButton({Key? key,this.navigateRoot = false}) : super(key: key);
+  const ContinueShoppingButton({super.key,this.navigateRoot = false});
 
   @override
   Widget build(BuildContext context) {

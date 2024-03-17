@@ -11,7 +11,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 class TamaraSmallProductWidget extends StatelessWidget {
   final double price;
   final bool isSmall;
-  const TamaraSmallProductWidget({Key? key,required this.price,this.isSmall=false}) : super(key: key);
+  const TamaraSmallProductWidget({super.key,required this.price,this.isSmall=false});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class TamaraSmallProductWidget extends StatelessWidget {
 
 class TamaraSmallCheckOutWidget extends StatelessWidget {
   final double price;
-  const TamaraSmallCheckOutWidget({Key? key,required this.price}) : super(key: key);
+  const TamaraSmallCheckOutWidget({super.key,required this.price});
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/features/shared_widgets/logo_widget.dart';
 
 class LoginWelcomeWidget extends StatelessWidget {
-  const LoginWelcomeWidget({Key? key}) : super(key: key);
+  const LoginWelcomeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 
 
 class PaymentSummaryWidget extends StatelessWidget {
-  const PaymentSummaryWidget({Key? key}) : super(key: key);
+  const PaymentSummaryWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

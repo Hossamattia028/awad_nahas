@@ -7,7 +7,7 @@ import 'package:awad_nahas/core/styles/my_colors.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class LocationsEmpty extends StatelessWidget {
-  const LocationsEmpty({Key? key}) : super(key: key);
+  const LocationsEmpty({super.key});
 
   @override
   Widget build(BuildContext context) {

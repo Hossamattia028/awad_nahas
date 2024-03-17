@@ -8,7 +8,7 @@ class ItemLineDrawer extends StatelessWidget {
   final String title;
   final VoidCallback fn;
   final Widget? icon;
-  const ItemLineDrawer({Key? key,required this.title,required this.fn,this.icon}) : super(key: key);
+  const ItemLineDrawer({super.key,required this.title,required this.fn,this.icon});
 
   @override
   Widget build(BuildContext context) {

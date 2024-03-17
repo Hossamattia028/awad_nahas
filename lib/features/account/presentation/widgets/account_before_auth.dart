@@ -9,7 +9,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 
 class AccountNotAuth extends StatelessWidget {
-  const AccountNotAuth({Key? key}) : super(key: key);
+  const AccountNotAuth({super.key});
 
   @override
   Widget build(BuildContext context) {

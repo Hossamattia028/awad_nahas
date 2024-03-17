@@ -16,7 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class SearchFilterBottomSheetWidget extends StatelessWidget {
-  const SearchFilterBottomSheetWidget({Key? key}) : super(key: key);
+  const SearchFilterBottomSheetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +190,7 @@ class CheckBoxWidget extends StatelessWidget {
   final bool plus ;
   final bool isEnabled;
   final VoidCallback? onTapPlusIcon;
-  const CheckBoxWidget({Key? key,required this.title,this.plus=false,this.isEnabled=false,this.onTapPlusIcon}) : super(key: key);
+  const CheckBoxWidget({super.key,required this.title,this.plus=false,this.isEnabled=false,this.onTapPlusIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -238,7 +238,7 @@ class CheckBoxWidget extends StatelessWidget {
 }
 
 class FromToRow extends StatelessWidget {
-  const FromToRow({Key? key}) : super(key: key);
+  const FromToRow({super.key});
 
   @override
   Widget build(BuildContext context) {

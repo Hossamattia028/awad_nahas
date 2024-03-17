@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class SortBottomSheetWidget extends StatelessWidget {
-  const SortBottomSheetWidget({Key? key}) : super(key: key);
+  const SortBottomSheetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class CheckBoxWidget extends StatelessWidget {
   final String title ;
   final bool enabled;
   final SortEnum sortType;
-  const CheckBoxWidget({Key? key,required this.title,required this.enabled,required this.sortType}) : super(key: key);
+  const CheckBoxWidget({super.key,required this.title,required this.enabled,required this.sortType});
 
   @override
   Widget build(BuildContext context) {

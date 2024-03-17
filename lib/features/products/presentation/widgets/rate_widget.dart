@@ -6,7 +6,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class RateWidget extends StatelessWidget {
   final int countRate;
-  const RateWidget({Key? key,required this.countRate}) : super(key: key);
+  const RateWidget({super.key,required this.countRate});
 
   @override
   Widget build(BuildContext context) {

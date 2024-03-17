@@ -18,7 +18,7 @@ class OrderCardDetails extends StatelessWidget {
   final bool enableTracking;
   final Orders item;
   final bool isTrack;
-  const OrderCardDetails({Key? key,this.enableTracking = false,required this.item,this.isTrack = false}) : super(key: key);
+  const OrderCardDetails({super.key,this.enableTracking = false,required this.item,this.isTrack = false});
 
   @override
   Widget build(BuildContext context) {

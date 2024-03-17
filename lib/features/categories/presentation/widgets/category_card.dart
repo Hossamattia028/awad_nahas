@@ -12,7 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryCard extends StatelessWidget {
   final CategoriesEntity item;
-  const CategoryCard({Key? key,required this.item}) : super(key: key);
+  const CategoryCard({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {

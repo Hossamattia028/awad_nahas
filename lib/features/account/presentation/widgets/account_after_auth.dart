@@ -16,7 +16,7 @@ class AccountAuthCard extends StatelessWidget {
   final bool darkText;
   final bool primaryColor;
   final bool isDrawer;
-  const AccountAuthCard({Key? key,this.darkText = false,this.primaryColor = false,this.isDrawer = false}) : super(key: key);
+  const AccountAuthCard({super.key,this.darkText = false,this.primaryColor = false,this.isDrawer = false});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,7 @@ class AccountAuthCard extends StatelessWidget {
 
 
 class AccountAuthCardProfile extends StatelessWidget {
-  const AccountAuthCardProfile({Key? key,}) : super(key: key);
+  const AccountAuthCardProfile({super.key,});
 
   @override
   Widget build(BuildContext context) {

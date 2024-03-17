@@ -17,7 +17,7 @@ import 'package:awad_nahas/features/shared_widgets/loading_widget.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class CommentList extends StatelessWidget {
-  const CommentList({Key? key}) : super(key: key);
+  const CommentList({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 
 class SearchCategoryList extends StatelessWidget {
-  const SearchCategoryList({Key? key}) : super(key: key);
+  const SearchCategoryList({super.key});
 
   @override
   Widget build(BuildContext context) {

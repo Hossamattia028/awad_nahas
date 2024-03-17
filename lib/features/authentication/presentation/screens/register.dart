@@ -25,7 +25,7 @@ import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
   static final TextEditingController emailTextEditingController = TextEditingController();
   static final TextEditingController firstNameTextEditingController = TextEditingController();
   static final TextEditingController secondNameTextEditingController = TextEditingController();

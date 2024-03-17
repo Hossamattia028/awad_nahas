@@ -11,7 +11,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 class OurPrivacySection extends StatelessWidget {
   final BuildContext ctx;
-  const OurPrivacySection({Key? key,required this.ctx}) : super(key: key);
+  const OurPrivacySection({super.key,required this.ctx});
 
   @override
   Widget build(BuildContext context) {

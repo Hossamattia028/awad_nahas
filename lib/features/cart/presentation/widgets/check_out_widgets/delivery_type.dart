@@ -12,7 +12,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 
 
 class DeliveryTypeWidget extends StatelessWidget {
-  const DeliveryTypeWidget({Key? key}) : super(key: key);
+  const DeliveryTypeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

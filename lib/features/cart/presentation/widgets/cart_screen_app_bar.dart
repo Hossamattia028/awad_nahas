@@ -13,7 +13,7 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 
 
 class CartAppBarWidget extends StatelessWidget {
-  const CartAppBarWidget({Key? key}) : super(key: key);
+  const CartAppBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

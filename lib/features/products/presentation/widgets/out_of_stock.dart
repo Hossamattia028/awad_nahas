@@ -7,7 +7,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class OutOfStock extends StatelessWidget {
   final double width;
-  const OutOfStock({Key? key,this.width=90}) : super(key: key);
+  const OutOfStock({super.key,this.width=90});
 
   @override
   Widget build(BuildContext context) {

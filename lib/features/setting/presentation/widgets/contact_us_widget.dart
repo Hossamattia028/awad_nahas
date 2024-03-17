@@ -10,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class ContactUsWidget extends StatelessWidget {
-  const ContactUsWidget({Key? key}) : super(key: key);
+  const ContactUsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class SmallWidget extends StatelessWidget {
   final String img;
   final String title;
   final VoidCallback onTap;
-  const SmallWidget({Key? key,required this.title,required this.img,required this.onTap}) : super(key: key);
+  const SmallWidget({super.key,required this.title,required this.img,required this.onTap});
 
   @override
   Widget build(BuildContext context) {

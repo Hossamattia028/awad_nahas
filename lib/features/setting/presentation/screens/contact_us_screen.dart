@@ -16,7 +16,7 @@ import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 
 
 class ContactScreen extends StatefulWidget {
-  const ContactScreen({Key? key}) : super(key: key);
+  const ContactScreen({super.key});
 
   @override
   State<ContactScreen> createState() => _ContactScreenState();

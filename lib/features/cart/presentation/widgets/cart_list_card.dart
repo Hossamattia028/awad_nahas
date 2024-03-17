@@ -19,7 +19,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 class CartListCard extends StatelessWidget {
   final ProductsEntity item;
   final double height;
-  const CartListCard({Key? key,required this.item,required this.height}) : super(key: key);
+  const CartListCard({super.key,required this.item,required this.height});
 
   @override
   Widget build(BuildContext context) {

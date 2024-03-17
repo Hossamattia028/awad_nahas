@@ -12,7 +12,7 @@ import 'package:awad_nahas/features/locations/presentation/bloc/locations_state.
 
 class ShippingListWidget extends StatelessWidget {
   final bool isMaintenance;
-  const ShippingListWidget({Key? key,this.isMaintenance = false}) : super(key: key);
+  const ShippingListWidget({super.key,this.isMaintenance = false});
 
   @override
   Widget build(BuildContext context) {

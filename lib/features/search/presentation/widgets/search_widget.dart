@@ -16,7 +16,7 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dar
 
 class SearchWidget extends StatelessWidget {
   final bool showDrawer;
-  const SearchWidget({Key? key,this.showDrawer =true}) : super(key: key);
+  const SearchWidget({super.key,this.showDrawer =true});
   static TextEditingController searchTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {

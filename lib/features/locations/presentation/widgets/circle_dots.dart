@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CircleDotsWidget extends StatelessWidget {
   final bool isEnabled;
   final bool isOpacity;
-  const CircleDotsWidget({Key? key,this.isEnabled = false,this.isOpacity = false}) : super(key: key);
+  const CircleDotsWidget({super.key,this.isEnabled = false,this.isOpacity = false});
 
   @override
   Widget build(BuildContext context) {

@@ -17,13 +17,6 @@ import 'package:awad_nahas/features/products/domain/entities/products_entity.dar
 
 
 class CartBloc extends Bloc<CartEvent,CartState>{
-  
-  CartState get initialState => const CartInitialState();
-
-  Stream<CartState> mapEventToState(CartEvent event) async* {
-    yield const CartInitialState();
-  }
-
   int currentCategoryIndex = 0;
   PaymentEnum paymentWithCard = PaymentEnum.PAYFORT;
   bool applePay = false;

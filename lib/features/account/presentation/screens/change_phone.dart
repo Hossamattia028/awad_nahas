@@ -21,7 +21,7 @@ import 'package:awad_nahas/features/authentication/presentation/screens/verifica
 
 
 class ChangePhone extends StatelessWidget {
-  const ChangePhone({Key? key}) : super(key: key);
+  const ChangePhone({super.key});
 
   static TextEditingController phoneTextEditingController = TextEditingController();
   @override

@@ -13,7 +13,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 
 class ViewCartButton extends StatelessWidget {
-  const ViewCartButton({Key? key}) : super(key: key);
+  const ViewCartButton({super.key});
 
   @override
   Widget build(BuildContext context) {

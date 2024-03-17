@@ -11,7 +11,7 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_state.da
 class RelatedProductsList extends StatelessWidget {
   final ProductsEntity item;
   final bool isBrand;
-  const RelatedProductsList({Key? key,required this.item,this.isBrand = false}) : super(key: key);
+  const RelatedProductsList({super.key,required this.item,this.isBrand = false});
 
   @override
   Widget build(BuildContext context) {

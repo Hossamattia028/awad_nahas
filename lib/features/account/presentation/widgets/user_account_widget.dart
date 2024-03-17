@@ -12,7 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class UserAccountWidget extends StatelessWidget {
-  const UserAccountWidget({Key? key}) : super(key: key);
+  const UserAccountWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

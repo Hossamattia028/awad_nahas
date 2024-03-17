@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WeightFilterList extends StatelessWidget {
-  const WeightFilterList({Key? key,}) : super(key: key);
+  const WeightFilterList({super.key,});
 
   @override
   Widget build(BuildContext context) {

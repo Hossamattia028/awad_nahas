@@ -375,12 +375,13 @@ class Util{
   //location util
   static Future<Placemark> getAndSaveLocationDetails(LatLng latLng)async{
     try{
-      List<Placemark> places = await placemarkFromCoordinates(latLng.latitude, latLng.longitude,localeIdentifier: Util.getLang()=="ar"?"ar":"en_US");
+      await setLocaleIdentifier(Util.getLang()=="ar"?"ar":"en_US");
+      List<Placemark> places = await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
       Placemark place = places[0];
       return place;
     }catch(e){
       debugPrint("getAndSaveLocationDetails $e");
-      return Placemark();
+      return const Placemark();
     }
   }
 

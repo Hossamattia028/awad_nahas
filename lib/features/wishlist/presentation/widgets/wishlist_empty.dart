@@ -7,7 +7,7 @@ import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 
 class WishListEmpty extends StatelessWidget {
-  const WishListEmpty({Key? key}) : super(key: key);
+  const WishListEmpty({super.key});
 
   @override
   Widget build(BuildContext context) {

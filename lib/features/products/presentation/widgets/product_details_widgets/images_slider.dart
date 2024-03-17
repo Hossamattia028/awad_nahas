@@ -13,7 +13,7 @@ import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 class ImagesSlider extends StatelessWidget {
   final List<String> images;
   final double height ;
-  const ImagesSlider({Key? key,required this.images,this.height = 160}) : super(key: key);
+  const ImagesSlider({super.key,required this.images,this.height = 160});
 
   @override
   Widget build(BuildContext context) {

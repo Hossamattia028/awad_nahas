@@ -12,7 +12,7 @@ import 'package:awad_nahas/features/order/presentation/bloc/order_state.dart';
 
 class OrderList extends StatelessWidget {
   final int index;
-  const OrderList({Key? key,required this.index}) : super(key: key);
+  const OrderList({super.key,required this.index});
 
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,7 @@ class LocationKindWidget extends StatelessWidget {
   final String title;
   final String img;
   final bool selected;
-  const LocationKindWidget({Key? key,required this.img,required this.title, required this.fn,required this.selected}) : super(key: key);
+  const LocationKindWidget({super.key,required this.img,required this.title, required this.fn,required this.selected});
 
   @override
   Widget build(BuildContext context) {

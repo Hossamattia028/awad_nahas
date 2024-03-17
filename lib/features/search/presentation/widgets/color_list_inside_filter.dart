@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ColorFilterList extends StatelessWidget {
-  const ColorFilterList({Key? key,}) : super(key: key);
+  const ColorFilterList({super.key,});
 
   @override
   Widget build(BuildContext context) {

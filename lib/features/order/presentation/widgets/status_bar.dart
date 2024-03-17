@@ -7,7 +7,7 @@ import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 class StatusBarWidget extends StatelessWidget {
   final bool isEnabled;
   final String txt;
-  const StatusBarWidget({Key? key,required this.txt,required this.isEnabled}) : super(key: key);
+  const StatusBarWidget({super.key,required this.txt,required this.isEnabled});
 
   @override
   Widget build(BuildContext context) {

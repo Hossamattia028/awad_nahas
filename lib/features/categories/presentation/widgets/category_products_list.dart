@@ -9,7 +9,7 @@ import 'package:awad_nahas/features/products/presentation/bloc/products_state.da
 class CategoryProductsListWidget extends StatelessWidget {
   final int catID;
   final int? subCatID;
-  const CategoryProductsListWidget({Key? key,required this.catID,required this.subCatID}) : super(key: key);
+  const CategoryProductsListWidget({super.key,required this.catID,required this.subCatID});
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ViewAllRow extends StatelessWidget {
   final String title;
   final VoidCallback fn;
-  const ViewAllRow({Key? key,required this.title,required this.fn}) : super(key: key);
+  const ViewAllRow({super.key,required this.title,required this.fn});
 
   @override
   Widget build(BuildContext context) {

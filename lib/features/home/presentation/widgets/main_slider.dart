@@ -10,7 +10,7 @@ import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 
 class SliderWidget extends StatelessWidget {
   final double height;
-  const SliderWidget({Key? key,this.height = 170}) : super(key: key);
+  const SliderWidget({super.key,this.height = 170});
 
   @override
   Widget build(BuildContext context) {

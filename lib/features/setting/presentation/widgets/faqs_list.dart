@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 class FaqsListWidget extends StatelessWidget {
-  const FaqsListWidget({Key? key}) : super(key: key);
+  const FaqsListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

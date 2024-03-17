@@ -11,7 +11,7 @@ class CustomButton extends StatelessWidget {
   final double circular;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.height,
     required this.width,
     required this.widget,
@@ -20,7 +20,7 @@ class CustomButton extends StatelessWidget {
     this.sideColor,
     this.sideWidth,
     this.circular = 10,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

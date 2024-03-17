@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class AccountDataScreen extends StatelessWidget {
-  const AccountDataScreen({Key? key}) : super(key: key);
+  const AccountDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
