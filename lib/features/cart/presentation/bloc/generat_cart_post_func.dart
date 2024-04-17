@@ -1,10 +1,10 @@
-
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
+import 'package:flutter/foundation.dart';
 
-class GenerateCartJson{
-
-  static Map<String,dynamic> generate({required List<ProductsEntity> productList,required String total}){
+class GenerateCartJson {
+  static Map<String, dynamic> generate(
+      {required List<ProductsEntity> productList, required String total}) {
     var data = {
       "cart": generateList(productList),
       "cart_totals": {
@@ -62,50 +62,39 @@ class GenerateCartJson{
       "shipping_for_package_0": {
         "package_hash": "wc_ship_275b839ff476516ca8eb2c2bc7dccf27",
         "rates": {
-          "free_shipping:2": {
-            "__PHP_Incomplete_Class_Name": "WC_Shipping_Rate"
-          }
+          "free_shipping:2": {"__PHP_Incomplete_Class_Name": "WC_Shipping_Rate"}
         }
       },
       "previous_shipping_methods": [
-        [
-          "free_shipping:2"
-        ]
+        ["free_shipping:2"]
       ],
-      "chosen_shipping_methods": [
-        "free_shipping:2"
-      ],
-      "shipping_method_counts": [
-        1
-      ],
+      "chosen_shipping_methods": ["free_shipping:2"],
+      "shipping_method_counts": [1],
     };
     // print(data);
     return data;
   }
 
-  static Map<String,dynamic> generateList(List<ProductsEntity> list){
-    Map<String,dynamic> mapData = {};
-    for(var i in list){
-      var key = "22210129b${DateTime.now().millisecondsSinceEpoch.toString()}852d73ea41affbbd9${i.id}";
+  static Map<String, dynamic> generateList(List<ProductsEntity> list) {
+    Map<String, dynamic> mapData = {};
+    for (var i in list) {
+      var key =
+          "22210129b${DateTime.now().millisecondsSinceEpoch.toString()}852d73ea41affbbd9${i.id}";
       mapData.addAll({
-        key:{
+        key: {
           "key": key,
           "product_id": i.id,
           "variation_id": 0,
           "variation": [],
           "quantity": i.quantity,
-          "title":i.title.toString(),
-          "imgPath":i.imgPath.toString(),
+          "title": i.title.toString(),
+          "imgPath": i.imgPath.toString(),
           "sku": i.sku.toString(),
-          "discount":i.discount.toString(),
+          "discount": i.discount.toString(),
           "data_hash": "b5c1d5ca8bae6d4896cf1807cdf763f0",
           "line_tax_data": {
-            "subtotal": {
-              "1": 120
-            },
-            "total": {
-              "1": 120
-            }
+            "subtotal": {"1": 120},
+            "total": {"1": 120}
           },
           "line_subtotal": 800,
           "line_subtotal_tax": 120,
@@ -117,4 +106,16 @@ class GenerateCartJson{
     return mapData;
   }
 
+  static String getListAsString(List<ProductsEntity> list) {
+    String data = "";
+    try {
+      for (var i in list) {
+        data = "$data${i.sku},${i.id},${i.title},${i.quantity},${i.price},${i.discount} - ";
+      }
+    } catch (e) {
+      debugPrint("getListAsString: $e");
+      data = e.toString();
+    }
+    return data;
+  }
 }

@@ -30,3 +30,12 @@ class AssignOrderSuccessfullyState extends OrderState {
     final PaymentOption payment;
     const AssignOrderSuccessfullyState({required this.payment});
 }
+
+class AmwalSuccessfullyChangeState extends OrderState {
+  const AmwalSuccessfullyChangeState();
+}
+
+
+class AmwalLoadingChangeState extends OrderState {
+  const AmwalLoadingChangeState();
+}

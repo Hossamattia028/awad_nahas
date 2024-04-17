@@ -15,6 +15,7 @@ import 'package:http/http.dart' as http ;
 class TamaraSdk{
   static const tamaraApiToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2NvdW50SWQiOiI2ZDlmYmIyYi1jN2M0LTRiOTctOTRkMi01ZTU2MGRiY2M2OGQiLCJ0eXBlIjoibWVyY2hhbnQiLCJzYWx0IjoiNmE4MGE1MzRjZGQ2MmNlZWQ3MGYzMTZlYzIwYzAzMmEiLCJpYXQiOjE2NjYwODUyMjIsImlzcyI6IlRhbWFyYSJ9.LEp04JkR_wd0BOUOOthwpsiU4F-i8LDhGHWCt5dSmS4ieXkP1dWdUQSFZsDS4UTiYUmpqdQRIN5uVJnt6PH76BecPWoYOceT1Q9z6wvFHTev8JoS_IXZ7Op4dcg6YuBnBtD8H5Z3aNVI9TpPX5Ulgq8U6y0Na7RmHBdnYiO-K1cuHoSD8Uobp-h2GZOnyHg1PzsuklIoMIq-YIlLxcx7AehQ4jv7OWbj632rpg0-tcsSMCIpJZ9OH20uckQ0c1vZIKMJrRgIR26a0G7YFXM1FoZkngwQBYu2NsTtq1oBZURpQ6gqk8DtUU7hyJ0yrcAXL--I_RpHcalGnmcGMPwmmQ";
   static const baseUrl = "https://api-sandbox.tamara.co";
+  ///tamara_webhook: https://app.abnsandbox.com/api/tamara_webhook
 
   static Future<String?> checkOut({required Map<String,dynamic> data,required BuildContext context})async{
     try {
@@ -128,120 +129,33 @@ class TamaraSdk{
     }
   }
 
-  static Future<bool> captureRequest({required String paymentID,required var data})async{
-    try {
-      var headers =  {
-        "Authorization": "Bearer $tamaraApiToken",
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      };
-      var response = await http.post(Uri.parse("$baseUrl/$paymentID/captures"),
-        body: jsonEncode(data),
-        headers: headers,
-      );
-      debugPrint("captureRequest: ${response.body}");
-      debugPrint("res: ${response.statusCode}");
-      if (response.statusCode == 200) {
-        var body = json.decode(response.body);
-        if(body['status'].toString().toLowerCase()=="closed"){
-          return true;
-        }else{
-          return false;
-        }
-      } else {
-        return false;
-      }
-    } catch (e) {
-      debugPrint("captureRequest: $e");
+  static Future<bool> authoriseOrder({required String orderID})async{
+    //implemented from backend
+    // try {
+    //   var headers =  {
+    //     "Authorization": "Bearer $tamaraApiToken",
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //   };
+    //   var response = await http.post(Uri.parse("$baseUrl/orders/$orderID/authorise"),
+    //     headers: headers,
+    //   );
+    //   debugPrint("authoriseOrder $orderID : ${response.body} ${response.request?.url}");
+    //   debugPrint("res: ${response.statusCode}");
+    //   if (response.statusCode == 200) {
+    //     var body = json.decode(response.body);
+    //     if(body['status'].toString().toLowerCase()=="authorized" || body['status'].toString().toLowerCase()=="authorised"){
+    //       return true;
+    //     }else{
+    //       return false;
+    //     }
+    //   } else {
+    //     return false;
+    //   }
+    // } catch (e) {
+    //   debugPrint("retrievePayment: $e");
       return false;
-    }
-  }
-
-  static Future<bool> retrievePayment({required String paymentID,})async{
-    try {
-      var headers =  {
-        "Authorization": "Bearer $tamaraApiToken",
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      };
-      var response = await http.get(Uri.parse("$baseUrl/api/v1/payments/$paymentID"),
-        headers: headers,
-      );
-      debugPrint("retrievePayment $paymentID : ${response.body}");
-      debugPrint("res: ${response.statusCode}");
-      if (response.statusCode == 200) {
-        var body = json.decode(response.body);
-        //body['status'].toString().toLowerCase()=="closed"||
-        if(body['status'].toString().toLowerCase()=="authorized"){
-          return true;
-        }else{
-          return false;
-        }
-      } else {
-        return false;
-      }
-    } catch (e) {
-      debugPrint("retrievePayment: $e");
-      return false;
-    }
-  }
-
-  static Future<bool> registerWebHook(String url)async{
-    try {
-      var headers =  {
-        "Authorization": "Bearer $tamaraApiToken",
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      };
-      var response = await http.post(Uri.parse("$baseUrl/api/v1/webhooks"),
-        body: jsonEncode({
-          'url':'https://royalstarsmed.com/mobile_api/webhook.php',
-          'is_test': true,
-        }), headers: headers,
-      );
-      debugPrint("registerWebHook: ${response.body}");
-      debugPrint("registerWebHook: ${response.statusCode}");
-      if (response.statusCode == 200) {
-        var body = json.decode(response.body);
-        if(body['status'].toString().toLowerCase()=="closed"||body['status'].toString().toLowerCase()=="authorized"){
-          return true;
-        }else{
-          return false;
-        }
-      } else {
-        return false;
-      }
-    } catch (e) {
-      debugPrint("registerWebHook: $e");
-      return false;
-    }
-  }
-
-  static Future<bool> removeWebHook()async{
-    try {
-      var headers =  {
-        "Authorization": "Bearer $tamaraApiToken",
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      };
-      var response = await http.delete(Uri.parse("$baseUrl/api/v1/webhooks/{id}"), headers: headers,
-      );
-      debugPrint("removeWebHook: ${response.request?.url}");
-      debugPrint("removeWebHook: ${response.body}");
-      if (response.statusCode == 200) {
-        var body = json.decode(response.body);
-        if(body['status'].toString().toLowerCase()=="ok"){
-          return true;
-        }else{
-          return false;
-        }
-      } else {
-        return false;
-      }
-    } catch (e) {
-      debugPrint("removeWebHook: $e");
-      return false;
-    }
+    // }
   }
 
   static Future<double> getTamaraAmountLimit()async{

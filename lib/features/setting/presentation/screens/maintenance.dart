@@ -31,30 +31,42 @@ class MaintenanceScreen extends StatefulWidget {
 }
 
 class _MaintenanceScreenState extends State<MaintenanceScreen> {
-  final TextEditingController firstNameTextEditingController = TextEditingController();
-  final TextEditingController lastNameTextEditingController = TextEditingController();
-  final TextEditingController emailTextEditingController = TextEditingController();
-  final TextEditingController phoneTextEditingController = TextEditingController();
-  final TextEditingController complaintTextEditingController = TextEditingController();
+  final TextEditingController firstNameTextEditingController =
+      TextEditingController();
+  final TextEditingController lastNameTextEditingController =
+      TextEditingController();
+  final TextEditingController emailTextEditingController =
+      TextEditingController();
+  final TextEditingController phoneTextEditingController =
+      TextEditingController();
+  final TextEditingController complaintTextEditingController =
+      TextEditingController();
   // final TextEditingController warrantyTextEditingController = TextEditingController();
-  final TextEditingController serialTextEditingController = TextEditingController();
-  final TextEditingController productModuleTextEditingController = TextEditingController();
+  final TextEditingController serialTextEditingController =
+      TextEditingController();
+  final TextEditingController productModuleTextEditingController =
+      TextEditingController();
   // int deviceNumber = 1;
   int brandID = 1;
   int catID = 1;
   File? img;
   var border = OutlineInputBorder(
       borderSide: BorderSide(color: DMUtil.getOpacity()),
-      borderRadius: const BorderRadius.all(Radius.circular(10))
-  );
+      borderRadius: const BorderRadius.all(Radius.circular(10)));
 
   bool underWarranty = true;
-
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final oldCheckboxTheme = CheckboxThemeData(checkColor: MaterialStateColor.resolveWith((states) => DMUtil.getWC()),fillColor: MaterialStateColor.resolveWith((states) => DMUtil.getPC()));
+    final oldCheckboxTheme = CheckboxThemeData(
+        checkColor: MaterialStateColor.resolveWith((states) => DMUtil.getWC()),
+        fillColor: MaterialStateColor.resolveWith(
+          (states) => DMUtil.getPC(),
+        ),
+        side: const BorderSide(
+          color: Colors.transparent,
+        ));
     final newCheckBoxTheme = oldCheckboxTheme.copyWith(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
     );
@@ -65,26 +77,27 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
         leadingIcon: const BackArrowButton(),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: BlocListener<RootBloc, RootState>(
-          listenWhen: (ctx,state)=> state is MaintenanceSuccessState,
-          listener: (ctx,state) {
-            if(state is MaintenanceSuccessState){
-              firstNameTextEditingController.text = "";
-              lastNameTextEditingController.text = "";
-              emailTextEditingController.text = "";
-              phoneTextEditingController.text = "";
-              productModuleTextEditingController.text = "";
-              complaintTextEditingController.text = "";
-              serialTextEditingController.text = "";
-              img = null;
-              SnackBarBuilder.showFeedBackMessage(context, translate("maintenance.success_msg"), DMUtil.getGreen());
-              setState(() {});
-            }
-          },
-          child: BlocBuilder<RootBloc, RootState>(builder: (ctx, state) {
-            return BlocBuilder<LocationsBloc,LocationsState>(
-                builder: (ctx,locationState){
+          padding: const EdgeInsets.all(20.0),
+          child: BlocListener<RootBloc, RootState>(
+            listenWhen: (ctx, state) => state is MaintenanceSuccessState,
+            listener: (ctx, state) {
+              if (state is MaintenanceSuccessState) {
+                firstNameTextEditingController.text = "";
+                lastNameTextEditingController.text = "";
+                emailTextEditingController.text = "";
+                phoneTextEditingController.text = "";
+                productModuleTextEditingController.text = "";
+                complaintTextEditingController.text = "";
+                serialTextEditingController.text = "";
+                img = null;
+                SnackBarBuilder.showFeedBackMessage(context,
+                    translate("maintenance.success_msg"), DMUtil.getGreen());
+                setState(() {});
+              }
+            },
+            child: BlocBuilder<RootBloc, RootState>(builder: (ctx, state) {
+              return BlocBuilder<LocationsBloc, LocationsState>(
+                builder: (ctx, locationState) {
                   var locationBloc = LocationsBloc.get(ctx);
                   return CustomButton(
                     height: 40.h,
@@ -92,48 +105,60 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                     circular: 10,
                     color: DMUtil.getRED(),
                     widget: state is MaintenanceLoadingState
-                        ? const CircularProgressIndicator(color: Colors.white,)
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
                         : CustomText(
-                      text: translate("button.send"),
-                      color: Colors.white,
-                      fontSize: AppStyle.average.sp,
-                    ),
+                            text: translate("button.send"),
+                            color: Colors.white,
+                            fontSize: AppStyle.average.sp,
+                          ),
                     onPressed: () {
-                      if(state is MaintenanceLoadingState)return;
-                      if(validate()==false)return;
-                      String phone = "+966${phoneTextEditingController.text.trim()}";
-                      if(validatePhoneInput(phone, context) == false){
+                      if (state is MaintenanceLoadingState) return;
+                      if (validate() == false) return;
+                      String phone =
+                          "+966${phoneTextEditingController.text.trim()}";
+                      if (validatePhoneInput(phone, context) == false) {
                         return;
                       }
-                      if(!emailTextEditingController.text.trim().contains("@")){
-                        SnackBarBuilder.showFeedBackMessage(context, translate("toast.email_invalid"), DMUtil.getRED());
+                      if (!emailTextEditingController.text
+                          .trim()
+                          .contains("@")) {
+                        SnackBarBuilder.showFeedBackMessage(context,
+                            translate("toast.email_invalid"), DMUtil.getRED());
                         return;
                       }
                       RootBloc.get(context).add(SendMaintenanceEvent(data: {
-                        "first_name": firstNameTextEditingController.text.trim(),
+                        "first_name":
+                            firstNameTextEditingController.text.trim(),
                         "last_name": lastNameTextEditingController.text.trim(),
+                        "email":emailTextEditingController.text.trim(),
                         "city": locationBloc.currentShippingCity,
-                        "neighborhood": firstNameTextEditingController.text.trim(),
+                        "neighborhood":
+                            firstNameTextEditingController.text.trim(),
                         "phone_number": phoneTextEditingController.text.trim(),
-                        "complaints": complaintTextEditingController.text.trim(),
-                        "warranty": underWarranty?"1":"0",
+                        "complaints":
+                            complaintTextEditingController.text.trim(),
+                        "warranty": underWarranty ? "1" : "0",
                         "number_of_maintained_devices": 1,
-                        "product_serial": serialTextEditingController.text.trim(),
+                        "product_serial":
+                            serialTextEditingController.text.trim(),
                         "brand_id": brandID,
                         "product_type": catID,
-                        "product_model": productModuleTextEditingController.text.trim(),
+                        "product_model":
+                            productModuleTextEditingController.text.trim(),
                         "device_complete_2_years": 1,
                         'img': img!,
                       }));
                     },
                   );
                 },
-            );
-          }),
-        )
-      ),
+              );
+            }),
+          )),
       body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: AppStyle.paddingFromH.w, vertical: 12.h),
+          padding: EdgeInsets.symmetric(
+              horizontal: AppStyle.paddingFromH.w, vertical: 12.h),
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +174,9 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                         color: DMUtil.getDC(),
                         fontSize: AppStyle.average.sp,
                       ),
-                      const SizedBox(height: 5,),
+                      const SizedBox(
+                        height: 5,
+                      ),
                       SizedBox(
                         width: 160.w,
                         child: CustomTextFromField(
@@ -175,7 +202,9 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                         color: DMUtil.getDC(),
                         fontSize: AppStyle.average.sp,
                       ),
-                      const SizedBox(height: 5,),
+                      const SizedBox(
+                        height: 5,
+                      ),
                       SizedBox(
                         width: 160.w,
                         child: CustomTextFromField(
@@ -195,13 +224,17 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 12,
+              ),
               CustomText(
                 text: translate("signup.phone"),
                 color: DMUtil.getDC(),
                 fontSize: AppStyle.average.sp,
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 children: [
                   Expanded(
@@ -220,17 +253,26 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                       borderColor: DMUtil.getDC(),
                     ),
                   ),
-                  const SizedBox(width: 5,),
-                  CustomText(text: "966+", fontSize: AppStyle.small.sp,),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  CustomText(
+                    text: "966+",
+                    fontSize: AppStyle.small.sp,
+                  ),
                 ],
               ),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 12,
+              ),
               CustomText(
                 text: translate("signup.email"),
                 color: DMUtil.getDC(),
                 fontSize: AppStyle.average.sp,
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               CustomTextFromField(
                 hintText: translate("signup.email"),
                 labelText: "",
@@ -245,97 +287,131 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 isLabelError: false,
                 borderColor: DMUtil.getDC(),
               ),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 12,
+              ),
               CustomText(
                 text: translate("profile.city"),
                 color: DMUtil.getDC(),
                 fontSize: AppStyle.average.sp,
               ),
-              const SizedBox(height: 5,),
-              const ShippingListWidget(isMaintenance: true,),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 5,
+              ),
+              const ShippingListWidget(
+                isMaintenance: true,
+              ),
+              const SizedBox(
+                height: 12,
+              ),
               CustomText(
                 text: translate("store.brand"),
                 color: DMUtil.getDC(),
                 fontSize: AppStyle.average.sp,
               ),
-              const SizedBox(height: 5,),
-              BlocBuilder<CategoriesBloc, CategoriesState>(
-                  builder: (ctx, state) {
-                    var bloc = CategoriesBloc.get(ctx);
-                    List<CategoriesEntity> list =
-                    bloc.activateTransList(bloc.brandsList);
-                    return DropdownButtonFormField(
-                      icon: Icon(Icons.keyboard_arrow_down,size: 13.w,),
-                      decoration: InputDecoration(
-                        focusedBorder:border,
-                        enabledBorder: border,
-                        border: border,
-                        hintText: translate("store.brand"),
-                        hintStyle: TextStyle(fontSize: AppStyle.verySmall.sp+2, color: DMUtil.getD2C()),
-                        isDense: true,
-                      ),
-                      // value: deviceNumber,
-                      items: <DropdownMenuItem<String>>[
-                        for (var i = 0; i < list.length; i++)
-                          DropdownMenuItem(
-                              value: list[i].id.toString(),
-                              child: Text(list[i].title.toString(),
-                                  style: TextStyle(color: DMUtil.getD2C())))
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          brandID = int.parse(value.toString());
-                        });
-                      },
-                    );
-                  },
+              const SizedBox(
+                height: 5,
               ),
-              const SizedBox(height: 12,),
+              BlocBuilder<CategoriesBloc, CategoriesState>(
+                builder: (ctx, state) {
+                  var bloc = CategoriesBloc.get(ctx);
+                  List<CategoriesEntity> list =
+                      bloc.activateTransList(bloc.brandsList);
+                  return DropdownButtonFormField(
+                    dropdownColor: DMUtil.getWC(),
+                    icon: Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 13.w,
+                    ),
+                    decoration: InputDecoration(
+                      focusedBorder: border,
+                      enabledBorder: border,
+                      border: border,
+                      hintText: translate("store.brand"),
+                      hintStyle: TextStyle(
+                          fontSize: AppStyle.verySmall.sp + 2,
+                          color: DMUtil.getD2C()),
+                      isDense: true,
+                    ),
+                    // value: deviceNumber,
+                    items: <DropdownMenuItem<String>>[
+                      for (var i = 0; i < list.length; i++)
+                        DropdownMenuItem(
+                          value: list[i].id.toString(),
+                          child: CustomText(
+                            text: list[i].title.toString(),
+                            color: DMUtil.getD2C(),
+                            fontSize: AppStyle.small.sp,
+                          ),
+                        )
+                    ],
+                    onChanged: (value) {
+                      setState(() {
+                        brandID = int.parse(value.toString());
+                      });
+                    },
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 12,
+              ),
               CustomText(
                 text: translate("store.product_cat"),
                 color: DMUtil.getDC(),
                 fontSize: AppStyle.average.sp,
               ),
-              const SizedBox(height: 5,),
-              BlocBuilder<CategoriesBloc, CategoriesState>(
-                  builder: (ctx, state) {
-                    var bloc = CategoriesBloc.get(ctx);
-                    List<CategoriesEntity> list =
-                    bloc.activateTransList(bloc.categoriesList);
-                    return DropdownButtonFormField(
-                      icon: Icon(Icons.keyboard_arrow_down,size: 13.w,),
-                      decoration: InputDecoration(
-                        focusedBorder:border,
-                        enabledBorder: border,
-                        border: border,
-                        hintText: translate("store.product_cat"),
-                        hintStyle: TextStyle(fontSize: AppStyle.verySmall.sp+2, color: DMUtil.getD2C()),
-                        isDense: true,
-                      ),
-                      // value: deviceNumber,
-                      items: <DropdownMenuItem<String>>[
-                        for (var i = 0; i < list.length; i++)
-                          DropdownMenuItem(
-                              value: list[i].id.toString(),
-                              child: Text(list[i].title.toString(),
-                                  style: TextStyle(color: DMUtil.getD2C())))
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          catID = int.parse(value.toString());
-                        });
-                      },
-                    );
-                  },
+              const SizedBox(
+                height: 5,
               ),
-              const SizedBox(height: 12,),
+              BlocBuilder<CategoriesBloc, CategoriesState>(
+                builder: (ctx, state) {
+                  var bloc = CategoriesBloc.get(ctx);
+                  List<CategoriesEntity> list =
+                      bloc.activateTransList(bloc.categoriesList);
+                  return DropdownButtonFormField(
+                    dropdownColor: DMUtil.getWC(),
+                    icon: Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 13.w,
+                    ),
+                    decoration: InputDecoration(
+                      focusedBorder: border,
+                      enabledBorder: border,
+                      border: border,
+                      hintText: translate("store.product_cat"),
+                      hintStyle: TextStyle(
+                          fontSize: AppStyle.verySmall.sp + 2,
+                          color: DMUtil.getD2C()),
+                      isDense: true,
+                    ),
+                    // value: deviceNumber,
+                    items: <DropdownMenuItem<String>>[
+                      for (var i = 0; i < list.length; i++)
+                        DropdownMenuItem(
+                            value: list[i].id.toString(),
+                            child: Text(list[i].title.toString(),
+                                style: TextStyle(color: DMUtil.getD2C())))
+                    ],
+                    onChanged: (value) {
+                      setState(() {
+                        catID = int.parse(value.toString());
+                      });
+                    },
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 12,
+              ),
               CustomText(
                 text: translate("maintenance.product_module"),
                 color: DMUtil.getDC(),
                 fontSize: AppStyle.average.sp,
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               CustomTextFromField(
                 hintText: translate("maintenance.product_module"),
                 labelText: "",
@@ -348,13 +424,17 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 obscureText: false,
                 isLabelError: false,
               ),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 12,
+              ),
               CustomText(
                 text: translate("maintenance.serial"),
                 color: DMUtil.getDC(),
                 fontSize: AppStyle.average.sp,
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               CustomTextFromField(
                 hintText: translate("maintenance.serial"),
                 labelText: "",
@@ -367,7 +447,9 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 obscureText: false,
                 isLabelError: false,
               ),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 12,
+              ),
               CustomText(
                 text: translate("maintenance.is_under_warranty"),
                 color: DMUtil.getDC(),
@@ -377,7 +459,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: 110.w,
+                    width: 115.w,
                     child: Theme(
                       data: theme.copyWith(checkboxTheme: newCheckBoxTheme),
                       child: CheckboxListTile(
@@ -387,6 +469,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                           });
                         },
                         value: underWarranty,
+                        checkColor: Colors.white,
                         title: CustomText(
                           text: translate("button.yes"),
                           color: DMUtil.getDC(),
@@ -396,7 +479,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                     ),
                   ),
                   SizedBox(
-                    width: 84.w,
+                    width: 85.w,
                     child: Theme(
                       data: theme.copyWith(checkboxTheme: newCheckBoxTheme),
                       child: CheckboxListTile(
@@ -406,6 +489,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                           });
                         },
                         value: !underWarranty,
+                        checkColor: Colors.white,
                         title: CustomText(
                           text: translate("button.no"),
                           color: DMUtil.getDC(),
@@ -416,13 +500,17 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 12,
+              ),
               CustomText(
                 text: translate("maintenance.complaints"),
                 color: DMUtil.getDC(),
                 fontSize: AppStyle.average.sp,
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               CustomTextFromField(
                 hintText: translate("maintenance.complaints"),
                 labelText: "",
@@ -441,7 +529,9 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 isStart: false,
                 child: Column(
                   children: [
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     CustomButton(
                       height: 30.h,
                       width: 220.w,
@@ -453,7 +543,11 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                             color: Colors.white,
                             fontSize: AppStyle.average.sp,
                           ),
-                          Icon(Icons.drive_folder_upload_outlined,size: 20.w,),
+                          Icon(
+                            Icons.drive_folder_upload_outlined,
+                            size: 20.w,
+                            color: DMUtil.getD2C(),
+                          ),
                         ],
                       ),
                       color: DMUtil.getRED(),
@@ -485,10 +579,11 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
           )),
     );
   }
-  bool validatePhoneInput(String phone,BuildContext context){
-    if(phone.isNotEmpty){
+
+  bool validatePhoneInput(String phone, BuildContext context) {
+    if (phone.isNotEmpty) {
       String? txt = Util.validatePhone(phone);
-      if(txt!=null){
+      if (txt != null) {
         SnackBarBuilder.showFeedBackMessage(context, txt, DMUtil.getRED());
         return false;
       }
@@ -496,38 +591,57 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
     return true;
   }
 
-  bool validate(){
+  bool validate() {
     if (firstNameTextEditingController.text.trim().isEmpty ||
-        lastNameTextEditingController.text.trim().isEmpty ) {
-      SnackBarBuilder.showFeedBackMessage(context, translate("toast.field_empty"), DMUtil.getRED());
+        lastNameTextEditingController.text.trim().isEmpty) {
+      SnackBarBuilder.showFeedBackMessage(
+          context, translate("toast.field_empty"), DMUtil.getRED());
       return false;
     }
     if (firstNameTextEditingController.text.trim().isEmpty) {
-      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("signup.first_name")}", DMUtil.getRED());
+      SnackBarBuilder.showFeedBackMessage(
+          context,
+          "${translate("toast.field_empty")} - ${translate("signup.first_name")}",
+          DMUtil.getRED());
       return false;
     }
     if (lastNameTextEditingController.text.trim().isEmpty) {
-      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("signup.last_name")}", DMUtil.getRED());
+      SnackBarBuilder.showFeedBackMessage(
+          context,
+          "${translate("toast.field_empty")} - ${translate("signup.last_name")}",
+          DMUtil.getRED());
       return false;
     }
     if (phoneTextEditingController.text.trim().isEmpty) {
-      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("signup.phone")}", DMUtil.getRED());
+      SnackBarBuilder.showFeedBackMessage(
+          context,
+          "${translate("toast.field_empty")} - ${translate("signup.phone")}",
+          DMUtil.getRED());
       return false;
     }
     if (emailTextEditingController.text.trim().isEmpty) {
-      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("signup.email")}", DMUtil.getRED());
+      SnackBarBuilder.showFeedBackMessage(
+          context,
+          "${translate("toast.field_empty")} - ${translate("signup.email")}",
+          DMUtil.getRED());
       return false;
     }
     // if (warrantyTextEditingController.text.trim().isEmpty) {
     //   SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("maintenance.warranty")}", DMUtil.getRED());
     //   return false;
     // }
-    if(brandID==1){
-      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("store.brand")} !", DMUtil.getRED());
+    if (brandID == 1) {
+      SnackBarBuilder.showFeedBackMessage(
+          context,
+          "${translate("toast.field_empty")} - ${translate("store.brand")} !",
+          DMUtil.getRED());
       return false;
     }
-    if(catID==1){
-      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("store.product_cat")} !", DMUtil.getRED());
+    if (catID == 1) {
+      SnackBarBuilder.showFeedBackMessage(
+          context,
+          "${translate("toast.field_empty")} - ${translate("store.product_cat")} !",
+          DMUtil.getRED());
       return false;
     }
     // if (serialTextEditingController.text.trim().isEmpty) {
@@ -539,68 +653,17 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
     //   return false;
     // }
     if (complaintTextEditingController.text.trim().isEmpty) {
-      SnackBarBuilder.showFeedBackMessage(context, "${translate("toast.field_empty")} - ${translate("maintenance.complaints")}", DMUtil.getRED());
+      SnackBarBuilder.showFeedBackMessage(
+          context,
+          "${translate("toast.field_empty")} - ${translate("maintenance.complaints")}",
+          DMUtil.getRED());
       return false;
     }
-    if(img == null){
-      SnackBarBuilder.showFeedBackMessage(context, translate("toast.img_missing"), DMUtil.getRED());
+    if (img == null) {
+      SnackBarBuilder.showFeedBackMessage(
+          context, translate("toast.img_missing"), DMUtil.getRED());
       return false;
     }
     return true;
   }
 }
-
-
-// CustomText(
-//   text: translate("maintenance.number_of_maintenance_device"),
-//   color: DMUtil.getDC(),
-//   fontSize: AppStyle.average.sp,
-// ),
-// const SizedBox(height: 5,),
-// DropdownButtonFormField(
-//   icon: Icon(Icons.keyboard_arrow_down,size: 13.w,),
-//   decoration: InputDecoration(
-//     focusedBorder:border,
-//     enabledBorder: border,
-//     border: border,
-//     hintText: translate("maintenance.number_of_maintenance_device"),
-//     hintStyle: TextStyle(fontSize: AppStyle.verySmall.sp+2, color: DMUtil.getD2C()),
-//     isDense: true,
-//   ),
-//   items: <DropdownMenuItem<String>>[
-//     for (var i = 0; i < 5; i++)
-//       DropdownMenuItem(
-//           value: (i + 1).toString(),
-//           child: Text((i + 1).toString(),
-//               style: TextStyle(color: DMUtil.getD2C())))
-//   ],
-//   onChanged: (value) {
-//     setState(() {
-//       deviceNumber = int.parse(value.toString());
-//     });
-//   },
-// ),
-// const SizedBox(height: 12,),
-
-
-
-// const SizedBox(height: 12,),
-//
-// CustomText(
-//   text: translate("maintenance.warranty"),
-//   color: DMUtil.getDC(),
-//   fontSize: AppStyle.average.sp,
-// ),
-// const SizedBox(height: 5,),
-// CustomTextFromField(
-//   hintText: translate("maintenance.warranty"),
-//   labelText: "",
-//   hasBorder: true,
-//   smallPadding: true,
-//   cursorColor: DMUtil.getRED(),
-//   radius: 10,
-//   textEditingController: warrantyTextEditingController,
-//   validator: () {},
-//   obscureText: false,
-//   isLabelError: false,
-// ),

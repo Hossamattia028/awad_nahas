@@ -44,12 +44,13 @@ class CartButtonWidget extends StatelessWidget {
             ),
             child: CustomButton(
               height: 25.h,
-              width: 110.w,
+              width: 113.w,
               circular: 10,
               widget: CustomText(
                 text: insideCartList?translate("cart.remove_from_cart"):translate("cart.add_to_cart"),
                 color: Colors.white,
-                fontSize: insideCartList?AppStyle.small.sp-3:AppStyle.average.sp-3,
+                fontWeight: FontWeight.w600,
+                fontSize: (insideCartList?AppStyle.small.sp : AppStyle.average.sp) - 4,
               ),
               color: DMUtil.getRED(),
               onPressed: ()=> CartBloc.get(context).add(ModifyCartProductEvent(product: item, isAdd: !insideCartList, context: context,remove: insideCartList)),

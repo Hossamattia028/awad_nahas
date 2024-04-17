@@ -11,6 +11,7 @@ import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/generat_cart_post_func.dart';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
@@ -174,7 +175,8 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       "items":cartBloc.prepareProductsAsTamaraOrder(list),
       "billing_address":LocationModel.toJson(billing),
       "shipping_address":LocationModel.toJson(shipping),
-      if(checkCoupon!=null)"discount": checkCoupon
+      if(checkCoupon!=null)"discount": checkCoupon,
+      "order_id":orderID
     },context: context);
 
     if(checkOutUrl!=null){
@@ -183,23 +185,23 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         ApiUrl.MAIN_DOMAIN,
         "${ApiUrl.MAIN_DOMAIN}/en/?pagename=tamara-payment-fail",
         "${ApiUrl.MAIN_DOMAIN}/en/?pagename=tamara-payment-cancel",
-        onPaymentSuccess: () {
+        onPaymentSuccess: (){
+          debugPrint("onPaymentSuccess");
           orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),
             couponModel: cartBloc.couponModel==null || cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
             couponVal:  cartBloc.couponValue??0,taxTotal: cartBloc.vatValue,
             orderStatus: WCStatusKey.wc_processing,
           ));
-          debugPrint("onPaymentSuccess");
         },
         onPaymentFailed: () {
-          SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
-          orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payTamara: onPaymentFailed<br/>orderData: ${cartBloc.cartList.toList().toString()}<br/>total: ${cartBloc.totalPrice}"});
           debugPrint("onPaymentFailed");
+          SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+          orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payTamara: onPaymentFailed<br/>orderData: ${GenerateCartJson.getListAsString(cartBloc.cartList).toString()}<br/>total: ${cartBloc.totalPrice}"});
         },
         onPaymentCanceled: () {
-          SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
-          orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payTamara: onPaymentCanceled<br/>orderData: ${cartBloc.cartList.toList().toString()}<br/>total: ${cartBloc.totalPrice}"});
           debugPrint("onPaymentCanceled");
+          SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+          orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payTamara: onPaymentCanceled<br/>orderData: ${GenerateCartJson.getListAsString(cartBloc.cartList).toString()}<br/>total: ${cartBloc.totalPrice}"});
         },
       ), context);
     }
@@ -221,7 +223,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
        ));
     }else{
       SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
-      orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payPayfort: ${res.msg}<br/>orderData: ${cartBloc.cartList.toList().toString()}<br/>total: ${cartBloc.totalPrice}"});
+      orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payPayfort: ${res.msg}<br/>orderData: ${GenerateCartJson.getListAsString(cartBloc.cartList).toString()}<br/>total: ${cartBloc.totalPrice}"});
     }
   }
 }

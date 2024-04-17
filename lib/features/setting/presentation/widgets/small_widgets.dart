@@ -19,7 +19,6 @@ class SettingLineOption extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 5.w),
         decoration: const BoxDecoration(
           borderRadius:  BorderRadius.all(Radius.circular(10)),
-          // border: Border.all(width: 0.6,color: DMUtil.getBCC())
         ),
         padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 8.h),
         child: Row(

@@ -61,3 +61,7 @@ class UpdateOrderEvent extends OrderEvent{
 
 
 
+class AmwalCheckOpening extends OrderEvent {
+  final bool isOpen;
+  const AmwalCheckOpening({required this.isOpen});
+}

@@ -43,7 +43,7 @@ class FaqsListWidget extends StatelessWidget {
                       itemBuilder: (ctx,index){
                         var smallItem = item.faqList![index];
                         return Card(
-                          color: DMUtil.getWC(),
+                            color: DMUtil.getWC(),
                             elevation: 3,
                             shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(5))

@@ -7,6 +7,7 @@ import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/payment_utils/amwal/proccess.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/generat_cart_post_func.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:awad_nahas/features/locations/presentation/screens/my_locations.dart';
@@ -56,10 +57,11 @@ class QuickCheckOutButton extends StatelessWidget {
 
             // /// pay after the order set as pending
             if(state is SendPendingOrderSuccessfullyState && state.payment.paymentEnum == PaymentEnum.AMWAL){
-              if(AmWalPlugin.amwalInProcess())return;
-              final res = await AmWalPlugin.pay(amount,state.orderID);
-              AmWalPlugin.amwalInProcess();
-              if(res.success){
+              if (orderBloc.amwalIsOpen) {
+                  debugPrint("render amwal widget ${orderBloc.amwalIsOpen} ${state.orderID}");
+                  orderBloc.amwalIsOpen = false;
+                  final res = await AmWalPlugin.pay(amount, state.orderID);
+                      if(res.success){
                 orderBloc.add(AddOrderEvent(list: list, totalPrice: amount, context: context,
                     payment: const PaymentOption(paymentEnum: PaymentEnum.AMWAL,isApplePay: false),
                     amWalTransactionId: res.transactionId.toString(),
@@ -70,8 +72,10 @@ class QuickCheckOutButton extends StatelessWidget {
                 ));
               }else{
                 SnackBarBuilder.showFeedBackMessage(context, res.msg, Colors.red);
-                orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payQuickCheckOut: ${res.msg},${res.transactionId},${res.canceled==true?"canceled":(res.success==true?"success":"failed")}<br/>orderData: ${list.toList().toString()}<br/>total: $amount"});
+                orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payQuickCheckOut: ${res.msg},${res.transactionId},${res.canceled==true?"canceled":(res.success==true?"success":"failed")}<br/>orderData: ${GenerateCartJson.getListAsString(cartBloc.cartList).toString()}<br/>total: $amount"});
               }
+               orderBloc.add(const AmwalCheckOpening(isOpen: false));
+              }             
             }
 
             if(state is OrderErrorState){
@@ -86,13 +90,12 @@ class QuickCheckOutButton extends StatelessWidget {
                 color: DMUtil.getDC(),
                 width: width,
                 height: height.w,
-                circular: 1,
                 widget: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.payment,size: 15.w,color: DMUtil.getWC(),),
                     const SizedBox(width: 10,),
-                    const Text("|"),
+                    const Text("|",style: TextStyle(color: Colors.white),),
                     const SizedBox(width: 10,),
                     CustomText(
                       text: translate("payment.quick_checkout"),
@@ -114,6 +117,7 @@ class QuickCheckOutButton extends StatelessWidget {
                     SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED());
                     return;
                   }
+                  orderBloc.add(const AmwalCheckOpening(isOpen: true));
                   _setPendingOrder(orderBloc, cartBloc, context);
                 },
               );

@@ -61,6 +61,7 @@ class _OrderScreenState extends State<OrderScreen>  with TickerProviderStateMixi
                   indicatorPadding: EdgeInsets.zero,
                   labelPadding: EdgeInsets.zero,
                   padding: EdgeInsets.zero,
+                  dividerColor: Colors.transparent,
                   labelColor: DMUtil.getDC(),
                   tabs: [
                     SmallTapItem(title: translate("order.on_going_orders"),enable: currentTapOrdersIndex==0,),

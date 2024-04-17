@@ -40,7 +40,7 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: DMUtil.getWC(),
       appBar: GlobalAppBar(
         title: translate("activity_setting.contact_us"),
         leadingIcon:  const BackArrowButton(),
@@ -109,7 +109,7 @@ class _ContactScreenState extends State<ContactScreen> {
                 Expanded(
                   // width: 280.w,
                   child: CustomTextFromField(
-                    hintText: "502441695",
+                    hintText: "502441...",
                     labelText: translate("signup.phone"),
                     hasBorder: true,
                     smallPadding: true,
@@ -136,11 +136,12 @@ class _ContactScreenState extends State<ContactScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child:  DropdownButton(
                 isExpanded: true,
+                dropdownColor: DMUtil.getWC(),
                 style: TextStyle(color: DMUtil.getD2C(), fontSize: 12.sp,),
                 hint: CustomText(
                   text: translate("activity_setting.select_subject"),
                   fontSize: 12.sp,
-                  color: Colors.black,
+                  color: DMUtil.getD2C(),
                 ),
                 onChanged:(val){
                   setState(() {
@@ -288,7 +289,7 @@ class _ContactScreenState extends State<ContactScreen> {
       child: CustomText(
         text: translate("activity_setting.inquire_and_complaint"),
         fontSize: 12.sp,
-        color: Colors.black,
+        color: DMUtil.getD2C(),
       ),
     ));
     itemsMarketKind.add(DropdownMenuItem(
@@ -296,7 +297,7 @@ class _ContactScreenState extends State<ContactScreen> {
       child: CustomText(
         text: translate("activity_setting.service_request"),
         fontSize: 12.sp,
-        color: Colors.black,
+        color: DMUtil.getD2C(),
       ),
     ));
     itemsMarketKind.add(DropdownMenuItem(
@@ -304,7 +305,7 @@ class _ContactScreenState extends State<ContactScreen> {
       child: CustomText(
         text: translate("activity_setting.sales"),
         fontSize: 12.sp,
-        color: Colors.black,
+        color: DMUtil.getD2C(),
       ),
     ));
     itemsMarketKind.add(DropdownMenuItem(
@@ -312,7 +313,7 @@ class _ContactScreenState extends State<ContactScreen> {
       child: CustomText(
         text: translate("activity_setting.become_a_partner"),
         fontSize: 12.sp,
-        color: Colors.black,
+        color: DMUtil.getD2C(),
       ),
     ));
     itemsMarketKind.add(DropdownMenuItem(
@@ -320,7 +321,7 @@ class _ContactScreenState extends State<ContactScreen> {
       child: CustomText(
         text: translate("activity_setting.project_s"),
         fontSize: 12.sp,
-        color: Colors.black,
+        color: DMUtil.getD2C(),
       ),
     ));
     return itemsMarketKind;

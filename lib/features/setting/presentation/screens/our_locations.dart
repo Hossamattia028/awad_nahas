@@ -48,7 +48,7 @@ class OurLocationsScreen extends StatelessWidget {
                   title = "  معرض $title " ;
                 }
                 return Card(
-                  elevation: 4,
+                  elevation: 3,
                   color: DMUtil.getWC(),
                   shape: RoundedRectangleBorder(
                       side: DMUtil.currentThemeIsDark() ? const BorderSide(color: Colors.white) : BorderSide.none,

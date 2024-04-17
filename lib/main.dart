@@ -31,6 +31,7 @@ void main() async{
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  // debugPrint = (String? message, {int? wrapWidth}) {};
   await Future.wait([
     Firebase.initializeApp(),
     di.init(),

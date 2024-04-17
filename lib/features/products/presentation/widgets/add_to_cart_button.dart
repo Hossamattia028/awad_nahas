@@ -111,8 +111,6 @@ class AddToCartButtonWidget extends StatelessWidget {
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               color: DMUtil.getWC(),
-              // height: bloc.showCountWidget ? 124.h : 65.h,
-              // duration: const Duration(milliseconds: 500),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

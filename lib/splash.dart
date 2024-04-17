@@ -30,9 +30,9 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 4), () async{
       await NotificationsUtils.initialPushNotification();
       await Upgrader.sharedInstance.initialize();
-      if(Upgrader.sharedInstance.isUpdateAvailable()){
-        if(mounted) return Util.pushPageAndRemoveRoutes(const UpdateAppScreen(), context);
-      }
+      // if(Upgrader.sharedInstance.isUpdateAvailable()){
+      //   if(mounted) return Util.pushPageAndRemoveRoutes(const UpdateAppScreen(), context);
+      // }
       if(mounted)Util.pushPageAndRemoveRoutes(const RootScreen(), context);
     });
     super.didChangeDependencies();

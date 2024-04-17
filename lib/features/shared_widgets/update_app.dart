@@ -29,7 +29,7 @@ class _UpdateAppScreenState extends State<UpdateAppScreen> {
     }
     super.initState();
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

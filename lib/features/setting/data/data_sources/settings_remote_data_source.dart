@@ -110,6 +110,7 @@ class SettingsRemoteDataSource extends SettingsRemoteDataSourceImpl{
     var postData = {
       "first_name": data['first_name'] ?? "",
       "last_name": data['last_name'] ?? "",
+      "email": data['email'] ?? "",
       "city": data['city'] ?? "",
       "neighborhood": data['neighborhood'] ?? "",
       "phone_number": data['phone_number'] ?? "",

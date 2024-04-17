@@ -1,7 +1,6 @@
 import 'package:amwal_pay/amwal_pay.dart';
 import 'package:awad_nahas/core/utils/payment_utils/amwal/amwal_response.dart';
 import 'package:awad_nahas/core/utils/payment_utils/amwal/constants.dart';
-import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/core/utils/sms_api.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,9 +9,9 @@ import 'package:flutter_translate/flutter_translate.dart';
 class AmWalPlugin {
   static AmwalPay? amWalPay;
 
-  static AmwalPay? initialize({String? orderID,String phone = "502441695"}){
+  static AmwalPay? initialize({String? orderID,String? phone}){
     orderID = orderID ?? SmsApi.getRandom().toString();
-    phone = phone.toString().trim()==""?"502441695":phone.trim();
+    phone = phone.toString().trim()==""?"null":phone.toString().trim();
     phone = phone.startsWith("0")?"+966$phone":"+9660$phone";
     amWalPay = AmwalPayBuilder(AmWalConstants.merchantIdentifierSandBox)
         .countryCode('+966').refId(orderID).orderId(orderID)
@@ -22,19 +21,9 @@ class AmWalPlugin {
     return amWalPay;
   }
 
-  /// this function should be remove 
-  static bool amwalInProcess(){
-    if(SharedPref().containPreference("amwl")){
-      SharedPref().removePreference("amwl");
-      return true;
-    }
-    return false;
-  }
-
   static Future<AmWalResponse> pay(double amount,String orderID)async{
     try{
       amWalPay ??= initialize(orderID: orderID, phone: Util.getMobile());
-      SharedPref().setPreferencesString("amwl", "open");
       TransactionStatus? paymentResult = await amWalPay!.start(amount);
       switch (paymentResult.type) {
         case TransactionStatusType.success:

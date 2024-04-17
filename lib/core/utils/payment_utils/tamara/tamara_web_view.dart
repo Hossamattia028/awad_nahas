@@ -67,20 +67,21 @@ Page resource error:
           },
           onNavigationRequest: (NavigationRequest request) {
             String url = request.url;
-            if (url.startsWith(widget.successUrl)) {
+            debugPrint("NavigationRequest: $url");
+            if (url.contains("successful") || url.contains("success")) {
               if (widget.onPaymentSuccess != null) {
                 widget.onPaymentSuccess!();
                 return NavigationDecision.prevent;
               }
-            } else if (url.startsWith(widget.failUrl)) {
+            } else if (url.contains("failed") || url.contains("fail")) {
               if (widget.onPaymentFailed != null) {
                 widget.onPaymentFailed!();
-                return NavigationDecision.prevent;
+                return NavigationDecision.navigate;
               }
-            } else if (url.startsWith(widget.cancelUrl)) {
+            } else if (url.contains("canceled") || url.contains("cancel")) {
               if (widget.onPaymentCanceled != null) {
                 widget.onPaymentCanceled!();
-                return NavigationDecision.prevent;
+                return NavigationDecision.navigate;
               }
             }
             return NavigationDecision.navigate;

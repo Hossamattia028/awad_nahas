@@ -86,7 +86,7 @@ dependencies:
   #payment
   flutter_amazonpaymentservices: ^0.0.7
   pay: ^2.0.0
-  amwal_pay: ^0.6.1
+  amwal_pay: ^0.6.3
 
 
 dependency_overrides:

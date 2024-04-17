@@ -22,7 +22,6 @@ class AccountAuthCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      color: DMUtil.getWC(),
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: BlocBuilder<AccountBloc, AccountState>(
         builder: (ctx, state) {

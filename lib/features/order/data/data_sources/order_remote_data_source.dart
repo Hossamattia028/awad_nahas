@@ -98,7 +98,7 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
     if(data['order_data']!=null)request.fields['order_data'] = data['order_data'];
     var streamedResponse = await request.send();
     var res = await http.Response.fromStream(streamedResponse);
-    // debugPrint("trackOrder: ${res.body}");
+    debugPrint("trackOrder: ${res.body}");
     if (res.body.toString().toLowerCase().contains("successfully")) {
       return true;
     } else {
