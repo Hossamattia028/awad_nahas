@@ -4,6 +4,7 @@ import 'package:awad_nahas/core/error/failure.dart';
 import 'package:awad_nahas/features/products/data/data_sources/products_remote_data_source.dart';
 import 'package:awad_nahas/features/products/data/models/product_comments.dart';
 import 'package:awad_nahas/features/products/data/models/products_response_model.dart';
+import 'package:awad_nahas/features/products/domain/entities/deals_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:awad_nahas/features/products/domain/repositories/products_repository.dart';
 
@@ -47,6 +48,19 @@ class ProductsModelRepository implements ProductsRepository {
     if (await networkInfo.isConnected()) {
       try {
         return Right(await productsRemoteDataSource.getAllProductComments(data: data));
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<DealsEntity>>> getAllProductsDeals() async{
+   if (await networkInfo.isConnected()) {
+      try {
+        return Right(await productsRemoteDataSource.getAllProductsDeals());
       } on ServerException {
         return Left(ServerFailure());
       }

@@ -46,7 +46,7 @@ class Util{
   // implemented this function after register and login
   static getAllUserAppData({required BuildContext context,bool isSplash=false}){
     if(isSplash){
-      ProductsBloc.get(context).add(const FetchAllProductsEvent());
+      ProductsBloc.get(context)..add(const FetchAllProductsEvent())..add(const FetchAllProductsDealsEvent());
       CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
       CategoriesBloc.get(context).add(const FetchAllBrandsEvent());
       RootBloc.get(context).add(const FetchSettingEvent());
@@ -100,9 +100,6 @@ class Util{
         debugPrint("googleSign: $e");
         throw e;
       });
-      // GoogleSignInAccount? googleData =  await googleSignIn.signIn();
-      // final GoogleSignInAuthentication? googleAuth = await googleData?.authentication;
-      // "access_token": googleAuth?.accessToken,
       return googleData!=null ? googleData.email : '' ;
     }catch(e){
       debugPrint("googleSign: $e");

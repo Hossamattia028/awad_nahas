@@ -308,13 +308,13 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       res.fold((l) {
         emit(CartErrorState(errors: translate("toast.oops")));
       },(data) {
-        couponModel= data;
+        couponModel= data.couponModel;
         if(checkCouponValue(couponModel)){
           calcTotal(setCouponNull: false);
           emit(const CouponSuccessfullyState());
         }else{
           calcTotal(setCouponNull: true);
-          emit(CartErrorState(errors: translate("cart.couponـwrong")));
+          emit(CartErrorState(errors: data.msg));
         }
       });
     }catch(e){

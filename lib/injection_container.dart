@@ -47,7 +47,6 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetAllOrderUseCase(orderRepository: sl()));
   sl.registerLazySingleton(() => AddOrderUseCase(orderRepository: sl()));
   sl.registerLazySingleton(() => CancelOrderUseCase(orderRepository: sl()));
-  // sl.registerLazySingleton(() => GetAllDriversOrdersUseCase(orderRepository: sl()));
   sl.registerLazySingleton(() => UpdateOrderUseCase(orderRepository: sl()));
   sl.registerLazySingleton<OrderRepository>(() => OrderModelRepository(networkInfo: sl(), orderRemoteDataSource: sl()));
   sl.registerLazySingleton<OrderRemoteDataSourceImpl>(() => OrderRemoteDataSource(client: sl()));
@@ -87,10 +86,12 @@ Future<void> init() async {
 
 
   /// products bloc and classes initial
-  sl.registerFactory(() => ProductsBloc(getAllProductsUseCase: sl(),getAllProductCommentsUseCase: sl(),addProductCommentUseCase: sl()));
+  sl.registerFactory(() => ProductsBloc(getAllProductsUseCase: sl(),getAllProductCommentsUseCase: sl(),addProductCommentUseCase: sl(),getAllProductsDealsUseCase: sl()));
   sl.registerLazySingleton(() => GetAllProductsUseCase(productsRepository: sl()));
   sl.registerLazySingleton(() => GetAllProductCommentsUseCase(productsRepository: sl()));
   sl.registerLazySingleton(() => AddProductCommentUseCase(productsRepository: sl()));
+  sl.registerLazySingleton(() => GetAllProductsDealsUseCase(productsRepository: sl()));
+
 
   sl.registerLazySingleton<ProductsRepository>(() => ProductsModelRepository(networkInfo: sl(), productsRemoteDataSource: sl()));
   sl.registerLazySingleton<ProductsRemoteDataSource>(() => ProductsRemoteDataSourceImpl(client: sl()));

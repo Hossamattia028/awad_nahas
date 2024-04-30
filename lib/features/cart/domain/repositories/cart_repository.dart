@@ -7,5 +7,5 @@ abstract class CartRepository{
   Future<Either<Failure,CartEntity>> getAllCartList();
   Future<Either<Failure,bool>> addCartItem({required Map<String,dynamic> data});
   Future<Either<Failure,bool>> removeCartItem({required int productID});
-  Future<Either<Failure, CouponModel>> applyCoupon({required Map<String,dynamic> dataSet});
+  Future<Either<Failure, ResCouponModel>> applyCoupon({required Map<String,dynamic> dataSet});
 }

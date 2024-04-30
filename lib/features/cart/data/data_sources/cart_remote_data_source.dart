@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/data/models/cart_model.dart';
@@ -12,7 +13,7 @@ abstract class CartRemoteDataSourceImpl{
   Future<CartModel> fetchAllCartList();
   Future<bool> addCartItem({required Map<String,dynamic> data});
   Future<bool> removeCartItem({required int productID});
-  Future<CouponModel> applyCoupon({required Map<String,dynamic> dataSet});
+  Future<ResCouponModel> applyCoupon({required Map<String,dynamic> dataSet});
 }
 
 
@@ -64,20 +65,27 @@ class CartRemoteDataSource extends CartRemoteDataSourceImpl{
   }
 
   @override
-  Future<CouponModel> applyCoupon({required Map<String,dynamic> dataSet}) async{
+  Future<ResCouponModel> applyCoupon({required Map<String,dynamic> dataSet}) async{
     var response = await http.post(Uri.parse(ApiUrl.coupon),
         headers: ApiUrl.headerAuth,body: jsonEncode(dataSet));
     debugPrint("applyCoupon ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       if(body['status']) {
-        return CouponModel(
+        return ResCouponModel(couponModel: CouponModel(
             total: 0,
             code: body['coupon']['code'].toString(),
             amount: int.parse(body['coupon']['amount'].toString()),
-            isPercent: body['coupon']['is_percent']??false);
+            isPercent: body['coupon']['is_percent']??false),msg: "",status: true);
       }else{
-        return CouponModel(total: 0,code: "",amount: 0,isPercent: false);
+        String msg = translate("cart.couponـwrong");
+        if(body['message'].toString().contains("user not authorized"))msg = translate("toast.coupon_user_not_registered");
+        if(body['message'].toString().contains("coupon used before for this user"))msg = translate("toast.coupon_duplicated");
+        if(body['message'].toString().contains("coupon just for new users"))msg = translate("toast.coupon_just_for_new_users");
+        return ResCouponModel(
+          couponModel: CouponModel(total: 0,code: "",amount: 0,isPercent: false),
+          msg: msg,
+          status: false);
       }
     } else {
       throw ServerException();

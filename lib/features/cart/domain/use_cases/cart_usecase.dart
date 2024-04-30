@@ -37,7 +37,7 @@ class ApplyCouponUseCase{
   CartRepository cartRepository;
   ApplyCouponUseCase({required this.cartRepository});
 
-  Future<Either<Failure,CouponModel>> call({required Map<String,dynamic> dataSet,}) async{
+  Future<Either<Failure,ResCouponModel>> call({required Map<String,dynamic> dataSet,}) async{
     return await cartRepository.applyCoupon(dataSet: dataSet,);
   }
 }

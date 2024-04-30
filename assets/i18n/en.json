@@ -125,7 +125,10 @@
 		"no_internet_connection": "no internet connection!",
 		"location_mis": "Please select your order location",
 		"contact": "Thank you for contacting us. We will contact you as soon as possible",
-		"order": "Your order has been received successfully. We will inform you of an update on the request status soon"
+		"order": "Your order has been received successfully. We will inform you of an update on the request status soon",
+		"coupon_user_not_registered":"Please login first to benefit from the discount",
+     	"coupon_duplicated":"Sorry, This coupon used before",
+		"coupon_just_for_new_users":"This coupon for new order from mobile !"
 	},
 	"search": {
 		"market": " Market's ",

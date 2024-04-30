@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/products/data/models/deals_model.dart';
 import 'package:awad_nahas/features/products/data/models/product_comments.dart';
 import 'package:awad_nahas/features/products/data/models/product_model.dart';
 import 'package:awad_nahas/features/products/data/models/products_response_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
@@ -11,6 +13,7 @@ abstract class ProductsRemoteDataSource {
   Future<ProductResponseModel> getAllProducts({required String parameter});
   Future<List<ProductComments>> getAllProductComments({required Map<String,dynamic> data});
   Future<bool> addProductComment({required Map<String,dynamic> data});
+  Future<List<DealsModel>> getAllProductsDeals();
 }
 
 class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
@@ -80,6 +83,20 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
   }
 
 
-
+  @override
+  Future<List<DealsModel>> getAllProductsDeals() async {
+    var response = await client.get(Uri.parse(ApiUrl.DEALS_URL),);
+    debugPrint("getAllProductsDeals ${response.body}");
+    if (response.statusCode == 200) {
+      final body = json.decode(response.body);
+      List<DealsModel> productsDeals =
+          body['data'].map<DealsModel>((model) {
+        return DealsModel.fromJson(model);
+      }).toList();
+      return productsDeals;
+    } else {
+      throw ServerException();
+    }
+  }
 
 }

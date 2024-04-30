@@ -54,7 +54,7 @@ class CartModelRepository extends CartRepository{
   }
 
   @override
-  Future<Either<Failure, CouponModel>> applyCoupon({required Map<String,dynamic> dataSet}) async{
+  Future<Either<Failure, ResCouponModel>> applyCoupon({required Map<String,dynamic> dataSet}) async{
     if (await networkInfo.isConnected()) {
       try {
         return Right(await cartRemoteDataSourceImpl.applyCoupon(dataSet: dataSet));

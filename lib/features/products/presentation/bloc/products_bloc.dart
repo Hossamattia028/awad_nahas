@@ -3,8 +3,10 @@ import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/categories/domain/entities/categories_entity.dart';
 import 'package:awad_nahas/features/products/data/models/product_comments.dart';
 import 'package:awad_nahas/features/products/data/models/size_model.dart';
+import 'package:awad_nahas/features/products/domain/entities/deals_entity.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/comment_usecase.dart';
+import 'package:awad_nahas/features/products/domain/use_cases/deals.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/products_usecase.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
@@ -22,10 +24,12 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
   List<ProductsEntity> bestSellerProductsList = [];
   int currentCategoryIndex = 0;
 
+  GetAllProductsDealsUseCase getAllProductsDealsUseCase;
   GetAllProductCommentsUseCase getAllProductCommentsUseCase;
   AddProductCommentUseCase addProductCommentUseCase;
   GetAllProductsUseCase getAllProductsUseCase;
   ProductsBloc({
+    required this.getAllProductsDealsUseCase,
     required this.getAllProductsUseCase,
     required this.getAllProductCommentsUseCase,
     required this.addProductCommentUseCase,
@@ -123,9 +127,31 @@ class ProductsBloc extends Bloc<ProductsEvent,ProductsState>{
     on<UpdateFilterAttributesDataEvent>((event, emit){
       updateFilterAttributes(event, emit);
     });
+
+    on<FetchAllProductsDealsEvent>(((event, emit) async{
+      await getAllProductsDeals(event, emit);
+    }));
   }
   static ProductsBloc get(BuildContext context) => BlocProvider.of(context);
 
+
+  ///deals section
+  List<DealsEntity> productsDeals = [];
+  getAllProductsDeals(event,emit)async{
+    emit(const ProductsDealsLoadingState());
+    try{
+      var res = await getAllProductsDealsUseCase();
+      res.fold((l) {
+        emit(const ProductsDealsFailedState());
+      },(data) {
+         if(data.isNotEmpty)productsDeals = data;
+         emit(const ProductsDealsSuccessfullyState());
+      });
+    }catch(e){
+      debugPrint("getAllProductsDeals: $e");
+      emit(const ProductCommentsFailedState());
+    }
+  }
 
   /// product details states
   bool showFullContent = false;
