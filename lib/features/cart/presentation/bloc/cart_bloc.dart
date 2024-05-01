@@ -4,6 +4,8 @@ import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_sdk.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -252,7 +254,8 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       ///update current count after added last chooser count
       currentCount = 1;
       showCountWidget = false;
-      checkItemAndModifyInsideCart(event.product!,event.remove,event.isAdd,count: event.count ?? -1);
+      checkItemAndModifyInsideCart(product: event.product!,remove: event.remove,count: event.count ?? -1);
+      checkIfProductXHasProductYFree(product: event.product!,remove: event.remove,count: event.count ?? -1,context: event.context);
     }else{
       //remove all cart when create new order
       cartList.clear();
@@ -265,7 +268,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   }
 
   /// check product and add or update inside cart list
-  checkItemAndModifyInsideCart(ProductsEntity product,bool remove,bool isAdd, {int? count}){
+  checkItemAndModifyInsideCart({required ProductsEntity product,required remove,int? count,bool isFree = false}){
     int index = cartList.indexWhere((element) => product.sku == element.sku);
     if(index!=-1) {
       if(remove){
@@ -277,8 +280,9 @@ class CartBloc extends Bloc<CartEvent,CartState>{
             catTitle: "", sku: product.sku,
             desc: "", id: item.id,discountRate: 0,
             imgPath: product.imgPath,
-            price: product.price,priceWithoutTax: product.priceWithoutTax,
-            discount: product.discount, stockStatus: true,
+            price: isFree? 0 : product.price,
+            priceWithoutTax: isFree? 0 : product.priceWithoutTax,
+            discount: isFree? 0 : product.discount, stockStatus: true,
             quantity: newQty,categoryList: const [],commentCount: 0,catID: item.catID);
         cartList[index] = item;
       }
@@ -286,8 +290,10 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       cartList.add(ProductsEntity(title: product.title,
           catTitle: "", sku: product.sku,
           desc: "", id: product.id,discountRate: 0,
-          priceWithoutTax: product.priceWithoutTax,
-          imgPath: product.imgPath, price: product.price, discount: product.discount, stockStatus: true,
+          priceWithoutTax: isFree? 0 : product.priceWithoutTax,
+          imgPath: product.imgPath,
+          price: isFree? 0 : product.price, 
+          discount: isFree? 0 : product.discount, stockStatus: true,
           quantity: count == -1 ? 1 : count!,categoryList: const [],commentCount: 0,catID:product.catID));
     }
   }
@@ -398,5 +404,24 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     // }
     bloc.add(ModifyCartProductEvent(product: item, context: context, isAdd: true,count: val ?? currentCount));
   }
+
+   ///[discount_and_rules] section
+   checkIfProductXHasProductYFree({required ProductsEntity product,required remove,required BuildContext context,int? count}){
+    var productsBloc = ProductsBloc.get(context);
+    var dealsList =  productsBloc.productsDeals;
+    for(var i in dealsList){
+      if(i.buyXGetYFree!=null && i.buyXGetYFree!.isNotEmpty && ((Util.getLang()=="ar"&&i.isArabic==true) || (Util.getLang()=="en_US"&&i.isArabic==false))){
+        if(i.mainProducts==null || i.mainProducts!.isEmpty)return;
+        int productIndex = i.mainProducts!.indexWhere((element) => element.toString() == product.id.toString());
+        if(productIndex!=-1){
+          for(var y in i.buyXGetYFree!){
+            int freeProductindex = productsBloc.productsList.indexWhere((element) => y.toString() == element.id.toString());
+            if(freeProductindex == -1)return;
+            checkItemAndModifyInsideCart(product: productsBloc.productsList[freeProductindex],count: count,remove: remove,isFree: true);
+          }
+        }
+      }
+    }
+   }
 
 }

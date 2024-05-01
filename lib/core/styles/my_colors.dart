@@ -14,6 +14,7 @@ const kBlack2 = Color(0xff333333);
 const kConfirmed = Color(0xffAC737B);
 const kChart = Color(0xffBCACF3);
 
+const kFreeColor = Color(0xff3d9cd2);
 
 
 const kBackGroundN = Color(0xfff3f4f8);
