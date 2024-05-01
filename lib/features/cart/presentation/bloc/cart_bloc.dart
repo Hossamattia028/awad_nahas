@@ -172,13 +172,13 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   }
 
   bool checkIFProductInsideCartList(ProductsEntity item){
-    int index = cartList.indexWhere((element) => element.sku == item.sku);
+    int index = cartList.indexWhere((element) => element.sku == item.sku && item.price == element.price);
     if(index!=-1)return true;
     return false;
   }
 
   ProductsEntity? getProductInCart(ProductsEntity item){
-    int index = cartList.indexWhere((element) => element.sku == item.sku);
+    int index = cartList.indexWhere((element) => element.sku == item.sku && item.price == element.price);
     if(index!=-1)return cartList[index];
     return null;
   }
@@ -269,7 +269,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
 
   /// check product and add or update inside cart list
   checkItemAndModifyInsideCart({required ProductsEntity product,required remove,int? count,bool isFree = false}){
-    int index = cartList.indexWhere((element) => product.sku == element.sku);
+    int index = cartList.indexWhere((element) => product.sku == element.sku && product.price == element.price);
     if(index!=-1) {
       if(remove){
         cartList.removeAt(index);

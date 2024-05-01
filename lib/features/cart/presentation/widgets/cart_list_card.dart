@@ -8,6 +8,7 @@ import 'package:awad_nahas/features/products/domain/entities/products_entity.dar
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/screens/product_details_screen.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/discount_deals_free_widget.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/product_details_widgets/qt_widget.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/product_price.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
 import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
@@ -97,18 +98,27 @@ class CartListCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10,),
-          Column(
-            children: [
-              Row(
+          if(item.price==0)...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const QtyCard(val: 1, selected: false,),
+                WishListButtonInCartScreen(item: item),
+              ],
+            )
+          ],
+
+          if(item.price!=0)...[
+            Column(
+               children: [
+                   Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      IconQtyCart(item: item,enabled: item.price!=0,),
+                      IconQtyCart(item: item,),
                       // SelectProductQuantityWidget(item: item,),
                       const SizedBox(width: 10,),
-                      item.price==0?
-                      const SizedBox.shrink():
                       InkWell(
                         onTap: ()=> CartBloc.get(context).add(ModifyCartProductEvent(product: item, isAdd: false,context: context,remove: true)),
                         child: Container(
@@ -141,6 +151,7 @@ class CartListCard extends StatelessWidget {
               CartQtyCard(item: item,),
             ],
           ),
+          ]
         ],
       ),
     );

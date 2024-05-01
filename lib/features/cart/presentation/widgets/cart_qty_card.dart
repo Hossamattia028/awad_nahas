@@ -75,13 +75,12 @@ class CartQtyCard extends StatelessWidget {
 
 class IconQtyCart extends StatelessWidget {
   final ProductsEntity item;
-  final bool enabled;
-  const IconQtyCart({super.key,required this.item,this.enabled = true});
+  const IconQtyCart({super.key,required this.item,});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=> enabled == false? debugPrint(""): CartBloc.get(context).add(UpdateCountWidgetEvent(productId: item.id)),
+      onTap: ()=> CartBloc.get(context).add(UpdateCountWidgetEvent(productId: item.id)),
       child: Container(
           height: 30.h,
           width: 46.w,
@@ -101,7 +100,7 @@ class IconQtyCart extends StatelessWidget {
                 fontSize: AppStyle.small.sp,
                 fontWeight: FontWeight.bold,
               ),
-              if(enabled)Icon(Icons.keyboard_arrow_down_outlined,color: DMUtil.getD2C().withOpacity(0.6),size: 16.w,)
+              Icon(Icons.keyboard_arrow_down_outlined,color: DMUtil.getD2C().withOpacity(0.6),size: 16.w,)
             ],
           ),
       ),

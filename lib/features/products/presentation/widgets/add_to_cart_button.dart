@@ -101,13 +101,8 @@ class AddToCartButtonWidget extends StatelessWidget {
         child: BlocBuilder<CartBloc,CartState>(
           builder: (ctx,state){
             var bloc = CartBloc.get(ctx);
-            // bool insideCartList = bloc.checkIFProductInsideCartList(item);
             var itemInCart = bloc.getProductInCart(item);
             int currentCount = bloc.currentCount;
-            // if(insideCartList){
-            //   var p = bloc.getProductInCart(item);
-            //   if(p!=null)currentCount = p.quantity;
-            // }
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               color: DMUtil.getWC(),
