@@ -20,8 +20,9 @@ import 'package:awad_nahas/features/products/data/data_sources/products_remote_d
 import 'package:awad_nahas/features/products/data/repositories/products_model_repository.dart';
 import 'package:awad_nahas/features/products/domain/repositories/products_repository.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/comment_usecase.dart';
-import 'package:awad_nahas/features/products/domain/use_cases/deals.dart';
+import 'package:awad_nahas/features/products/domain/use_cases/deals/deals.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/products_usecase.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/deals/deals_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/setting/data/data_sources/settings_remote_data_source.dart';
 import 'package:awad_nahas/features/setting/data/repositories/settings_mode_repository.dart';

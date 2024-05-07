@@ -54,16 +54,3 @@ class FilterSuccessfullyState extends ProductsState {
 class SearchFailedState extends ProductsState {
   const SearchFailedState();
 }
-
-
-class ProductsDealsLoadingState extends ProductsState {
-  const ProductsDealsLoadingState();
-}
-
-class ProductsDealsSuccessfullyState extends ProductsState {
-  const ProductsDealsSuccessfullyState();
-}
-
-class ProductsDealsFailedState extends ProductsState {
-  const ProductsDealsFailedState();
-}

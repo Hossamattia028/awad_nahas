@@ -121,7 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 10,),
             const SearchWidget(),
             SizedBox(height: 6.w,),
-            // const SelectLocations(),
 
             BlocBuilder<ProductsBloc,ProductsState>(
               builder: (ctx,state){

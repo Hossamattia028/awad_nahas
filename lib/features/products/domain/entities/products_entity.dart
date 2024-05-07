@@ -30,6 +30,7 @@ class ProductsEntity extends Equatable{
   final String? date;
   final String? averageRate;
   final ProductAttributes? attributes;
+  final String? discountParentProduct;
 
   const ProductsEntity({
     required this.title,
@@ -54,6 +55,7 @@ class ProductsEntity extends Equatable{
     this.date,
     this.averageRate,
     this.attributes,
+    this.discountParentProduct
   });
 
   @override

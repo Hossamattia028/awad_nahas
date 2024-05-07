@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/strings/enum/drawer_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/account/presentation/widgets/account_after_auth.dart';
+import 'package:awad_nahas/features/products/presentation/screens/deals.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_event.dart';
 import 'package:awad_nahas/features/root_app/widgets/drawer_item_line.dart';
@@ -24,6 +25,16 @@ class MainDrawerSection extends StatelessWidget {
       children: [
         const AccountAuthCard(darkText: true,isDrawer: true,),
         SizedBox(height: 25.w,),
+
+         ItemLineDrawer(
+          title: translate("app_bar.deals"),
+          icon: Icon(Icons.local_offer,color: DMUtil.getPC(),size: 18.w,),
+          fn: (){
+            Scaffold.of(ctx).closeEndDrawer();
+            RootBloc.get(context).add(const ChangeIndex(index: 0, title: ""));
+            Util.pushPage(const DealsScreen(), context);
+          },
+        ),
 
         ItemLineDrawer(
           title: translate("drawer.our_company"),

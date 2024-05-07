@@ -157,7 +157,7 @@ class SearchFilterBottomSheetWidget extends StatelessWidget {
                          ),
                          CustomButton(
                            height: 40.h,
-                           width: 70.w,
+                           width: 80.w,
                            circular: 20,
                            sideWidth: 1,
                            sideColor: DMUtil.getRED(),

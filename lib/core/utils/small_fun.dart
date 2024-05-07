@@ -12,6 +12,8 @@ import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.d
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/deals/deals_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/deals/deals_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
@@ -46,9 +48,9 @@ class Util{
   // implemented this function after register and login
   static getAllUserAppData({required BuildContext context,bool isSplash=false}){
     if(isSplash){
-      ProductsBloc.get(context)..add(const FetchAllProductsEvent())..add(const FetchAllProductsDealsEvent());
-      CategoriesBloc.get(context).add(const FetchAllCategoriesEvent());
-      CategoriesBloc.get(context).add(const FetchAllBrandsEvent());
+      ProductsBloc.get(context).add(const FetchAllProductsEvent());
+      CategoriesBloc.get(context)..add(const FetchAllCategoriesEvent())..add(const FetchAllBrandsEvent());
+      DealsBloc.get(context).add(const FetchAllDealsEvent());
       RootBloc.get(context).add(const FetchSettingEvent());
     }
     AccountBloc.get(context).updateFcmToken();

@@ -18,7 +18,6 @@ class WishListScreen extends StatelessWidget {
           title: translate("profile.wishlist"),
           leadingIcon:  includeBackButton ? const BackArrowButton(): null,
       ),
-      // body: Util.checkUser() ? const  WishListWidget() : const AccountNotAuth(),
       body: const  WishListWidget(),
     );
   }

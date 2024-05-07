@@ -1,6 +1,7 @@
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/locations/data/models/location_model.dart';
 import 'package:awad_nahas/features/locations/domain/entities/location_entity.dart';
@@ -76,18 +77,19 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   }
 
   getAllOrder(bool orderProcessing, emit) async {
+    if(!Util.checkUser())return;
     if (orderProcessing) emit(OrderLoadingState());
     try {
       var res = await getAllOrderUseCase();
       res.fold((l) {
-        debugPrint("getAllOrder: $l");
+        debugPrint("getAllOrderBloc: $l");
         emit(OrderErrorState(errors: l.toString()));
       }, (data) {
         orderList = data.reversed.toList();
         emit(OrderSuccessfullyState());
       });
     } catch (e) {
-      debugPrint("getAllOrder: $e");
+      debugPrint("getAllOrderBloc: $e");
       emit(OrderErrorState(errors: e.toString()));
     }
   }

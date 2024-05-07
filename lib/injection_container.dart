@@ -86,7 +86,7 @@ Future<void> init() async {
 
 
   /// products bloc and classes initial
-  sl.registerFactory(() => ProductsBloc(getAllProductsUseCase: sl(),getAllProductCommentsUseCase: sl(),addProductCommentUseCase: sl(),getAllProductsDealsUseCase: sl()));
+  sl.registerFactory(() => ProductsBloc(getAllProductsUseCase: sl(),getAllProductCommentsUseCase: sl(),addProductCommentUseCase: sl(),));
   sl.registerLazySingleton(() => GetAllProductsUseCase(productsRepository: sl()));
   sl.registerLazySingleton(() => GetAllProductCommentsUseCase(productsRepository: sl()));
   sl.registerLazySingleton(() => AddProductCommentUseCase(productsRepository: sl()));
@@ -95,6 +95,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<ProductsRepository>(() => ProductsModelRepository(networkInfo: sl(), productsRemoteDataSource: sl()));
   sl.registerLazySingleton<ProductsRemoteDataSource>(() => ProductsRemoteDataSourceImpl(client: sl()));
+
+
+  /// deals bloc and classes initial
+  sl.registerFactory(() => DealsBloc(getAllProductsDealsUseCase: sl()));
 
 
   /// favourite module

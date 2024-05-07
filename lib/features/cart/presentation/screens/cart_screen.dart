@@ -1,18 +1,17 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_payment_options.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_screen_app_bar.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/releated_products_cart.dart';
 import 'package:awad_nahas/features/locations/presentation/widgets/select_location_drop_down.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:flutter/material.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/cart_list.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/continue_shopping_check_out.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/coupon_widget.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/order_details.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../products/presentation/bloc/products_bloc.dart';
 
 
 class CartScreen extends StatelessWidget {
@@ -52,7 +51,7 @@ class CartScreen extends StatelessWidget {
   }
 
   Future<void> _buildRefresh(BuildContext context) async {
-     ProductsBloc.get(context).add(const FetchAllProductsDealsEvent());
+    CartBloc.get(context).add(const FetchAllCartEvent());
   }
 
 }

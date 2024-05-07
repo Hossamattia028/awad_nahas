@@ -5,6 +5,7 @@ import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_sdk.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/deals/deals_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,8 +15,6 @@ import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
 import 'package:awad_nahas/features/order/data/models/coupon_model.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
-
-
 
 
 class CartBloc extends Bloc<CartEvent,CartState>{
@@ -131,24 +130,6 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       cartList = _getLocalCartList();
       calcTotal();
       emit(const CartSuccessfullyState());
-      // var res = await getAllCartListUseCase();
-      // res.fold((l) {
-      //   emit(CartErrorState(errors: translate("toast.oops")));
-      // },(data) {
-      //   cartList.clear();
-      //   for(var i in data.sessionValue){
-      //     cartList.add(ProductsEntity(title: i.title, catTitle: "",
-      //         desc: "", id: i.productID,  sku: i.sku,
-      //         imgPath: i.imgPath, price: i.price, discount: i.discount,discountRate: 0, stockStatus: true,
-      //         quantity: i.quantity,categoryList: const [],commentCount: 0,catID: 0));
-      //   }
-      //   cartList = cartList;
-      //   if(cartList.isNotEmpty) {
-      //   totalPrice = data.total;
-      //   total = totalPrice;
-      // }
-      // emit(CartSuccessfullyState());
-      // });
     }catch(e){
       debugPrint("getAllCartBloc: $e");
       emit(CartErrorState(errors: translate("toast.oops")));
@@ -213,18 +194,6 @@ class CartBloc extends Bloc<CartEvent,CartState>{
 
   addToCart(emit,bool isRemoveProduct,)async{
     updateCartList(emit,cartList,isRemoveProduct);
-    // var res = await addCartItemUseCase(data: GenerateCartJson.generate(productList: cartList,total: calcTotal().toString()));
-    // res.fold((l) {
-    //   emit(CartErrorState(errors: translate("toast.oops")));
-    // },(data) {
-    //   if(data){
-    //     if(isRemoveProduct){
-    //       emit(RemoveCartSuccessfullyState());
-    //     }else{
-    //       emit(AddToCartSuccessfullyState());
-    //     }
-    //   }
-    // });
   }
 
   /// add and update cart list [local]
@@ -254,6 +223,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       ///update current count after added last chooser count
       currentCount = 1;
       showCountWidget = false;
+      // cartList.clear();  
       checkItemAndModifyInsideCart(product: event.product!,remove: event.remove,count: event.count ?? -1);
       checkIfProductXHasProductYFree(product: event.product!,remove: event.remove,count: event.count ?? -1,context: event.context);
     }else{
@@ -272,6 +242,9 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     int index = cartList.indexWhere((element) => product.sku == element.sku && product.price == element.price);
     if(index!=-1) {
       if(remove){
+        /// customize line for just [free_products] 
+        int freeProductIndex = cartList.indexWhere((element) => element.discountParentProduct == product.id.toString());
+        if(freeProductIndex != -1) cartList.removeAt(freeProductIndex);
         cartList.removeAt(index);
       }else{
         var item = cartList[index];
@@ -405,10 +378,11 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     bloc.add(ModifyCartProductEvent(product: item, context: context, isAdd: true,count: val ?? currentCount));
   }
 
-   ///[discount_and_rules] section
-   checkIfProductXHasProductYFree({required ProductsEntity product,required remove,required BuildContext context,int? count}){
+  ///[discount_and_rules] section
+  checkIfProductXHasProductYFree({required ProductsEntity product,required remove,required BuildContext context,int? count}){
     var productsBloc = ProductsBloc.get(context);
-    var dealsList =  productsBloc.productsDeals;
+    var dealsBloc = DealsBloc.get(context);
+    var dealsList =  dealsBloc.productsDeals;
     for(var i in dealsList){
       if(i.buyXGetYFree!=null && i.buyXGetYFree!.isNotEmpty && ((Util.getLang()=="ar"&&i.isArabic==true) || (Util.getLang()=="en_US"&&i.isArabic==false))){
         if(i.mainProducts==null || i.mainProducts!.isEmpty)return;
@@ -417,11 +391,19 @@ class CartBloc extends Bloc<CartEvent,CartState>{
           for(var y in i.buyXGetYFree!){
             int freeProductindex = productsBloc.productsList.indexWhere((element) => y.toString() == element.id.toString());
             if(freeProductindex == -1)return;
-            checkItemAndModifyInsideCart(product: productsBloc.productsList[freeProductindex],count: count,remove: remove,isFree: true);
+            var item = productsBloc.productsList[freeProductindex];
+            checkItemAndModifyInsideCart(product: ProductsEntity(title: item.title,
+            catTitle: "", sku: item.sku,
+            desc: "", id: item.id,discountRate: 0,
+            imgPath: item.imgPath,
+            discountParentProduct: product.id.toString(),
+            price:  0 , priceWithoutTax: 0 ,
+            discount:0 , stockStatus: true,
+            quantity: item.quantity,categoryList: const [],commentCount: 0,catID: item.catID),count: count,remove: remove,isFree: true);
           }
         }
       }
     }
-   }
+  }
 
 }

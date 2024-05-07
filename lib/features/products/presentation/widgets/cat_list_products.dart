@@ -74,7 +74,7 @@ class ProductCardH extends StatelessWidget {
   final ProductsEntity item;
   final CategoriesEntity? cat;
   final bool isMarginBottom;
-  const ProductCardH({super.key,required this.item,required this.cat,this.isMarginBottom = false});
+  const ProductCardH({super.key,required this.item,this.cat,this.isMarginBottom = false});
 
   @override
   Widget build(BuildContext context) {

@@ -74,7 +74,7 @@ class CartListCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 7,),
+                    const SizedBox(height: 4,),
                     Row(
                       children: [
                         ProductPriceWidget(productModel: item,isCart: true,),
@@ -102,7 +102,7 @@ class CartListCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const QtyCard(val: 1, selected: false,),
+                QtyCard(val: item.quantity, selected: false,),
                 WishListButtonInCartScreen(item: item),
               ],
             )

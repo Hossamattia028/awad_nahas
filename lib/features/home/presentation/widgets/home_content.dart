@@ -3,11 +3,13 @@ import 'package:awad_nahas/features/home/presentation/widgets/banners_section.da
 import 'package:awad_nahas/features/home/presentation/widgets/categories.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/single_banner.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/cat_list_products.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/deals/single_offers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_bloc.dart';
 import 'package:awad_nahas/features/categories/presentation/bloc/cateogries_state.dart';
 import 'package:awad_nahas/features/home/presentation/widgets/main_slider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeContentWidget extends StatelessWidget {
   const HomeContentWidget({super.key});
@@ -21,6 +23,10 @@ class HomeContentWidget extends StatelessWidget {
         const HomeCategories(),
 
         const OurBrandsHome(),
+
+        SizedBox(height: 14.w,),
+        const SingleOfferWidget(viewAll: true,),
+
 
         const SizedBox(height: 10,),
         BlocBuilder<CategoriesBloc,CategoriesState>(
