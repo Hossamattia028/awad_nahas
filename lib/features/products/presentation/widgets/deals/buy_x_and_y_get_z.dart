@@ -1,10 +1,14 @@
+import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/deals/deals_bloc.dart';
+import 'package:awad_nahas/features/products/presentation/bloc/deals/deals_state.dart';
+import 'package:awad_nahas/features/products/presentation/widgets/cat_list_products.dart';
 import 'package:awad_nahas/features/shared_widgets/custom_text.dart';
+import 'package:awad_nahas/features/shared_widgets/global_app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/products_state.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class DealsBuyXAndYGetZWidget extends StatelessWidget {
@@ -12,9 +16,11 @@ class DealsBuyXAndYGetZWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductsBloc,ProductsState>(
+    return BlocBuilder<DealsBloc,DealsState>(
       builder: (ctx,state){
-        var bloc = ProductsBloc.get(ctx);
+        var bloc = DealsBloc.get(ctx);
+        var list = bloc.getProductsHasBuyXGetYOffer(context);
+        if(list.isEmpty)return const SizedBox.shrink();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -26,7 +32,7 @@ class DealsBuyXAndYGetZWidget extends StatelessWidget {
             ),
             const SizedBox(height: 10,),
             const DealsBuyXAndYGetZListWidget(),
-
+            const SizedBox(height: 40,),
           ],
         );
       },
@@ -40,25 +46,58 @@ class DealsBuyXAndYGetZListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductsBloc,ProductsState>(
+    return BlocBuilder<DealsBloc,DealsState>(
       builder: (ctx,state){
-        var bloc = ProductsBloc.get(ctx);
-        var list = bloc.productsList;
+        var bloc = DealsBloc.get(ctx);
+        var list = bloc.getProductsHasBuyXGetYOffer(context);
+        if(list.isEmpty)return const SizedBox.shrink();
         return SizedBox(
-          height: 200.w,
+          height: 210.w,
           child: ListView.separated(
             padding: const EdgeInsets.all(2),
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemBuilder: (ctx,index){
               var item = list[index];
-              return const SizedBox();
+              return BuyXYGetZ(dealImage: item.imgPath, xProduct: item, yProduct: item);
             },
             separatorBuilder: (ctx,index) => SizedBox(width: 10.w,),
             itemCount: list.length
           ),
         );
       },
+    );
+  }
+}
+
+
+class BuyXYGetZ extends StatelessWidget {
+  final ProductsEntity xProduct;
+  final ProductsEntity yProduct;
+  final String dealImage ;
+  const BuyXYGetZ({super.key,required this.dealImage,required this.xProduct,required this.yProduct});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: DMUtil.getBackGround(),
+        borderRadius: const BorderRadius.all(Radius.circular(5))
+      ),
+      child: Row(
+        children: [
+          ImageWidget(imgUrl: dealImage,width: 140.w,fit: BoxFit.fill,),
+          SizedBox(width: 10.w,),
+          Row(
+            children: [
+              ProductCardH(item: xProduct),
+              SizedBox(width: 10.w,),
+              ProductCardH(item: yProduct),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

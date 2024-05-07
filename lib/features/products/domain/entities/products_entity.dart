@@ -30,7 +30,9 @@ class ProductsEntity extends Equatable{
   final String? date;
   final String? averageRate;
   final ProductAttributes? attributes;
-  final String? discountParentProduct;
+  
+  /// this parent products ids for Deals List
+  final List<String>? discountParentProduct;
 
   const ProductsEntity({
     required this.title,

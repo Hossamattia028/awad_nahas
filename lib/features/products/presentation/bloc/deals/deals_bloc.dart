@@ -1,4 +1,4 @@
-import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/products/domain/entities/deals_entity.dart';
 import 'package:awad_nahas/features/products/domain/entities/products_entity.dart';
 import 'package:awad_nahas/features/products/domain/use_cases/deals/deals.dart';
@@ -25,7 +25,16 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
 
   }
  
-
+ convertToFreeProduct(ProductsEntity item,String parentProduct){
+  return ProductsEntity(title: item.title,
+            catTitle: "", sku: item.sku,
+            desc: "", id: item.id,discountRate: 0,
+            imgPath: item.imgPath,
+            discountParentProduct: [...item.discountParentProduct??[],parentProduct],
+            price:  0 , priceWithoutTax: 0 ,
+            discount:0 , stockStatus: true,
+            quantity: item.quantity,categoryList: const [],commentCount: 0,catID: item.catID);
+ }
 
  ///deals section
   List<DealsEntity> productsDeals = [];
@@ -53,7 +62,7 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
     var dealsBloc = DealsBloc.get(context);
     var dealsList =  dealsBloc.productsDeals;
     for(var i in dealsList){
-      if(i.buyXGetYFree!=null && i.buyXGetYFree!.isNotEmpty && ((Util.getLang()=="ar"&&i.isArabic==true) || (Util.getLang()=="en_US"&&i.isArabic==false))){
+      if(i.buyXGetYFree!=null && i.buyXGetYFree!.isNotEmpty && i.checkLangInsideDeal()){
         if(i.mainProducts!=null || i.mainProducts!.isNotEmpty){
           for(var mainProduct in i.mainProducts!){
             int mainProductIndex = productsBloc.productsList.indexWhere((element) => element.id.toString() == mainProduct);
@@ -64,5 +73,56 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
     }
     return list;
   }
+  
+  checkCaseBuyXGetYDeal({required ProductsEntity product,required remove,required BuildContext context,int? count}){
+    var cartBloc = CartBloc.get(context);
+    var productsBloc = ProductsBloc.get(context);
+    var dealsBloc = DealsBloc.get(context);
+    var dealsList =  dealsBloc.productsDeals;
+    for(var i in dealsList){
+      if(i.buyXGetYFree!=null && i.buyXGetYFree!.isNotEmpty && i.checkLangInsideDeal()){
+        if(i.mainProducts==null || i.mainProducts!.isEmpty)return;
+        int productIndex = i.mainProducts!.indexWhere((element) => element.toString() == product.id.toString());
+        if(productIndex!=-1){
+          for(var y in i.buyXGetYFree!){
+            int freeProductindex = productsBloc.productsList.indexWhere((element) => y.toString() == element.id.toString());
+            if(freeProductindex == -1)return;
+            var item = productsBloc.productsList[freeProductindex];
+            cartBloc.checkItemAndModifyInsideCart(product: dealsBloc.convertToFreeProduct(item, product.id.toString()),count: count,remove: remove,isFree: true);
+          }
+        }
+      }
+    }
+  }
+
+
+  checkCaseBuyXYGetZDeal({required ProductsEntity product,required remove,required BuildContext context,int? count}){
+    var cartBloc = CartBloc.get(context);
+    var productsBloc = ProductsBloc.get(context);
+    var dealsBloc = DealsBloc.get(context);
+    var dealsList =  dealsBloc.productsDeals;
+    for(var i in dealsList){
+      if(i.buyXYGetZFree!=null && i.buyXYGetZFree!.isNotEmpty && i.checkLangInsideDeal()){
+        if(i.mainProducts==null || i.mainProducts!.isEmpty)return;
+        int productIndex = i.mainProducts!.indexWhere((element) => element.toString() == product.id.toString());
+        if(productIndex!=-1 && checkXAndYInCart(i.mainProducts!,cartBloc) == true){
+          for(var y in i.buyXYGetZFree!){
+            int freeProductindex = productsBloc.productsList.indexWhere((element) => y.toString() == element.id.toString());
+            if(freeProductindex == -1)return;
+            var item = productsBloc.productsList[freeProductindex];
+            cartBloc.checkItemAndModifyInsideCart(product: dealsBloc.convertToFreeProduct(item, product.id.toString()),count: count,remove: remove,isFree: true);
+          }
+        }
+      }
+    }
+  }
+
+  bool checkXAndYInCart(List<String> productsIDS,CartBloc cartBloc){
+    for(var i in productsIDS){
+      if(cartBloc.cartList.indexWhere((element) => element.id.toString() == i)==-1)return false;
+    }
+    return true;
+  }
+
 
 }
