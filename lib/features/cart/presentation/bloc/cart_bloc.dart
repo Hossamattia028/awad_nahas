@@ -223,7 +223,9 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       showCountWidget = false;
       // cartList.clear();  
       checkItemAndModifyInsideCart(product: event.product!,remove: event.remove,count: event.count ?? -1);
-      DealsBloc.get(event.context).checkCaseBuyXGetYDeal(product: event.product!,remove: event.remove,count: event.count ?? -1,context: event.context);
+      DealsBloc.get(event.context)
+      ..checkCaseBuyXGetYDeal(product: event.product!,remove: event.remove,count: event.count ?? -1,context: event.context)
+      ..checkCaseBuyXYGetZDeal(product: event.product!,remove: event.remove,count: event.count ?? -1,context: event.context);
     }else{
       //remove all cart when create new order
       cartList.clear();

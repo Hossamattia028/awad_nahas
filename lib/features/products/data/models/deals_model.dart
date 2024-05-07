@@ -6,9 +6,9 @@ class DealsModel extends DealsEntity{
   static DealsModel fromJson(Map<String, dynamic> json) {
     return DealsModel(
       title: json['title'],
-      buyXGetYFree: json['buy_x_get_y_free'].cast<String>(),
-      buyXYGetZFree: json['buy_x_and_y_get_z_free'].cast<String>(),
-      mainProducts: json['main_products'].cast<String>(),
+      buyXGetYFree: json['buy_x_get_y_free']==null? [] : json['buy_x_get_y_free'].cast<String>(),
+      buyXYGetZFree: json['buy_x_and_y_get_z_free']==null? [] : json['buy_x_and_y_get_z_free'].cast<String>(),
+      mainProducts: json['main_products']==null? [] : json['main_products'].cast<String>(),
       isArabic: json['is_arabic']
     );
   }

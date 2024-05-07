@@ -49,7 +49,7 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
          emit(const DealsSuccessfullyState());
       });
     }catch(e){
-      debugPrint("getAllProductsDeals: $e");
+      debugPrint("getAllProductsDealsBloc: $e");
       emit(const DealsFailedState());
     }
   }
