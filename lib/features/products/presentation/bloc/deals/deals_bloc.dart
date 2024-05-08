@@ -55,20 +55,18 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
   }
 
 
-
+  /// [BUY_X_GET_Y]
   List<ProductsEntity> getProductsHasBuyXGetYOffer(BuildContext context){
     List<ProductsEntity> list = [];
     var productsBloc = ProductsBloc.get(context);
     var dealsBloc = DealsBloc.get(context);
-    var dealsList =  dealsBloc.productsDeals;
+    var dealsList =  dealsBloc.productsDeals.where((i) => i.buyXGetYFree!=null && i.buyXGetYFree!.isNotEmpty && i.checkLangInsideDeal()).toList();
     for(var i in dealsList){
-      if(i.buyXGetYFree!=null && i.buyXGetYFree!.isNotEmpty && i.checkLangInsideDeal()){
         if(i.mainProducts!=null || i.mainProducts!.isNotEmpty){
           for(var mainProduct in i.mainProducts!){
             int mainProductIndex = productsBloc.productsList.indexWhere((element) => element.id.toString() == mainProduct);
             if(mainProductIndex!=-1)list.add(productsBloc.productsList[mainProductIndex]);
           }
-        }
       }
     }
     return list;
@@ -78,9 +76,8 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
     var cartBloc = CartBloc.get(context);
     var productsBloc = ProductsBloc.get(context);
     var dealsBloc = DealsBloc.get(context);
-    var dealsList =  dealsBloc.productsDeals;
+    var dealsList =  dealsBloc.productsDeals.where((i) => i.buyXGetYFree!=null && i.buyXGetYFree!.isNotEmpty && i.checkLangInsideDeal()).toList();
     for(var i in dealsList){
-      if(i.buyXGetYFree!=null && i.buyXGetYFree!.isNotEmpty && i.checkLangInsideDeal()){
         if(i.mainProducts==null || i.mainProducts!.isEmpty)return;
         int productIndex = i.mainProducts!.indexWhere((element) => element.toString() == product.id.toString());
         if(productIndex!=-1){
@@ -90,19 +87,37 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
             var item = productsBloc.productsList[freeProductindex];
             cartBloc.checkItemAndModifyInsideCart(product: dealsBloc.convertToFreeProduct(item, product.id.toString()),count: count,remove: remove,isFree: true);
           }
-        }
       }
     }
   }
 
 
+
+  /// [BUY_X_Y_GET_Z]
+  List<BuyXYGetZ> getProductsHasBuyXYGetZOffer(BuildContext context){
+    List<BuyXYGetZ> mainList = [];
+    var productsBloc = ProductsBloc.get(context);
+    var dealsBloc = DealsBloc.get(context);
+    var dealsList =  dealsBloc.productsDeals.where((i) => i.buyXYGetZFree!=null && i.buyXYGetZFree!.isNotEmpty && i.checkLangInsideDeal()).toList();
+    for(var i in dealsList){
+        List<ProductsEntity> list  = [];
+        if(i.mainProducts!=null || i.mainProducts!.isNotEmpty){
+          for(var mainProduct in i.mainProducts!){
+            int mainProductIndex = productsBloc.productsList.indexWhere((element) => element.id.toString() == mainProduct);
+            if(mainProductIndex!=-1)list.add(productsBloc.productsList[mainProductIndex]);
+          }
+          mainList.add(BuyXYGetZ(banner: i.banner, list: list));
+      }
+    }
+    return mainList;
+  }
+
   checkCaseBuyXYGetZDeal({required ProductsEntity product,required remove,required BuildContext context,int? count}){
     var cartBloc = CartBloc.get(context);
     var productsBloc = ProductsBloc.get(context);
     var dealsBloc = DealsBloc.get(context);
-    var dealsList =  dealsBloc.productsDeals;
+    var dealsList =  dealsBloc.productsDeals.where((i) => i.buyXYGetZFree!=null && i.buyXYGetZFree!.isNotEmpty && i.checkLangInsideDeal());
     for(var i in dealsList){
-      if(i.buyXYGetZFree!=null && i.buyXYGetZFree!.isNotEmpty && i.checkLangInsideDeal()){
         if(i.mainProducts==null || i.mainProducts!.isEmpty)return;
         int productIndex = i.mainProducts!.indexWhere((element) => element.toString() == product.id.toString());
         if(productIndex!=-1 && checkXAndYInCart(i.mainProducts!,cartBloc) == true){
@@ -112,7 +127,6 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
             var item = productsBloc.productsList[freeProductindex];
             cartBloc.checkItemAndModifyInsideCart(product: dealsBloc.convertToFreeProduct(item, product.id.toString()),count: count,remove: remove,isFree: true);
           }
-        }
       }
     }
   }

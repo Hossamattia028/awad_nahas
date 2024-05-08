@@ -19,7 +19,7 @@ class DealsBuyXAndYGetZWidget extends StatelessWidget {
     return BlocBuilder<DealsBloc,DealsState>(
       builder: (ctx,state){
         var bloc = DealsBloc.get(ctx);
-        var list = bloc.getProductsHasBuyXGetYOffer(context);
+        var list = bloc.getProductsHasBuyXYGetZOffer(context);
         if(list.isEmpty)return const SizedBox.shrink();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +49,7 @@ class DealsBuyXAndYGetZListWidget extends StatelessWidget {
     return BlocBuilder<DealsBloc,DealsState>(
       builder: (ctx,state){
         var bloc = DealsBloc.get(ctx);
-        var list = bloc.getProductsHasBuyXGetYOffer(context);
+        var list = bloc.getProductsHasBuyXYGetZOffer(context);
         if(list.isEmpty)return const SizedBox.shrink();
         return SizedBox(
           height: 210.w,
@@ -59,7 +59,8 @@ class DealsBuyXAndYGetZListWidget extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (ctx,index){
               var item = list[index];
-              return BuyXYGetZ(dealImage: item.imgPath, xProduct: item, yProduct: item);
+              if(item.banner==null||item.list==null)return const SizedBox.shrink();
+              return BuyXYGetZ(dealImage: item.banner.toString(), xProduct: item.list!.first, yProduct: item.list!.last);
             },
             separatorBuilder: (ctx,index) => SizedBox(width: 10.w,),
             itemCount: list.length
