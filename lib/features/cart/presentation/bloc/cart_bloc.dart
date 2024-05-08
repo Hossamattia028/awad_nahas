@@ -254,6 +254,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
             desc: "", id: item.id,discountRate: 0,
             imgPath: product.imgPath,
             price: isFree? 0 : product.price,
+            discountParentProduct: product.discountParentProduct??[],
             priceWithoutTax: isFree? 0 : product.priceWithoutTax,
             discount: isFree? 0 : product.discount, stockStatus: true,
             quantity: newQty,categoryList: const [],commentCount: 0,catID: item.catID);
@@ -265,9 +266,11 @@ class CartBloc extends Bloc<CartEvent,CartState>{
           desc: "", id: product.id,discountRate: 0,
           priceWithoutTax: isFree? 0 : product.priceWithoutTax,
           imgPath: product.imgPath,
+          discountParentProduct: product.discountParentProduct??[],
           price: isFree? 0 : product.price, 
           discount: isFree? 0 : product.discount, stockStatus: true,
-          quantity: count == -1 ? 1 : count!,categoryList: const [],commentCount: 0,catID:product.catID));
+          quantity: count == -1 ? 1 : count!,categoryList: const [],
+          commentCount: 0,catID:product.catID));
     }
   }
 

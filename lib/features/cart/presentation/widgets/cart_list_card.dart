@@ -107,7 +107,7 @@ class CartListCard extends StatelessWidget {
               ],
             )
           ],
-
+          
           if(item.price!=0)...[
             Column(
                children: [

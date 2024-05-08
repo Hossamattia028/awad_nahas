@@ -85,6 +85,7 @@ class ProductsEntity extends Equatable{
       imgPath: jsonObject['image']??"",
       images: list,
       commentCount: 1,
+      discountParentProduct: getParentDiscountIDS(jsonObject),
       quantity: jsonObject['quantity'] ?? 1,
       isArabic:jsonObject['is_arabic'],
       categoryList: jsonObject['categories']!=null ? CategoriesModel.listModelFromJsonLocal(jsonObject['categories']):[],
@@ -96,6 +97,7 @@ class ProductsEntity extends Equatable{
       attributes: ProductAttributes.fromJson(jsonObject),
     );
   }
+
   static Map<String, dynamic> toJsonLocal(ProductsEntity product) {
     return {
       "id":int.tryParse(product.id.toString()),
@@ -120,8 +122,19 @@ class ProductsEntity extends Equatable{
           .toList()),
       "reviews":product.reviewsList==null || product.reviewsList!.isEmpty ? [] : json.encode(product.reviewsList
           ?.map((item) => ProductComments.toJsonLocal(item))
-          .toList())
+          .toList()),
+       "discount_parents":product.discountParentProduct??[],   
     };
+  }
+
+  static getParentDiscountIDS(var jsonObject){
+    List<String> list = [];
+    if(jsonObject['discount_parents']!=null && jsonObject['discount_parents'].toString()!="[]"){
+      for(var i in jsonObject['discount_parents']){
+        list.add(i.toString());
+      }
+    }
+    return list;
   }
 }
 

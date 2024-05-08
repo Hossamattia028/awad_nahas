@@ -25,12 +25,13 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
 
   }
  
- convertToFreeProduct(ProductsEntity item,String parentProduct){
+ ProductsEntity convertToFreeProduct(ProductsEntity item,List<String> parentProductIDs){
+  print("parentProduct: ${parentProductIDs.length}");
   return ProductsEntity(title: item.title,
             catTitle: "", sku: item.sku,
             desc: "", id: item.id,discountRate: 0,
             imgPath: item.imgPath,
-            discountParentProduct: [...item.discountParentProduct??[],parentProduct],
+            discountParentProduct: parentProductIDs,
             price:  0 , priceWithoutTax: 0 ,
             discount:0 , stockStatus: true,
             quantity: item.quantity,categoryList: const [],commentCount: 0,catID: item.catID);
@@ -85,7 +86,7 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
             int freeProductindex = productsBloc.productsList.indexWhere((element) => y.toString() == element.id.toString());
             if(freeProductindex == -1)return;
             var item = productsBloc.productsList[freeProductindex];
-            cartBloc.checkItemAndModifyInsideCart(product: dealsBloc.convertToFreeProduct(item, product.id.toString()),count: count,remove: remove,isFree: true);
+            cartBloc.checkItemAndModifyInsideCart(product: dealsBloc.convertToFreeProduct(item, [product.id.toString()]),count: count,remove: remove,isFree: true);
           }
       }
     }
@@ -125,7 +126,9 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
             int freeProductindex = productsBloc.productsList.indexWhere((element) => y.toString() == element.id.toString());
             if(freeProductindex == -1)return;
             var item = productsBloc.productsList[freeProductindex];
-            cartBloc.checkItemAndModifyInsideCart(product: dealsBloc.convertToFreeProduct(item, product.id.toString()),count: count,remove: remove,isFree: true);
+            print(dealsBloc.convertToFreeProduct(item, i.mainProducts??[]).discountParentProduct?.first);
+            print(dealsBloc.convertToFreeProduct(item, i.mainProducts??[]).discountParentProduct?.last);
+            cartBloc.checkItemAndModifyInsideCart(product: dealsBloc.convertToFreeProduct(item, i.mainProducts??[]),count: count,remove: remove,isFree: true);
           }
       }
     }
