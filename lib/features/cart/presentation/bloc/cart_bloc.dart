@@ -221,7 +221,6 @@ class CartBloc extends Bloc<CartEvent,CartState>{
       ///update current count after added last chooser count
       currentCount = 1;
       showCountWidget = false;
-      // cartList.clear();  
       checkItemAndModifyInsideCart(product: event.product!,remove: event.remove,count: event.count ?? -1);
       DealsBloc.get(event.context)
       ..checkCaseBuyXGetYDeal(product: event.product!,remove: event.remove,count: event.count ?? -1,context: event.context)
@@ -238,15 +237,18 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   }
 
   /// check product and add or update inside cart list
-  checkItemAndModifyInsideCart({required ProductsEntity product,required remove,int? count,bool isFree = false}){
+  checkItemAndModifyInsideCart({required ProductsEntity product,required remove,int? count,bool isFree = false,bool freeZ = false}){
     int index = cartList.indexWhere((element) => product.sku == element.sku && product.price == element.price);
     if(index!=-1) {
       if(remove){
-        /// customize line for just [free_products] 
-        int freeProductIndex = cartList.indexWhere((element) => element.discountParentProduct==null?false:element.discountParentProduct!.contains(product.id.toString()));
-        if(freeProductIndex != -1) cartList.removeAt(freeProductIndex);
         cartList.removeAt(index);
+        /// customize line for just [free_products], so will implement it when remove the [mainproducts]
+        if(!isFree){
+          int freeProductIndex = cartList.indexWhere((element) => element.price==0 && element.discountParentProduct!.contains(product.id.toString()));
+          if(freeProductIndex != -1) cartList.removeAt(freeProductIndex);
+        }
       }else{
+        if(freeZ)return;
         var item = cartList[index];
         int newQty = count!=null && count != -1? count : item.quantity+1;
         item = ProductsEntity(title: product.title,
@@ -254,7 +256,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
             desc: "", id: item.id,discountRate: 0,
             imgPath: product.imgPath,
             price: isFree? 0 : product.price,
-            discountParentProduct: product.discountParentProduct??[],
+            discountParentProduct: isFree?(product.discountParentProduct??[]):[],
             priceWithoutTax: isFree? 0 : product.priceWithoutTax,
             discount: isFree? 0 : product.discount, stockStatus: true,
             quantity: newQty,categoryList: const [],commentCount: 0,catID: item.catID);
@@ -266,7 +268,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
           desc: "", id: product.id,discountRate: 0,
           priceWithoutTax: isFree? 0 : product.priceWithoutTax,
           imgPath: product.imgPath,
-          discountParentProduct: product.discountParentProduct??[],
+          discountParentProduct: isFree?(product.discountParentProduct??[]):[],
           price: isFree? 0 : product.price, 
           discount: isFree? 0 : product.discount, stockStatus: true,
           quantity: count == -1 ? 1 : count!,categoryList: const [],

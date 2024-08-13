@@ -20,6 +20,7 @@ class ShippingListWidget extends StatelessWidget {
       builder: (ctx,state){
         var bloc = LocationsBloc.get(ctx);
         List<String> list = Util.getLang()=="ar"?bloc.shippingListAr:bloc.shippingListEn;
+
         if(list.isEmpty)return const SizedBox.shrink();
         if(bloc.currentShippingCity.trim()=="")bloc.currentShippingCity = list[0].toString().trim();
         return Container(

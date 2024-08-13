@@ -4,7 +4,7 @@ import GoogleMaps
 import Firebase
 import FirebaseCore
 import FirebaseMessaging
-
+import Clarity
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -13,6 +13,8 @@ import FirebaseMessaging
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     FirebaseApp.configure()
+    let clarityConfig = ClarityConfig(projectId: "nevk5rtu1y")
+    ClaritySDK.initialize(config: clarityConfig) 
     GMSServices.provideAPIKey("AIzaSyCP7kyl8T11x2B8OxRJbEqIYgL47cZv7EM")
     GeneratedPluginRegistrant.register(with: self)
     if #available(iOS 10.0, *) {

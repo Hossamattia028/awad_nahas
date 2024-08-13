@@ -9,6 +9,7 @@ import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/core/utils/sms_api.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http ;
 
 
@@ -50,7 +51,7 @@ class TamaraSdk{
         "consumer": {
           "first_name": Util.getFirstName()==""?"guest":Util.getFirstName(),
           "last_name": Util.getLastName()==""?"guest":Util.getLastName(),
-          "phone_number": Util.getMobile()==""?"502441695":Util.getMobile(),
+          "phone_number": Util.getMobile(),
           "email": Util.getEmail()==""?"guest@gmail.com":Util.getEmail(),
         },
         "billing_address": data['billing_address'],
@@ -120,11 +121,13 @@ class TamaraSdk{
         var body = json.decode(response.body);
         return body['checkout_url'];
       } else {
-        SnackBarBuilder.showFeedBackMessage(context, jsonDecode(response.body)['errors'][0]['error_code'].toString().replaceAll("null", "error"), DMUtil.getRED());
-        return null;
+        String msg = jsonDecode(response.body)['errors'][0]['error_code'].toString().replaceAll("null", "error");
+        SnackBarBuilder.showFeedBackMessage(context, msg.contains("invalid_phone_number")||msg.contains("consumer_empty_phone_number")?translate("toast.please_verify_your_phone"):msg, DMUtil.getRED(),duration: 3000);
+        return "check_profile";
       }
     } catch (e) {
       debugPrint("checkOut: $e");
+      SnackBarBuilder.showFeedBackMessage(context, e.toString(), DMUtil.getRED(),duration: 3000);
       return null;
     }
   }

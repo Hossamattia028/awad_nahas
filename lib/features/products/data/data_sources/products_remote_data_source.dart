@@ -4,7 +4,6 @@ import 'package:awad_nahas/features/products/data/models/deals_model.dart';
 import 'package:awad_nahas/features/products/data/models/product_comments.dart';
 import 'package:awad_nahas/features/products/data/models/product_model.dart';
 import 'package:awad_nahas/features/products/data/models/products_response_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:awad_nahas/core/error/exception.dart';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
@@ -86,7 +85,7 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
   @override
   Future<List<DealsModel>> getAllProductsDeals() async {
     var response = await client.get(Uri.parse(ApiUrl.DEALS_URL),);
-    debugPrint("getAllProductsDealsRemoteDataSource ${response.body}");
+    // debugPrint("getAllProductsDealsRemoteDataSource ${response.body}");
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
       List<DealsModel> productsDeals =

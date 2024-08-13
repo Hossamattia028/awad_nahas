@@ -59,7 +59,7 @@ class DealsBuyXAndYGetZListWidget extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (ctx,index){
               var item = list[index];
-              if(item.banner==null||item.list==null)return const SizedBox.shrink();
+              if(item.banner==null||item.list==null||item.list!.isEmpty)return const SizedBox.shrink();
               return BuyXYGetZ(dealImage: item.banner.toString(), xProduct: item.list!.first, yProduct: item.list!.last);
             },
             separatorBuilder: (ctx,index) => SizedBox(width: 10.w,),

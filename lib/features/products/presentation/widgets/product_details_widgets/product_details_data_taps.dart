@@ -44,11 +44,6 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
         child: BlocBuilder<ProductsBloc,ProductsState>(
           builder: (ctx,state){
             var bloc = ProductsBloc.get(ctx);
-            // if(bloc.index==0 && bloc.showFullContent ==true){
-            //   if(desc.length>490) bloc.widgetSize= 500;
-            // }else{
-            //   bloc.widgetSize= 220;
-            // }
             double val = 30.h+10.w;
             return Container(
               color: DMUtil.getWC(),
@@ -63,8 +58,7 @@ class _ProductDetailsDataRowState extends State<ProductDetailsDataRow> {
                       unselectedLabelColor: DMUtil.getDC(),
                       indicatorColor: DMUtil.getPC(),
                       labelColor: DMUtil.getPC(),
-                      isScrollable: true,
-                      labelPadding: EdgeInsets.symmetric(horizontal: 20.w,),
+                      labelPadding: EdgeInsets.symmetric(horizontal: 6.w,),
                       labelStyle: TextStyle(color: DMUtil.getPC(),fontSize: AppStyle.small.sp+2,fontFamily: primaryFontReg,fontWeight: FontWeight.w600),
                       tabs: <Widget>[
                         Tab(text: translate("products.desc"),height: val,),

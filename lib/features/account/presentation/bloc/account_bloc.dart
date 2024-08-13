@@ -191,6 +191,7 @@ class AccountBloc extends Bloc<AccountEvent,AccountState>{
 
   /// send fcm token
   updateFcmToken() async {
+    if(!Util.checkUser())return;
     await UserServiceRemoteDataSource.updateUserTokenForPlugin();
     await UserServiceRemoteDataSource.updateUserToken();
   }

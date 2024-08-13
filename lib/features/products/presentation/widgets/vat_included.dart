@@ -16,6 +16,7 @@ class VatIncludedWidget extends StatelessWidget {
       child: CustomText(
         text: translate("products.vat_included"),
         color: DMUtil.getOpacity(),
+        fontWeight: FontWeight.bold,
         fontSize: AppStyle.verySmall.sp-2.w,
         maxLine: 2,
       ),

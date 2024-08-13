@@ -251,7 +251,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 15,),
                 const AuthWithSocial(socialEnum: SocialEnum.PHONE,kind: "login",),
                 const AuthWithSocial(socialEnum: SocialEnum.GOOGLE,kind: "login",),
-                const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK,kind: "login",),
+                // const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK,kind: "login",),
                 if(Platform.isIOS)const AuthWithSocial(socialEnum: SocialEnum.APPLE,kind: "login",),
                 const SizedBox(height: 10,),
                 const NotHaveAnAccountWidget(),

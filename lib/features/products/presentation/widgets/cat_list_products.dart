@@ -7,6 +7,7 @@ import 'package:awad_nahas/features/products/domain/entities/products_entity.dar
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/discount_widget.dart';
 import 'package:awad_nahas/features/products/presentation/widgets/vat_included.dart';
+import 'package:awad_nahas/features/shared_widgets/loading_widget.dart';
 import 'package:awad_nahas/features/wishlist/presentation/widgets/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +31,9 @@ class CatProductsList extends StatelessWidget {
     return BlocBuilder<ProductsBloc, ProductsState>(
       builder: (ctx, state) {
         var bloc = ProductsBloc.get(ctx);
+        if(state is ProductsLoadingState){
+          return const LoadingWidget();
+        }
         var list = bloc.productsList;
         list = bloc.filterByCategoryID(cat.id,-1);
         list = bloc.filterByCurrentLang(list);

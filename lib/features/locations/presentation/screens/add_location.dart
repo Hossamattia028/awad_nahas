@@ -116,7 +116,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                   fontWeight: FontWeight.w600,
                   text: translate("map.location_details"),
                 ),
-                const SizedBox(height: 15,),
+                const SizedBox(height: 13,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +138,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
 
                     SizedBox(
                       height: 70.h,
-                      width: 74.w,
+                      width: 76.w,
                       child: Stack(
                         alignment: Alignment.bottomCenter,
                         children: [
@@ -151,14 +151,14 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 2,vertical: 4),
                             child: CustomButton(
                               height: 22.h,
-                              width: 61.w,
+                              width: 70.w,
                               sideWidth: 0.6,
                               sideColor: DMUtil.getRED(),
                               circular: 10,
                               widget: CustomText(
                                 text: locationMapEntity==null?translate("map.select_on_map"):translate("button.edit"),
                                 color: DMUtil.getRED(),
-                                fontSize: AppStyle.small.sp-1,
+                                fontSize: AppStyle.small.sp-2,
                               ),
                               color: DMUtil.getWC(),
                               onPressed: ()async{
@@ -191,16 +191,14 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                     ),
                   ],
                 ),
-                Divider(color: DMUtil.getD2C().withOpacity(0.6),),
-                const SizedBox(height: 10,),
+                Divider(color: DMUtil.getD2C().withOpacity(0.6),height: 15,),
                 CustomText(
                   text: translate("map.personal"),
                   color: DMUtil.getD2C().withOpacity(0.5),
                   fontWeight: FontWeight.w600,
                   fontSize: AppStyle.small.sp,
                 ),
-                // const Divider(color: kSecondPrimary,),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 10,),
                 const ShippingListWidget(),
                 const SizedBox(height: 20,),
                 CustomTextFromField(
@@ -274,6 +272,8 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                     textInputType: TextInputType.text,
                     hasBorder: true,
                     radius: 4,
+                    maxLength: 8,
+                    height: 60,
                     textEditingController: postCodeNumberTextEditingController,
                     validator: (){},
                     obscureText: false,
@@ -338,7 +338,7 @@ class _AddNewLocationScreenState extends State<AddNewLocationScreen> {
                   ],
                 ),
 
-                const SizedBox(height: 22,),
+                const SizedBox(height: 20,),
                 BlocBuilder<LocationsBloc,LocationsState>(
                   builder: (ctx, state){
                     var bloc = LocationsBloc.get(ctx);

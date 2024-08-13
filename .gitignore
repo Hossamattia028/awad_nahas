@@ -42,3 +42,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+7-5-24_lib.zip
+13-8-24.zip
+lib.zip
+ios/Podfile.lock

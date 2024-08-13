@@ -252,7 +252,7 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
       emit(const LocationsSuccessfullyState());
     }catch(e){
       emit(const LocationsFailedState());
-      debugPrint("fetchLocalAddress: $e");
+      debugPrint("fetchLocalAddressBloc: $e");
     }
   }
 
@@ -343,8 +343,18 @@ class LocationsBloc extends Bloc<LocationsEvent,LocationsState>{
   updateShippingCity(UpdateShippingCityEvent event,emit){
     emit(const UpdateCurrentShippingLoadingState());
     if(!shippingListEn.contains(event.city.trim()) && !shippingListAr.contains(event.city.trim()))return;
-    currentShippingCity = event.city;
+    currentShippingCity = setRightCityName(event.city.trim());
     emit(const UpdateCurrentShippingSuccessfullyState());
+  }
+
+  String setRightCityName(city){
+    if(Util.getLang()=="ar"&&shippingListEn.contains(city)){
+      return shippingListAr[shippingListEn.indexWhere((element) => element==city)].toString();
+    }
+    if(Util.getLang()!="ar"&&shippingListAr.contains(city)){
+      return shippingListEn[shippingListAr.indexWhere((element) => element==city)].toString();
+    }
+    return Util.getLang()=="ar"?shippingListAr.first:shippingListEn.first;
   }
 
 }

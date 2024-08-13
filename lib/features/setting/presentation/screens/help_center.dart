@@ -43,7 +43,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
           alignment: Alignment.topCenter,
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 15),
+              margin: const EdgeInsets.only(top: 15) + EdgeInsets.symmetric(horizontal: 20.w),
               height: 35.h,
               child: TabBar(
                 controller: tabController,
@@ -58,7 +58,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen>
                 unselectedLabelColor: DMUtil.getDC(),
                 indicatorColor: DMUtil.getPC(),
                 labelColor: Colors.white,
-                isScrollable: true,
+                // isScrollable: true,
                 labelPadding: EdgeInsets.zero,
                 dividerColor: Colors.transparent,
                 labelStyle: TextStyle(

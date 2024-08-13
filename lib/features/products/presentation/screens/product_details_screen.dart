@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/payment_utils/amwal/ui/amwal_widgets.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_widgets.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -147,10 +146,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-                        child: QuickCheckOutButton(amount: widget.item.price, list: [widget.item],amWalListen: true,),
-                    ),
+                    // Padding(
+                    //     padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                    //     child: QuickCheckOutButton(amount: widget.item.price, list: [widget.item],amWalListen: true,),
+                    // ),
                     AddToCartButtonWidget(item: widget.item,),
                     const BottomNavBar(isRoot: false ),
                   ],

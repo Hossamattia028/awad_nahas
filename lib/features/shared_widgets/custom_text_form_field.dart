@@ -33,6 +33,7 @@ class CustomTextFromField extends StatelessWidget {
   double? height;
   Alignment? alignment;
   TextAlign? textAlign;
+  int? maxLength;
 
   CustomTextFromField({
     required this.hintText,
@@ -60,7 +61,8 @@ class CustomTextFromField extends StatelessWidget {
     this.height,
     this.alignment,
     this.textAlign,
-    super.key,
+    this.maxLength,
+    super.key
   });
 
   @override
@@ -75,6 +77,7 @@ class CustomTextFromField extends StatelessWidget {
       child: TextFormField(
         textAlign: textAlign ?? TextAlign.start,
         autofocus: false,
+        maxLength: maxLength,
         controller: textEditingController,
         maxLines: maxLines??1,
         validator: (value) => validator(value),

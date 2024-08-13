@@ -82,6 +82,7 @@ class CartRemoteDataSource extends CartRemoteDataSourceImpl{
         if(body['message'].toString().contains("user not authorized"))msg = translate("toast.coupon_user_not_registered");
         if(body['message'].toString().contains("coupon used before for this user"))msg = translate("toast.coupon_duplicated");
         if(body['message'].toString().contains("coupon just for new users"))msg = translate("toast.coupon_just_for_new_users");
+        // if(body['message'].toString().contains("restricted payment"))msg = "${translate("toast.coupon_just_for_this_payment")} ${body['message'].toString().split('restricted payment').last.trim()}";
         return ResCouponModel(
           couponModel: CouponModel(total: 0,code: "",amount: 0,isPercent: false),
           msg: msg,

@@ -100,7 +100,8 @@ class AuthServiceRemoteDataSource implements AuthServiceRemoteDataSourceImpl {
     var data = {
       'user_login': userData['email'],
       'email': userData['email'],
-      'name':userData['email'].toString().split("@").first.toString().replaceAll("null", ""),
+      'first_name':userData['first_name'] ?? '',
+      'last_name':userData['last_name'] ?? '',
       'password': userData['password'],
     };
     var response = await client.post(

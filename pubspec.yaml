@@ -61,7 +61,10 @@ dependencies:
   webview_flutter: ^4.2.4
   sign_in_with_apple: ^6.0.0
   crypto: ^3.0.3
+
+  #analysis&report plugins
   firebase_crashlytics: ^3.4.8
+  # flutter_clarity: ^1.0.0+3
 
   # design plugins
   flutter_screenutil: ^5.8.4
@@ -86,7 +89,7 @@ dependencies:
   #payment
   flutter_amazonpaymentservices: ^0.0.7
   pay: ^2.0.0
-  amwal_pay: ^0.6.3
+  # amwal_pay: ^0.6.3
 
 
 dependency_overrides:

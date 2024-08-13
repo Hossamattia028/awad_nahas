@@ -38,30 +38,24 @@ class AuthWithSocial extends StatelessWidget {
       child: InkWell(
         onTap: ()async{
           var bloc = AuthBloc.get(context);
+          Map<String,String> userData =  {};
           if(socialEnum == SocialEnum.PHONE){
             bloc.add(const EnablePhoneRegisterButtonEvent());
+            return;
           }else if(socialEnum == SocialEnum.GOOGLE){
-            String email = await Util.googleSign();
-            if(!email.contains("@")){
-              SnackBarBuilder.showFeedBackMessage(context, email, Colors.red);
-              return;
-            }
-            _socialLogin(bloc, email);
+             userData = await Util.googleSign();
           }else if(socialEnum == SocialEnum.FACEBOOK){
-            String email = await Util.facebookLogin();
-            if(!email.contains("@")){
-              SnackBarBuilder.showFeedBackMessage(context, email, Colors.red);
-              return;
-            }
-            _socialLogin(bloc, email);
+             userData = await Util.facebookLogin();
           }else if(socialEnum == SocialEnum.APPLE){
-            String email = await Util.signInWithApple();
-            if(!email.contains("@")){
-              SnackBarBuilder.showFeedBackMessage(context, email, Colors.red);
-              return;
-            }
-            _socialLogin(bloc, email);
+             userData = await Util.signInWithApple();
           }
+          if(userData['email']== null || !userData['email'].toString().contains("@")){
+            SnackBarBuilder.showFeedBackMessage(context, '${userData['email']} ${userData['error']??''}', Colors.red);
+            return;
+          }
+          if(socialEnum == SocialEnum.PHONE)return;
+          // SnackBarBuilder.showFeedBackMessage(context,userData['error']!=null ? userData['email'].toString() : '${userData['email']}   ${userData['firstName']} ${userData['lastName']}', Colors.green);
+           _socialLogin(bloc, userData);
         },
         child: Container(
           alignment: Alignment.center,
@@ -128,9 +122,11 @@ class AuthWithSocial extends StatelessWidget {
     );
   }
 
-  _socialLogin(var bloc,String email){
+  _socialLogin(var bloc,Map<String,String> userData){
     bloc.add(SocialLoginEvent(user: {
-      'email' : email,
+      'email' : userData['email']??'',
+      'first_name' : userData['firstName']??'',
+      'last_name' : userData['lastName']??'',
       'password': "social"
     }));
   }

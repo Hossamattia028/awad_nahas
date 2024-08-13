@@ -132,7 +132,9 @@
 		"order": "Your order has been received successfully. We will inform you of an update on the request status soon",
 		"coupon_user_not_registered":"Please login first to benefit from the discount",
      	"coupon_duplicated":"Sorry, This coupon used before",
-		"coupon_just_for_new_users":"This coupon for new order from mobile !"
+		"coupon_just_for_new_users":"This coupon for new order from mobile !",
+		"coupon_just_for_this_payment":"This coupon is valid only for payment method ",
+		"please_verify_your_phone":"Pleaes verify phone number in your account"
 	},
 	"search": {
 		"market": " Market's ",

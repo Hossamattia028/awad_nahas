@@ -88,19 +88,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   late ProductsBloc productsBloc;
+  Timer? timer ;
   @override
   void didChangeDependencies() {
     productsBloc = ProductsBloc.get(context);
-    Timer(const Duration(seconds: 1), () {
-      if(mounted){
-        productsBloc.add(const FetchAllProductsEvent(page: "2000",));
-      }
-    });
-
-    Timer.periodic(const Duration(seconds: 2), (timer) {
+    if(mounted){
+        productsBloc.add(const FetchAllProductsEvent(page: "1500",));
+    }
+    timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       productsBloc.add(const UpdateProductsStateEvent());
     });
+    
     super.didChangeDependencies();
+  }
+  @override
+  void dispose(){
+    timer?.cancel();
+    super.dispose();
   }
 
   @override

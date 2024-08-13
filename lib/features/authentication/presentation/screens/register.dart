@@ -269,7 +269,7 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(height: 15,),
                 // const AuthWithSocial(socialEnum: SocialEnum.PHONE),
                 const AuthWithSocial(socialEnum: SocialEnum.GOOGLE,kind: "signup",),
-                const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK,kind: "signup",),
+                // const AuthWithSocial(socialEnum: SocialEnum.FACEBOOK,kind: "signup",),
                 if(Platform.isIOS)const AuthWithSocial(socialEnum: SocialEnum.APPLE,kind: "signup",),
                 const SizedBox(height: 25,),
                 const AlreadyHaveAnAccountWidget(),

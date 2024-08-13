@@ -1,0 +1,34 @@
+{
+  "name": "flutter_amazonpaymentservices",
+  "version": "0.0.1",
+  "summary": "A new Flutter project.",
+  "description": "Flutter package for Amazon Payment Services native mobile SDKs",
+  "homepage": "https://paymentservices.amazon.com/",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Amazon Payment Services": "pluginsaps@amazon.ae"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "dependencies": {
+    "Flutter": [
+
+    ],
+    "PayFortSDK": [
+
+    ]
+  },
+  "platforms": {
+    "ios": "11.0"
+  },
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES",
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "i386"
+  },
+  "swift_versions": "5.0",
+  "swift_version": "5.0"
+}

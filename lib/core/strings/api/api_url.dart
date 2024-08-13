@@ -3,11 +3,6 @@ import 'package:awad_nahas/core/utils/small_fun.dart';
 
 
 // static const String BASE_URL = 'http://10.0.2.2:8000/api/';
-//production
-// static const String SUB_MAIN_DOMAIN = 'https://api.awadnahas.com';
-// static const String SUB_MAIN_DOMAIN = 'https://awadnahas.com/awadnahas';
-// static const String MAIN_DOMAIN = 'https://awadnahas.com';
-
 
 class ApiUrl {
   static Map<String,String> headerAuth =  {
@@ -24,8 +19,8 @@ class ApiUrl {
   static const String MAIN_DOMAIN = 'https://abnsandbox.com';
 
 
-  static const String CONSUMER_KEY = 'ck_5c9fbbe5e7100bf87b929ec6f5c4f2c9326f8e39';
-  static const String CONSUMER_SECRET = 'cs_ec05f5345f48c8f975eff2b7d74b63a5a46ace45';
+  static const String CONSUMER_KEY = 'ck_677f54e830ece581eabdba1326c4cb84228a83e0';
+  static const String CONSUMER_SECRET = 'cs_fc1e38d0eb3f96794c527c92b12b7b563ce77cd9';
 
   static const String BASE_URL = '$SUB_MAIN_DOMAIN/api/';
   static const String STORAGE_URL = '$SUB_MAIN_DOMAIN/public/';

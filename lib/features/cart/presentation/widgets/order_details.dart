@@ -20,29 +20,35 @@ class OrderDetails extends StatelessWidget {
         var list = bloc.cartList;
         if(list.isEmpty)return const SizedBox.shrink();
         return Container(
+          width: double.infinity,
           decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(6)),
-            border: Border.all(width: 0,color: DMUtil.getD2C()),
-            color: DMUtil.getWC(),
+            color: DMUtil.getD2C().withOpacity(0.09),
           ),
-          margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 8.w),
-          padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 12.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              OrderRow(title: translate("cart.total_products_price") ,value:  "${bloc.totalProducts}${translate("store.sar")}",),
-              const SizedBox(height: 15,),
-              OrderRow(title: translate("cart.vat") ,value:  "${bloc.vatValue}${translate("store.sar")}",),
-              const SizedBox(height: 15,),
-              OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost}${translate("store.sar")}",),
-              const Divider(),
-              if(bloc.couponValue!=null&&bloc.couponModel!=null)...[
-                OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue} ${translate("store.sar")}",),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(6)),
+              border: Border.all(width: 0,color: DMUtil.getD2C()),
+              color: DMUtil.getWC(),
+            ),
+            margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 8.w),
+            padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 12.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                OrderRow(title: translate("cart.total_products_price") ,value:  "${bloc.totalProducts}${translate("store.sar")}",),
+                const SizedBox(height: 15,),
+                OrderRow(title: translate("cart.vat") ,value:  "${bloc.vatValue}${translate("store.sar")}",),
+                const SizedBox(height: 15,),
+                OrderRow(title: translate("cart.shipping_cost") ,value: bloc.shippingCost==0 ? translate("cart.free"): "${bloc.shippingCost}${translate("store.sar")}",),
                 const Divider(),
+                if(bloc.couponValue!=null&&bloc.couponModel!=null)...[
+                  OrderRow(title: translate("cart.coupon_t") ,value: "${bloc.couponValue} ${translate("store.sar")}",),
+                  const Divider(),
+                ],
+                const SizedBox(height: 15,),
+                OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("store.sar")}",isTotal:true),
               ],
-              const SizedBox(height: 15,),
-              OrderRow(title: translate("cart.total_price") ,value: "${bloc.totalPrice}${translate("store.sar")}",isTotal:true),
-            ],
+            ),
           ),
         );
       },

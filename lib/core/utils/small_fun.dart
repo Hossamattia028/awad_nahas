@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/styles/my_fonts.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/payment_utils/amwal/proccess.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
@@ -12,8 +11,6 @@ import 'package:awad_nahas/features/locations/presentation/bloc/locations_bloc.d
 import 'package:awad_nahas/features/locations/presentation/bloc/locations_event.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_bloc.dart';
 import 'package:awad_nahas/features/order/presentation/bloc/order_event.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/deals/deals_bloc.dart';
-import 'package:awad_nahas/features/products/presentation/bloc/deals/deals_event.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_bloc.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/products_event.dart';
 import 'package:awad_nahas/features/root_app/bloc/root_bloc.dart';
@@ -48,9 +45,9 @@ class Util{
   // implemented this function after register and login
   static getAllUserAppData({required BuildContext context,bool isSplash=false}){
     if(isSplash){
-      ProductsBloc.get(context).add(const FetchAllProductsEvent());
+      ProductsBloc.get(context)..add(const FetchAllProductsEvent())..add(const FetchAllProductsEvent(page: '1500'));
       CategoriesBloc.get(context)..add(const FetchAllCategoriesEvent())..add(const FetchAllBrandsEvent());
-      DealsBloc.get(context).add(const FetchAllDealsEvent());
+      // DealsBloc.get(context).add(const FetchAllDealsEvent());
       RootBloc.get(context).add(const FetchSettingEvent());
     }
     AccountBloc.get(context).updateFcmToken();
@@ -96,41 +93,65 @@ class Util{
   }
 
   /// social auth
-  static Future<String> googleSign()async{
-    try{
-      final GoogleSignInAccount? googleData = await GoogleSignIn(scopes: ['profile', 'email']).signIn().catchError((e){
-        debugPrint("googleSign: $e");
-        throw e;
-      });
-      return googleData!=null ? googleData.email : '' ;
-    }catch(e){
-      debugPrint("googleSign: $e");
-      return e.toString();
-    }
+  static Future<Map<String, String>> googleSign() async {  
+    try {  
+      final GoogleSignInAccount? googleData = await GoogleSignIn(scopes: ['profile', 'email']).signIn().catchError((e) {  
+        debugPrint("googleSign: $e");  
+        throw e;  
+      });  
+
+      if (googleData == null) return {"error": "Google sign-in failed"};  
+
+      // final GoogleSignInAuthentication googleAuth = await googleData.authentication;  
+      // Get user details from the Google profile  
+      String email = googleData.email;  
+      String firstName = googleData.displayName?.split(' ').first ?? '';  
+      String lastName = googleData.displayName?.substring(googleData.displayName!.indexOf(' ') + 1) ?? '';  
+      
+      return {  
+        'email': email,  
+        'firstName': firstName,  
+        'lastName': lastName,  
+      };  
+    } catch (e) {  
+      debugPrint("googleSign Error: $e");  
+      return {"error": e.toString()};  
+    }  
   }
 
-  static Future<String> facebookLogin() async {
-    try{
-      final LoginResult loginResult = await FacebookAuth.instance.login(permissions: ['email', 'public_profile']).catchError((e){
-        debugPrint("googleSign: $e");
-        throw e;
-      });
-      if(loginResult.accessToken==null)return "";
-      final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-      var data = await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-      if(data.user==null)return "user not found";
-      String email =  data.user!.email.toString();
-      if (loginResult.status == LoginStatus.success) {
-        return email;
-        // _accessToken = result.accessToken!;
-      }else{
-        return translate("toast.oops");
-      }
-    }catch(e){
-      debugPrint("facebookLogin: $e");
-      return e.toString();
-    }
-  }
+  static Future<Map<String, String>> facebookLogin() async {  
+    try {  
+      final LoginResult loginResult = await FacebookAuth.instance.login(  
+        permissions: ['email', 'public_profile'],  
+      ).catchError((e) {  
+        debugPrint("facebookLogin: $e");  
+        throw e;  
+      });  
+
+      if (loginResult.accessToken == null) return {"error": "Access token not found"};  
+
+      final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);  
+      var data = await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);  
+
+      if (data.user == null) return {"error": "User not found"};  
+
+      String email = data.user!.email ?? "";  
+      
+      // fetch user data from Facebook  
+      final userData = await FacebookAuth.instance.getUserData(fields: "first_name,last_name,email");  
+      String firstName = userData['first_name'] ?? '';  
+      String lastName = userData['last_name'] ?? '';  
+
+      return {  
+        'email': email,  
+        'firstName': firstName,  
+        'lastName': lastName,  
+      };  
+    } catch (e) {  
+      debugPrint("facebookLogin Error: $e");  
+      return {"error": e.toString()};  
+    }  
+  }  
 
   static String generateNonce([int length = 32]) {
     const charset =
@@ -147,32 +168,60 @@ class Util{
     return digest.toString();
   }
 
-  static Future<String> signInWithApple() async {
-    try{
-      final rawNonce = generateNonce();
-      final nonce = sha256ofString(rawNonce);
-      final appleCredential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-        nonce: nonce,
-      );
-      try{
-        final oauthCredential = OAuthProvider("apple.com").credential(
-          idToken: appleCredential.identityToken,
-          rawNonce: rawNonce,
-        );
-        await FirebaseAuth.instance.signInWithCredential(oauthCredential);
-      }catch(e){
-        debugPrint("signInWithApple $e");
-        return appleCredential.email??'';
-      }
-      return appleCredential.email??'';
-    }catch(e){
-      return translate("toast.oops");
-    }
-  }
+  static Future<Map<String, String>> signInWithApple() async {  
+    try {  
+      final rawNonce = generateNonce();  
+      final nonce = sha256ofString(rawNonce);  
+      final appleCredential = await SignInWithApple.getAppleIDCredential(  
+        scopes: [  
+          AppleIDAuthorizationScopes.email,  
+          AppleIDAuthorizationScopes.fullName,  
+        ],  
+        nonce: nonce,  
+      );  
+
+      String firstName = appleCredential.givenName ?? '';  
+      String lastName = appleCredential.familyName ?? '';  
+      
+      debugPrint("appleCredential: email=${appleCredential.email}, firstName=$firstName, lastName=$lastName");  
+        
+      try {  
+        final oauthCredential = OAuthProvider("apple.com").credential(  
+          idToken: appleCredential.identityToken,  
+          rawNonce: rawNonce,  
+        );  
+        
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(oauthCredential);  
+
+        // If you need to get user info directly from Firebase  
+        final user = userCredential.user;  
+
+
+        if (user != null) {  
+          return {  
+            'email': user.email ?? '',  
+            'firstName': firstName.toString(),  
+            'lastName': lastName.toString(),  
+          };  
+        } else {  
+          return {'error': 'Null user returned from Firebase'};  
+        }  
+        
+      } catch (firebaseError) {  
+        debugPrint("Firebase sign-in error: $firebaseError");  
+      }  
+      
+      return {  
+        'email': appleCredential.email ?? '',  
+        'firstName': firstName.toString(),  
+        'lastName': lastName.toString(),  
+      };  
+        
+    } catch (e) {  
+      debugPrint("signInWithApple error: $e");  
+      return {"error": e.toString()};  
+    }  
+  }  
 
   static Future<bool> isConnected () async{
     try{
@@ -279,7 +328,7 @@ class Util{
     ApiUrl.updateSettingUrl();
     RootBloc.get(ctx).add(const FetchSettingEvent());
     ProductsBloc.get(ctx).add(const UpdateAllProductsEvent());
-    AmWalPlugin.initialize();
+    // AmWalPlugin.initialize();
   }
 
   static String getToken(){

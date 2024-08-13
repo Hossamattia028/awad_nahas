@@ -92,17 +92,22 @@ class OrderRemoteDataSource implements OrderRemoteDataSourceImpl {
 
 
   static Future<bool> trackOrder({required Map<String,dynamic> data}) async {
-    var request = http.MultipartRequest('POST', Uri.parse(ApiUrl.TRACK_ORDER));
-    var headers = ApiUrl.headerAuth;
-    request.headers.addAll(headers);
-    if(data['order_data']!=null)request.fields['order_data'] = data['order_data'];
-    var streamedResponse = await request.send();
-    var res = await http.Response.fromStream(streamedResponse);
-    debugPrint("trackOrder: ${res.body}");
-    if (res.body.toString().toLowerCase().contains("successfully")) {
-      return true;
-    } else {
-      throw ServerException();
+    try{
+      var request = http.MultipartRequest('POST', Uri.parse(ApiUrl.TRACK_ORDER));
+      var headers = ApiUrl.headerAuth;
+      request.headers.addAll(headers);
+      if(data['order_data']!=null)request.fields['order_data'] = data['order_data'];
+      var streamedResponse = await request.send();
+      var res = await http.Response.fromStream(streamedResponse);
+      debugPrint("trackOrder: ${res.body}");
+      if (res.body.toString().toLowerCase().contains("successfully")) {
+        return true;
+      } else {
+        throw ServerException();
+      }
+    }catch(e){
+       debugPrint("trackOrderError: $e");
+       return false;
     }
   }
 }

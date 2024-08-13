@@ -40,6 +40,7 @@ class CartScreen extends StatelessWidget {
                 SelectLocations(),
                 CartListWidget(),
                 CouponWidget(),
+                SizedBox(height: 15,),
                 OrderDetails(),
                 CartRelatedProducts(),
                 SizedBox(height: 20,),

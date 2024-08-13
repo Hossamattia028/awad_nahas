@@ -30,13 +30,8 @@ class WishListIconWidget extends StatelessWidget {
         if(index!=-1)isFav = true;
         return InkWell(
           onTap: (){
-            // if(Util.checkUser()){
-            //   bloc.add(AddToWishlistEvent(product: item));
               int index = ProductsBloc.get(context).productsList.indexWhere((element) => element.id==item.id && element.imgPath==item.imgPath);
               if(index!=-1)bloc.add(AddToWishlistEvent(product: ProductsBloc.get(context).productsList[index]));
-            // }else{
-            //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), Colors.red,isMarginBottom: isMarginToast);
-            // }
           },
           child: Icon(isFav?CupertinoIcons.heart_fill:CupertinoIcons.heart,color: isFav?kPrimary:DMUtil.getOpacity(),size: iconSize.h,),
         );

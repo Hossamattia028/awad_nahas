@@ -5,9 +5,9 @@ import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/payment_utils/amwal/ui/amwal_widgets.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_web_view.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
+import 'package:awad_nahas/features/account/presentation/screens/account_data.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_event.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
@@ -32,7 +32,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:awad_nahas/core/utils/payment_utils/payment_controller.dart';
+import 'package:awad_nahas/core/utils/payment_utils/payfort/payment_controller.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_sdk.dart';
 
 
@@ -97,7 +97,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         builder: (ctx,orderState){
           var orderBloc = OrderBloc.get(ctx);
           return SizedBox(
-            height: 125.h,
+            height: 90.w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -121,8 +121,8 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                   ),
                   const SizedBox(height: 10,),
                 ],
-                QuickCheckOutButton(amount: cartBloc.totalPrice, list: cartBloc.cartList,height: 35,amWalListen: false,),
-                const SizedBox(height: 5,),
+                // QuickCheckOutButton(amount: cartBloc.totalPrice, list: cartBloc.cartList,height: 35,amWalListen: false,),
+                // const SizedBox(height: 5,),
                 BlocBuilder<CartBloc,CartState>(
                   builder: (ctx,state){
                     if(orderState is OrderLoadingState)return Center(child: CircularProgressIndicator(color: DMUtil.getPC(),),);
@@ -156,7 +156,8 @@ class _CheckOutButtonState extends State<CheckOutButton> {
     orderBloc.setPendingOrder(orderBloc,cartBloc,context,PaymentOption(paymentEnum: cartBloc.paymentWithCard));
   }
 
-  //+966 508443655
+
+  //+966 544337866
   // 502441695
   //Checkout1!
   _checkOutTamra(BuildContext context,OrderBloc orderBloc,String orderID) async {
@@ -178,6 +179,10 @@ class _CheckOutButtonState extends State<CheckOutButton> {
       if(checkCoupon!=null)"discount": checkCoupon,
       "order_id":orderID
     },context: context);
+
+    if(checkOutUrl=="check_profile"){
+      return Util.pushPage(const AccountDataScreen(), context);
+    }
 
     if(checkOutUrl!=null){
       await Util.pushPage(TamaraCheckout(

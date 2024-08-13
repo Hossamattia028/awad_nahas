@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/payment_utils/amwal/ui/amwal_widgets.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/screens/check_out_screen.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/animate_arrow.dart';
@@ -29,7 +28,7 @@ class CartBottomButton extends StatelessWidget {
         var cartBloc = CartBloc.get(ctx);
         if (cartBloc.cartList.isEmpty) return const SizedBox.shrink();
         return Container(
-          height: 120.h,
+          height: 90.h,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(color: DMUtil.getWC(), borderRadius: BorderRadius.circular(5)),
           child: BlocBuilder<OrderBloc, OrderState>(
@@ -41,8 +40,8 @@ class CartBottomButton extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      QuickCheckOutButton(amount: cartBloc.totalPrice, list: cartBloc.cartList,amWalListen: false,ctX: context,),
-                      const SizedBox(height: 5,),
+                      // QuickCheckOutButton(amount: cartBloc.totalPrice, list: cartBloc.cartList,amWalListen: false,ctX: context,),
+                      // const SizedBox(height: 5,),
                       CustomButton(
                         height: 40.h,
                         width: double.infinity,
@@ -81,7 +80,7 @@ class CartBottomButton extends StatelessWidget {
 
                   Positioned(
                     left: 1.w,
-                    bottom: 87.h,
+                    bottom: 50.h,
                     child: CustomText(
                       text: "${cartBloc.totalPrice.toStringAsFixed(2)} ${translate("store.sar")}",
                       fontSize: AppStyle.average.sp,
@@ -91,7 +90,7 @@ class CartBottomButton extends StatelessWidget {
                   ),
                   Positioned(
                     right: 1.w,
-                    bottom: 87.h,
+                    bottom: 50.h,
                     child: CustomText(
                       text:
                       "${cartBloc.cartList.length} ${cartBloc.cartList.length > 1 ? translate("store.items") : translate("store.item")}",

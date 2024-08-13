@@ -26,7 +26,6 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
   }
  
  ProductsEntity convertToFreeProduct(ProductsEntity item,List<String> parentProductIDs){
-  print("parentProduct: ${parentProductIDs.length}");
   return ProductsEntity(title: item.title,
             catTitle: "", sku: item.sku,
             desc: "", id: item.id,discountRate: 0,
@@ -83,7 +82,8 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
         int productIndex = i.mainProducts!.indexWhere((element) => element.toString() == product.id.toString());
         if(productIndex!=-1){
           for(var y in i.buyXGetYFree!){
-            int freeProductindex = productsBloc.productsList.indexWhere((element) => y.toString() == element.id.toString());
+            debugPrint("checkCaseBuyXGetYDeal $y...");
+            int freeProductindex = productsBloc.productsList.indexWhere((element) => y.toString() == element.id.toString() && remove==false);
             if(freeProductindex == -1)return;
             var item = productsBloc.productsList[freeProductindex];
             cartBloc.checkItemAndModifyInsideCart(product: dealsBloc.convertToFreeProduct(item, [product.id.toString()]),count: count,remove: remove,isFree: true);
@@ -123,12 +123,11 @@ class DealsBloc extends Bloc<DealsEvent,DealsState>{
         int productIndex = i.mainProducts!.indexWhere((element) => element.toString() == product.id.toString());
         if(productIndex!=-1 && checkXAndYInCart(i.mainProducts!,cartBloc) == true){
           for(var y in i.buyXYGetZFree!){
-            int freeProductindex = productsBloc.productsList.indexWhere((element) => y.toString() == element.id.toString());
+            debugPrint("checkCaseBuyXYGetZDeal ...");
+            int freeProductindex = productsBloc.productsList.indexWhere((element) => y.toString() == element.id.toString() && remove == false);
             if(freeProductindex == -1)return;
             var item = productsBloc.productsList[freeProductindex];
-            print(dealsBloc.convertToFreeProduct(item, i.mainProducts??[]).discountParentProduct?.first);
-            print(dealsBloc.convertToFreeProduct(item, i.mainProducts??[]).discountParentProduct?.last);
-            cartBloc.checkItemAndModifyInsideCart(product: dealsBloc.convertToFreeProduct(item, i.mainProducts??[]),count: count,remove: remove,isFree: true);
+            cartBloc.checkItemAndModifyInsideCart(product: dealsBloc.convertToFreeProduct(item, i.mainProducts??[]),count: count,remove: remove,isFree: true,freeZ: true);
           }
       }
     }

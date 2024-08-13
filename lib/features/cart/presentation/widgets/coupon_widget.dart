@@ -1,5 +1,4 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,12 +36,17 @@ class CouponWidget extends StatelessWidget {
         builder: (ctx, state) {
           var bloc = CartBloc.get(ctx);
           if (bloc.cartList.isEmpty) return const SizedBox.shrink();
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 14.w),
+          return Container(
+            height: 72.w,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: DMUtil.getD2C().withOpacity(0.1),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 15.w),
             child: CustomTextFromField(
               height: 32,
               smallPadding: true,
-              hintText: translate("cart.coupon"),
+              hintText: "${translate("cart.coupon")} ",
               labelText: "",
               hasBorder: true,
               borderColor: DMUtil.getRED(),
@@ -51,6 +55,7 @@ class CouponWidget extends StatelessWidget {
               strokeBorder: true,
               obscureText: false,
               isLabelError: false,
+              hintColor: DMUtil.getRED(),
               cursorColor: DMUtil.getRED(),
               borderWidth: 0,
               radius: 6,
@@ -63,17 +68,26 @@ class CouponWidget extends StatelessWidget {
                       ))
                   : Padding(
                       padding: EdgeInsets.only(
-                            top: Util.getLang() == "ar" ? 10.h : 5.h,
+                            top: 8.w ,bottom: 8.w
                           ) +
-                          const EdgeInsets.symmetric(horizontal: 4),
+                          const EdgeInsets.symmetric(horizontal: 10),
                       child: InkWell(
-                        child: CustomText(
-                          color: DMUtil.getRED(),
-                          fontSize: AppStyle.small.sp,
-                          fontWeight: FontWeight.w600,
-                          text: bloc.couponModel == null
-                              ? translate("cart.active_coupon")
-                              : translate("button.update"),
+                        child: Container(
+                          width: 42.w,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: DMUtil.getRED(),
+                            // border: Border.all(width: 1,color: DMUtil.getRED()),
+                            borderRadius: const BorderRadius.all(Radius.circular(5))
+                          ),
+                          child: CustomText(
+                            color: DMUtil.getWC(),
+                            fontSize: AppStyle.small.sp-1,
+                            fontWeight: FontWeight.w600,
+                            text: bloc.couponModel == null
+                                ? translate("cart.active_coupon")
+                                : translate("button.update"),
+                          ),
                         ),
                         onTap: () {
                           if (couponTextEditingController.text
