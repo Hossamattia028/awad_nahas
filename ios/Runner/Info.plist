@@ -104,5 +104,9 @@
         <string>fbauth2</string>
         <string>fbshareextension</string>
     </array>
+	<key>NSCameraUsageDescription</key>
+	<string>This allows Tabby to take a photo</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This allows Tabby to select a photo</string>
 </dict>
 </plist>

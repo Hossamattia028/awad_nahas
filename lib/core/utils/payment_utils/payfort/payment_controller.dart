@@ -75,9 +75,6 @@ class PayFortController{
       "merchant_reference": orderID,//should be unique
       "sdk_token": sdkToken,
     };
-      // "payment_option":"TABBY",
-      // "order_description":"tabby order",
-      // "phone_number":"508443655"
     try {
       var result = await FlutterAmazonpaymentservices.normalPay(requestParam, EnvironmentType.sandbox,);
       debugPrint("res $result");

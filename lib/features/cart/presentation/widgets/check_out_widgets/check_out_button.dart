@@ -1,10 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:async';
+import 'dart:io';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/payment_utils/apple_pay/payment_configurations.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_web_view.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/account/presentation/screens/account_data.dart';
@@ -34,6 +36,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:awad_nahas/core/utils/payment_utils/payfort/payment_controller.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_sdk.dart';
+import 'package:pay/pay.dart';
 
 
 class CheckOutButton extends StatefulWidget {
@@ -47,12 +50,18 @@ class _CheckOutButtonState extends State<CheckOutButton> {
   PayFortController payFortController =  PayFortController();
   late CartBloc cartBloc;
   late LocationsBloc locationsBloc;
+  List<PaymentItem> paymentItems = [];
 
   @override
   void initState() {
     cartBloc = CartBloc.get(context);
     locationsBloc = LocationsBloc.get(context);
     cartBloc.paymentWithCard == PaymentEnum.PAYFORT;
+    paymentItems.add(PaymentItem(
+      label: 'Total',
+      amount: cartBloc.totalPrice.toString(),
+      status: PaymentItemStatus.final_price,
+    ));
     super.initState();
   }
   @override
@@ -97,7 +106,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         builder: (ctx,orderState){
           var orderBloc = OrderBloc.get(ctx);
           return SizedBox(
-            height: 90.w,
+            height: 145.w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -119,8 +128,26 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(height: 5,),
                 ],
+                
+                ApplePayButton(
+                  width: double.infinity,
+                  height: 40.w,
+                  paymentConfiguration: PaymentConfiguration.fromJsonString(
+                      defaultApplePay),
+                  paymentItems: paymentItems,
+                  style: ApplePayButtonStyle.black,
+                  type: ApplePayButtonType.buy,
+                  margin: const EdgeInsets.only(top: 15.0),
+                  onPaymentResult: (result){
+                    print(result.toString());
+                  },
+                  loadingIndicator: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+                if(Platform.isIOS)const SizedBox(height: 10,),
                 // QuickCheckOutButton(amount: cartBloc.totalPrice, list: cartBloc.cartList,height: 35,amWalListen: false,),
                 // const SizedBox(height: 5,),
                 BlocBuilder<CartBloc,CartState>(

@@ -349,7 +349,11 @@
 		"in_your_cart": "In Your Cart",
 		"view_cart": "View Cart",
 		"free_delivery": "free delivery ✓",
-		"complete_payment": "CheckOut"
+		"complete_payment": "CheckOut",
+		"tabby_sorry": "Sorry, Tabby is unable to approve this purchase. Please use an alternative payment method for your order.",
+		"tabby_cancel": "You aborted the payment. Please retry or choose another payment method.",
+		"tabby_check_out": "Pay in 4. No interest, no fees.",
+		"pay_with_tap": "Pay with tap payment"
 	},
 	"products": {
 		"vat_included": "( VAT Included )",
