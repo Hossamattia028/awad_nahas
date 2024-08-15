@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/payment_utils/tabby/ui/tabby_small_widget.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_widgets.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -93,6 +94,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   const SizedBox(height: 15,),
                   TamaraSmallProductWidget(price: currentPrice),
                 ],
+                TabbySmallWidget(amount: currentPrice.toString()),
 
                 const SizedBox(height: 20,),
                 ProductDetailsDataRow(item: widget.item),

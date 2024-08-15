@@ -15,7 +15,7 @@ class TabbyPayment{
 
   static setUpPayment(){
     TabbySDK().setup(
-      withApiKey: 'pk_test_72a770e5-f1fe-42aa-8037-16951d1739b4', 
+      withApiKey: 'pk_test_ee8c8e4e-cbab-4d87-8fe8-997d9a299561', 
       environment: Environment.stage, 
     );
   }

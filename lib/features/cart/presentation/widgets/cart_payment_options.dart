@@ -1,4 +1,5 @@
 import 'package:awad_nahas/core/styles/app_style.dart';
+import 'package:awad_nahas/core/utils/payment_utils/tabby/ui/tabby_widget.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_widgets.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_state.dart';
@@ -22,6 +23,8 @@ class CartPaymentOptions extends StatelessWidget {
                   const SizedBox(height: 5,),
                   TamaraSmallProductWidget(price: bloc.totalPrice,isSmall: true,),
                 ],
+
+                const TabbyWidget(),
               ],
             ),
           );

@@ -1,12 +1,17 @@
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
 import 'package:awad_nahas/features/shared_widgets/global_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 
 class TabbyWebViewScreen extends StatefulWidget {
   final String url;
-  const TabbyWebViewScreen({super.key,required this.url});
+  const TabbyWebViewScreen({super.key,required this.url,this.onPaymentCanceled,this.onPaymentFailed,this.onPaymentSuccess});
+
+  final void Function()? onPaymentSuccess;
+  final void Function()? onPaymentFailed;
+  final void Function()? onPaymentCanceled;
 
   @override
   State<TabbyWebViewScreen> createState() => _TabbyWebViewScreenState();
@@ -42,11 +47,24 @@ Page resource error:
           ''');
           },
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.youtube.com/')) {
-              debugPrint('blocking navigation to ${request.url}');
-              return NavigationDecision.prevent;
+            String url = request.url;
+            debugPrint("NavigationRequest: $url");
+            if (url.contains("Process3PSuccess") || url.contains("success")) {
+              if (widget.onPaymentSuccess != null) {
+                widget.onPaymentSuccess!();
+                return NavigationDecision.prevent;
+              }
+            } else if (url.contains("failed") || url.contains("fail")) {
+              if (widget.onPaymentFailed != null) {
+                widget.onPaymentFailed!();
+                return NavigationDecision.navigate;
+              }
+            } else if (url.contains("canceled") || url.contains("cancel")) {
+              if (widget.onPaymentCanceled != null) {
+                widget.onPaymentCanceled!();
+                return NavigationDecision.navigate;
+              }
             }
-            debugPrint('allowing navigation to ${request.url}');
             return NavigationDecision.navigate;
           },
           onUrlChange: (UrlChange change) {
@@ -71,11 +89,11 @@ Page resource error:
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: GlobalAppBar(
-      //   title: '',
-      //   backGroundColor: DMUtil.getWC(),
-      //   leadingIcon: const BackArrowButton(),
-      // ),
+      appBar: AppBar(
+        toolbarHeight: 30.w,
+        backgroundColor: DMUtil.getWC(),
+        iconTheme: IconThemeData(color: DMUtil.getRED()),
+      ),
       body: WebViewWidget(controller: _controller),
     );
   }
