@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/payment_utils/tabby/ui/tabby_check_out_widget.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tabby/ui/tabby_small_widget.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_widgets.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
@@ -94,7 +95,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   const SizedBox(height: 15,),
                   TamaraSmallProductWidget(price: currentPrice),
                 ],
-                TabbySmallWidget(amount: currentPrice.toString()),
+                if(Util.checkUser() && currentPrice<=CartBloc.get(context).tabbyMax)...[
+                   TabbySmallProductWidget(price: currentPrice),
+                ],
+               
 
                 const SizedBox(height: 20,),
                 ProductDetailsDataRow(item: widget.item),

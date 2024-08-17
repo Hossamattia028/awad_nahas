@@ -307,7 +307,12 @@
 		"tamara": "Tamara",
 		"tamra_txt": "pay with 4 payments ",
 		"interest-free": "interest-free",
-		"quick_checkout": "Quick CheckOut"
+		"quick_checkout": "Quick CheckOut",
+		"tabby_sorry": "Sorry, Tabby is unable to approve this purchase. Please use an alternative payment method for your order.",
+		"tabby_cancel": "You aborted the payment. Please retry or choose another payment method.",
+		"tabby_check_out": "Divide it into 4 monthly payments of ",
+		"without_any_interset":" Without any interest or fees.",
+		"pay_with_tabby": "Tabby"
 	},
 	"cart": {
 		"vat": "VAT(15%)",
@@ -349,11 +354,7 @@
 		"in_your_cart": "In Your Cart",
 		"view_cart": "View Cart",
 		"free_delivery": "free delivery ✓",
-		"complete_payment": "CheckOut",
-		"tabby_sorry": "Sorry, Tabby is unable to approve this purchase. Please use an alternative payment method for your order.",
-		"tabby_cancel": "You aborted the payment. Please retry or choose another payment method.",
-		"tabby_check_out": "Pay in 4. No interest, no fees.",
-		"pay_with_tap": "Pay with tap payment"
+		"complete_payment": "CheckOut"
 	},
 	"products": {
 		"vat_included": "( VAT Included )",

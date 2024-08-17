@@ -1,12 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:async';
-import 'dart:io';
 import 'package:awad_nahas/core/strings/api/api_url.dart';
 import 'package:awad_nahas/core/strings/enum/order_enum.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/payment_utils/apple_pay/payment_configurations.dart';
+import 'package:awad_nahas/core/utils/payment_utils/tabby/tabby_controller.dart';
+import 'package:awad_nahas/core/utils/payment_utils/tabby/tabby_web_view.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_web_view.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/account/presentation/screens/account_data.dart';
@@ -95,6 +95,8 @@ class _CheckOutButtonState extends State<CheckOutButton> {
             _checkOutAmazonPayfort(orderBloc,state.orderID);
           }else if(cartBloc.paymentWithCard == PaymentEnum.TAMARA){
             _checkOutTamra(context,orderBloc,state.orderID);
+          }else if(cartBloc.paymentWithCard == PaymentEnum.TABBY){
+            _checkOutTabby(context,orderBloc,state.orderID);
           }
         }
 
@@ -106,7 +108,7 @@ class _CheckOutButtonState extends State<CheckOutButton> {
         builder: (ctx,orderState){
           var orderBloc = OrderBloc.get(ctx);
           return SizedBox(
-            height: 145.w,
+            height: 90.w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -128,26 +130,26 @@ class _CheckOutButtonState extends State<CheckOutButton> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5,),
+                  const SizedBox(height: 10,),
                 ],
                 
-                ApplePayButton(
-                  width: double.infinity,
-                  height: 40.w,
-                  paymentConfiguration: PaymentConfiguration.fromJsonString(
-                      defaultApplePay),
-                  paymentItems: paymentItems,
-                  style: ApplePayButtonStyle.black,
-                  type: ApplePayButtonType.buy,
-                  margin: const EdgeInsets.only(top: 15.0),
-                  onPaymentResult: (result){
-                    print(result.toString());
-                  },
-                  loadingIndicator: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-                if(Platform.isIOS)const SizedBox(height: 10,),
+                // ApplePayButton(
+                //   width: double.infinity,
+                //   height: 40.w,
+                //   paymentConfiguration: PaymentConfiguration.fromJsonString(
+                //       defaultApplePay),
+                //   paymentItems: paymentItems,
+                //   style: ApplePayButtonStyle.black,
+                //   type: ApplePayButtonType.buy,
+                //   margin: const EdgeInsets.only(top: 15.0),
+                //   onPaymentResult: (result){
+                //     print(result.toString());
+                //   },
+                //   loadingIndicator: const Center(
+                //     child: CircularProgressIndicator(),
+                //   ),
+                // ),
+                // if(Platform.isIOS)const SizedBox(height: 10,),
                 // QuickCheckOutButton(amount: cartBloc.totalPrice, list: cartBloc.cartList,height: 35,amWalListen: false,),
                 // const SizedBox(height: 5,),
                 BlocBuilder<CartBloc,CartState>(
@@ -236,6 +238,38 @@ class _CheckOutButtonState extends State<CheckOutButton> {
           orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payTamara: onPaymentCanceled<br/>orderData: ${GenerateCartJson.getListAsString(cartBloc.cartList).toString()}<br/>total: ${cartBloc.totalPrice}"});
         },
       ), context);
+    }
+  }
+
+  _checkOutTabby(BuildContext context,OrderBloc orderBloc,String orderID) async {
+    List<LocationEntity> locations = locationsBloc.checkLocation(context);
+    if(locations.isEmpty){
+      SnackBarBuilder.showFeedBackMessage(context, translate("toast.location_mis"), DMUtil.getRED(),duration: 3000);
+      return;
+    }
+    if(TabbyController.validRequest(context)!=true)return;
+    final res = await TabbyController.getTabbyWebView(orderID: orderID, amount: cartBloc.totalPrice.toString());
+    if(res!=null){
+      Util.pushPage(TabbyWebViewScreen(url: res.toString(),
+      onPaymentSuccess: (){
+          debugPrint("onPaymentSuccess");
+          orderBloc.add(AddOrderEvent(list: cartBloc.cartList, totalPrice: cartBloc.totalPrice,context: context,payment:PaymentOption(paymentEnum: cartBloc.paymentWithCard),
+            couponModel: cartBloc.couponModel==null || cartBloc.checkCouponValue(cartBloc.couponModel!)==false?null:cartBloc.couponModel,
+            couponVal:  cartBloc.couponValue??0,taxTotal: cartBloc.vatValue,
+            orderStatus: WCStatusKey.wc_processing,
+          ));
+        },
+        onPaymentFailed: () {
+          debugPrint("onPaymentFailed");
+          SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+          orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payTabby: onPaymentFailed<br/>orderData: ${GenerateCartJson.getListAsString(cartBloc.cartList).toString()}<br/>total: ${cartBloc.totalPrice}"});
+        },
+        onPaymentCanceled: () {
+          debugPrint("onPaymentCanceled");
+          SnackBarBuilder.showFeedBackMessage(context, translate("toast.wrong_payment"), DMUtil.getRED());
+          orderBloc.trackOrder({'order_data':"user: ${Util.getUserID()},${Util.getUserLogin()}<br/>payTabby: onPaymentCanceled<br/>orderData: ${GenerateCartJson.getListAsString(cartBloc.cartList).toString()}<br/>total: ${cartBloc.totalPrice}"});
+        },), context,);
+
     }
   }
 

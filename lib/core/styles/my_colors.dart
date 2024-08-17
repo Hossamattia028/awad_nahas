@@ -24,6 +24,7 @@ const kBackGround = Color(0xffEEEEEE);
 const kBackOpacity = Color(0xff9E9E9E);
 
 const kTamaraColor = Color(0xfff78c9e);
+const kTabbyColor = Color(0xff3bffa0);
 
 
 

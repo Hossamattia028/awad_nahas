@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:awad_nahas/core/strings/constant.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
+import 'package:awad_nahas/core/utils/payment_utils/tabby/tabby_controller.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_sdk.dart';
 import 'package:awad_nahas/core/utils/shared_pref.dart';
 import 'package:awad_nahas/features/products/presentation/bloc/deals/deals_bloc.dart';
@@ -43,6 +44,7 @@ class CartBloc extends Bloc<CartEvent,CartState>{
     on<FetchAllCartEvent>((event, emit) async{
       await getAllCart(emit);
       await getTamaraMAxAmount(emit);
+      await getTabbyMAxAmount(emit);
     });
     on<AddToCartEvent>((event, emit) async{
       // await addToCartList(event,emit);
@@ -82,6 +84,13 @@ class CartBloc extends Bloc<CartEvent,CartState>{
   getTamaraMAxAmount(emit)async{
     emit(const CartSuccessfullyState());
     tamaraMax = await TamaraSdk.getTamaraAmountLimit();
+    emit(const CartSuccessfullyState());
+  }
+
+  double tabbyMax = 5000;
+  getTabbyMAxAmount(emit)async{
+    emit(const CartSuccessfullyState());
+    // tamaraMax = await TabbyController.getTabbyAmountLimit();
     emit(const CartSuccessfullyState());
   }
 

@@ -98,6 +98,7 @@ class AppImages{
   //payments
   static const String tamaraEn = "$icons/tamara.png";
   static const String tamaraAr = "$icons/tamara_ar.jpeg";
+  static const String tabby = "$icons/tabby.png";
   static const String mada = "$images/mada-logo.png";
   static const String amex = "$images/amex-logo.png";
   static const String visa = "$images/visa-logo.png";

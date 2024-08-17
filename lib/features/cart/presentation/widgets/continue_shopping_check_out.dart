@@ -1,12 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
-import 'package:awad_nahas/core/utils/payment_utils/tabby/tabby_controller.dart';
-import 'package:awad_nahas/core/utils/payment_utils/tabby/tabby_web_view.dart';
 import 'package:awad_nahas/features/authentication/presentation/screens/login.dart';
 import 'package:awad_nahas/features/cart/presentation/screens/check_out_screen.dart';
 import 'package:awad_nahas/features/cart/presentation/widgets/animate_arrow.dart';
-import 'package:awad_nahas/features/setting/presentation/screens/web_view.dart';
 import 'package:awad_nahas/features/shared_widgets/snackbars_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,15 +67,12 @@ class CartBottomButton extends StatelessWidget {
                         ),
                         color: DMUtil.getRED(),
                         onPressed: () async{
-                          if(TabbyController.validRequest(context)!=true)return;
-                          final res = await TabbyController.getTabbyWebView(orderID: "234123", amount: "500");
-                          Util.pushPage(TabbyWebViewScreen(url: res.toString()), context);
-                          // if(!Util.checkUser()){
-                          //   SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),);
-                          //   Util.pushPage(const LoginScreen(), context);
-                          //   return;
-                          // }
-                          // Util.pushPage(const CheckOutScreen(), context);
+                          if(!Util.checkUser()){
+                            SnackBarBuilder.showFeedBackMessage(context, translate("toast.login"), DMUtil.getRED(),);
+                            Util.pushPage(const LoginScreen(), context);
+                            return;
+                          }
+                          Util.pushPage(const CheckOutScreen(), context);
                         },
                       ),
                     ],

@@ -2,6 +2,7 @@ import 'package:awad_nahas/core/strings/app_images.dart';
 import 'package:awad_nahas/core/strings/enum/payment_enum.dart';
 import 'package:awad_nahas/core/styles/app_style.dart';
 import 'package:awad_nahas/core/utils/dark_mode_utility.dart';
+import 'package:awad_nahas/core/utils/payment_utils/tabby/ui/tabby_check_out_widget.dart';
 import 'package:awad_nahas/core/utils/payment_utils/tamara/tamara_widgets.dart';
 import 'package:awad_nahas/core/utils/small_fun.dart';
 import 'package:awad_nahas/features/cart/presentation/bloc/cart_bloc.dart';
@@ -99,6 +100,29 @@ class PayWithWidget extends StatelessWidget {
                             ),
 
                             Image.asset(Util.getLang()=="ar"?AppImages.tamaraAr:AppImages.tamaraEn,width: 55.w,fit: BoxFit.fill,),
+                          ],
+                        )
+                    ),
+                  ],
+
+                  if(bloc.totalPrice<=bloc.tabbyMax)...[
+                    const Divider(),
+                    const SizedBox(height: 5,),
+                    InkWell(
+                        onTap: ()=> bloc.add(const PaymentWithCardEvent(enableApplePay: false,paymentEnum: PaymentEnum.TABBY)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                              Row(
+                                children: [
+                                  CircleDotsWidget(isEnabled: !enablePayWithCard && bloc.paymentWithCard == PaymentEnum.TABBY,),
+                                  const SizedBox(width: 10,),
+                                  TabbyCheckOutWidget(price:  bloc.totalPrice,),
+                                ],
+                              ),
+
+
+                              Image.asset(AppImages.tabby,width: 55.w,fit: BoxFit.fill,),
                           ],
                         )
                     ),
